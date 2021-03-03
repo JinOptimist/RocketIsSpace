@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankSputink", "BankSputink\BankSputink.csproj", "{A5133D82-9697-46D5-9ECC-97208AEF17BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankSputink.Test", "BankSputink.Test\BankSputink.Test.csproj", "{8DC3022F-20C6-496B-8BE3-3945144E2184}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A5133D82-9697-46D5-9ECC-97208AEF17BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5133D82-9697-46D5-9ECC-97208AEF17BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5133D82-9697-46D5-9ECC-97208AEF17BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5133D82-9697-46D5-9ECC-97208AEF17BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DC3022F-20C6-496B-8BE3-3945144E2184}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DC3022F-20C6-496B-8BE3-3945144E2184}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DC3022F-20C6-496B-8BE3-3945144E2184}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DC3022F-20C6-496B-8BE3-3945144E2184}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9C9606CE-C155-409C-9D94-4051C76B4B76}
+	EndGlobalSection
+EndGlobal
