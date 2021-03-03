@@ -15,6 +15,10 @@ namespace BankSputink
 
         public List<ISputnik> Sputniks { get; private set; }
 
+        /// <summary>
+        /// Вернёт правда если есть хотя бы один спутник готовый для запуска
+        /// </summary>
+        /// <returns></returns>
         public bool IsAnySputnikInProcess()
         {
             return Sputniks

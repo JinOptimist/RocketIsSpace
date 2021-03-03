@@ -14,6 +14,9 @@ namespace BankSputink.Rocket
             Name = name;
         }
 
+        /// <summary>
+        /// Масса спутника в тоннах
+        /// </summary>
         public int Mass { get; private set; }
         public bool IsReadyToLaunch { get; set; }
         public string Name { get; private set; }
