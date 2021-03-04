@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "HumansResources": {
-      "commandName": "Project",
-      "sqlDebugging": true
-    }
-  }
-}
