@@ -1,9 +1,11 @@
 ﻿
+using HumansResources.Humans.Persons;
+
 namespace HumansResources.Humans.Employes
 
 {
-    public class Employe
+    public class Employe : Person
     {
-        // класс работник
+        
     }
 }

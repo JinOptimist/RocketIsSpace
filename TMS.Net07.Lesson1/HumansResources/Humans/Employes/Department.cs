@@ -1,7 +1,7 @@
 ﻿
 namespace HumansResources.Humans.Employes
 {
-    class Department
+    class Department : Employe
     {
     }
 }

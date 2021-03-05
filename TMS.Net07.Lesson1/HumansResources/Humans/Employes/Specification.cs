@@ -1,7 +1,7 @@
 ﻿
 namespace HumansResources.Humans.Employes
 {
-    class Specification
+    class Specification : Employe
     {
     }
 }
