@@ -1,7 +1,7 @@
 ﻿
 namespace HumansResources.Humans.Persons
 {
-    class Person
+    public class Person
     {
     }
 }

@@ -1,7 +1,7 @@
 ﻿
 namespace HumansResources.Humans.Clients
 {
-    class Client
+    public class Client
     {
     }
 }
