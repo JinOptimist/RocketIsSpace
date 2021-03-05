@@ -6,6 +6,6 @@ namespace HumansResources.Humans.Employes
 {
     public class Employe : Person
     {
-        
+        //класс работник
     }
 }
