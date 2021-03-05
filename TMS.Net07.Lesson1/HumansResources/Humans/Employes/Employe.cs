@@ -2,7 +2,7 @@
 namespace HumansResources.Humans.Employes
 
 {
-    class Employe
+    public class Employe
     {
     }
 }

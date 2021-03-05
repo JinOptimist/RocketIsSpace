@@ -1,7 +1,7 @@
 ﻿
 namespace HumansResources.Humans.Persons
 {
-    interface IContact
+    public interface IContact
     {
         string Name { get; }
         string Email { get; }

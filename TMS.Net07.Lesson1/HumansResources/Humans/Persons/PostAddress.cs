@@ -1,7 +1,7 @@
 ﻿
 namespace HumansResources.Humans.Persons
 {
-    class PostAddress
+    public class PostAddress
     {
     }
 }

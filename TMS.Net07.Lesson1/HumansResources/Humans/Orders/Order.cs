@@ -1,7 +1,7 @@
 ﻿
 namespace HumansResources.Humans.Orders
 {
-    class Order
+    public class Order
     {
     }
 }
