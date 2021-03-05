@@ -19,12 +19,15 @@ namespace HumansResources.Test.Humans.Orders
         }
 
         [Test]
-        public void IsNotValidOrder()
+        [TestCase("2020-08-01", "2020-08-01", 1000)]
+        [TestCase("2020-08-01", "2020-09-01", -100)]
+        [TestCase("2020-09-01", "2020-08-01", 1000)]
+        [TestCase("2020-09-01", "2020-00-01", 1000)]
+        public void IsNotValidOrder(string dateStringStart, string dateStringEnd, decimal amount)
         {
-            DateTime.TryParse("2020-08-01", out DateTime dateStart);
-            DateTime.TryParse("2021-09-01", out DateTime dateEnd);
-            decimal amount = -1000;
-            Client client = null;
+            Client client = new Client();
+            DateTime.TryParse(dateStringStart, out DateTime dateStart);
+            DateTime.TryParse(dateStringEnd, out DateTime dateEnd);
             Order order = new Order(client, dateStart, dateEnd, amount);
             Assert.AreEqual(order.IsValidOrder(), false);
         }

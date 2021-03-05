@@ -13,6 +13,10 @@ namespace HumansResources.Humans.Orders
         public decimal Amount { get; set; }
         private readonly List<Employe> _listEmployes = new List<Employe>();
 
+        public Order()
+        {
+        }
+
         public Order(Client client, DateTime dateStart, DateTime dateEnd, decimal amount)
         {
             Client = client;
@@ -40,6 +44,6 @@ namespace HumansResources.Humans.Orders
         public void SetEmploye(Employe employe)
         {
             _listEmployes.Add(employe);
-        }        
+        }
     }
 }
