@@ -1,5 +1,5 @@
 ﻿
-namespace HumansResources.Human.Employe
+namespace HumansResources.Humans.Employes
 {
     class Specification
     {

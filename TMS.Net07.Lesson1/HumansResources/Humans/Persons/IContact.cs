@@ -1,5 +1,5 @@
 ﻿
-namespace HumansResources.Human.Contact
+namespace HumansResources.Humans.Persons
 {
     interface IContact
     {
