@@ -2,7 +2,7 @@
 
 namespace HumansResources.Humans.Employes
 {
-    class EmployeVariant : Person
+    public class EmployeVariant : Person
     {
 
         /*В случае со Specification, наверное целый класс не нужен, достаточно одного Enum,
@@ -26,11 +26,18 @@ namespace HumansResources.Humans.Employes
 
         // Просто сделать Specification Specification не получится, поэтому Specification SpecificationEmploye
         public Specification SpecificationEmploye { get; set; }
-        public Department Department { get; private set; }
+        
 
         //Пустой конструктор
         public EmployeVariant()
         {
+        }
+
+        //Можно сделать такой конструктор
+        public EmployeVariant(Person person)
+        {
+            Person = person;
+            SpecificationEmploye = Specification.Unknown;
         }
 
         /*Нам совсем необязательно передавать все параметры через конструктор.
@@ -42,29 +49,8 @@ namespace HumansResources.Humans.Employes
         {
             Person = person;
             SpecificationEmploye = specificationEmploye;
-        }
-
-        /* Можно создавать несколько конструкторов, этот конструктор предназначен для случая,
-        когда нам известно в какой департамент пойдет специалист.*/
-        public EmployeVariant(Person person, Specification specificationEmploye, Department department)
-        {
-            Person = person;
-            SpecificationEmploye = specificationEmploye;
-            Department = department;
-        }
-
-        //Можно сделать такой конструктор
-        public EmployeVariant(Person person)
-        {
-            Person = person;
-            SpecificationEmploye = Specification.Unknown;
-        }
-
-        //Без этого метода вполне можно обойтоись для этого сделать открытым поле Department в setter
-        public void SetDepartment(Department department)
-        {
-            Department = department;
-        }
+        }        
+       
     }
     /* И по поводу коммитов, просто "commit" как-то не очень, коммит должен содержать 
     какую-то полезную информацию. Посмотри - https://www.conventionalcommits.org/en/v1.0.0/*/
