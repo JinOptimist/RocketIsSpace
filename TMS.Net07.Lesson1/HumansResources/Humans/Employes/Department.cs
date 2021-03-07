@@ -1,8 +1,8 @@
 ﻿
 namespace HumansResources.Humans.Employes
 {
-    class Department : Employe
+    class Department : Specification
     {
-        
+       enum Dep { Rocket, MissionControlCentr, Hangar1}
     }
 }
