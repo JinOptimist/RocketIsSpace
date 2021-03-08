@@ -6,11 +6,11 @@ namespace Rocket.ComfortStructure
     {
         private bool _isOpen = true;
 
-        public Toilet(double weight)
+        public Toilet(double mass)
         {
-            if (weight > 0)
+            if (mass > 0)
             {
-                Mass = weight;
+                Mass = mass;
             }
             else
             {
