@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Rocket.Mechanics
 {
-    public class Engines
+    public class Engine
     {
         public double EngineWeight { get; private set; }
         public double EngineLiftCapacity { get; private set; }
         public double EngineFuelConsumption { get; private set; }
-        public Engines(double engineWeight, double engineLiftCapacity, double engineFuelConsumption)
+        public Engine(double engineWeight, double engineLiftCapacity, double engineFuelConsumption)
         {
             EngineWeight = engineWeight;
             EngineLiftCapacity = engineLiftCapacity;

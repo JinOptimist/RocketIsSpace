@@ -16,12 +16,12 @@ namespace Rocket.RocketFactory
 
     public class EnginesFactory
     {
-        public static List<Engines> Create(int n)
+        public static List<Engine> Create(int n)
         {
-            var list = new List<Engines>();
+            var list = new List<Engine>();
             for (var i = 0; i < n; i++)
             {
-                list.Add(new Engines(40,1500,900));
+                list.Add(new Engine(40,1500,900));
             }
 
             return list;

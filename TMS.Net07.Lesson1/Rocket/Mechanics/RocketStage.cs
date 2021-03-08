@@ -12,7 +12,7 @@ namespace Rocket.Mechanics
         private double _stageWeight;
         private double _fuelConsumption;
         private double _fuelTanksCapacity;
-        public RocketStage(List<Engines> engines, List<FuelTank> fuelTank)
+        public RocketStage(List<Engine> engines, List<FuelTank> fuelTank)
         {
             Engines = engines;
             FuelTanks = fuelTank;
@@ -20,7 +20,7 @@ namespace Rocket.Mechanics
             _fuelConsumption = GetStageFuelConsumption();
             _fuelTanksCapacity = GetStageFuelTanksCapacity();
         }
-        public List<Engines> Engines { get;}
+        public List<Engine> Engines { get;}
         public List<FuelTank> FuelTanks { get;}
         
         public double GetStageWeight()
