@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Rocket.Mechanics
 {
-    public class FuelTanks
+    public class FuelTank
     {
         public double FuelTankWeight { get; private set; }
         public double FuelTankCapacity { get; private set; }
-        public FuelTanks(double fuelTankWeight, double fuelTankCapacity)
+        public FuelTank(double fuelTankWeight, double fuelTankCapacity)
         {
             FuelTankWeight = fuelTankWeight;
             FuelTankCapacity = fuelTankCapacity;

@@ -3,33 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Rocket.RocketFactory;
 
 namespace Rocket.Mechanics
 {
-    public class RocketStages
+    public class RocketStage:IRocket
     {
-        public RocketStages(List<Engines> engines, List<FuelTanks> fuelTanks)
+        private double _stageWeight;
+        private double _fuelConsumption;
+        private double _fuelTanksCapacity;
+        public RocketStage(List<Engines> engines, List<FuelTank> fuelTank)
         {
             Engines = engines;
-            FuelTanks = fuelTanks;
+            FuelTanks = fuelTank;
+            _stageWeight = GetStageWeight();
+            _fuelConsumption = GetStageFuelConsumption();
+            _fuelTanksCapacity = GetStageFuelTanksCapacity();
         }
-        public List<Engines> Engines { get; set; }
-        public List<FuelTanks> FuelTanks { get; set; }
-        public double StageWeight
-        {
-            get => GetStageWeight();
-            private set { }
-        }
-        public double StageFuelConsumption
-        {
-            get => GetStageFuelConsumption();
-            private set { }
-        }
-        public double StageFuelTanksCapacity
-        {
-            get => GetStageFuelTanksCapacity();
-            private set { }
-        }
+        public List<Engines> Engines { get;}
+        public List<FuelTank> FuelTanks { get;}
+        
         public double GetStageWeight()
         {
             double stageWeight = Engines.
@@ -50,20 +43,20 @@ namespace Rocket.Mechanics
         }
         public string StageDetaching()
         {
-            var inSecondFuelConsumption = StageFuelTanksCapacity - StageFuelConsumption;
+            var inSecondFuelConsumption = GetStageFuelTanksCapacity() - GetStageFuelConsumption();
 
             while (inSecondFuelConsumption! <= 0)
             {
-                inSecondFuelConsumption -= StageFuelConsumption;
+                inSecondFuelConsumption -= GetStageFuelConsumption();
             }
             return "Fuel tanks are empty. Stage has been detached.";
         }
         public string GetInfo()
         {
             return $"On this stage installed {Engines.Count()} engines and {FuelTanks.Count()} fuel tanks." +
-                $"{Environment.NewLine}Stage weight is {StageWeight} kg." +
-                $"{Environment.NewLine}Stage fuel tanks capacity is {StageFuelTanksCapacity} kg" +
-                $"{Environment.NewLine}Stage fuel consumption is {StageFuelConsumption} kg/sec";
+                $"{Environment.NewLine}Stage weight is {_stageWeight} kg." +
+                $"{Environment.NewLine}Stage fuel tanks capacity is {_fuelTanksCapacity} kg" +
+                $"{Environment.NewLine}Stage fuel consumption is {_fuelConsumption} kg/sec";
         }
     }
 }

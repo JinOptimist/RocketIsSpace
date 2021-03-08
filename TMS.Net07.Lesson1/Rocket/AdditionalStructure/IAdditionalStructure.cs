@@ -1,6 +1,8 @@
+using Rocket.RocketFactory;
+
 namespace Rocket.AdditionalStructure
 {
-    public interface IAdditionalStructure
+    public interface IAdditionalStructure:IRocket
     {
         double Weight { get; set; }
         bool IsOpened { get; set; }
