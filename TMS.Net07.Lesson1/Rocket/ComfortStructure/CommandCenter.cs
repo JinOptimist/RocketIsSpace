@@ -34,7 +34,7 @@ namespace Rocket.ComfortStructure
 
         public string GetInfo()
         {
-            return $"Command center mass: {Mass}";
+            return $"Command center mass: {Mass} tons";
         }
     }
 }

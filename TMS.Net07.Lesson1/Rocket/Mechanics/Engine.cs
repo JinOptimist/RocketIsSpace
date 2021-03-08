@@ -23,9 +23,9 @@ namespace Rocket.Mechanics
 
         public string GetInfo()
         {
-            return $"Engine mass = {EngineMass} kg." +
-                   $"{Environment.NewLine}Engine lift capacity = {EngineLiftCapacity} kg." +
-                   $"{Environment.NewLine}Engine fuel consumption = {EngineFuelConsumption} kg/sec.";
+            return $"Engine mass: {EngineMass} tons" +
+                   $"{Environment.NewLine}Engine lift capacity: {EngineLiftCapacity} tons" +
+                   $"{Environment.NewLine}Engine fuel consumption: {EngineFuelConsumption} tons/sec";
         }
     }
 }

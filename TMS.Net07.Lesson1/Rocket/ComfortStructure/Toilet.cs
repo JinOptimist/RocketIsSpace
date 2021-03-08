@@ -25,7 +25,8 @@ namespace Rocket.ComfortStructure
 
         public string GetInfo()
         {
-            return $"Toilet mass: {Mass}";
+            return $"Toilet mass: {Mass} tons" +
+                   $"{Environment.NewLine}Toilet is " + (_isOpen ? "open" : "close") + " now";
         }
     }
 }

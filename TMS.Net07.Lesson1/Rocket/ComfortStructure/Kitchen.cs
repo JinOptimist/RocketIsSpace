@@ -30,9 +30,9 @@ namespace Rocket.ComfortStructure
 
         public string GetInfo()
         {
-            return $"Kitchen mass: {Mass}\n" +
-                   $"Storage capacity: {_storageCapacity}\n" +
-                   $"Seats number: {_seatsNumber}";
+            return $"Kitchen mass: {Mass} tons" +
+                   $"{Environment.NewLine}Storage capacity: {_storageCapacity}" +
+                   $"{Environment.NewLine}Seats number: {_seatsNumber}";
         }
     }
 }

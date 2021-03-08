@@ -13,8 +13,8 @@ namespace Rocket.Mechanics
         }
         public string GetInfo()
         {
-            return $"Fuel tank mass = {FuelTankMass} kg." +
-                $"{Environment.NewLine}Fuel tank capacity = {FuelTankCapacity} kg.";
+            return $"Fuel tank mass: {FuelTankMass} tons" +
+                   $"{Environment.NewLine}Fuel tank capacity: {FuelTankCapacity} tons";
         }
     }
 }

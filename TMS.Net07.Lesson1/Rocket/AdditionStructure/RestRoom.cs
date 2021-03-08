@@ -23,16 +23,16 @@ namespace Rocket.AdditionStructure
                 }
                 else
                 {
-                    throw new Exception("Amount of people cannot be a negative value.");
+                    throw new Exception("Wrong amount. Expected: amount > 0");
                 }
             }
         }
 
         public string GetInfo()
         {
-            return $"Rest room mass is {Mass} kg." +
-                   $"{Environment.NewLine}The room is designed for {PeopleCapacity} people." +
-                   $"{Environment.NewLine}It is " + (IsOpen ? "open" : "close") + " now.";
+            return $"Rest room mass: {Mass} tons" +
+                   $"{Environment.NewLine}The room is designed for {PeopleCapacity} people" +
+                   $"{Environment.NewLine}It is " + (IsOpen ? "open" : "close") + " now";
         }
     }
 }

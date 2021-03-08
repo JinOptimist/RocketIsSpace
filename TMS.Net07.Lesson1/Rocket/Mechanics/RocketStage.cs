@@ -55,10 +55,10 @@ namespace Rocket.Mechanics
 
         public string GetInfo()
         {
-            return $"On this stage installed {Engines.Count()} engines and {FuelTanks.Count()} fuel tanks." +
-                   $"{Environment.NewLine}Stage mass is {_stageMass} kg." +
-                   $"{Environment.NewLine}Stage fuel tanks capacity is {_fuelTanksCapacity} kg" +
-                   $"{Environment.NewLine}Stage fuel consumption is {_fuelConsumption} kg/sec";
+            return $"On this stage installed {Engines.Count()} engines and {FuelTanks.Count()} fuel tanks" +
+                   $"{Environment.NewLine}Stage mass: {_stageMass} tons" +
+                   $"{Environment.NewLine}Stage fuel tanks capacity: {_fuelTanksCapacity} tons" +
+                   $"{Environment.NewLine}Stage fuel consumption: {_fuelConsumption} tons/sec";
         }
     }
 }
