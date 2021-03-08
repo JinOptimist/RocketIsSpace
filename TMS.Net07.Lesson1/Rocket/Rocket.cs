@@ -1,65 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
+﻿using System.Collections.Generic;
+using Rocket.AdditionalStructure;
+using Rocket.ComfortStructure;
+using Rocket.Mechanics;
+using Rocket.RocketFactory;
 
 namespace Rocket
 {
-    public class Rocket
+    public class Rocket:IRocket
     {
-        private List<IMechanics> _mechanics = new List<IMechanics>();
-        private List<IComfort> _comforts = new List<IComfort>();
-        private List<IAdditional> _additionals= new List<IAdditional>();
+        private RocketStage _mechanics;
+        private List<IComfortStructure> _comforts;
+        private List<IAdditionalStructure> _additions;
         
         private readonly int _maxnumberofseats = 15;
-        private readonly int _maxmass = 308;
-        
-        public Rocket(string name, int mass, int numberofastronauts)
+
+        public Rocket(string name,int numberofastronauts,RocketStage mechanics,
+            List<IComfortStructure> comforts,List<IAdditionalStructure> additions)
         {
             Name = name;
-            Mass = mass;
-            Numberofastronauts = numberofastronauts;
-            
-            Mechanics = _mechanics;
-            Comforts = _comforts;
-            Additionals = _additionals;
+            NumberOfAstronauts = numberofastronauts;
+
+            _mechanics = mechanics;
+            _comforts = comforts;
+            _additions = additions;
         }
         public string Name { get;}
-        public int Mass { get;}
-        public int Numberofastronauts { get;}
-
-        public List<IMechanics> Mechanics
-        {
-            get => _mechanics;
-            set => _mechanics = value;
-        }
-        public List<IComfort> Comforts
-        {
-            get => _comforts;
-            set => _comforts = value;
-        }
-        public List<IAdditional> Additionals
-        {
-            get => _additionals;
-            set => _additionals= value;
-        }
+        public int Mass { get; } = 0;
+        public int NumberOfAstronauts { get;}
         
         public bool IsReadyToLaunch()
         {
-            if (Numberofastronauts > _maxnumberofseats)
+            if (NumberOfAstronauts > _maxnumberofseats)
             {
                 return false;
                 // throw new Exception("Not enough space for astronauts!");
-            }
-            if (Mass > _maxmass)
-            {
-                return false;
-                //throw new Exception("You very heavy");
             }
             return true;
         }
         public string GetInfo()
         {
-            return $"Rocket has {Mass} tons and {Numberofastronauts} astronauts." +
+            return $"Rocket has {Mass} tons and {NumberOfAstronauts} astronauts." +
                    $"Ready to launch: {IsReadyToLaunch()}.";
         }
     }

@@ -13,8 +13,8 @@ namespace Rocket.ComfortStructure
         public Kitchen(double weight, int storageCapacity, int seatsNumber)
         {
             if (weight > 0 &&
-                storageCapacity > 0 && storageCapacity < 20 &&
-                seatsNumber > 0 && seatsNumber < 10)
+                storageCapacity > 0 && storageCapacity <= 20 &&
+                seatsNumber > 0 && seatsNumber <= 10)
             {
                 Weight = weight;
                 _storageCapacity = storageCapacity;

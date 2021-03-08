@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Rocket.ComfortStructure
 {
-    class Toilet : IComfortStructure
+    public class Toilet : IComfortStructure
     {
         private bool _isOpen = true;
 
