@@ -1,5 +1,3 @@
-using Rocket.RocketFactory;
-
 namespace Rocket.AdditionStructure
 {
     public interface IAdditionStructure : IRocket

@@ -2,7 +2,6 @@
 using Rocket.AdditionStructure;
 using Rocket.ComfortStructure;
 using Rocket.Mechanics;
-using Rocket.RocketFactory;
 
 namespace Rocket
 {
