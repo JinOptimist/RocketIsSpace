@@ -2,7 +2,7 @@
 
 namespace Rocket
 {
-    public class RocketFactory
+    public interface RocketFactory
     {
         
     }

@@ -10,8 +10,8 @@ namespace Rocket
         private List<IComfort> _comforts = new List<IComfort>();
         private List<IAdditional> _additionals= new List<IAdditional>();
         
-        private int _maxnumberofseats = 15;
-        private int _maxmass = 308;
+        private readonly int _maxnumberofseats = 15;
+        private readonly int _maxmass = 308;
         
         public Rocket(string name, int mass, int numberofastronauts)
         {
@@ -23,9 +23,9 @@ namespace Rocket
             Comforts = _comforts;
             Additionals = _additionals;
         }
-        public string Name { get; private set; }
-        public int Mass { get; set; }
-        public int Numberofastronauts { get; set; }
+        public string Name { get;}
+        public int Mass { get;}
+        public int Numberofastronauts { get;}
 
         public List<IMechanics> Mechanics
         {

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankSputink.Test", "BankSpu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rocket", "Rocket\Rocket.csproj", "{4DB570B0-6D5E-43E9-AE47-C06D4B2290C5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TeamRocket", "TeamRocket", "{6E70E370-D68C-4F85-B573-6ECD734DD1BD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,5 +35,8 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9C9606CE-C155-409C-9D94-4051C76B4B76}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4DB570B0-6D5E-43E9-AE47-C06D4B2290C5} = {6E70E370-D68C-4F85-B573-6ECD734DD1BD}
 	EndGlobalSection
 EndGlobal
