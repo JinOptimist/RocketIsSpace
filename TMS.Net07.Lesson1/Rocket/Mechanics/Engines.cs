@@ -9,19 +9,15 @@ namespace Rocket.Mechanics
 {
     public class Engines
     {
-        public double engineWeight { get; private set; }
-        public double engineLiftCapacity { get; private set; }
-        public double engineFuelConsumption { get; private set; }
-        public bool startEngine { get; set; }
-
-        public Engines(double EngineWeight, double EngineLiftCapacity, double EngineFuelConsumption, bool StartEngine)
+        public double EngineWeight { get; private set; }
+        public double EngineLiftCapacity { get; private set; }
+        public double EngineFuelConsumption { get; private set; }
+        public Engines(double engineWeight, double engineLiftCapacity, double engineFuelConsumption)
         {
             EngineWeight = engineWeight;
             EngineLiftCapacity = engineLiftCapacity;
             EngineFuelConsumption = engineFuelConsumption;
-            StartEngine = startEngine;
         }
-
         public bool EngineStarted(bool startEngine)
         {
             if (startEngine == true)
@@ -30,26 +26,11 @@ namespace Rocket.Mechanics
             }
             return false;
         }
-
-        public double GetEngineWeight()
-        {
-            return engineWeight;
-        }
-
-        public double GetEngineLiftCapacity()
-        {
-            return engineLiftCapacity;
-        }
-
-        public double GetEngineFuelConsumption()
-        {
-            return engineFuelConsumption;
-        }
         public string GetInfo()
         {
-            return $"Engine weight = {this.engineWeight} kg." +
-                $"Engine lift capacity = {this.engineLiftCapacity} kg." +
-                $"Engine fuel consumption = {this.engineFuelConsumption} kg/sec.";
+            return $"Engine weight = {EngineWeight} kg." +
+                $"{Environment.NewLine}Engine lift capacity = {EngineLiftCapacity} kg." +
+                $"{Environment.NewLine}Engine fuel consumption = {EngineFuelConsumption} kg/sec.";
         }
     }
 }

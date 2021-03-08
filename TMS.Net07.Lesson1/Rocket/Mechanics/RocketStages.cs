@@ -6,42 +6,48 @@ using System.Threading.Tasks;
 
 namespace Rocket.Mechanics
 {
-    public class RocketStages : IRocketStages
+    public class RocketStages
     {
-        public RocketStages(double stageWeight, List<Engines> engines, List<FuelTanks> fuelTanks, double stageFuelConsumption, double stageFuelTanksCapacity)
+        public RocketStages(List<Engines> engines, List<FuelTanks> fuelTanks)
         {
-            StageWeight = stageWeight;
             Engines = engines;
             FuelTanks = fuelTanks;
-            StageFuelConsumption = stageFuelConsumption;
-            StageFuelTanksCapacity = stageFuelTanksCapacity;
         }
         public List<Engines> Engines { get; set; }
         public List<FuelTanks> FuelTanks { get; set; }
-        public double StageWeight { get; set; }
-        public double StageFuelConsumption { get; set; }
-        public double StageFuelTanksCapacity { get; set; }
-
-        public double GetStageWeight(List<Engines> Engines, List<FuelTanks> FuelTanks)
+        public double StageWeight
         {
-            StageWeight = Engines.
-                Sum(engines => engines.GetEngineWeight())
-                + FuelTanks.
-                Sum(fuelTanks => fuelTanks.GetFuelTankWeight());
-
-            return StageWeight;
+            get => GetStageWeight();
+            private set { }
         }
-        public double GetStageFuelConsumption(List<Engines> Engines)
+        public double StageFuelConsumption
         {
-            StageFuelConsumption = Engines.Sum(engines => engines.GetEngineFuelConsumption());
-            return StageFuelConsumption;
+            get => GetStageFuelConsumption();
+            private set { }
         }
-        public double GetStageFuelTanksCapacity(List<FuelTanks> FuelTanks)
+        public double StageFuelTanksCapacity
         {
-            StageFuelTanksCapacity = FuelTanks.Sum(fuelTanks => fuelTanks.GetFuelTankCapacity());
-            return StageFuelTanksCapacity;
+            get => GetStageFuelTanksCapacity();
+            private set { }
         }
-
+        public double GetStageWeight()
+        {
+            double stageWeight = Engines.
+                 Sum(engines => engines.EngineWeight)
+                 + FuelTanks.
+                 Sum(fuelTanks => fuelTanks.FuelTankWeight);
+            return stageWeight;
+        }
+        private double GetStageFuelConsumption()
+        {
+            double stageFuelConsumption = Engines.Sum(engines => engines.EngineFuelConsumption);
+            return stageFuelConsumption;
+        }
+        private double GetStageFuelTanksCapacity()
+        {
+            double stageFuelTanksCapacity = FuelTanks.Sum(fuelTanks => fuelTanks.FuelTankCapacity);
+            return stageFuelTanksCapacity;
+        }
         public string StageDetaching()
         {
             var inSecondFuelConsumption = StageFuelTanksCapacity - StageFuelConsumption;
@@ -55,9 +61,9 @@ namespace Rocket.Mechanics
         public string GetInfo()
         {
             return $"On this stage installed {Engines.Count()} engines and {FuelTanks.Count()} fuel tanks." +
-                $"Stage weight is {StageWeight} kg." +
-                $"Stage fuel tanks capacity is {StageFuelTanksCapacity} kg" +
-                $"Stage fuel consumption is {StageFuelConsumption} kg/sec";
+                $"{Environment.NewLine}Stage weight is {StageWeight} kg." +
+                $"{Environment.NewLine}Stage fuel tanks capacity is {StageFuelTanksCapacity} kg" +
+                $"{Environment.NewLine}Stage fuel consumption is {StageFuelConsumption} kg/sec";
         }
     }
 }

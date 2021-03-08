@@ -8,26 +8,17 @@ namespace Rocket.Mechanics
 {
     public class FuelTanks
     {
-        public double fuelTankWeight { get; private set; }
-        public double fuelTankCapacity { get; private set; }
-
-        public FuelTanks(double FuelTankWeight, double FuelTankCapacity)
+        public double FuelTankWeight { get; private set; }
+        public double FuelTankCapacity { get; private set; }
+        public FuelTanks(double fuelTankWeight, double fuelTankCapacity)
         {
             FuelTankWeight = fuelTankWeight;
             FuelTankCapacity = fuelTankCapacity;
         }
-        public double GetFuelTankWeight()
-        {
-            return fuelTankWeight;
-        }
-        public double GetFuelTankCapacity()
-        {
-            return fuelTankCapacity;
-        }
         public string GetInfo()
         {
-            return $"Fuel tank weight = {this.fuelTankWeight} kg." +
-                $"Fuel tank capacity = {this.fuelTankCapacity} kg.";
+            return $"Fuel tank weight = {FuelTankWeight} kg." +
+                $"{Environment.NewLine}Fuel tank capacity = {FuelTankCapacity} kg.";
         }
     }
 }
