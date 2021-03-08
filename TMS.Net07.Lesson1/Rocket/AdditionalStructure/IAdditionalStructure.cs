@@ -2,19 +2,15 @@ using Rocket.RocketFactory;
 
 namespace Rocket.AdditionalStructure
 {
-    public interface IAdditionalStructure:IRocket
+    public interface IAdditionalStructure : IRocket
     {
         double Weight { get; set; }
-        bool IsOpened { get; set; }
+        bool IsOpen { get; }
 
-        void MakeClosed()
-        {
-            IsOpened = false;
-        }
+        void MakeClosed();
 
-        void MakeOpened()
-        {
-            IsOpened = true;
-        }
+        void MakeOpened();
+
+        string GetInfo();
     }
 }
