@@ -9,7 +9,7 @@ namespace Rocket.Mechanics
 {
     public class RocketStage : IRocket
     {
-        private double _stageWeight;
+        private double _stageMass;
         private double _fuelConsumption;
         private double _fuelTanksCapacity;
 
@@ -17,7 +17,7 @@ namespace Rocket.Mechanics
         {
             Engines = engines;
             FuelTanks = fuelTank;
-            _stageWeight = GetStageWeight();
+            _stageMass = GetStageMass();
             _fuelConsumption = GetStageFuelConsumption();
             _fuelTanksCapacity = GetStageFuelTanksCapacity();
         }
@@ -25,11 +25,11 @@ namespace Rocket.Mechanics
         public List<Engine> Engines { get; }
         public List<FuelTank> FuelTanks { get; }
 
-        public double GetStageWeight()
+        public double GetStageMass()
         {
-            double stageWeight = Engines.Sum(engines => engines.EngineWeight)
-                                 + FuelTanks.Sum(fuelTanks => fuelTanks.FuelTankWeight);
-            return stageWeight;
+            double stageMass = Engines.Sum(engines => engines.EngineMass)
+                               + FuelTanks.Sum(fuelTanks => fuelTanks.FuelTankMass);
+            return stageMass;
         }
 
         private double GetStageFuelConsumption()
@@ -59,7 +59,7 @@ namespace Rocket.Mechanics
         public string GetInfo()
         {
             return $"On this stage installed {Engines.Count()} engines and {FuelTanks.Count()} fuel tanks." +
-                   $"{Environment.NewLine}Stage weight is {_stageWeight} kg." +
+                   $"{Environment.NewLine}Stage mass is {_stageMass} kg." +
                    $"{Environment.NewLine}Stage fuel tanks capacity is {_fuelTanksCapacity} kg" +
                    $"{Environment.NewLine}Stage fuel consumption is {_fuelConsumption} kg/sec";
         }

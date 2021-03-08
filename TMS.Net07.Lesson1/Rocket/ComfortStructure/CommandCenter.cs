@@ -8,19 +8,19 @@ namespace Rocket.ComfortStructure
 {
     class CommandCenter : IComfortStructure
     {
-        public CommandCenter(double weight)
+        public CommandCenter(double mass)
         {
-            if (weight > 0)
+            if (mass > 0)
             {
-                Weight = weight;
+                Mass = mass;
             }
             else
             {
-                throw new Exception("Wrong weight. Expected: weight > 0");
+                throw new Exception("Wrong mass. Expected: mass > 0");
             }
         }
 
-        public double Weight { get; }
+        public double Mass { get; }
 
         public List<string> Ledger;
 
@@ -37,7 +37,7 @@ namespace Rocket.ComfortStructure
 
         public string GetInfo()
         {
-            return $"Command center weight: {Weight}";
+            return $"Command center mass: {Mass}";
         }
     }
 }

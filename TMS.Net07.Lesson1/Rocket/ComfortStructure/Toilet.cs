@@ -14,22 +14,22 @@ namespace Rocket.ComfortStructure
         {
             if (weight > 0)
             {
-                Weight = weight;
+                Mass = weight;
             }
             else
             {
-                throw new Exception("Wrong weight. Expected: weight > 0");
+                throw new Exception("Wrong mass. Expected: mass > 0");
             }
         }
 
         public void OpenToilet() => _isOpen = true;
         public void CloseToilet() => _isOpen = false;
 
-        public double Weight { get; }
+        public double Mass { get; }
 
         public string GetInfo()
         {
-            return $"Toilet weight: {Weight}";
+            return $"Toilet mass: {Mass}";
         }
     }
 }

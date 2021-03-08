@@ -4,7 +4,7 @@ using Rocket.Mechanics;
 
 namespace Rocket.RocketFactory
 {
-    public class MechanicsFactory : Factory
+    public class MechanicFactory : Factory
     {
         public override RocketStage Create(int n)
         {

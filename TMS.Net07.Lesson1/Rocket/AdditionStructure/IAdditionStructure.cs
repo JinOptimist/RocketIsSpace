@@ -1,10 +1,10 @@
 using Rocket.RocketFactory;
 
-namespace Rocket.AdditionalStructure
+namespace Rocket.AdditionStructure
 {
-    public interface IAdditionalStructure : IRocket
+    public interface IAdditionStructure : IRocket
     {
-        double Weight { get; set; }
+        double Mass { get; set; }
         bool IsOpen { get; }
 
         void MakeClosed();

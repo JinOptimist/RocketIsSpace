@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Rocket.AdditionalStructure;
+using Rocket.AdditionStructure;
 using Rocket.ComfortStructure;
 using Rocket.Mechanics;
 using Rocket.RocketFactory;
@@ -10,12 +10,12 @@ namespace Rocket
     {
         private RocketStage _mechanics;
         private List<IComfortStructure> _comforts;
-        private List<IAdditionalStructure> _additions;
+        private List<IAdditionStructure> _additions;
 
-        private readonly int _maxnumberofseats = 15;
+        private readonly int _numberofseats = 15;
 
         public Rocket(string name, int numberofastronauts, RocketStage mechanics,
-            List<IComfortStructure> comforts, List<IAdditionalStructure> additions)
+            List<IComfortStructure> comforts, List<IAdditionStructure> additions)
         {
             Name = name;
             NumberOfAstronauts = numberofastronauts;
@@ -31,7 +31,7 @@ namespace Rocket
 
         public bool IsReadyToLaunch()
         {
-            if (NumberOfAstronauts > _maxnumberofseats)
+            if (NumberOfAstronauts > _numberofseats)
             {
                 return false;
                 // throw new Exception("Not enough space for astronauts!");

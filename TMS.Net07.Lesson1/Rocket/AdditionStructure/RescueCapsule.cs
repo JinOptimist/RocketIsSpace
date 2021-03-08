@@ -1,10 +1,10 @@
 using System;
 
-namespace Rocket.AdditionalStructure
+namespace Rocket.AdditionStructure
 {
-    public class RescueCapsule : IAdditionalStructure
+    public class RescueCapsule : IAdditionStructure
     {
-        public double Weight { get; set; }
+        public double Mass { get; set; }
         public bool IsOpen { get; private set; } = false;
         public void MakeClosed() => IsOpen = false;
         public void MakeOpened() => IsOpen = true;
@@ -30,7 +30,7 @@ namespace Rocket.AdditionalStructure
 
         public string GetInfo()
         {
-            return $"Rescue capsule weight is {Weight} kg." +
+            return $"Rescue capsule mass is {Mass} kg." +
                    $"{Environment.NewLine}The capsule is designed for {PeopleCapacity} people." +
                    $"{Environment.NewLine}It is " + (IsOpen ? "open" : "close") + " now.";
         }

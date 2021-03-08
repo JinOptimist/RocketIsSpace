@@ -1,11 +1,11 @@
 ﻿using System;
-using Rocket.AdditionalStructure;
+using Rocket.AdditionStructure;
 
 namespace Rocket.RocketFactory
 {
-    public class AdditionsFactory : Factory
+    public class AdditionFactory : Factory
     {
-        public override IAdditionalStructure Create(int n)
+        public override IAdditionStructure Create(int n)
         {
             return n switch
             {

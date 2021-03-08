@@ -9,29 +9,27 @@ namespace Rocket.Mechanics
 {
     public class Engine
     {
-        public double EngineWeight { get; private set; }
+        public double EngineMass { get; private set; }
         public double EngineLiftCapacity { get; private set; }
         public double EngineFuelConsumption { get; private set; }
-        public Engine(double engineWeight, double engineLiftCapacity, double engineFuelConsumption)
+
+        public Engine(double engineMass, double engineLiftCapacity, double engineFuelConsumption)
         {
-            EngineWeight = engineWeight;
+            EngineMass = engineMass;
             EngineLiftCapacity = engineLiftCapacity;
             EngineFuelConsumption = engineFuelConsumption;
         }
+
         public bool EngineStarted(bool startEngine)
         {
-            if (startEngine == true)
-            {
-                return true;
-            }
-            return false;
+            return startEngine;
         }
+
         public string GetInfo()
         {
-            return $"Engine weight = {EngineWeight} kg." +
-                $"{Environment.NewLine}Engine lift capacity = {EngineLiftCapacity} kg." +
-                $"{Environment.NewLine}Engine fuel consumption = {EngineFuelConsumption} kg/sec.";
+            return $"Engine mass = {EngineMass} kg." +
+                   $"{Environment.NewLine}Engine lift capacity = {EngineLiftCapacity} kg." +
+                   $"{Environment.NewLine}Engine fuel consumption = {EngineFuelConsumption} kg/sec.";
         }
     }
 }
-

@@ -1,10 +1,10 @@
 using System;
 
-namespace Rocket.AdditionalStructure
+namespace Rocket.AdditionStructure
 {
-    public class ObservationDeck : IAdditionalStructure
+    public class RestRoom : IAdditionStructure
     {
-        public double Weight { get; set; }
+        public double Mass { get; set; }
         public bool IsOpen { get; private set; } = false;
         public void MakeClosed() => IsOpen = false;
         public void MakeOpened() => IsOpen = true;
@@ -30,8 +30,8 @@ namespace Rocket.AdditionalStructure
 
         public string GetInfo()
         {
-            return $"Observation deck weight is {Weight} kg." +
-                   $"{Environment.NewLine}The deck is designed for {PeopleCapacity} people." +
+            return $"Rest room mass is {Mass} kg." +
+                   $"{Environment.NewLine}The room is designed for {PeopleCapacity} people." +
                    $"{Environment.NewLine}It is " + (IsOpen ? "open" : "close") + " now.";
         }
     }

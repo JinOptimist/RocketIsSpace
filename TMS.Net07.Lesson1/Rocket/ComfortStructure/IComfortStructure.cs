@@ -9,7 +9,7 @@ namespace Rocket.ComfortStructure
 {
     public interface IComfortStructure : IRocket
     {
-        double Weight { get; }
+        double Mass { get; }
         string GetInfo();
     }
 }
