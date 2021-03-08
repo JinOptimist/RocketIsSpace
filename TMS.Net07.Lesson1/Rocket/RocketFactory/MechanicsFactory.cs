@@ -4,7 +4,7 @@ using Rocket.Mechanics;
 
 namespace Rocket.RocketFactory
 {
-    public class MechanicsFactory:Factory
+    public class MechanicsFactory : Factory
     {
         public override RocketStage Create(int n)
         {
@@ -21,7 +21,7 @@ namespace Rocket.RocketFactory
             var list = new List<Engine>();
             for (var i = 0; i < n; i++)
             {
-                list.Add(new Engine(40,1500,900));
+                list.Add(new Engine(40, 1500, 900));
             }
 
             return list;
@@ -35,7 +35,7 @@ namespace Rocket.RocketFactory
             var list = new List<FuelTank>();
             for (var i = 0; i < n; i++)
             {
-                list.Add(new FuelTank(40,1500));
+                list.Add(new FuelTank(40, 1500));
             }
 
             return list;

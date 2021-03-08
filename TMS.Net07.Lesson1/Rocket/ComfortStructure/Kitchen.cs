@@ -10,6 +10,7 @@ namespace Rocket.ComfortStructure
     {
         private int _storageCapacity;
         private int _seatsNumber;
+
         public Kitchen(double weight, int storageCapacity, int seatsNumber)
         {
             if (weight > 0 &&
@@ -23,18 +24,19 @@ namespace Rocket.ComfortStructure
             else
             {
                 throw new Exception("Wrong data. Expected: " +
-                    "weight > 0, " +
-                    "0 < storage capacity < 20, " +
-                    "0 < seats number < 10");
+                                    "weight > 0, " +
+                                    "0 < storage capacity < 20, " +
+                                    "0 < seats number < 10");
             }
         }
+
         public double Weight { get; }
 
         public string GetInfo()
         {
             return $"Kitchen weight: {Weight}\n" +
-                $"Storage capacity: {_storageCapacity}\n" +
-                $"Seats number: {_seatsNumber}";
+                   $"Storage capacity: {_storageCapacity}\n" +
+                   $"Seats number: {_seatsNumber}";
         }
     }
 }

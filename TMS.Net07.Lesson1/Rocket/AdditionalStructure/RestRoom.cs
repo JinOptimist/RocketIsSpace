@@ -8,13 +8,13 @@ namespace Rocket.AdditionalStructure
         public bool IsOpen { get; private set; } = false;
         public void MakeClosed() => IsOpen = false;
         public void MakeOpened() => IsOpen = true;
-        
+
         private int _peopleCapacity;
 
         public int PeopleCapacity
         {
             get => _peopleCapacity;
-            
+
             private set
             {
                 if (value > 0)

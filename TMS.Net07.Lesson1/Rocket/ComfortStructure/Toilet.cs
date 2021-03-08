@@ -26,6 +26,7 @@ namespace Rocket.ComfortStructure
         public void CloseToilet() => _isOpen = false;
 
         public double Weight { get; }
+
         public string GetInfo()
         {
             return $"Toilet weight: {Weight}";

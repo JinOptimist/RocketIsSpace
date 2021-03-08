@@ -27,7 +27,7 @@ namespace Rocket.AdditionalStructure
                 }
             }
         }
-        
+
         public string GetInfo()
         {
             return $"Observation deck weight is {Weight} kg." +

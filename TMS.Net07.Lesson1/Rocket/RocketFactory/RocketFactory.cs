@@ -11,7 +11,7 @@ namespace Rocket.RocketFactory
             var mechnicsFactory = new MechanicsFactory();
             var comfortFactory = new ComfortFactory();
             var addFactory = new AdditionsFactory();
-            
+
             var comfList = new List<IComfortStructure>();
             comfList.Add(comfortFactory.Create(1));
             comfList.Add(comfortFactory.Create(2));
@@ -21,8 +21,8 @@ namespace Rocket.RocketFactory
             addList.Add(addFactory.Create(1));
             addList.Add(addFactory.Create(2));
             addList.Add(addFactory.Create(3));
-            
-            return new Rocket("TMS1",10,mechnicsFactory.Create(2),comfList,addList);
+
+            return new Rocket("TMS1", 10, mechnicsFactory.Create(2), comfList, addList);
         }
     }
 }

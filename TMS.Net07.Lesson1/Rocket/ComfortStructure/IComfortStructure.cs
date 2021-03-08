@@ -7,7 +7,7 @@ using Rocket.RocketFactory;
 
 namespace Rocket.ComfortStructure
 {
-    public interface IComfortStructure:IRocket
+    public interface IComfortStructure : IRocket
     {
         double Weight { get; }
         string GetInfo();

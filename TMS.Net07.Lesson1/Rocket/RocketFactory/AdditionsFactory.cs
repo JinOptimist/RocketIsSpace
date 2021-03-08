@@ -3,7 +3,7 @@ using Rocket.AdditionalStructure;
 
 namespace Rocket.RocketFactory
 {
-    public class AdditionsFactory:Factory
+    public class AdditionsFactory : Factory
     {
         public override IAdditionalStructure Create(int n)
         {

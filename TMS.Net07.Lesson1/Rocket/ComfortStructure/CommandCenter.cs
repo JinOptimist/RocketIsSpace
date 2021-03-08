@@ -19,13 +19,16 @@ namespace Rocket.ComfortStructure
                 throw new Exception("Wrong weight. Expected: weight > 0");
             }
         }
+
         public double Weight { get; }
 
         public List<string> Ledger;
+
         public void GetSignal(string signal)
         {
             Ledger.Add(signal);
         }
+
         public void SendSignal()
         {
             Console.WriteLine("Enter your message: ");
