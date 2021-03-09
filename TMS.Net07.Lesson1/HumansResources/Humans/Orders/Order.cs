@@ -10,20 +10,19 @@ namespace HumansResources.Humans.Orders
         public Client Client { get; set; }
         public DateTime DateStart { get; set; }
         public DateTime DateEnd { get; set; }
-        public decimal Amount { get; set; }
+        public decimal OrderCost { get; set; }
         private readonly List<Employe> _listEmployes = new List<Employe>();
 
-        //Empty constructor
         public Order()
         {
         }
 
-        public Order(Client client, DateTime dateStart, DateTime dateEnd, decimal amount)
+        public Order(Client client, DateTime dateStart, DateTime dateEnd, decimal orderCost)
         {
             Client = client;
             DateStart = dateStart;
             DateEnd = dateEnd;
-            Amount = amount;
+            OrderCost = orderCost;
         }
 
         public bool IsValidOrder()
@@ -33,7 +32,7 @@ namespace HumansResources.Humans.Orders
                 DateStart != null &&
                 DateEnd != null &&
                 DateTime.Compare(DateStart, DateEnd) < 0 &&
-                Amount > 0
+                OrderCost > 0
                 );
         }
 

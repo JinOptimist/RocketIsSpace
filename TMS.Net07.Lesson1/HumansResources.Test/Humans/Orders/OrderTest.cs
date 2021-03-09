@@ -12,9 +12,9 @@ namespace HumansResources.Test.Humans.Orders
         {
             DateTime.TryParse("2020-08-01", out DateTime dateStart);
             DateTime.TryParse("2020-09-01", out DateTime dateEnd);
-            decimal amount = 1000;
+            decimal orderCost = 1000;
             Client client = new Client();
-            Order order = new Order(client, dateStart, dateEnd, amount);
+            Order order = new Order(client, dateStart, dateEnd, orderCost);
             Assert.AreEqual(order.IsValidOrder(), true);
         }
 
@@ -23,12 +23,12 @@ namespace HumansResources.Test.Humans.Orders
         [TestCase("2020-08-01", "2020-09-01", -100)]
         [TestCase("2020-09-01", "2020-08-01", 1000)]
         [TestCase("2020-09-01", "2020-00-01", 1000)]
-        public void IsNotValidOrder(string dateStringStart, string dateStringEnd, decimal amount)
+        public void IsNotValidOrder(string dateStringStart, string dateStringEnd, decimal orderCost)
         {
             Client client = new Client();
             DateTime.TryParse(dateStringStart, out DateTime dateStart);
             DateTime.TryParse(dateStringEnd, out DateTime dateEnd);
-            Order order = new Order(client, dateStart, dateEnd, amount);
+            Order order = new Order(client, dateStart, dateEnd, orderCost);
             Assert.AreEqual(order.IsValidOrder(), false);
         }
     }
