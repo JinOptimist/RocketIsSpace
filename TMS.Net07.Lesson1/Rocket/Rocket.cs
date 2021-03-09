@@ -3,6 +3,7 @@ using Rocket.AdditionalStructure;
 using Rocket.ComfortStructure;
 using Rocket.Mechanics;
 using Rocket.RocketFactory;
+using System.Linq;
 
 namespace Rocket
 {
@@ -12,7 +13,7 @@ namespace Rocket
         private List<IComfortStructure> _comforts;
         private List<IAdditionalStructure> _additions;
         
-        private readonly int _maxnumberofseats = 15;
+        private readonly int _maxNumberOfSeats = 15;
 
         public Rocket(string name,int numberofastronauts,RocketStage mechanics,
             List<IComfortStructure> comforts,List<IAdditionalStructure> additions)
@@ -23,6 +24,7 @@ namespace Rocket
             _mechanics = mechanics;
             _comforts = comforts;
             _additions = additions;
+            
         }
         public string Name { get;}
         public int Mass { get; } = 0;
@@ -30,10 +32,9 @@ namespace Rocket
         
         public bool IsReadyToLaunch()
         {
-            if (NumberOfAstronauts > _maxnumberofseats)
+            if (NumberOfAstronauts > _maxNumberOfSeats)
             {
                 return false;
-                // throw new Exception("Not enough space for astronauts!");
             }
             return true;
         }
@@ -41,6 +42,13 @@ namespace Rocket
         {
             return $"Rocket has {Mass} tons and {NumberOfAstronauts} astronauts." +
                    $"Ready to launch: {IsReadyToLaunch()}.";
+        }
+        public double GetMass()
+        {
+            var rocketWeight = _comforts.Sum(mass => mass.Weight)
+                                  + _additions.Sum(mass => mass.Weight)
+                                  + _mechanics.GetStageWeight();
+            return rocketWeight;
         }
     }
 }
