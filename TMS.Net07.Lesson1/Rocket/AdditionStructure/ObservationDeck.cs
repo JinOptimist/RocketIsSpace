@@ -23,7 +23,7 @@ namespace Rocket.AdditionStructure
                 }
                 else
                 {
-                    throw new Exception("Wrong amount. Expected: amount > 0");
+                    throw new Exception("Wrong people capacity. Expected: peopleCapacity > 0");
                 }
             }
         }
