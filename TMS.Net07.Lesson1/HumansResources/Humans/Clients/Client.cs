@@ -1,46 +1,48 @@
-﻿
+﻿using System.Linq;
 using System;
+using System.Collections.Generic;
+
 namespace HumansResources.Humans.Clients
 {
     class Client
     {
-        public int DataTime { get; set; }
-        public bool IsMale { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
-        public string Lastname { get; set; }
+        public string NameOfOrganization { get; set; }
+        public int Index { get; set; }
+        public string Location { get; set; }
+        public List<string> BankAccountNumber { get; set; }
+        public int FoundationDate { get; set; }
 
-        public Client(string firstName, int age, string middlename, bool ismale, string lastName)
+        public Client(string name, int index, string location, int foundationdate)
         {
-            DataTime = age;
-            Name = firstName;
-            Surname = middlename;
-            IsMale = ismale;
-            Lastname = lastName;
-
+            NameOfOrganization = name;
+            Index = index;
+            Location = location;
+            FoundationDate = foundationdate;
         }
-
 
         public Client() { }
-
-        public string GetFullName()
+        
+        public static int GetAge(DateTime reference, DateTime foundationdate)
         {
-            return string.Format("{0} {1} {2}", Name, Surname, Lastname);
-        }
-
-        public static int GetAge(DateTime reference, DateTime birthday)
-        {
-            int age = reference.Year - birthday.Year;
-            if (reference < birthday.AddYears(age)) age--;
+            int age = reference.Year - foundationdate.Year;
+            if (reference < foundationdate.AddYears(age)) age--;
 
             return age;
         }
-
+        
+        public string GetFullNameOfClient()
+        {
+            return string.Format("Info: {0} {1} {2}", NameOfOrganization, Index, FoundationDate);
+        }
+        
         class Program
         {
             static void Main(string[] args)
             {
+                var BankAccountNumber = new List<string>();
+                {                 
 
+                };
             }
         }
     }
