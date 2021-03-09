@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using System.Text;
 
 namespace HumansResources.Humans.EmployesVariant
 {
@@ -14,9 +13,13 @@ namespace HumansResources.Humans.EmployesVariant
             SpacecraftCrew 
         };
         
-        public int MaximumCountEmployes { get; set; } = 1;       
-        public List<Employe> listEmployes = new List<Employe>();       
+        public int MaximumCountEmployes { get; set; } = 1;            
         public Type DepartmentType { get; }
+        public string DepartmentName { get; set; }
+        public int HourStartWorking { get; set; } = 9;
+        public int HourEndWorking { get; set; } = 17;
+        private readonly List<Employe> _listEmployes = new List<Employe>();
+
 
         public Department() { 
         }
@@ -34,20 +37,44 @@ namespace HumansResources.Humans.EmployesVariant
                 MaximumCountEmployes = maximumCountEmploes;
             }            
         }        
-        public bool SetEmploye(Employe employe) {
-            if (listEmployes.Count() >= MaximumCountEmployes ||
-                employe.SpecificationEmploye == Employe.Specification.Unknown ||
+        public bool SetEmploye(Employe employe) 
+        {
+            if (_listEmployes.Count() >= MaximumCountEmployes ||
+                employe.SpecificationType == Employe.Specification.Unknown ||
                 (DepartmentType == Type.SpacecraftCrew &&
-                employe.SpecificationEmploye != Employe.Specification.Spaceman))
+                employe.SpecificationType != Employe.Specification.Spaceman))
             {
                 return false;
             }
-            listEmployes.Add(employe);
+            _listEmployes.Add(employe);
             return true;
         }
        
-        public int GetCountEmployes(Employe.Specification specification) {                        
-            return listEmployes.Where(e => e.SpecificationEmploye == specification).Count();
-        }        
+        public int GetCountEmployes(Employe.Specification specificationType) 
+        {                        
+            return _listEmployes.Where(employe => employe.SpecificationType == specificationType).Count();
+        }
+
+        public int GetCountWorkingHours(DateTime dateStart, DateTime dateEnd)
+        {
+            int countHours = 0;
+            while (DateTime.Compare(dateStart, dateEnd) < 0)
+            {
+                dateStart = dateStart.AddHours(1);
+                if (dateStart.DayOfWeek != DayOfWeek.Saturday &&
+                    dateStart.DayOfWeek != DayOfWeek.Sunday &&
+                    dateStart.Hour > HourStartWorking && dateStart.Hour <= HourEndWorking)
+                {
+                    countHours++;                    
+                } 
+            }
+            return countHours;
+        }
+
+        public decimal GetCostWorkingDepartment(DateTime dateStart, DateTime dateEnd) 
+        {
+            decimal salary = (decimal)_listEmployes.Sum(employe => employe.SalaryPerHour);
+            return salary * GetCountWorkingHours(dateStart, dateEnd);
+        }
     }
 }

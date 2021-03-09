@@ -1,8 +1,8 @@
 ﻿using HumansResources.Humans.Persons;
-using System;
 
 namespace HumansResources.Humans.EmployesVariant
-{
+{       
+          
     public class Employe : Person
     {
         public enum Specification
@@ -14,44 +14,33 @@ namespace HumansResources.Humans.EmployesVariant
             Technicist,
             Other,
             Unknown
-        };  
-        
-        public Person Person { get; set; }        
-        public Specification SpecificationEmploye { get; set; }
+        };
+
+        public Person Person { get; }
+        public Specification SpecificationType { get; set; }
         public double SalaryPerHour { get; set; }
 
         public Employe()
         {
         }
-        
+
         public Employe(Person person)
         {
             Person = person;
-            SpecificationEmploye = Specification.Unknown;
+            SpecificationType = Specification.Unknown;
         }
 
-        public Employe(Person person, Specification specificationEmploye)
+        public Employe(Person person, Specification specificationType)
         {
             Person = person;
-            SpecificationEmploye = specificationEmploye;            
+            SpecificationType = specificationType;
         }
 
-        public decimal GetCountWorkingHours(DateTime dateStart, DateTime dateEnd)
+        public Employe(Person person, Specification specificationType, double salaryPerHour)
         {
-            int countHours = 0;
-            while (DateTime.Compare(dateStart, dateEnd) < 0)
-            {
-                int hourStart = 9;
-                int hourEnd = 17;
-                dateStart = dateStart.AddHours(1);
-                if (dateStart.DayOfWeek != DayOfWeek.Saturday &&
-                    dateStart.DayOfWeek != DayOfWeek.Sunday &&
-                    dateStart.Hour > (hourStart - 1) && dateStart.Hour < hourEnd)
-                {
-                    ++countHours;
-                }
-            }
-            return countHours;
+            Person = person;
+            SpecificationType = specificationType;
+            SalaryPerHour = salaryPerHour;
         }
-    }   
+    }
 }
