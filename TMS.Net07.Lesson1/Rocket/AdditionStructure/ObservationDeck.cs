@@ -28,6 +28,27 @@ namespace Rocket.AdditionStructure
             }
         }
 
+        public ObservationDeck(double mass, int peopleCapacity)
+        {
+            if (mass > 0)
+            {
+                Mass = mass;
+            }
+            else
+            {
+                throw new Exception("Wrong mass. Expected: mass > 0");
+            }
+
+            if (peopleCapacity > 0)
+            {
+                PeopleCapacity = peopleCapacity;
+            }
+            else
+            {
+                throw new Exception("Wrong people capacity. Expected: peopleCapacity > 0");
+            }
+        }
+
         public string GetInfo()
         {
             return $"Observation deck mass: {Mass} tons" +

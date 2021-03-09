@@ -9,9 +9,9 @@ namespace Rocket.RocketFactory
         {
             return n switch
             {
-                1 => new RestRoom(),
-                2 => new RescueCapsule(),
-                3 => new ObservationDeck(),
+                1 => new RestRoom(12, 3),
+                2 => new RescueCapsule(10, 2),
+                3 => new ObservationDeck(15, 5),
                 _ => throw new ArgumentOutOfRangeException(nameof(n), n, "Wrong range choose 1-3")
             };
         }
