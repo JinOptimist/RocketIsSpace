@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TMS.Net07.Rocket.Bank
+namespace BankSputink.Rocket
 {
     class Client
     {
