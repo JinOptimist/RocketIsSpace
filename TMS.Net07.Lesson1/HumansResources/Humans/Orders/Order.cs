@@ -13,6 +13,7 @@ namespace HumansResources.Humans.Orders
         public decimal Amount { get; set; }
         private readonly List<Employe> _listEmployes = new List<Employe>();
 
+        //Empty constructor
         public Order()
         {
         }
