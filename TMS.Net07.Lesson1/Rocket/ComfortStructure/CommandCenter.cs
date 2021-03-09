@@ -21,7 +21,7 @@ namespace Rocket.ComfortStructure
 
         public List<string> Ledger;
 
-        public void AddSignal(string signal)
+        public void ReceiveSignal(string signal)
         {
             Ledger.Add(signal);
         }
