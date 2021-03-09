@@ -4,7 +4,7 @@ namespace Rocket.AdditionStructure
 {
     public class RestRoom : IAdditionStructure
     {
-        public double Mass { get; set; }
+        public double Mass { get; }
         public bool IsOpen { get; private set; } = false;
         public void MakeClosed() => IsOpen = false;
         public void MakeOpened() => IsOpen = true;
