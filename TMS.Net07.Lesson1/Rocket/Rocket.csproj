@@ -6,6 +6,7 @@
 
     <ItemGroup>
       <Compile Remove="Program.cs" />
+      <Compile Remove="Mechanics\IRocketStages.cs" />
     </ItemGroup>
 
 </Project>

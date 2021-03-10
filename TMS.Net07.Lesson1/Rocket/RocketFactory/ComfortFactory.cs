@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Diagnostics;
 using Rocket.ComfortStructure;
 
 namespace Rocket.RocketFactory
 {
-    public class ComfortFactory:Factory
+    public class ComfortFactory : Factory
     {
         public override IComfortStructure Create(int n)
         {

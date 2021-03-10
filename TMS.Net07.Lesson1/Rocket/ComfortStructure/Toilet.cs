@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Rocket.ComfortStructure
 {
@@ -10,25 +6,27 @@ namespace Rocket.ComfortStructure
     {
         private bool _isOpen = true;
 
-        public Toilet(double weight)
+        public Toilet(double mass)
         {
-            if (weight > 0)
+            if (mass > 0)
             {
-                Weight = weight;
+                Mass = mass;
             }
             else
             {
-                throw new Exception("Wrong weight. Expected: weight > 0");
+                throw new Exception("Wrong mass. Expected: mass > 0");
             }
         }
 
         public void OpenToilet() => _isOpen = true;
         public void CloseToilet() => _isOpen = false;
 
-        public double Weight { get; }
+        public double Mass { get; }
+
         public string GetInfo()
         {
-            return $"Toilet weight: {Weight}";
+            return $"Toilet mass: {Mass} tons" +
+                   $"{Environment.NewLine}Toilet is " + (_isOpen ? "open" : "close") + " now";
         }
     }
 }

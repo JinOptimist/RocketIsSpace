@@ -1,4 +1,4 @@
-﻿namespace Rocket.RocketFactory
+﻿namespace Rocket
 {
     public interface IRocket
     {

@@ -1,31 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Rocket.ComfortStructure
 {
     class CommandCenter : IComfortStructure
     {
-        public CommandCenter(double weight)
+        public CommandCenter(double mass)
         {
-            if (weight > 0)
+            if (mass > 0)
             {
-                Weight = weight;
+                Mass = mass;
             }
             else
             {
-                throw new Exception("Wrong weight. Expected: weight > 0");
+                throw new Exception("Wrong mass. Expected: mass > 0");
             }
         }
-        public double Weight { get; }
+
+        public double Mass { get; }
 
         public List<string> Ledger;
-        public void GetSignal(string signal)
+
+        public void ReceiveSignal(string signal)
         {
             Ledger.Add(signal);
         }
+
         public void SendSignal()
         {
             Console.WriteLine("Enter your message: ");
@@ -34,7 +34,7 @@ namespace Rocket.ComfortStructure
 
         public string GetInfo()
         {
-            return $"Command center weight: {Weight}";
+            return $"Command center mass: {Mass} tons";
         }
     }
 }

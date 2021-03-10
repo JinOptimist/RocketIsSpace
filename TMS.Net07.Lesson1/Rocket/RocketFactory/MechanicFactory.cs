@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-using Rocket.ComfortStructure;
 using Rocket.Mechanics;
 
 namespace Rocket.RocketFactory
 {
-    public class MechanicsFactory:Factory
+    public class MechanicFactory : Factory
     {
         public override RocketStage Create(int n)
         {
@@ -16,12 +15,12 @@ namespace Rocket.RocketFactory
 
     public class EnginesFactory
     {
-        public static List<Engines> Create(int n)
+        public static List<Engine> Create(int n)
         {
-            var list = new List<Engines>();
+            var list = new List<Engine>();
             for (var i = 0; i < n; i++)
             {
-                list.Add(new Engines(40,1500,900));
+                list.Add(new Engine(40, 1500, 900));
             }
 
             return list;
@@ -35,7 +34,7 @@ namespace Rocket.RocketFactory
             var list = new List<FuelTank>();
             for (var i = 0; i < n; i++)
             {
-                list.Add(new FuelTank(40,1500));
+                list.Add(new FuelTank(40, 1500));
             }
 
             return list;

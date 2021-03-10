@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Rocket.AdditionalStructure;
+using Rocket.AdditionStructure;
 using Rocket.ComfortStructure;
 using Rocket.Mechanics;
 using Rocket.RocketFactory;
@@ -7,16 +7,16 @@ using System.Linq;
 
 namespace Rocket
 {
-    public class Rocket:IRocket
+    public class Rocket : IRocket
     {
         private RocketStage _mechanics;
         private List<IComfortStructure> _comforts;
-        private List<IAdditionalStructure> _additions;
+        private List<IAdditionStructure> _additions;
         
-        private readonly int _maxNumberOfSeats = 15;
+        private readonly int _numberofseats = 15;
 
-        public Rocket(string name,int numberofastronauts,RocketStage mechanics,
-            List<IComfortStructure> comforts,List<IAdditionalStructure> additions)
+        public Rocket(string name, int numberofastronauts, RocketStage mechanics,
+            List<IComfortStructure> comforts, List<IAdditionStructure> additions)
         {
             Name = name;
             NumberOfAstronauts = numberofastronauts;
@@ -26,18 +26,21 @@ namespace Rocket
             _additions = additions;
             
         }
-        public string Name { get;}
+
+        public string Name { get; }
         public int Mass { get; } = 0;
-        public int NumberOfAstronauts { get;}
-        
+        public int NumberOfAstronauts { get; }
+
         public bool IsReadyToLaunch()
         {
-            if (NumberOfAstronauts > _maxNumberOfSeats)
+            if (NumberOfAstronauts > _numberofseats)
             {
                 return false;
             }
+
             return true;
         }
+
         public string GetInfo()
         {
             return $"Rocket has {Mass} tons and {NumberOfAstronauts} astronauts." +
@@ -45,10 +48,10 @@ namespace Rocket
         }
         public double GetMass()
         {
-            var rocketWeight = _comforts.Sum(mass => mass.Weight)
-                                  + _additions.Sum(mass => mass.Weight)
-                                  + _mechanics.GetStageWeight();
-            return rocketWeight;
+            var rocketMass = _comforts.Sum(mass => mass.Mass)
+                                  + _additions.Sum(mass => mass.Mass)
+                                  + _mechanics.GetStageMass();
+            return rocketMass;
         }
     }
 }
