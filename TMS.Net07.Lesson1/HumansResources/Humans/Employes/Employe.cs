@@ -1,8 +1,7 @@
 ﻿using HumansResources.Humans.Persons;
 
-namespace HumansResources.Humans.Employe
+namespace HumansResources.Humans.Employes
 {
-
     public class Employe : Person
     {
         public enum Specification

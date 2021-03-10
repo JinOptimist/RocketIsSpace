@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 
-namespace HumansResources.Humans.Employe
+namespace HumansResources.Humans.Employes
 {
     public class Department
     {

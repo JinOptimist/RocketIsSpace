@@ -6,7 +6,7 @@ using HumansResources.Humans.Orders;
 
 namespace HumansResources.Humans.Clients
 {
-    class Client
+    public class Client
     {
         public string NameOfOrganization { get; set; }
         public int Index { get; set; }
@@ -48,14 +48,6 @@ namespace HumansResources.Humans.Clients
         public string GetFullNameOfClient()
         {
             return string.Format("Info: {0} {1} {2}", NameOfOrganization, Index, FoundationDate);
-        }
-        
-        class Program
-        {
-            static void Main(string[] args)
-            {
-                
-            }
-        }
+        }        
     }
 }

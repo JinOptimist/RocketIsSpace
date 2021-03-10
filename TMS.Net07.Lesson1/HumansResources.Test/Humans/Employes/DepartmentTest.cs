@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using HumansResources.Humans.Employe;
+using HumansResources.Humans.Employes;
 
 namespace HumansResources.Test.Humans.Employes
 {
