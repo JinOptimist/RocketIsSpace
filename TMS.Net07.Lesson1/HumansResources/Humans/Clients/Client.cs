@@ -1,6 +1,8 @@
 ﻿using System.Linq;
 using System;
 using System.Collections.Generic;
+using HumansResources.Humans.Persons;
+using HumansResources.Humans.Orders;
 
 namespace HumansResources.Humans.Clients
 {
@@ -11,6 +13,9 @@ namespace HumansResources.Humans.Clients
         public string Location { get; set; }
         public List<string> BankAccountNumber { get; set; }
         public int FoundationDate { get; set; }
+        public PostAddress PostAddress { get; set; }
+        private readonly List<Order> listOrders = new List<Order>();
+
 
         public Client(string name, int index, string location, int foundationdate)
         {
@@ -21,6 +26,16 @@ namespace HumansResources.Humans.Clients
         }
 
         public Client() { }
+
+        public void SetOrder(Order order)
+        {
+            listOrders.Add(order);
+        }
+        public List<Order> GetOrders()
+        {
+            return listOrders;
+        }
+
         
         public static int GetAge(DateTime reference, DateTime foundationdate)
         {
@@ -39,10 +54,7 @@ namespace HumansResources.Humans.Clients
         {
             static void Main(string[] args)
             {
-                var BankAccountNumber = new List<string>();
-                {                 
-
-                };
+                
             }
         }
     }
