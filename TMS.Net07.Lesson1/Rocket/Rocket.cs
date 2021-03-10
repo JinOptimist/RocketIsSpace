@@ -48,10 +48,10 @@ namespace Rocket
         }
         public double GetMass()
         {
-            var rocketWeight = _comforts.Sum(mass => mass.Weight)
-                                  + _additions.Sum(mass => mass.Weight)
-                                  + _mechanics.GetStageWeight();
-            return rocketWeight;
+            var rocketMass = _comforts.Sum(mass => mass.Mass)
+                                  + _additions.Sum(mass => mass.Mass)
+                                  + _mechanics.GetStageMass();
+            return rocketMass;
         }
     }
 }
