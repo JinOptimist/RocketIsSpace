@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rocket", "Rocket\Rocket.csproj", "{4DB570B0-6D5E-43E9-AE47-C06D4B2290C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rocket", "Rocket\Rocket.csproj", "{4DB570B0-6D5E-43E9-AE47-C06D4B2290C5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TeamRocket", "TeamRocket", "{6E70E370-D68C-4F85-B573-6ECD734DD1BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RocketTest", "Rocket.Test\RocketTest.csproj", "{4866C051-22BD-4FD6-BDBA-09BBE72E01D7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,14 +19,19 @@ Global
 		{4DB570B0-6D5E-43E9-AE47-C06D4B2290C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4DB570B0-6D5E-43E9-AE47-C06D4B2290C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4DB570B0-6D5E-43E9-AE47-C06D4B2290C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4866C051-22BD-4FD6-BDBA-09BBE72E01D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4866C051-22BD-4FD6-BDBA-09BBE72E01D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4866C051-22BD-4FD6-BDBA-09BBE72E01D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4866C051-22BD-4FD6-BDBA-09BBE72E01D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {9C9606CE-C155-409C-9D94-4051C76B4B76}
-	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4DB570B0-6D5E-43E9-AE47-C06D4B2290C5} = {6E70E370-D68C-4F85-B573-6ECD734DD1BD}
+		{4866C051-22BD-4FD6-BDBA-09BBE72E01D7} = {6E70E370-D68C-4F85-B573-6ECD734DD1BD}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9C9606CE-C155-409C-9D94-4051C76B4B76}
 	EndGlobalSection
 EndGlobal
