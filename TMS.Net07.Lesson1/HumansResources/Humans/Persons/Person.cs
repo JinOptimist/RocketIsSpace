@@ -8,7 +8,7 @@ namespace HumansResources.Humans.Persons
 
         public string Surname { get; set; }
 
-        public Sex Sex { get; set; }
+        public Gender Sex { get; set; }
 
         public DateTime BirthDate { get; set; }
 

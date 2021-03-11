@@ -1,7 +1,7 @@
 ﻿
 namespace HumansResources.Humans.Persons
 {
-    public enum Sex
+    public enum Gender
     {
         None = 0,
         Male = 1,
