@@ -1,0 +1,24 @@
+
+	.center-block{
+		display: flex;
+		background: lightpink;
+	}
+
+	.header{
+		background: lightblue;
+	}
+
+	.left-menu
+	{
+		background: lightgreen
+	}
+
+	.content{
+		display: flex;
+		background: #33FFCC;
+	}
+
+	img{
+		max-width: 200px;
+		max-height: 200px;
+	}
