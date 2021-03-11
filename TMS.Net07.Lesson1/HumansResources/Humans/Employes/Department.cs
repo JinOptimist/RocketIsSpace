@@ -20,7 +20,7 @@ namespace HumansResources.Humans.Employes
         public int MaximumCountEmployes { get; set; } = 1;
         public int HourStartWorking { get; set; } = 9;
         public int HourEndWorking { get; set; } = 17;
-        private readonly List<Employe> _listEmployes = new List<Employe>();
+        private readonly List<IEmploye> _listEmployes = new List<IEmploye>();
 
 
         public Department()
@@ -42,7 +42,7 @@ namespace HumansResources.Humans.Employes
             }
         }
 
-        public void SetEmploye(Employe employe, out bool result)
+        public void SetEmploye(IEmploye employe, out bool result)
         {
             if (_listEmployes.Count() >= MaximumCountEmployes ||
                 employe.SpecificationType == Specification.Unknown ||
@@ -79,8 +79,7 @@ namespace HumansResources.Humans.Employes
 
         public decimal GetCostWorkingDepartment(DateTime dateStart, DateTime dateEnd)
         {
-            decimal salary = (decimal)_listEmployes.Sum(employe => employe.SalaryPerHour);
-            return salary * GetCountWorkingHours(dateStart, dateEnd);
+            return _listEmployes.Sum(employe => employe.SalaryPerHour) * GetCountWorkingHours(dateStart, dateEnd);
         }
     }
 }
