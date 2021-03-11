@@ -42,18 +42,6 @@ namespace HumansResources.Humans.Persons
         /// <summary>
         /// Лучше заполнять через параметры -> PostAddress {Addressee = "Kirill", Country = "Belarus"}
         /// </summary>
-        public PostAddress()
-        {
-            Addressee = "пусто";
-            CompanyName = "пусто";
-            Street = "пусто";
-            HouseNumber = "пусто";
-            Housing = "пусто";
-            District = "пусто";
-            City = "пусто";
-            Country = "пусто";
-            PostIndex = "пусто";
-        }
         public override string ToString()
         {
             return 

@@ -1,6 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 using HumansResources.Humans.Employes;
+using HumansResources.Humans.Persons;
 
 namespace HumansResources.Test.Humans.Employes
 {
@@ -16,7 +17,12 @@ namespace HumansResources.Test.Humans.Employes
             DateTime.TryParse("2021-02-28", out DateTime dateEnd);
             for (int i = 0; i < salariesEmployes.Length; i++)
             {
-                department.SetEmploye(new Employe(null, Employe.Specification.Scientist, salariesEmployes[i]), out bool result);
+                department.SetEmploye(new Employe(
+                    new PhoneNumber(),
+                    new PostAddress(),
+                    new Email(),
+                    Specification.Scientist,
+                    salariesEmployes[i]/*null, Employe.Specification.Scientist, salariesEmployes[i]*/), out bool result);
                 if (result)
                 {
                     salaryDepartment += salariesEmployes[i];

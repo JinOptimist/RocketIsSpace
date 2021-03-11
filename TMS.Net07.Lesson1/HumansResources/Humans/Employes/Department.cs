@@ -45,9 +45,9 @@ namespace HumansResources.Humans.Employes
         public void SetEmploye(Employe employe, out bool result)
         {
             if (_listEmployes.Count() >= MaximumCountEmployes ||
-                employe.SpecificationType == Employe.Specification.Unknown ||
+                employe.SpecificationType == Specification.Unknown ||
                 (Dtype == DepartmentType.SpacecraftCrew &&
-                employe.SpecificationType != Employe.Specification.Spaceman))
+                employe.SpecificationType != Specification.Spaceman))
             {
                 result = false;
                 return;
@@ -56,7 +56,7 @@ namespace HumansResources.Humans.Employes
             result = true;
         }
 
-        public int GetCountEmployes(Employe.Specification specificationType)
+        public int GetCountEmployes(Specification specificationType)
         {
             return _listEmployes.Where(employe => employe.SpecificationType == specificationType).Count();
         }

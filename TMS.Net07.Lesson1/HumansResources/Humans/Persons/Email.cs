@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace HumansResources.Humans.Persons
 {
@@ -11,10 +10,7 @@ namespace HumansResources.Humans.Persons
 
         public string Pattern { get => @"(?<name>\w+)\@(?<leftDomain>\w+)\.(?<rightDomain>\w+)$"; }
 
-        public Email()
-        {
-            EmailAddress = "";
-        }
+        public Email() { }
 
         public Email(string emailAddress)
         {

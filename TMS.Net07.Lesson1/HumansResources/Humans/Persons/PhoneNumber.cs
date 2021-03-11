@@ -8,10 +8,7 @@ namespace HumansResources.Humans.Persons
 
         public string Pattern { get => @"^(?<countryCode>\d{1,3})(?<operatorCode>\d{2})(?<phoneNumber>\d{7})$"; }
 
-        public PhoneNumber()
-        {
-            Number = "";
-        }
+        public PhoneNumber() { }
 
         public PhoneNumber(string phoneNumber)
         {

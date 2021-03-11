@@ -8,10 +8,7 @@ namespace HumansResources.Humans.Persons
 
         public string Surname { get; set; }
 
-        /// <summary>
-        /// 0 - Female, 1 - Male
-        /// </summary>
-        public bool? Sex { get; set; } // nullable типы https://metanit.com/sharp/tutorial/2.17.php
+        public Sex Sex { get; set; }
 
         public DateTime BirthDate { get; set; }
 
@@ -21,14 +18,7 @@ namespace HumansResources.Humans.Persons
 
         public Email Email { get; }
 
-        public Person()
-        {
-            Name = null;
-            Surname = null;
-            Sex = null;
-        }
-
-        public Person(PhoneNumber phoneNumber, PostAddress postAddress, Email email) : this()
+        public Person(PhoneNumber phoneNumber, PostAddress postAddress, Email email)
         {
             PhoneNumber = phoneNumber;
             PostAddress = postAddress;
