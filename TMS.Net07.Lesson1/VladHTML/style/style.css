@@ -1,22 +1,24 @@
 	.header{
-		background-image:url(image/space.jpg);
-		height: 127px;
-		width: 822px;
+		background:url(../image/space.jpg) center/cover;
+		height: 150px;
+		width: 100%;
 		text-align: center;
 		font-size: xx-large;
-		color:rgba(247, 108, 154, 0.801);
-		line-height: 3 ;
+		color:whitesmoke;
+		line-height: 100px ;
 	}
 	.left-menu{
+		display: flex;
 		background: yellow;
-		height: 400;
-		width: 100;
-		font-size: 26;
-		align-content: space-around;
+		height: 550px;
+		width: 20%;
+		font-size: 20px;
+		flex-direction: column;
+		justify-content: space-around;
 	}
 	.category{
-		font-size: 18;
-	}
+		font-size: 18px;
+		}
 	.content{
 		background: gray;
 		display: flex;
