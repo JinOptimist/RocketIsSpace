@@ -16,4 +16,8 @@
     <ProjectReference Include="..\HumansResources\HumansResources.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Humans\Persons\" />
+  </ItemGroup>
+
 </Project>
