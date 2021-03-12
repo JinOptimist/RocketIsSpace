@@ -56,10 +56,10 @@ namespace HumansResources.Humans.Employes
             result = true;
         }
 
-        public int GetCountEmployes(Specification specificationType)
-        {
-            return _listEmployes.Where(employe => employe.SpecificationType == specificationType).Count();
-        }
+        public int GetCountEmployes(Specification specificationType) => 
+            _listEmployes
+            .Where(employe => employe.SpecificationType == specificationType)
+            .Count();
 
         public int GetCountWorkingHours(DateTime dateStart, DateTime dateEnd)
         {
@@ -77,9 +77,9 @@ namespace HumansResources.Humans.Employes
             return countHours;
         }
 
-        public decimal GetCostWorkingDepartment(DateTime dateStart, DateTime dateEnd)
-        {
-            return _listEmployes.Sum(employe => employe.SalaryPerHour) * GetCountWorkingHours(dateStart, dateEnd);
-        }
+        public decimal GetCostWorkingDepartment(DateTime dateStart, DateTime dateEnd) => 
+            _listEmployes
+            .Sum(employe => employe.SalaryPerHour)
+            * GetCountWorkingHours(dateStart, dateEnd);
     }
 }
