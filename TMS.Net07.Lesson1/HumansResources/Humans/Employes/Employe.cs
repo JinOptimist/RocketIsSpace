@@ -2,19 +2,20 @@
 
 namespace HumansResources.Humans.Employes
 {
-    public class Employe : Person, IEmploye
+    public class Employe : IEmploye
     {
-        public Specification SpecificationType { get; set; }
+        public Person Person { get; set; }
+        public Specification Specification { get; set; }
         public decimal SalaryPerHour { get; set; }
 
-        public Employe(PhoneNumber phoneNumber, PostAddress postAddress, Email email) : base(phoneNumber, postAddress, email)
+        public Employe()
         {
-            SpecificationType = Specification.Unknown;
         }
 
-        public Employe(PhoneNumber phoneNumber, PostAddress postAddress, Email email, Specification specificationType, decimal salaryPerHour) : this(phoneNumber, postAddress, email)
+        public Employe(Person person, Specification specification, decimal salaryPerHour)
         {
-            SpecificationType = specificationType;
+            Person = person;
+            Specification = specification;
             SalaryPerHour = salaryPerHour;
         }
     }
