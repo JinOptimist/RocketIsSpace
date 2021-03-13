@@ -28,30 +28,28 @@ namespace Rocket
         }
 
         public string Name { get; }
-        public int Mass { get; } = 0;
+
+        public double Mass
+        {
+            get
+            {
+                return _comforts.Sum(mass => mass.Mass)
+                       + _additions.Sum(mass => mass.Mass)
+                       + _mechanics.GetStageMass();
+            }
+        }
+
         public int NumberOfAstronauts { get; }
 
         public bool IsReadyToLaunch()
         {
-            if (NumberOfAstronauts > _numberofseats)
-            {
-                return false;
-            }
-
-            return true;
+            return NumberOfAstronauts <= _numberofseats;
         }
 
         public string GetInfo()
         {
             return $"Rocket has {Mass} tons and {NumberOfAstronauts} astronauts." +
                    $"Ready to launch: {IsReadyToLaunch()}.";
-        }
-        public double GetMass()
-        {
-            var rocketMass = _comforts.Sum(mass => mass.Mass)
-                                  + _additions.Sum(mass => mass.Mass)
-                                  + _mechanics.GetStageMass();
-            return rocketMass;
         }
     }
 }
