@@ -18,6 +18,10 @@ namespace HumansResources.Humans.Persons
 
         public Email Email { get; }
 
+        public Person() 
+        {
+        }
+        
         public Person(PhoneNumber phoneNumber, PostAddress postAddress, Email email)
         {
             PhoneNumber = phoneNumber;
@@ -28,7 +32,7 @@ namespace HumansResources.Humans.Persons
         public override string ToString()
         {
             return $"Фамилия: {Surname}, Имя {Name}" +
-                $"Год рождения: {BirthDate.Year}, месяц {BirthDate.Month}, число {BirthDate.Day}, пол {Sex}" +
+                $"Год рождения: {BirthDate.Year}, месяц {BirthDate.Month}, число {BirthDate.Day}, пол {Enum.GetName(typeof(Gender), Sex)} " +
                 $"Почта: {Email}" +
                 $"Телефон: {PhoneNumber}" +
                 $"Сведения о почтовом адресе\n{PostAddress}";

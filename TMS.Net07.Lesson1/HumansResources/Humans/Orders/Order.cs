@@ -11,6 +11,9 @@ namespace HumansResources.Humans.Orders
         public DateTime DateStart { get; set; }
         public DateTime DateEnd { get; set; }
         public decimal OrderCost { get; set; }
+        public string OrderDescription { get; set; }
+        public bool IsClosed { get; set; }
+
         private readonly List<Employe> _listEmployes = new List<Employe>();
 
         public Order()
