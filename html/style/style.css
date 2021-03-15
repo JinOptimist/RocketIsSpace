@@ -1,22 +1,18 @@
 .center-block {
   display: flex;
-  background: #1100aa;
+  /* background: #1100aa; */
 }
 
 .content {
-  background: gray;
+  /* background: gray; */
   display: flex;
   flex: 1;
   flex-wrap: wrap;
 }
 
-img {
-  max-width: 100px;
-  max-height: 100px;
-}
 
 .header {
-  background: hotpink;
+  /* background: hotpink; */
   display: flex;
   justify-content:  space-between;
   align-items: center;
@@ -31,7 +27,7 @@ img {
 }
 
 .left-menu {
-  background: yellow;
+  /* background: yellow; */
   width: 48px;
 }
 
@@ -59,7 +55,7 @@ img {
 
 .left-menu-absolute{
   position: absolute;
-  background: green;
+  /* background: green; */
 }
 
 .left-menu-absolute:hover{
@@ -68,12 +64,32 @@ img {
 
 .rocket{
   border: 1px green solid;
+  width: 150px;
+  height: 150px;
 
   margin-bottom: 0px;
   margin: 5px;
   
   padding: 10px;
-  background: brown;
+  /* background: brown; */
+}
+
+
+.content .rocket .name{
+  display: flex;
+  justify-content: center;
+}
+
+.content .rocket .image-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(150px - 16px);
+}
+
+.content .rocket img {
+  max-width: 150px;
+  max-height: calc(150px - 16px);
 }
 
 
