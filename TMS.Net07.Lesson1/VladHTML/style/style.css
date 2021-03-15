@@ -17,7 +17,7 @@
 		justify-content: center;
 		align-content: center;
 		justify-content: space-between;
-		align-content: space-around;
+		align-items: space-around;
 		height: 80%;
 	}
 	.center-block a div {
@@ -27,11 +27,12 @@
 		font-size: 60px;
 		height: 200px;
 		width: 350px;
+		border-radius: 9px;
 	}
 	.rocket:hover{
 		transition:all .3s ease;
   		background:url(../image/mainRocket.jpg) center/cover;
-  		opacity:1;
+		opacity: 1;
 	}
 	.add:hover{
 		transition:all .3s ease;
