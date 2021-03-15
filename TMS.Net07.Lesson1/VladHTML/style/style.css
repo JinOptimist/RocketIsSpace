@@ -1,0 +1,50 @@
+	body{
+		background:url(../image/space2.jpg) center/cover;
+	}
+	.header{
+		height: 100px;
+		width: 100%;
+		display:flex;
+		justify-content: center;
+		font-size: 70px;
+		line-height: 110px;
+		text-shadow: -1px 0 whitesmoke, 0 1px whitesmoke, 1px 0 whitesmoke, 0 -1px whitesmoke;
+		font-family: Calibri; color: black;
+	}
+	.center-block{
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-content: center;
+		justify-content: space-between;
+		align-content: space-around;
+		height: 80%;
+	}
+	.center-block span{
+		text-align: center;
+		text-shadow: -1px 0 whitesmoke, 0 1px whitesmoke, 1px 0 whitesmoke, 0 -1px whitesmoke;
+		font-family: Calibri; color: rgb(20, 149, 209);
+		font-size: 60px;
+		height: 200px;
+		width: 350px;
+	}
+	.rocket:hover{
+		transition:all .3s ease;
+  		background:url(../image/mainRocket.jpg) center/cover;
+  		opacity:1;
+	}
+	.add:hover{
+		transition:all .3s ease;
+		background:url(../image/living\ room.jpg) center/cover;
+		opacity:1;
+	}
+	.comf:hover{
+		transition:all .3s ease;
+		background:url(../image/command_center.jpg) center/cover;
+		opacity:1;
+	}
+	.stage:hover{
+		transition:all .3s ease;
+		background:url(../image/engine.jpg) center/cover;
+		opacity:1;
+	}
