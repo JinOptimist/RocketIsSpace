@@ -20,7 +20,7 @@
 		align-content: space-around;
 		height: 80%;
 	}
-	.center-block span{
+	.center-block a div {
 		text-align: center;
 		text-shadow: -1px 0 whitesmoke, 0 1px whitesmoke, 1px 0 whitesmoke, 0 -1px whitesmoke;
 		font-family: Calibri; color: rgb(20, 149, 209);
@@ -47,4 +47,7 @@
 		transition:all .3s ease;
 		background:url(../image/engine.jpg) center/cover;
 		opacity:1;
+	}
+	.link{
+		text-decoration: none;
 	}
