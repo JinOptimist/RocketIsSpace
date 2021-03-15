@@ -1,0 +1,14 @@
+.icon::before{
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  content: ' ';
+}
+
+.home::before{
+  background-image: url('../image/icon/home-24px.svg');
+}
+
+.home:hover::before{
+  background-image: url('../image/icon/home-24px_hover.svg');
+}
