@@ -24,7 +24,6 @@ namespace Rocket
             _mechanics = mechanics;
             _comforts = comforts;
             _additions = additions;
-            
         }
 
         public string Name { get; }
