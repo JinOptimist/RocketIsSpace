@@ -17,11 +17,22 @@ img {
 
 .header {
   background: hotpink;
+  display: flex;
+  justify-content:  space-between;
+  align-items: center;
+}
+
+.header input[type=text]{
+  width: 68px;
+  border-radius: 5px;
+  background: antiquewhite;
+  border: 0;
+  margin-top: 2px;
 }
 
 .left-menu {
   background: yellow;
-  width: 98px;
+  width: 48px;
 }
 
 .left-menu .link{
@@ -36,6 +47,14 @@ img {
 
 .left-menu .link:hover{
   background: orange;
+}
+
+.left-menu-absolute .link .text{
+  display: none;
+}
+
+.left-menu-absolute:hover .link .text{
+  display: flex;
 }
 
 .left-menu-absolute{
