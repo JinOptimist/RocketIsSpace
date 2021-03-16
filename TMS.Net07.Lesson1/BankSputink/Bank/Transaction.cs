@@ -3,17 +3,22 @@ using System.Collections.Generic;
 using System.Text;
 
 
-namespace BankSputink.Rocket
+namespace BankSputink.Bank
 {
     class Transaction
     {
-        
         public decimal Amount { get; }
         public DateTime Date { get; }
-        public Transaction(decimal amount, DateTime date)
+        public string Note { get; }
+        
+        //валюта
+
+        public Transaction(decimal amount, DateTime date, string note /*валюта*/)
         {
-            this.Amount = amount;
-            this.Date = date;   
+            Amount = amount;
+            Date = date;
+            Note = note;
+            //валюта
         }
     }
 }
