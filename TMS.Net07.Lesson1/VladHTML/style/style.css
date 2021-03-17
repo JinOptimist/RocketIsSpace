@@ -1,6 +1,11 @@
 	body{
 		background:url(../image/spacefactory.jpg) center/cover;
 	}
+	/* .login{
+		display: flex;
+		position: absolute;
+		align-items: flex-end;
+	} */
 	.header{
 		height: 100px;
 		width: 100%;
@@ -18,13 +23,13 @@
 		align-items: center;
 	}
 	.search .search-field{
-		border-radius: 5px;
 		opacity: 0.2;
 	}
 	.search .search-field:hover{
 		opacity: 1;
 	}
 	.search .search-field input{
+		border-radius: 4px;
 		width: 250px;
 	}
 	.center-block{
