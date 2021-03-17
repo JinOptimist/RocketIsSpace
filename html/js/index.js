@@ -74,4 +74,10 @@ $(document).ready(function (){
 
         $('.content').append(copy);
     });
+
+    $('[name=visible-remove]').change(function(){
+        var val = $('[name=visible-remove]:checked').val();
+        var isVisible = val == '1';
+        $('.icon.close').toggle(isVisible);
+    });
 });
