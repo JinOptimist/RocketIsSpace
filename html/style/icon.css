@@ -30,3 +30,10 @@
 .help:hover::before{
   background-image: url('../image/icon/help_center-24px_hover.svg');
 }
+
+.close::before{
+  background-image: url('../image/icon/delete-24px.svg');
+}
+.close:hover::before{
+  background-image: url('../image/icon/delete-24px_hover.svg');
+}
