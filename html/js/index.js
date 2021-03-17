@@ -7,8 +7,8 @@ $(document).ready(function (){
     $('.rocket .icon.close').click(function(){
         var iconClose = $(this);//Тот по которому кликнули
         iconClose
-            .closest('.rocket')
-            .hide();
+            .closest('.rocket')//найти среди родителей
+            .hide();//Спрятать тэг
     });
 
     $('.rocket img').click(function(){
@@ -18,13 +18,12 @@ $(document).ready(function (){
     });
 
     $('.login').click(function(){
-        var userName = $('.user-login').val();
-        $('.header-text').text(userName);
+        var userName = $('.user-login').val();//Взять текст из инпута
+        $('.header-text').text(userName);//Положть новый текст в тэг
     });
 
     $('.header-text').click(function(){
-        var headerText = $(this).text();
-        $('.user-login').val(headerText);
-        
+        var headerText = $(this).text();//Взять текст из тэга
+        $('.user-login').val(headerText);//положить текст в инпут
     });
 });
