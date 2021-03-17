@@ -11,13 +11,28 @@
 		text-shadow: -1px 0 whitesmoke, 0 1px whitesmoke, 1px 0 whitesmoke, 0 -1px whitesmoke;
 		font-family: Calibri; color: black;
 	}
+	.search{
+		height: 60px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.search .search-field{
+		border-radius: 5px;
+		opacity: 0.2;
+	}
+	.search .search-field:hover{
+		opacity: 1;
+	}
+	.search .search-field input{
+		width: 250px;
+	}
 	.center-block{
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: center;
-		align-content: center;
+		align-items: center;
 		justify-content: space-between;
-		align-items: space-around;
 		height: 80%;
 	}
 	.center-block a div {
