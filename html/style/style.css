@@ -129,3 +129,28 @@
   top:0;
   left: 0;
 }
+
+.rocket .view{
+  display: flex;
+}
+
+.rocket .edit{
+  display: flex;
+}
+
+.new-name{
+  width: 100px;
+}
+
+.rocket .view.hide,
+.rocket .edit.hide{
+  display: none;
+}
+
+.new-image{
+  width: 150px;
+}
+
+.template{
+  display: none;
+}

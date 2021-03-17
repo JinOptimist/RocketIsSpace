@@ -39,10 +39,28 @@
         </div>
       </div>
       <div class="content">
+        <div class="rocket add-rocket">
+          <div class="name">
+            <input class="new-name" placeholder="name" />
+          </div>
+          <div>
+            <input class="new-image" placeholder="url" value="image/R2.jpg" />
+          </div>
+          <div>
+            <span class="icon add">Add</span>
+          </div>
+        </div>
+
         <div class="rocket">
           <div class="name">
-            <span>Proton</span>
-            <span class="icon close"></span>
+            <div class="view">
+              <span class="current-name">Proton</span>
+              <span class="icon close"></span>
+            </div>
+            <div class="edit hide">
+              <input class="new-name" />
+              <span class="icon ok">OK</span>
+            </div>
           </div>
           <div class="image-container">
             <img src="image/R1.jpeg" />
@@ -50,8 +68,14 @@
         </div>
         <div class="rocket">
           <div class="name">
-            <span>Soyuz</span>
-            <span class="icon close"></span>
+            <div class="view">
+              <span class="current-name">Soyuz</span>
+              <span class="icon close"></span>
+            </div>
+            <div class="edit hide">
+              <input class="new-name" />
+              <span class="icon ok">OK</span>
+            </div>
           </div>
           <div class="image-container">
             <img src="image/Soyuz 1.jpg" />
@@ -65,6 +89,24 @@
           <div class="image-container">
             <img src="image/Souze.jfif" />
           </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hide">
+      <div class="rocket template">
+        <div class="name">
+          <div class="view">
+            <span class="current-name">***</span>
+            <span class="icon close"></span>
+          </div>
+          <div class="edit hide">
+            <input class="new-name" />
+            <span class="icon ok">OK</span>
+          </div>
+        </div>
+        <div class="image-container">
+          <img src="***" />
         </div>
       </div>
     </div>
