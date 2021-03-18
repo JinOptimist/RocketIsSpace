@@ -26,4 +26,17 @@ $(document).ready(function (){
         var headerText = $(this).text();//Взять текст из тэга
         $('.user-login').val(headerText);//положить текст в инпут
     });
+
+    $('.view .img-name').click(function(){
+        $(this)
+            .closest('.view')
+            .hide();
+
+        $(this)
+            .closest('.name')
+            .find('.edit')
+            .show();
+        var newName = $('.name-input').val();
+        $('.img-name').text(newName);
+    });
 });

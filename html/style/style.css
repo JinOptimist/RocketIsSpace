@@ -129,3 +129,9 @@
   top:0;
   left: 0;
 }
+.name-input{
+  width: 70px;
+}
+.edit .name-input{
+    display: none;
+}
