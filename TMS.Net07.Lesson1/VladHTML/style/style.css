@@ -1,11 +1,43 @@
 	body{
-		background:url(../image/spacefactory.jpg) center/cover;
+		background:url(../image/spacefactory.jpg);
+		background-position: center;
+		background-size: cover;
 	}
-	/* .login{
+	.pre-header{
 		display: flex;
-		position: absolute;
-		align-items: flex-end;
-	} */
+		justify-content: flex-end;
+		justify-content: space-between;
+	}
+	
+	.settings-menu.hide{
+		display: none;
+	}
+
+	.authorization-field{
+		display: flex;
+		flex-direction: row;
+		opacity: 0.2;
+	}
+	.authorization-field:hover{
+		opacity: 1;
+	}
+	.authorization-field .log-field{
+		display: flex;
+		flex-direction: column;
+	}
+	.log-field .login-input,
+	.log-field .password-input{
+		border-radius: 8px;
+	}
+	.authorization-field .log-in-button{
+		align-self: flex-end;
+	}
+	.log-in-button [type="button"]{
+		display: flex;
+		justify-content: center;
+		width: 50px;
+		border-radius: 12px;
+	}
 	.header{
 		height: 100px;
 		width: 100%;
@@ -71,4 +103,26 @@
 	}
 	.link{
 		text-decoration: none;
+	}
+	.settings-menu img{
+		width: 20px;
+		height: 20px;
+	}
+	.settings-menu img.full-size{
+		position: fixed;
+		width: 400px;
+		height: 250px;
+		align-self: center;
+	}
+	.settings-icon:hover{
+		cursor: pointer;
+	}
+
+	.settings-menu{
+		display: flex;
+		flex-direction: column;
+		position: absolute;
+	}
+	.settings-picture-block{
+		margin: 7px;
 	}

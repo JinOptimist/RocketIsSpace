@@ -15,5 +15,9 @@
     content: ' ';
 }
 .search-icon::after{
-    background-image: url('../image/searchIcon.png');
+    background: url('../image/searchIcon.png') center/cover;
+}
+.settings-icon::before{
+    background: url('../image/settings-icon.png') center/cover;
+    
 }
