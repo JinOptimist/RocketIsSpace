@@ -1,0 +1,164 @@
+h1 {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 30px;
+    line-height: 1.6;
+    color:blanchedalmond;
+}
+
+h4 {
+    font-family: fantasy;
+    font-size: 15px;
+    line-height: 1.6;
+    color:blanchedalmond;
+}
+
+p {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.Header {
+    width: 100%;
+
+    padding-top: 30px;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+}
+
+.Header .Container .HeaderInner {
+    display: flex;
+    justify-content: space-between;
+}
+
+.Header .Container .HeaderInner .Logo {
+    display: flex;
+    align-items: center;
+}
+
+.Header .Container .HeaderInner .Logo .LogoText {
+    font-family: fantasy;
+    font-size: 30px;
+    line-height: 1.6;
+    margin-left: 10px;
+    color:blanchedalmond;
+}
+
+.Header .Container .HeaderInner .Menu {
+    display: flex;
+    align-items: center;
+    align-items: center;
+}
+
+.Header .Container .HeaderInner .Menu {
+    font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color:blanchedalmond;
+}
+
+.Header .Container .HeaderInner .Menu .MenuButton {
+    position: relative;
+    margin: 15px;
+}
+
+.Header .Container .HeaderInner .Menu .MenuButton:after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 3px;
+    opacity: 0;
+
+    background-color: coral;
+
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1;
+
+    transition: opacity .1s linear;
+}
+
+.Header .Container .HeaderInner .Menu .MenuButton:hover {
+    color: coral;
+
+    transition: color .1s linear;
+}
+
+.Header .Container .HeaderInner .Menu .MenuButton:hover:after {
+    opacity: 1;
+}
+
+.FirstScreen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+
+    background: url("../images/FirstScreen.jpg") center no-repeat;
+    background-size: cover;
+}
+
+.FirstScreen .Container .FirstScreenText{
+    font-family: fantasy;
+    font-size: 50px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: blanchedalmond;
+    text-align: center;
+}
+
+.Container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.FirstScreen .Container .ContainerFirstScreenInner{
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+
+.Section {
+    margin-top: 50px;
+}
+
+.Section .Container {
+    display: flex;
+}
+
+.Section .Container .SectionText {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin: 20px;
+}
+
+.Section .Container .SectionText .SectionTitle:after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: black;
+}
+
+.Section .Container .SectionText .SectionTitle{
+    margin-top: 30px;
+    margin-bottom: 20px;
+
+    font-family: fantasy;
+    text-transform: uppercase;
+    font-size: 25px;
+}
+
+.Section .Container .SectionText .SectionInfoText{
+    font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
+    font-size: 15px;
+}
