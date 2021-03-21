@@ -1,0 +1,12 @@
+body {
+    font-family: Verdana, Helvetica, Arial, sans-serif;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+}
+
+.empty {
+    height: 100px;
+}
