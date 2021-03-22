@@ -1,0 +1,9 @@
+﻿@model ProfileViewModel
+
+<div>
+    Привет, @Model.Name
+</div>
+<div>
+    Кстати, сейчас ты зарегестировался 
+    @(DateTime.Now.Year - Model.DateRegistration.Year) лет назад
+</div>
