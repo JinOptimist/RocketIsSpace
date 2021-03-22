@@ -30,19 +30,21 @@
     <div class="center-block">
         <div class="left-menu">
             <div class="left-menu-absolute">
-                <div class="link icon home">
-                    <a href="/Home/Index">
+                <a href="/Home/Index">
+                    <div class="link icon home">
                         <span class="text">Home</span>
-                    </a>
-                </div>
-                <div class="link icon account">
-                    <a href="/User/Profile">
+                    </div>
+                </a>
+                <a href="/User/Profile">
+                    <div class="link icon account">
                         <span class="text">Profile</span>
-                    </a>
-                </div>
-                <div class="link icon help">
-                    <span class="text">Help</span>
-                </div>
+                    </div>
+                </a>
+                <a href="/User/Login">
+                    <div class="link icon help">
+                        <span class="text">Help</span>
+                    </div>
+                </a>
                 <div>
                     <div>
                         <label>
@@ -64,7 +66,7 @@
         </div>
         <div class="content">
             @RenderBody()
-            
+
         </div>
     </div>
 

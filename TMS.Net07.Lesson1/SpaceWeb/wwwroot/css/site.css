@@ -152,3 +152,7 @@
 .template {
     display: none;
 }
+
+.input-validation-error{
+    border-color: red;
+}

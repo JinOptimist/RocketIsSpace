@@ -1,21 +1,23 @@
-﻿@model ProfileViewModel
+﻿@model List<RocketPreviewViewModel>
 
-    <div class="rocket add-rocket">
-        <div class="name">
-            <input class="new-name" placeholder="name" />
-        </div>
-        <div>
-            <input class="new-image" placeholder="url" value="image/R2.jpg" />
-        </div>
-        <div>
-            <span class="icon add">Add</span>
-        </div>
+<div class="rocket add-rocket">
+    <div class="name">
+        <input class="new-name" placeholder="name" />
     </div>
+    <div>
+        <input class="new-image" placeholder="url" value="image/R2.jpg" />
+    </div>
+    <div>
+        <span class="icon add">Add</span>
+    </div>
+</div>
 
+@foreach (var rocketPreview in Model)
+{
     <div class="rocket">
         <div class="name">
             <div class="view">
-                <span class="current-name">Proton</span>
+                <span class="current-name">@rocketPreview.Name</span>
                 <span class="icon close"></span>
             </div>
             <div class="edit hide">
@@ -24,30 +26,7 @@
             </div>
         </div>
         <div class="image-container">
-            <img src="~/image/R1.jpeg" />
+            <img src="@rocketPreview.Url" />
         </div>
     </div>
-    <div class="rocket">
-        <div class="name">
-            <div class="view">
-                <span class="current-name">Soyuz</span>
-                <span class="icon close"></span>
-            </div>
-            <div class="edit hide">
-                <input class="new-name" />
-                <span class="icon ok">OK</span>
-            </div>
-        </div>
-        <div class="image-container">
-            <img src="~/image/Soyuz 1.jpg" />
-        </div>
-    </div>
-    <div class="rocket">
-        <div class="name">
-            <span>Soyuz</span>
-            <span class="icon close"></span>
-        </div>
-        <div class="image-container">
-            <img src="~/image/Souze.jfif" />
-        </div>
-    </div>
+}
