@@ -129,9 +129,36 @@
   top:0;
   left: 0;
 }
+<<<<<<< HEAD
 .name-input{
   width: 70px;
 }
 .edit .name-input{
     display: none;
+=======
+
+.rocket .view{
+  display: flex;
+}
+
+.rocket .edit{
+  display: flex;
+}
+
+.new-name{
+  width: 100px;
+}
+
+.rocket .view.hide,
+.rocket .edit.hide{
+  display: none;
+}
+
+.new-image{
+  width: 150px;
+}
+
+.template{
+  display: none;
+>>>>>>> 18d66ae3be7a7f0f861148de47b8e191393ef66e
 }
