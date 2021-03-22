@@ -1,3 +1,23 @@
+<<<<<<< HEAD
+@model object
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>title</title>
+</head>
+<body>
+<div>
+      
+</div>
+</body>
+</html>
+=======
 ﻿@model ProfileViewModel
 <form action="/User/login" method="post">
     <div>
@@ -17,11 +37,6 @@ new
  })
     </div>
 
-<html>
-<head>
-    <title>title</title>
-</head>
-<body>
     <div>
         Age: @Html.TextBoxFor(x => x.Age)
         @Html.ValidationMessageFor(x => x.Age)
@@ -36,3 +51,4 @@ new
         <input type="submit" value="send" />
     </div>
 </form>
+>>>>>>> 31e4bd70052277b4623949450c1821b5099b1657
