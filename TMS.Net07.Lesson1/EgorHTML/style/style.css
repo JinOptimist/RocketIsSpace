@@ -2,11 +2,21 @@ body {
     font-family: Verdana, Helvetica, Arial, sans-serif;
 }
 
-.footer {
+.header {
     display: flex;
-    justify-content: center;
+    align-items: center;
+    height: 100px;
+    font-size: 25pt;
+    padding: 10px;
+    
+    background: indianred;
+}
+
+.footer {
+    display: flow;
+    justify-items: center;
 }
 
 .empty {
-    height: 100px;
+    height: 20px;
 }
