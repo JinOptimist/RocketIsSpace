@@ -1,0 +1,42 @@
+.header{
+	display: flex;
+	margin: -8;
+	padding-left: 50;
+	padding-bottom: 20;
+	height: 600px;
+	background: url(../pic/capsule4.jpg) center/cover;
+	color: white;
+	align-items: flex-end;
+	font-family: "Century Gothic";
+	font-size: 120;
+}
+
+.none{
+	height: 100px;
+}
+
+.central-block{
+	display: flex;
+	color: #353535;
+	font-family: "Georgia";
+	font-size: 40;
+	margin-left: 100;
+	margin-right: 100;
+}
+
+.text{
+	display: flex;
+	align-items: center;
+	padding-left: 70;
+}
+
+.end-block{
+	display: flex;
+	background: #27344B;
+	margin: -8;
+	color: white;
+	height: 100px;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
