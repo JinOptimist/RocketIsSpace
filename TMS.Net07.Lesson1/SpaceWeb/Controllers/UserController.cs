@@ -11,17 +11,45 @@ namespace SpaceWeb.Controllers
     {
         public IActionResult Profile()
         {
-            var model = new ProfileViewModel()
+            var model = new List<RocketPreviewViewModel>();
+
+            model.Add(new RocketPreviewViewModel()
             {
-                Name = "Иван",
-                DateRegistration = new DateTime(2000, 1, 10)
-            };
+                Name = "Союз",
+                Url = "/image/R1.jpeg"
+            });
+
+            model.Add(new RocketPreviewViewModel()
+            {
+                Name = "Протон",
+                Url = "/image/R2.jpg"
+            });
+
+            model.Add(new RocketPreviewViewModel()
+            {
+                Name = "Солют",
+                Url = "/image/R3.jpg"
+            });
             return View(model);
         }
 
+        [HttpGet]
         public IActionResult Login()
         {
-            return View();
+            var model = new ProfileViewModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Login(ProfileViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            model.Bio = model.UserName + model.Password;
+            return View(model);
         }
     }
 }
