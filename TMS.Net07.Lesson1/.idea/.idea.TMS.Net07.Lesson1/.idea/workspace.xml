@@ -7,11 +7,7 @@
     <projectFile>BankSputink.Test/BankSputink.Test.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c722325e-9b28-4b45-865d-1b16588bea1d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TMS.Net07.Lesson1/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TMS.Net07.Lesson1/.idea/contentModel.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TMS.Net07.Lesson1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TMS.Net07.Lesson1/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpaceWeb/Views/User/Login.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/SpaceWeb/Views/User/Login.cshtml" afterDir="false" />
-    </list>
+    <list default="true" id="c722325e-9b28-4b45-865d-1b16588bea1d" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -162,7 +158,7 @@
       <workItem from="1616438759600" duration="807000" />
       <workItem from="1616482478188" duration="1107000" />
       <workItem from="1616483843944" duration="1853000" />
-      <workItem from="1616486459501" duration="620000" />
+      <workItem from="1616486459501" duration="933000" />
     </task>
     <servers />
   </component>
