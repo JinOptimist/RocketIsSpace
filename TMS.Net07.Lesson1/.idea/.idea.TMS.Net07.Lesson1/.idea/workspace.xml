@@ -4,15 +4,13 @@
     <projectFile>WebApplication/WebApplication.csproj</projectFile>
     <projectFile>SpaceWeb/SpaceWeb.csproj</projectFile>
     <projectFile>BankSputink/BankSputink.csproj</projectFile>
+    <projectFile>BankSputink.Test/BankSputink.Test.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c722325e-9b28-4b45-865d-1b16588bea1d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/SpaceWeb/Controllers/RocketControllers/MainController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SpaceWeb/Pages/Main/MainPage.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SpaceWeb/Views/User/Login.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TMS.Net07.Lesson1/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TMS.Net07.Lesson1/.idea/contentModel.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TMS.Net07.Lesson1/.idea/riderModule.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TMS.Net07.Lesson1/.idea/riderModule.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TMS.Net07.Lesson1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TMS.Net07.Lesson1/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpaceWeb/Views/User/Login.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/SpaceWeb/Views/User/Login.cshtml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,9 +22,9 @@
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
-      <option value="$PROJECT_DIR$/SpaceWeb/Views/User/Login.cshtml" />
       <option value="$PROJECT_DIR$/SpaceWeb/Controllers/RocketControllers/MainController.cs" />
       <option value="$PROJECT_DIR$/SpaceWeb/Pages/Main/MainPage.cshtml" />
+      <option value="$PROJECT_DIR$/SpaceWeb/Views/User/Login.cshtml" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1q7SpGebPqL0ExtAA3KislDfIkA" />
@@ -45,7 +43,7 @@
     <property name="settings.editor.selected.configurable" value="RiderIisExpressOptionsPageId" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
-  <component name="RunManager" selected=".NET Launch Settings Profile.SpaceWeb: IIS Express">
+  <component name="RunManager" selected=".NET Launch Settings Profile.SpaceWeb">
     <configuration name="BankSputink" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -105,7 +103,7 @@
       <option name="USE_MONO" value="0" />
       <option name="RUNTIME_ARGUMENTS" value="" />
       <option name="GENERATE_APPLICATIONHOST_CONFIG" value="1" />
-      <option name="SHOW_IIS_EXPRESS_OUTPUT" value="0" />
+      <option name="SHOW_IIS_EXPRESS_OUTPUT" value="1" />
       <option name="SEND_DEBUG_REQUEST" value="1" />
       <option name="ADDITIONAL_IIS_EXPRESS_ARGUMENTS" value="" />
       <method v="2">
@@ -142,6 +140,14 @@
         <option name="Build" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue=".NET Launch Settings Profile.SpaceWeb" />
+      <item itemvalue=".NET Launch Settings Profile.SpaceWeb: IIS Express" />
+      <item itemvalue=".NET Launch Settings Profile.WebApplication" />
+      <item itemvalue=".NET Launch Settings Profile.WebApplication: IIS Express" />
+      <item itemvalue=".NET Project.BankSputink" />
+      <item itemvalue=".NET Project.BankSputink.Test" />
+    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -153,6 +159,10 @@
       <updated>1616429322214</updated>
       <workItem from="1616429333354" duration="1130000" />
       <workItem from="1616431404041" duration="2549000" />
+      <workItem from="1616438759600" duration="807000" />
+      <workItem from="1616482478188" duration="1107000" />
+      <workItem from="1616483843944" duration="1853000" />
+      <workItem from="1616486459501" duration="620000" />
     </task>
     <servers />
   </component>
@@ -171,6 +181,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />

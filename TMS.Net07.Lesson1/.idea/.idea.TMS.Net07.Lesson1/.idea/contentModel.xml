@@ -60,7 +60,11 @@
           <e p="UserController.cs" t="Include" />
         </e>
         <e p="Models" t="Include">
+          <e p="CustomValidationAttribute" t="Include">
+            <e p="MinAttribute.cs" t="Include" />
+          </e>
           <e p="ProfileViewModel.cs" t="Include" />
+          <e p="RocketPreviewViewModel.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -93,14 +97,36 @@
           </e>
           <e p="User" t="Include">
             <e p="Login.cshtml" t="Include" />
+            <e p="Login.cshtml.orig" t="Include" />
             <e p="Profile.cshtml" t="Include" />
           </e>
         </e>
         <e p="wwwroot" t="Include">
           <e p="css" t="Include">
+            <e p="icon.css" t="Include" />
+            <e p="reset.css" t="Include" />
             <e p="site.css" t="Include" />
           </e>
           <e p="favicon.ico" t="Include" />
+          <e p="image" t="Include">
+            <e p="icon" t="Include">
+              <e p="account_balance-24px.svg" t="Include" />
+              <e p="account_balance-24px_hover.svg" t="Include" />
+              <e p="delete-24px.svg" t="Include" />
+              <e p="delete-24px_hover.svg" t="Include" />
+              <e p="help_center-24px.svg" t="Include" />
+              <e p="help_center-24px_hover.svg" t="Include" />
+              <e p="home-24px.svg" t="Include" />
+              <e p="home-24px_hover.svg" t="Include" />
+            </e>
+            <e p="R1.jpeg" t="Include" />
+            <e p="R1.jpg" t="Include" />
+            <e p="R2.jpg" t="Include" />
+            <e p="R3.jpg" t="Include" />
+            <e p="R4.jpg" t="Include" />
+            <e p="Souze.jfif" t="Include" />
+            <e p="Soyuz 1.jpg" t="Include" />
+          </e>
           <e p="js" t="Include">
             <e p="site.js" t="Include" />
           </e>
