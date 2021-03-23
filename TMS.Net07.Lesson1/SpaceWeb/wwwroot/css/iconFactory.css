@@ -1,0 +1,23 @@
+.icon{
+    display: flex;
+     align-items: center;
+}
+.icon::before{
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    content: ' ';
+}
+.icon::after{
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    content: ' ';
+}
+.search-icon::after{
+    background: url("../image/FactoryImages/searchIcon.png") center/cover;
+}
+.settings-icon::before{
+    background: url("../image/FactoryImages/settings-icon.png") center/cover;
+    
+}
