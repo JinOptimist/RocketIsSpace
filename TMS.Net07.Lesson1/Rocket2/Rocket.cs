@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
-using Rocket.AdditionStructure;
-using Rocket.ComfortStructure;
-using Rocket.Mechanics;
-using Rocket.RocketFactory;
 using System.Linq;
+using Rocket2.AdditionStructure;
+using Rocket2.ComfortStructure;
+using Rocket2.Mechanics;
 
-namespace Rocket
+namespace Rocket2
 {
     public class Rocket : IRocket
     {
@@ -24,31 +23,34 @@ namespace Rocket
             _mechanics = mechanics;
             _comforts = comforts;
             _additions = additions;
+            
         }
 
         public string Name { get; }
-
-        public double Mass
-        {
-            get
-            {
-                return _comforts.Sum(mass => mass.Mass)
-                       + _additions.Sum(mass => mass.Mass)
-                       + _mechanics.GetStageMass();
-            }
-        }
-
+        public int Mass { get; } = 0;
         public int NumberOfAstronauts { get; }
 
         public bool IsReadyToLaunch()
         {
-            return NumberOfAstronauts <= _numberofseats;
+            if (NumberOfAstronauts > _numberofseats)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         public string GetInfo()
         {
             return $"Rocket has {Mass} tons and {NumberOfAstronauts} astronauts." +
                    $"Ready to launch: {IsReadyToLaunch()}.";
+        }
+        public double GetMass()
+        {
+            var rocketMass = _comforts.Sum(mass => mass.Mass)
+                                  + _additions.Sum(mass => mass.Mass)
+                                  + _mechanics.GetStageMass();
+            return rocketMass;
         }
     }
 }

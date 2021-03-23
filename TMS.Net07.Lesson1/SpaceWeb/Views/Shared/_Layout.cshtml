@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="~/css/reset.css" />
+    <link rel="stylesheet" href="~/css/icon.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/Factory.css">
+    <link rel="stylesheet" href="~/css/iconFactory.css">
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/site.js"></script>
+    <script src="~/js/mainPage.js"></script>
+
+    @RenderSection("Scripts", required: false)
+</head>
+<body>
+    <div class="popup">
+        <div class="cover"></div>
+        <div class="popup-content">Ты согласен?</div>
+    </div>
+    <div class="header">
+        <div></div>
+        <span class="header-text">Ракеты для каждого</span>
+        <div class="login-block">
+            <div>
+                <input class="user-login" type="text" placeholder="login" />
+            </div>
+            <div>
+                <input type="text" placeholder="password" />
+                <input class="login" type="button" value="Войти" />
+            </div>
+        </div>
+    </div>
+    <div class="center-block">
+        <div class="left-menu">
+            <div class="left-menu-absolute">
+                <a href="/Home/Index">
+                    <div class="link icon home">
+                        <span class="text">Home</span>
+                    </div>
+                </a>
+                <a href="/User/Profile">
+                    <div class="link icon account">
+                        <span class="text">Profile</span>
+                    </div>
+                </a>
+                <a href="/User/Login">
+                    <div class="link icon help">
+                        <span class="text">Help</span>
+                    </div>
+                </a>
+                <div>
+                    <div>
+                        <label>
+                            <input type="radio"
+                                   name="visible-remove"
+                                   value="1"
+                                   checked="checked" />
+                            Вкл
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            <input type="radio" name="visible-remove" value="0" />
+                            Выкл
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            @RenderBody()
+        </div>
+    </div>
+
+    <div class="hide">
+        <div class="rocket template">
+            <div class="name">
+                <div class="view">
+                    <span class="current-name">***</span>
+                    <span class="icon close"></span>
+                </div>
+                <div class="edit hide">
+                    <input class="new-name" />
+                    <span class="icon ok">OK</span>
+                </div>
+            </div>
+            <div class="image-container">
+                <img src="***" />
+            </div>
+        </div>
+    </div>
+</body>
+</html>

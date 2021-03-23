@@ -1,0 +1,33 @@
+﻿@model ProfileViewModel
+<form action="/User/login" method="post">
+    <div>
+        name: @Html.TextBoxFor(x => x.UserName)
+        @Html.ValidationMessageFor(x => x.UserName)
+    </div>
+
+    <div>
+        @Html.ValidationMessageFor(x => x.Password)
+
+        last name: @Html.TextBoxFor(x => x.Password,
+new
+ {
+     @type = "password",
+    @class = "nice-input",
+    @placeholder = "Password"
+ })
+    </div>
+
+    <div>
+        Age: @Html.TextBoxFor(x => x.Age)
+        @Html.ValidationMessageFor(x => x.Age)
+    </div>
+
+    <div>
+        Money: @Html.TextBoxFor(x => x.Money)
+        @Html.ValidationMessageFor(x => x.Money)
+    </div>
+
+    <div>
+        <input type="submit" value="send" />
+    </div>
+</form>
