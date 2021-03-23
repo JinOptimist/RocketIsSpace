@@ -101,6 +101,9 @@
 		background:url(../image/engine.jpg) center/cover;
 		opacity:1;
 	}
+	.link:hover .text{
+		opacity: 0.2;
+	}
 	.link{
 		text-decoration: none;
 	}
