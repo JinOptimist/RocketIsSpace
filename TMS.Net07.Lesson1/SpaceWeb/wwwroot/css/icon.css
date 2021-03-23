@@ -1,0 +1,44 @@
+﻿.icon {
+    display: flex;
+    align-items: center;
+}
+
+    .icon::before {
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+        content: ' ';
+        background-size: contain;
+    }
+
+.home::before {
+    background-image: url('../image/icon/home-24px.svg');
+}
+
+.home:hover::before {
+    background-image: url('../image/icon/home-24px_hover.svg');
+}
+
+.account::before {
+    background-image: url('../image/icon/account_balance-24px.svg');
+}
+
+.account:hover::before {
+    background-image: url('../image/icon/account_balance-24px_hover.svg');
+}
+
+.help::before {
+    background-image: url('../image/icon/help_center-24px.svg');
+}
+
+.help:hover::before {
+    background-image: url('../image/icon/help_center-24px_hover.svg');
+}
+
+.close::before {
+    background-image: url('../image/icon/delete-24px.svg');
+}
+
+.close:hover::before {
+    background-image: url('../image/icon/delete-24px_hover.svg');
+}
