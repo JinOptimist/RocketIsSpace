@@ -1,0 +1,39 @@
+.header{
+	display: flex;
+	margin: -8;
+	padding-left: 50;
+	padding-bottom: 50;
+	height: 550px;
+	background: url(../pic/toilet00.jpg) center/cover;
+	color: white;
+	align-items: flex-end;
+	font-family: "Century Gothic";
+	font-size: 140;
+}
+
+.none{
+	height: 100px;
+}
+
+.central-block{
+	color: #4A4A4A;
+	font-family: "Georgia";
+	font-size: 30;
+	padding-left: 150;
+}
+
+.title{
+	color: #353535;
+	font-size: 50;
+}
+
+.end-block{
+	display: flex;
+	background: #27344B;
+	margin: -8;
+	color: white;
+	height: 100px;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
