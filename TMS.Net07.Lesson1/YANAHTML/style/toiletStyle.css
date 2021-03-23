@@ -27,14 +27,3 @@
 	color: #353535;
 	font-size: 50;
 }
-
-.end-block{
-	display: flex;
-	background: #27344B;
-	margin: -8;
-	color: white;
-	height: 100px;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-}
