@@ -9,7 +9,7 @@ namespace SpaceWeb.Controllers
 {
     public class HumanController : Controller
     {
-        
+
         [HttpGet]
         public IActionResult Person()
         {
@@ -26,6 +26,23 @@ namespace SpaceWeb.Controllers
             }
 
             model.Bio = model.UserName + model.Password;
+            return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult Department()
+        {
+            var model = new DepartmentViewModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Department(DepartmentViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
             return View(model);
         }
     }
