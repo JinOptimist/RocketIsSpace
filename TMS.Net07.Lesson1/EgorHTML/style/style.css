@@ -1,20 +1,17 @@
 body {
-    font-family: Verdana, Helvetica, Arial, sans-serif;
+    font-family: Helvetica, Verdana, Arial, sans-serif;
+}
+
+.central-block {
+    display: block;
+    justify-content: center;
+    background: aqua;
+    padding-top: 60px;
 }
 
 .header {
     display: flex;
-    align-items: center;
-    height: 100px;
     font-size: 25pt;
-    padding: 10px;
-    
-    background: indianred;
-}
-
-.footer {
-    display: flow;
-    justify-items: center;
 }
 
 .empty {
