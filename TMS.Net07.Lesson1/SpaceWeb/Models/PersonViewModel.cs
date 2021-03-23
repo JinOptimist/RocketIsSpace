@@ -2,26 +2,27 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SpaceWeb.Models
 {
     public class PersonViewModel
     {
-        [Required(ErrorMessage = "Извини, но имя обязательно")]
-        public string UserName { get; set; }
+        [Required]
+        public string Name { get; set; }
+        
+        [Required]
+        public string Surname { get; set; }
 
-        [MaxLength(3)]
-        public string Password { get; set; }
+        [Required]
+        public string Gender { get; set; }
 
-        [Min(18, ErrorMessage = "Только совершеннолетние")]
-        public int Age { get; set; }
+        public DateTime BirthDate { get; set; }
 
-        [Min(0)]
-        public int Money { get; set; }
+        public string PhoneNumber { get; set; }
 
-        public string Bio { get; set; }
-        public DateTime DateRegistration { get; set; }
+        [Required]
+        public string Email { get; set; }
+
+        public string PostAddress { get; set; }
     }
 }
