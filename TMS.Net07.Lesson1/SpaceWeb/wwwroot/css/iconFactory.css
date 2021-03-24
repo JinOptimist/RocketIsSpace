@@ -1,14 +1,14 @@
-.icon{
+.iconFactory{
     display: flex;
      align-items: center;
 }
-.icon::before{
+.iconFactory::before{
     width: 18px;
     height: 18px;
     display: inline-block;
     content: ' ';
 }
-.icon::after{
+.iconFactory::after{
     width: 18px;
     height: 18px;
     display: inline-block;
