@@ -3,6 +3,7 @@ using SpaceWeb.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SpaceWeb.Controllers
@@ -10,7 +11,7 @@ namespace SpaceWeb.Controllers
     public class UserController : Controller
     {
         //Это плохо. Удалить как только добавим БД
-        public static List<ProfileViewModel> Users 
+        public static List<ProfileViewModel> Users
             = new List<ProfileViewModel>();
 
         public static int Counter = 0;
@@ -64,11 +65,11 @@ namespace SpaceWeb.Controllers
                     "Нет такого пользователя");
                 return View(model);
             }
-            
+
             if (user.Password != model.Password)
             {
                 ModelState.AddModelError(
-                    nameof(RegistrationViewModel.Password), 
+                    nameof(RegistrationViewModel.Password),
                     "Не правильный праоль");
                 return View(model);
             }
@@ -102,7 +103,7 @@ namespace SpaceWeb.Controllers
             //}
 
             //Новый способ LINQ
-            var isUserUniq = 
+            var isUserUniq =
                 Users.All(user => user.UserName != model.Login);
             if (isUserUniq)
             {
@@ -117,5 +118,11 @@ namespace SpaceWeb.Controllers
             return View(model);
         }
 
+        public JsonResult IsUserExist(string name)
+        {
+            Thread.Sleep(3000);
+            var answer = Users.Any(x => x.UserName == name);
+            return Json(answer);
+        }
     }
 }
