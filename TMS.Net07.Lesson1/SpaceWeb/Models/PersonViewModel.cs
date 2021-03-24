@@ -1,6 +1,5 @@
 ﻿using SpaceWeb.Models.CustomValidationAttribute;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace SpaceWeb.Models
@@ -13,15 +12,17 @@ namespace SpaceWeb.Models
         [Required]
         public string Surname { get; set; }
 
+        [MinAge(18)]
+        public DateTime BirthDate { get; set; }
+
         [Required]
         public string Gender { get; set; }
 
-        public DateTime BirthDate { get; set; }
-
-        public string PhoneNumber { get; set; }
-
         [Required]
         public string Email { get; set; }
+
+        [MyPhone]
+        public string PhoneNumber { get; set; }
 
         public string PostAddress { get; set; }
     }
