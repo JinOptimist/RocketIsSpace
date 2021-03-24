@@ -1,7 +1,6 @@
 .end-block{
 	display: flex;
 	background: #27344B;
-	margin: -8px;
 	color: white;
 	height: 100px;
 	flex-direction: column;

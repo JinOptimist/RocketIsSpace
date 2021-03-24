@@ -2,6 +2,7 @@
 		background: url(../image/FactoryImages/spacefactory.jpg);
 		background-size: cover;
 		background-position: center;
+		background-repeat: no-repeat;
 	}
 	.pre-header{
 		display: flex;
@@ -116,6 +117,7 @@
 		width: 400px;
 		height: 250px;
 		align-self: center;
+		z-index: 100;
 	}
 	.settings-icon:hover{
 		cursor: pointer;

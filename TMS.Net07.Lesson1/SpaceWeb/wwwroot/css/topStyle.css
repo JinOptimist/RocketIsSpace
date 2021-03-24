@@ -1,13 +1,15 @@
 .log{
-	height: 1933px;
+	height: 100%;
 	width: 100%;
 	background: black;
 	opacity: 0.7;
 	position: absolute;
 	z-index: 10;
-	display: none;
 }
 
+.hide{
+	display: none!important;
+}
 .info{
 	display: flex;
 	font-family: "Georgia";
@@ -36,6 +38,7 @@
 	display: flex;
 	cursor: pointer;
 	z-index: 1;
+	color: white;
 }
 
 .link:hover{
@@ -48,12 +51,13 @@
 	position: absolute;
 	position: fixed;
 	flex-direction: column;
-	background: url("../image/comfortImage/fon.jpg");
-	height: 850px;
+	background: url(../image/comfortImage/fon.jpg) no-repeat center;
+	height: 600px;
 	width: 900px;
-	left: 550px;
-	top: 50px;
-	display: none;
+	top: 8vh;
+	left: 45vh;
+	justify-content: center;
+	align-items: center;
 }
 
 .login-direction{
@@ -61,8 +65,6 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	height: 700px;
-	width: 600px;
 }
 
 .user-login{
@@ -75,6 +77,7 @@
 	width: 300px;
 	height: 20px;
 	border: 0;
+	margin: 5px;
 }
 
 input[type="text"]{

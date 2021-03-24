@@ -44,9 +44,9 @@
     padding-bottom: 30px;
 }
 
-    .toilet:hover {
-        background: url(~/image/comfortImage/toilet0blure.jpg) center/cover;
-    }
+.toilet:hover {
+    background: url(~/image/comfortImage/toilet0blure.jpg) center/cover;
+}
 
 .toilet-link {
     text-decoration: none;
@@ -65,9 +65,9 @@
     padding-bottom: 30px;
 }
 
-    .kitchen:hover {
-        background: url(~/image/comfortImage/kitchen0blure.jpg) center/cover;
-    }
+.kitchen:hover {
+    background: url(~/image/comfortImage/kitchen0blure.jpg) center/cover;
+}
 
 .kitchen-link {
     text-decoration: none;
@@ -86,9 +86,9 @@
     padding-bottom: 30px;
 }
 
-    .command-center:hover {
-        background: url(~/image/comfortImage/commandcenter0blure.jpg) center/cover;
-    }
+.command-center:hover {
+    background: url(~/image/comfortImage/commandcenter0blure.jpg) center/cover;
+}
 
 .command-center-link {
     text-decoration: none;
@@ -107,9 +107,9 @@
     padding-bottom: 30px;
 }
 
-    .capsule:hover {
-        background: url(~/image/comfortImage/capsule0blure.jpg) center/cover;
-    }
+.capsule:hover {
+    background: url(~/image/comfortImage/capsule0blure.jpg) center/cover;
+}
 
 .capsule-link {
     text-decoration: none;
