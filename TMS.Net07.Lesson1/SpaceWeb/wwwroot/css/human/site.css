@@ -1,0 +1,49 @@
+﻿.element {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+}
+
+.content input[type=text] {
+    border: solid;
+    border-radius: 7px;
+    border-color: #4682B4;
+}
+
+.panel {
+    margin: 10px;
+    background: #00BFFF;
+    border-radius: 15px;
+}
+
+.login-block {
+    display: flex;
+    justify-content: center;
+    flex: 2;
+}
+
+.panel .button {
+    border-radius: 5px;
+    padding: 2px;
+    border: solid;
+    border-color: #00008B;
+    cursor: pointer;
+}
+
+.panel .button:hover {
+    background: #B0E0E6;
+}
+
+.block {
+    display: flex;
+    flex-direction: row;
+}
+
+.block > .empty {
+    flex: 1;
+}
+
+.content > .empty {
+    height: 100px;
+}
