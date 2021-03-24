@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="windows-1251" />
+    <link rel="stylesheet" href="~/css/reset.css" />
+    <link rel="stylesheet" href="~/css/icon.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/site.js"></script>
+    <title>Rocket</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script src="js/Account.js"></script>
+    @RenderSection("Scripts", required: false)
+</head>
+
+
+<header class="header">
+    <div class="container">
+        <div class="header-inner">
+            <div class="header-logo">Rocket</div>
+            <nav class="nav">
+                
+                    <a class="nav-link" href="/Home/Index"> About</a>
+                    <a class="nav-link" href="#"> Service</a>
+                    <a class="nav-link" href="#"> Contact</a>
+            </nav>
+        </div>
+    </div>
+    <div class="rocket">
+
+        <div>
+            <div class="name">
+                <span>Soyuz</span>
+                <span class="icon close"></span>
+            </div>
+            <div class="image-container">
+                <img src="images/start.jpg" />
+            </div>
+        </div>
+    </div>
+
+</header>
+<body>
+    <div class="intro">
+
+        <div class="intro-inner">
+
+            <div class="container">
+
+                <h1 class="intro-titel">Мы открываем новые миры</h1>
+                <h2 class="intro-suptitel">Ты готов с нами?</h2>
+                <a class="button-login" href="Client/Login"> Login</a>
+
+                <div class="login-block">
+                    <div>
+                        <input class="user-login" type="text" placeholder="login" />
+                    </div>
+                    <div>
+                        <input type="text" placeholder="password" />
+                        <input class="login" type="button" value="Войти" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="slider">
+        <div class="slider-item active">
+            <span class="slider-num">01</span>
+            Intro
+        </div>
+        <div class="slider-item">
+            <span class="slider-num">02</span>
+            Work
+        </div>
+        <div class="slider-item">
+            <span class="slider-num">03</span>
+            About
+        </div>
+        <div class="slider-item">
+            <span class="slider-num">04</span>
+            Contacts
+        </div>
+    </div>
+
+
+</body>
+</html>
+
+             

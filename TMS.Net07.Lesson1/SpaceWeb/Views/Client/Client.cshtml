@@ -1,22 +1,27 @@
 ﻿@model InputViewModel
-
-<div>
-    Привет, @Model.Name
-</div>
-<div class="container">
-
-    <h1 class="intro-titel">Мы открываем новые миры</h1>
-    <h2 class="intro-suptitel">Ты готов с нами?</h2>
-    <a class="button-login" href="#"> Login</a>
-
-    <div class="login-block">
+    <form action="/Client/Client" method="post">
         <div>
-            <input class="user-login" type="text" placeholder="login" />
+            Привет, @Model.Name
         </div>
-        <div>
-            <input type="text" placeholder="password" />
-            <input class="login" type="button" value="Войти" />
+        <div class="container">
+
+            <h1 class="intro-titel">Мы открываем новые миры</h1>
+            <h2 class="intro-suptitel">Ты готов с нами?</h2>
+            <a class="button-login" href="#"> Login</a>
+
+            <div class="login-block">
+                <div>
+                    name: @Html.TextBoxFor(x => x.UserName)
+                    @Html.ValidationMessageFor(x => x.UserName)
+                </div>
+                <div>
+                    password: @Html.TextBoxFor(x => x.Password)
+                    @Html.ValidationMessageFor(x => x.Password)
+                    login: @Html.TextBoxFor(x => x.Login)
+                    @Html.ValidationMessageFor(x => x.Login)
+                    <input class="login" type="submit" value="Войти" />
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-           
+
+        </form>
