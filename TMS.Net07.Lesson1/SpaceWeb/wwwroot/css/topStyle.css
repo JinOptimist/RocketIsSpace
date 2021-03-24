@@ -48,7 +48,7 @@
 	position: absolute;
 	position: fixed;
 	flex-direction: column;
-	background: url(~/image/comfortImage/fon.jpg);
+	background: url("../image/comfortImage/fon.jpg");
 	height: 850px;
 	width: 900px;
 	left: 550px;

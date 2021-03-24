@@ -1,5 +1,7 @@
-    .content{
+    body{
 		background: url(../image/FactoryImages/spacefactory.jpg);
+		background-size: cover;
+		background-position: center;
 	}
 	.pre-header{
 		display: flex;
@@ -118,7 +120,6 @@
 	.settings-icon:hover{
 		cursor: pointer;
 	}
-
 	.settings-menu{
 		display: flex;
 		flex-direction: column;
