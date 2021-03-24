@@ -1,9 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SpaceWeb.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SpaceWeb.Controllers
 {
@@ -24,8 +20,6 @@ namespace SpaceWeb.Controllers
             {
                 return View(model);
             }
-
-            model.Bio = model.UserName + model.Password;
             return View(model);
         }
     }

@@ -2,40 +2,37 @@
     Layout = "_LayoutHuman";
 }
 
+@model PersonViewModel
 
-
-
-
-@*@model PersonViewModel
-    <form action="/User/login" method="post">
-        <div>
-            name: @Html.TextBoxFor(x => x.UserName)
-            @Html.ValidationMessageFor(x => x.UserName)
-        </div>
-
-        <div>
-            @Html.ValidationMessageFor(x => x.Password)
-
-            last name: @Html.TextBoxFor(x => x.Password,
-    new
-     {
-         @type = "password",
-        @class = "nice-input",
-        @placeholder = "Password"
-     })
-        </div>
-
-        <div>
-            Age: @Html.TextBoxFor(x => x.Age)
-            @Html.ValidationMessageFor(x => x.Age)
-        </div>
-
-        <div>
-            Money: @Html.TextBoxFor(x => x.Money)
-            @Html.ValidationMessageFor(x => x.Money)
-        </div>
-
-        <div>
-            <input type="submit" value="send" />
-        </div>
-    </form>*@
+<div class="login-block">
+    <div class="panel">
+        <form action="/Human/Person" method="post">
+            <div class="element">
+                @Html.TextBoxFor(Person => Person.Name, new {@placeholder = "Your name"})
+            </div>
+            <div class="element">
+                @Html.TextBoxFor(Person => Person.Surname, new { @placeholder = "Your surname" })
+            </div>
+            <div class="element">
+                @Html.TextBoxFor(Person => Person.BirthDate, new { @type = "date", @placeholder = "Your birthdate" })
+                @Html.ValidationMessageFor(x => x.BirthDate)
+            </div>
+            <div class="element">
+                @Html.DropDownListFor(Person=>Person.Gender, new SelectList(new[] { "None", "Male", "Female" }))
+            </div>
+            <div class="element">
+                @Html.TextBoxFor(Person => Person.PhoneNumber, new { @placeholder = "Your phone" })
+                @Html.ValidationMessageFor(x => x.PhoneNumber)
+            </div>
+            <div class="element">
+                @Html.TextBoxFor(Person => Person.Email, new { @placeholder = "Your email" })
+            </div>
+            <div class="element">
+                @Html.TextAreaFor(Person => Person.PostAddress)
+            </div>
+            <div class="element">
+                <input type="submit" value="send"/>
+            </div>
+        </form>
+    </div>
+</div>
