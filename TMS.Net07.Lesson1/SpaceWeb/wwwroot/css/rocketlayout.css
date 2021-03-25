@@ -1,11 +1,7 @@
-﻿.top{
-    height: 10hv;
+﻿﻿.none {
+    height: 70px;
 }
 
-.content{
-    height: 80hv;
-}
-
-.end-block{
-    height: 10hv;
+.content {
+    min-height: calc(100vh - 100px - 70px);
 }
