@@ -36,5 +36,15 @@ namespace SpaceWeb.Controllers
             model.Bio = model.UserName + model.Password;
             return View(model);
         }
+        public IActionResult Contacts()
+        {
+            var input = new ContactsVieModel()
+            {
+                PhoneNumber = "+375291191293",
+                Email = "alesya.lis.1@mail.ru",
+                PostAddress = "Belarus, Minsk, Timeriazeva 67"
+            };
+            return View(input);
+        }
     }
 }

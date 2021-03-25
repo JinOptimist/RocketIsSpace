@@ -1,0 +1,21 @@
+.icon{
+  display: flex;
+  align-items: center;
+  color:#ffffff;
+}
+.icon::before{
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  content: ' ';
+  background-size: contain;  
+}
+
+.close::before {
+    background-image: url('../images/icon/delete-24px.svg');
+    color: #ffffff;
+}
+.close:hover::before {
+    background-image: url('../images/icon/delete-24px_hover.svg');
+    color: #ffffff;
+}

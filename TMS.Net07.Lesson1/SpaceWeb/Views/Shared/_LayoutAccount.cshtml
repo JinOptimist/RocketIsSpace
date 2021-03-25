@@ -2,16 +2,16 @@
 <html>
 <head>
     <meta charset="windows-1251" />
-    <link rel="stylesheet" href="~/css/reset.css" />
-    <link rel="stylesheet" href="~/css/icon.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/Client/reset.css" />
+    <link rel="stylesheet" href="~/css/Client/icon.css" />
+    <link rel="stylesheet" href="~/css/Client/StyleAccount.css" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/js/site.js"></script>
+    <script src="~/js/client/Account.js"></script>
     <title>Rocket</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <script src="js/jquery-3.6.0.min.js"></script>
-    <script src="js/Account.js"></script>
+
     @RenderSection("Scripts", required: false)
 </head>
 
@@ -21,10 +21,10 @@
         <div class="header-inner">
             <div class="header-logo">Rocket</div>
             <nav class="nav">
-                
-                    <a class="nav-link" href="/Home/Index"> About</a>
-                    <a class="nav-link" href="#"> Service</a>
-                    <a class="nav-link" href="#"> Contact</a>
+
+                <a class="nav-link" href="/Home/Index"> About</a>
+                <a class="nav-link" href="#"> Service</a>
+                <a class="nav-link" href="#"> Contact</a>
             </nav>
         </div>
     </div>
@@ -65,27 +65,33 @@
             </div>
         </div>
     </div>
+
     <div class="slider">
-        <div class="slider-item active">
-            <span class="slider-num">01</span>
-            Intro
-        </div>
-        <div class="slider-item">
-            <span class="slider-num">02</span>
-            Work
-        </div>
-        <div class="slider-item">
-            <span class="slider-num">03</span>
-            About
-        </div>
-        <div class="slider-item">
-            <span class="slider-num">04</span>
-            Contacts
-        </div>
+        <a href="/Client/Intro">
+            <div class="slider-item active">
+                <span class="slider-num">01</span>
+                Intro
+            </div>
+        </a>
+        <a href="/User/Login">
+            <div class="slider-item">
+                <span class="slider-num">02</span>
+                Work
+            </div>
+        </a>
+        <a href="/User/Login">
+            <div class="slider-item">
+                <span class="slider-num">03</span>
+                About
+            </div>
+        </a>
+        <a href="/User/Contacts">
+            <div class="slider-item">
+                <span class="slider-num">04</span>
+                Contacts
+            </div>
+        </a>
     </div>
-
-
 </body>
 </html>
 
-             

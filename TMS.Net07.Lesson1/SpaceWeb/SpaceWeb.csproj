@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Client\Home.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\css\Client\NewFolder\" />
     <Folder Include="wwwroot\image\human\" />
   </ItemGroup>
 
