@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="windows-1251" />
+    <link rel="stylesheet" href="~/css/reset.css" />
+    <link rel="stylesheet" href="~/css/Client/icon.css" />
+    <link rel="stylesheet" href="~/css/Client/StyleAccount.css" />
+   
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/client/Account.js"></script>
+    <title>Rocket</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    @RenderSection("Scripts", required: false)
+</head>
+
+    <body>
+        <div class="intro">
+
+            
+
+                <div class="container">
+                    <div class="header-inner">
+                        <div class="header-logo">Rocket</div>
+                        <nav class="nav">
+
+                            <a class="nav-link" href="/Client/Home"> About</a>
+                            <a class="nav-link" href="#"> Service</a>
+                            <a class="nav-link" href="/Client/Contacts"> Contact</a>
+                        </nav>
+                    </div>
+                    @RenderBody()
+                    <h1 class="intro-titel">Мы открываем новые миры</h1>
+                    <h2 class="intro-suptitel">Ты готов с нами?</h2>
+                    <a class="button-login" href="Client/Login"> Login</a>
+
+                    <div class="login-block">
+                        <div>
+                            <input class="user-login" type="text" placeholder="login" />
+                        </div>
+                        <div>
+                            <input type="text" placeholder="password" />
+                            <input class="login" type="button" value="Войти" />
+                        </div>
+                    </div>
+                </div>
+            
+        </div>
+
+        <div class="slider">
+            <a href="/Client/Intro">
+                <div class="slider-item active">
+                    <span class="slider-num">01</span>
+                    Intro
+                </div>
+            </a>
+            <a href="/User/Login">
+                <div class="slider-item">
+                    <span class="slider-num">02</span>
+                    Work
+                </div>
+            </a>
+            <a href="/User/Login">
+                <div class="slider-item">
+                    <span class="slider-num">03</span>
+                    About
+                </div>
+            </a>
+            <a href="#">
+                <div class="slider-item">
+                    <span class="slider-num">04</span>
+                    Contacts
+                </div>
+            </a>
+        </div>
+    </body>
+</html>
+
