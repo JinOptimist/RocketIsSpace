@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="~/css/human/reset.css" />
+    <link rel="stylesheet" href="~/css/human/site.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/site.js"></script>
+
+    @RenderSection("Scripts", required: false)
+</head>
+<body>
+    <div class="header">
+        Team#3 Humans
+    </div>
+    <div class="content">
+        @RenderBody()
+    </div>
+</body>
+</html>
