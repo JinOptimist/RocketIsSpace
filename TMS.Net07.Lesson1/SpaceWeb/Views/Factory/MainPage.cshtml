@@ -1,4 +1,11 @@
-﻿@model object
+﻿@section Style{
+    <link rel="stylesheet" href="~/css/Factory.css">
+    <link rel="stylesheet" href="~/css/iconFactory.css">
+}
+
+@section Script{
+    <script src="~/js/mainPage.js"></script>
+}
 
 <div class="pre-header">
     <span class="settings">
@@ -31,7 +38,7 @@
     @* </span> *@
 </div>
 <div class="header">Factory preview</div>
-<div class="search" >
+<div class="search">
     <div class="search-field icon-Factory search-icon">
         <input type="search" placeholder="Search">
     </div>
@@ -42,7 +49,7 @@
             <span class="text">Rocket Factory</span>
         </div>
     </a>
-    <a href="#" class="link">
+    <a href="~/Comfort/ComfortPage" class="link">
         <div class="comf">
             <div class="text">Comfort Factory</div>
         </div>

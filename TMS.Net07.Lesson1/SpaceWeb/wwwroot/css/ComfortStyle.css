@@ -1,8 +1,7 @@
 ﻿.header {
     display: flex;
-    margin: -8px;
     height: 700px;
-    background: url(~/image/comfortImage/space2.jpg) center/cover;
+    background: url(/image/comfortImage/space2.jpg) center/cover;
     color: white;
     justify-content: center;
     align-items: center;
@@ -33,7 +32,7 @@
 
 .toilet {
     display: flex;
-    background: url(~/image/comfortImage/toilet0.jpg) center/cover;
+    background: url(/image/comfortImage/toilet0.jpg) center/cover;
     width: 350px;
     height: 600px;
     color: white;
@@ -45,7 +44,7 @@
 }
 
 .toilet:hover {
-    background: url(~/image/comfortImage/toilet0blure.jpg) center/cover;
+    background: url(/image/comfortImage/toilet0blure.jpg) center/cover;
 }
 
 .toilet-link {
@@ -54,7 +53,7 @@
 
 .kitchen {
     display: flex;
-    background: url(~/image/comfortImage/kitchen0.jpg) center/cover;
+    background: url(/image/comfortImage/kitchen0.jpg) center/cover;
     width: 350px;
     height: 600px;
     color: white;
@@ -66,7 +65,7 @@
 }
 
 .kitchen:hover {
-    background: url(~/image/comfortImage/kitchen0blure.jpg) center/cover;
+    background: url(/image/comfortImage/kitchen0blure.jpg) center/cover;
 }
 
 .kitchen-link {
@@ -75,7 +74,7 @@
 
 .command-center {
     display: flex;
-    background: url(~/image/comfortImage/commandcenter0.jpg) center/cover;
+    background: url(/image/comfortImage/commandcenter0.jpg) center/cover;
     width: 350px;
     height: 600px;
     color: white;
@@ -87,7 +86,7 @@
 }
 
 .command-center:hover {
-    background: url(~/image/comfortImage/commandcenter0blure.jpg) center/cover;
+    background: url(/image/comfortImage/commandcenter0blure.jpg) center/cover;
 }
 
 .command-center-link {
@@ -96,7 +95,7 @@
 
 .capsule {
     display: flex;
-    background: url(~/image/comfortImage/capsule0.jpg) center/cover;
+    background: url(/image/comfortImage/capsule0.jpg) center/cover;
     width: 350px;
     height: 600px;
     color: white;
@@ -108,7 +107,7 @@
 }
 
 .capsule:hover {
-    background: url(~/image/comfortImage/capsule0blure.jpg) center/cover;
+    background: url(/image/comfortImage/capsule0blure.jpg) center/cover;
 }
 
 .capsule-link {
