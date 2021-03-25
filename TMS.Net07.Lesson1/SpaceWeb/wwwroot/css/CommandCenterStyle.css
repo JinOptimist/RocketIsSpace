@@ -1,0 +1,48 @@
+﻿.header {
+    display: flex;
+    margin: -8px;
+    padding-right: 1000px;
+    height: 600px;
+    background: url(~/image/comfortImage/commandcenter2.jpg) center/cover;
+    color: white;
+    align-items: flex-end;
+    font-family: "Century Gothic";
+    font-size: 120px;
+}
+
+.none {
+    height: 100px;
+}
+
+.title {
+    color: #353535;
+    font-family: "Georgia";
+    font-size: 50px;
+    padding-right: 500px;
+    padding-left: 100px;
+}
+
+.part1 {
+    color: #353535;
+    font-family: "Georgia";
+    font-size: 30px;
+    padding-right: 200px;
+    padding-left: 200px;
+}
+
+.title1 {
+    font-size: 40px;
+}
+
+.colorfragment {
+    color: #E28FEF;
+}
+
+.part2 {
+    display: flex;
+    color: #353535;
+    font-family: "Georgia";
+    font-size: 30px;
+    padding-right: 200px;
+    padding-left: 200px;
+}

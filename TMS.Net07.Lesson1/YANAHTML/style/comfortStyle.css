@@ -1,0 +1,116 @@
+.header{
+	display: flex;
+	margin: -8;
+	height: 700px;
+	background: url(../pic/space2.jpg) center/cover;
+	color: white;
+	justify-content: center;
+	align-items: center;
+	font-family: "Century Gothic";
+	font-size: 120;
+}
+
+.none{
+	height: 100px;
+}
+
+.text1{
+	color: #353535;
+	font-family: "Georgia";
+	font-size: 50;
+	padding-right: 500;
+	padding-left: 50;
+}
+
+.text2{
+	font-size: 30;
+}
+
+.center-block{
+	display: flex;
+	justify-content: space-around;
+}
+
+.toilet{
+	display: flex;
+	background: url(../pic/toilet0.jpg) center/cover;
+	width: 350px;
+	height: 600px;
+	color: white;
+	align-items: flex-end;
+	font-family: "Century Gothic";
+	font-size: 90;
+	padding-left: 15;
+	padding-bottom: 30;
+}
+
+.toilet:hover{
+	background: url(../pic/toilet0blure.jpg) center/cover;
+}
+
+.toilet-link{
+	text-decoration: none;
+}
+
+.kitchen{
+	display: flex;
+	background: url(../pic/kitchen0.jpg) center/cover;
+	width: 350px;
+	height: 600px;
+	color: white;
+	align-items: flex-end;
+	font-family: "Century Gothic";
+	font-size: 85;
+	padding-left: 15;
+	padding-bottom: 30;
+}
+
+.kitchen:hover{
+	background: url(../pic/kitchen0blure.jpg) center/cover;
+}
+
+.kitchen-link{
+	text-decoration: none;
+}
+
+.command-center{
+	display: flex;
+	background: url(../pic/commandcenter0.jpg) center/cover;
+	width: 350px;
+	height: 600px;
+	color: white;
+	align-items: flex-end;
+	font-family: "Century Gothic";
+	font-size: 65;
+	padding-left: 15;
+	padding-bottom: 30;
+}
+
+.command-center:hover{
+	background: url(../pic/commandcenter0blure.jpg) center/cover;
+}
+
+.command-center-link{
+	text-decoration: none;
+}
+
+.capsule{
+	display: flex;
+	background: url(../pic/capsule0.jpg) center/cover;
+	width: 350px;
+	height: 600px;
+	color: white;
+	align-items: flex-end;
+	font-family: "Century Gothic";
+	font-size: 70;
+	padding-left: 15;
+	padding-bottom: 30;
+}
+
+.capsule:hover{
+	background: url(../pic/capsule0blure.jpg) center/cover;
+}
+
+.capsule-link{
+	text-decoration: none;
+}

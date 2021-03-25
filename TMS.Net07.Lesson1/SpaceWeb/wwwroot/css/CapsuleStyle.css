@@ -1,0 +1,31 @@
+﻿.header {
+    display: flex;
+    margin: -8px;
+    padding-left: 50px;
+    padding-bottom: 20px;
+    height: 600px;
+    background: url(~/image/comfortImage/capsule4.jpg) center/cover;
+    color: white;
+    align-items: flex-end;
+    font-family: "Century Gothic";
+    font-size: 120px;
+}
+
+.none {
+    height: 100px;
+}
+
+.central-block {
+    display: flex;
+    color: #353535;
+    font-family: "Georgia";
+    font-size: 40px;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+.text {
+    display: flex;
+    align-items: center;
+    padding-left: 70px;
+}
