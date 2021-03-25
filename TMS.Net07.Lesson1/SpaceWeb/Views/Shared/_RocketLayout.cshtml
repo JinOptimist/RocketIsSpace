@@ -2,15 +2,15 @@
 <html>
 <head>
     <link rel="stylesheet" href="~/css/reset.css" />
-    <link rel="stylesheet" href="~/css/Factory.css">
-    <link rel="stylesheet" href="~/css/iconFactory.css">
-    <link rel="stylesheet" href="~/css/iconsComfort.css">
+    <link rel="stylesheet" href="~/css/iconsComfort.css"> @*icons of top menu*@
     <link rel="stylesheet" href="~/css/endBlockStyle.css">
     <link rel="stylesheet" href="~/css/topStyle.css">
     <link rel="stylesheet" href="~/css/rocketlayout.css">
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/js/mainPage.js"></script>
-    <script src="~/js/comfort.js"></script>
+    <script src="~/js/comfort.js"></script> @*log in button js*@
+
+    @RenderSection("Style", required: false)
+    @RenderSection("Script", required: false)
 </head>
 
 <body>
@@ -40,7 +40,6 @@
         </a>
     </div>
 </div>
-<div class="none"></div>
 <div class="content">
         @RenderBody()
 </div>

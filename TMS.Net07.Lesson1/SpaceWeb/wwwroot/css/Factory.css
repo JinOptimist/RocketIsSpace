@@ -8,6 +8,7 @@
 		display: flex;
 		justify-content: flex-end;
 		justify-content: space-between;
+		margin-top: 70px;
 	}
 	
 	.settings-menu.hide{
