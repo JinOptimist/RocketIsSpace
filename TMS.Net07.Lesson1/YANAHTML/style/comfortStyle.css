@@ -1,7 +1,7 @@
 .header{
 	display: flex;
 	margin: -8;
-	height: 500px;
+	height: 700px;
 	background: url(../pic/space2.jpg) center/cover;
 	color: white;
 	justify-content: center;
@@ -19,7 +19,7 @@
 	font-family: "Georgia";
 	font-size: 50;
 	padding-right: 500;
-	padding-left: 30;
+	padding-left: 50;
 }
 
 .text2{
@@ -113,15 +113,4 @@
 
 .capsule-link{
 	text-decoration: none;
-}
-
-.end-block{
-	display: flex;
-	background: #27344B;
-	margin: -8;
-	color: white;
-	height: 100px;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
 }

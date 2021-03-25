@@ -13,7 +13,8 @@ $(document).ready(function(){
                 .closest('.settings-picture-block')
                 .find('img')
                 .attr('src');
-            $('body').css({"background":"url("+val+")"});
+            $('body').css({"background":"url("+val+")",
+                "background-size":"cover","background-repeat":"no-repeat"});
         });
 
 })

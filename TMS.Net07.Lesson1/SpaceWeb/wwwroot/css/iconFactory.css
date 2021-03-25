@@ -1,14 +1,14 @@
-.icon{
+.icon-Factory{
     display: flex;
-     align-items: center;
+    align-items: center;
 }
-.icon::before{
+.icon-Factory::before{
     width: 18px;
     height: 18px;
     display: inline-block;
     content: ' ';
 }
-.icon::after{
+.icon-Factory::after{
     width: 18px;
     height: 18px;
     display: inline-block;
@@ -19,5 +19,4 @@
 }
 .settings-icon::before{
     background: url("../image/FactoryImages/settings-icon.png") center/cover;
-    
 }

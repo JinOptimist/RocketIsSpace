@@ -22,3 +22,9 @@
 		max-width: 200px;
 		max-height: 200px;
 	}
+
+	.edit{
+		display: none;
+		position: absolute;
+	}
+

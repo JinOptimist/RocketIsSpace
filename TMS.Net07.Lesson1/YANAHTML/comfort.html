@@ -1,45 +1,85 @@
 <html>
 <head>
+	<link rel="stylesheet" href="style/icons.css">
+	<link rel = "stylesheet" href = "style/endBlockStyle.css" />
 	<link rel = "stylesheet" href = "style/comfortStyle.css" />
+	<link rel = "stylesheet" href = "style/topStyle.css" />
+	<script src="js/jquery-3.6.0.min.js"></script>
+    <script src="js/comfort.js"></script>
 </head>
 
 <body>
+	<div class="log"></div>
+	<div class="login-field">
+		<div class="login-block">
+			<div class="login-direction">
+				<div>
+				    <input class="user-login" type="text" placeholder="login" />
+				</div>
+				<div>
+				    <input class="password" type="text" placeholder="password" />
+				</div>
+				<div>
+					<input class="login" type="button" value="Log in" />
+				</div>
+		    </div>
+        </div>
+	</div>
+	
+	<div class="info">
+		<div class="cover"></div>
+		<div class="link icon log-in">
+			Log in
+		</div>
+		<div class="link icon home">
+			Home
+		</div>
+		<a  href="javascript:history.go(-1)" class="comfort-link">
+			<div class="link icon back">
+				Back
+			</div>
+	    </a>
+	</div>
+	
+
 	<div class="header">
 		Comfort structure
 	</div>
 	<div class="none"></div>
-	<div class="text1">
-		Comfortable conditions for your rocket and a pleasant journey into space
-		<div class="text2">
-			Toilets, kitchen, sleep capsules, command center. All this can make your trip much more enjoyable, if you choose the equipment of your choice. So you can do it right here by selecting the appropriately named field.
+	<div class="night">
+		<div class="text1">
+			Comfortable conditions for your rocket and a pleasant journey into space
+			<div class="text2">
+				Toilets, kitchen, sleep capsules, command center. All this can make your trip much more enjoyable, if you choose the equipment of your choice. So you can do it right here by selecting the appropriately named field.
+			</div>
 		</div>
-	</div>
-	<div class="none"></div>
-	<div class="center-block">
-		<a href="toilet.html" class="toilet-link">
-			<div class="toilet">
-			   Toilet
-		    </div>
-		</a>
+		<div class="none"></div>
+		<div class="center-block">
+			<a href="toilet.html" class="toilet-link">
+				<div class="toilet">
+				Toilet
+				</div>
+			</a>
 
-		<a href="kitchen.html" class="kitchen-link">
-			<div class="kitchen">
-			   Kitchen
-		    </div>
-		</a>
+			<a href="kitchen.html" class="kitchen-link">
+				<div class="kitchen">
+				Kitchen
+				</div>
+			</a>
 
-		<a href="commandcenter.html" class="command-center-link">
-			<div class="command-center">
-			   Command center
-		    </div>
-		</a>
+			<a href="commandcenter.html" class="command-center-link">
+				<div class="command-center">
+				Command center
+				</div>
+			</a>
 
-		<a href="capsule.html" class="capsule-link">
-			<div class="capsule">
-			   Sleeping capsules
-		    </div>
-		</a>
-	</div>
+			<a href="capsule.html" class="capsule-link">
+				<div class="capsule">
+				Sleeping capsules
+				</div>
+			</a>
+		</div>
+    </div>
 	<div class="none"></div>
 	<div class="end-block">
 		<div class="telephone">
