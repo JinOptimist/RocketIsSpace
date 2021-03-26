@@ -42,3 +42,12 @@
 .close:hover::before {
     background-image: url('../image/icon/delete-24px_hover.svg');
 }
+
+.ok::before {
+    background-image: url('../image/icon/check-24px.svg');
+}
+
+.spinner::before {
+    background-image: url('../image/icon/spinner.gif');
+}
+

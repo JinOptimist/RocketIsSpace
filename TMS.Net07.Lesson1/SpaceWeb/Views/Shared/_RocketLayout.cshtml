@@ -2,68 +2,64 @@
 <html>
 <head>
     <link rel="stylesheet" href="~/css/reset.css" />
-    <link rel="stylesheet" href="~/css/Factory.css">
-    <link rel="stylesheet" href="~/css/iconFactory.css">
-    <link rel="stylesheet" href="~/css/iconsComfort.css">
+    <link rel="stylesheet" href="~/css/iconsComfort.css"> @*icons of top menu*@
     <link rel="stylesheet" href="~/css/endBlockStyle.css">
     <link rel="stylesheet" href="~/css/topStyle.css">
+<<<<<<< HEAD
     <link rel="stylesheet" href="~/css/ComfortStyle.css">
+=======
+>>>>>>> Team2Rocket
     <link rel="stylesheet" href="~/css/rocketlayout.css">
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/js/mainPage.js"></script>
-    <script src="~/js/comfort.js"></script>
+    <script src="~/js/comfort.js"></script> @*log in button js*@
+
+    @RenderSection("Style", required: false)
+    @RenderSection("Script", required: false)
 </head>
 
 <body>
-    <div class="top">
-        <div class="log"></div>
-        <div class="login-field">
-            <div class="login-block">
-                <div class="login-direction">
-                    <div>
-                        <input class="user-login" type="text" placeholder="login" />
-                    </div>
-                    <div>
-                        <input class="password" type="text" placeholder="password" />
-                    </div>
-                    <div>
-                        <input class="login" type="button" value="Log in" />
-                    </div>
-                </div>
+<div class="top">
+    <div class="log hide"></div>
+    <div class="login-block hide">
+        <div class="login-direction">
+            <div>
+                <input class="user-login" type="text" placeholder="login" />
             </div>
-        </div>
-
-        <div class="info">
-            <div class="cover"></div>
-            <div class="link icon log-in">
-                Log in
+            <div>
+                <input class="password" type="text" placeholder="password" />
             </div>
-            <div class="link icon home">
-                Home
+            <div>
+                <input class="login" type="button" value="Log in" />
             </div>
-            <a href="javascript:history.go(-1)" class="comfort-link">
-                <div class="link icon back">
-                    Back
-                </div>
-            </a>
         </div>
     </div>
+<<<<<<< HEAD
 
     <div class="none"></div>
     <div class="content">
         @RenderBody()
+=======
+    <div class="info">
+        <div class="cover"></div>
+        <div class="link icon log-in">Log in</div>
+        <a href="../Factory/mainPage">
+             <div class="link icon home">Home</div>
+        </a>
+        <a href="javascript:history.go(-1)" class="comfort-link">
+            <div class="link icon back">Back</div>
+        </a>
+>>>>>>> Team2Rocket
     </div>
-
-
-    <div class="end-block">
-        <div class="telephone">
-            <span>Contscts: +375-44-XX-XX-XXX, +375-29-XX-XX-XXX</span>
-        </div>
-        <div class="email">
-            Email: info@comfort.com
-        </div>
+</div>
+<div class="content">
+        @RenderBody()
+</div>
+<div class="end-block">
+    <div class="telephone">
+        <span>Contscts: +375-44-XX-XX-XXX, +375-29-XX-XX-XXX</span>
     </div>
-
+    <div class="email">Email: info@comfort.com</div>
+</div>
 </body>
 
 </html>

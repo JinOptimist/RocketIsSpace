@@ -1,10 +1,14 @@
-    .content{
+    body{
 		background: url(../image/FactoryImages/spacefactory.jpg);
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
 	}
 	.pre-header{
 		display: flex;
 		justify-content: flex-end;
 		justify-content: space-between;
+		margin-top: 70px;
 	}
 	
 	.settings-menu.hide{
@@ -114,11 +118,11 @@
 		width: 400px;
 		height: 250px;
 		align-self: center;
+		z-index: 100;
 	}
 	.settings-icon:hover{
 		cursor: pointer;
 	}
-
 	.settings-menu{
 		display: flex;
 		flex-direction: column;
