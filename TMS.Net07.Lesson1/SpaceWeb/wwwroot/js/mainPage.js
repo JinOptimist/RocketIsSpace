@@ -14,7 +14,7 @@ $(document).ready(function(){
                 .find('img')
                 .attr('src');
             $('body').css({"background":"url("+val+")",
-                "background-size":"cover"});
+                "background-size":"cover","background-repeat":"no-repeat"});
         });
 
 })

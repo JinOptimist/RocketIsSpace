@@ -1,11 +1,15 @@
 .log{
-	height: 1933px;
+	height: 100vh;
 	width: 100%;
 	background: black;
 	opacity: 0.7;
 	position: absolute;
 	z-index: 10;
-	display: none;
+	position: fixed;
+}
+
+.hide{
+	display: none!important;
 }
 
 .info{
@@ -16,7 +20,6 @@
 }
 
 .cover{
-	position: absolute;
 	position: fixed;
 	background: black;
 	opacity: 0.5;
@@ -36,6 +39,8 @@
 	display: flex;
 	cursor: pointer;
 	z-index: 1;
+	color: white;
+	margin-top: 15px;
 }
 
 .link:hover{
@@ -47,13 +52,11 @@
 	z-index: 11;
 	position: absolute;
 	position: fixed;
-	flex-direction: column;
-	background: url("../image/comfortImage/fon.jpg");
-	height: 850px;
+	background: url(../image/comfortImage/fon.jpg) no-repeat center;
+	height: 600px;
 	width: 900px;
-	left: 550px;
-	top: 50px;
-	display: none;
+	top: 16vh;
+	left: 55vh;
 }
 
 .login-direction{
@@ -61,8 +64,7 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	height: 700px;
-	width: 600px;
+	width: 68%;
 }
 
 .user-login{
@@ -75,6 +77,7 @@
 	width: 300px;
 	height: 20px;
 	border: 0;
+	margin: 5px;
 }
 
 input[type="text"]{
