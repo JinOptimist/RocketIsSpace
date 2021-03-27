@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace SpaceWeb.Controllers
 {
-    public class ClientController : Controller
+    public class BankController : Controller
     {
-        public IActionResult Client()
+        public IActionResult Bank()
         {
             var input = new RegistrationViewModel();
            
