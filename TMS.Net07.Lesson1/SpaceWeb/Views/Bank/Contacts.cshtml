@@ -1,0 +1,25 @@
+﻿@model ContactsVieModel
+
+@{
+    Layout = "_LayoutBank";
+}
+
+<div class="client-before-content">
+</div>
+
+<div class="contacts-content">
+    <form action="/Bank/Contacts" method="post">
+        <div>
+            email: @Html.TextBoxFor(x => x.Email)
+            @Html.ValidationMessageFor(x => x.Email)
+
+            fonenumber: @Html.TextBoxFor(x => x.PhoneNumber)
+            @Html.ValidationMessageFor(x => x.PhoneNumber)
+
+            postaddress: @Html.TextBoxFor(x => x.PostAddress)
+            @Html.ValidationMessageFor(x => x.PostAddress)
+
+
+        </div>
+    </form>
+</div>

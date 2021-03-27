@@ -19,3 +19,13 @@
     background-image: url('../../image/icon/delete-24px_hover.svg');
     color: white;
 }
+
+.footer-icon {
+    padding: 15px;
+    max-height: 20px;
+    opacity: 0.5;
+}
+
+    .footer-icon:hover {
+        opacity: 0.8;
+    }
