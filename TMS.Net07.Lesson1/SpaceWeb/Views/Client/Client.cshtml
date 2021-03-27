@@ -1,0 +1,22 @@
+﻿@model RegistrationViewModel
+@{
+    Layout = "_LayoutAccount";
+}
+
+<form action="/Client/Client" method="post">
+    
+    <div class="login-block">
+        <div>
+            password: @Html.TextBoxFor(x => x.Password)
+            @Html.ValidationMessageFor(x => x.Password)
+
+        </div>
+    <div>
+                login: @Html.TextBoxFor(x => x.Login)
+                @Html.ValidationMessageFor(x => x.Login)
+                <input class="login" type="submit" value="Войти" />
+            </div>
+        </div>
+    
+
+</form>
