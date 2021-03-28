@@ -91,6 +91,13 @@ input[type="text"]{
     color: white;
 }
 
+.login-direction .or {
+	font-family: "Georgia";
+	margin: 15px;
+	font-size: 20px;
+	color: white;
+}
+
 .login {
 	-moz-box-shadow:inset 0px 1px 0px 0px #9acc85;
 	-webkit-box-shadow:inset 0px 1px 0px 0px #9acc85;
