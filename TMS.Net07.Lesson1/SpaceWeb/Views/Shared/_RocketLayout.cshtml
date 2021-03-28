@@ -2,12 +2,12 @@
 <html>
 <head>
     <link rel="stylesheet" href="~/css/reset.css" />
-    <link rel="stylesheet" href="~/css/iconsComfort.css"> @*icons of top menu*@
-    <link rel="stylesheet" href="~/css/endBlockStyle.css">
-    <link rel="stylesheet" href="~/css/topStyle.css">
-    <link rel="stylesheet" href="~/css/rocketlayout.css">
+    <link rel="stylesheet" href="~/css/Rocket/iconsMenu.css"> @*icons of top menu*@
+    <link rel="stylesheet" href="~/css/Rocket/endBlockStyle.css">
+    <link rel="stylesheet" href="~/css/Rocket/topStyle.css">
+    <link rel="stylesheet" href="~/css/Rocket/rocketlayout.css">
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/js/comfort.js"></script> @*log in button js*@
+    <script src="~/js/Rocket/Menu.js"></script> @*log in button js*@
 
     @RenderSection("Style", required: false)
     @RenderSection("Script", required: false)
@@ -28,12 +28,15 @@
                 <input class="login" type="button" value="Log in" />
             </div>
             <div class="or">or</div>
+            <div>
+                <input class="login" type="button" value="Registration" />
+            </div>
         </div>
     </div>
     <div class="info">
         <div class="cover"></div>
         <div class="link icon log-in">Log in</div>
-        <a href="../Factory/mainPage">
+        <a href="../Rocket/MainPage">
              <div class="link icon home">Home</div>
         </a>
         <a href="javascript:history.go(-1)" class="comfort-link">
