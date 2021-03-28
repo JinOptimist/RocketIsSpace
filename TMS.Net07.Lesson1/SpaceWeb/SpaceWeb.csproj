@@ -8,4 +8,8 @@
     <Folder Include="wwwroot\image\human\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\HumansResources\HumansResources.csproj" />
+  </ItemGroup>
+
 </Project>
