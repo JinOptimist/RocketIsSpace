@@ -1,7 +1,47 @@
 .container {
     width: 100%;
+<<<<<<< Updated upstream:HTML.bank/StyleAccount.css
     max-width: 1200px;
     margin: 0 auto;
+=======
+    height:80px;
+    max-width: 700px;
+    margin: 10px auto;
+    justify-content: center;
+}
+.rocket {
+    border: 1px green solid;
+    width: 150px;
+    height: 150px;
+    margin-bottom: 0px;
+    margin: 5px;
+    padding: 10px;
+    display:flex;
+    justify-content:center;
+    
+}
+.rocket .name {
+    display: flex;
+    justify-content:center;
+    color:aliceblue;
+    padding:20px, 0;
+}
+
+.rocket .image-container {
+    height:150px;
+    width:150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+
+.rocket img {
+    max-width: 150px;
+    max-height: calc(150px - 16px);
+    
+>>>>>>> Stashed changes:TMS.Net07.Lesson1/SpaceWeb/wwwroot/css/Client/StyleAccount.css
 }
 .intro {
     padding: 140px;
@@ -20,6 +60,7 @@
     text-align: center;
 }
 .intro-titel {
+    margin-bottom: 40px;
     color: #ffffff;
     font-size: 40px;
     font-weight: 100;
@@ -69,9 +110,10 @@
     z-index: 1000;
     padding: 30px;
 }
-.header-inner{
-    display:flex;
-    justify-content:space-between;
+.header-inner {
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 .header-logo {
