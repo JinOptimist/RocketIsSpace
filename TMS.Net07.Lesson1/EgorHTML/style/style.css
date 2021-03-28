@@ -4,7 +4,7 @@ body {
 
 .header {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     height: 300px;
 
@@ -30,19 +30,53 @@ body {
 }
 
 .icon-list .addition-icon .circle {
-    margin: 20px 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     
+    margin: 20px 40px;
     width: 130px;
     height: 130px;
     border-radius: 50%;
-    border-style: solid;
+    border-style: dashed;
     border-width: medium;
     border-color: #414141;
 }
 
+.icon-list .addition-icon .circle:hover
+{
+    border-color: #514518;
+    border-style: solid;
+    box-shadow: 0 0 20px -9px;
+}
+
+.icon-list .addition-icon .circle:hover .material-icons-outlined
+{
+    color: #514518;
+}
+.icon-list .addition-icon .circle:hover .material-icons
+{
+    color: #514518;
+}
+
+
 .icon-list .addition-icon .addition-name {
     display: flex;
     justify-content: center;
-    
     font-size: 20px;
+}
+
+.addition-icon .material-icons-outlined,
+.addition-icon .material-icons
+{
+    font-size: 50px;
+}
+
+#public-icon  {
+    position: absolute;
+    font-size: 18px;
+}
+
+#panorama-icon  {
+    position: absolute;
 }
