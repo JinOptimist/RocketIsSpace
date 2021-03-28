@@ -2,8 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using HumansResources.Humans.Persons;
 
-
-namespace SpaceWeb.Models
+namespace SpaceWeb.Models.RocketModels
 {
     public class FactoryRegistrationViewModel
     {

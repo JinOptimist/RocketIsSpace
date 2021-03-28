@@ -52,7 +52,7 @@
 	z-index: 11;
 	position: absolute;
 	position: fixed;
-	background: url(../image/comfortImage/fon.jpg) no-repeat center;
+	background: url(../../image/comfortImage/fon.jpg) no-repeat center;
 	height: 600px;
 	width: 900px;
 	top: 16vh;

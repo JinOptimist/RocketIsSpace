@@ -1,5 +1,5 @@
     body{
-		background: url(../image/FactoryImages/spacefactory.jpg);
+		background: url(../../image/FactoryImages/spacefactory.jpg);
 		background-size: cover;
 		background-position: center;
 		background-repeat: no-repeat;
@@ -85,22 +85,22 @@
 	}
 	.rocket:hover{
 		transition:all .3s ease;
-  		background:url("../image/FactoryImages/mainRocket.jpg") center/cover;
+  		background:url("../../image/FactoryImages/mainRocket.jpg") center/cover;
 		opacity: 1;
 	}
 	.add:hover{
 		transition:all .3s ease;
-		background:url("../image/FactoryImages/living room.jpg") center/cover;
+		background:url("../../image/FactoryImages/living room.jpg") center/cover;
 		opacity:1;
 	}
 	.comf:hover{
 		transition:all .3s ease;
-		background:url("../image/FactoryImages/command_center.jpg") center/cover;
+		background:url("../../image/FactoryImages/command_center.jpg") center/cover;
 		opacity:1;
 	}
 	.stage:hover{
 		transition:all .3s ease;
-		background:url("../image/FactoryImages/engine.jpg") center/cover;
+		background:url("../../image/FactoryImages/engine.jpg") center/cover;
 		opacity:1;
 	}
 	.link:hover .text{
