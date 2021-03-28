@@ -1,10 +1,9 @@
 ﻿.header {
     display: flex;
-    margin: -8px;
     padding-left: 50px;
     padding-bottom: 50px;
     height: 550px;
-    background: url(~/image/comfortImage/toilet00.jpg) center/cover;
+    background: url(/image/comfortImage/toilet00.jpg) center/cover;
     color: white;
     align-items: flex-end;
     font-family: "Century Gothic";

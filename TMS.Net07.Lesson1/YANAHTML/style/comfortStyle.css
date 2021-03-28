@@ -1,13 +1,12 @@
 .header{
 	display: flex;
-	margin: -8;
 	height: 700px;
 	background: url(../pic/space2.jpg) center/cover;
 	color: white;
 	justify-content: center;
 	align-items: center;
 	font-family: "Century Gothic";
-	font-size: 120;
+	font-size: 120px;
 }
 
 .none{
@@ -17,13 +16,13 @@
 .text1{
 	color: #353535;
 	font-family: "Georgia";
-	font-size: 50;
-	padding-right: 500;
-	padding-left: 50;
+	font-size: 50px;
+	padding-right: 500px;
+	padding-left: 50px;
 }
 
 .text2{
-	font-size: 30;
+	font-size: 30px;
 }
 
 .center-block{
@@ -39,9 +38,9 @@
 	color: white;
 	align-items: flex-end;
 	font-family: "Century Gothic";
-	font-size: 90;
-	padding-left: 15;
-	padding-bottom: 30;
+	font-size: 90px;
+	padding-left: 15px;
+	padding-bottom: 30px;
 }
 
 .toilet:hover{
@@ -60,9 +59,9 @@
 	color: white;
 	align-items: flex-end;
 	font-family: "Century Gothic";
-	font-size: 85;
-	padding-left: 15;
-	padding-bottom: 30;
+	font-size: 85px;
+	padding-left: 15px;
+	padding-bottom: 30px;
 }
 
 .kitchen:hover{
@@ -81,9 +80,9 @@
 	color: white;
 	align-items: flex-end;
 	font-family: "Century Gothic";
-	font-size: 65;
-	padding-left: 15;
-	padding-bottom: 30;
+	font-size: 65px;
+	padding-left: 15px;
+	padding-bottom: 30px;
 }
 
 .command-center:hover{
@@ -102,9 +101,9 @@
 	color: white;
 	align-items: flex-end;
 	font-family: "Century Gothic";
-	font-size: 70;
-	padding-left: 15;
-	padding-bottom: 30;
+	font-size: 70px;
+	padding-left: 15px;
+	padding-bottom: 30px;
 }
 
 .capsule:hover{
