@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-﻿﻿.none {
-    height: 70px;
-}
-
-.content {
-    min-height: calc(100vh - 100px - 70px);
-}
-=======
-﻿.content{
+.content{
     min-height: calc(100vh - 100px);
 }
->>>>>>> Team2Rocket

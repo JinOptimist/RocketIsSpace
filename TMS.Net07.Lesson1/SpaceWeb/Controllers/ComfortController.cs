@@ -12,5 +12,25 @@ namespace SpaceWeb.Controllers
         {
             return View();
         }
+
+        public IActionResult ToiletPage()
+        {
+            return View();
+        }
+
+        public IActionResult KitchenPage()
+        {
+            return View();
+        }
+
+        public IActionResult CCenterPage()
+        {
+            return View();
+        }
+
+        public IActionResult CapsulePage()
+        {
+            return View();
+        }
     }
 }
