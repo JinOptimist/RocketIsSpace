@@ -1,0 +1,16 @@
+﻿@model RegistrationViewModel
+<form action="/User/login" method="post">
+    <div>
+        Login: @Html.TextBoxFor(x => x.Login)
+        @Html.ValidationMessageFor(x => x.Login)
+    </div>
+
+    <div>
+        Password: @Html.TextBoxFor(x => x.Password)
+        @Html.ValidationMessageFor(x => x.Password)
+    </div>
+
+    <div>
+        <input type="submit" value="send" />
+    </div>
+</form>

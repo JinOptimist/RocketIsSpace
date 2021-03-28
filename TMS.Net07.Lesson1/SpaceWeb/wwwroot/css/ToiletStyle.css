@@ -1,0 +1,28 @@
+﻿.header {
+    display: flex;
+    padding-left: 50px;
+    padding-bottom: 50px;
+    height: 550px;
+    background: url(/image/comfortImage/toilet00.jpg) center/cover;
+    color: white;
+    align-items: flex-end;
+    font-family: "Century Gothic";
+    font-size: 140px;
+}
+
+.none {
+    height: 100px;
+}
+
+.central-block {
+    color: #4A4A4A;
+    font-family: "Georgia";
+    font-size: 30px;
+    padding-left: 150px;
+    padding-right: 150px;
+}
+
+.title {
+    color: #353535;
+    font-size: 50px;
+}

@@ -4,4 +4,9 @@
         <TargetFramework>net5.0</TargetFramework>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Compile Remove="Program.cs" />
+      <Compile Remove="Mechanics\IRocketStages.cs" />
+    </ItemGroup>
+
 </Project>
