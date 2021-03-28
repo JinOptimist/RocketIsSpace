@@ -1,0 +1,54 @@
+﻿@model UserProfileViewModel
+
+@{
+    Layout = "_LayoutBank";
+}
+<div class="profile">
+    <form action="/Bank/UserProfile" method="post">
+        <h1>Анкета</h1>
+
+        <div class="profile-text">
+            name: @Html.TextBoxFor(x => x.Name, new { @placeholder = "Name" })
+            @Html.ValidationMessageFor(x => x.Name)
+
+        </div>
+        <div class="profile-text">
+            surname: @Html.TextBoxFor(x => x.Surname, new { @placeholder = "Surname" })
+            @Html.ValidationMessageFor(x => x.Surname)
+        </div>
+        <div class="profile-text">
+            birthdate: @Html.TextBoxFor(x => x.BirthDate, new { @type = "date", @placeholder = "Birthdate" })
+            @Html.ValidationMessageFor(x => x.BirthDate)
+
+        </div>
+        <div class="profile-text">
+            age: @Html.TextBoxFor(x => x.Age, new { @placeholder = "Age" })
+            @Html.ValidationMessageFor(x => x.Age)
+        </div>
+        <div class="profile-text">
+            sex: @Html.DropDownListFor(User => User.Sex, new SelectList(new[] { " ", "Male", "Female" }))
+
+        </div>
+        <div class="profile-text">
+            postaddress: @Html.TextBoxFor(x => x.IdentificationPassport)
+            @Html.ValidationMessageFor(x => x.IdentificationPassport)
+
+        </div>
+
+        <div class="profile-text">
+            phonenumber: @Html.TextBoxFor(x => x.PhoneNumber, new { @type = "+375xx-xxx-xx-xx", @placeholder = "phonenumber" })
+            @Html.ValidationMessageFor(x => x.PhoneNumber)
+        </div>
+        <div class="profile-text">
+            postaddress: @Html.TextBoxFor(x => x.PostAddress)
+            @Html.ValidationMessageFor(x => x.PostAddress)
+
+        </div>
+
+        <div class="profile-text">
+            <input type="submit" value="send" />
+        </div>
+
+    </form>
+</div>
+    
