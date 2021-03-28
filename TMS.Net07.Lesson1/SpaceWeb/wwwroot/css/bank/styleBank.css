@@ -1,0 +1,353 @@
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+}
+
+a {
+    text-decoration: none;
+}
+
+.obertka {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.client-before-content {
+    height: 82px;
+}
+
+/*.client-after-content {
+    height: 80px;
+}*/
+
+.header {
+    position: absolute;
+    background-color: rgba(53, 189, 252, 0.3);
+    height: 80px;
+    width: 100%;
+    box-shadow: 0px 4px 5px gray;
+    background-image: -o-linear-gradient(top,rgba(53, 189, 252, 0.3),rgba(27, 89, 117, 0.3));
+    background-image: -moz-linear-gradient(top,rgba(53, 189, 252, 0.3),rgba(27, 89, 117, 0.3));
+    background-image: -webkit-linear-gradient(top,rgba(53, 189, 252, 0.3),rgba(27, 89, 117, 0.3));
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}
+
+.logo {
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    opacity: 0.85;
+}
+
+.logo-image {
+    max-width: 60px;
+    margin-right: 10px;
+}
+
+.logoName {
+    color: rgb(26, 43, 99);
+    font-size: 40px;
+    font-family: 'Lemon Milk';
+    font-weight: normal;
+    display: flex;
+    justify-content: flex-start;
+    align-self: center;
+    padding-right: 10px;
+}
+
+.logoNameBank {
+    font-family: 'Lemon Milk';
+    font-weight: bold;
+}
+
+.buttonList {
+    margin-right: 1em;
+    font-size: 20px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    /*font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;*/
+    display: flex;
+    align-items: center;
+}
+
+.home-button, .about-button, .contacts-button, .login-button {
+    color: rgb(26, 43, 99);
+    margin: 0.2em;
+    padding: 0.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.8;
+}
+
+    .home-button:hover, .about-button:hover, .contacts-button:hover, .login-button:hover {
+        /*margin: 0.5em;*/
+        font-weight: 600;
+        font-size: calc(25px+2px);
+        background-image: -webkit-linear-gradient(top,rgb(53, 189, 252),rgb(27, 89, 117));
+        border: 4px rgb(26, 43, 99) solid;
+        border-radius: 1em;
+        opacity: 1;
+    }
+
+.footer {
+    min-height: 80px;
+    background-color: rgba(201, 201, 201, 0.74);
+    height: 80px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.contacts {
+    margin-right: 5%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.rights {
+    margin-left: 5%;
+    opacity: 0.8;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.social-media {
+    display: flex;
+    justify-content: space-around;
+}
+
+.container {
+    width: 100%;
+    
+    margin: 10px auto;
+    justify-content: center;
+}
+.rocket {
+    border: 1px green solid;
+    width: 150px;
+    height: 150px;
+    margin-bottom: 0px;
+    margin: 5px;
+    padding: 10px;
+    display:flex;
+    justify-content:center;
+    
+}
+.rocket .name {
+    display: flex;
+    justify-content:center;
+    color:aliceblue;
+    padding:20px, 0;
+}
+
+.rocket .image-container {
+    height:150px;
+    width:150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+
+.rocket img {
+    max-width: 150px;
+    max-height: calc(150px - 16px);
+    
+}
+.intro {
+    
+    width: 100%;
+    height: 100vh;
+    /*background: url("../../image/Client/rocket1.jpg") center no-repeat;*/
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.intro-inner {
+    width: 100%;
+    height:40px;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+.intro-titel {
+    color: #ffffff;
+    font-size: 40px;
+    font-weight: 100;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 1;
+}
+
+.intro-suptitel:after {
+    content: "";
+    display: block;
+    width: 20px;
+    height: 3px;
+    margin: 10px auto 0;
+    background-color: azure;
+}
+.intro-suptitel {
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 30px;
+    color: aliceblue;
+    text-align: center;
+}
+.button-login {
+    margin-left: 500px;
+    margin-bottom: 50px;
+    vertical-align: top;
+    padding: 8px 30px;
+    border: 3px solid #fff;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background .1s linear, color .1s linear;
+}
+.button-login:hover{
+    background-color: #fff;
+    color: #333;
+}
+
+/*.header {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 30px;
+}*/
+.header-inner{
+    display:flex;
+    justify-content:space-between;
+    align-items: center;
+}
+.header-logo {
+    font-size: 30px;
+    font-weight: 700;
+    color: #ffffff;
+}
+.nav {
+    font-size: 14px;
+    text-transform: uppercase;
+}
+.nav-link{
+    display:inline-block;
+    vertical-align:top;
+    margin: 0 15px;
+
+    position: relative;
+
+    color:#ffffff;
+    text-decoration: none;
+    transition: color .2s linear;
+}
+.nav-link:hover
+{
+    color: #00ffff;
+}
+    .nav-link:after {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 3px;
+        display: none;
+
+        background-color: #ffffff;
+
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 1;
+        opacity: 0;
+        
+    }
+    .nav-link:hover:after{
+        display: block;
+        opacity: 1;
+    }
+.slider{
+    display:flex;
+    justify-content: space-between;
+    margin-top: 30px;
+
+}
+.slider-item{
+    width:23%;
+    font-size: 18px;
+    color: black;
+    text-transform: uppercase;
+    padding: 20px 0 10px 0;
+    border-top: 2px solid #fff;
+    opacity: .7;
+    position: relative;
+
+}
+.slider-item.active:before{
+ content: "";
+ display: block;
+ width: 70px;
+ position: absolute;
+ height: 3px;
+ top: -3px;
+ left: 0;
+ z-index: 1;
+ background-color: blue;
+}
+.slider-item.active {
+    opacity: 1;
+}
+.slider-num {
+    font-weight: 700;
+    font-size: 24px;
+}
+
+.header input[type=text] {
+    width: 68px;
+    border-radius: 5px;
+    background: #808080;
+    border: 2px;
+    margin-top: 2px;
+}
+.login-block {
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+}
+
+
+.client-content {
+    height: calc(100vh - 162px);
+    background: url("../../image/bank/rocket1.jpg") center no-repeat;
+    background-size: cover;
+}
+
+.layout-content {
+    height: auto;
+}
+
+.client-text-centre {
+    padding-top: 205px;
+}
+@media (max-height: 670px){
+    .client-text-centre {
+        padding-top: 150px;
+    }
+}
+@media (max-height: 550px) {
+    .client-text-centre {
+        padding-top: 100px;
+    }
+}

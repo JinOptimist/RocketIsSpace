@@ -1,0 +1,38 @@
+﻿@{
+    Layout = "_LayoutHuman";
+}
+
+@model PersonViewModel
+
+<div class="login-block">
+    <div class="panel">
+        <form action="/Human/Person" method="post">
+            <div class="element">
+                @Html.TextBoxFor(Person => Person.Name, new {@placeholder = "Your name"})
+            </div>
+            <div class="element">
+                @Html.TextBoxFor(Person => Person.Surname, new { @placeholder = "Your surname" })
+            </div>
+            <div class="element">
+                @Html.TextBoxFor(Person => Person.BirthDate, new { @type = "date", @placeholder = "Your birthdate" })
+                @Html.ValidationMessageFor(x => x.BirthDate)
+            </div>
+            <div class="element">
+                @Html.DropDownListFor(Person=>Person.Gender, new SelectList(new[] { "None", "Male", "Female" }))
+            </div>
+            <div class="element">
+                @Html.TextBoxFor(Person => Person.PhoneNumber, new { @placeholder = "Your phone" })
+                @Html.ValidationMessageFor(x => x.PhoneNumber)
+            </div>
+            <div class="element">
+                @Html.TextBoxFor(Person => Person.Email, new { @placeholder = "Your email" })
+            </div>
+            <div class="element">
+                @Html.TextAreaFor(Person => Person.PostAddress)
+            </div>
+            <div class="element">
+                <input type="submit" value="send"/>
+            </div>
+        </form>
+    </div>
+</div>
