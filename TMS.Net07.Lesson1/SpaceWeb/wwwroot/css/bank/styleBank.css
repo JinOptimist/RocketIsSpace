@@ -1,9 +1,11 @@
 html {
     height: 100%;
+    width: 100%;
 }
 
 body {
     height: 100%;
+    width: 100%;
 }
 
 a {
@@ -18,7 +20,7 @@ a {
 }
 
 .client-before-content {
-    height: 82px;
+    height: 62px;
 }
 
 /*.client-after-content {
@@ -26,14 +28,24 @@ a {
 }*/
 
 .header {
+    z-index: 10;
     position: absolute;
-    background-color: rgba(53, 189, 252, 0.3);
-    height: 80px;
+    height: 60px;
     width: 100%;
     box-shadow: 0px 4px 5px gray;
     background-image: -o-linear-gradient(top,rgba(53, 189, 252, 0.3),rgba(27, 89, 117, 0.3));
     background-image: -moz-linear-gradient(top,rgba(53, 189, 252, 0.3),rgba(27, 89, 117, 0.3));
-    background-image: -webkit-linear-gradient(top,rgba(53, 189, 252, 0.3),rgba(27, 89, 117, 0.3));
+    background-image: -webkit-linear-gradient(top,rgb(255 244 244 / 32%),rgb(32 52 76 / 30%));
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}
+
+.header-for-start-page {
+    z-index: 20;
+    position: absolute;
+    height: 60px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-content: center;
@@ -47,13 +59,24 @@ a {
 }
 
 .logo-image {
-    max-width: 60px;
+    max-width: 50px;
     margin-right: 10px;
 }
 
 .logoName {
     color: rgb(26, 43, 99);
-    font-size: 40px;
+    font-size: 33px;
+    font-family: 'Lemon Milk';
+    font-weight: normal;
+    display: flex;
+    justify-content: flex-start;
+    align-self: center;
+    padding-right: 10px;
+}
+
+.logoName-for-start-page {
+    color: rgb(255, 255, 255);
+    font-size: 33px;
     font-family: 'Lemon Milk';
     font-weight: normal;
     display: flex;
@@ -86,7 +109,30 @@ a {
     opacity: 0.8;
 }
 
+.home-button-for-start-page, .about-button-for-start-page,
+.contacts-button-for-start-page, .login-button-for-start-page {
+    color: rgb(255, 255, 255);
+    margin: 0.2em;
+    padding: 0.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.8;
+}
+
     .home-button:hover, .about-button:hover, .contacts-button:hover, .login-button:hover {
+        /*margin: 0.5em;*/
+        font-weight: 600;
+        font-size: calc(25px+2px);
+        background-image: -webkit-linear-gradient(top,rgb(53, 189, 252),rgb(27, 89, 117));
+        border: 4px rgb(26, 43, 99) solid;
+        color: rgb(255, 255, 255);
+        border-radius: 1em;
+        opacity: 1;
+    }
+
+    .home-button-for-start-page:hover, .about-button-for-start-page:hover,
+    .contacts-button-for-start-page:hover, .login-button-for-start-page:hover {
         /*margin: 0.5em;*/
         font-weight: 600;
         font-size: calc(25px+2px);
@@ -97,9 +143,9 @@ a {
     }
 
 .footer {
-    min-height: 80px;
+    min-height: 50px;
     background-color: rgba(201, 201, 201, 0.74);
-    height: 80px;
+    height: 50px;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -180,6 +226,7 @@ a {
     text-align: center;
 }
 .intro-titel {
+    margin-bottom: 10px;
     color: #ffffff;
     font-size: 40px;
     font-weight: 100;
@@ -193,18 +240,17 @@ a {
     display: block;
     width: 20px;
     height: 3px;
-    margin: 10px auto 0;
+    margin: 10px auto;
     background-color: azure;
 }
 .intro-suptitel {
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-size: 30px;
     color: aliceblue;
     text-align: center;
+    margin-bottom: 25px;
 }
 .button-login {
-    margin-left: 500px;
-    margin-bottom: 50px;
     vertical-align: top;
     padding: 8px 30px;
     border: 3px solid #fff;
@@ -327,9 +373,10 @@ a {
     padding: 40px;
 }
 
-
 .client-content {
-    height: calc(100vh - 162px);
+    position: relative;
+    z-index: 15;
+    height: calc(100vh - 50px);
     background: url("../../image/bank/rocket1.jpg") center no-repeat;
     background-size: cover;
 }
@@ -338,28 +385,69 @@ a {
     height: auto;
 }
 
+
 .client-text-centre {
-    padding-top: 205px;
+    padding-top: 300px;
 }
-@media (max-height: 670px){
+@media (max-height: 1080px) {
+    .client-text-centre {
+        padding-top: 250px;
+    }
+}
+@media (max-height: 850px) {
+    .client-text-centre {
+        padding-top: 180px;
+    }
+}
+@media (max-height: 700px){
     .client-text-centre {
         padding-top: 150px;
     }
 }
-@media (max-height: 550px) {
+@media (max-height: 630px) {
     .client-text-centre {
-        padding-top: 100px;
+        padding-top: 120px;
+    }
+    .intro-titel {
+        font-size: 35px;
+    }
+    .intro-suptitel {
+        font-size: 25px;
     }
 }
+@media (max-height: 510px) {
+    .client-text-centre {
+        padding-top: 90px;
+    }
+
+    .intro-titel {
+        font-size: 35px;
+    }
+
+    .intro-suptitel {
+        font-size: 25px;
+    }
+}
+
+.limit-width-content {
+    position: relative;
+    max-width: 1300px;
+    left: 0;
+    right: 0;
+    margin: 10px auto;
+}
+
 .profile {
     height: 100vh;
-    margin-top:162px;
+    margin-top: 162px;
     background: url("../../image/bank/1-43.jpg") center no-repeat;
     background-size: cover;
 }
+
 .profile-text-center {
     padding-top: 205px;
 }
+
 @media (max-height: 670px) {
     .profile-text-center {
         padding-top: 150px;
@@ -371,31 +459,36 @@ a {
         padding-top: 100px;
     }
 }
+
 .profile-text {
     margin: 5px;
-    padding:5px;
+    padding: 5px;
 }
+
 h1 {
-    display:flex;
-    justify-content:center;
-    cursor:help;
-    margin:0;
-    text-transform:uppercase;
-    padding-bottom:10px;
-    border-bottom:5px solid rgb(26, 43, 99);
+    display: flex;
+    justify-content: center;
+    cursor: help;
+    margin: 0;
+    text-transform: uppercase;
+    padding-bottom: 10px;
+    border-bottom: 5px solid rgb(26, 43, 99);
 }
-form{
-    margin:0 auto;
-    background-color:rgba(201, 201, 201, 0.74);
-    width:400px;
-    height:555px;
+
+form {
+    margin: 0 auto;
+    background-color: rgba(201, 201, 201, 0.74);
+    width: 400px;
+    height: 555px;
     padding: 10px;
     box-shadow: 2px 2px 5px rgb(26, 43, 99);
 }
-label{
-    padding-left:20px;
-    text-transform:uppercase;
+
+label {
+    padding-left: 20px;
+    text-transform: uppercase;
 }
+
 input {
     margin-top: 3px;
     height: 20px;
@@ -405,17 +498,19 @@ input {
     font-size: 15px;
     box-shadow: 2px 2px 5px rgb(26, 43, 99);
 }
-input:focus{
-    border:2px solid rgb(27, 89, 117);
-    transform:translateX(15px);
-    width:185px;
-}
+
+    input:focus {
+        border: 2px solid rgb(27, 89, 117);
+        transform: translateX(15px);
+        width: 185px;
+    }
+
 button {
-    display:flex;
-    justify-content:center;
+    display: flex;
+    justify-content: center;
     cursor: pointer;
     padding: 50px 30px;
-    height:50px;
+    height: 50px;
     border: 3px solid #fff;
     color: #fff;
     text-transform: uppercase;
@@ -424,13 +519,14 @@ button {
     text-decoration: none;
     transition: background .1s linear, color .1s linear;
 }
+
 .button:hover {
-    opacity:.80;
+    opacity: .80;
     background-color: #fff;
     color: #333;
-    transform:scale(1.1);
+    transform: scale(1.1);
 }
+
 .input-validation-error {
     border-color: red;
 }
-
