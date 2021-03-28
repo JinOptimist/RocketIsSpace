@@ -7,7 +7,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankSputink", "BankSputink\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankSputink.Test", "BankSputink.Test\BankSputink.Test.csproj", "{8DC3022F-20C6-496B-8BE3-3945144E2184}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rocket", "Rocket\Rocket.csproj", "{4DB570B0-6D5E-43E9-AE47-C06D4B2290C5}"
+Updated upstream
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpaceWeb", "SpaceWeb\SpaceWeb.csproj", "{BD6E6CF7-9369-44D5-B49D-5362AEF1020B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HumansResources", "HumansResources\HumansResources.csproj", "{3D988676-5A6E-4D9E-B7C6-AF86CF7FBFA4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HumansResources.Test", "HumansResources.Test\HumansResources.Test.csproj", "{38E5BF82-802A-48FC-8F77-5E03A64D24CA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TeamRocket", "TeamRocket", "{6E70E370-D68C-4F85-B573-6ECD734DD1BD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RocketTest", "RocketTest\RocketTest.csproj", "{A22BD0B6-7664-4FCB-B0E3-AA8494CE451A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rocket2", "Rocket2\Rocket2.csproj", "{C974CC7F-98D6-4770-AB75-BC03514F0FDF}"
+Stashed changes
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
