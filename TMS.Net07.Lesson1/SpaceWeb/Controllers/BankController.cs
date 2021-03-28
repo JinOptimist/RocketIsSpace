@@ -10,6 +10,7 @@ namespace SpaceWeb.Controllers
 {
     public class BankController : Controller
     {
+     
         public IActionResult Bank()
         {
             var input = new RegistrationViewModel();
@@ -53,6 +54,24 @@ namespace SpaceWeb.Controllers
                 PostAddress = "Belarus, Minsk, Timeriazeva 67"
             };
             return View(input);
+        }
+        [HttpGet]
+        public IActionResult UserProfile()
+        {
+            var user = new UserProfileViewModel();
+
+            return View(user);
+        }
+
+        [HttpPost]
+        public IActionResult UserProfile(UserProfileViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+           
+            return View(model);
         }
     }
 }
