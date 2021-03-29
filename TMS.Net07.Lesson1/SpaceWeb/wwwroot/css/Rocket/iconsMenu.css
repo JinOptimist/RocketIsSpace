@@ -1,0 +1,38 @@
+.icon{
+	display: flex;
+	align-items: flex-end;
+	position: absolute;
+	position: fixed;
+}
+
+.icon::before{
+	width: 30px;
+	height: 30px;
+	display: inline-block;
+	content: ' ';
+}
+
+.home::before {
+	background: url('../../image/comfortImage/baseline_home.png') center/cover;
+}
+
+.home:hover::before {
+	background: url('../../image/comfortImage/twotone_home.png') center/cover;
+}
+
+.back::before {
+	background: url('../../image/comfortImage/arrow1.png') center/cover;
+}
+
+.back:hover::before {
+	background: url('../../image/comfortImage/arrow2.png') center/cover;
+}
+
+
+.log-in::before {
+	background: url('../../image/comfortImage/login1.png') center/cover;
+}
+
+.log-in:hover::before {
+	background: url('../../image/comfortImage/login2.png') center/cover;
+}
