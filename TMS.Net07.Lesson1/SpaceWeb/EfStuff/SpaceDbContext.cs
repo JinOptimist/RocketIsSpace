@@ -15,5 +15,6 @@ namespace SpaceWeb.EfStuff
         public DbSet<User> Users { get; set; }
 
         public DbSet<Rocket> Rockets { get; set; }
+        public DbSet<Profile> UserProfile { get; set; }
     }
 }
