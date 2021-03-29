@@ -2,12 +2,12 @@
 <html>
 <head>
     <link rel="stylesheet" href="~/css/reset.css" />
-    <link rel="stylesheet" href="~/css/Rocket/iconsMenu.css"> @*icons of top menu*@
+    <link rel="stylesheet" href="~/css/Rocket/iconsMenu.css">
     <link rel="stylesheet" href="~/css/Rocket/endBlockStyle.css">
     <link rel="stylesheet" href="~/css/Rocket/topStyle.css">
     <link rel="stylesheet" href="~/css/Rocket/rocketlayout.css">
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/js/Rocket/Menu.js"></script> @*log in button js*@
+    <script src="~/js/Rocket/Menu.js"></script>
 
     @RenderSection("Style", required: false)
     @RenderSection("Script", required: false)
@@ -25,11 +25,11 @@
                 <input class="password" type="text" placeholder="password" />
             </div>
             <div>
-                <input class="login" type="button" value="Log in" />
+                <input class="login" type="submit" value="Log in" />
             </div>
             <div class="or">or</div>
             <div>
-                <input class="login" type="button" value="Registration" />
+                <input class="login" type="submit" value="Registration" />
             </div>
         </div>
     </div>

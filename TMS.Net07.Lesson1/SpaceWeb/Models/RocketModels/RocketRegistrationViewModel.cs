@@ -4,7 +4,7 @@ using HumansResources.Humans.Persons;
 
 namespace SpaceWeb.Models.RocketModels
 {
-    public class FactoryRegistrationViewModel
+    public class RocketRegistrationViewModel
     {
         [Required]
         public string Name { get; set; }
