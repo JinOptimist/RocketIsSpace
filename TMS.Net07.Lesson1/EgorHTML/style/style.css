@@ -50,15 +50,11 @@ body {
     box-shadow: 0 0 20px -9px;
 }
 
-.icon-list .addition-icon .circle:hover .material-icons-outlined
-{
-    color: #514518;
-}
+.icon-list .addition-icon .circle:hover .material-icons-outlined,
 .icon-list .addition-icon .circle:hover .material-icons
 {
     color: #514518;
 }
-
 
 .icon-list .addition-icon .addition-name {
     display: flex;
@@ -69,14 +65,28 @@ body {
 .addition-icon .material-icons-outlined,
 .addition-icon .material-icons
 {
-    font-size: 50px;
+    font-size: 60px;
 }
 
 #public-icon  {
     position: absolute;
-    font-size: 18px;
+    font-size: 22px;
 }
 
 #panorama-icon  {
     position: absolute;
+}
+
+.image-container img {
+    max-width: 400px;
+    max-height: 400px;
+}
+
+.addition-block
+{
+    display: flex;
+}
+
+.addition-block .text .name {
+    font-size: ;
 }
