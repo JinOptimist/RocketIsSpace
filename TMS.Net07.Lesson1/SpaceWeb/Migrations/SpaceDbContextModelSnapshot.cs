@@ -21,33 +21,33 @@ namespace SpaceWeb.Migrations
 
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.Profile", b =>
             {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+            b.Property<long>("Id")
+                .ValueGeneratedOnAdd()
+                .HasColumnType("bigint")
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("datetime2");
+            b.Property<DateTime>("BirthDate")
+                .HasColumnType("datetime2");
 
-                    b.Property<string>("IdentificationPassport")
-                        .HasColumnType("nvarchar(max)");
+            b.Property<string>("IdentificationPassport")
+                .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+            b.Property<string>("Name")
+                .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
+            b.Property<string>("PhoneNumber")
+                .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PostAddress")
-                        .HasColumnType("nvarchar(max)");
+            b.Property<string>("PostAddress")
+                .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Sex")
-                        .HasColumnType("nvarchar(max)");
+            b.Property<string>("Sex")
+                .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Surname");
-                    
-                    b.ToTable("UserProfile");
-            }
+            b.Property<string>("Surname");
+
+            b.ToTable("UserProfile");
+            });
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.BankAccount", b =>
                 {
                     b.Property<long>("Id")
