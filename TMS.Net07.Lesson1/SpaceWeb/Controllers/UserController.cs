@@ -64,10 +64,8 @@ namespace SpaceWeb.Controllers
                 return View(model);
             }
 
-            
             var user = _dbContext.Users.
                 SingleOrDefault(x => x.Name == model.Login);
-
 
             if (user == null)
             {
