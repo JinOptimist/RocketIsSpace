@@ -1,0 +1,82 @@
+﻿@model RegistrationViewModel
+@{
+    Layout = "_LayoutBank";
+}
+
+<div class="bank-popup hide">
+    <div class="bank-cover">
+    </div>
+    <div class="bank-popup-content">
+        <div class="before-bank-login-menu">
+            Добро пожаловать!
+        </div>
+        <div class="bank-login-menu">
+            <div class="bank-setters">
+                <div class="bank-setter login">
+                    <span>Логин</span>
+                    <form method="POST">
+                        <input name="last name" placeholder="Логин">
+                    </form>
+                </div>
+                <div class="bank-setter password">
+                    <span>Пароль</span>
+                    <form method="POST">
+                        <input name="password" type="password" placeholder="Пароль">
+                    </form>
+                </div>
+                <div class="additional bank-setter password-repeat hide">
+                    <span>Повторите пароль</span>
+                    <form method="POST">
+                        <input name="password-repeat" type="password" placeholder="Повторите пароль">
+                    </form>
+                </div>
+                <div class="additional bank-setter email hide">
+                    <span>Электронная почта</span>
+                    <form method="POST">
+                        <input name="email" placeholder="example@mail.com">
+                    </form>
+                </div>
+            </div>
+        </div>
+        <input type="submit" class="submit enter" value="Войти">
+        <input type="submit" class="submit register hide" value="Зарегистрироваться">
+        <div class="annotation" id="register">
+            <span>Ещё нет аккаунта? </span> <span class="link register">Зарегистрироваться</span>
+        </div>
+        <div class="annotation hide" id="enter">
+            <span>Уже есть аккаунт? </span> <span class="link enter">Войти</span>
+        </div>
+    </div>
+</div>
+
+<div class="header-for-start-page">
+    <div class="logo">
+        <img class="logo-image" src="../image/bank/logo.png" alt="logo">
+        <div class="logoName-for-start-page">
+            <div clacc="logoNameRocket">Rocket</div>
+            <div class="logoNameBank">Bank</div>
+        </div>
+    </div>
+    <div class="empty-header"></div>
+    <div class="buttonList">
+        <a href="/Bank/Bank">
+            <div class="home-button-for-start-page">Домой</div>
+        </a>
+        <div class="about-button-for-start-page">О нас</div>
+        <a href="/Bank/Contacts">
+            <div class="contacts-button-for-start-page">Контакты</div>
+        </a>
+        <div class="login-button-for-start-page">
+            <span>Вход</span>
+            <img class="login-icon" src="../image/icon/login-white-18dp.svg" />
+        </div>
+    </div>
+</div>
+
+<div class="client-content">
+    <div class="client-text-centre">
+        <h1 class="intro-titel">Мы открываем новые миры</h1>
+        <h2 class="intro-suptitel">Ты готов с нами?</h2>
+        <center><a class="button-login"> Login</a></center>
+    </div>
+</div>

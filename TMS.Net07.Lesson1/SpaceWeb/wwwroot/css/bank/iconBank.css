@@ -1,0 +1,31 @@
+.icon{
+  display: flex;
+  align-items: center;
+  color:#ffffff;
+}
+.icon::before{
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  content: ' ';
+  background-size: contain;  
+}
+
+.close::before {
+    background-image: url('../../image/icon/delete-24px.svg');
+    color: white;
+}
+.close:hover::before {
+    background-image: url('../../image/icon/delete-24px_hover.svg');
+    color: white;
+}
+
+.footer-icon {
+    padding: 15px;
+    max-height: 20px;
+    opacity: 0.5;
+}
+
+    .footer-icon:hover {
+        opacity: 0.8;
+    }
