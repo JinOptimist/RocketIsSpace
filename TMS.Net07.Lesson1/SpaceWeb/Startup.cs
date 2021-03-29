@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SpaceWeb.EfStuff;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +25,9 @@ namespace SpaceWeb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var connectionString = "Server=(localdb)\\MSSQLLocalDB;Database=SpaceWeb;Trusted_Connection=True";
+            services.AddDbContext<SpaceDbContext>(x => x.UseSqlServer(connectionString));
+
             services.AddControllersWithViews();
         }
 

@@ -1,0 +1,558 @@
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+}
+
+a {
+    text-decoration: none;
+}
+
+.obertka {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.client-before-content {
+    height: 62px;
+}
+
+/*.client-after-content {
+    height: 80px;
+}*/
+
+.header {
+    z-index: 10;
+    position: absolute;
+    height: 60px;
+    width: 100%;
+    box-shadow: 0px 4px 5px gray;
+    background-image: -o-linear-gradient(top,rgba(53, 189, 252, 0.3),rgba(27, 89, 117, 0.3));
+    background-image: -moz-linear-gradient(top,rgba(53, 189, 252, 0.3),rgba(27, 89, 117, 0.3));
+    background-image: -webkit-linear-gradient(top,rgb(255 244 244 / 32%),rgb(32 52 76 / 30%));
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}
+
+.header-for-start-page {
+    z-index: 20;
+    position: absolute;
+    height: 60px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}
+
+.logo {
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    opacity: 0.85;
+}
+
+.logo-image {
+    max-width: 50px;
+    margin-right: 10px;
+}
+
+.logoName {
+    color: rgb(26, 43, 99);
+    font-size: 33px;
+    font-family: 'Lemon Milk';
+    font-weight: normal;
+    display: flex;
+    justify-content: flex-start;
+    align-self: center;
+    padding-right: 10px;
+}
+
+.logoName-for-start-page {
+    color: rgb(255, 255, 255);
+    font-size: 33px;
+    font-family: 'Lemon Milk';
+    font-weight: normal;
+    display: flex;
+    justify-content: flex-start;
+    align-self: center;
+    padding-right: 10px;
+}
+
+.logoNameBank {
+    font-family: 'Lemon Milk';
+    font-weight: bold;
+}
+
+.buttonList {
+    margin-right: 1em;
+    font-size: 20px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    /*font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;*/
+    display: flex;
+    align-items: center;
+}
+
+.home-button, .about-button, .contacts-button, .login-button {
+    color: rgb(26, 43, 99);
+    margin: 0.2em;
+    padding: 0.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.8;
+}
+
+.home-button-for-start-page, .about-button-for-start-page,
+.contacts-button-for-start-page, .login-button-for-start-page {
+    color: rgb(255, 255, 255);
+    margin: 0.2em;
+    padding: 0.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.8;
+}
+
+.home-button:hover, .about-button:hover, .contacts-button:hover, .login-button:hover {
+    /*margin: 0.5em;*/
+    font-weight: 600;
+    font-size: calc(25px+2px);
+    background-image: -webkit-linear-gradient(top,rgb(53, 189, 252),rgb(27, 89, 117));
+    border: 4px rgb(26, 43, 99) solid;
+    color: rgb(255, 255, 255);
+    border-radius: 1em;
+    opacity: 1;
+}
+
+.home-button-for-start-page:hover, .about-button-for-start-page:hover,
+.contacts-button-for-start-page:hover, .login-button-for-start-page:hover {
+    /*margin: 0.5em;*/
+    font-weight: 600;
+    font-size: calc(25px+2px);
+    background-image: -webkit-linear-gradient(top,rgb(53, 189, 252),rgb(27, 89, 117));
+    border: 4px rgb(26, 43, 99) solid;
+    border-radius: 1em;
+    opacity: 1;
+}
+
+.footer {
+    min-height: 50px;
+    background-color: rgba(201, 201, 201, 0.74);
+    height: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.contacts {
+    margin-right: 5%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.rights {
+    margin-left: 5%;
+    opacity: 0.8;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.social-media {
+    display: flex;
+    justify-content: space-around;
+}
+
+.container {
+    width: 100%;
+    margin: 10px auto;
+    justify-content: center;
+}
+
+.rocket {
+    border: 1px green solid;
+    width: 150px;
+    height: 150px;
+    margin-bottom: 0px;
+    margin: 5px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.rocket .name {
+    display: flex;
+    justify-content: center;
+    color: aliceblue;
+    padding: 20px, 0;
+}
+
+.rocket .image-container {
+    height: 150px;
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.rocket img {
+    max-width: 150px;
+    max-height: calc(150px - 16px);
+}
+
+.intro {
+    width: 100%;
+    height: 100vh;
+    /*background: url("../../image/Client/rocket1.jpg") center no-repeat;*/
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.intro-inner {
+    width: 100%;
+    height: 40px;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.intro-titel {
+    margin-bottom: 10px;
+    color: #ffffff;
+    font-size: 40px;
+    font-weight: 100;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 1;
+}
+
+.intro-suptitel:after {
+    content: "";
+    display: block;
+    width: 20px;
+    height: 3px;
+    margin: 10px auto;
+    background-color: azure;
+}
+
+.intro-suptitel {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 30px;
+    color: aliceblue;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.button-login {
+    vertical-align: top;
+    padding: 8px 30px;
+    border: 3px solid #fff;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background .1s linear, color .1s linear;
+}
+
+.button-login:hover {
+    background-color: #fff;
+    color: #333;
+}
+
+/*.header {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 30px;
+}*/
+
+.header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-logo {
+    font-size: 30px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.nav {
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.nav-link {
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 15px;
+    position: relative;
+    color: #ffffff;
+    text-decoration: none;
+    transition: color .2s linear;
+}
+
+.nav-link:hover
+{
+    color: #00ffff;
+}
+.nav-link:after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 3px;
+    display: none;
+    background-color: #ffffff;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1;
+    opacity: 0;
+    }
+
+.nav-link:hover:after {
+    display: block;
+    opacity: 1;
+}
+
+.slider {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.slider-item {
+    width: 23%;
+    font-size: 18px;
+    color: black;
+    text-transform: uppercase;
+    padding: 20px 0 10px 0;
+    border-top: 2px solid #fff;
+    opacity: .7;
+    position: relative;
+}
+
+.slider-item.active:before {
+    content: "";
+    display: block;
+    width: 70px;
+    position: absolute;
+    height: 3px;
+    top: -3px;
+    left: 0;
+    z-index: 1;
+    background-color: blue;
+}
+
+.slider-item.active {
+    opacity: 1;
+}
+
+.slider-num {
+    font-weight: 700;
+    font-size: 24px;
+}
+
+.header input[type=text] {
+    width: 68px;
+    border-radius: 5px;
+    background: #808080;
+    border: 2px;
+    margin-top: 2px;
+}
+
+.login-block {
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+}
+
+
+.client-content {
+    position: relative;
+    z-index: 15;
+    height: calc(100vh - 50px);
+    background: url("../../image/bank/rocket1.jpg") center no-repeat;
+    background-size: cover;
+}
+
+.layout-content {
+    height: auto;
+}
+
+.client-text-centre {
+    padding-top: 300px;
+}
+
+@media (max-height: 1080px) {
+    .client-text-centre {
+        padding-top: 250px;
+    }
+}
+
+@media (max-height: 850px) {
+    .client-text-centre {
+        padding-top: 180px;
+    }
+}
+
+@media (max-height: 700px) {
+    .client-text-centre {
+        padding-top: 150px;
+    }
+}
+
+@media (max-height: 630px) {
+    .client-text-centre {
+        padding-top: 120px;
+    }
+
+    .intro-titel {
+        font-size: 35px;
+    }
+
+    .intro-suptitel {
+        font-size: 25px;
+    }
+}
+
+@media (max-height: 510px) {
+    .client-text-centre {
+        padding-top: 90px;
+    }
+
+    .intro-titel {
+        font-size: 35px;
+    }
+
+    .intro-suptitel {
+        font-size: 25px;
+    }
+}
+
+.limit-width-content {
+    position: relative;
+    max-width: 1300px;
+    left: 0;
+    right: 0;
+    margin: 10px auto;
+}
+
+.bank-popup {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 25;
+}
+
+.bank-cover {
+    background: black;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    opacity: 0.7;
+    z-index: 30;
+}
+
+.bank-popup-content {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 15px;
+    background-color: rgb(161, 161, 161);
+    border-radius: 1em;
+    display: flex;
+    justify-content: center;
+    flex-flow: column;
+    align-items: center;
+    box-shadow: 0px 0px 30px gray;
+    width: 41%;
+    height: 48%;
+    z-index: 35;
+}
+
+@font-face {
+    font-family: 'Exon';
+    src: url('../fonts/ExonFont/ExonRegular-0WjEd.otf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Lemon Milk';
+    src: url('../fonts/LemonMilkFont/LemonMilkRegular-X3XE2.otf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Lemon Milk';
+    src: url('../fonts/LemonMilkFont/LemonMilkBold-gx2B3.otf');
+    font-weight: bold;
+    font-style: normal;
+}
+
+.before-bank-login-menu {
+    padding-bottom: 20px;
+}
+
+.bank-setters {
+    background-color: rgb(245, 245, 245);
+    display: flex;
+    flex-flow: column;
+    align-content: center;
+    border: 0px rgb(58, 58, 58) solid;
+    border-radius: 1em;
+    box-shadow: 0px 0px 10px gray;
+    padding-left: 5px;
+}
+
+.bank-setter {
+    display: flex;
+    margin: 10px;
+    width: 350px;
+    justify-content: space-between;
+}
+
+.submit {
+    padding: 0.2em;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.bank-submit.enter {
+    width: 50px;
+}
+
+.bank-submit.register {
+    width: 150px;
+}
+
+.annotation {
+    margin: 10px;
+}
+
+.link.enter:hover, .link.register:hover {
+    font-weight: bolder;
+}
+
+.hide {
+    display: none;
+}

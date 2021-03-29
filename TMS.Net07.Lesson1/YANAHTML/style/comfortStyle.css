@@ -1,0 +1,115 @@
+.header{
+	display: flex;
+	height: 700px;
+	background: url(../pic/space2.jpg) center/cover;
+	color: white;
+	justify-content: center;
+	align-items: center;
+	font-family: "Century Gothic";
+	font-size: 120px;
+}
+
+.none{
+	height: 100px;
+}
+
+.text1{
+	color: #353535;
+	font-family: "Georgia";
+	font-size: 50px;
+	padding-right: 500px;
+	padding-left: 50px;
+}
+
+.text2{
+	font-size: 30px;
+}
+
+.center-block{
+	display: flex;
+	justify-content: space-around;
+}
+
+.toilet{
+	display: flex;
+	background: url(../pic/toilet0.jpg) center/cover;
+	width: 350px;
+	height: 600px;
+	color: white;
+	align-items: flex-end;
+	font-family: "Century Gothic";
+	font-size: 90px;
+	padding-left: 15px;
+	padding-bottom: 30px;
+}
+
+.toilet:hover{
+	background: url(../pic/toilet0blure.jpg) center/cover;
+}
+
+.toilet-link{
+	text-decoration: none;
+}
+
+.kitchen{
+	display: flex;
+	background: url(../pic/kitchen0.jpg) center/cover;
+	width: 350px;
+	height: 600px;
+	color: white;
+	align-items: flex-end;
+	font-family: "Century Gothic";
+	font-size: 85px;
+	padding-left: 15px;
+	padding-bottom: 30px;
+}
+
+.kitchen:hover{
+	background: url(../pic/kitchen0blure.jpg) center/cover;
+}
+
+.kitchen-link{
+	text-decoration: none;
+}
+
+.command-center{
+	display: flex;
+	background: url(../pic/commandcenter0.jpg) center/cover;
+	width: 350px;
+	height: 600px;
+	color: white;
+	align-items: flex-end;
+	font-family: "Century Gothic";
+	font-size: 65px;
+	padding-left: 15px;
+	padding-bottom: 30px;
+}
+
+.command-center:hover{
+	background: url(../pic/commandcenter0blure.jpg) center/cover;
+}
+
+.command-center-link{
+	text-decoration: none;
+}
+
+.capsule{
+	display: flex;
+	background: url(../pic/capsule0.jpg) center/cover;
+	width: 350px;
+	height: 600px;
+	color: white;
+	align-items: flex-end;
+	font-family: "Century Gothic";
+	font-size: 70px;
+	padding-left: 15px;
+	padding-bottom: 30px;
+}
+
+.capsule:hover{
+	background: url(../pic/capsule0blure.jpg) center/cover;
+}
+
+.capsule-link{
+	text-decoration: none;
+}

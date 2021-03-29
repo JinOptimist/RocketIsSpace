@@ -4,8 +4,11 @@
     <link rel="stylesheet" href="~/css/reset.css" />
     <link rel="stylesheet" href="~/css/icon.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/Factory.css">
+    <link rel="stylesheet" href="~/css/iconFactory.css">
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/site.js"></script>
+    <script src="~/js/mainPage.js"></script>
 
     @RenderSection("Scripts", required: false)
 </head>
@@ -16,7 +19,7 @@
     </div>
     <div class="header">
         <div></div>
-        <span class="header-text">Ракеты для каждого</span>
+        <span class="header-text">Ракеты для каждого!</span>
         <div class="login-block">
             <div>
                 <input class="user-login" type="text" placeholder="login" />
@@ -30,9 +33,9 @@
     <div class="center-block">
         <div class="left-menu">
             <div class="left-menu-absolute">
-                <a href="/Home/Index">
+                <a href="/Bank/Bank">
                     <div class="link icon home">
-                        <span class="text">Home</span>
+                        <span class="text">Bank</span>
                     </div>
                 </a>
                 <a href="/User/Profile">
@@ -43,6 +46,16 @@
                 <a href="/User/Login">
                     <div class="link icon help">
                         <span class="text">Help</span>
+                    </div>
+                </a>
+                <a href="/User/Registration">
+                    <div class="link icon help">
+                        <span class="text">Регистрация</span>
+                    </div>
+                </a>
+                <a href="/User/Login">
+                    <div class="link icon help">
+                        <span class="text">Логин</span>
                     </div>
                 </a>
                 <div>
@@ -66,7 +79,6 @@
         </div>
         <div class="content">
             @RenderBody()
-
         </div>
     </div>
 

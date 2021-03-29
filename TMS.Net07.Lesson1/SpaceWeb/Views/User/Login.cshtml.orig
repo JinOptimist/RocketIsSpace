@@ -1,40 +1,22 @@
-<<<<<<< HEAD
-@model object
-
-@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <title>title</title>
-</head>
-<body>
-<div>
-      
-</div>
-</body>
-</html>
-=======
-﻿@model ProfileViewModel
+﻿@model RegistrationViewModel
 <form action="/User/login" method="post">
     <div>
-        name: @Html.TextBoxFor(x => x.UserName)
-        @Html.ValidationMessageFor(x => x.UserName)
+        Login: @Html.TextBoxFor(x => x.Login)
+        @Html.ValidationMessageFor(x => x.Login)
     </div>
 
     <div>
+        Password: @Html.TextBoxFor(x => x.Password)
         @Html.ValidationMessageFor(x => x.Password)
+<<<<<<< HEAD
 
         last name: @Html.TextBoxFor(x => x.Password,
-new
- {
-     @type = "password",
-    @class = "nice-input",
-    @placeholder = "Password"
- })
+                       new
+                       {
+                           @type = "password",
+                           @class = "nice-input",
+                           @placeholder = "Password"
+                       })
     </div>
 
     <div>
@@ -45,10 +27,11 @@ new
     <div>
         Money: @Html.TextBoxFor(x => x.Money)
         @Html.ValidationMessageFor(x => x.Money)
+=======
+>>>>>>> f8f8bdbb0d86481bdbd321db11a1e94cda52ec46
     </div>
 
     <div>
         <input type="submit" value="send" />
     </div>
 </form>
->>>>>>> 31e4bd70052277b4623949450c1821b5099b1657
