@@ -4,7 +4,7 @@ namespace SpaceWeb.Models.RocketModels
 {
     public class RocketProfileViewModel
     {
-        public RocketProfileViewModel(FactoryRegistrationViewModel model)
+        public RocketProfileViewModel(RocketRegistrationViewModel model)
         {
             Person = new Person(null, null, model.Email)
             {
