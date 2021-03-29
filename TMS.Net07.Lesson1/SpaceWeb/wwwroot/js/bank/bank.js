@@ -11,7 +11,6 @@ $(document).ready(function () {
 
     $('.bank-popup .bank-cover').click(function () {
         $('.bank-popup').addClass('hide');
-        $('.bank-popup').hide();
     });
 
     
