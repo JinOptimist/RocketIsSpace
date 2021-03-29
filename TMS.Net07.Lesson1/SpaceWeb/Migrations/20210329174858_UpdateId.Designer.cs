@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SpaceWeb.EfStuff;
 
 namespace SpaceWeb.Migrations
 {
     [DbContext(typeof(SpaceDbContext))]
-    partial class SpaceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210329174858_UpdateId")]
+    partial class UpdateId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,8 +27,8 @@ namespace SpaceWeb.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Amount")
-                        .HasColumnType("int");
+                    b.Property<string>("Amount")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("BankAccountId")
                         .HasColumnType("nvarchar(max)");
