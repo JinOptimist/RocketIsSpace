@@ -156,3 +156,11 @@
 .input-validation-error{
     border-color: red;
 }
+
+#registration-block .icon {
+    display: inline;
+}
+
+    #registration-block .icon.hide {
+        display: none;
+    }
