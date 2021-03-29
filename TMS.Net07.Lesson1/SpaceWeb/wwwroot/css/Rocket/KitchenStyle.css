@@ -1,0 +1,45 @@
+﻿.header {
+    display: flex;
+    padding-left: 30px;
+    height: 700px;
+    background: url(../../image/comfortImage/kitchen2.jpg) center/cover;
+    color: white;
+    align-items: flex-end;
+    font-family: "Century Gothic";
+    font-size: 120px;
+}
+
+.none {
+    height: 100px;
+}
+
+.central-block {
+    display: flex;
+    justify-content: space-around;
+}
+
+.left-part {
+    color: #167C87;
+    font-family: "Georgia";
+    font-size: 30px;
+    padding-left: 50px;
+    margin-right: 100px;
+}
+
+.left-title {
+    font-size: 50px;
+    color: #093A40;
+}
+
+.right-part {
+    color: #167C87;
+    font-family: "Georgia";
+    font-size: 30px;
+    padding-right: 50px;
+    margin-left: 100px;
+}
+
+.right-title {
+    font-size: 50px;
+    color: #093A40;
+}

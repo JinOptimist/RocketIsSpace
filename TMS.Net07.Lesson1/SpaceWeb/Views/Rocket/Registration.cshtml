@@ -1,0 +1,45 @@
+﻿@model SpaceWeb.Models.RocketModels.FactoryRegistrationViewModel
+
+@section Style
+{
+    
+}
+@section Script
+{
+    <script src="~/js/Rocket/registration.js"></script>
+}
+
+<div class="registration" >
+    <div>Registration</div>
+    <div>
+        <form action="/Factory/Registration" method="post">
+            <div class="name">
+                <div>
+                    Name: @Html.TextBoxFor(model => model.Name)
+                </div>
+                <div>
+                    Last name: @Html.TextBoxFor(model => model.LastName)
+                </div>
+            </div>
+            <div class="date-of-birth">
+                Date of birth: @Html.TextBoxFor(model => model.DateOfBirth, "{0:MM\\/dd\\/yyyy}")
+            </div>
+            <div class="login">
+                <div class="user-name">
+                    Username:  @Html.TextBoxFor(model => model.UserName)
+                </div>
+                <div>
+                    Email:  @Html.TextBoxFor(model => model.Email)
+                </div>
+            </div>
+            <div class="password">
+                <div>
+                    Password:  @Html.TextBoxFor(model => model.Password)
+                </div>
+            </div>
+            <div class="submit">
+                <input type="submit">
+            </div>
+        </form>
+    </div>
+</div>
