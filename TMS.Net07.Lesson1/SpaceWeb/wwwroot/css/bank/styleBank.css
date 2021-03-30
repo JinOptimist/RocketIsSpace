@@ -695,6 +695,192 @@ a {
 .link.enter:hover, .link.register:hover {
     font-weight: bolder;
 }
-.hide {
-    display: none;
+
+.menu.top{
+    height: 160px;
+    width: 1000px;
+    margin: 20px;
+    background-color: rgb(230, 230, 230);
+    /*border: 4px rgb(26, 43, 99) solid;*/
+    border-radius: 1em;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
 }
+.top-menu-text{
+    font-size: 20pt;
+    align-self: center;
+    justify-items: flex-start;
+}
+.bank-account-list{
+    align-self: center;
+    justify-self: center;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    /*justify-content: center;*/
+    overflow: auto;
+    white-space: nowrap;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background-color: rgb(210, 210, 210);
+    border-radius: 10px;
+    transition: 300ms;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(190,190,190);
+  }
+
+.menu.top .bank-account{
+    height: 96px;
+    min-width: 166px;
+    margin: 10px;
+    border-radius: 1em;
+    background-color: rgba(0, 185, 229, 0.7);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    transition: 300ms;
+}
+
+.menu.top .bank-account:hover{
+    background-color: rgb(0, 185, 229);
+    cursor: pointer;
+}
+
+.bank-account .account-number{
+    margin-right: 10px;
+    align-self: flex-end;
+}
+
+.bank-account .currency, .bank-account .amount{
+}
+
+.add-new.background{
+    padding: 5px;
+    margin: 10px;
+    background-color: rgb(210, 210, 210);
+    border-radius: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    transition: 300ms;
+}
+
+.add-new.background:hover{
+    background-color: rgb(190, 190, 190);
+    cursor: pointer;
+}
+
+.add-new.content{
+    height: 80px;
+    width: 150px;
+    border: 3px rgb(255, 255, 255) dashed;
+    border-radius: 0.8em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    color: white;
+    font-weight: bolder;
+}
+
+.menu.bottom{
+    height: 250px;
+    width: 1000px;
+    margin: 20px;
+    border-radius: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu.bottom .button{
+    height: 130px;
+    width: 220px;
+    /*border: 4px rgba(109, 156, 214, 0.7) dotted;*/
+    border-radius: 1em;
+    background-color: rgb(230, 230, 230);
+    /*border: 4px rgb(26, 43, 99) solid;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15pt;
+    font-weight: 400;
+    transition: 500ms;
+}
+
+.menu.bottom .button:hover{
+    background-color: rgb(210,210,210);
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.personal-info.button{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup{
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*display: none;*/
+  }
+
+.popup .cover{
+    background: black;
+    position: fixed;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    opacity: 0.6;
+  }
+
+  .popup-content{
+    background-color: rgb(230, 230, 230);
+    width: 300px;
+    height: 300px;
+    border-radius: 1em;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .bank-account-submit{
+    background-color: rgb(0, 185, 229);
+  }
+
+  .hide {
+      display: none;
+  }

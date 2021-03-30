@@ -1,72 +1,57 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-
-@{
+﻿@{
     Layout = "_LayoutBank";
 }
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Account</title>
-    <script src="js/jquery-3.6.0.min.js"></script>
-    <!--<script src="js/index.js"></script>-->
-</head>
-<body>
-    <div class="client-before-content">
+<div class="client-before-content">
+</div>
+<div class="popup hide">
+    <div class="cover"></div>
+    <div class="popup-content">
+        <form method="POST">
+            <p>
+                <select class="currency-input" name="currency">
+                    <option value="BYN">BYN</option>
+                    <option value="USD">USD</option>
+                    <option value="EUR">EUR</option>
+                </select>
+            </p>
+            <p><input class="amount-input" type="number" name="amount"></p>
+            <p>
+                <input class="bank-account-submit" type="button" value="Создать">
+                <input class="bank-account-cancel" type="button" value="Отмена">
+            </p>
+        </form>
     </div>
-    <div class="popup hide">
-        <div class="cover"></div>
-        <div class="popup-content">
-            <form method="POST">
-                <p>
-                    <select class="currency-input" name="currency">
-                        <option>BYN</option>
-                        <option>USD</option>
-                        <option>EUR</option>
-                    </select>
-                </p>
-                <p><input class="amount" type="number" name="amount"></p>
-                <p>
-                    <input class="bank-account-submit" type="submit" value="Создать">
-                    <input class="bank-account-cancel" type="button" value="Отмена">
-                </p>
-            </form>
-        </div>
-    </div>
-    <div class="container">
-        <div class="menu top">
-            <div class="top-menu-text">СЧЕТА</div>
-            <div class="bank-account-list">
-                <div class="bank-account">
-                    <div class="type">Валютный счет</div>
-                    <div class="amount">1500 <span class="currency">$</span></div>
-                    <div class="account-number">*000123</div>
+</div>
+<div class="container">
+    <div class="menu top">
+        <div class="top-menu-text">СЧЕТА</div>
+        <div class="bank-account-list">
+            <div class="bank-account">
+                <div class="type">Валютный счет</div>
+                <div>
+                    <span class="amount">1500 </span><span class="currency">$</span>
                 </div>
-                <div class="add-new background">
-                    <div class="add-new content"><a>Добавить счет</a></div>
-                </div>
+                <div class="account-number">*000123</div>
+            </div>
+            <div class="add-new background">
+                <div class="add-new content"><a>Добавить счет</a></div>
             </div>
         </div>
-        <div class="menu bottom">
-            <div class="transactions button">Переводы</div>
-            <div class="bank-account button">Счета</div>
-            <div class="personal-info button">
-                <div>Персональные</div>
-                <div>данные</div>
-            </div>
-            <div class="settings button">Настройки</div>
-        </div>
     </div>
-    <div class="hide">
-        <div class="bank-account template">
-            <div class="type">Валютный счет</div>
-            <div class="amount">1500 <span class="currency">$</span></div>
-            <div class="account-number">*000123</div>
+    <div class="menu bottom">
+        <div class="transactions button">Переводы</div>
+        <div class="bank-account button">Счета</div>
+        <div class="personal-info button">
+            <div>Персональные</div>
+            <div>данные</div>
         </div>
+        <div class="settings button">Настройки</div>
     </div>
-</body>
-</html>
+</div>
+<div class="hide">
+    <div class="bank-account template">
+        <div class="type">Валютный счет</div>
+        <span class="amount"></span><span class="currency">$</span>
+        <div class="account-number"></div>
+    </div>
+</div>
