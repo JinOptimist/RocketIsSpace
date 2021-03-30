@@ -73,5 +73,11 @@ namespace SpaceWeb.Controllers
            
             return View(model);
         }
+
+        [HttpGet]
+        public IActionResult Account ()
+        {
+            return View();
+        }
     }
 }
