@@ -87,6 +87,14 @@ body {
     display: flex;
 }
 
+.addition-block.black-background {
+    background-color: black;
+}
+
 .addition-block .text .name {
-    font-size: ;
+    font-size: 30px;
+}
+
+.addition-block.black-background .text {
+    color: #a8a186;
 }
