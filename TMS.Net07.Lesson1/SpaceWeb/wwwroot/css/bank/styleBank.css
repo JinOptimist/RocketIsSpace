@@ -124,11 +124,17 @@ a {
 }
 
 .container {
+    height: 100%;
     width: 100%;
-    
     margin: 10px auto;
+    background-color: rgba(208, 219, 225, 0.1);
+    display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
+
 .rocket {
     border: 1px green solid;
     width: 150px;
@@ -136,34 +142,32 @@ a {
     margin-bottom: 0px;
     margin: 5px;
     padding: 10px;
-    display:flex;
-    justify-content:center;
-    
-}
-.rocket .name {
-    display: flex;
-    justify-content:center;
-    color:aliceblue;
-    padding:20px, 0;
-}
-
-.rocket .image-container {
-    height:150px;
-    width:150px;
     display: flex;
     justify-content: center;
-    align-items: center;
-    
 }
 
+    .rocket .name {
+        display: flex;
+        justify-content: center;
+        color: aliceblue;
+        padding: 20px, 0;
+    }
 
-.rocket img {
-    max-width: 150px;
-    max-height: calc(150px - 16px);
-    
-}
+    .rocket .image-container {
+        height: 150px;
+        width: 150px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+
+    .rocket img {
+        max-width: 150px;
+        max-height: calc(150px - 16px);
+    }
+
 .intro {
-    
     width: 100%;
     height: 100vh;
     /*background: url("../../image/Client/rocket1.jpg") center no-repeat;*/
@@ -172,13 +176,15 @@ a {
     flex-direction: column;
     justify-content: center;
 }
+
 .intro-inner {
     width: 100%;
-    height:40px;
+    height: 40px;
     max-width: 800px;
     margin: 0 auto;
     text-align: center;
 }
+
 .intro-titel {
     color: #ffffff;
     font-size: 40px;
@@ -196,12 +202,14 @@ a {
     margin: 10px auto 0;
     background-color: azure;
 }
+
 .intro-suptitel {
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-size: 30px;
     color: aliceblue;
     text-align: center;
 }
+
 .button-login {
     margin-left: 550px;
     margin-bottom: 50px;
@@ -215,10 +223,11 @@ a {
     text-decoration: none;
     transition: background .1s linear, color .1s linear;
 }
-.button-login:hover{
-    background-color: #fff;
-    color: #333;
-}
+
+    .button-login:hover {
+        background-color: #fff;
+        color: #333;
+    }
 
 /*.header {
     width: 100%;
@@ -229,63 +238,64 @@ a {
     z-index: 1000;
     padding: 30px;
 }*/
-.header-inner{
-    display:flex;
-    justify-content:space-between;
+.header-inner {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
 }
+
 .header-logo {
     font-size: 30px;
     font-weight: 700;
     color: #ffffff;
 }
+
 .nav {
     font-size: 14px;
     text-transform: uppercase;
 }
-.nav-link{
-    display:inline-block;
-    vertical-align:top;
+
+.nav-link {
+    display: inline-block;
+    vertical-align: top;
     margin: 0 15px;
-
     position: relative;
-
-    color:#ffffff;
+    color: #ffffff;
     text-decoration: none;
     transition: color .2s linear;
 }
-.nav-link:hover
-{
-    color: #00ffff;
-}
+
+    .nav-link:hover {
+        color: #00ffff;
+    }
+
     .nav-link:after {
         content: "";
         display: block;
         width: 100%;
         height: 3px;
         display: none;
-
         background-color: #ffffff;
-
         position: absolute;
         top: 100%;
         left: 0;
         z-index: 1;
         opacity: 0;
-        
     }
-    .nav-link:hover:after{
+
+    .nav-link:hover:after {
         display: block;
         opacity: 1;
     }
-.slider{
-    display:flex;
+
+.slider {
+    display: flex;
     justify-content: space-between;
     margin-top: 30px;
-
 }
-.slider-item{
-    width:23%;
+
+.slider-item {
+    width: 23%;
     font-size: 18px;
     color: black;
     text-transform: uppercase;
@@ -293,22 +303,24 @@ a {
     border-top: 2px solid #fff;
     opacity: .7;
     position: relative;
+}
 
-}
-.slider-item.active:before{
- content: "";
- display: block;
- width: 70px;
- position: absolute;
- height: 3px;
- top: -3px;
- left: 0;
- z-index: 1;
- background-color: blue;
-}
-.slider-item.active {
-    opacity: 1;
-}
+    .slider-item.active:before {
+        content: "";
+        display: block;
+        width: 70px;
+        position: absolute;
+        height: 3px;
+        top: -3px;
+        left: 0;
+        z-index: 1;
+        background-color: blue;
+    }
+
+    .slider-item.active {
+        opacity: 1;
+    }
+
 .slider-num {
     font-weight: 700;
     font-size: 24px;
@@ -321,6 +333,7 @@ a {
     border: 2px;
     margin-top: 2px;
 }
+
 .login-block {
     display: flex;
     justify-content: center;
@@ -341,13 +354,162 @@ a {
 .client-text-centre {
     padding-top: 205px;
 }
-@media (max-height: 670px){
+
+@media (max-height: 670px) {
     .client-text-centre {
         padding-top: 150px;
     }
 }
+
 @media (max-height: 550px) {
     .client-text-centre {
         padding-top: 100px;
     }
+}
+
+/*.menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}*/
+.menu.top {
+    height: 150px;
+    width: 1000px;
+    margin: 20px;
+    background-color: rgb(230, 230, 230);
+    /*border: 4px rgb(26, 43, 99) solid;*/
+    border-radius: 1em;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.top-menu-text {
+    font-size: 20pt;
+    align-self: center;
+    justify-items: flex-start;
+}
+
+.bank-account-list {
+    align-self: center;
+    justify-self: center;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu.top .bank-account {
+    height: 96px;
+    width: 166px;
+    margin: 10px;
+    border-radius: 1em;
+    background-color: rgb(0, 185, 229);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.bank-account .account-number {
+    margin-right: 10px;
+    align-self: flex-end;
+}
+
+.add-new.background {
+    padding: 5px;
+    margin: 10px;
+    background-color: rgb(210, 210, 210);
+    border-radius: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+}
+
+.add-new.content {
+    height: 80px;
+    width: 150px;
+    border: 3px rgb(255, 255, 255) dashed;
+    border-radius: 0.8em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    color: white;
+    font-weight: bolder;
+}
+
+.menu.bottom {
+    height: 250px;
+    width: 1000px;
+    margin: 20px;
+    border-radius: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    .menu.bottom .button {
+        height: 130px;
+        width: 220px;
+        /*border: 4px rgba(109, 156, 214, 0.7) dotted;*/
+        border-radius: 1em;
+        background-color: rgb(230, 230, 230);
+        /*border: 4px rgb(26, 43, 99) solid;*/
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 15pt;
+    }
+
+.personal-info.button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*display: none;*/
+}
+
+    .popup .cover {
+        background: black;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        opacity: 0.6;
+    }
+
+.popup-content {
+    background-color: rgb(230, 230, 230);
+    width: 300px;
+    height: 300px;
+    border-radius: 1em;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.bank-account-submit {
+    background-color: rgb(0, 185, 229);
+}
+
+.hide {
+    display: none;
 }
