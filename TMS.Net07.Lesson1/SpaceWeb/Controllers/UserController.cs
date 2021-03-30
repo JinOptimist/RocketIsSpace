@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SpaceWeb.EfStuff;
+using SpaceWeb.EfStuff.Model;
 using SpaceWeb.Models;
 using System;
 using System.Collections.Generic;
@@ -11,10 +13,17 @@ namespace SpaceWeb.Controllers
     public class UserController : Controller
     {
         //Это плохо. Удалить как только добавим БД
-        public static List<ProfileViewModel> Users
-            = new List<ProfileViewModel>();
+        //public static List<ProfileViewModel> Users
+        //    = new List<ProfileViewModel>();
+
+        private SpaceDbContext _dbContext;
 
         public static int Counter = 0;
+
+        public UserController(SpaceDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
 
         public IActionResult Profile()
         {
@@ -55,8 +64,10 @@ namespace SpaceWeb.Controllers
                 return View(model);
             }
 
-            var user = Users
-                .SingleOrDefault(x => x.UserName == model.Login);
+            
+            var user = _dbContext.Users.
+                SingleOrDefault(x => x.Name == model.Login);
+
 
             if (user == null)
             {
@@ -104,15 +115,18 @@ namespace SpaceWeb.Controllers
 
             //Новый способ LINQ
             var isUserUniq =
-                Users.All(user => user.UserName != model.Login);
+                _dbContext.Users.All(user => user.Name != model.Login);
             if (isUserUniq)
             {
-                Users.Add(new ProfileViewModel()
+                var user = new User()
                 {
-                    DateRegistration = DateTime.Now,
-                    UserName = model.Login,
-                    Password = model.Password
-                });
+                    Name = model.Login,
+                    Password = model.Password,
+                    Age = 18
+                };
+                _dbContext.Users.Add(user);
+                
+                _dbContext.SaveChanges();
             }
 
             return View(model);
@@ -121,7 +135,7 @@ namespace SpaceWeb.Controllers
         public JsonResult IsUserExist(string name)
         {
             Thread.Sleep(3000);
-            var answer = Users.Any(x => x.UserName == name);
+            var answer = _dbContext.Users.Any(x => x.Name == name);
             return Json(answer);
         }
     }

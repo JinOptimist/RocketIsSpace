@@ -1,0 +1,18 @@
+﻿@model SpaceWeb.Models.RocketModels.RocketLoginViewModel
+<form action="/Rocket/Login" method="post">
+
+    <div>
+        Login: @Html.TextBoxFor(x => x.UserName)
+        @Html.ValidationMessageFor(x => x.UserName)
+    </div>
+
+    <div>
+        Password: @Html.TextBoxFor(x => x.Password)
+        @Html.ValidationMessageFor(x => x.Password)
+    </div>
+
+
+    <div>
+        <input type="submit" value="send" />
+    </div>
+</form>
