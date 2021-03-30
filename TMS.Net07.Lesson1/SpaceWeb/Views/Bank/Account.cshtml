@@ -1,0 +1,58 @@
+﻿@{
+    Layout = "_LayoutBank";
+}
+<div class="client-before-content">
+</div>
+<div class="popup hide">
+    <div class="cover"></div>
+    <div class="popup-content">
+        <form method="POST">
+            <p>
+                <select class="currency-input" name="currency">
+                    <option value="BYN">BYN</option>
+                    <option value="USD">USD</option>
+                    <option value="EUR">EUR</option>
+                </select>
+            </p>
+            <p><input class="amount-input" type="number" name="amount"></p>
+            <p>
+                <input class="bank-account-submit" type="button" value="Создать">
+                <input class="bank-account-cancel" type="button" value="Отмена">
+            </p>
+        </form>
+    </div>
+</div>
+<div class="container">
+    <div class="menu top">
+        <div class="top-menu-text">СЧЕТА</div>
+        <div class="bank-account-list">
+            <div class="bank-account">
+                <div class="type">Валютный счет</div>
+                <div>
+                    <span class="amount">1500 </span><span class="currency">$</span>
+                </div>
+                <div class="account-number">*000123</div>
+            </div>
+            <div class="add-new background">
+                <div class="add-new content"><a>Добавить счет</a></div>
+            </div>
+        </div>
+    </div>
+    <div class="menu bottom">
+        <div class="transactions button">Переводы</div>
+        <div class="bank-account button">Счета</div>
+
+        <a class ="personal-info button" href="/Bank/UserProfile">
+            <div>Персональные</div>
+            <div>данные</div>
+        </a>
+            <div class="settings button">Настройки</div>
+    </div>
+</div>
+<div class="hide">
+    <div class="bank-account template">
+        <div class="type">Валютный счет</div>
+        <span class="amount"></span><span class="currency">$</span>
+        <div class="account-number"></div>
+    </div>
+</div>
