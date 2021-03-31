@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SpaceWeb.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +9,17 @@ namespace SpaceWeb.Controllers
 {
     public class MechanicController : Controller
     {
+        [HttpGet]
         public IActionResult MechanicPage()
         {
-            return View();
+            var model = new MechanicViewModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult MechanicPage(MechanicViewModel mechanicViewModel)
+        {
+            return View(mechanicViewModel);
         }
     }
 }

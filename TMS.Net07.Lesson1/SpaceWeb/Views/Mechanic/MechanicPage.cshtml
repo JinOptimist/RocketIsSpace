@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="~/css/reset.css">
     <link rel="stylesheet" href="~/css/RocketMechanic/MainRocketMechanic.css">
 }
+
 @section Script{
     <script src="~/js/RocketMechanic/jquery-3.6.0.min.js"></script>
     <script src="~/js/RocketMechanic/MainRocketMechanic.js"></script>
@@ -229,15 +230,25 @@
     </div>
 </section>
 <div class="CoverImage">
-    <form class="Feedback">
+    <form class="Feedback" action="/Mechanic/MechanicPage" method="post">
 
         <div class="FormInner">
             <h3>Feedback</h3>
-                    <input type="Text" placeholder="Name">
-                    <input type="Number" placeholder="+375(xx)xxx-xx-xx">
-                    <input type="Email" placeholder="Email">
-                    <textarea name="message" cols="30" rows="10"></textarea>
-                    <input type="submit" value="Send">
+            @Html.TextBoxFor(x => x.Name,
+           new { @type = "name",
+               @placeholder = "Name" })
+
+            @Html.TextBoxFor(x => x.Number,
+           new { @placeholder = "Number" })
+
+            @Html.TextBoxFor(x => x.Email, 
+           new { @type = "email", 
+               @placeholder = "E-mail" })
+
+            @Html.TextBoxFor(x => x.Message, 
+           new { @placeholder = "Message" })
+            <input type="submit" value="Send" />
         </div>
+
     </form>
 </div>
