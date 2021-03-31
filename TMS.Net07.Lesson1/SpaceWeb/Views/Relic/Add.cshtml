@@ -1,0 +1,23 @@
+﻿@model RelicViewModel
+
+<form action="/Relic/Add" method="post">
+    <div>
+        Название сувенира: @Html.TextBoxFor(x => x.RelicName)
+        @Html.ValidationMessageFor(x => x.RelicName)
+    </div>
+    <div>
+        Путь к картинке: @Html.TextBoxFor(x => x.ImageUrl, new { @class = "test" })
+        @Html.ValidationMessageFor(x => x.ImageUrl)
+    </div>
+    <div>
+        Цена: @Html.TextBoxFor(x => x.Price, new { type = "number" })
+        @Html.ValidationMessageFor(x => x.Price)
+    </div>
+    <div>
+        Остатока на складе: @Html.TextBoxFor(x => x.Count, new { type = "number" })
+        @Html.ValidationMessageFor(x => x.Count)
+    </div>
+    <div class="form-group">
+        <button type="submit">Добавить товар</button>
+    </div>
+</form>

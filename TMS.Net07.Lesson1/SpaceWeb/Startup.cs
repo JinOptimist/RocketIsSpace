@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SpaceWeb.EfStuff;
+using SpaceWeb.EfStuff.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,12 @@ namespace SpaceWeb
         {
             var connectionString = "Server=(localdb)\\MSSQLLocalDB;Database=SpaceWeb;Trusted_Connection=True";
             services.AddDbContext<SpaceDbContext>(x => x.UseSqlServer(connectionString));
+
+            services.AddScoped<UserRepository>(diContainer => 
+                new UserRepository(diContainer.GetService<SpaceDbContext>()));
+
+            services.AddScoped<RelicRepository>(diContainer =>
+                new RelicRepository(diContainer.GetService<SpaceDbContext>()));
 
             services.AddControllersWithViews();
         }
