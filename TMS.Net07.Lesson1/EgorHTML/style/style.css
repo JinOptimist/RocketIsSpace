@@ -1,5 +1,6 @@
 body {
-    font-family: "Source Sans Pro", Verdana, Arial, serif;
+    font-family: "Open sans", Verdana, Arial, serif;
+    font-size: 18px;
 }
 
 .header {
@@ -7,9 +8,9 @@ body {
     justify-content: space-around;
     align-items: center;
     height: 300px;
-
-    font-size: 70px;
-    font-family: Montserrat, serif;
+    font-size: 85px;
+    letter-spacing: 4px;
+    font-family: Oswald, serif;
     color: #857054;
     background: black;
 }
@@ -33,7 +34,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    
     margin: 20px 40px;
     width: 130px;
     height: 130px;
@@ -43,47 +43,43 @@ body {
     border-color: #414141;
 }
 
-.icon-list .addition-icon .circle:hover
-{
+.icon-list .addition-icon .circle:hover {
     border-color: #514518;
     border-style: solid;
     box-shadow: 0 0 20px -9px;
 }
 
 .icon-list .addition-icon .circle:hover .material-icons-outlined,
-.icon-list .addition-icon .circle:hover .material-icons
-{
+.icon-list .addition-icon .circle:hover .material-icons {
     color: #514518;
 }
 
 .icon-list .addition-icon .addition-name {
     display: flex;
     justify-content: center;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .addition-icon .material-icons-outlined,
-.addition-icon .material-icons
-{
+.addition-icon .material-icons {
     font-size: 60px;
 }
 
-#public-icon  {
+#public-icon {
     position: absolute;
     font-size: 22px;
 }
 
-#panorama-icon  {
+#panorama-icon {
     position: absolute;
 }
 
 .image-container img {
-    max-width: 400px;
-    max-height: 400px;
+    max-width: 450px;
+    max-height: 450px;
 }
 
-.addition-block
-{
+.addition-block {
     display: flex;
 }
 
@@ -92,9 +88,37 @@ body {
 }
 
 .addition-block .text .name {
-    font-size: 30px;
+    color: #857054;
+    font-size: 40px;
+    font-family: Oswald, serif;
+    margin: 35px;
 }
 
-.addition-block.black-background .text {
-    color: #a8a186;
+.addition-block .text .description {
+    color: #afa18e;
+    margin-left: 35px;
+    margin-right: 35px;
+    max-width: 700px;
+    line-height: 22px;
+}
+
+.addition-block .text .learn-more {
+    color: #afa18e;
+    display: flex;
+    margin-left: 35px;
+    margin-top: 35px;
+    max-width: 700px;
+    line-height: 22px;
+}
+
+[class="addition-block"] {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.addition-block .text-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-height: 450px;
 }
