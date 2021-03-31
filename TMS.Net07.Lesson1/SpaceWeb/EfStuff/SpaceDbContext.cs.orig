@@ -16,8 +16,7 @@ namespace SpaceWeb.EfStuff
 
         public DbSet<Rocket> Rockets { get; set; }
 
-        public DbSet<FactoryHistory> FactoryHistories { get; set; }
-	
+<<<<<<< HEAD
         public DbSet<Relic> Relics { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -36,5 +35,8 @@ namespace SpaceWeb.EfStuff
 
             base.OnModelCreating(modelBuilder);
         }
+=======
+        public DbSet<FactoryHistory> FactoryHistories { get; set; }
+>>>>>>> a586feec9040780a7d77153ef63c97fe03c0b065
     }
 }
