@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SpaceWeb.EfStuff;
 using SpaceWeb.EfStuff.Model;
+using SpaceWeb.EfStuff.Repositories;
 using SpaceWeb.Models;
 using System;
 using System.Collections.Generic;
@@ -16,13 +17,13 @@ namespace SpaceWeb.Controllers
         //public static List<ProfileViewModel> Users
         //    = new List<ProfileViewModel>();
 
-        private SpaceDbContext _dbContext;
+        private UserRepository _userRepository;
 
         public static int Counter = 0;
 
-        public UserController(SpaceDbContext dbContext)
+        public UserController(UserRepository userRepository)
         {
-            _dbContext = dbContext;
+            _userRepository = userRepository;
         }
 
         public IActionResult Profile()
@@ -64,10 +65,7 @@ namespace SpaceWeb.Controllers
                 return View(model);
             }
 
-            
-            var user = _dbContext.Users.
-                SingleOrDefault(x => x.Name == model.Login);
-
+            var user = _userRepository.GetByName(model.Login);
 
             if (user == null)
             {
@@ -114,8 +112,7 @@ namespace SpaceWeb.Controllers
             //}
 
             //Новый способ LINQ
-            var isUserUniq =
-                _dbContext.Users.All(user => user.Name != model.Login);
+            var isUserUniq = _userRepository.GetByName(model.Login) == null;
             if (isUserUniq)
             {
                 var user = new User()
@@ -124,9 +121,7 @@ namespace SpaceWeb.Controllers
                     Password = model.Password,
                     Age = 18
                 };
-                _dbContext.Users.Add(user);
-                
-                _dbContext.SaveChanges();
+                _userRepository.Save(user);
             }
 
             return View(model);
@@ -135,8 +130,9 @@ namespace SpaceWeb.Controllers
         public JsonResult IsUserExist(string name)
         {
             Thread.Sleep(3000);
-            var answer = _dbContext.Users.Any(x => x.Name == name);
-            return Json(answer);
+            var isExistUserWithTheName = 
+                _userRepository.GetByName(name) != null;
+            return Json(isExistUserWithTheName);
         }
     }
 }
