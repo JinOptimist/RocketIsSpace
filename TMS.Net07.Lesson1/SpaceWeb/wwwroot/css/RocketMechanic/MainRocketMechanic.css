@@ -21,85 +21,9 @@ h3 {
 }
 
 p {
-    font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;;
+    font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
     padding-top: 10px;
     padding-bottom: 10px;
-}
-
-.Header {
-    width: 100%;
-
-    padding-top: 30px;
-
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-}
-
-.Header .Container .HeaderInner {
-    display: flex;
-    justify-content: space-between;
-}
-
-.Header .Container .HeaderInner .Logo {
-    display: flex;
-    align-items: center;
-}
-
-.Header .Container .HeaderInner .Logo .LogoText {
-    font-family: fantasy;
-    font-size: 30px;
-    line-height: 1.6;
-    margin-left: 10px;
-    color:blanchedalmond;
-}
-
-.Header .Container .HeaderInner .Menu {
-    display: flex;
-    align-items: center;
-    align-items: center;
-}
-
-.Header .Container .HeaderInner .Menu {
-    font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
-    font-size: 15px;
-    font-weight: bold;
-    text-transform: uppercase;
-    color:blanchedalmond;
-}
-
-.Header .Container .HeaderInner .Menu .MenuButton {
-    position: relative;
-    margin: 15px;
-}
-
-.Header .Container .HeaderInner .Menu .MenuButton:after {
-    content: "";
-    display: block;
-    width: 100%;
-    height: 3px;
-    opacity: 0;
-
-    background-color: coral;
-
-    position: absolute;
-    top: 100%;
-    left: 0;
-    z-index: 1;
-
-    transition: opacity .1s linear;
-}
-
-.Header .Container .HeaderInner .Menu .MenuButton:hover {
-    color: coral;
-
-    transition: color .1s linear;
-}
-
-.Header .Container .HeaderInner .Menu .MenuButton:hover:after {
-    opacity: 1;
 }
 
 .FirstScreen {
@@ -258,17 +182,12 @@ p {
 .Section .Container .StoreContainer .ProductCard .ProductImage{
     display: flex;
     flex-direction: column;
-
-    flex: 1;
-
-    border:black 5px;
 }
 
+
 .Section .Container .StoreContainer .ProductCard .ProductImage img{
-    height: auto;
     max-height: 270px;
-    width: auto;
-    max-width: 255px;
+    max-width: 300px;
     margin: 15px;
 }
 
@@ -286,4 +205,59 @@ p {
 .Section .Container .StoreContainer .ProductCard .ProductDescription .ProductModel{
     font-size: 25px;
     font-weight: bold;
+}
+
+.CoverImage{
+    background: url(../../image/RocketMechanic/FirstScreen.jpg) center no-repeat;
+    background-size: cover;
+    height: 100%;
+ }
+
+.Feedback {
+    position: relative;
+    max-width: 400px;
+    padding: 60px 50px;
+    margin: 50px auto 0;
+    background-size: cover;
+}
+
+.Feedback:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to right bottom, rgba(57, 61, 161, 0.5), rgba(49, 9, 45, 0.5));
+ }
+
+ .Feedback .FormInner {
+    position: relative;
+ }
+
+ .Feedback .FormInner h3 {
+    position: relative;
+    margin-top: 0;
+    color: white;
+    font-family: fantasy;
+    font-weight: 300;
+    font-size: 26px;
+    text-transform: uppercase;
+ }
+
+ .Feedback .FormInner input {
+    display: block;
+    width: 100%;
+    padding: 0 15px;
+    margin: 10px 0 15px;
+    border-width: 0;
+    line-height: 40px;
+    border-radius: 20px;
+    color: white;
+    background: rgba(255, 255, 255, .2);
+    font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
+ }
+
+ .Feedback .FormInner input:hover {
+    background: linear-gradient(to right bottom, rgba(161, 137, 57, 0.5), rgba(255, 169, 71, 0.5));
 }
