@@ -44,6 +44,4 @@ $(document).ready(function () {
         $('.popup-content .amount-input').val('');
         e.preventDefault();
     });
-    
-
 });
