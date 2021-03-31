@@ -116,9 +116,10 @@ body {
     flex-direction: row-reverse;
 }
 
-.addition-block .text-container {
+.addition-block .text-container,
+.addition-block.black-background .text-container {
     display: flex;
     justify-content: center;
     width: 100%;
-    max-height: 450px;
+    min-width: 200px;
 }
