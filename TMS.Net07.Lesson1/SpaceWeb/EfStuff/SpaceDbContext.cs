@@ -16,6 +16,8 @@ namespace SpaceWeb.EfStuff
 
         public DbSet<Rocket> Rockets { get; set; }
 
+        public DbSet<Relic> Relics { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()
