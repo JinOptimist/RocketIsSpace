@@ -17,24 +17,6 @@ namespace SpaceWeb.Controllers
            
             return View(input);
         }
-        [HttpGet]
-        public IActionResult Login()
-        {
-            var model = new ProfileViewModel();
-            return View(model);
-        }
-        
-        [HttpPost]
-        public IActionResult Login(ProfileViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            model.Bio = model.UserName + model.Password;
-            return View(model);
-        }
         public IActionResult Home()
         {
             var model = new RocketPreviewViewModel()

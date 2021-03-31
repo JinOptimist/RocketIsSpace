@@ -5,9 +5,17 @@
     <projectFile>SpaceWeb/SpaceWeb.csproj</projectFile>
     <projectFile>BankSputink/BankSputink.csproj</projectFile>
     <projectFile>BankSputink.Test/BankSputink.Test.csproj</projectFile>
+    <projectFile>HumansResources/HumansResources.csproj</projectFile>
+    <projectFile>HumansResources.Test/HumansResources.Test.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c722325e-9b28-4b45-865d-1b16588bea1d" name="Default Changelist" comment="" />
+    <list default="true" id="c722325e-9b28-4b45-865d-1b16588bea1d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.TMS.Net07.Lesson1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TMS.Net07.Lesson1/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpaceWeb/Controllers/BankController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SpaceWeb/Controllers/BankController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpaceWeb/EfStuff/Model/FactoryHistory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SpaceWeb/EfStuff/Model/FactoryHistory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpaceWeb/Startup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SpaceWeb/Startup.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpaceWeb/Views/User/Login.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/SpaceWeb/Views/User/Login.cshtml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -16,11 +24,22 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
       <option value="$PROJECT_DIR$/SpaceWeb/Controllers/RocketControllers/MainController.cs" />
       <option value="$PROJECT_DIR$/SpaceWeb/Pages/Main/MainPage.cshtml" />
+      <option value="$PROJECT_DIR$/SpaceWeb/Controllers/BankController.cs" />
       <option value="$PROJECT_DIR$/SpaceWeb/Views/User/Login.cshtml" />
+      <option value="$PROJECT_DIR$/SpaceWeb/Startup.cs" />
+      <option value="$PROJECT_DIR$/SpaceWeb/EfStuff/Model/FactoryHistory.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1q7SpGebPqL0ExtAA3KislDfIkA" />
@@ -33,9 +52,11 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="DatabaseDriversLRU" value="sqlserver" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="RiderIisExpressOptionsPageId" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
