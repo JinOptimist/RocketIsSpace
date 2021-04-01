@@ -13,12 +13,13 @@ body {
     font-family: Oswald, serif;
     color: #857054;
     background: black;
+    box-shadow: 0 0 25px -9px black;
 }
 
 .icon-list {
     max-width: 864px;
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding-top: 25px;
+    padding-bottom: 40px;
     margin-right: auto;
     margin-left: auto;
     display: flex;
@@ -27,7 +28,7 @@ body {
 }
 
 .icon-list .addition-icon {
-    margin-bottom: 20px;
+    margin: 25px 0px;
 }
 
 .icon-list .addition-icon .circle {
@@ -75,8 +76,16 @@ body {
 }
 
 .image-container img {
-    max-width: 450px;
-    max-height: 450px;
+    max-width: 550px;
+    max-height: 550px;
+}
+
+.addition-block.black-background .image-container {
+    margin-right: 70px;
+}
+
+.addition-block.white-background .image-container {
+    margin-left: 70px;
 }
 
 .addition-block {
@@ -85,41 +94,43 @@ body {
 
 .addition-block.black-background {
     background-color: black;
+    box-shadow: 0 0 25px -9px black;
 }
 
 .addition-block .text .name {
     color: #857054;
     font-size: 40px;
     font-family: Oswald, serif;
-    margin: 35px;
+    margin: 35px 0px;
 }
 
-.addition-block .text .description {
+.addition-block .text {
     color: #afa18e;
     margin-left: 35px;
     margin-right: 35px;
     max-width: 700px;
+    min-width: 300px;
     line-height: 22px;
 }
 
-.addition-block .text .learn-more {
-    color: #afa18e;
-    display: flex;
-    margin-left: 35px;
-    margin-top: 35px;
-    max-width: 700px;
-    line-height: 22px;
+.addition-block.white-background .text .description,
+.addition-block.white-background .text .learn-more {
+    color: #7e6c54;
 }
 
-[class="addition-block"] {
+.addition-block .text .description {
+    margin-bottom: 35px;
+}
+
+.addition-block.white-background {
     display: flex;
     flex-direction: row-reverse;
 }
 
-.addition-block .text-container,
-.addition-block.black-background .text-container {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    min-width: 200px;
+.addition-block.white-background .text-container .text {
+    text-align: right;
+}
+
+.addition-block .text-container {
+    margin-top: 35px;
 }
