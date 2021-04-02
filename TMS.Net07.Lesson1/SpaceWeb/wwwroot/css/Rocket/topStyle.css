@@ -98,7 +98,7 @@ input[type="text"]{
 	color: white;
 }
 
-.top .login {
+.login {
 	-moz-box-shadow:inset 0px 1px 0px 0px #9acc85;
 	-webkit-box-shadow:inset 0px 1px 0px 0px #9acc85;
 	box-shadow:inset 0px 1px 0px 0px #9acc85;
@@ -121,7 +121,7 @@ input[type="text"]{
 	text-decoration:none;
 	outline: none;
 }
-.top .login:hover {
+.login:hover {
 	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #68a54b), color-stop(1, #74ad5a));
 	background:-moz-linear-gradient(top, #68a54b 5%, #74ad5a 100%);
 	background:-webkit-linear-gradient(top, #68a54b 5%, #74ad5a 100%);
@@ -132,7 +132,7 @@ input[type="text"]{
 	background-color:#68a54b;
 	outline: none;
 }
-.top .login:active {
+.login:active {
 	position:relative;
 	top:1px;
 }
