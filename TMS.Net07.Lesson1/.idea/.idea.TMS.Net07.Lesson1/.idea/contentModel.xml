@@ -14,57 +14,187 @@
     <e p="C:\Users\Влад\.nuget\packages\nunit3testadapter\3.17.0\build\netcoreapp2.1\NUnit3.TestAdapter.pdb" t="Include" />
     <e p="C:\Users\Влад\AppData\Local\JetBrains\Rider2020.3\extResources" t="IncludeRecursive" />
     <e p="C:\Users\Влад\AppData\Local\JetBrains\Rider2020.3\resharper-host\Local\Transient\Rider\v203\SolutionCaches\_TMS.Net07.Lesson1.317178330.00" t="ExcludeRecursive" />
+    <e p="C:\Users\Влад\AppData\Roaming\JetBrains\Rider2020.3\extensions" t="IncludeRecursive" />
     <e p="D:\RocketIsSpace\TMS.Net07.Lesson1" t="IncludeFlat">
       <e p="BankSputink" t="IncludeRecursive">
         <e p="BankSputink.csproj" t="IncludeRecursive" />
+      </e>
+      <e p="BankSputink.Test" t="IncludeRecursive">
+        <e p="BankSputink.Test.csproj" t="IncludeRecursive" />
+      </e>
+      <e p="HumansResources" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
+        <e p="Humans" t="Include">
+          <e p="Clients" t="Include">
+            <e p="Client.cs" t="Include" />
+          </e>
+          <e p="Employes" t="Include">
+            <e p="Department.cs" t="Include" />
+            <e p="DepartmentType.cs" t="Include" />
+            <e p="Employe.cs" t="Include" />
+            <e p="IEmploye.cs" t="Include" />
+            <e p="Specification.cs" t="Include" />
+          </e>
+          <e p="Orders" t="Include">
+            <e p="Order.cs" t="Include" />
+          </e>
+          <e p="Persons" t="Include">
+            <e p="Email.cs" t="Include" />
+            <e p="Gender.cs" t="Include" />
+            <e p="IContact.cs" t="Include" />
+            <e p="Person.cs" t="Include" />
+            <e p="PhoneNumber.cs" t="Include" />
+            <e p="PostAddress.cs" t="Include" />
+          </e>
+        </e>
+        <e p="HumansResources.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.1" t="Include">
-              <e p="BankSputink.AssemblyInfo.cs" t="Include" />
+              <e p="HumansResources.AssemblyInfo.cs" t="Include" />
             </e>
           </e>
         </e>
         <e p="Program.cs" t="Include" />
-        <e p="RocketLauncher.cs" t="Include" />
-        <e p="Roket" t="Include">
-          <e p="ISputnik.cs" t="Include" />
-          <e p="Sputnik.cs" t="Include" />
-        </e>
       </e>
-      <e p="BankSputink.Test" t="IncludeRecursive">
-        <e p="BankSputink.Test.csproj" t="IncludeRecursive" />
+      <e p="HumansResources.Test" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
+        <e p="Humans" t="Include">
+          <e p="Employes" t="Include">
+            <e p="DepartmentTest.cs" t="Include" />
+          </e>
+          <e p="Orders" t="Include">
+            <e p="OrderTest.cs" t="Include" />
+          </e>
+        </e>
+        <e p="HumansResources.Test.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.1" t="Include">
-              <e p="BankSputink.Test.AssemblyInfo.cs" t="Include" />
+              <e p="HumansResources.Test.AssemblyInfo.cs" t="Include" />
             </e>
           </e>
         </e>
-        <e p="RocketLauncherTest.cs" t="Include" />
-        <e p="Roket" t="Include">
-          <e p="SputnikTest.cs" t="Include" />
-        </e>
       </e>
       <e p="packages" t="ExcludeRecursive" />
+      <e p="Rocket2" t="IncludeRecursive">
+        <e p="AdditionStructure" t="Include">
+          <e p="BotanicalCenter.cs" t="Include" />
+          <e p="IAdditionStructure.cs" t="Include" />
+          <e p="ObservationDeck.cs" t="Include" />
+          <e p="RescueCapsule.cs" t="Include" />
+          <e p="RestRoom.cs" t="Include" />
+        </e>
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="ComfortStructure" t="Include">
+          <e p="CommandCenter.cs" t="Include" />
+          <e p="IComfortStructure.cs" t="Include" />
+          <e p="Kitchen.cs" t="Include" />
+          <e p="Toilet.cs" t="Include" />
+        </e>
+        <e p="IRocket.cs" t="Include" />
+        <e p="Mechanics" t="Include">
+          <e p="Engine.cs" t="Include" />
+          <e p="FuelTank.cs" t="Include" />
+          <e p="RocketStage.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="Rocket2.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Rocket.cs" t="Include" />
+        <e p="Rocket2.csproj" t="IncludeRecursive" />
+        <e p="RocketFactory" t="Include">
+          <e p="AdditionFactory.cs" t="Include" />
+          <e p="ComfortFactory.cs" t="Include" />
+          <e p="Factory.cs" t="Include" />
+          <e p="MechanicFactory.cs" t="Include" />
+          <e p="RocketFactory.cs" t="Include" />
+        </e>
+      </e>
+      <e p="RocketTest" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Class1.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="RocketTest.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="RocketTest.csproj" t="IncludeRecursive" />
+      </e>
       <e p="SpaceWeb" t="IncludeRecursive">
         <e p="appsettings.Development.json" t="Include" />
         <e p="appsettings.json" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="Controllers" t="Include">
+          <e p="BankController.cs" t="Include" />
           <e p="HomeController.cs" t="Include" />
+          <e p="HumanController.cs" t="Include" />
+          <e p="RelicController.cs" t="Include" />
+          <e p="RocketController.cs" t="Include" />
           <e p="RocketControllers" t="Include">
             <e p="MainController.cs" t="Include" />
           </e>
           <e p="UserController.cs" t="Include" />
         </e>
-        <e p="Models" t="Include">
-          <e p="CustomValidationAttribute" t="Include">
-            <e p="MinAttribute.cs" t="Include" />
+        <e p="EfStuff" t="Include">
+          <e p="Model" t="Include">
+            <e p="BaseModel.cs" t="Include" />
+            <e p="FactoryHistory.cs" t="Include" />
+            <e p="Relic.cs" t="Include" />
+            <e p="Rocket.cs" t="Include" />
+            <e p="RocketProfile.cs" t="Include" />
+            <e p="User.cs" t="Include" />
           </e>
+          <e p="Repositories" t="Include">
+            <e p="RelicRepository.cs" t="Include" />
+            <e p="RocketProfileRepository.cs" t="Include" />
+            <e p="UserRepository.cs" t="Include" />
+          </e>
+          <e p="SpaceDbContext.cs" t="Include" />
+          <e p="SpaceDbContext.cs.orig" t="Include" />
+        </e>
+        <e p="Migrations" t="Include">
+          <e p="20210329163230_AddUser.cs" t="Include" />
+          <e p="20210329163230_AddUser.Designer.cs" t="Include" />
+          <e p="20210329164004_AddAgeForUser.cs" t="Include" />
+          <e p="20210329164004_AddAgeForUser.Designer.cs" t="Include" />
+          <e p="20210329164348_AddRocket.cs" t="Include" />
+          <e p="20210329164348_AddRocket.Designer.cs" t="Include" />
+          <e p="20210329165459_AddPassword.cs" t="Include" />
+          <e p="20210329165459_AddPassword.Designer.cs" t="Include" />
+          <e p="20210329183944_AddNavigationProp.cs" t="Include" />
+          <e p="20210329183944_AddNavigationProp.Designer.cs" t="Include" />
+          <e p="20210331170101_AddRelic.cs" t="Include" />
+          <e p="20210331170101_AddRelic.Designer.cs" t="Include" />
+          <e p="20210403182506_AddRegistration.cs" t="Include" />
+          <e p="20210403182506_AddRegistration.Designer.cs" t="Include" />
+          <e p="SpaceDbContextModelSnapshot.cs" t="Include" />
+        </e>
+        <e p="Models" t="Include">
+          <e p="ContactsVieModel.cs" t="Include" />
+          <e p="CustomValidationAttribute" t="Include">
+            <e p="MinAgeAttribute.cs" t="Include" />
+            <e p="MinAttribute.cs" t="Include" />
+            <e p="MyPhoneAttribute.cs" t="Include" />
+          </e>
+          <e p="DepartmentViewModel.cs" t="Include" />
+          <e p="PersonViewModel.cs" t="Include" />
           <e p="ProfileViewModel.cs" t="Include" />
+          <e p="RegistrationViewModel.cs" t="Include" />
+          <e p="RelicViewModel.cs" t="Include" />
+          <e p="RocketModels" t="Include">
+            <e p="RocketLoginViewModel.cs" t="Include" />
+            <e p="RocketProfileViewModel.cs" t="Include" />
+            <e p="RocketRegistrationViewModel.cs" t="Include" />
+          </e>
           <e p="RocketPreviewViewModel.cs" t="Include" />
+          <e p="UserProfileViewModel.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -88,36 +218,187 @@
         <e p="Views" t="Include">
           <e p="_ViewImports.cshtml" t="Include" />
           <e p="_ViewStart.cshtml" t="Include" />
+          <e p="Bank" t="Include">
+            <e p="Bank.cshtml" t="Include" />
+            <e p="Contacts.cshtml" t="Include" />
+            <e p="Home.cshtml" t="Include" />
+            <e p="UserProfile.cshtml" t="Include" />
+          </e>
           <e p="Home" t="Include">
             <e p="Index.cshtml" t="Include" />
             <e p="Privacy.cshtml" t="Include" />
           </e>
+          <e p="Human" t="Include">
+            <e p="Department.cshtml" t="Include" />
+            <e p="Person.cshtml" t="Include" />
+          </e>
+          <e p="Relic" t="Include">
+            <e p="Add.cshtml" t="Include" />
+            <e p="Index.cshtml" t="Include" />
+          </e>
+          <e p="Rocket" t="Include">
+            <e p="Comfort" t="Include">
+              <e p="CapsulePage.cshtml" t="Include" />
+              <e p="CCenterPage.cshtml" t="Include" />
+              <e p="ComfortPage.cshtml" t="Include" />
+              <e p="KitchenPage.cshtml" t="Include" />
+              <e p="ToiletPage.cshtml" t="Include" />
+            </e>
+            <e p="Factory" t="Include">
+              <e p="MainPage.cshtml" t="Include" />
+            </e>
+            <e p="Login.cshtml" t="Include" />
+            <e p="Registration.cshtml" t="Include" />
+          </e>
           <e p="Shared" t="Include">
             <e p="_Layout.cshtml" t="Include" />
+            <e p="_LayoutBank.cshtml" t="Include" />
+            <e p="_LayoutHuman.cshtml" t="Include" />
+            <e p="_RocketLayout.cshtml" t="Include" />
           </e>
           <e p="User" t="Include">
             <e p="Login.cshtml" t="Include" />
             <e p="Login.cshtml.orig" t="Include" />
             <e p="Profile.cshtml" t="Include" />
+            <e p="Registration.cshtml" t="Include" />
           </e>
         </e>
         <e p="wwwroot" t="Include">
           <e p="css" t="Include">
+            <e p="Bank" t="Include">
+              <e p="iconBank.css" t="Include" />
+              <e p="styleBank.css" t="Include" />
+              <e p="styleProfile.css" t="Include" />
+            </e>
+            <e p="Human" t="Include">
+              <e p="reset.css" t="Include" />
+              <e p="site.css" t="Include" />
+            </e>
             <e p="icon.css" t="Include" />
             <e p="reset.css" t="Include" />
+            <e p="Rocket" t="Include">
+              <e p="CapsuleStyle.css" t="Include" />
+              <e p="ComfortStyle.css" t="Include" />
+              <e p="CommandCenterStyle.css" t="Include" />
+              <e p="endBlockStyle.css" t="Include" />
+              <e p="Factory.css" t="Include" />
+              <e p="iconFactory.css" t="Include" />
+              <e p="iconsMenu.css" t="Include" />
+              <e p="KitchenStyle.css" t="Include" />
+              <e p="Registration.css" t="Include" />
+              <e p="rocketlayout.css" t="Include" />
+              <e p="ToiletStyle.css" t="Include" />
+              <e p="topStyle.css" t="Include" />
+            </e>
             <e p="site.css" t="Include" />
           </e>
           <e p="favicon.ico" t="Include" />
           <e p="image" t="Include">
+            <e p="Bank" t="Include">
+              <e p="1-43.jpg" t="Include" />
+              <e p="logo.png" t="Include" />
+              <e p="rocket1.jpg" t="Include" />
+              <e p="start.jpg" t="Include" />
+              <e p="Thumbs.db" t="Include" />
+            </e>
+            <e p="comfortImage" t="Include">
+              <e p="arrow1.png" t="Include" />
+              <e p="arrow2.png" t="Include" />
+              <e p="baseline_arrow_back_white_36dp.png" t="Include" />
+              <e p="baseline_home.png" t="Include" />
+              <e p="baseline_light_mode_black_36dp.png" t="Include" />
+              <e p="baseline_light_mode_white_36dp.png" t="Include" />
+              <e p="baseline_nightlight_black_36dp.png" t="Include" />
+              <e p="baseline_nightlight_white_36dp.png" t="Include" />
+              <e p="botaniccenter.jpg" t="Include" />
+              <e p="capacity.jpg" t="Include" />
+              <e p="capacity0.jpg" t="Include" />
+              <e p="capacity1.jpg" t="Include" />
+              <e p="capsule.jpg" t="Include" />
+              <e p="capsule0.jpg" t="Include" />
+              <e p="capsule0blure.jpg" t="Include" />
+              <e p="capsule1.png" t="Include" />
+              <e p="capsule2.jpg" t="Include" />
+              <e p="capsule3.jpg" t="Include" />
+              <e p="capsule4.jpg" t="Include" />
+              <e p="capsule5.jpg" t="Include" />
+              <e p="capsule6.jpg" t="Include" />
+              <e p="commandcenter.jpg" t="Include" />
+              <e p="commandcenter0.jpg" t="Include" />
+              <e p="commandcenter0blure.jpg" t="Include" />
+              <e p="commandcenter1.png" t="Include" />
+              <e p="commandcenter2.jpg" t="Include" />
+              <e p="fon.jpg" t="Include" />
+              <e p="fonn.jpg" t="Include" />
+              <e p="fonnn.jpg" t="Include" />
+              <e p="kitchen.jpg" t="Include" />
+              <e p="kitchen0.jpg" t="Include" />
+              <e p="kitchen0blure.jpg" t="Include" />
+              <e p="kitchen1.jpg" t="Include" />
+              <e p="kitchen2.jpg" t="Include" />
+              <e p="log1.jpg" t="Include" />
+              <e p="log2.jpg" t="Include" />
+              <e p="log3.jpg" t="Include" />
+              <e p="log4.jpg" t="Include" />
+              <e p="login1.png" t="Include" />
+              <e p="login2.png" t="Include" />
+              <e p="login3.jpg" t="Include" />
+              <e p="rescuecapsule1.jpg" t="Include" />
+              <e p="rescuecapsule2.jpg" t="Include" />
+              <e p="rescuecapsule3.jpg" t="Include" />
+              <e p="space.jpg" t="Include" />
+              <e p="space1.jpg" t="Include" />
+              <e p="space2.jpg" t="Include" />
+              <e p="spacefood.jpg" t="Include" />
+              <e p="toilet.png" t="Include" />
+              <e p="toilet0.jpg" t="Include" />
+              <e p="toilet00.jpg" t="Include" />
+              <e p="toilet0blure.jpg" t="Include" />
+              <e p="toilet1.jpg" t="Include" />
+              <e p="town1.jpg" t="Include" />
+              <e p="twotone_home.png" t="Include" />
+              <e p="xiao.jpg" t="Include" />
+              <e p="xiao2.jpg" t="Include" />
+              <e p="xiao3.jpg" t="Include" />
+            </e>
+            <e p="FactoryImages" t="Include">
+              <e p="command_center.jpg" t="Include" />
+              <e p="engine.jpg" t="Include" />
+              <e p="living room.jpg" t="Include" />
+              <e p="mainRocket.jpg" t="Include" />
+              <e p="Rocketa.jpg" t="Include" />
+              <e p="searchIcon.png" t="Include" />
+              <e p="settings-icon.png" t="Include" />
+              <e p="space.jpg" t="Include" />
+              <e p="space2.jpg" t="Include" />
+              <e p="spacefactory.jpg" t="Include" />
+              <e p="spacefactory1.jpg" t="Include" />
+              <e p="spacefactory2.png" t="Include" />
+            </e>
+            <e p="Human" t="Include">
+              <e p="background.jpg" t="Include" />
+              <e p="Thumbs.db" t="Include" />
+            </e>
             <e p="icon" t="Include">
               <e p="account_balance-24px.svg" t="Include" />
               <e p="account_balance-24px_hover.svg" t="Include" />
+              <e p="account_bank.svg" t="Include" />
+              <e p="check-24px.svg" t="Include" />
               <e p="delete-24px.svg" t="Include" />
               <e p="delete-24px_hover.svg" t="Include" />
+              <e p="facebook.png" t="Include" />
+              <e p="google-plus.png" t="Include" />
               <e p="help_center-24px.svg" t="Include" />
               <e p="help_center-24px_hover.svg" t="Include" />
               <e p="home-24px.svg" t="Include" />
               <e p="home-24px_hover.svg" t="Include" />
+              <e p="instagram.png" t="Include" />
+              <e p="login-24px.svg" t="Include" />
+              <e p="login-white-18dp.svg" t="Include" />
+              <e p="spinner.gif" t="Include" />
+              <e p="Thumbs.db" t="Include" />
+              <e p="twitter.png" t="Include" />
+              <e p="youtube.png" t="Include" />
             </e>
             <e p="R1.jpeg" t="Include" />
             <e p="R1.jpg" t="Include" />
@@ -126,8 +407,23 @@
             <e p="R4.jpg" t="Include" />
             <e p="Souze.jfif" t="Include" />
             <e p="Soyuz 1.jpg" t="Include" />
+            <e p="Thumbs.db" t="Include" />
           </e>
           <e p="js" t="Include">
+            <e p="Bank" t="Include">
+              <e p="bank.js" t="Include" />
+              <e p="site.js" t="Include" />
+            </e>
+            <e p="Human" t="Include">
+              <e p="site.js" t="Include" />
+            </e>
+            <e p="NewFolder" t="Include" />
+            <e p="registration.js" t="Include" />
+            <e p="Rocket" t="Include">
+              <e p="mainPage.js" t="Include" />
+              <e p="Menu.js" t="Include" />
+              <e p="registration.js" t="Include" />
+            </e>
             <e p="site.js" t="Include" />
           </e>
           <e p="lib" t="Include">
@@ -185,6 +481,7 @@
           </e>
         </e>
       </e>
+      <e p="TeamRocket" t="Include" />
       <e p="TMS.Net07.Lesson1.sln" t="IncludeFlat" />
     </e>
   </component>

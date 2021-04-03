@@ -17,8 +17,8 @@ namespace SpaceWeb.EfStuff
         public DbSet<Rocket> Rockets { get; set; }
 
         public DbSet<FactoryHistory> FactoryHistories { get; set; }
-	
         public DbSet<Relic> Relics { get; set; }
+        public DbSet<RocketProfile> RocketProfiles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

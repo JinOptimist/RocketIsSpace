@@ -35,6 +35,9 @@ namespace SpaceWeb
             services.AddScoped<RelicRepository>(diContainer =>
                 new RelicRepository(diContainer.GetService<SpaceDbContext>()));
 
+            services.AddScoped<RocketProfileRepository>(diContainer =>
+                new RocketProfileRepository(diContainer.GetService<SpaceDbContext>()));
+            
             services.AddControllersWithViews();
         }
 
