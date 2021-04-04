@@ -135,6 +135,7 @@
           <e p="BankController.cs" t="Include" />
           <e p="HomeController.cs" t="Include" />
           <e p="HumanController.cs" t="Include" />
+          <e p="MechanicController.cs" t="Include" />
           <e p="RelicController.cs" t="Include" />
           <e p="RocketController.cs" t="Include" />
           <e p="RocketControllers" t="Include">
@@ -184,6 +185,7 @@
             <e p="MyPhoneAttribute.cs" t="Include" />
           </e>
           <e p="DepartmentViewModel.cs" t="Include" />
+          <e p="MechanicViewModel.cs" t="Include" />
           <e p="PersonViewModel.cs" t="Include" />
           <e p="ProfileViewModel.cs" t="Include" />
           <e p="RegistrationViewModel.cs" t="Include" />
@@ -232,6 +234,9 @@
             <e p="Department.cshtml" t="Include" />
             <e p="Person.cshtml" t="Include" />
           </e>
+          <e p="Mechanic" t="Include">
+            <e p="MechanicPage.cshtml" t="Include" />
+          </e>
           <e p="Relic" t="Include">
             <e p="Add.cshtml" t="Include" />
             <e p="Index.cshtml" t="Include" />
@@ -248,6 +253,10 @@
               <e p="MainPage.cshtml" t="Include" />
             </e>
             <e p="Login.cshtml" t="Include" />
+            <e p="OriginRocket" t="Include">
+              <e p="Rocket.cshtml" t="Include" />
+              <e p="RocketShop.cshtml" t="Include" />
+            </e>
             <e p="Registration.cshtml" t="Include" />
           </e>
           <e p="Shared" t="Include">
@@ -287,8 +296,13 @@
               <e p="KitchenStyle.css" t="Include" />
               <e p="Registration.css" t="Include" />
               <e p="rocketlayout.css" t="Include" />
+              <e p="RocketShopStyle.css" t="Include" />
+              <e p="RocketStyle.css" t="Include" />
               <e p="ToiletStyle.css" t="Include" />
               <e p="topStyle.css" t="Include" />
+            </e>
+            <e p="RocketMechanic" t="Include">
+              <e p="MainRocketMechanic.css" t="Include" />
             </e>
             <e p="site.css" t="Include" />
           </e>
@@ -405,6 +419,32 @@
             <e p="R2.jpg" t="Include" />
             <e p="R3.jpg" t="Include" />
             <e p="R4.jpg" t="Include" />
+            <e p="RocketImages" t="Include">
+              <e p="bad-rocket.png" t="Include" />
+              <e p="fuel-tank.jpg" t="Include" />
+              <e p="good-rocket.jpg" t="Include" />
+              <e p="good-rocket.png" t="Include" />
+              <e p="https___specials-images.forbesimg.com_dam_imageserve_765877054_960x0.jpg_fit=scale" t="Include" />
+              <e p="norm-rocket.jfif" t="Include" />
+              <e p="R1.png" t="Include" />
+              <e p="Rocket.jpg" t="Include" />
+              <e p="space-shope.jpg" t="Include" />
+              <e p="Space_shop.jpg" t="Include" />
+              <e p="space_shop2.jpg" t="Include" />
+            </e>
+            <e p="RocketMechanic" t="Include">
+              <e p="FirstScreen.jpg" t="Include" />
+              <e p="FuelTank0.jpg" t="Include" />
+              <e p="FuelTank1.jpg" t="Include" />
+              <e p="Rocket Engine.jpg" t="Include" />
+              <e p="Rocket engine0.jpg" t="Include" />
+              <e p="RocketEngine1jpg.jpg" t="Include" />
+              <e p="RocketEngine2.jpg" t="Include" />
+              <e p="RocketModel.png" t="Include" />
+              <e p="RocketStage.jpg" t="Include" />
+              <e p="RocketStage0.jpg" t="Include" />
+              <e p="soyuz_rocket_3d_model.jpg" t="Include" />
+            </e>
             <e p="Souze.jfif" t="Include" />
             <e p="Soyuz 1.jpg" t="Include" />
             <e p="Thumbs.db" t="Include" />
@@ -423,6 +463,11 @@
               <e p="mainPage.js" t="Include" />
               <e p="Menu.js" t="Include" />
               <e p="registration.js" t="Include" />
+              <e p="rocketPage.js" t="Include" />
+            </e>
+            <e p="RocketMechanic" t="Include">
+              <e p="jquery-3.6.0.min.js" t="Include" />
+              <e p="MainRocketMechanic.js" t="Include" />
             </e>
             <e p="site.js" t="Include" />
           </e>

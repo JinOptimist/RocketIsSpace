@@ -5,8 +5,11 @@ body{
     background-attachment: fixed; 
 }
 
+
+
 .vraper{
     width: 100%;
+    padding-top: 75px;
 }
 .Fuel-tank{
     display: flex   ;

@@ -42,6 +42,7 @@
 .header{
   display: flex;
   color:silver;
+  padding-top: 75px;
 }
 
 .rocket-button{
