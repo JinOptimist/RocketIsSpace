@@ -146,6 +146,7 @@
         <e p="EfStuff" t="Include">
           <e p="Model" t="Include">
             <e p="BaseModel.cs" t="Include" />
+            <e p="Comfort.cs" t="Include" />
             <e p="FactoryHistory.cs" t="Include" />
             <e p="Relic.cs" t="Include" />
             <e p="Rocket.cs" t="Include" />
@@ -153,6 +154,7 @@
             <e p="User.cs" t="Include" />
           </e>
           <e p="Repositories" t="Include">
+            <e p="ComfortRepository.cs" t="Include" />
             <e p="RelicRepository.cs" t="Include" />
             <e p="RocketProfileRepository.cs" t="Include" />
             <e p="UserRepository.cs" t="Include" />
@@ -173,6 +175,10 @@
           <e p="20210329183944_AddNavigationProp.Designer.cs" t="Include" />
           <e p="20210331170101_AddRelic.cs" t="Include" />
           <e p="20210331170101_AddRelic.Designer.cs" t="Include" />
+          <e p="20210401203900_AddComforts.cs" t="Include" />
+          <e p="20210401203900_AddComforts.Designer.cs" t="Include" />
+          <e p="20210402111326_AddComfort2.cs" t="Include" />
+          <e p="20210402111326_AddComfort2.Designer.cs" t="Include" />
           <e p="20210403182506_AddRegistration.cs" t="Include" />
           <e p="20210403182506_AddRegistration.Designer.cs" t="Include" />
           <e p="SpaceDbContextModelSnapshot.cs" t="Include" />
@@ -191,6 +197,7 @@
           <e p="RegistrationViewModel.cs" t="Include" />
           <e p="RelicViewModel.cs" t="Include" />
           <e p="RocketModels" t="Include">
+            <e p="ComfortFormViewModel.cs" t="Include" />
             <e p="RocketLoginViewModel.cs" t="Include" />
             <e p="RocketProfileViewModel.cs" t="Include" />
             <e p="RocketRegistrationViewModel.cs" t="Include" />
@@ -345,6 +352,9 @@
               <e p="fon.jpg" t="Include" />
               <e p="fonn.jpg" t="Include" />
               <e p="fonnn.jpg" t="Include" />
+              <e p="font" t="Include">
+                <e p="19554.ttf" t="Include" />
+              </e>
               <e p="kitchen.jpg" t="Include" />
               <e p="kitchen0.jpg" t="Include" />
               <e p="kitchen0blure.jpg" t="Include" />
@@ -360,10 +370,16 @@
               <e p="rescuecapsule1.jpg" t="Include" />
               <e p="rescuecapsule2.jpg" t="Include" />
               <e p="rescuecapsule3.jpg" t="Include" />
+              <e p="Rocket.jpg" t="Include" />
+              <e p="rocket2.jpeg" t="Include" />
               <e p="space.jpg" t="Include" />
               <e p="space1.jpg" t="Include" />
               <e p="space2.jpg" t="Include" />
               <e p="spacefood.jpg" t="Include" />
+              <e p="sw.jpg" t="Include" />
+              <e p="sw2.jpg" t="Include" />
+              <e p="sw3.jpg" t="Include" />
+              <e p="sw4.jpg" t="Include" />
               <e p="toilet.png" t="Include" />
               <e p="toilet0.jpg" t="Include" />
               <e p="toilet00.jpg" t="Include" />

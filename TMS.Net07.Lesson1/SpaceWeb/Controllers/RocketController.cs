@@ -37,7 +37,7 @@ namespace SpaceWeb.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(viewModel);
+                return View("Comfort/ComfortPage",viewModel);
             }
 
             var comfort = new Comfort()

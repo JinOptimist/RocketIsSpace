@@ -11,12 +11,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c722325e-9b28-4b45-865d-1b16588bea1d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TMS.Net07.Lesson1/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TMS.Net07.Lesson1/.idea/contentModel.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TMS.Net07.Lesson1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TMS.Net07.Lesson1/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpaceWeb/Views/Rocket/Factory/MainPage.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/SpaceWeb/Views/Rocket/Factory/MainPage.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpaceWeb/Views/Rocket/OriginRocket/Rocket.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/SpaceWeb/Views/Rocket/OriginRocket/Rocket.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpaceWeb/Views/Rocket/OriginRocket/RocketShop.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/SpaceWeb/Views/Rocket/OriginRocket/RocketShop.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpaceWeb/wwwroot/css/Rocket/RocketShopStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/SpaceWeb/wwwroot/css/Rocket/RocketShopStyle.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpaceWeb/wwwroot/css/Rocket/RocketStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/SpaceWeb/wwwroot/css/Rocket/RocketStyle.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpaceWeb/Controllers/RocketController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SpaceWeb/Controllers/RocketController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,13 +45,13 @@
       <option value="$PROJECT_DIR$/SpaceWeb/EfStuff/Model/RocketProfile.cs" />
       <option value="$PROJECT_DIR$/SpaceWeb/Views/Shared/_RocketLayout.cshtml" />
       <option value="$PROJECT_DIR$/SpaceWeb/wwwroot/css/Rocket/Registration.css" />
-      <option value="$PROJECT_DIR$/SpaceWeb/Controllers/RocketController.cs" />
       <option value="$PROJECT_DIR$/SpaceWeb/Views/Rocket/Registration.cshtml" />
       <option value="$PROJECT_DIR$/SpaceWeb/Views/Rocket/Factory/MainPage.cshtml" />
       <option value="$PROJECT_DIR$/SpaceWeb/wwwroot/css/Rocket/RocketStyle.css" />
       <option value="$PROJECT_DIR$/SpaceWeb/wwwroot/css/Rocket/RocketShopStyle.css" />
       <option value="$PROJECT_DIR$/SpaceWeb/Views/Rocket/OriginRocket/RocketShop.cshtml" />
       <option value="$PROJECT_DIR$/SpaceWeb/Views/Rocket/OriginRocket/Rocket.cshtml" />
+      <option value="$PROJECT_DIR$/SpaceWeb/Controllers/RocketController.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1q7SpGebPqL0ExtAA3KislDfIkA" />
