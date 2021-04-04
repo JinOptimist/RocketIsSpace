@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
@@ -121,6 +122,16 @@ namespace SpaceWeb.Controllers
         public IActionResult CapsulePage()
         {
             return View("Comfort/CapsulePage");
+        }
+
+        public IActionResult Rocket()
+        {
+            return View("OriginRocket/Rocket");
+        }
+
+        public IActionResult RocketShop()
+        {
+            return View("OriginRocket/RocketShop");
         }
     }
 }

@@ -1,0 +1,11 @@
+﻿$(document).ready(function(){
+    $('.documentation-cover').click(function(){
+        $('.documentation').addClass('hide');
+    })
+    $('.work').click(function(){
+        $('.documentation').removeClass('hide');
+    })
+    $('.work-okey').click(function(){
+        $('.documentation').addClass('hide');
+    })
+})
