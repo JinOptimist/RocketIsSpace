@@ -2,7 +2,7 @@
 
 namespace SpaceWeb.Models.RocketModels
 {
-    public class RocketProfileViewModel
+    public class RocketProfileViewModel:Person
     {
         public RocketProfileViewModel(RocketRegistrationViewModel model)
         {
