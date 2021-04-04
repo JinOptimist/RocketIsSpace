@@ -1,16 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Mvc;
 using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
-using SpaceWeb.Models;
 using SpaceWeb.Models.RocketModels;
-using SpaceWeb.EfStuff.Repositories;
-using SpaceWeb.EfStuff.Model;
 
 namespace SpaceWeb.Controllers
 {
@@ -102,15 +93,15 @@ namespace SpaceWeb.Controllers
         [HttpPost]
         public IActionResult Registration(RocketRegistrationViewModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return View("Registration",model);
-            }
+            // if (!ModelState.IsValid)
+            // {
+            //     return View("Registration",model);
+            // }
 
             var isUserUniq = _rocketProfileRepository.GetByName(model.UserName)== null;
             if (isUserUniq)
             {
-                var user = new RocketProfile()
+                var user = new RocketProfile
                 {
                     Email = model.Email.ToString(),
                     Name = model.Name,

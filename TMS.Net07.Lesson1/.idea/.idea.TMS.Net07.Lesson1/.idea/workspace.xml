@@ -10,8 +10,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c722325e-9b28-4b45-865d-1b16588bea1d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TMS.Net07.Lesson1/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TMS.Net07.Lesson1/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.TMS.Net07.Lesson1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TMS.Net07.Lesson1/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SpaceWeb/Controllers/RocketController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SpaceWeb/Controllers/RocketController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpaceWeb/EfStuff/Model/RocketProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SpaceWeb/EfStuff/Model/RocketProfile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpaceWeb/Views/Rocket/OriginRocket/RocketShop.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/SpaceWeb/Views/Rocket/OriginRocket/RocketShop.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpaceWeb/Views/Rocket/Registration.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/SpaceWeb/Views/Rocket/Registration.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpaceWeb/Views/Shared/_Layout.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/SpaceWeb/Views/Shared/_Layout.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpaceWeb/wwwroot/css/Rocket/Registration.css" beforeDir="false" afterPath="$PROJECT_DIR$/SpaceWeb/wwwroot/css/Rocket/Registration.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +34,16 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/A37E2132-EDE7-4009-90C0-538C06A76820/5/HttpsRedirectionMiddleware.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/C870CA06-9021-47A9-A402-5993CEEFDC2D/2AC/MethodBase.CoreCLR.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/59BF2A7F-7F57-4D3B-AC8C-7259A3552ABF/4/DeveloperExceptionPageMiddleware.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/859976E6-4DAC-4987-A538-E15E8DE14783/1/HostFilteringMiddleware.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/87CA269E-D756-4FE7-92B2-4A1A7E219F81/16/EndpointRoutingMiddleware.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/87A25223-7CA1-4606-8C0B-8217845111C6/13/StaticFileMiddleware.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
       <option value="$PROJECT_DIR$/SpaceWeb/Controllers/RocketControllers/MainController.cs" />
@@ -38,19 +53,21 @@
       <option value="$PROJECT_DIR$/SpaceWeb/EfStuff/Model/FactoryHistory.cs" />
       <option value="$PROJECT_DIR$/SpaceWeb/EfStuff/Repositories/RegistrationRepository.cs" />
       <option value="$PROJECT_DIR$/SpaceWeb/EfStuff/SpaceDbContext.cs" />
-      <option value="$PROJECT_DIR$/SpaceWeb/Models/RocketModels/RocketProfileViewModel.cs" />
       <option value="$PROJECT_DIR$/SpaceWeb/EfStuff/Model/Registration.cs" />
       <option value="$PROJECT_DIR$/SpaceWeb/EfStuff/Repositories/RocketProfileRepository.cs" />
       <option value="$PROJECT_DIR$/SpaceWeb/Startup.cs" />
-      <option value="$PROJECT_DIR$/SpaceWeb/EfStuff/Model/RocketProfile.cs" />
       <option value="$PROJECT_DIR$/SpaceWeb/Views/Shared/_RocketLayout.cshtml" />
-      <option value="$PROJECT_DIR$/SpaceWeb/wwwroot/css/Rocket/Registration.css" />
-      <option value="$PROJECT_DIR$/SpaceWeb/Views/Rocket/Registration.cshtml" />
       <option value="$PROJECT_DIR$/SpaceWeb/Views/Rocket/Factory/MainPage.cshtml" />
       <option value="$PROJECT_DIR$/SpaceWeb/wwwroot/css/Rocket/RocketStyle.css" />
       <option value="$PROJECT_DIR$/SpaceWeb/wwwroot/css/Rocket/RocketShopStyle.css" />
-      <option value="$PROJECT_DIR$/SpaceWeb/Views/Rocket/OriginRocket/RocketShop.cshtml" />
       <option value="$PROJECT_DIR$/SpaceWeb/Views/Rocket/OriginRocket/Rocket.cshtml" />
+      <option value="$PROJECT_DIR$/SpaceWeb/Views/Shared/_Layout.cshtml" />
+      <option value="$PROJECT_DIR$/SpaceWeb/Views/Rocket/OriginRocket/RocketShop.cshtml" />
+      <option value="$PROJECT_DIR$/SpaceWeb/EfStuff/Model/RocketProfile.cs" />
+      <option value="$PROJECT_DIR$/SpaceWeb/wwwroot/css/Rocket/Registration.css" />
+      <option value="$PROJECT_DIR$/SpaceWeb/Views/Rocket/Registration.cshtml" />
+      <option value="$PROJECT_DIR$/SpaceWeb/Models/RocketModels/RocketProfileViewModel.cs" />
+      <option value="$PROJECT_DIR$/SpaceWeb/Models/RocketModels/RocketRegistrationViewModel.cs" />
       <option value="$PROJECT_DIR$/SpaceWeb/Controllers/RocketController.cs" />
     </changedPaths>
   </component>
@@ -65,9 +82,12 @@
   <component name="PropertiesComponent">
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="DatabaseDriversLRU" value="sqlserver" />
+    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.2283237" />
+    <property name="DebuggerViewTab_PTCS_LastProportionKey" value="0.0" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="XThreadsFramesViewSplitterKey" value="0.77070063" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="ReSpellerSettingsId" />
@@ -195,6 +215,7 @@
       <workItem from="1616486459501" duration="933000" />
       <workItem from="1617470400613" duration="5547000" />
       <workItem from="1617530740236" duration="1889000" />
+      <workItem from="1617535390520" duration="2025000" />
     </task>
     <servers />
   </component>
