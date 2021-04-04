@@ -9,17 +9,48 @@ using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
 using SpaceWeb.Models;
 using SpaceWeb.Models.RocketModels;
+using SpaceWeb.EfStuff.Repositories;
+using SpaceWeb.EfStuff.Model;
 
 namespace SpaceWeb.Controllers
 {
     public class RocketController : Controller
     {
         private RocketProfileRepository _rocketProfileRepository;
-        public RocketController(RocketProfileRepository rocketProfileRepository)
+        private ComfortRepository _comfortRepository;
+        public RocketController(RocketProfileRepository rocketProfileRepository,ComfortRepository comfortRepository)
         {
             _rocketProfileRepository = rocketProfileRepository;
+            _comfortRepository = comfortRepository;
         }
-        
+
+        [HttpGet]
+        public IActionResult ComfortPage()
+        {
+            var model = new ComfortFormViewModel();
+            //return View(model);
+            return View("Comfort/ComfortPage", model);
+        }
+
+        [HttpPost]
+        public IActionResult ComfortPage(ComfortFormViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+
+            var comfort = new Comfort()
+            {
+                ToiletCount = viewModel.ToiletCount,
+                KitchenSeatsCount = viewModel.KitchenSeatsCount,
+                StorageCapacity = viewModel.StorageCapacity,
+                SleepingCapsulesCount = viewModel.SleepingCapsulesCount
+            };
+
+            _comfortRepository.Save(comfort);
+            return RedirectToAction("ComfortPage");
+        }
         // [HttpGet]
         // public IActionResult Login()
         // {
@@ -99,10 +130,6 @@ namespace SpaceWeb.Controllers
         //     var answer = RocketUsers.Any(x => x.UserName == name);
         //     return Json(answer);
         // }
-        public IActionResult ComfortPage()
-        {
-            return View("Comfort/ComfortPage");
-        }
 
         public IActionResult ToiletPage()
         {

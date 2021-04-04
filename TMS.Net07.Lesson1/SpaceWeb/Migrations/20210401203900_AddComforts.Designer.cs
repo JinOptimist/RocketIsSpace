@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SpaceWeb.EfStuff;
 
 namespace SpaceWeb.Migrations
 {
     [DbContext(typeof(SpaceDbContext))]
-    partial class SpaceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210401203900_AddComforts")]
+    partial class AddComforts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -20,16 +22,16 @@ namespace SpaceWeb.Migrations
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.Comfort", b =>
-            {
+                {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-                        
-                     b.Property<int>("KitchenSeatsCount")
+
+                    b.Property<int>("KitchenSeatsCount")
                         .HasColumnType("int");
 
-                    b.Property<int>("SleepingCapsulesCount")
+                    b.Property<int>("SleepingCapsulesCiunt")
                         .HasColumnType("int");
 
                     b.Property<int>("StorageCapacity")
@@ -40,28 +42,7 @@ namespace SpaceWeb.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Comforts");   
-                    });
-                    
-            modelBuilder.Entity("SpaceWeb.EfStuff.Model.FactoryHistory", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-                        
-                    b.Property<string>("Creator")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateOfCreating")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("RocketName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("FactoryHistories");
+                    b.ToTable("Comforts");
                 });
 
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.Relic", b =>
@@ -114,36 +95,6 @@ namespace SpaceWeb.Migrations
                     b.HasIndex("QaId");
 
                     b.ToTable("Rockets");
-                });
-
-            modelBuilder.Entity("SpaceWeb.EfStuff.Model.RocketProfile", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Surname")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("RocketProfiles");
                 });
 
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.User", b =>
