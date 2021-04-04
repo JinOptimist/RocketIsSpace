@@ -467,16 +467,6 @@ a {
     justify-items: flex-start;
 }
 
-.bank-account-list {
-    align-self: center;
-    justify-self: center;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .menu.top .bank-account {
     height: 96px;
     width: 166px;

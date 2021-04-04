@@ -14,34 +14,24 @@ $(document).ready(function () {
     });
 
     $('.add-new').click(function () {
-        $('.popup').removeClass('hide');
+        $('.popup.add').removeClass('hide');
     }
     );
 
     $('.bank-account-cancel, .bank-account-submit').click(function () {
-        $('.popup').addClass('hide');
+        $('.popup.add').addClass('hide');
     }
     );
 
-    $('.bank-account-submit').click(function (e) {
-        var currency = $('.popup-content .currency-input').val();
-        var amount = $('.popup-content .amount-input').val();
-        var copy = $('.bank-account.template').clone();
-        copy
-            .find('.amount')
-            .text(amount);
-        copy
-            .find('.currency')
-            .text(currency);
+    $('.bank-account').click(function () {
+        $('.popup.remove').removeClass('hide');
+        var accountNumber = $(this).find('.account-number').text();
+        $('.account-remove-number').val(accountNumber);
+    }
+    );
+    $('.account-remove-cancel, .account-remove-submit').click(function () {
+        $('.popup.remove').addClass('hide');
+    }
+    );
 
-        copy.removeClass('template');
-
-        //copy.find('.icon.close').click(removeRocket);
-
-        copy.insertBefore('.add-new.background');
-        //$('.bank-account-list').append(copy);
-        $('.popup-content .currency-input').val('BYN');
-        $('.popup-content .amount-input').val('');
-        e.preventDefault();
-    });
 });
