@@ -103,7 +103,7 @@ namespace SpaceWeb.Controllers
             {
                 var user = new RocketProfile
                 {
-                    Email = model.Email.ToString(),
+                    Email = model.Email,
                     Name = model.Name,
                     Surname = model.LastName,
                     BirthDate = model.DateOfBirth,

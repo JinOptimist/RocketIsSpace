@@ -12,11 +12,8 @@
     <list default="true" id="c722325e-9b28-4b45-865d-1b16588bea1d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TMS.Net07.Lesson1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TMS.Net07.Lesson1/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SpaceWeb/Controllers/RocketController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SpaceWeb/Controllers/RocketController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpaceWeb/EfStuff/Model/RocketProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SpaceWeb/EfStuff/Model/RocketProfile.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpaceWeb/Views/Rocket/OriginRocket/RocketShop.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/SpaceWeb/Views/Rocket/OriginRocket/RocketShop.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpaceWeb/Views/Rocket/Registration.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/SpaceWeb/Views/Rocket/Registration.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpaceWeb/Views/Shared/_Layout.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/SpaceWeb/Views/Shared/_Layout.cshtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpaceWeb/wwwroot/css/Rocket/Registration.css" beforeDir="false" afterPath="$PROJECT_DIR$/SpaceWeb/wwwroot/css/Rocket/Registration.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpaceWeb/Models/RocketModels/RocketProfileViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SpaceWeb/Models/RocketModels/RocketProfileViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpaceWeb/Models/RocketModels/RocketRegistrationViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SpaceWeb/Models/RocketModels/RocketRegistrationViewModel.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,8 +36,6 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/C870CA06-9021-47A9-A402-5993CEEFDC2D/2AC/MethodBase.CoreCLR.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/59BF2A7F-7F57-4D3B-AC8C-7259A3552ABF/4/DeveloperExceptionPageMiddleware.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/859976E6-4DAC-4987-A538-E15E8DE14783/1/HostFilteringMiddleware.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/87CA269E-D756-4FE7-92B2-4A1A7E219F81/16/EndpointRoutingMiddleware.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/87A25223-7CA1-4606-8C0B-8217845111C6/13/StaticFileMiddleware.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
@@ -66,8 +61,8 @@
       <option value="$PROJECT_DIR$/SpaceWeb/EfStuff/Model/RocketProfile.cs" />
       <option value="$PROJECT_DIR$/SpaceWeb/wwwroot/css/Rocket/Registration.css" />
       <option value="$PROJECT_DIR$/SpaceWeb/Views/Rocket/Registration.cshtml" />
-      <option value="$PROJECT_DIR$/SpaceWeb/Models/RocketModels/RocketProfileViewModel.cs" />
       <option value="$PROJECT_DIR$/SpaceWeb/Models/RocketModels/RocketRegistrationViewModel.cs" />
+      <option value="$PROJECT_DIR$/SpaceWeb/Models/RocketModels/RocketProfileViewModel.cs" />
       <option value="$PROJECT_DIR$/SpaceWeb/Controllers/RocketController.cs" />
     </changedPaths>
   </component>
@@ -216,6 +211,7 @@
       <workItem from="1617470400613" duration="5547000" />
       <workItem from="1617530740236" duration="1889000" />
       <workItem from="1617535390520" duration="2025000" />
+      <workItem from="1617636697362" duration="500000" />
     </task>
     <servers />
   </component>

@@ -6,7 +6,7 @@ namespace SpaceWeb.Models.RocketModels
     {
         public RocketProfileViewModel(RocketRegistrationViewModel model)
         {
-            Person = new Person(null, null, model.Email)
+            Person = new Person(null, null, null)
             {
                 Name = model.Name, Surname = model.LastName, BirthDate = model.DateOfBirth
             };
@@ -14,6 +14,8 @@ namespace SpaceWeb.Models.RocketModels
             Password = model.Password;
         }
         public Person Person { get; set; }
+
+        public string Email { get; set; }
         public string UserName { get; set; }
         
         public string Password { get; set; }
