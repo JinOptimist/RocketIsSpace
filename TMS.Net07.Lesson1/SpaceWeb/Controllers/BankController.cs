@@ -9,17 +9,18 @@ using System.Threading;
 using System.Threading.Tasks;
 using SpaceWeb.EfStuff;
 using SpaceWeb.EfStuff.Model;
+using SpaceWeb.EfStuff.Repositories;
 
 namespace SpaceWeb.Controllers
 {
     public class BankController : Controller
     {
-        private SpaceDbContext _dbContext;
-        public BankController(SpaceDbContext dbContext)
-        {
-            _dbContext = dbContext;
-        }
+        private BankAccountRepository _bankAccountRepository;
 
+        public BankController(BankAccountRepository bankAccountRepository)
+        {
+            _bankAccountRepository = bankAccountRepository;
+        }
         public IActionResult Bank()
         {
             var input = new RegistrationViewModel();
@@ -86,18 +87,29 @@ namespace SpaceWeb.Controllers
         [HttpGet]
         public IActionResult Account ()
         {
-            var model = new List<BankAccountViewModel>();
-            foreach (var accountDB in _dbContext.BankAccount)
-            {
-                var accountVM = new BankAccountViewModel
+            //var model = new List<BankAccountViewModel>();
+            //foreach (var accountDB in _dbContext.BankAccount)
+            //{
+            //    var accountVM = new BankAccountViewModel
+            //    {
+            //        Amount = accountDB.Amount,
+            //        BankAccountId = accountDB.BankAccountId,
+            //        Currency = accountDB.Currency,
+            //        Type = accountDB.Type
+            //    };
+            //    model.Add(accountVM);
+            //}
+
+            var model = _bankAccountRepository
+                .GetAll()
+                .Select(dbModel => new BankAccountViewModel
                 {
-                    Amount = accountDB.Amount,
-                    BankAccountId = accountDB.BankAccountId,
-                    Currency = accountDB.Currency,
-                    Type = accountDB.Type
-                };
-                model.Add(accountVM);
-            }
+                    BankAccountId = dbModel.BankAccountId,
+                    Amount = dbModel.Amount,
+                    Currency = dbModel.Currency,
+                    Type = dbModel.Type
+                })
+                .ToList();
 
             return View(model);
         }
@@ -132,33 +144,46 @@ namespace SpaceWeb.Controllers
                 Type = model.Type
             };
 
-            _dbContext.BankAccount.Add(modelDB);
-            _dbContext.SaveChanges();
+            _bankAccountRepository.Save(modelDB);
 
-            var modelNew = new List<BankAccountViewModel>();
+            //var modelNew = new List<BankAccountViewModel>();
 
-            foreach (var accountDB in _dbContext.BankAccount)
-            {
-                var accountVM = new BankAccountViewModel
+            var modelNew = _bankAccountRepository
+                .GetAll()
+                .Select(dbModel => new BankAccountViewModel
                 {
-                    Amount = accountDB.Amount,
-                    BankAccountId = accountDB.BankAccountId,
-                    Currency = accountDB.Currency,
-                    Type = accountDB.Type
-                };
-                modelNew.Add(accountVM);
-            }
+                    BankAccountId = dbModel.BankAccountId,
+                    Amount = dbModel.Amount,
+                    Currency = dbModel.Currency,
+                    Type = dbModel.Type
+                })
+                .ToList();
+
+            //foreach (var accountDB in _dbContext.BankAccount)
+            //{
+            //    var accountVM = new BankAccountViewModel
+            //    {
+            //        Amount = accountDB.Amount,
+            //        BankAccountId = accountDB.BankAccountId,
+            //        Currency = accountDB.Currency,
+            //        Type = accountDB.Type
+            //    };
+            //    modelNew.Add(accountVM);
+            //}
 
             return View(modelNew);
         }
         [HttpPost]
         public IActionResult RemoveAccount(BankAccountViewModel model)
         {
-            var accountToRemove = _dbContext.BankAccount
-                .SingleOrDefault(x => x.BankAccountId == model.BankAccountId);
+            //var accountToRemove = _dbContext.BankAccount
+            //    .SingleOrDefault(x => x.BankAccountId == model.BankAccountId);
 
-            _dbContext.BankAccount.Remove(accountToRemove);
-            _dbContext.SaveChanges();
+            //_dbContext.BankAccount.Remove(accountToRemove);
+            //_dbContext.SaveChanges();
+
+            _bankAccountRepository.Remove(model.BankAccountId);
+
             return RedirectToAction("Account", "Bank");
         }
     }
