@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SpaceWeb.EfStuff.Model;
+using SpaceWeb.EfStuff.Repositories;
 using SpaceWeb.Models;
 using System;
 using System.Collections.Generic;
@@ -10,7 +12,13 @@ namespace SpaceWeb.Controllers
 {
     public class BankController : Controller
     {
-     
+        private ProfileRepository _profileRepository;
+
+        public BankController(ProfileRepository profileRepository)
+        {
+            _profileRepository = profileRepository;
+        }
+
         public IActionResult Bank()
         {
             var input = new RegistrationViewModel();
@@ -70,8 +78,37 @@ namespace SpaceWeb.Controllers
             {
                 return View(model);
             }
-           
-            return View(model);
+            var userprofile = new Profile()
+            {
+                Name = model.Name,
+                Surname = model.Surname,
+                BirthDate = model.BirthDate,
+                Sex = model.Sex,
+                PhoneNumber = model.PhoneNumber,
+                PostAddress = model.PostAddress,
+                IdentificationPassport = model.IdentificationPassport
+
+            };
+
+            _profileRepository.Save(userprofile);
+            
+            return RedirectToAction("UserProfileDataOutput");
         }
+        public IActionResult UserProfileDataOutput()
+        {
+            var profileDateOutput = _profileRepository.GetAll()
+                .Select(x => new UserProfileViewModel()
+                {
+                    Name = x.Name,
+                    Sex = x.Sex,
+                    BirthDate = x.BirthDate
+
+                })
+                .ToList();
+
+            return View(profileDateOutput);
+        }
+
+
     }
 }
