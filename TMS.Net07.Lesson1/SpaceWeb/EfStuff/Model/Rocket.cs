@@ -10,5 +10,11 @@ namespace SpaceWeb.EfStuff.Model
         public int Cost { get; set; }
 
         public string Url { get; set; }
+
+        public virtual User Author { get; set; }
+
+        public virtual User Qa { get; set; }
+
+        public virtual List<User> UserWhoFavouriteTheRocket { get; set; }
     }
 }

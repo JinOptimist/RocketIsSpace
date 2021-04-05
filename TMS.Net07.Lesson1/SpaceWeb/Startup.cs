@@ -1,3 +1,5 @@
+using AutoMapper;
+using AutoMapper.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -6,10 +8,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SpaceWeb.EfStuff;
+using SpaceWeb.EfStuff.Model;
+using SpaceWeb.EfStuff.Repositories;
+using SpaceWeb.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 
 namespace SpaceWeb
 {
@@ -25,10 +31,47 @@ namespace SpaceWeb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var connectionString = "Server=(localdb)\\MSSQLLocalDB;Database=SpaceWeb;Trusted_Connection=True";
+            var connectionString = Configuration.GetValue<string>("connectionString");
             services.AddDbContext<SpaceDbContext>(x => x.UseSqlServer(connectionString));
 
+            services.AddScoped<UserRepository>(diContainer =>
+                new UserRepository(diContainer.GetService<SpaceDbContext>()));
+
+            services.AddScoped<RelicRepository>(diContainer =>
+                new RelicRepository(diContainer.GetService<SpaceDbContext>()));
+
+            services.AddScoped<AdvImageRepository>(diContainer =>
+                new AdvImageRepository(diContainer.GetService<SpaceDbContext>()));
+
+            RegisterMapper(services);
+
             services.AddControllersWithViews();
+        }
+
+        private void RegisterMapper(IServiceCollection services)
+        {
+            var configExpression = new MapperConfigurationExpression();
+
+            configExpression.CreateMap<User, UserProfileViewModel>()
+                .ForMember(nameof(UserProfileViewModel.FullName),
+                    config => config
+                        .MapFrom(dbModel => $"{dbModel.Name}, {dbModel.SurName} Mr"));
+
+            //configExpression.CreateMap<Relic, RelicViewModel>();
+            //configExpression.CreateMap<RelicViewModel, Relic>();
+            MapBoth<Relic, RelicViewModel>(configExpression);
+
+            MapBoth<AdvImage, AdvImageViewModel>(configExpression);
+
+            var mapperConfiguration = new MapperConfiguration(configExpression);
+            var mapper = new Mapper(mapperConfiguration);
+            services.AddScoped<IMapper>(c => mapper);
+        }
+
+        public void MapBoth<Type1, Type2>(MapperConfigurationExpression configExpression)
+        {
+            configExpression.CreateMap<Type1, Type2>();
+            configExpression.CreateMap<Type2, Type1>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

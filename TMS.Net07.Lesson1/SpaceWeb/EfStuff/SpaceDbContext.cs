@@ -16,5 +16,25 @@ namespace SpaceWeb.EfStuff
         public DbSet<Rocket> Rockets { get; set; }
         public DbSet<Profile> UserProfile { get; set; }
         public DbSet<BankAccount> BankAccount { get; set; }
+        public DbSet<Relic> Relics { get; set; }
+
+        public DbSet<AdvImage> AdvImages { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>()
+                .HasMany(user => user.MyRockets)
+                .WithOne(rocket => rocket.Author);
+
+            modelBuilder.Entity<User>()
+                .HasOne(user => user.MyFavouriteRocket)
+                .WithMany(rocket => rocket.UserWhoFavouriteTheRocket);
+
+            modelBuilder.Entity<Rocket>()
+                .HasOne(rocket => rocket.Qa)
+                .WithMany(user => user.TestedRockets);
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }
