@@ -1,0 +1,15 @@
+﻿@model List<RelicViewModel>
+<div class="relics">
+    @foreach (var relic in Model)
+    {
+        <div class="relic">
+            <div class="name">@relic.RelicName <a href="/Relic/Remove?id=@relic.Id" class="icon close"></a></div>
+            <div>
+                <img src="@relic.ImageUrl" />
+            </div>
+            <div>
+                Цена: @relic.Price Остаток: @relic.Count
+            </div>
+        </div>
+    }
+</div>
