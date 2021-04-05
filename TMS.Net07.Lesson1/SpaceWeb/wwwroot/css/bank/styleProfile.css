@@ -127,7 +127,16 @@ button {
 .input-validation-error {
     border-color: red;
 }
+.profileoutput {
+    border: 1px green solid;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 10px;
+}
+
 .profile {
+    display: flex;
+    justify-content: center;
     height: 100vh;
     margin-top: 60px;
     background: url("../../image/bank/1-43.jpg") center no-repeat;

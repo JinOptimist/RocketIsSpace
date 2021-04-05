@@ -17,19 +17,19 @@ namespace SpaceWeb.Models
         [StringLength(15, MinimumLength = 3, ErrorMessage = "Недопустимая длина фамилии")]
         public string SurName { get; set; }
 
-        [Required]
+        
         public DateTime BirthDate { get; set; }
 
-        [MinAge(18, ErrorMessage = "Недопустимый возраст")]
+        //[MinAge(18, ErrorMessage = "Недопустимый возраст")]
         public int Age { get; set; }
 
-        [Required]
+        
         public string Sex { get; set; }
 
         public string IdentificationPassport { get; set; }
 
-        [Required]
-        [RegularExpression(@"^\+375\d{2}-\d{3}-\d{2}-\d{2}$", ErrorMessage = "Номер телефона должен иметь формат +375XX-xxx-xx-xx")]
+        //[RegularExpression(@"^\+375\d{2}-\d{3}-\d{2}-\d{2}$", ErrorMessage = "Номер телефона должен иметь формат +375XX-xxx-xx-xx")]
+
         public string PhoneNumber { get; set; }
 
         public string PostAddress { get; set; }

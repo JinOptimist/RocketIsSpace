@@ -40,9 +40,15 @@ namespace SpaceWeb
             services.AddScoped<RelicRepository>(diContainer =>
                 new RelicRepository(diContainer.GetService<SpaceDbContext>()));
 
+            services.AddScoped<ProfileRepository>(diContainer =>
+                new ProfileRepository(diContainer.GetService<SpaceDbContext>()));
+
             services.AddScoped<AdvImageRepository>(diContainer =>
                 new AdvImageRepository(diContainer.GetService<SpaceDbContext>()));
 
+            services.AddScoped<BankAccountRepository>(diContainer =>
+                new BankAccountRepository(diContainer.GetService<SpaceDbContext>()));
+                
             RegisterMapper(services);
 
             services.AddControllersWithViews();
