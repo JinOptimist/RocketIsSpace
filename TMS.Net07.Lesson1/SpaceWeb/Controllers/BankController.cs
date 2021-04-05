@@ -18,15 +18,11 @@ namespace SpaceWeb.Controllers
     public class BankController : Controller
     {
         private BankAccountRepository _bankAccountRepository;
-
-        public BankController(BankAccountRepository bankAccountRepository)
-        {
-            _bankAccountRepository = bankAccountRepository;
-        }
         private ProfileRepository _profileRepository;
 
-        public BankController(ProfileRepository profileRepository)
+        public BankController(BankAccountRepository bankAccountRepository, ProfileRepository profileRepository)
         {
+            _bankAccountRepository = bankAccountRepository;
             _profileRepository = profileRepository;
         }
 
