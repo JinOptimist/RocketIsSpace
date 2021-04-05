@@ -18,6 +18,8 @@ namespace SpaceWeb.EfStuff
 
         public DbSet<Relic> Relics { get; set; }
 
+        public DbSet<AdvImage> AdvImages { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()

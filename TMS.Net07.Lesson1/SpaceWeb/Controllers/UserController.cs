@@ -65,7 +65,7 @@ namespace SpaceWeb.Controllers
                 return View(model);
             }
 
-            var user = _userRepository.GetByName(model.Login);
+            var user = _userRepository.Get(model.Login);
 
             if (user == null)
             {
@@ -112,7 +112,7 @@ namespace SpaceWeb.Controllers
             //}
 
             //Новый способ LINQ
-            var isUserUniq = _userRepository.GetByName(model.Login) == null;
+            var isUserUniq = _userRepository.Get(model.Login) == null;
             if (isUserUniq)
             {
                 var user = new User()
@@ -131,7 +131,7 @@ namespace SpaceWeb.Controllers
         {
             Thread.Sleep(3000);
             var isExistUserWithTheName = 
-                _userRepository.GetByName(name) != null;
+                _userRepository.Get(name) != null;
             return Json(isExistUserWithTheName);
         }
     }
