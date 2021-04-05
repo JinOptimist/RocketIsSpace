@@ -13,10 +13,9 @@ namespace SpaceWeb.EfStuff
         public SpaceDbContext(DbContextOptions options) : base(options) { }
 
         public DbSet<User> Users { get; set; }
-
         public DbSet<Rocket> Rockets { get; set; }
-
-        public DbSet<BankAccount> BankAccounts { get; set; }
+        public DbSet<Profile> UserProfile { get; set; }
+        public DbSet<BankAccount> BankAccount { get; set; }
 
         public DbSet<Relic> Relics { get; set; }
 
