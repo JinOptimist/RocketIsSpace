@@ -1,16 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SpaceWeb.EfStuff;
 using SpaceWeb.EfStuff.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SpaceWeb
 {
@@ -26,7 +21,7 @@ namespace SpaceWeb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var connectionString = "Server=localhost;Database=SpaceWeb;Trusted_Connection=True";
+               var connectionString = "Server=(localdb)\\MSSQLLocalDB;Database=SpaceWeb;Trusted_Connection=True";
             services.AddDbContext<SpaceDbContext>(x => x.UseSqlServer(connectionString));
 
             services.AddScoped<UserRepository>(diContainer => 
@@ -37,6 +32,9 @@ namespace SpaceWeb
 
             services.AddScoped<ComfortRepository>(diContainer =>
                 new ComfortRepository(diContainer.GetService<SpaceDbContext>()));
+
+            services.AddScoped<RocketStageRepository>(diContainer => 
+                new RocketStageRepository(diContainer.GetService<SpaceDbContext>()));
 
             services.AddScoped<RocketProfileRepository>(diContainer =>
                 new RocketProfileRepository(diContainer.GetService<SpaceDbContext>()));

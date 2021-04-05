@@ -21,6 +21,7 @@ namespace SpaceWeb.EfStuff
         public DbSet<RocketProfile> RocketProfiles { get; set; }
 
         public DbSet<Comfort> Comforts { get; set; }
+        public DbSet<RocketStage> RocketStages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
