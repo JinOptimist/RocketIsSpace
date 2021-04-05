@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SpaceWeb.EfStuff.Model;
+using SpaceWeb.EfStuff.Repositories;
 using SpaceWeb.Models;
 
 using System;
@@ -21,12 +23,20 @@ namespace SpaceWeb.Controllers
         {
             _bankAccountRepository = bankAccountRepository;
         }
+        private ProfileRepository _profileRepository;
+
+        public BankController(ProfileRepository profileRepository)
+        {
+            _profileRepository = profileRepository;
+        }
+
         public IActionResult Bank()
         {
             var input = new RegistrationViewModel();
            
             return View(input);
         }
+        
         [HttpGet]
         public IActionResult Login()
         {
@@ -45,6 +55,7 @@ namespace SpaceWeb.Controllers
             model.Bio = model.UserName + model.Password;
             return View(model);
         }
+        
         public IActionResult Home()
         {
             var model = new RocketPreviewViewModel()
@@ -55,6 +66,7 @@ namespace SpaceWeb.Controllers
 
             return View(model);
         }
+       
         public IActionResult Contacts()
         {
             var input = new ContactsViewModel()
@@ -65,6 +77,7 @@ namespace SpaceWeb.Controllers
             };
             return View(input);
         }
+        
         [HttpGet]
         public IActionResult UserProfile()
         {
@@ -80,26 +93,41 @@ namespace SpaceWeb.Controllers
             {
                 return View(model);
             }
-           
-            return View(model);
+            var userprofile = new Profile()
+            {
+                Name = model.Name,
+                Surname = model.Surname,
+                BirthDate = model.BirthDate,
+                Sex = model.Sex,
+                PhoneNumber = model.PhoneNumber,
+                PostAddress = model.PostAddress,
+                IdentificationPassport = model.IdentificationPassport
+
+            };
+
+            _profileRepository.Save(userprofile);
+            
+            return RedirectToAction("UserProfileDataOutput");
+        }
+        
+        public IActionResult UserProfileDataOutput()
+        {
+            var profileDateOutput = _profileRepository.GetAll()
+                .Select(x => new UserProfileViewModel()
+                {
+                    Name = x.Name,
+                    Sex = x.Sex,
+                    BirthDate = x.BirthDate
+
+                })
+                .ToList();
+
+            return View(profileDateOutput);
         }
 
         [HttpGet]
         public IActionResult Account ()
         {
-            //var model = new List<BankAccountViewModel>();
-            //foreach (var accountDB in _dbContext.BankAccount)
-            //{
-            //    var accountVM = new BankAccountViewModel
-            //    {
-            //        Amount = accountDB.Amount,
-            //        BankAccountId = accountDB.BankAccountId,
-            //        Currency = accountDB.Currency,
-            //        Type = accountDB.Type
-            //    };
-            //    model.Add(accountVM);
-            //}
-
             var model = _bankAccountRepository
                 .GetAll()
                 .Select(dbModel => new BankAccountViewModel
@@ -146,8 +174,6 @@ namespace SpaceWeb.Controllers
 
             _bankAccountRepository.Save(modelDB);
 
-            //var modelNew = new List<BankAccountViewModel>();
-
             var modelNew = _bankAccountRepository
                 .GetAll()
                 .Select(dbModel => new BankAccountViewModel
@@ -158,30 +184,12 @@ namespace SpaceWeb.Controllers
                     Type = dbModel.Type
                 })
                 .ToList();
-
-            //foreach (var accountDB in _dbContext.BankAccount)
-            //{
-            //    var accountVM = new BankAccountViewModel
-            //    {
-            //        Amount = accountDB.Amount,
-            //        BankAccountId = accountDB.BankAccountId,
-            //        Currency = accountDB.Currency,
-            //        Type = accountDB.Type
-            //    };
-            //    modelNew.Add(accountVM);
-            //}
-
             return View(modelNew);
         }
+        
         [HttpPost]
         public IActionResult RemoveAccount(BankAccountViewModel model)
         {
-            //var accountToRemove = _dbContext.BankAccount
-            //    .SingleOrDefault(x => x.BankAccountId == model.BankAccountId);
-
-            //_dbContext.BankAccount.Remove(accountToRemove);
-            //_dbContext.SaveChanges();
-
             _bankAccountRepository.Remove(model.BankAccountId);
 
             return RedirectToAction("Account", "Bank");
