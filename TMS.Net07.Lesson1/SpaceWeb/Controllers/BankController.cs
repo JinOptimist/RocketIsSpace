@@ -96,7 +96,7 @@ namespace SpaceWeb.Controllers
             var userprofile = new Profile()
             {
                 Name = model.Name,
-                Surname = model.Surname,
+                SurName = model.SurName,
                 BirthDate = model.BirthDate,
                 Sex = model.Sex,
                 PhoneNumber = model.PhoneNumber,
