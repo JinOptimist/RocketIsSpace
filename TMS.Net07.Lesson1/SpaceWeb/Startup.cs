@@ -1,3 +1,5 @@
+using AutoMapper;
+using AutoMapper.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -6,11 +8,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SpaceWeb.EfStuff;
+using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
+using SpaceWeb.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 
 namespace SpaceWeb
 {
@@ -26,7 +31,7 @@ namespace SpaceWeb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var connectionString = "Server=(localdb)\\MSSQLLocalDB;Database=SpaceWeb;Trusted_Connection=True";
+            var connectionString = Configuration.GetValue<string>("connectionString");
             services.AddDbContext<SpaceDbContext>(x => x.UseSqlServer(connectionString));
 
             services.AddScoped<UserRepository>(diContainer => 
@@ -38,7 +43,27 @@ namespace SpaceWeb
             services.AddScoped<ProfileRepository>(diContainer =>
                 new ProfileRepository(diContainer.GetService<SpaceDbContext>()));
 
+            services.AddScoped<AdvImageRepository>(diContainer =>
+                new AdvImageRepository(diContainer.GetService<SpaceDbContext>()));
+
+            RegisterMapper(services);
+
             services.AddControllersWithViews();
+        }
+
+        private void RegisterMapper(IServiceCollection services)
+        {
+            var configExpression = new MapperConfigurationExpression();
+
+            configExpression.CreateMap<Relic, RelicViewModel>();
+            configExpression.CreateMap<RelicViewModel, Relic>();
+
+            configExpression.CreateMap<AdvImage, AdvImageViewModel>();
+            configExpression.CreateMap<AdvImageViewModel, AdvImage>();
+
+            var mapperConfiguration = new MapperConfiguration(configExpression);
+            var mapper = new Mapper(mapperConfiguration);
+            services.AddScoped<IMapper>(c => mapper);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
