@@ -24,13 +24,13 @@ namespace SpaceWeb.Migrations
                 b.Property<int>("Amount")
                         .HasColumnType("int");
 
-                    b.Property<string>("BankAccountId")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("BankAccountId")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Currency")
+                b.Property<string>("Currency");
 
-                    b.ToTable("BankAccounts");
-            }
+                b.ToTable("BankAccounts");
+            });
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.Relic", b =>
                 {
                     b.Property<long>("Id")
