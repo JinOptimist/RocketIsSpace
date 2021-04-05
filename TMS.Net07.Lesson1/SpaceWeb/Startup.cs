@@ -21,7 +21,7 @@ namespace SpaceWeb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-               var connectionString = "Server=(localdb)\\MSSQLLocalDB;Database=SpaceWeb;Trusted_Connection=True";
+               var connectionString = Configuration.GetValue<string>("connectionString");
             services.AddDbContext<SpaceDbContext>(x => x.UseSqlServer(connectionString));
 
             services.AddScoped<UserRepository>(diContainer => 

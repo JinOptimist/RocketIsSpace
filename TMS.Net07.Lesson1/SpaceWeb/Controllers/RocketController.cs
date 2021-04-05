@@ -93,10 +93,10 @@ namespace SpaceWeb.Controllers
         [HttpPost]
         public IActionResult Registration(RocketRegistrationViewModel model)
         {
-            // if (!ModelState.IsValid)
-            // {
-            //     return View("Registration",model);
-            // }
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
 
             var isUserUniq = _rocketProfileRepository.GetByName(model.UserName)== null;
             if (isUserUniq)
@@ -113,7 +113,7 @@ namespace SpaceWeb.Controllers
                 _rocketProfileRepository.Save(user);
             }
 
-            return View("Registration",model);
+            return View(model);
         }
         
         // public JsonResult IsUserExist(string name)
