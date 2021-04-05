@@ -34,7 +34,7 @@ namespace SpaceWeb
             var connectionString = Configuration.GetValue<string>("connectionString");
             services.AddDbContext<SpaceDbContext>(x => x.UseSqlServer(connectionString));
 
-            services.AddScoped<UserRepository>(diContainer => 
+            services.AddScoped<UserRepository>(diContainer =>
                 new UserRepository(diContainer.GetService<SpaceDbContext>()));
 
             services.AddScoped<RelicRepository>(diContainer =>
@@ -52,15 +52,26 @@ namespace SpaceWeb
         {
             var configExpression = new MapperConfigurationExpression();
 
-            configExpression.CreateMap<Relic, RelicViewModel>();
-            configExpression.CreateMap<RelicViewModel, Relic>();
+            configExpression.CreateMap<User, UserProfileViewModel>()
+                .ForMember(nameof(UserProfileViewModel.FullName),
+                    config => config
+                        .MapFrom(dbModel => $"{dbModel.Name}, {dbModel.SurName} Mr"));
 
-            configExpression.CreateMap<AdvImage, AdvImageViewModel>();
-            configExpression.CreateMap<AdvImageViewModel, AdvImage>();
+            //configExpression.CreateMap<Relic, RelicViewModel>();
+            //configExpression.CreateMap<RelicViewModel, Relic>();
+            MapBoth<Relic, RelicViewModel>(configExpression);
+
+            MapBoth<AdvImage, AdvImageViewModel>(configExpression);
 
             var mapperConfiguration = new MapperConfiguration(configExpression);
             var mapper = new Mapper(mapperConfiguration);
             services.AddScoped<IMapper>(c => mapper);
+        }
+
+        public void MapBoth<Type1, Type2>(MapperConfigurationExpression configExpression)
+        {
+            configExpression.CreateMap<Type1, Type2>();
+            configExpression.CreateMap<Type2, Type1>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
