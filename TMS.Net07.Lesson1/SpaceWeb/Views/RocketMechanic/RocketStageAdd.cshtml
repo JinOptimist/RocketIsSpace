@@ -1,0 +1,57 @@
+﻿@model RocketStageAddViewModel
+
+@section Style{
+    <link rel="stylesheet" href="~/css/reset.css">
+    <link rel="stylesheet" href="~/css/RocketMechanic/RocketStageAdd.css">
+}
+
+@section Script{
+    <script src="~/js/RocketMechanic/jquery-3.6.0.min.js"></script>
+}
+
+@{
+    Layout = "~/Views/Shared/_RocketLayout.cshtml";
+}
+
+<section class="Section">
+    <div class="Container">
+        <form action="/RocketMechanic/RocketStageAdd" method="post">
+
+            <div class="ProductImage">
+                @Html.TextBoxFor(x => x.ImageUrl, new { @placeholder = "Image url" })
+                @Html.ValidationMessageFor(x => x.ImageUrl)
+            </div>
+
+            <div>
+                @Html.TextBoxFor(x => x.RocketStageModel,
+               new { @class = "ProductModel", @type = "text", @placeholder = "Rocket stage model" })
+                @Html.ValidationMessageFor(x => x.RocketStageModel)
+            </div>
+
+            <div>
+                @Html.TextBoxFor(x => x.Weight,
+               new { @class = "ProductWeight", @type = "number", @placeholder = "Weight in kg" })
+                @Html.ValidationMessageFor(x => x.Weight)
+            </div>
+
+            <div>
+                @Html.TextBoxFor(x => x.EnginesModel,
+               new { @class = "ProductEngines", @type = "text", @placeholder = "Engines model" })
+                @Html.ValidationMessageFor(x => x.EnginesModel)
+            </div>
+
+            <div>
+                @Html.TextBoxFor(x => x.FuelTanksModel,
+               new { @class = "ProductFuelTanks", @type = "text", @placeholder = "Fuel Tanks model" })
+                @Html.ValidationMessageFor(x => x.FuelTanksModel)
+            </div>
+
+            <div>
+                @Html.TextBoxFor(x => x.RocketStageDescription,
+               new { @class = "RocketStageDescription", @type = "text", @placeholder = "Rocket stage description" })
+                @Html.ValidationMessageFor(x => x.RocketStageDescription)
+            </div>
+            <div> <input type="submit" value="Save" /> </div>
+        </form>
+    </div>
+</section>
