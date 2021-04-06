@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using SpaceWeb.EfStuff;
 using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
@@ -13,21 +14,27 @@ namespace SpaceWeb.Controllers
 {
     public class UserController : Controller
     {
-        //Это плохо. Удалить как только добавим БД
-        //public static List<ProfileViewModel> Users
-        //    = new List<ProfileViewModel>();
-
         private UserRepository _userRepository;
+        private IMapper _mapper;
 
         public static int Counter = 0;
 
-        public UserController(UserRepository userRepository)
+        public UserController(UserRepository userRepository, IMapper mapper)
         {
             _userRepository = userRepository;
+            _mapper = mapper;
         }
 
         public IActionResult Profile()
         {
+            var user = new User();
+
+            var userViewModel = _mapper.Map<UserProfileViewModel>(user);
+
+
+
+
+
             var model = new List<RocketPreviewViewModel>();
 
             model.Add(new RocketPreviewViewModel()
@@ -65,7 +72,7 @@ namespace SpaceWeb.Controllers
                 return View(model);
             }
 
-            var user = _userRepository.GetByName(model.Login);
+            var user = _userRepository.Get(model.Login);
 
             if (user == null)
             {
@@ -112,7 +119,7 @@ namespace SpaceWeb.Controllers
             //}
 
             //Новый способ LINQ
-            var isUserUniq = _userRepository.GetByName(model.Login) == null;
+            var isUserUniq = _userRepository.Get(model.Login) == null;
             if (isUserUniq)
             {
                 var user = new User()
@@ -131,7 +138,7 @@ namespace SpaceWeb.Controllers
         {
             Thread.Sleep(3000);
             var isExistUserWithTheName = 
-                _userRepository.GetByName(name) != null;
+                _userRepository.Get(name) != null;
             return Json(isExistUserWithTheName);
         }
     }

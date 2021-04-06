@@ -5,9 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\js\NewFolder\**" />
+    <Content Remove="wwwroot\js\NewFolder\**" />
+    <EmbeddedResource Remove="wwwroot\js\NewFolder\**" />
+    <None Remove="wwwroot\js\NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\image\human\" />
     <Folder Include="wwwroot\image\bank\" />
-    <Folder Include="wwwroot\js\NewFolder\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,6 +29,8 @@
   </ItemGroup>
 
   <ItemGroup>
+
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
 
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.4" />
 

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace SpaceWeb.EfStuff.Repositories
 {
-    public class RelicRepository : BaseRepository<Relic>
+    public class AdvImageRepository : BaseRepository<AdvImage>
     {
-        public RelicRepository(SpaceDbContext spaceDbContext) 
+        public AdvImageRepository(SpaceDbContext spaceDbContext)
             : base(spaceDbContext)
         {
         }
