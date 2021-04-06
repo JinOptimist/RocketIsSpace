@@ -17,6 +17,12 @@ namespace SpaceWeb.EfStuff
         public DbSet<BankAccount> BankAccount { get; set; }
         public DbSet<Relic> Relics { get; set; }
         public DbSet<AdvImage> AdvImages { get; set; }
+        public DbSet<FactoryHistory> FactoryHistories { get; set; }
+        public DbSet<Relic> Relics { get; set; }
+        public DbSet<RocketProfile> RocketProfiles { get; set; }
+        public DbSet<Comfort> Comforts { get; set; }
+        public DbSet<RocketStage> RocketStages { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()

@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankSputink", "BankSputink\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankSputink.Test", "BankSputink.Test\BankSputink.Test.csproj", "{8DC3022F-20C6-496B-8BE3-3945144E2184}"
 EndProject
+
+Team2Rocket
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpaceWeb", "SpaceWeb\SpaceWeb.csproj", "{BD6E6CF7-9369-44D5-B49D-5362AEF1020B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HumansResources", "HumansResources\HumansResources.csproj", "{3D988676-5A6E-4D9E-B7C6-AF86CF7FBFA4}"
@@ -18,6 +20,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RocketTest", "RocketTest\RocketTest.csproj", "{A22BD0B6-7664-4FCB-B0E3-AA8494CE451A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rocket2", "Rocket2\Rocket2.csproj", "{C974CC7F-98D6-4770-AB75-BC03514F0FDF}"
+
+Team2Rocket
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

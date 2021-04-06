@@ -32,7 +32,7 @@ namespace SpaceWeb.Controllers
            
             return View(input);
         }
-        
+       
         [HttpGet]
         public IActionResult Login()
         {

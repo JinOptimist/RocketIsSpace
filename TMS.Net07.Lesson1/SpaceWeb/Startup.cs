@@ -2,7 +2,6 @@ using AutoMapper;
 using AutoMapper.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,7 +15,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
-
 namespace SpaceWeb
 {
     public class Startup
@@ -51,6 +49,14 @@ namespace SpaceWeb
                 
             RegisterMapper(services);
 
+            services.AddScoped<ComfortRepository>(diContainer =>
+                new ComfortRepository(diContainer.GetService<SpaceDbContext>()));
+
+            services.AddScoped<RocketStageRepository>(diContainer => 
+                new RocketStageRepository(diContainer.GetService<SpaceDbContext>()));
+
+            services.AddScoped<RocketProfileRepository>(diContainer =>
+                new RocketProfileRepository(diContainer.GetService<SpaceDbContext>()));
             services.AddControllersWithViews();
         }
 
