@@ -27,6 +27,19 @@ $(document).ready(function (){
         $('.user-login').val(headerText);//положить текст в инпут
     });
 
+<<<<<<< HEAD
+    $('.view .img-name').click(function(){
+        $(this)
+            .closest('.view')
+            .hide();
+
+        $(this)
+            .closest('.name')
+            .find('.edit')
+            .show();
+        var newName = $('.name-input').val();
+        $('.img-name').text(newName);
+=======
     $('.content').on('click', '.rocket .current-name,.rocket .icon.ok', function(){
         $(this)
             .closest('.name')
@@ -79,5 +92,6 @@ $(document).ready(function (){
         var val = $('[name=visible-remove]:checked').val();
         var isVisible = val == '1';
         $('.icon.close').toggle(isVisible);
+>>>>>>> 18d66ae3be7a7f0f861148de47b8e191393ef66e
     });
 });

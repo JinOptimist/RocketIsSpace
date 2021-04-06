@@ -1,0 +1,21 @@
+﻿@model List<UserProfileViewModel>
+@section Scripts{
+    <link rel="stylesheet" href="~/css/bank/styleProfile.css" />
+    }
+<div class="">
+    <div class="profile">
+        <form action="/Bank/UserProfileDataoutput" method="post">
+
+            @foreach (var profile in Model)
+            {
+                <div class="profile-text">
+                    <div class="name">@profile.Name </div>
+                    <div class="name">@profile.SurName </div>
+                    <div class="name">@profile.BirthDate </div>
+                    <div class="name">@profile.Age </div>
+                </div>
+            }
+
+        </form>
+    </div>
+</div>

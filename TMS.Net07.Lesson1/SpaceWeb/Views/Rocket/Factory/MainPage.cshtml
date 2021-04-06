@@ -1,8 +1,10 @@
-﻿@section Style{
+@section Style{
     <link rel="stylesheet" href="~/css/Rocket/Factory.css">
     <link rel="stylesheet" href="~/css/Rocket/iconFactory.css">
 }
-
+@{
+    Layout = "_RocketLayout";
+}
 @section Script{
     <script src="~/js/Rocket/mainPage.js"></script>
 }
@@ -27,15 +29,6 @@
             </span>
         </div>
     </span>
-    @* <span class="authorization-field"> *@
-    @*     <div class="log-field"> *@
-    @*         <input class="login-input" type="text" placeholder="Login"> *@
-    @*         <input class="password-input" type="text" placeholder="Password"> *@
-    @*     </div> *@
-    @*     <div class="log-in-button"> *@
-    @*         <input type="button" value="Log in"> *@
-    @*     </div> *@
-    @* </span> *@
 </div>
 <div class="header">Factory preview</div>
 <div class="search">
@@ -44,7 +37,7 @@
     </div>
 </div>
 <div class="center-block">
-    <a href="#" class="link">
+    <a href="~/Rocket/Rocket" class="link">
         <div class="rocket">
             <span class="text">Rocket Factory</span>
         </div>
@@ -59,7 +52,7 @@
             <div class="text">Addition Factory</div>
         </div>
     </a>
-    <a href="#" class="link">
+    <a href="~/RocketMechanic/Main" class="link">
         <div class="stage">
             <div class="text">Stage Factory</div>
         </div>
