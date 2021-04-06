@@ -20,5 +20,10 @@ namespace SpaceWeb.EfStuff.Model
         public virtual List<Rocket> TestedRockets { get; set; } 
 
         public virtual Rocket MyFavouriteRocket { get; set; }
+
+        //public virtual Client Client { get; set; }
+
+        //public virtual Employe Employe { get; set; }
+
     }
 }

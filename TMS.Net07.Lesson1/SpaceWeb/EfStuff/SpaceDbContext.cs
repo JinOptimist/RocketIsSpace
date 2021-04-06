@@ -21,6 +21,11 @@ namespace SpaceWeb.EfStuff
         public DbSet<RocketProfile> RocketProfiles { get; set; }
         public DbSet<Comfort> Comforts { get; set; }
         public DbSet<RocketStage> RocketStages { get; set; }
+        public DbSet<Department> Departments { get; set; }
+        public DbSet<Employe> Employes { get; set; }
+        public DbSet<Client> Clients { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderList> OrderLists { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -35,6 +40,31 @@ namespace SpaceWeb.EfStuff
             modelBuilder.Entity<Rocket>()
                 .HasOne(rocket => rocket.Qa)
                 .WithMany(user => user.TestedRockets);
+
+            modelBuilder.Entity<Employe>()
+                .HasOne(emp => emp.Department)
+                .WithMany(department => department.Employes);
+
+            modelBuilder.Entity<Order>()
+                .HasOne(order => order.Client)
+                .WithMany(client => client.Orders);
+
+            modelBuilder.Entity<OrderList>()
+                .HasOne(orderList => orderList.Employe)
+                .WithMany(employe => employe.OrderList);
+
+            modelBuilder.Entity<OrderList>()
+                .HasOne(orderList => orderList.Order)
+                .WithMany(order => order.OrderList);
+
+            //modelBuilder.Entity<Client>()
+            //    .HasOne(client => client.User)
+            //    .WithOne(user => user.Client);
+
+            //modelBuilder.Entity<Employe>()
+            //    .HasOne(employe => employe.User)
+            //    .WithOne(user => user.Employe);
+
 
             base.OnModelCreating(modelBuilder);
         }
