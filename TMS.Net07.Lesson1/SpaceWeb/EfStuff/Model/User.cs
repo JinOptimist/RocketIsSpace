@@ -21,9 +21,11 @@ namespace SpaceWeb.EfStuff.Model
 
         public virtual Rocket MyFavouriteRocket { get; set; }
 
-        //public virtual Client Client { get; set; }
+        public long ClientForeignKey { get; set; }
+        public virtual Client Client { get; set; }
 
-        //public virtual Employe Employe { get; set; }
+        public long EmployeForeignKey { get; set; }
+        public virtual Employe Employe { get; set; }
 
     }
 }

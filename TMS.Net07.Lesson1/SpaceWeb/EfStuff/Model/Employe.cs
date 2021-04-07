@@ -8,11 +8,11 @@ namespace SpaceWeb.EfStuff.Model
 
         public virtual Department Department { get; set; }
 
-        //public virtual User User { get; set; }
+        public virtual User User { get; set; }
 
         public virtual List<OrderList> OrderList { get; set; }
 
-        public decimal SalaryPerHour { get; set; }
+        public double SalaryPerHour { get; set; }
 
     }
 }

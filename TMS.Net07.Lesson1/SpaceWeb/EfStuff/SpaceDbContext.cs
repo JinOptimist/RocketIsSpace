@@ -57,13 +57,15 @@ namespace SpaceWeb.EfStuff
                 .HasOne(orderList => orderList.Order)
                 .WithMany(order => order.OrderList);
 
-            //modelBuilder.Entity<Client>()
-            //    .HasOne(client => client.User)
-            //    .WithOne(user => user.Client);
+            modelBuilder.Entity<Client>()
+                .HasOne(client => client.User)
+                .WithOne(user => user.Client)
+                .HasForeignKey<User>(user => user.ClientForeignKey);
 
-            //modelBuilder.Entity<Employe>()
-            //    .HasOne(employe => employe.User)
-            //    .WithOne(user => user.Employe);
+            modelBuilder.Entity<Employe>()
+                .HasOne(employe => employe.User)
+                .WithOne(user => user.Employe)
+                .HasForeignKey<User>(user => user.EmployeForeignKey);
 
 
             base.OnModelCreating(modelBuilder);
