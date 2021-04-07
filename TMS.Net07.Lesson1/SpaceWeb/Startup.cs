@@ -69,6 +69,8 @@ namespace SpaceWeb
 
             MapBoth<AdvImage, AdvImageViewModel>(configExpression);
 
+            MapBoth<BankAccount, BankAccountViewModel>(configExpression);
+
             var mapperConfiguration = new MapperConfiguration(configExpression);
             var mapper = new Mapper(mapperConfiguration);
             services.AddScoped<IMapper>(c => mapper);
