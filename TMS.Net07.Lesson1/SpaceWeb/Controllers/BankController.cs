@@ -5,13 +5,9 @@ using SpaceWeb.Models;
 
 using System;
 using System.Text;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using SpaceWeb.EfStuff;
-using SpaceWeb.EfStuff.Model;
-using SpaceWeb.EfStuff.Repositories;
+using AutoMapper;
+using Profile = SpaceWeb.EfStuff.Model.Profile;
 
 namespace SpaceWeb.Controllers
 {
@@ -19,11 +15,13 @@ namespace SpaceWeb.Controllers
     {
         private BankAccountRepository _bankAccountRepository;
         private ProfileRepository _profileRepository;
+        private IMapper _mapper;
 
-        public BankController(BankAccountRepository bankAccountRepository, ProfileRepository profileRepository)
+        public BankController(BankAccountRepository bankAccountRepository, ProfileRepository profileRepository, IMapper mapper)
         {
             _bankAccountRepository = bankAccountRepository;
             _profileRepository = profileRepository;
+            _mapper = mapper;
         }
 
         public IActionResult Bank()
@@ -108,14 +106,10 @@ namespace SpaceWeb.Controllers
         
         public IActionResult UserProfileDataOutput()
         {
-            var profileDateOutput = _profileRepository.GetAll()
-                .Select(x => new UserProfileViewModel()
-                {
-                    Name = x.Name,
-                    Sex = x.Sex,
-                    BirthDate = x.BirthDate
-
-                })
+            var profileDateOutput = _profileRepository
+                .GetAll()
+                .Select(dbModel =>_mapper.Map<UserProfileViewModel>(dbModel)
+                )
                 .ToList();
 
             return View(profileDateOutput);

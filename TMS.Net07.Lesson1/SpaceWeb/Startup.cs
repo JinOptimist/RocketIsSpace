@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
+using Profile = SpaceWeb.EfStuff.Model.Profile;
 
 namespace SpaceWeb
 {
@@ -65,7 +66,9 @@ namespace SpaceWeb
 
             //configExpression.CreateMap<Relic, RelicViewModel>();
             //configExpression.CreateMap<RelicViewModel, Relic>();
+           
             MapBoth<Relic, RelicViewModel>(configExpression);
+            MapBoth<Profile, UserProfileViewModel>(configExpression);
 
             MapBoth<AdvImage, AdvImageViewModel>(configExpression);
 

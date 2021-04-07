@@ -30,11 +30,7 @@ namespace SpaceWeb.Controllers
             var user = new User();
 
             var userViewModel = _mapper.Map<UserProfileViewModel>(user);
-
-
-
-
-
+            
             var model = new List<RocketPreviewViewModel>();
 
             model.Add(new RocketPreviewViewModel()
