@@ -2,7 +2,6 @@ using AutoMapper;
 using AutoMapper.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -52,6 +51,14 @@ namespace SpaceWeb
                 
             RegisterMapper(services);
 
+            services.AddScoped<ComfortRepository>(diContainer =>
+                new ComfortRepository(diContainer.GetService<SpaceDbContext>()));
+
+            services.AddScoped<RocketStageRepository>(diContainer => 
+                new RocketStageRepository(diContainer.GetService<SpaceDbContext>()));
+
+            services.AddScoped<RocketProfileRepository>(diContainer =>
+                new RocketProfileRepository(diContainer.GetService<SpaceDbContext>()));
             services.AddControllersWithViews();
         }
 
@@ -64,6 +71,8 @@ namespace SpaceWeb
                     config => config
                         .MapFrom(dbModel => $"{dbModel.Name}, {dbModel.SurName} Mr"));
 
+            configExpression.CreateMap<User, ProfileViewModel>();
+
             //configExpression.CreateMap<Relic, RelicViewModel>();
             //configExpression.CreateMap<RelicViewModel, Relic>();
            
@@ -71,6 +80,8 @@ namespace SpaceWeb
             MapBoth<Profile, UserProfileViewModel>(configExpression);
 
             MapBoth<AdvImage, AdvImageViewModel>(configExpression);
+
+            MapBoth<BankAccount, BankAccountViewModel>(configExpression);
 
             var mapperConfiguration = new MapperConfiguration(configExpression);
             var mapper = new Mapper(mapperConfiguration);

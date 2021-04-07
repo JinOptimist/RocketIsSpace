@@ -25,32 +25,17 @@ namespace SpaceWeb.Controllers
             _mapper = mapper;
         }
 
-        public IActionResult Profile()
+        public IActionResult Profile(long id = 0)
         {
-            var user = new User();
-
-            var userViewModel = _mapper.Map<UserProfileViewModel>(user);
+            var user = id == 0
+                ? _userRepository.GetAll().FirstOrDefault()
+                : _userRepository.Get(id);
             
-            var model = new List<RocketPreviewViewModel>();
+            var viewModel = _mapper.Map<ProfileViewModel>(user);
 
-            model.Add(new RocketPreviewViewModel()
-            {
-                Name = "Союз",
-                Url = "/image/R1.jpeg"
-            });
 
-            model.Add(new RocketPreviewViewModel()
-            {
-                Name = "Протон",
-                Url = "/image/R2.jpg"
-            });
+            return View(viewModel);
 
-            model.Add(new RocketPreviewViewModel()
-            {
-                Name = "Солют",
-                Url = "/image/R3.jpg"
-            });
-            return View(model);
         }
 
         [HttpGet]

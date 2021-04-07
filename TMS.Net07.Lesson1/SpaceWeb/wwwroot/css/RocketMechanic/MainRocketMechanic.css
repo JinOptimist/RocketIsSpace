@@ -1,0 +1,263 @@
+h1 {
+    font-family:  fantasy;
+    font-size: 40px;
+    line-height: 1.6;
+    color:black;
+}
+
+h2 {
+    font-family: fantasy;
+    font-size: 20px;
+    line-height: 1.6;
+    color:black;
+    text-align: center;
+}
+
+h3 {
+    font-family: fantasy;
+    font-size: 20px;
+    line-height: 1.6;
+    color:black;
+}
+
+p {
+    font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.FirstScreen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+
+    background: url("../../image/RocketMechanic/FirstScreen.jpg") center no-repeat;
+    background-size: cover;
+}
+
+.FirstScreen .Container .FirstScreenText{
+    font-family: fantasy;
+    font-size: 50px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: blanchedalmond;
+    text-align: center;
+}
+
+.Container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.FirstScreen .Container .ContainerFirstScreenInner{
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.Section {
+    margin-top: 100px;
+}
+
+.Section .Container {
+    display: flex;
+}
+
+.Section .Container .SectionText {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin: 20px;
+}
+
+.Section .SectionText .SectionTitle:after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: black;
+}
+
+.Section .Container .SectionText .SectionTitle{
+    margin-top: 30px;
+    margin-bottom: 20px;
+
+    font-family: fantasy;
+    text-transform: uppercase;
+    font-size: 25px;
+}
+
+.Section .Container .SectionText .SectionInfoText{
+    font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
+    font-size: 15px;
+}
+
+.Section .EngineContainer {
+    display: flex;
+    background: rgba(161, 161, 161, 0.25);
+
+    padding: 100px;
+}
+
+.Section .EngineContainer img{
+    width: 600px;
+    height: auto;
+    margin-left: 100px; 
+}
+
+.Section .EngineContainer .Container .EnginesSection {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: space-around;
+}
+
+.Section .FuelTankContainer {
+    display: flex;
+    padding: 100px;
+}
+
+.Section .FuelTankContainer img{
+    width: 600px;
+    height: auto;
+    margin-right: 100px; 
+}
+
+.Section .FuelTankContainer .Container .FuelTankSection {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: space-around;
+}
+
+.Section .Container .SectionStoreTitle{
+    margin: 0 auto;
+    width: 100%;
+    max-width: 600px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Section .Container .SectionStoreTitle .SectionDescriptionText{
+    margin-top: 25px;
+    margin-bottom: 100px;
+}
+
+
+
+.Section .Container .StoreContainer{
+    display: flex;
+}
+
+.Section .Container .StoreContainer .ProductCard:hover{
+    display: flex;
+    border-width: 3px;
+    border-radius: 5px;
+    border-style: outset;
+    border-color: cornflowerblue;
+}
+
+.Section .Container .StoreContainer .ProductCard{
+
+    width: 570px;
+    height: 300px;
+    margin: 15px;
+
+    border-width: 1px;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: cornflowerblue;
+
+    display:flex;
+    justify-content: center;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.Section .Container .StoreContainer .ProductCard .ProductImage{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.Section .Container .StoreContainer .ProductCard .ProductImage img{
+    max-height: 270px;
+    max-width: 300px;
+    margin: 15px;
+}
+
+.Section .Container .StoreContainer .ProductCard .ProductDescription {
+    margin: 15px;
+    font-size: 15px;
+    font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
+
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.Section .Container .StoreContainer .ProductCard .ProductDescription .ProductModel{
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.CoverImage{
+    background: url(../../image/RocketMechanic/FirstScreen.jpg) center no-repeat;
+    background-size: cover;
+    height: 100%;
+ }
+
+.Feedback {
+    position: relative;
+    max-width: 400px;
+    padding: 60px 50px;
+    margin: 50px auto 0;
+    background-size: cover;
+}
+
+.Feedback:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to right bottom, rgba(57, 61, 161, 0.5), rgba(49, 9, 45, 0.5));
+ }
+
+ .Feedback .FormInner {
+    position: relative;
+ }
+
+ .Feedback .FormInner h3 {
+    position: relative;
+    margin-top: 0;
+    color: white;
+    font-family: fantasy;
+    font-weight: 300;
+    font-size: 26px;
+    text-transform: uppercase;
+ }
+
+ .Feedback .FormInner input {
+    display: block;
+    width: 100%;
+    padding: 0 15px;
+    margin: 10px 0 15px;
+    border-width: 0;
+    line-height: 40px;
+    border-radius: 20px;
+    color: white;
+    background: rgba(255, 255, 255, .2);
+    font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
+ }
+
+ .Feedback .FormInner input:hover {
+    background: linear-gradient(to right bottom, rgba(161, 137, 57, 0.5), rgba(255, 169, 71, 0.5));
+}

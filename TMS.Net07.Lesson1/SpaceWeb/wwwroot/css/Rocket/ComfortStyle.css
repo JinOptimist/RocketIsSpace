@@ -113,3 +113,77 @@
 .capsule-link {
     text-decoration: none;
 }
+
+@font-face {
+    font-family: Hairline;
+    src: url("../../image/comfortImage/font/19554.ttf");
+}
+
+.input-block {
+    display: flex;
+    background-color: #272220;
+    height: 700px;
+    color: #d5c5ac;
+    font-size: 25px;
+    font-family: Hairline;
+}
+
+.right-input-block {
+    background: url(../../image/comfortImage/sw4.jpg);
+    width: 30%;
+}
+
+.left-input-text{
+    margin-top: 100px;
+    margin-left: 200px;
+}
+
+.without-botton{
+    display: flex;
+}
+
+.right-input-form{
+    margin-top: 110px;
+}
+
+.input-botton {
+    -moz-box-shadow: inset 0px 1px 0px 0px #ccb286;
+    -webkit-box-shadow: inset 0px 1px 0px 0px #ccb286;
+    box-shadow: inset 0px 1px 0px 0px #ccb286;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ab845b), color-stop(1, #a36a4b));
+    background: -moz-linear-gradient(top, #ab845b 5%, #a36a4b 100%);
+    background: -webkit-linear-gradient(top, #ab845b 5%, #a36a4b 100%);
+    background: -o-linear-gradient(top, #ab845b 5%, #a36a4b 100%);
+    background: -ms-linear-gradient(top, #ab845b 5%, #a36a4b 100%);
+    background: linear-gradient(to bottom, #ab845b 5%, #a36a4b 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ab845b', endColorstr='#a36a4b',GradientType=0);
+    background-color: #ab845b;
+    border: 1px solid #6e4c22;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Hairline;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 6px 12px;
+    text-decoration: none;
+    outline: none;
+    margin-left: 253px;
+}
+
+.input-botton:hover {
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #a36a4b), color-stop(1, #ab845b));
+    background: -moz-linear-gradient(top, #a36a4b 5%, #ab845b 100%);
+    background: -webkit-linear-gradient(top, #a36a4b 5%, #ab845b 100%);
+    background: -o-linear-gradient(top, #a36a4b 5%, #ab845b 100%);
+    background: -ms-linear-gradient(top, #a36a4b 5%, #ab845b 100%);
+    background: linear-gradient(to bottom, #a36a4b 5%, #ab845b 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#a36a4b', endColorstr='#ab845b',GradientType=0);
+    background-color: #a36a4b;
+    outline: none;
+}
+
+.input-botton:active {
+    position: relative;
+    top: 1px;
+}

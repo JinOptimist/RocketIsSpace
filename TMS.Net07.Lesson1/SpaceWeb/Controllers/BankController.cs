@@ -16,11 +16,17 @@ namespace SpaceWeb.Controllers
         private BankAccountRepository _bankAccountRepository;
         private ProfileRepository _profileRepository;
         private IMapper _mapper;
+        private UserRepository _userRepository;
 
-        public BankController(BankAccountRepository bankAccountRepository, ProfileRepository profileRepository, IMapper mapper)
+
+        public BankController(BankAccountRepository bankAccountRepository, 
+            ProfileRepository profileRepository, 
+            UserRepository userRepository,
+            IMapper mapper)
         {
             _bankAccountRepository = bankAccountRepository;
             _profileRepository = profileRepository;
+            _userRepository = userRepository;
             _mapper = mapper;
         }
 
@@ -30,7 +36,7 @@ namespace SpaceWeb.Controllers
            
             return View(input);
         }
-        
+       
         [HttpGet]
         public IActionResult Login()
         {
@@ -135,6 +141,7 @@ namespace SpaceWeb.Controllers
         [HttpPost]
         public IActionResult Account(BankAccountViewModel model)
         {
+            
             if ( model.Currency == "BYN")
             {
                 model.Type = "Счет";
@@ -154,14 +161,18 @@ namespace SpaceWeb.Controllers
             }
             model.BankAccountId = sb.ToString();
 
+            var user = _userRepository.Get(model.OwnerId);
             var modelDB = new BankAccount
             {
                 Amount = model.Amount,
                 BankAccountId = model.BankAccountId,
                 Currency = model.Currency,
-                Type = model.Type
+                Type = model.Type,
+                Owner = user
             };
 
+            //user.BankAccounts.Add(modelDB);
+            //_userRepository.Save(user);
             _bankAccountRepository.Save(modelDB);
 
             var modelNew = _bankAccountRepository
