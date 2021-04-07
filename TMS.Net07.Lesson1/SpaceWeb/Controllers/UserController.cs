@@ -30,7 +30,6 @@ namespace SpaceWeb.Controllers
             var user = id == 0
                 ? _userRepository.GetAll().FirstOrDefault()
                 : _userRepository.Get(id);
-            
             var viewModel = _mapper.Map<ProfileViewModel>(user);
 
             return View(viewModel);
