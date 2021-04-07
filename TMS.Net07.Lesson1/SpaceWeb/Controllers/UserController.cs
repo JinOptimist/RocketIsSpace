@@ -30,7 +30,12 @@ namespace SpaceWeb.Controllers
             var user = id == 0
                 ? _userRepository.GetAll().FirstOrDefault()
                 : _userRepository.Get(id);
+            //user.BankAccounts;
             var viewModel = _mapper.Map<ProfileViewModel>(user);
+            var bankViewModels = user
+                .BankAccounts
+                .Select(x => _mapper.Map<BankAccountViewModel>(x)).ToList();
+            viewModel.MyAccounts = bankViewModels;
 
             return View(viewModel);
         }

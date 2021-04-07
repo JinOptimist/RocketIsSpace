@@ -143,16 +143,16 @@ namespace SpaceWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult Account(BankAccountViewModel model)
+        public IActionResult Account(BankAccountViewModel viewModel)
         {
             
-            if ( model.Currency == "BYN")
+            if ( viewModel.Currency == "BYN")
             {
-                model.Type = "Счет";
+                viewModel.Type = "Счет";
             }
             else
             {
-                model.Type = "Валютный счет";
+                viewModel.Type = "Валютный счет";
             }
 
             StringBuilder sb = new StringBuilder();
@@ -163,21 +163,22 @@ namespace SpaceWeb.Controllers
             {
                 sb.Append(rnd.Next(0, 9));
             }
-            model.BankAccountId = sb.ToString();
+            viewModel.BankAccountId = sb.ToString();
 
-            var user = _userRepository.Get(model.OwnerId);
-            var modelDB = new BankAccount
+            var bankAccountDB = new BankAccount
             {
-                Amount = model.Amount,
-                BankAccountId = model.BankAccountId,
-                Currency = model.Currency,
-                Type = model.Type,
-                Owner = user
+                Amount = viewModel.Amount,
+                BankAccountId = viewModel.BankAccountId,
+                Currency = viewModel.Currency,
+                Type = viewModel.Type,
             };
 
-            //user.BankAccounts.Add(modelDB);
+            bankAccountDB.Owner = _userRepository.Get(viewModel.OwnerId);
+            _bankAccountRepository.Save(bankAccountDB);
+
+            //user.BankAccounts.Add(bankAccountDB);
             //_userRepository.Save(user);
-            _bankAccountRepository.Save(modelDB);
+
 
             var modelNew = _bankAccountRepository
                 .GetAll()
