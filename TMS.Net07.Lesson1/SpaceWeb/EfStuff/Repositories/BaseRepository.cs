@@ -31,7 +31,14 @@ namespace SpaceWeb.EfStuff.Repositories
 
         public void Save(ModelType model)
         {
-            _dbSet.Add(model);
+            if (model.Id > 0)
+            {
+                _dbSet.Update(model);
+            }
+            else
+            {
+                _dbSet.Add(model);
+            }
             _spaceDbContext.SaveChanges();
         }
 

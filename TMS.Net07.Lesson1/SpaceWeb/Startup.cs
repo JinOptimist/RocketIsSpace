@@ -69,11 +69,15 @@ namespace SpaceWeb
                     config => config
                         .MapFrom(dbModel => $"{dbModel.Name}, {dbModel.SurName} Mr"));
 
+            configExpression.CreateMap<User, ProfileViewModel>();
+
             //configExpression.CreateMap<Relic, RelicViewModel>();
             //configExpression.CreateMap<RelicViewModel, Relic>();
             MapBoth<Relic, RelicViewModel>(configExpression);
 
             MapBoth<AdvImage, AdvImageViewModel>(configExpression);
+
+            MapBoth<BankAccount, BankAccountViewModel>(configExpression);
 
             var mapperConfiguration = new MapperConfiguration(configExpression);
             var mapper = new Mapper(mapperConfiguration);

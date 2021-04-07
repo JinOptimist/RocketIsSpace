@@ -19,11 +19,15 @@ namespace SpaceWeb.Controllers
     {
         private BankAccountRepository _bankAccountRepository;
         private ProfileRepository _profileRepository;
+        private UserRepository _userRepository;
 
-        public BankController(BankAccountRepository bankAccountRepository, ProfileRepository profileRepository)
+        public BankController(BankAccountRepository bankAccountRepository, 
+            ProfileRepository profileRepository, 
+            UserRepository userRepository)
         {
             _bankAccountRepository = bankAccountRepository;
             _profileRepository = profileRepository;
+            _userRepository = userRepository;
         }
 
         public IActionResult Bank()
@@ -141,6 +145,7 @@ namespace SpaceWeb.Controllers
         [HttpPost]
         public IActionResult Account(BankAccountViewModel model)
         {
+            
             if ( model.Currency == "BYN")
             {
                 model.Type = "Счет";
@@ -160,14 +165,18 @@ namespace SpaceWeb.Controllers
             }
             model.BankAccountId = sb.ToString();
 
+            var user = _userRepository.Get(model.OwnerId);
             var modelDB = new BankAccount
             {
                 Amount = model.Amount,
                 BankAccountId = model.BankAccountId,
                 Currency = model.Currency,
-                Type = model.Type
+                Type = model.Type,
+                Owner = user
             };
 
+            //user.BankAccounts.Add(modelDB);
+            //_userRepository.Save(user);
             _bankAccountRepository.Save(modelDB);
 
             var modelNew = _bankAccountRepository

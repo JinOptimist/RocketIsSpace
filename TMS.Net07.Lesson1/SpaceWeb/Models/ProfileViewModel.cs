@@ -23,5 +23,7 @@ namespace SpaceWeb.Models
 
         public string Bio { get; set; }
         public DateTime DateRegistration { get; set; }
+
+        public List<BankAccountViewModel> BankAccounts { get; set; }
     }
 }

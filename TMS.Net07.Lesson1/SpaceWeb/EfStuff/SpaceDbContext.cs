@@ -36,7 +36,17 @@ namespace SpaceWeb.EfStuff
                 .HasOne(rocket => rocket.Qa)
                 .WithMany(user => user.TestedRockets);
 
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.BankAccounts)
+                .WithOne(x => x.Owner);
+
             base.OnModelCreating(modelBuilder);
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseLazyLoadingProxies();
+            base.OnConfiguring(optionsBuilder);
         }
     }
 }
