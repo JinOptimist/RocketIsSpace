@@ -1,0 +1,189 @@
+﻿.header {
+    display: flex;
+    height: 700px;
+    background: url(../../image/comfortImage/space2.jpg) center/cover;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    font-family: "Century Gothic";
+    font-size: 120px;
+}
+
+.none {
+    height: 100px;
+}
+
+.text1 {
+    color: #353535;
+    font-family: "Georgia";
+    font-size: 50px;
+    padding-right: 500px;
+    padding-left: 50px;
+}
+
+.text2 {
+    font-size: 30px;
+}
+
+.center-block {
+    display: flex;
+    justify-content: space-around;
+}
+
+.toilet {
+    display: flex;
+    background: url(../../image/comfortImage/toilet0.jpg) center/cover;
+    width: 350px;
+    height: 600px;
+    color: white;
+    align-items: flex-end;
+    font-family: "Century Gothic";
+    font-size: 90px;
+    padding-left: 15px;
+    padding-bottom: 30px;
+}
+
+.toilet:hover {
+    background: url(../../image/comfortImage/toilet0blure.jpg) center/cover;
+}
+
+.toilet-link {
+    text-decoration: none;
+}
+
+.kitchen {
+    display: flex;
+    background: url(../../image/comfortImage/kitchen0.jpg) center/cover;
+    width: 350px;
+    height: 600px;
+    color: white;
+    align-items: flex-end;
+    font-family: "Century Gothic";
+    font-size: 85px;
+    padding-left: 15px;
+    padding-bottom: 30px;
+}
+
+.kitchen:hover {
+    background: url(../../image/comfortImage/kitchen0blure.jpg) center/cover;
+}
+
+.kitchen-link {
+    text-decoration: none;
+}
+
+.command-center {
+    display: flex;
+    background: url(../../image/comfortImage/commandcenter0.jpg) center/cover;
+    width: 350px;
+    height: 600px;
+    color: white;
+    align-items: flex-end;
+    font-family: "Century Gothic";
+    font-size: 65px;
+    padding-left: 15px;
+    padding-bottom: 30px;
+}
+
+.command-center:hover {
+    background: url(../../image/comfortImage/commandcenter0blure.jpg) center/cover;
+}
+
+.command-center-link {
+    text-decoration: none;
+}
+
+.capsule {
+    display: flex;
+    background: url(../../image/comfortImage/capsule0.jpg) center/cover;
+    width: 350px;
+    height: 600px;
+    color: white;
+    align-items: flex-end;
+    font-family: "Century Gothic";
+    font-size: 70px;
+    padding-left: 15px;
+    padding-bottom: 30px;
+}
+
+.capsule:hover {
+    background: url(../../image/comfortImage/capsule0blure.jpg) center/cover;
+}
+
+.capsule-link {
+    text-decoration: none;
+}
+
+@font-face {
+    font-family: Hairline;
+    src: url("../../image/comfortImage/font/19554.ttf");
+}
+
+.input-block {
+    display: flex;
+    background-color: #272220;
+    height: 700px;
+    color: #d5c5ac;
+    font-size: 25px;
+    font-family: Hairline;
+}
+
+.right-input-block {
+    background: url(../../image/comfortImage/sw4.jpg);
+    width: 30%;
+}
+
+.left-input-text{
+    margin-top: 100px;
+    margin-left: 200px;
+}
+
+.without-botton{
+    display: flex;
+}
+
+.right-input-form{
+    margin-top: 110px;
+}
+
+.input-botton {
+    -moz-box-shadow: inset 0px 1px 0px 0px #ccb286;
+    -webkit-box-shadow: inset 0px 1px 0px 0px #ccb286;
+    box-shadow: inset 0px 1px 0px 0px #ccb286;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ab845b), color-stop(1, #a36a4b));
+    background: -moz-linear-gradient(top, #ab845b 5%, #a36a4b 100%);
+    background: -webkit-linear-gradient(top, #ab845b 5%, #a36a4b 100%);
+    background: -o-linear-gradient(top, #ab845b 5%, #a36a4b 100%);
+    background: -ms-linear-gradient(top, #ab845b 5%, #a36a4b 100%);
+    background: linear-gradient(to bottom, #ab845b 5%, #a36a4b 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ab845b', endColorstr='#a36a4b',GradientType=0);
+    background-color: #ab845b;
+    border: 1px solid #6e4c22;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Hairline;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 6px 12px;
+    text-decoration: none;
+    outline: none;
+    margin-left: 253px;
+}
+
+.input-botton:hover {
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #a36a4b), color-stop(1, #ab845b));
+    background: -moz-linear-gradient(top, #a36a4b 5%, #ab845b 100%);
+    background: -webkit-linear-gradient(top, #a36a4b 5%, #ab845b 100%);
+    background: -o-linear-gradient(top, #a36a4b 5%, #ab845b 100%);
+    background: -ms-linear-gradient(top, #a36a4b 5%, #ab845b 100%);
+    background: linear-gradient(to bottom, #a36a4b 5%, #ab845b 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#a36a4b', endColorstr='#ab845b',GradientType=0);
+    background-color: #a36a4b;
+    outline: none;
+}
+
+.input-botton:active {
+    position: relative;
+    top: 1px;
+}

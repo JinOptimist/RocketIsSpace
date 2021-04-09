@@ -1,12 +1,11 @@
 ﻿using System;
 
-namespace BankSputink
+
+
+namespace BankSputink.Rocket
 {
     class Program
     {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Hello World!");
-        }
+      
     }
 }

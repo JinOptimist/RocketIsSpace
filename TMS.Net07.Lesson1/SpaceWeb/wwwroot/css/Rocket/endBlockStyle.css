@@ -1,0 +1,9 @@
+.end-block{
+	display: flex;
+	background: #27344B;
+	color: white;
+	height: 100px;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}

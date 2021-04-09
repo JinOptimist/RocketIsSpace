@@ -1,0 +1,45 @@
+.header{
+	display: flex;
+	padding-left: 30;
+	height: 700px;
+	background: url(../pic/kitchen2.jpg) center/cover;
+	color: white;
+	align-items: flex-end;
+	font-family: "Century Gothic";
+	font-size: 120;
+}
+
+.none{
+	height: 100px;
+}
+
+.central-block{
+	display: flex;
+	justify-content: space-around;
+}
+
+.left-part{
+	color: #167C87;
+	font-family: "Georgia";
+	font-size: 30;
+	padding-left: 50;
+	margin-right: 100;
+}
+
+.left-title{
+	font-size: 50;
+	color: #093A40;
+}
+
+.right-part{
+	color: #167C87;
+	font-family: "Georgia";
+	font-size: 30;
+	padding-right: 50;
+	margin-left: 100;
+}
+
+.right-title{
+	font-size: 50;
+	color: #093A40;
+}

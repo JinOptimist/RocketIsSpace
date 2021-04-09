@@ -1,0 +1,75 @@
+.center-block{
+display: flex;
+background: khaki;
+}
+.header{
+display: flex;
+color:silver;
+
+}
+.content{
+background-color: lawngreen;
+display: flex;
+}
+.left-menu{
+background-color: lightsalmon;
+}
+body{
+    margin: 0;
+    background: url(../image/Rocket.jpg) center/cover;
+    
+}
+ul{
+    list-style: none; 
+    margin: 0 auto;
+}
+a{
+    text-decoration: none;
+    font-family: 'Lora', serif;
+    transition: .5s linear;
+}
+nav {
+    display: block;
+    width: 310px;
+    margin: 0 auto 30px;
+}
+.menu ul{
+    padding: 1em 0;
+}
+.menu a {
+    padding: 1em;
+    background: rgba(3, 27, 161, 0);
+    border-right: 1px solid #b19891;
+    color: #ffffff;
+    opacity: 1;
+}
+.menu a:hover {background: #ca5d3f;}
+.menu li {
+  display: inline;
+}
+
+a.button25 {
+    position: relative;
+    display: inline-block;
+    width: 79.6em;
+    height: 2.5em;
+    line-height: 2.5em;
+    vertical-align: middle;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 0 -1px 1px #777;
+    color: #fff;
+    outline: none;
+    border: 2px solid #F64C2B;
+    border-radius: 5px;
+    box-shadow: 0 0 0 60px rgba(0,0,0,0) inset, .1em .1em .2em #800;
+    background: linear-gradient(#FB9575, #F45A38 48%, #EA1502 52%, #F02F17);
+  }
+  a.button25:active {
+    top: .1em;
+    left: .1em;
+    box-shadow: 0 0 0 60px rgba(0,0,0,.05) inset;
+  }
+.rocket-button{
+    color: white;
+}

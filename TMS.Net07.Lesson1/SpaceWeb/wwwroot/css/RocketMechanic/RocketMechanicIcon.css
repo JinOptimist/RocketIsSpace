@@ -1,0 +1,20 @@
+.icon {
+    display: flex;
+    align-items: center;
+}
+
+    .icon::before {
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+        content: ' ';
+        background-size: contain;
+    }
+
+.Delete::before {
+    background-image: url('../../image/RocketMechanic/Icons/baseline_delete_forever_black_24dp.png');
+}
+
+.Delete:hover::before {
+    background-image: url('../../image/RocketMechanic/Icons/outline_delete_forever_black_24dp.png');
+}
