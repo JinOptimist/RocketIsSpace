@@ -152,10 +152,9 @@ namespace SpaceWeb.Controllers
             return View("OriginRocket/RocketShop");
         }
 
-        [HttpGet]
         public IActionResult AdditionPage()
         {
-            return View();
+            return View("Addition/AdditionPage");
         }
     }
 }
