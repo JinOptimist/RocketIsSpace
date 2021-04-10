@@ -9,7 +9,7 @@ namespace SpaceWeb.Controllers
     {
         private RocketProfileRepository _rocketProfileRepository;
         private ComfortRepository _comfortRepository;
-        public RocketController(RocketProfileRepository rocketProfileRepository,ComfortRepository comfortRepository)
+        public RocketController(RocketProfileRepository rocketProfileRepository, ComfortRepository comfortRepository)
         {
             _rocketProfileRepository = rocketProfileRepository;
             _comfortRepository = comfortRepository;
@@ -19,7 +19,6 @@ namespace SpaceWeb.Controllers
         public IActionResult ComfortPage()
         {
             var model = new ComfortFormViewModel();
-            //return View(model);
             return View("Comfort/ComfortPage", model);
         }
 
@@ -28,7 +27,7 @@ namespace SpaceWeb.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View("Comfort/ComfortPage",viewModel);
+                return View("Comfort/ComfortPage", viewModel);
             }
 
             var comfort = new Comfort()
@@ -42,6 +41,7 @@ namespace SpaceWeb.Controllers
             _comfortRepository.Save(comfort);
             return RedirectToAction("ComfortPage");
         }
+
         // [HttpGet]
         // public IActionResult Login()
         // {
@@ -89,7 +89,7 @@ namespace SpaceWeb.Controllers
             var model = new RocketRegistrationViewModel();
             return View(model);
         }
-        
+
         [HttpPost]
         public IActionResult Registration(RocketRegistrationViewModel model)
         {
@@ -98,7 +98,7 @@ namespace SpaceWeb.Controllers
                 return View(model);
             }
 
-            var isUserUniq = _rocketProfileRepository.GetByName(model.UserName)== null;
+            var isUserUniq = _rocketProfileRepository.GetByName(model.UserName) == null;
             if (isUserUniq)
             {
                 var user = new RocketProfile
@@ -115,7 +115,7 @@ namespace SpaceWeb.Controllers
 
             return View(model);
         }
-        
+
         // public JsonResult IsUserExist(string name)
         // {
         //     var answer = RocketUsers.Any(x => x.UserName == name);
@@ -150,6 +150,12 @@ namespace SpaceWeb.Controllers
         public IActionResult RocketShop()
         {
             return View("OriginRocket/RocketShop");
+        }
+
+        [HttpGet]
+        public IActionResult AdditionPage()
+        {
+            return View();
         }
     }
 }
