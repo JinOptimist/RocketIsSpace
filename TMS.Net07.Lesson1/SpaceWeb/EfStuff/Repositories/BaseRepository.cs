@@ -15,7 +15,6 @@ namespace SpaceWeb.EfStuff.Repositories
         public BaseRepository(SpaceDbContext spaceDbContext)
         {
             _spaceDbContext = spaceDbContext;
-            //_spaceDbContext.Relics
             _dbSet = _spaceDbContext.Set<ModelType>();
         }
 

@@ -1,6 +1,7 @@
 ﻿@model RelicViewModel
 
 <form action="/Relic/Add" method="post">
+    @Html.HiddenFor(x => x.Id)
     <div>
         Название сувенира: @Html.TextBoxFor(x => x.RelicName)
         @Html.ValidationMessageFor(x => x.RelicName)
