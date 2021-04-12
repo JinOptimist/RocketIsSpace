@@ -112,6 +112,24 @@ namespace SpaceWeb.Controllers
 
             return View(model);
         }
+
+        [HttpGet]
+        public IActionResult ChangeName(long id)
+        {
+            var model = _mapper.Map<RocketProfileViewModel>(
+                _rocketProfileRepository.Get(id));
+
+            return View("Factory/ChangeName",model);
+        }
+        
+        [HttpPost]
+        public IActionResult ChangeName(RocketProfileViewModel viewModel)
+        {
+            var user = _mapper.Map<RocketProfile>(viewModel);
+            user.Name = viewModel.Name;
+            _rocketProfileRepository.Save(user);
+            return View("/Factory/ChangeName",viewModel);
+        }
         
         // public JsonResult IsUserExist(string name)
         // {

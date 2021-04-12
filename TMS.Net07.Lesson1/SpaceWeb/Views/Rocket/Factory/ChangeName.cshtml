@@ -1,0 +1,19 @@
+@section Style{
+}
+@{
+    Layout = "_RocketLayout";
+}
+@section Script{
+}
+@model SpaceWeb.Models.RocketModels.RocketProfileViewModel
+<form action="/Rocket/ChangeName">
+    <div>
+        Current Name: @Model.Name
+    </div>
+    <div>
+        New Name: @Html.TextBoxFor(x=>x.Name);
+    </div>
+    <div>
+        <input type="submit" value="change" >
+    </div>
+</form>
