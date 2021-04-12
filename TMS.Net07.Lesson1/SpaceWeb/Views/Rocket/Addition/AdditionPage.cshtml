@@ -1,4 +1,6 @@
-﻿@section Style{
+﻿@model SpaceWeb.Models.RocketModels.AdditionFormViewModel
+
+@section Style{
     <link rel="stylesheet" href="~/css/Rocket/additionPageStyle.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp">
 }
@@ -58,6 +60,28 @@
     </div>
 </div>
 
+<form action="/Rocket/AdditionPage" method="post">
+    <div class="adding-test">
+        <label>Добавить ракету с дополнительными модулями</label>
+        <div>
+            Количество спасательных капсул: @Html.TextBoxFor(x => x.RescueCapsuleCount)
+            @Html.ValidationMessageFor(x => x.RescueCapsuleCount)
+        </div>
+        <div>
+            Количество комнат для отдыха: @Html.TextBoxFor(x => x.RestRoomCount)
+            @Html.ValidationMessageFor(x => x.RestRoomCount)
+        </div>
+        <div>
+            Количество обзорных площадок: @Html.TextBoxFor(x => x.ObservarionDeckCount)
+            @Html.ValidationMessageFor(x => x.ObservarionDeckCount)
+        </div>
+        <div>
+            Количество ботанических центров: @Html.TextBoxFor(x => x.BotanicalCenterCount)
+            @Html.ValidationMessageFor(x => x.BotanicalCenterCount)
+        </div>
+        <div><button type="submit">Добавить ракету</button></div>
+    </div>
+</form>
 
 <div class="addition-block black-background">
     <div class="image-container">
