@@ -2,6 +2,7 @@ using AutoMapper;
 using AutoMapper.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,6 +11,7 @@ using SpaceWeb.EfStuff;
 using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
 using SpaceWeb.Models;
+using SpaceWeb.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +21,7 @@ namespace SpaceWeb
 {
     public class Startup
     {
+        public const string AuthMethod = "FunCookie";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -31,6 +34,13 @@ namespace SpaceWeb
         {
             var connectionString = Configuration.GetValue<string>("connectionString");
             services.AddDbContext<SpaceDbContext>(x => x.UseSqlServer(connectionString));
+
+            services.AddAuthentication(AuthMethod)
+                .AddCookie(AuthMethod, config =>
+                {
+                    config.Cookie.Name = "Smile";
+                    config.LoginPath = "/User/Login";
+                });
 
             services.AddScoped<UserRepository>(diContainer =>
                 new UserRepository(diContainer.GetService<SpaceDbContext>()));
@@ -57,7 +67,17 @@ namespace SpaceWeb
 
             services.AddScoped<RocketProfileRepository>(diContainer =>
                 new RocketProfileRepository(diContainer.GetService<SpaceDbContext>()));
+
+            services.AddScoped<UserService>(diContainer =>
+                new UserService(
+                    diContainer.GetService<UserRepository>(),
+                    diContainer.GetService<IHttpContextAccessor>()
+                ));
+
+
             services.AddControllersWithViews();
+
+            services.AddHttpContextAccessor();
         }
 
         private void RegisterMapper(IServiceCollection services)
@@ -108,6 +128,10 @@ namespace SpaceWeb
 
             app.UseRouting();
 
+            // то €?
+            app.UseAuthentication();
+
+            // уда мне можно
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
