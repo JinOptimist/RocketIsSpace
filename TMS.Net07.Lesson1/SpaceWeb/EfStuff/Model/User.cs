@@ -23,7 +23,7 @@ namespace SpaceWeb.EfStuff.Model
 
         public virtual List<BankAccount> BankAccounts { get; set; }
 
-        public virtual Profile Profile { get; set; }
+        //public virtual Profile Profile { get; set; }
 
     }
 }

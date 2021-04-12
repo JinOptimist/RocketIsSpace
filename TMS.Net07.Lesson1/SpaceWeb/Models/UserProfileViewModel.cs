@@ -10,6 +10,7 @@ namespace SpaceWeb.Models
 {
     public class UserProfileViewModel
     {
+        public long Id { get; set; }
         [Required(ErrorMessage = "Не указано имя пользователя")]
         [StringLength(15, MinimumLength = 3, ErrorMessage = "Недопустимая длина имени")]
         [DisplayName("Имя")]

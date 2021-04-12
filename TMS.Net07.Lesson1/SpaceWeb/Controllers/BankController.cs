@@ -79,11 +79,12 @@ namespace SpaceWeb.Controllers
         }
         
         [HttpGet]
-        public IActionResult UserProfile()
+        public IActionResult UserProfile(long id = 0)
         {
-            var user = new UserProfileViewModel();
-
-            return View(user);
+            var userprofile = _profileRepository.Get(id);
+            var profile = _mapper.Map<UserProfileViewModel>(userprofile)
+                ?? new UserProfileViewModel();
+            return View(profile);
         }
 
         [HttpPost]
@@ -103,7 +104,7 @@ namespace SpaceWeb.Controllers
                 PhoneNumber = model.PhoneNumber,
                 PostAddress = model.PostAddress,
                 IdentificationPassport = model.IdentificationPassport,
-                Owner = user
+                //Owner = user
 
             };
 
