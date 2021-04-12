@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
 using SpaceWeb.Models.RocketModels;
@@ -9,10 +10,14 @@ namespace SpaceWeb.Controllers
     {
         private RocketProfileRepository _rocketProfileRepository;
         private ComfortRepository _comfortRepository;
-        public RocketController(RocketProfileRepository rocketProfileRepository,ComfortRepository comfortRepository)
+        private OrderRepository _orderRepository;
+        private IMapper _mapper;
+        public RocketController(RocketProfileRepository rocketProfileRepository,ComfortRepository comfortRepository, IMapper mapper, OrderRepository orderRepository)
         {
             _rocketProfileRepository = rocketProfileRepository;
             _comfortRepository = comfortRepository;
+            _mapper = mapper;
+            _orderRepository = orderRepository;
         }
 
         [HttpGet]
@@ -101,15 +106,7 @@ namespace SpaceWeb.Controllers
             var isUserUniq = _rocketProfileRepository.GetByName(model.UserName)== null;
             if (isUserUniq)
             {
-                var user = new RocketProfile
-                {
-                    Email = model.Email,
-                    Name = model.Name,
-                    Surname = model.LastName,
-                    BirthDate = model.DateOfBirth,
-                    UserName = model.UserName,
-                    Password = model.Password
-                };
+                var user = _mapper.Map<RocketProfile>(model);
                 _rocketProfileRepository.Save(user);
             }
 
@@ -146,10 +143,25 @@ namespace SpaceWeb.Controllers
         {
             return View("OriginRocket/Rocket");
         }
-
+        [HttpGet]
         public IActionResult RocketShop()
         {
-            return View("OriginRocket/RocketShop");
+            var order = new OrderViewModel();
+            return View("OriginRocket/RocketShop",order);
+        }
+        
+        [HttpPost]
+        public IActionResult RocketShop(OrderViewModel orderViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("OriginRocket/RocketShop",orderViewModel);
+            }
+
+            var order = _mapper.Map<Order>(orderViewModel);
+            _orderRepository.Save(order);
+            
+            return View("OriginRocket/RocketShop",orderViewModel);
         }
     }
 }

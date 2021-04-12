@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SpaceWeb.Models.RocketModels;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 namespace SpaceWeb
 {
@@ -57,6 +58,9 @@ namespace SpaceWeb
 
             services.AddScoped<RocketProfileRepository>(diContainer =>
                 new RocketProfileRepository(diContainer.GetService<SpaceDbContext>()));
+            
+            services.AddScoped<OrderRepository>(diContainer =>
+                new OrderRepository(diContainer.GetService<SpaceDbContext>()));
             services.AddControllersWithViews();
         }
 
@@ -76,6 +80,10 @@ namespace SpaceWeb
             MapBoth<Relic, RelicViewModel>(configExpression);
 
             MapBoth<AdvImage, AdvImageViewModel>(configExpression);
+            
+            MapBoth<RocketProfile,RocketRegistrationViewModel>(configExpression);
+            
+            MapBoth<Order,OrderViewModel>(configExpression);
 
             MapBoth<BankAccount, BankAccountViewModel>(configExpression);
 

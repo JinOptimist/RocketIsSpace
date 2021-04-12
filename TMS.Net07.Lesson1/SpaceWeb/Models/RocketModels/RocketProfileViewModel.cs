@@ -15,7 +15,7 @@ namespace SpaceWeb.Models.RocketModels
         }
         public Person Person { get; set; }
 
-        public string Email { get; set; }
+        public new string Email { get; set; }
         public string UserName { get; set; }
         
         public string Password { get; set; }
