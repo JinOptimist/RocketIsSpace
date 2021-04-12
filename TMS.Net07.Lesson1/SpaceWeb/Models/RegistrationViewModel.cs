@@ -13,5 +13,11 @@ namespace SpaceWeb.Models
         
         [Required]
         public string Password { get; set; }
+
+        public string Name { get; set; }
+
+        public string Surname { get; set; }
+
+        public int Age { get; set; }
     }
 }

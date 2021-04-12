@@ -46,7 +46,10 @@ namespace SpaceWeb
 
             services.AddScoped<BankAccountRepository>(diContainer =>
                 new BankAccountRepository(diContainer.GetService<SpaceDbContext>()));
-                
+
+            services.AddScoped<DepartmentRepository>(diContainer =>
+                new DepartmentRepository(diContainer.GetService<SpaceDbContext>()));
+
             RegisterMapper(services);
 
             services.AddScoped<ComfortRepository>(diContainer =>

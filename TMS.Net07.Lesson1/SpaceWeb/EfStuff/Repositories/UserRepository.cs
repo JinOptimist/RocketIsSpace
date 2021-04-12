@@ -17,5 +17,9 @@ namespace SpaceWeb.EfStuff.Repositories
         {
             return _dbSet.SingleOrDefault(x => x.Name == name);
         }
+        public User GetByLogin(string login)
+        {
+            return _dbSet.SingleOrDefault(x => x.Login == login);
+        }
     }
 }
