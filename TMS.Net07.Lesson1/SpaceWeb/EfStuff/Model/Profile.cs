@@ -16,6 +16,9 @@ namespace SpaceWeb.EfStuff.Model
 
         public string PostAddress { get; set; }
 
+        public virtual User Owner { get; set; }
+        public long OwnerId { get; set; }
+
 
 
     }

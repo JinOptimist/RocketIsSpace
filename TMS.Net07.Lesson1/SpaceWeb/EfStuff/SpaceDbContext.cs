@@ -40,6 +40,12 @@ namespace SpaceWeb.EfStuff
                 .HasMany(x => x.BankAccounts)
                 .WithOne(x => x.Owner);
 
+            modelBuilder.Entity<User>()
+                .HasOne(x => x.Profile)
+                .WithOne(x => x.Owner)
+                .HasForeignKey<Profile>(b => b.OwnerId);
+            ;
+
             base.OnModelCreating(modelBuilder);
         }
 
