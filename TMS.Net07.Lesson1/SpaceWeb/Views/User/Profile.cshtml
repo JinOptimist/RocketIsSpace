@@ -7,10 +7,12 @@
     </div>
 
     <h2>Мои счета</h2>
-    @foreach (var bankAccountView in Model.BankAccounts)
+    @foreach (var bankAccountView in Model.MyAccounts)
     {
         <div>
             @bankAccountView.Amount @bankAccountView.Currency
         </div>
     }
+
+    <a href="/User/ChangePassword?id=1">Обновить password</a>
 </div>
