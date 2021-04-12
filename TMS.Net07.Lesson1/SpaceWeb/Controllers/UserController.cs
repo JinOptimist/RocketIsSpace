@@ -1,12 +1,16 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SpaceWeb.EfStuff;
 using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
 using SpaceWeb.Models;
+using SpaceWeb.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -16,20 +20,22 @@ namespace SpaceWeb.Controllers
     {
         private UserRepository _userRepository;
         private IMapper _mapper;
+        private UserService _userService;
 
         public static int Counter = 0;
 
-        public UserController(UserRepository userRepository, IMapper mapper)
+        public UserController(UserRepository userRepository, IMapper mapper,
+            UserService userService)
         {
             _userRepository = userRepository;
             _mapper = mapper;
+            _userService = userService;
         }
 
-        public IActionResult Profile(long id = 0)
+        [Authorize]
+        public IActionResult Profile()
         {
-            var user = id == 0
-                ? _userRepository.GetAll().FirstOrDefault()
-                : _userRepository.Get(id);
+            var user = _userService.GetCurrent();
             //user.BankAccounts;
             var viewModel = _mapper.Map<ProfileViewModel>(user);
             var bankViewModels = user
@@ -50,7 +56,7 @@ namespace SpaceWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(RegistrationViewModel model)
+        public async Task<IActionResult> Login(RegistrationViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -74,6 +80,17 @@ namespace SpaceWeb.Controllers
                     "Не правильный праоль");
                 return View(model);
             }
+
+            //Готов логиниться
+
+            var claims = new List<Claim>();
+            claims.Add(new Claim("Id", user.Id.ToString()));
+            claims.Add(new Claim(
+                ClaimTypes.AuthenticationMethod,
+                Startup.AuthMethod));
+            var claimsIdentity = new ClaimsIdentity(claims, Startup.AuthMethod);
+            var principal = new ClaimsPrincipal(claimsIdentity);
+            await HttpContext.SignInAsync(principal);
 
             return RedirectToAction("Profile", "User");
         }
@@ -144,6 +161,12 @@ namespace SpaceWeb.Controllers
             user.Password = viewModel.NewPassword;
             _userRepository.Save(user);
             return View(viewModel);
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
 
         public JsonResult IsUserExist(string name)

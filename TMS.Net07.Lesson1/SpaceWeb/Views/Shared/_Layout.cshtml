@@ -57,11 +57,23 @@
                         <span class="text">Регистрация</span>
                     </div>
                 </a>
-                <a href="/User/Login">
-                    <div class="link icon help">
-                        <span class="text">Логин</span>
-                    </div>
-                </a>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a href="/User/Logout">
+                        <div class="link icon help">
+                            <span class="text">Logout</span>
+                        </div>
+                    </a>
+                }
+                else
+                {
+                    <a href="/User/Login">
+                        <div class="link icon help">
+                            <span class="text">Логин</span>
+                        </div>
+                    </a>
+                }
+
                 <div>
                     <div>
                         <label>
