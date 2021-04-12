@@ -16,6 +16,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using SpaceWeb.Models.RocketModels;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
+
 namespace SpaceWeb
 {
     public class Startup
@@ -47,13 +48,13 @@ namespace SpaceWeb
 
             services.AddScoped<BankAccountRepository>(diContainer =>
                 new BankAccountRepository(diContainer.GetService<SpaceDbContext>()));
-                
+
             RegisterMapper(services);
 
             services.AddScoped<ComfortRepository>(diContainer =>
                 new ComfortRepository(diContainer.GetService<SpaceDbContext>()));
 
-            services.AddScoped<RocketStageRepository>(diContainer => 
+            services.AddScoped<RocketStageRepository>(diContainer =>
                 new RocketStageRepository(diContainer.GetService<SpaceDbContext>()));
 
             services.AddScoped<RocketProfileRepository>(diContainer =>
@@ -62,6 +63,9 @@ namespace SpaceWeb
             services.AddScoped<OrderRepository>(diContainer =>
                 new OrderRepository(diContainer.GetService<SpaceDbContext>()));
             services.AddControllersWithViews();
+
+            services.AddScoped<AdditionRepository>(diContainer =>
+                new AdditionRepository(diContainer.GetService<SpaceDbContext>()));
         }
 
         private void RegisterMapper(IServiceCollection services)
