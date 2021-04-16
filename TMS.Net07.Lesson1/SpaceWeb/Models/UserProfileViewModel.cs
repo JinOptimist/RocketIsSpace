@@ -38,7 +38,9 @@ namespace SpaceWeb.Models
 
         public string FullName { get; set; }
 
-        public long OwnerId { get; set; }
-       
+        
+
+        
+
     }
 }

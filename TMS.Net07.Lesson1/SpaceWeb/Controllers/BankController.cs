@@ -94,7 +94,7 @@ namespace SpaceWeb.Controllers
             {
                 return View(model);
             }
-            var user = _userRepository.Get(model.OwnerId);
+            var user = _userRepository.Get(model.Id);
             var userprofile = new Profile()
             {
                 Name = model.Name,
@@ -104,10 +104,11 @@ namespace SpaceWeb.Controllers
                 PhoneNumber = model.PhoneNumber,
                 PostAddress = model.PostAddress,
                 IdentificationPassport = model.IdentificationPassport,
-                //Owner = user
+                UserRef = model.Id,
+                User = user
 
             };
-
+           
             _profileRepository.Save(userprofile);
             
             return RedirectToAction("UserProfileDataOutput");
