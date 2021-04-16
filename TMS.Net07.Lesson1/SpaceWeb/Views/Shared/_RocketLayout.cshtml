@@ -4,13 +4,14 @@
     <link rel="stylesheet" href="~/css/reset.css" />
     <link rel="stylesheet" href="~/css/Rocket/iconsMenu.css">
     <link rel="stylesheet" href="~/css/Rocket/endBlockStyle.css">
-    <link rel="stylesheet" href="~/css/Rocket/topStyle.css">
+    <link rel="stylesheet" href="~/css/Rocket/topStyle.css?v=1">
     <link rel="stylesheet" href="~/css/Rocket/rocketlayout.css">
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/Rocket/Menu.js"></script>
 
     @RenderSection("Style", required: false)
     @RenderSection("Script", required: false)
+
 </head>
 
 <body>
@@ -18,19 +19,21 @@
     <div class="log hide"></div>
     <div class="login-block hide">
         <div class="login-direction">
-            <div>
-                <input class="user-login" type="text" placeholder="login" />
-            </div>
-            <div>
-                <input class="password" type="text" placeholder="password" />
-            </div>
-            <div>
-                <input class="login" type="submit" value="Log in" />
-            </div>
+            <form action="/Rocket/Login" method="post" class="loginformstyle">
+                <div>
+                    <input name="Login" class="user-login" type="text" placeholder="login" />
+                </div>
+                <div>
+                    <input name="Password" class="password" type="text" placeholder="password" />
+                </div>
+                <div>
+                    <input class="login" type="submit" value="Log in" />
+                </div>
+            </form>
             <div class="or">or</div>
             <div>
                 <a href="../Rocket/Registration">
-                <input class="login" type="button" value="Registration"/>
+                    <input class="login" type="button" value="Registration" />
                 </a>
             </div>
         </div>
