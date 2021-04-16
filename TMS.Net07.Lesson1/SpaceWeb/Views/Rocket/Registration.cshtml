@@ -24,10 +24,14 @@
             </div>
 
             <div class="first-field">
-                <div style="margin-top: 40px">@Html.TextBoxFor(model => model.Name)</div>
+                <input style="margin-top: 30px" name="Name" class="inputFields1" type="text" placeholder="Name" />
+                <input style="margin-top: 23px; background: rgba(20, 20, 20, .2)" name="Date of birth" class="inputFields1" type="date" placeholder="Date of birth" />
+                <input style="margin-top: 23px" name="Username" class="inputFields1" type="text" placeholder="Username" />
+                <input style="margin-top: 23px" name="Password" class="inputFields1" type="text" placeholder="Password" />
+                @*<div style="margin-top: 40px">@Html.TextBoxFor(model => model.Name)</div>
                 <div style="margin-top: 40px">@Html.TextBoxFor(model => model.DateOfBirth, "{0:MM\\/dd\\/yyyy}")</div>
                 <div style="margin-top: 40px">@Html.TextBoxFor(model => model.UserName)</div>
-                <div style="margin-top: 40px">@Html.TextBoxFor(model => model.Password)</div>
+                <div style="margin-top: 40px">@Html.TextBoxFor(model => model.Password)</div>*@
             </div>
 
             <div class="first-text second-text">
@@ -36,41 +40,14 @@
             </div>
 
             <div class="second-field">
-                <div style="margin-top: 40px">@Html.TextBoxFor(model => model.LastName)</div>
-                <div style="margin-top: 114px">@Html.TextBoxFor(model => model.Email)</div>
+                <input style="margin-top: 30px" name="LastName" class="inputFields1" type="text" placeholder="Last name" />
+                <input style="margin-top: 95px" name="Email" class="inputFields1" type="text" placeholder="Email" />
+                @*<div style="margin-top: 40px">@Html.TextBoxFor(model => model.LastName)</div>
+                <div style="margin-top: 114px">@Html.TextBoxFor(model => model.Email)</div>*@
             </div>
         </div>
         <div>
             <input class="sub" type="submit" value="Send" />
         </div>
-
-        @*<div class="name">
-            <div>
-                Name: @Html.TextBoxFor(model => model.Name)
-            </div>
-            <div>
-                Last name: @Html.TextBoxFor(model => model.LastName)
-            </div>
-        </div>
-        <div class="date-of-birth">
-            Date of birth: @Html.TextBoxFor(model => model.DateOfBirth, "{0:MM\\/dd\\/yyyy}")
-        </div>
-        <div class="registration-login">
-            <div class="user-name">
-                Username:  @Html.TextBoxFor(model => model.UserName)
-            </div>
-            <div>
-                Email:  @Html.TextBoxFor(model => model.Email)
-            </div>
-        </div>
-        <div class="password">
-            <div>
-                Password:  @Html.TextBoxFor(model => model.Password)
-            </div>
-        </div>
-        <div class="none"></div>
-        <div>
-            <input class="sub" type="submit" value="Send" />
-        </div>*@
     </form>
 </div>

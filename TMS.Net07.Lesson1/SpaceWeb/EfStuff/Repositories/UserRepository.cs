@@ -6,30 +6,16 @@ using System.Threading.Tasks;
 
 namespace SpaceWeb.EfStuff.Repositories
 {
-    public class UserRepository
+    public class UserRepository : BaseRepository<User>
     {
-        private SpaceDbContext _spaceDbContext;
-
         public UserRepository(SpaceDbContext spaceDbContext)
+            : base(spaceDbContext)
         {
-            _spaceDbContext = spaceDbContext;
         }
 
-        public User GetByName(string name)
+        public User Get(string name)
         {
-            return _spaceDbContext.Users
-                .SingleOrDefault(x => x.Name == name);
-        }
-
-        public List<User> GetAll()
-        {
-            return _spaceDbContext.Users.ToList();
-        }
-
-        public void Save(User user)
-        {
-            _spaceDbContext.Users.Add(user);
-            _spaceDbContext.SaveChanges();
+            return _dbSet.SingleOrDefault(x => x.Name == name);
         }
     }
 }

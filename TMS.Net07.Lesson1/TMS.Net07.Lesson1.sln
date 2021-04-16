@@ -3,25 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankSputink", "BankSputink\BankSputink.csproj", "{A5133D82-9697-46D5-9ECC-97208AEF17BE}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BankSputink.Test", "BankSputink.Test\BankSputink.Test.csproj", "{8DC3022F-20C6-496B-8BE3-3945144E2184}"
-EndProject
-
-Team2Rocket
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpaceWeb", "SpaceWeb\SpaceWeb.csproj", "{BD6E6CF7-9369-44D5-B49D-5362AEF1020B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HumansResources", "HumansResources\HumansResources.csproj", "{3D988676-5A6E-4D9E-B7C6-AF86CF7FBFA4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HumansResources.Test", "HumansResources.Test\HumansResources.Test.csproj", "{38E5BF82-802A-48FC-8F77-5E03A64D24CA}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TeamRocket", "TeamRocket", "{6E70E370-D68C-4F85-B573-6ECD734DD1BD}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RocketTest", "RocketTest\RocketTest.csproj", "{A22BD0B6-7664-4FCB-B0E3-AA8494CE451A}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rocket2", "Rocket2\Rocket2.csproj", "{C974CC7F-98D6-4770-AB75-BC03514F0FDF}"
-
-Team2Rocket
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,14 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A5133D82-9697-46D5-9ECC-97208AEF17BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A5133D82-9697-46D5-9ECC-97208AEF17BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A5133D82-9697-46D5-9ECC-97208AEF17BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A5133D82-9697-46D5-9ECC-97208AEF17BE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8DC3022F-20C6-496B-8BE3-3945144E2184}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8DC3022F-20C6-496B-8BE3-3945144E2184}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8DC3022F-20C6-496B-8BE3-3945144E2184}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8DC3022F-20C6-496B-8BE3-3945144E2184}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BD6E6CF7-9369-44D5-B49D-5362AEF1020B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BD6E6CF7-9369-44D5-B49D-5362AEF1020B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD6E6CF7-9369-44D5-B49D-5362AEF1020B}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -49,21 +27,9 @@ Global
 		{38E5BF82-802A-48FC-8F77-5E03A64D24CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38E5BF82-802A-48FC-8F77-5E03A64D24CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38E5BF82-802A-48FC-8F77-5E03A64D24CA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A22BD0B6-7664-4FCB-B0E3-AA8494CE451A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A22BD0B6-7664-4FCB-B0E3-AA8494CE451A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A22BD0B6-7664-4FCB-B0E3-AA8494CE451A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A22BD0B6-7664-4FCB-B0E3-AA8494CE451A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C974CC7F-98D6-4770-AB75-BC03514F0FDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C974CC7F-98D6-4770-AB75-BC03514F0FDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C974CC7F-98D6-4770-AB75-BC03514F0FDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C974CC7F-98D6-4770-AB75-BC03514F0FDF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{A22BD0B6-7664-4FCB-B0E3-AA8494CE451A} = {6E70E370-D68C-4F85-B573-6ECD734DD1BD}
-		{C974CC7F-98D6-4770-AB75-BC03514F0FDF} = {6E70E370-D68C-4F85-B573-6ECD734DD1BD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9C9606CE-C155-409C-9D94-4051C76B4B76}

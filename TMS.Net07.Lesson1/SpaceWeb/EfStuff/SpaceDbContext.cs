@@ -11,17 +11,17 @@ namespace SpaceWeb.EfStuff
     public class SpaceDbContext : DbContext
     {
         public SpaceDbContext(DbContextOptions options) : base(options) { }
-
         public DbSet<User> Users { get; set; }
-
         public DbSet<Rocket> Rockets { get; set; }
-
-        public DbSet<FactoryHistory> FactoryHistories { get; set; }
+        public DbSet<Profile> UserProfile { get; set; }
+        public DbSet<BankAccount> BankAccount { get; set; }
         public DbSet<Relic> Relics { get; set; }
+        public DbSet<AdvImage> AdvImages { get; set; }
+        public DbSet<FactoryHistory> FactoryHistories { get; set; }
         public DbSet<RocketProfile> RocketProfiles { get; set; }
-
         public DbSet<Comfort> Comforts { get; set; }
         public DbSet<RocketStage> RocketStages { get; set; }
+        public DbSet<Addition> Additions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

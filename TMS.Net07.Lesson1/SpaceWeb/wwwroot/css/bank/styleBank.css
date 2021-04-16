@@ -66,27 +66,26 @@ a {
 .logoName {
     color: rgb(26, 43, 99);
     font-size: 33px;
-    font-family: 'Lemon Milk';
     font-weight: normal;
     display: flex;
     justify-content: flex-start;
     align-self: center;
     padding-right: 10px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .logoName-for-start-page {
     color: rgb(255, 255, 255);
     font-size: 33px;
-    font-family: 'Lemon Milk';
     font-weight: normal;
     display: flex;
     justify-content: flex-start;
     align-self: center;
     padding-right: 10px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .logoNameBank {
-    font-family: 'Lemon Milk';
     font-weight: bold;
 }
 
@@ -170,9 +169,15 @@ a {
 }
 
 .container {
+    height: 100%;
     width: 100%;
     margin: 10px auto;
+    background-color: rgba(208, 219, 225, 0.1);
+    display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .rocket {
@@ -201,10 +206,12 @@ a {
     align-items: center;
 }
 
+
 .rocket img {
     max-width: 150px;
     max-height: calc(150px - 16px);
 }
+
 
 .intro {
     width: 100%;
@@ -268,16 +275,6 @@ a {
     color: #333;
 }
 
-/*.header {
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    padding: 30px;
-}*/
-
 .header-inner {
     display: flex;
     justify-content: space-between;
@@ -304,7 +301,6 @@ a {
     text-decoration: none;
     transition: color .2s linear;
 }
-
 .nav-link:hover
 {
     color: #00ffff;
@@ -327,7 +323,6 @@ a {
     display: block;
     opacity: 1;
 }
-
 .slider {
     display: flex;
     justify-content: space-between;
@@ -344,7 +339,6 @@ a {
     opacity: .7;
     position: relative;
 }
-
 .slider-item.active:before {
     content: "";
     display: block;
@@ -360,7 +354,6 @@ a {
 .slider-item.active {
     opacity: 1;
 }
-
 .slider-num {
     font-weight: 700;
     font-size: 24px;
@@ -396,7 +389,6 @@ a {
 .client-text-centre {
     padding-top: 300px;
 }
-
 @media (max-height: 1080px) {
     .client-text-centre {
         padding-top: 250px;
@@ -441,6 +433,38 @@ a {
     .intro-suptitel {
         font-size: 25px;
     }
+}
+
+.popup {
+    z-index: 100;
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+}
+
+.popup .cover {
+    background: black;
+    position: fixed;        
+    width: 100%;
+    height: 100vh;
+    opacity: 0.6;
+}
+
+.popup-content {
+    background-color: rgb(230, 230, 230);
+    width: 300px;
+    height: 300px;
+    border-radius: 1em;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .limit-width-content {
@@ -494,20 +518,6 @@ a {
     font-style: normal;
 }
 
-@font-face {
-    font-family: 'Lemon Milk';
-    src: url('../fonts/LemonMilkFont/LemonMilkRegular-X3XE2.otf');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Lemon Milk';
-    src: url('../fonts/LemonMilkFont/LemonMilkBold-gx2B3.otf');
-    font-weight: bold;
-    font-style: normal;
-}
-
 .before-bank-login-menu {
     padding-bottom: 20px;
 }
@@ -553,6 +563,162 @@ a {
     font-weight: bolder;
 }
 
+.menu.top{
+    height: 160px;
+    width: 1000px;
+    margin: 20px;
+    background-color: rgb(230, 230, 230);
+    border-radius: 1em;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+.top-menu-text{
+    font-size: 20pt;
+    align-self: center;
+    justify-items: flex-start;
+}
+.bank-account-list{
+    align-self: center;
+    justify-self: center;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    overflow: auto;
+    white-space: nowrap;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background-color: rgb(210, 210, 210);
+    border-radius: 10px;
+    transition: 300ms;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(190,190,190);
+  }
+
+.menu.top .bank-account{
+    height: 96px;
+    min-width: 166px;
+    margin: 10px;
+    border-radius: 1em;
+    background-color: rgba(0, 185, 229, 0.7);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    transition: 300ms;
+}
+
+.menu.top .bank-account:hover{
+    background-color: rgb(0, 185, 229);
+    cursor: pointer;
+}
+
+.bank-account .account-number{
+    margin-right: 10px;
+    align-self: flex-end;
+}
+
+.add-new.background{
+    padding: 5px;
+    margin: 10px;
+    background-color: rgb(210, 210, 210);
+    border-radius: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    transition: 300ms;
+}
+
+.add-new.background:hover{
+    background-color: rgb(190, 190, 190);
+    cursor: pointer;
+}
+
+.add-new.content{
+    height: 80px;
+    width: 150px;
+    border: 3px rgb(255, 255, 255) dashed;
+    border-radius: 0.8em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    color: white;
+    font-weight: bolder;
+}
+
+.menu.bottom{
+    height: 250px;
+    width: 1000px;
+    margin: 20px;
+    border-radius: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu.bottom .button{
+    height: 130px;
+    width: 220px;
+    border-radius: 1em;
+    background-color: rgb(230, 230, 230);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15pt;
+    font-weight: 400;
+    transition: 500ms;
+}
+
+.menu.bottom .button:hover{
+    background-color: rgb(210,210,210);
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.personal-info.button{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.bank-account-submit{
+    background-color: rgb(0, 185, 229);
+}
+
 .hide {
     display: none;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+a:visited{
+    text-decoration: none;
+    color: black;
 }

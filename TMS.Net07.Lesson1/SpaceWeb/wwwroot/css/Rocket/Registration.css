@@ -1,8 +1,7 @@
 ﻿.registration {
     padding-top: 75px;
-    background: url(../../image/comfortImage/sp5.jpg) no-repeat;
-    min-height: calc(100vh - 100px);
-    
+    background: url(../../image/comfortImage/sp5.jpg) center/cover no-repeat;
+    min-height: calc(100vh - 100px);  
 }
 
 .none {
@@ -34,6 +33,10 @@
     margin: 0px 100px;
 }
 
+.first-field{
+    color: white;
+}
+
 .sub {
     box-shadow: inset 0px 1px 0px 0px #276873;
     background: linear-gradient(to bottom, #599bb3 5%, #408c99 100%);
@@ -61,4 +64,18 @@
 .sub:active {
     position: relative;
     top: 1px;
+}
+
+.inputFields1 {
+    margin: 15px 0;
+    font-size: 16px;
+    padding: 10px;
+    width: 250px;
+    border: 1px solid rgb(19, 211, 255);
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    color: white;
+    outline: none;
+    display: flex;
 }
