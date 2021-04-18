@@ -20,7 +20,8 @@ namespace SpaceWeb.Service
         public RocketProfile GetCurrent()
         {
             var idStr = _contextAccessor.HttpContext.User
-                .Claims.SingleOrDefault(x => x.Type == "Id").Value;
+                .Claims.SingleOrDefault(x => x.Type == "Id")
+                ?.Value;
             if (string.IsNullOrEmpty(idStr))
             {
                 return null;

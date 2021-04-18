@@ -1,7 +1,13 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using AutoMapper;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
+using SpaceWeb.Models;
 using SpaceWeb.Models.RocketModels;
 using SpaceWeb.Service;
 
@@ -17,15 +23,25 @@ namespace SpaceWeb.Controllers
         private RocketService _rocketService;
         public RocketController(RocketProfileRepository rocketProfileRepository,
             ComfortRepository comfortRepository, IMapper mapper, OrderRepository orderRepository,
-        AdditionRepository additionRepository)
+        AdditionRepository additionRepository, RocketService rocketService)
         {
             _rocketProfileRepository = rocketProfileRepository;
             _comfortRepository = comfortRepository;
             _mapper = mapper;
             _additionRepository = additionRepository;
+            _rocketService = rocketService;
             _orderRepository = orderRepository;
         }
-
+        
+        [Authorize]
+        public IActionResult Profile()
+        {
+            var user = _rocketService.GetCurrent();
+            var viewModel = _mapper.Map<RocketProfileViewModel>(user);
+            return View(viewModel);
+        }
+        
+        [Authorize]
         [HttpGet]
         public IActionResult ComfortPage()
         {
@@ -33,7 +49,7 @@ namespace SpaceWeb.Controllers
             //return View(model);
             return View("Comfort/ComfortPage", model);
         }
-
+        [Authorize]
         [HttpPost]
         public IActionResult ComfortPage(ComfortFormViewModel viewModel)
         {
@@ -62,7 +78,7 @@ namespace SpaceWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(RocketLoginViewModel model)
+        public async Task<IActionResult> Login(RocketLoginViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -73,20 +89,29 @@ namespace SpaceWeb.Controllers
 
             if (user == null)
             {
-                ModelState.AddModelError(
-                    nameof(RocketProfileViewModel.UserName),
-                    "Нет такого пользователя");
                 return View(model);
             }
 
             if (user.Password != model.Password)
             {
-                ModelState.AddModelError(
-                    nameof(RocketProfileViewModel.Password),
-                    "Не правильный пароль");
                 return View(model);
             }
+            
+            var claims = new List<Claim>();
+            claims.Add(new Claim("Id", user.Id.ToString()));
+            claims.Add(new Claim(
+                ClaimTypes.AuthenticationMethod,
+                Startup.RocketAuthMethod));
+            var claimsIdentity = new ClaimsIdentity(claims, Startup.RocketAuthMethod);
+            var principal = new ClaimsPrincipal(claimsIdentity);
+            await HttpContext.SignInAsync(principal);
 
+            return RedirectToAction("Profile", "Rocket");
+        }
+        
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
             return RedirectToAction("MainPage", "Rocket");
         }
 
@@ -121,12 +146,13 @@ namespace SpaceWeb.Controllers
         }
 
         [HttpGet]
-        public IActionResult ChangeName(long id=1)
+        [Authorize]
+        public IActionResult ChangeName()
         {
-            var user = _rocketProfileRepository.Get(id);
+            var user = _rocketService.GetCurrent();
             var model = new ChangeNameViewModel()
             {
-                Id=id,
+                Id=user.Id,
                 OldName = user.Name
             };
 
@@ -134,12 +160,13 @@ namespace SpaceWeb.Controllers
         }
         
         [HttpPost]
+        [Authorize]
         public IActionResult ChangeName(ChangeNameViewModel viewModel)
         {
-            var user = _rocketProfileRepository.Get(viewModel.Id);
+            var user = _rocketService.GetCurrent();
             user.Name = viewModel.NewName;
             _rocketProfileRepository.Save(user);
-            return View("Factory/ChangeName",viewModel);
+            return RedirectToAction("Profile","Rocket");
         }
         
         // public JsonResult IsUserExist(string name)
@@ -147,32 +174,33 @@ namespace SpaceWeb.Controllers
         //     var answer = RocketUsers.Any(x => x.UserName == name);
         //     return Json(answer);
         // }
-
+        [Authorize]
         public IActionResult ToiletPage()
         {
             return View("Comfort/ToiletPage");
         }
-
+        [Authorize]
         public IActionResult KitchenPage()
         {
             return View("Comfort/KitchenPage");
         }
-
+        [Authorize]
         public IActionResult CCenterPage()
         {
             return View("Comfort/CCenterPage");
         }
-
+        [Authorize]
         public IActionResult CapsulePage()
         {
             return View("Comfort/CapsulePage");
         }
-
+        [Authorize]
         public IActionResult Rocket()
         {
             return View("OriginRocket/Rocket");
         }
         [HttpGet]
+        [Authorize]
         public IActionResult RocketShop()
         {
             var order = new OrderViewModel();
@@ -180,6 +208,7 @@ namespace SpaceWeb.Controllers
         }
         
         [HttpPost]
+        [Authorize]
         public IActionResult RocketShop(OrderViewModel orderViewModel)
         {
             if (!ModelState.IsValid)
@@ -195,6 +224,7 @@ namespace SpaceWeb.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult AdditionPage()
         {
             var model = new AdditionFormViewModel();
@@ -202,6 +232,7 @@ namespace SpaceWeb.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult AdditionPage(AdditionFormViewModel model)
         {
             if (!ModelState.IsValid)

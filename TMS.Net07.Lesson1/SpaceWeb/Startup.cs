@@ -48,7 +48,7 @@ namespace SpaceWeb
             services.AddAuthentication(RocketAuthMethod)
                 .AddCookie(RocketAuthMethod, config =>
                 {
-                    config.Cookie.Name = "Smile";
+                    config.Cookie.Name = "Rocket";
                     config.LoginPath = "/Rocket/Login";
                 });
 
