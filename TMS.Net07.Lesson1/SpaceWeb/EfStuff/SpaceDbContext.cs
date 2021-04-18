@@ -17,6 +17,11 @@ namespace SpaceWeb.EfStuff
         public DbSet<BankAccount> BankAccount { get; set; }
         public DbSet<Relic> Relics { get; set; }
         public DbSet<AdvImage> AdvImages { get; set; }
+        public DbSet<FactoryHistory> FactoryHistories { get; set; }
+        public DbSet<RocketProfile> RocketProfiles { get; set; }
+        public DbSet<Comfort> Comforts { get; set; }
+        public DbSet<RocketStage> RocketStages { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()
@@ -31,7 +36,22 @@ namespace SpaceWeb.EfStuff
                 .HasOne(rocket => rocket.Qa)
                 .WithMany(user => user.TestedRockets);
 
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.BankAccounts)
+                .WithOne(x => x.Owner);
+
+            modelBuilder.Entity<User>()
+                .HasOne(x => x.Profile)
+                .WithOne(x => x.User)
+                .HasForeignKey<Profile>(x => x.UserRef);
+
             base.OnModelCreating(modelBuilder);
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseLazyLoadingProxies();
+            base.OnConfiguring(optionsBuilder);
         }
     }
 }

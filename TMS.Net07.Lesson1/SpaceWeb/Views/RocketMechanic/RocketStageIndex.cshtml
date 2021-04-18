@@ -1,0 +1,38 @@
+﻿@model List<RocketStageAddViewModel>
+
+@section Style{
+    <link rel="stylesheet" href="~/css/reset.css">
+    <link rel="stylesheet" href="~/css/RocketMechanic/RocketStageAdd.css">
+    <link rel="stylesheet" href="~/css/RocketMechanic/RocketMechanicIcon.css">
+}
+
+@section Script{
+    <script src="~/js/RocketMechanic/jquery-3.6.0.min.js"></script>
+}
+
+@{
+    Layout = "~/Views/Shared/_RocketLayout.cshtml";
+}
+
+<section class="Section">
+    <div class="Container">
+        @foreach (var rocketStage in Model)
+        {
+            <div class="ProductCard">
+                <div class="ProductImage">
+                    <div><img src="@rocketStage.ImageUrl"></div>
+                </div>
+                <div class="ProductDescription">
+                    <div class="ProductModel">@rocketStage.RocketStageModel</div>
+                    <div>
+                        <div class="ProductWeight">@rocketStage.Weight</div>
+                        <div class="ProductEngines">@rocketStage.EnginesModel</div>
+                        <div class="ProductFuelTanks">@rocketStage.FuelTanksModel</div>
+                    </div>
+                    <div class="Description">@rocketStage.RocketStageDescription</div>
+                </div>
+                <a href="/RocketMechanic/RocketStageRemove&id=@rocketStage.Id" class="icon delete"></a>
+            </div>
+        }
+    </div>
+</section>

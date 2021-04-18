@@ -4,13 +4,13 @@ using SpaceWeb.EfStuff.Repositories;
 using SpaceWeb.Models;
 using System;
 using System.Text;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using SpaceWeb.EfStuff;
 using AutoMapper;
 using Profile = SpaceWeb.EfStuff.Model.Profile;
+using SpaceWeb.Service;
 
 namespace SpaceWeb.Controllers
 {
@@ -19,13 +19,19 @@ namespace SpaceWeb.Controllers
         private BankAccountRepository _bankAccountRepository;
         private ProfileRepository _profileRepository;
         private IMapper _mapper;
+        private UserRepository _userRepository;
+        private UserService _userService;
 
         public BankController(BankAccountRepository bankAccountRepository,
-            ProfileRepository profileRepository, IMapper mapper)
+            ProfileRepository profileRepository,
+            UserRepository userRepository,
+            IMapper mapper, UserService userService)
         {
             _bankAccountRepository = bankAccountRepository;
             _profileRepository = profileRepository;
+            _userRepository = userRepository;
             _mapper = mapper;
+            _userService = userService;
         }
 
         public IActionResult Bank()
@@ -77,11 +83,12 @@ namespace SpaceWeb.Controllers
         }
 
         [HttpGet]
-        public IActionResult UserProfile()
+        public IActionResult UserProfile(long id = 0)
         {
-            var user = new UserProfileViewModel();
-
-            return View(user);
+            var userprofile = _profileRepository.Get(id);
+            var profile = _mapper.Map<UserProfileViewModel>(userprofile)
+                ?? new UserProfileViewModel();
+            return View(profile);
         }
 
         [HttpPost]
@@ -91,6 +98,7 @@ namespace SpaceWeb.Controllers
             {
                 return View(model);
             }
+            //var user = _userRepository.Get(model.Id);
             var userprofile = new Profile()
             {
                 Name = model.Name,
@@ -100,9 +108,16 @@ namespace SpaceWeb.Controllers
                 PhoneNumber = model.PhoneNumber,
                 PostAddress = model.PostAddress,
                 IdentificationPassport = model.IdentificationPassport
+                
+                
 
             };
+            var user = _userService.GetCurrent();
+            userprofile.User = user;
+            userprofile.UserRef = user.Id;
+               
 
+           
             _profileRepository.Save(userprofile);
 
             return RedirectToAction("UserProfileDataOutput");
@@ -110,13 +125,10 @@ namespace SpaceWeb.Controllers
 
         public IActionResult UserProfileDataOutput()
         {
-            var profileDateOutput = _profileRepository.GetAll()
-                .Select(x => new UserProfileViewModel()
-                {
-                    Name = x.Name,
-                    Sex = x.Sex,
-                    BirthDate = x.BirthDate
-                })
+            var profileDateOutput = _profileRepository
+                .GetAll()
+                .Select(dbModel =>_mapper.Map<UserProfileViewModel>(dbModel)
+                )
                 .ToList();
 
             return View(profileDateOutput);
@@ -144,15 +156,15 @@ namespace SpaceWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult Account(BankAccountViewModel model)
+        public IActionResult Account(BankAccountViewModel viewModel)
         {
-            if (model.Currency == "BYN")
+            if ( viewModel.Currency == "BYN")
             {
-                model.Type = "Счет";
+                viewModel.Type = "Счет";
             }
             else
             {
-                model.Type = "Валютный счет";
+                viewModel.Type = "Валютный счет";
             }
 
             StringBuilder sb = new StringBuilder();
@@ -163,7 +175,7 @@ namespace SpaceWeb.Controllers
             {
                 sb.Append(rnd.Next(0, 9));
             }
-            model.BankAccountId = sb.ToString();
+            viewModel.BankAccountId = sb.ToString();
 
             var modelDB =
                 _mapper.Map<BankAccount>(model);
@@ -176,7 +188,12 @@ namespace SpaceWeb.Controllers
             //    Type = model.Type
             //};
 
+            modelDB.Owner = _userRepository.Get(viewModel.OwnerId);
             _bankAccountRepository.Save(modelDB);
+
+            //user.BankAccounts.Add(bankAccountDB);
+            //_userRepository.Save(user);
+
 
             var modelNew = _bankAccountRepository
                 .GetAll()

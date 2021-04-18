@@ -1,0 +1,171 @@
+﻿body{
+  margin: 0;
+  padding: 0;
+  background: url(../../image/RocketImages/Rocket.jpg) no-repeat center/ cover;
+  background-attachment: fixed;
+}
+.documentation.hide{
+  display: none;
+}
+
+.documentation{
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.documentation-cover{
+  background: black;
+  position: fixed;
+  top:0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  opacity: 0.6;
+}
+
+.documentation-content{
+  background: rgb(77, 77, 156);
+  width: 400px;
+  height: 500px;
+  z-index: 10;
+}
+
+.center-block{
+  display: flex;
+  width: 100%;
+
+}
+
+.header{
+  display: flex;
+  color:silver;
+  padding-top: 75px;
+}
+
+.rocket-button{
+  color: white;
+}
+.header input[type=text]{
+  width: 100px;
+  border-radius: 5px;
+  background: antiquewhite;
+  border: 5px;
+  margin-top: 5px;
+}
+.left-menu-image{
+  text-shadow: 1px 1px 2px black, 0 0 1em red;
+  border-radius: 10px;
+  box-shadow: 0 5px 40px 10px #0d2d46;
+}
+.content{
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+}
+.left-menu{
+  width: 100px;
+}
+
+
+ul{
+  margin: 0 auto;
+}
+a{
+  text-decoration: none;
+  font-family: 'Lora', serif;
+  transition: .5s linear;
+}
+.menu {
+  width: 100px;
+}
+
+.menu ul{
+  padding: 0;
+}
+
+.menu a {
+  padding: 1em;
+  color: #ffffff;
+  opacity: 1;
+}
+
+.menu a:hover {
+  width: 80px;
+  margin: 1px;
+  border: 2px black solid;
+  border-radius: 5px;
+}
+
+.menu li {
+  display: flex;
+  width: 80px;
+  height: 50px;
+  text-shadow: 1px 1px 2px black, 0 0 1em red;
+  border-radius: 5px;
+  box-shadow: 0 5px 40px 10px #0d2d46;
+}
+
+.text-about-rocket{
+  flex:1;
+  display: inline-block;
+  border-radius: 5px;
+  padding: 10px 40px;
+  font-size: 20px;
+  margin: 20px;
+  color: rgb(224, 219, 219);
+  background: transparent;
+  box-shadow: 0 5px 40px 10px #0d2d46;
+  transition: .7s;
+  text-shadow: 1px 1px 2px black, 0 0 1em red;
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: bolder;
+}
+.text-about-rocket-cover-1{
+  flex: 2.5;
+}
+.text-about-rocket-cover-2{
+  flex: 0.9;
+}
+.text-about-space-tourism{
+  border-radius: 5px;
+  padding: 10px 40px;
+  font-size: 30px;
+  margin: 20px;
+  color: rgb(224, 219, 219);
+  background: transparent;
+  box-shadow: 0 5px 40px 10px #0d2d46;
+  transition: .7s;
+  text-shadow: 1px 1px 2px black, 0 0 1em red;
+  font-weight: 700;
+  font-family: Arial, Helvetica, sans-serif;
+}
+p.text-about-space-tourism{
+  align-items: center;
+
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-weight: 700;
+}
+
+
+a.button25 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  height: 2.5em;
+  line-height: 2.5em;
+  color: #fff;
+  border: 2px solid #F64C2B;
+  border-radius: 5px;
+  box-shadow: 0 0 0 60px rgba(0,0,0,0) inset, .1em .1em .2em #800;
+  background: linear-gradient(#FB9575, #F45A38 48%, #EA1502 52%, #F02F17);
+}
+a.button25:active {
+  top: .1em;
+  left: .1em;
+  box-shadow: 0 0 0 60px rgba(0,0,0,.05) inset;
+}

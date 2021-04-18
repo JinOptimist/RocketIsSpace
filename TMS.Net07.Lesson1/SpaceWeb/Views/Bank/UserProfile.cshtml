@@ -9,6 +9,7 @@
 }
 <div class="profile">
     <form action="/Bank/UserProfile" method="post">
+        @Html.HiddenFor(x => x.Id)
         <h1>Анкета</h1>
 
         <div class="profile-text">
@@ -24,46 +25,46 @@
                 @Html.ValidationMessageFor(x => x.SurName)
             </div>
         </div>
-            <div class="profile-text">
-                birthdate: @Html.TextBoxFor(x => x.BirthDate, new { @type = "date", @placeholder = "Birthdate" })
-                <div>
-                    @Html.ValidationMessageFor(x => x.BirthDate)
-                </div>
-                </div>
-                <div class="profile-text">
-                    age: @Html.TextBoxFor(x => x.Age, new { @placeholder = "Age" })
-                    <div>
-                        @Html.ValidationMessageFor(x => x.Age)
-                    </div>
-                </div>
-            <div class="profile-text">
-                sex: @Html.DropDownListFor(User => User.Sex, new SelectList(new[] { " ", "Male", "Female" }))
-
+        <div class="profile-text">
+            birthdate: @Html.TextBoxFor(x => x.BirthDate, new { @type = "date", @placeholder = "Birthdate" })
+            <div>
+                @Html.ValidationMessageFor(x => x.BirthDate)
             </div>
-            <div class="profile-text">
-                postaddress: @Html.TextBoxFor(x => x.IdentificationPassport, new { @placeholder = "Identification Passport" })
-                <div>
-                    @Html.ValidationMessageFor(x => x.IdentificationPassport)
-                </div>
-                </div>
-
-                <div class="profile-text">
-                    phonenumber: @Html.TextBoxFor(x => x.PhoneNumber, new { @placeholder = "+375xx-xxx-xx-xx" })
-                    <div>
-                        @Html.ValidationMessageFor(x => x.PhoneNumber)
-                    </div>
-                </div>
-            <div class="profile-text">
-                postaddress: @Html.TextBoxFor(x => x.PostAddress, new { @placeholder = "ul.xxx, xx-xx, City" })
-                <div>
-                    @Html.ValidationMessageFor(x => x.PostAddress)
-                </div>
-                </div>
-
-            <div class="profile-text">
-                <input type="submit" value="send" />
+        </div>
+        <div class="profile-text">
+            age: @Html.TextBoxFor(x => x.Age, new { @placeholder = "Age" })
+            <div>
+                @Html.ValidationMessageFor(x => x.Age)
             </div>
+        </div>
+        <div class="profile-text">
+            sex: @Html.DropDownListFor(User => User.Sex, new SelectList(new[] { " ", "Male", "Female" }))
 
-</form>
+        </div>
+        <div class="profile-text">
+            postaddress: @Html.TextBoxFor(x => x.IdentificationPassport, new { @placeholder = "Identification Passport" })
+            <div>
+                @Html.ValidationMessageFor(x => x.IdentificationPassport)
+            </div>
+        </div>
+
+        <div class="profile-text">
+            phonenumber: @Html.TextBoxFor(x => x.PhoneNumber, new { @placeholder = "+375xx-xxx-xx-xx" })
+            <div>
+                @Html.ValidationMessageFor(x => x.PhoneNumber)
+            </div>
+        </div>
+        <div class="profile-text">
+            postaddress: @Html.TextBoxFor(x => x.PostAddress, new { @placeholder = "ul.xxx, xx-xx, City" })
+            <div>
+                @Html.ValidationMessageFor(x => x.PostAddress)
+            </div>
+        </div>
+
+        <div class="profile-text">
+            <input type="submit" value="send" />
+        </div>
+
+    </form>
 </div>
 

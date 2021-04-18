@@ -19,8 +19,14 @@ namespace SpaceWeb.EfStuff.Repositories
 
         public void Remove(string id)
         {
-            var model = Get(id);
-            Remove(model);
+            if (model.Id > 0) {
+                _spaceDbContext.BankAccount.Update(model);
+            }
+            else
+            {
+                _spaceDbContext.BankAccount.Add(model);
+            }
+            _spaceDbContext.SaveChanges();
         }
     }
 }

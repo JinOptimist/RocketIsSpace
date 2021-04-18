@@ -129,6 +129,13 @@
   top:0;
   left: 0;
 }
+<<<<<<< HEAD
+.name-input{
+  width: 70px;
+}
+.edit .name-input{
+    display: none;
+=======
 
 .rocket .view{
   display: flex;
@@ -153,4 +160,5 @@
 
 .template{
   display: none;
+>>>>>>> 18d66ae3be7a7f0f861148de47b8e191393ef66e
 }
