@@ -19,6 +19,30 @@ namespace SpaceWeb.Migrations
                 .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.Addition", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BotanicalCenterCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ObservarionDeckCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RescueCapsuleCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RestRoomCount")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Additions");
+                });
+
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.AdvImage", b =>
                 {
                     b.Property<long>("Id")
@@ -53,15 +77,10 @@ namespace SpaceWeb.Migrations
                     b.Property<string>("Currency")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long?>("OwnerId")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("OwnerId");
 
                     b.ToTable("BankAccount");
                 });
@@ -342,8 +361,6 @@ namespace SpaceWeb.Migrations
 
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.User", b =>
                 {
-                    b.Navigation("BankAccounts");
-
                     b.Navigation("MyRockets");
 
                     b.Navigation("Profile");

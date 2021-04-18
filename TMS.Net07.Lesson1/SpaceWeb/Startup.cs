@@ -16,7 +16,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SpaceWeb.Models.RocketModels;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
+
 namespace SpaceWeb
 {
     public class Startup
@@ -56,13 +58,13 @@ namespace SpaceWeb
 
             services.AddScoped<BankAccountRepository>(diContainer =>
                 new BankAccountRepository(diContainer.GetService<SpaceDbContext>()));
-                
+
             RegisterMapper(services);
 
             services.AddScoped<ComfortRepository>(diContainer =>
                 new ComfortRepository(diContainer.GetService<SpaceDbContext>()));
 
-            services.AddScoped<RocketStageRepository>(diContainer => 
+            services.AddScoped<RocketStageRepository>(diContainer =>
                 new RocketStageRepository(diContainer.GetService<SpaceDbContext>()));
 
             services.AddScoped<RocketProfileRepository>(diContainer =>
@@ -74,10 +76,16 @@ namespace SpaceWeb
                     diContainer.GetService<IHttpContextAccessor>()
                 ));
 
-
             services.AddControllersWithViews();
 
             services.AddHttpContextAccessor();
+ 
+            services.AddScoped<OrderRepository>(diContainer =>
+                new OrderRepository(diContainer.GetService<SpaceDbContext>()));
+            services.AddControllersWithViews();
+
+            services.AddScoped<AdditionRepository>(diContainer =>
+                new AdditionRepository(diContainer.GetService<SpaceDbContext>()));
         }
 
         private void RegisterMapper(IServiceCollection services)
@@ -96,8 +104,14 @@ namespace SpaceWeb
             MapBoth<Relic, RelicViewModel>(configExpression);
 
             MapBoth<AdvImage, AdvImageViewModel>(configExpression);
+            
+            MapBoth<RocketProfile,RocketRegistrationViewModel>(configExpression);
+            
+            MapBoth<Order,OrderViewModel>(configExpression);
 
             MapBoth<BankAccount, BankAccountViewModel>(configExpression);
+            
+            MapBoth<RocketProfile,RocketProfileViewModel>(configExpression);
 
             var mapperConfiguration = new MapperConfiguration(configExpression);
             var mapper = new Mapper(mapperConfiguration);
@@ -128,10 +142,10 @@ namespace SpaceWeb
 
             app.UseRouting();
 
-            //Кто я?
+            //пїЅпїЅпїЅ пїЅ?
             app.UseAuthentication();
 
-            //Куда мне можно
+            //пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

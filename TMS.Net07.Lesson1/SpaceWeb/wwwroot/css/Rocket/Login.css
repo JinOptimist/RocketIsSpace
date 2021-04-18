@@ -1,0 +1,83 @@
+﻿.loginpage {
+    padding-top: 75px;
+    background: #171717;
+    height: 100vh;
+}
+
+.pglogblock {
+    background: url(../../image/comfortImage/rocket3.jpg);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 450px;
+    box-shadow: 3px 10px 20px 5px rgb(0 0 0 / 50%);
+    display: flex;
+}
+
+@font-face {
+    font-family: Hairline;
+    src: url("../../image/comfortImage/font/19554.ttf");
+}
+
+.pginfo {
+    width: 45%;
+    font-family: Hairline;
+    background: rgba(20, 20, 20, .8);
+    border-right: 5px solid rgba(30, 30, 30, .8);
+    color: #FF9933;
+    display: flex;
+    flex-direction: column;
+}
+
+.pglogin {
+    font-size: 23px;
+    margin: 13%;
+}
+
+.wronglogin {
+    font-size: 20px;
+    margin-left: 10%
+}
+
+.loginformstyle1 {
+    width: 70%;
+    background: rgba(20, 40, 40, .8);
+}
+
+.inputFields {
+    margin: 15px 0;
+    font-size: 16px;
+    padding: 10px;
+    width: 250px;
+    border: 1px solid rgb(189, 118, 29);
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    color: white;
+    outline: none;
+}
+
+.pglogbut {
+    border: 1px solid rgb(189, 118, 29);
+    background: rgba(20, 20, 20, .6);
+    font-size: 18px;
+    color: white;
+    margin-top: 20px;
+    padding: 10px 50px;
+    cursor: pointer;
+    background: rgba(20, 20, 20, .2);
+}
+
+.noBullet {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 17%;
+}
+
+/*input[type="text"] {
+    height: 27px;
+    background: rgba(20, 20, 20, .2);
+}*/

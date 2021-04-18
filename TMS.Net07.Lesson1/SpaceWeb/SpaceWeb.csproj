@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HumansResources\HumansResources.csproj" />
+    <ProjectReference Include="..\Rocket2\Rocket2.csproj" />
   </ItemGroup>
 
   <ItemGroup>
