@@ -63,6 +63,9 @@ namespace SpaceWeb
 
             services.AddScoped<AdditionRepository>(diContainer =>
                 new AdditionRepository(diContainer.GetService<SpaceDbContext>()));
+            
+            services.AddScoped<ShopRocketRepository>(diContainer =>
+                new ShopRocketRepository(diContainer.GetService<SpaceDbContext>()));
         }
 
         private void RegisterMapper(IServiceCollection services)

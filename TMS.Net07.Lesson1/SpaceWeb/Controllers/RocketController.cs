@@ -10,13 +10,15 @@ namespace SpaceWeb.Controllers
         private RocketProfileRepository _rocketProfileRepository;
         private ComfortRepository _comfortRepository;
         private AdditionRepository _additionRepository;
+        private ShopRocketRepository _shopRocketRepository;
         public RocketController(RocketProfileRepository rocketProfileRepository,
             ComfortRepository comfortRepository,
-            AdditionRepository additionRepository)
+            AdditionRepository additionRepository, ShopRocketRepository shopRocketRepository)
         {
             _rocketProfileRepository = rocketProfileRepository;
             _comfortRepository = comfortRepository;
             _additionRepository = additionRepository;
+            _shopRocketRepository = shopRocketRepository;
         }
 
         [HttpGet]
@@ -155,7 +157,21 @@ namespace SpaceWeb.Controllers
         {
             return View("OriginRocket/RocketShop");
         }
-
+        
+        [HttpGet]
+        public IActionResult AddNewItemAdmin()
+        {
+            var model = new AdminAddRocketViewModel();
+            return View("OriginRocket/AdminAddRocket", model);
+        }
+        
+        [HttpPost]
+        public IActionResult AddNewItemAdmin(AdminAddRocketViewModel model)
+        {
+            var rocket = 
+            return View("OriginRocket/AdminAddRocket");
+        }
+        
         [HttpGet]
         public IActionResult AdditionPage()
         {

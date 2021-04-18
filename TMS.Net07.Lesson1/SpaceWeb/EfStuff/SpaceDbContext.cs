@@ -22,6 +22,7 @@ namespace SpaceWeb.EfStuff
         public DbSet<Comfort> Comforts { get; set; }
         public DbSet<RocketStage> RocketStages { get; set; }
         public DbSet<Addition> Additions { get; set; }
+        public DbSet<AddShopRocket> ShopRocket { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
