@@ -46,7 +46,6 @@ namespace SpaceWeb.Controllers
         public IActionResult ComfortPage()
         {
             var model = new ComfortFormViewModel();
-            //return View(model);
             return View("Comfort/ComfortPage", model);
         }
         [Authorize]
@@ -58,13 +57,7 @@ namespace SpaceWeb.Controllers
                 return View("Comfort/ComfortPage", viewModel);
             }
 
-            var comfort = new Comfort()
-            {
-                ToiletCount = viewModel.ToiletCount,
-                KitchenSeatsCount = viewModel.KitchenSeatsCount,
-                StorageCapacity = viewModel.StorageCapacity,
-                SleepingCapsulesCount = viewModel.SleepingCapsulesCount
-            };
+            var comfort = _mapper.Map<Comfort>(viewModel);
 
             _comfortRepository.Save(comfort);
             return RedirectToAction("ComfortPage");

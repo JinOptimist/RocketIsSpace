@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Rocket2.AdditionStructure;
-using Rocket2.ComfortStructure;
+
 
 namespace SpaceWeb.EfStuff.Model
 {

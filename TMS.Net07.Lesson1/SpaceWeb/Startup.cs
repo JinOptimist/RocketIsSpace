@@ -126,6 +126,8 @@ namespace SpaceWeb
             
             MapBoth<RocketProfile,RocketProfileViewModel>(configExpression);
 
+            MapBoth<Comfort, ComfortFormViewModel>(configExpression);
+
             var mapperConfiguration = new MapperConfiguration(configExpression);
             var mapper = new Mapper(mapperConfiguration);
             services.AddScoped<IMapper>(c => mapper);
