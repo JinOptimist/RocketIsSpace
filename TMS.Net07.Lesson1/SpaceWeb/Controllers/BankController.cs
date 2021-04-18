@@ -8,6 +8,7 @@ using System.Text;
 using System.Linq;
 using AutoMapper;
 using Profile = SpaceWeb.EfStuff.Model.Profile;
+using SpaceWeb.Service;
 
 namespace SpaceWeb.Controllers
 {
@@ -17,17 +18,19 @@ namespace SpaceWeb.Controllers
         private ProfileRepository _profileRepository;
         private IMapper _mapper;
         private UserRepository _userRepository;
+        private UserService _userService;
 
 
-        public BankController(BankAccountRepository bankAccountRepository, 
-            ProfileRepository profileRepository, 
+        public BankController(BankAccountRepository bankAccountRepository,
+            ProfileRepository profileRepository,
             UserRepository userRepository,
-            IMapper mapper)
+            IMapper mapper, UserService userService)
         {
             _bankAccountRepository = bankAccountRepository;
             _profileRepository = profileRepository;
             _userRepository = userRepository;
             _mapper = mapper;
+            _userService = userService;
         }
 
         public IActionResult Bank()
@@ -94,7 +97,7 @@ namespace SpaceWeb.Controllers
             {
                 return View(model);
             }
-            var user = _userRepository.Get(model.Id);
+            //var user = _userRepository.Get(model.Id);
             var userprofile = new Profile()
             {
                 Name = model.Name,
@@ -103,11 +106,16 @@ namespace SpaceWeb.Controllers
                 Sex = model.Sex,
                 PhoneNumber = model.PhoneNumber,
                 PostAddress = model.PostAddress,
-                IdentificationPassport = model.IdentificationPassport,
-                UserRef = model.Id,
-                User = user
+                IdentificationPassport = model.IdentificationPassport
+                
+                
 
             };
+            var user = _userService.GetCurrent();
+            userprofile.User = user;
+            userprofile.UserRef = user.Id;
+               
+
            
             _profileRepository.Save(userprofile);
             
