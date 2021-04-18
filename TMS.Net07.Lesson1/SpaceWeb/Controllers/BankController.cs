@@ -2,7 +2,6 @@
 using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
 using SpaceWeb.Models;
-
 using System;
 using System.Text;
 using System.Collections.Generic;
@@ -10,8 +9,8 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using SpaceWeb.EfStuff;
-using SpaceWeb.EfStuff.Model;
-using SpaceWeb.EfStuff.Repositories;
+using AutoMapper;
+using Profile = SpaceWeb.EfStuff.Model.Profile;
 
 namespace SpaceWeb.Controllers
 {
@@ -19,27 +18,30 @@ namespace SpaceWeb.Controllers
     {
         private BankAccountRepository _bankAccountRepository;
         private ProfileRepository _profileRepository;
+        private IMapper _mapper;
 
-        public BankController(BankAccountRepository bankAccountRepository, ProfileRepository profileRepository)
+        public BankController(BankAccountRepository bankAccountRepository,
+            ProfileRepository profileRepository, IMapper mapper)
         {
             _bankAccountRepository = bankAccountRepository;
             _profileRepository = profileRepository;
+            _mapper = mapper;
         }
 
         public IActionResult Bank()
         {
             var input = new RegistrationViewModel();
-           
+
             return View(input);
         }
-        
+
         [HttpGet]
         public IActionResult Login()
         {
             var model = new ProfileViewModel();
             return View(model);
         }
-        
+
         [HttpPost]
         public IActionResult Login(ProfileViewModel model)
         {
@@ -51,7 +53,7 @@ namespace SpaceWeb.Controllers
             model.Bio = model.UserName + model.Password;
             return View(model);
         }
-        
+
         public IActionResult Home()
         {
             var model = new RocketPreviewViewModel()
@@ -62,7 +64,7 @@ namespace SpaceWeb.Controllers
 
             return View(model);
         }
-       
+
         public IActionResult Contacts()
         {
             var input = new ContactsViewModel()
@@ -73,7 +75,7 @@ namespace SpaceWeb.Controllers
             };
             return View(input);
         }
-        
+
         [HttpGet]
         public IActionResult UserProfile()
         {
@@ -102,10 +104,10 @@ namespace SpaceWeb.Controllers
             };
 
             _profileRepository.Save(userprofile);
-            
+
             return RedirectToAction("UserProfileDataOutput");
         }
-        
+
         public IActionResult UserProfileDataOutput()
         {
             var profileDateOutput = _profileRepository.GetAll()
@@ -114,7 +116,6 @@ namespace SpaceWeb.Controllers
                     Name = x.Name,
                     Sex = x.Sex,
                     BirthDate = x.BirthDate
-
                 })
                 .ToList();
 
@@ -122,17 +123,21 @@ namespace SpaceWeb.Controllers
         }
 
         [HttpGet]
-        public IActionResult Account ()
+        public IActionResult Account()
         {
             var model = _bankAccountRepository
                 .GetAll()
-                .Select(dbModel => new BankAccountViewModel
-                {
-                    BankAccountId = dbModel.BankAccountId,
-                    Amount = dbModel.Amount,
-                    Currency = dbModel.Currency,
-                    Type = dbModel.Type
-                })
+                .Select(dbModel =>
+                //куда                откуда
+                _mapper.Map<BankAccountViewModel>(dbModel)
+                )
+                //new BankAccountViewModel
+                //{
+                //    BankAccountId = dbModel.BankAccountId,
+                //    Amount = dbModel.Amount,
+                //    Currency = dbModel.Currency,
+                //    Type = dbModel.Type
+                //})
                 .ToList();
 
             return View(model);
@@ -141,7 +146,7 @@ namespace SpaceWeb.Controllers
         [HttpPost]
         public IActionResult Account(BankAccountViewModel model)
         {
-            if ( model.Currency == "BYN")
+            if (model.Currency == "BYN")
             {
                 model.Type = "Счет";
             }
@@ -153,36 +158,43 @@ namespace SpaceWeb.Controllers
             StringBuilder sb = new StringBuilder();
 
             Random rnd = new Random();
-            
-            for (int i = 0; i<10; i++)
+
+            for (int i = 0; i < 10; i++)
             {
                 sb.Append(rnd.Next(0, 9));
             }
             model.BankAccountId = sb.ToString();
 
-            var modelDB = new BankAccount
-            {
-                Amount = model.Amount,
-                BankAccountId = model.BankAccountId,
-                Currency = model.Currency,
-                Type = model.Type
-            };
+            var modelDB =
+                _mapper.Map<BankAccount>(model);
+
+            //new BankAccount
+            //{
+            //    Amount = model.Amount,
+            //    BankAccountId = model.BankAccountId,
+            //    Currency = model.Currency,
+            //    Type = model.Type
+            //};
 
             _bankAccountRepository.Save(modelDB);
 
             var modelNew = _bankAccountRepository
                 .GetAll()
-                .Select(dbModel => new BankAccountViewModel
-                {
-                    BankAccountId = dbModel.BankAccountId,
-                    Amount = dbModel.Amount,
-                    Currency = dbModel.Currency,
-                    Type = dbModel.Type
-                })
+                .Select(dbModel =>
+                            //куда                 откуда
+                _mapper.Map<BankAccountViewModel>(dbModel)
+                )
+                //new BankAccountViewModel
+                //{
+                //    BankAccountId = dbModel.BankAccountId,
+                //    Amount = dbModel.Amount,
+                //    Currency = dbModel.Currency,
+                //    Type = dbModel.Type
+                //})
                 .ToList();
             return View(modelNew);
         }
-        
+
         [HttpPost]
         public IActionResult RemoveAccount(BankAccountViewModel model)
         {
