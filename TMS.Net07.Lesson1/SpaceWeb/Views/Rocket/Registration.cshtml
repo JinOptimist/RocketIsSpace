@@ -4,42 +4,50 @@
 }
 @section Style
 {
-    <link rel="stylesheet" href="~/css/Rocket/Registration.css">
+    <link rel="stylesheet" href="~/css/Rocket/Registration.css?v=4">
 }
 @section Script
 {
     <script src="~/js/Rocket/registration.js"></script>
 }
 
-<div class="registration" >
-    <div>Registration</div>
+<div class="registration">
+    <div class="registr">Registration</div>
+    <div class="none"></div>
     <form action="Registration" method="post">
-            <div class="name">
-                <div>
-                    Name: @Html.TextBoxFor(model => model.Name)
-                </div>
-                <div>
-                    Last name: @Html.TextBoxFor(model => model.LastName)
-                </div>
+        <div class="reg-field">
+            <div class="first-text">
+                <div style="margin-top: 45px">Name:</div>
+                <div style="margin-top: 49px">Date of birth:</div>
+                <div style="margin-top: 49px">Username:</div>
+                <div style="margin-top: 49px">Password:</div>
             </div>
-            <div class="date-of-birth">
-                Date of birth: @Html.TextBoxFor(model => model.DateOfBirth, "{0:MM\\/dd\\/yyyy}")
+
+            <div class="first-field">
+                <input style="margin-top: 30px" name="Name" class="inputFields1" type="text" placeholder="Name" />
+                <input style="margin-top: 23px; background: rgba(20, 20, 20, .2)" name="Date of birth" class="inputFields1" type="date" placeholder="Date of birth" />
+                <input style="margin-top: 23px" name="Username" class="inputFields1" type="text" placeholder="Username" />
+                <input style="margin-top: 23px" name="Password" class="inputFields1" type="text" placeholder="Password" />
+                @*<div style="margin-top: 40px">@Html.TextBoxFor(model => model.Name)</div>
+                <div style="margin-top: 40px">@Html.TextBoxFor(model => model.DateOfBirth, "{0:MM\\/dd\\/yyyy}")</div>
+                <div style="margin-top: 40px">@Html.TextBoxFor(model => model.UserName)</div>
+                <div style="margin-top: 40px">@Html.TextBoxFor(model => model.Password)</div>*@
             </div>
-            <div class="registration-login">
-                <div class="user-name">
-                    Username:  @Html.TextBoxFor(model => model.UserName)
-                </div>
-                <div>
-                    Email:  @Html.TextBoxFor(model => model.Email)
-                </div>
+
+            <div class="first-text second-text">
+                <div style="margin-top: 45px">Last name:</div>
+                <div style="margin-top: 123px">Email:</div>
             </div>
-            <div class="password">
-                <div>
-                    Password:  @Html.TextBoxFor(model => model.Password)
-                </div>
+
+            <div class="second-field">
+                <input style="margin-top: 30px" name="LastName" class="inputFields1" type="text" placeholder="Last name" />
+                <input style="margin-top: 95px" name="Email" class="inputFields1" type="text" placeholder="Email" />
+                @*<div style="margin-top: 40px">@Html.TextBoxFor(model => model.LastName)</div>
+                <div style="margin-top: 114px">@Html.TextBoxFor(model => model.Email)</div>*@
             </div>
-            <div class="submit">
-                <input type="submit">
-            </div>
+        </div>
+        <div>
+            <input class="sub" type="submit" value="Send" />
+        </div>
     </form>
 </div>

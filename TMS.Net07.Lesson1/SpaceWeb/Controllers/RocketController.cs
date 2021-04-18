@@ -52,42 +52,42 @@ namespace SpaceWeb.Controllers
             return RedirectToAction("ComfortPage");
         }
 
-        // [HttpGet]
-        // public IActionResult Login()
-        // {
-        //     var model = new RocketLoginViewModel();
-        //     return View(model);
-        // }
-        //
-        // [HttpPost]
-        // public IActionResult Login(RocketLoginViewModel model)
-        // {
-        //     if (!ModelState.IsValid)
-        //     {
-        //         return View(model);
-        //     }
-        //
-        //     var user = RocketUsers
-        //         .SingleOrDefault(x => x.UserName == model.UserName);
-        //
-        //     if (user == null)
-        //     {
-        //         ModelState.AddModelError(
-        //             nameof(RocketLoginViewModel.Login),
-        //             "Нет такого пользователя");
-        //         return View(model);
-        //     }
-        //
-        //     if (user.Password != model.Password)
-        //     {
-        //         ModelState.AddModelError(
-        //             nameof(RegistrationViewModel.Password),
-        //             "Не правильный праоль");
-        //         return View(model);
-        //     }
-        //
-        //     return RedirectToAction("Profile", "User");
-        // }
+        [HttpGet]
+        public IActionResult Login()
+        {
+            var model = new RocketLoginViewModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Login(RocketLoginViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var user = _rocketProfileRepository.GetByName(model.UserName);
+
+            if (user == null)
+            {
+                ModelState.AddModelError(
+                    nameof(RocketProfileViewModel.UserName),
+                    "Нет такого пользователя");
+                return View(model);
+            }
+
+            if (user.Password != model.Password)
+            {
+                ModelState.AddModelError(
+                    nameof(RocketProfileViewModel.Password),
+                    "Не правильный пароль");
+                return View(model);
+            }
+
+            return RedirectToAction("MainPage", "Rocket");
+        }
+
         public IActionResult MainPage()
         {
             return View("Factory/MainPage");

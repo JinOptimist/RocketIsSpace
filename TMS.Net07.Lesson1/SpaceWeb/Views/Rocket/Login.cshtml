@@ -2,20 +2,33 @@
 @{
     Layout = "_RocketLayout";
 }
-<form action="/Rocket/Login" method="post">
+@section Style
+{
+    <link rel="stylesheet" href="~/css/Rocket/Login.css?v=3">
+}
 
-    <div>
-        Login: @Html.TextBoxFor(x => x.UserName)
-        @Html.ValidationMessageFor(x => x.UserName)
+
+<div class="loginpage">
+    <div class="pglogblock">
+        <div class="pginfo">
+            <div class="pglogin">Login</div>
+            <div class="wronglogin">Wrong login or password.</div>
+            <div class="wronglogin">Try again.</div>
+        </div>
+        <form action="/Rocket/Login" method="post" class="loginformstyle1">
+            <ul class="noBullet">
+                <li>
+                    <label for="username"></label>
+                    <input name="UserName" class="inputFields" type="text" placeholder="Login" />
+                </li>
+                <li>
+                    <label for="password"></label>
+                    <input name="Password" class="inputFields" type="text" placeholder="Password" />
+                </li>
+                <li>
+                    <input class="pglogbut" type="submit" value="Log in" />
+                </li>
+            </ul>
+        </form>
     </div>
-
-    <div>
-        Password: @Html.TextBoxFor(x => x.Password)
-        @Html.ValidationMessageFor(x => x.Password)
-    </div>
-
-
-    <div>
-        <input type="submit" value="send" />
-    </div>
-</form>
+</div>
