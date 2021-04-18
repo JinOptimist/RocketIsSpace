@@ -90,6 +90,8 @@ namespace SpaceWeb
             MapBoth<Order,OrderViewModel>(configExpression);
 
             MapBoth<BankAccount, BankAccountViewModel>(configExpression);
+            
+            MapBoth<RocketProfile,RocketProfileViewModel>(configExpression);
 
             var mapperConfiguration = new MapperConfiguration(configExpression);
             var mapper = new Mapper(mapperConfiguration);

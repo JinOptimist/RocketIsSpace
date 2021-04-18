@@ -13,9 +13,9 @@ namespace SpaceWeb.Controllers
         private OrderRepository _orderRepository;
         private IMapper _mapper;
         private AdditionRepository _additionRepository;
-        public RocketController(RocketProfileRepository rocketProfileRepository,ComfortRepository comfortRepository, IMapper mapper, OrderRepository orderRepository
-AdditionRepository additionRepository)
-        {
+        public RocketController(RocketProfileRepository rocketProfileRepository,
+            ComfortRepository comfortRepository, IMapper mapper, OrderRepository orderRepository,
+        AdditionRepository additionRepository)
         {
             _rocketProfileRepository = rocketProfileRepository;
             _comfortRepository = comfortRepository;
@@ -119,21 +119,25 @@ AdditionRepository additionRepository)
         }
 
         [HttpGet]
-        public IActionResult ChangeName(long id)
+        public IActionResult ChangeName(long id=1)
         {
-            var model = _mapper.Map<RocketProfileViewModel>(
-                _rocketProfileRepository.Get(id));
+            var user = _rocketProfileRepository.Get(id);
+            var model = new ChangeNameViewModel()
+            {
+                Id=id,
+                OldName = user.Name
+            };
 
             return View("Factory/ChangeName",model);
         }
         
         [HttpPost]
-        public IActionResult ChangeName(RocketProfileViewModel viewModel)
+        public IActionResult ChangeName(ChangeNameViewModel viewModel)
         {
-            var user = _mapper.Map<RocketProfile>(viewModel);
-            user.Name = viewModel.Name;
+            var user = _rocketProfileRepository.Get(viewModel.Id);
+            user.Name = viewModel.NewName;
             _rocketProfileRepository.Save(user);
-            return View("/Factory/ChangeName",viewModel);
+            return View("Factory/ChangeName",viewModel);
         }
         
         // public JsonResult IsUserExist(string name)
