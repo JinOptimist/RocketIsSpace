@@ -3,7 +3,9 @@
     @foreach (var relic in Model)
     {
         <div class="relic">
-            <div class="name">@relic.RelicName <a href="/Relic/Remove?id=@relic.Id" class="icon close"></a></div>
+            <div class="name">@relic.RelicName 
+                <a href="/Relic/Add?id=@relic.Id" class="icon ok"></a>
+                <a href="/Relic/Remove?id=@relic.Id" class="icon close"></a></div>
             <div>
                 <img src="@relic.ImageUrl" />
             </div>

@@ -158,7 +158,13 @@ namespace SpaceWeb.Migrations
                     b.Property<string>("SurName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<long>("UserRef")
+                        .HasColumnType("bigint");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserRef")
+                        .IsUnique();
 
                     b.ToTable("UserProfile");
                 });
@@ -328,6 +334,26 @@ namespace SpaceWeb.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.BankAccount", b =>
+                {
+                    b.HasOne("SpaceWeb.EfStuff.Model.User", "Owner")
+                        .WithMany("BankAccounts")
+                        .HasForeignKey("OwnerId");
+
+                    b.Navigation("Owner");
+                });
+
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.Profile", b =>
+                {
+                    b.HasOne("SpaceWeb.EfStuff.Model.User", "User")
+                        .WithOne("Profile")
+                        .HasForeignKey("SpaceWeb.EfStuff.Model.Profile", "UserRef")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.Rocket", b =>
                 {
                     b.HasOne("SpaceWeb.EfStuff.Model.User", "Author")
@@ -360,6 +386,8 @@ namespace SpaceWeb.Migrations
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.User", b =>
                 {
                     b.Navigation("MyRockets");
+
+                    b.Navigation("Profile");
 
                     b.Navigation("TestedRockets");
                 });

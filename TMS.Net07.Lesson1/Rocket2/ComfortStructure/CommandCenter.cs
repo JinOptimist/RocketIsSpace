@@ -19,7 +19,7 @@ namespace Rocket2.ComfortStructure
 
         public double Mass { get; }
 
-        public List<string> Ledger;
+        public List<string> Ledger = null;
 
         public void ReceiveSignal(string signal)
         {

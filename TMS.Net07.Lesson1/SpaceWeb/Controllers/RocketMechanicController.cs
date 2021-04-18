@@ -3,6 +3,7 @@ using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
 using SpaceWeb.Models;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SpaceWeb.Controllers
 {
@@ -14,6 +15,7 @@ namespace SpaceWeb.Controllers
             _rocketStageRepository = rocketStageRepository;
         }
         [HttpGet]
+        [Authorize]
         public IActionResult Main()
         {
             var model = new MainViewModel();
@@ -21,11 +23,12 @@ namespace SpaceWeb.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Main(MainViewModel mainViewModel)
         {
             return View(mainViewModel);
         }
-
+        [Authorize]
         public IActionResult RocketStageIndex()
         {
             var models = _rocketStageRepository
@@ -44,20 +47,20 @@ namespace SpaceWeb.Controllers
 
             return View(models);
         }
-
+        [Authorize]
         public IActionResult RocketStageRemove(long id) 
         {
             _rocketStageRepository.Remove(id);
             return RedirectToAction("RocketStageIndex");
         }
-
+        [Authorize]
         [HttpGet]
         public IActionResult RocketStageAdd()
         {
             var rocketStageAddViewModel = new RocketStageAddViewModel();
             return View(rocketStageAddViewModel);
         }
-
+        [Authorize]
         [HttpPost]
         public IActionResult RocketStageAdd(RocketStageAddViewModel rocketStageAddViewModel)
         {

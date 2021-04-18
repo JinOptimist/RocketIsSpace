@@ -36,10 +36,12 @@ namespace SpaceWeb.Controllers
         }
 
         [HttpGet]
-        public IActionResult Add()
+        public IActionResult Add(long id = 0)
         {
-            var model = new RelicViewModel();
-            return View(model);
+            var relic = _relicRepository.Get(id);
+            var viewModel = _mapper.Map<RelicViewModel>(relic)
+                ?? new RelicViewModel();
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -50,14 +52,7 @@ namespace SpaceWeb.Controllers
                 return View(viewModel);
             }
 
-            var relic = new Relic()
-            {
-                RelicName = viewModel.RelicName,
-                ImageUrl = viewModel.ImageUrl,
-                Price = viewModel.Price,
-                Count = viewModel.Count
-            };
-
+            var relic = _mapper.Map<Relic>(viewModel);
             _relicRepository.Save(relic);
             return RedirectToAction("Index");
         }
