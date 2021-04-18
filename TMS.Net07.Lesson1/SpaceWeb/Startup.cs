@@ -24,6 +24,7 @@ namespace SpaceWeb
     public class Startup
     {
         public const string AuthMethod = "FunCookie";
+        public const string RocketAuthMethod = "RocketCookie";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -42,6 +43,13 @@ namespace SpaceWeb
                 {
                     config.Cookie.Name = "Smile";
                     config.LoginPath = "/User/Login";
+                });
+            
+            services.AddAuthentication(RocketAuthMethod)
+                .AddCookie(RocketAuthMethod, config =>
+                {
+                    config.Cookie.Name = "Smile";
+                    config.LoginPath = "/Rocket/Login";
                 });
 
             services.AddScoped<UserRepository>(diContainer =>
@@ -73,6 +81,11 @@ namespace SpaceWeb
             services.AddScoped<UserService>(diContainer =>
                 new UserService(
                     diContainer.GetService<UserRepository>(),
+                    diContainer.GetService<IHttpContextAccessor>()
+                ));
+            services.AddScoped<RocketService>(diContainer =>
+                new RocketService(
+                    diContainer.GetService<RocketProfileRepository>(),
                     diContainer.GetService<IHttpContextAccessor>()
                 ));
 

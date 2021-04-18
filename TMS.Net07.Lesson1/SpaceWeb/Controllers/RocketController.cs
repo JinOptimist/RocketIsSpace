@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
 using SpaceWeb.Models.RocketModels;
+using SpaceWeb.Service;
 
 namespace SpaceWeb.Controllers
 {
@@ -13,6 +14,7 @@ namespace SpaceWeb.Controllers
         private OrderRepository _orderRepository;
         private IMapper _mapper;
         private AdditionRepository _additionRepository;
+        private RocketService _rocketService;
         public RocketController(RocketProfileRepository rocketProfileRepository,
             ComfortRepository comfortRepository, IMapper mapper, OrderRepository orderRepository,
         AdditionRepository additionRepository)
