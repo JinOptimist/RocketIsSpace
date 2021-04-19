@@ -119,7 +119,7 @@ namespace SpaceWeb.Controllers
             //}
 
             //Новый способ LINQ
-            var isUserUniq = _userRepository.Get(model.Login) == null;
+            var isUserUniq = _userRepository.GetByLogin(model.Login) == null;
             if (isUserUniq)
             {
                 var user = new User()

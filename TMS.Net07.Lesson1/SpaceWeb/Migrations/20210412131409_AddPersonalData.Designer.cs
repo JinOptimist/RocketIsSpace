@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SpaceWeb.EfStuff;
 
 namespace SpaceWeb.Migrations
 {
     [DbContext(typeof(SpaceDbContext))]
-    partial class SpaceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210412131409_AddPersonalData")]
+    partial class AddPersonalData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,7 +33,6 @@ namespace SpaceWeb.Migrations
 
                     b.Property<string>("WebSiteUrl")
                         .HasColumnType("nvarchar(max)");
-
 
                     b.HasKey("Id");
 
@@ -72,41 +73,6 @@ namespace SpaceWeb.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Clients");
-
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AdvImages");
-                });
-
-            modelBuilder.Entity("SpaceWeb.EfStuff.Model.BankAccount", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Amount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("BankAccountId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Currency")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long?>("OwnerId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OwnerId");
-
-                    b.ToTable("BankAccount");
-
                 });
 
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.Comfort", b =>
@@ -204,7 +170,6 @@ namespace SpaceWeb.Migrations
                     b.ToTable("FactoryHistories");
                 });
 
-
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.Order", b =>
                 {
                     b.Property<long>("Id")
@@ -244,7 +209,6 @@ namespace SpaceWeb.Migrations
                     b.ToTable("OrderLists");
                 });
 
-
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.Profile", b =>
                 {
                     b.Property<long>("Id")
@@ -273,18 +237,7 @@ namespace SpaceWeb.Migrations
                     b.Property<string>("SurName")
                         .HasColumnType("nvarchar(max)");
 
-
                     b.HasKey("Id");
-
-
-                    b.Property<long>("UserRef")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserRef")
-                        .IsUnique();
-
 
                     b.ToTable("UserProfile");
                 });
@@ -411,20 +364,11 @@ namespace SpaceWeb.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<long?>("ClientForeignKey")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<long?>("EmployeForeignKey")
                         .HasColumnType("bigint");
-
-                    b.Property<int>("Gender")
-                        .HasColumnType("int");
 
                     b.Property<string>("Login")
                         .HasColumnType("nvarchar(max)");
@@ -438,13 +382,7 @@ namespace SpaceWeb.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Phone")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PostAddress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Surname")
+                    b.Property<string>("SurName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -461,7 +399,6 @@ namespace SpaceWeb.Migrations
 
                     b.ToTable("Users");
                 });
-
 
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.Employe", b =>
                 {
@@ -494,26 +431,6 @@ namespace SpaceWeb.Migrations
                     b.Navigation("Employe");
 
                     b.Navigation("Order");
-
-            modelBuilder.Entity("SpaceWeb.EfStuff.Model.BankAccount", b =>
-                {
-                    b.HasOne("SpaceWeb.EfStuff.Model.User", "Owner")
-                        .WithMany("BankAccounts")
-                        .HasForeignKey("OwnerId");
-
-                    b.Navigation("Owner");
-                });
-
-            modelBuilder.Entity("SpaceWeb.EfStuff.Model.Profile", b =>
-                {
-                    b.HasOne("SpaceWeb.EfStuff.Model.User", "User")
-                        .WithOne("Profile")
-                        .HasForeignKey("SpaceWeb.EfStuff.Model.Profile", "UserRef")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-
                 });
 
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.Rocket", b =>
@@ -583,11 +500,7 @@ namespace SpaceWeb.Migrations
 
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.User", b =>
                 {
-                    b.Navigation("BankAccounts");
-
                     b.Navigation("MyRockets");
-
-                    b.Navigation("Profile");
 
                     b.Navigation("TestedRockets");
                 });

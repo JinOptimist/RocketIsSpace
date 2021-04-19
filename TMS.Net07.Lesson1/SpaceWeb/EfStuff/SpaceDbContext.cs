@@ -21,6 +21,11 @@ namespace SpaceWeb.EfStuff
         public DbSet<RocketProfile> RocketProfiles { get; set; }
         public DbSet<Comfort> Comforts { get; set; }
         public DbSet<RocketStage> RocketStages { get; set; }
+        public DbSet<Department> Departments { get; set; }
+        public DbSet<Employe> Employes { get; set; }
+        public DbSet<Client> Clients { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderList> OrderLists { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -36,6 +41,34 @@ namespace SpaceWeb.EfStuff
                 .HasOne(rocket => rocket.Qa)
                 .WithMany(user => user.TestedRockets);
 
+
+            modelBuilder.Entity<Employe>()
+                .HasOne(emp => emp.Department)
+                .WithMany(department => department.Employes);
+
+            modelBuilder.Entity<Order>()
+                .HasOne(order => order.Client)
+                .WithMany(client => client.Orders);
+
+            modelBuilder.Entity<OrderList>()
+                .HasOne(orderList => orderList.Employe)
+                .WithMany(employe => employe.OrderList);
+
+            modelBuilder.Entity<OrderList>()
+                .HasOne(orderList => orderList.Order)
+                .WithMany(order => order.OrderList);
+
+            modelBuilder.Entity<Client>()
+                .HasOne(client => client.User)
+                .WithOne(user => user.Client)
+                .HasForeignKey<User>(user => user.ClientForeignKey);
+
+            modelBuilder.Entity<Employe>()
+                .HasOne(employe => employe.User)
+                .WithOne(user => user.Employe)
+                .HasForeignKey<User>(user => user.EmployeForeignKey);
+
+
             modelBuilder.Entity<User>()
                 .HasMany(x => x.BankAccounts)
                 .WithOne(x => x.Owner);
@@ -44,6 +77,7 @@ namespace SpaceWeb.EfStuff
                 .HasOne(x => x.Profile)
                 .WithOne(x => x.User)
                 .HasForeignKey<Profile>(x => x.UserRef);
+
 
             base.OnModelCreating(modelBuilder);
         }

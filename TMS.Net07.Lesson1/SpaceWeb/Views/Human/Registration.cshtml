@@ -1,0 +1,49 @@
+﻿@{
+    Layout = "_LayoutHuman";
+
+    var genderOptions = new List<SelectListItem>();
+
+    var genders = Enum.GetValues(typeof(Gender));
+
+    for (int i = 0; i < genders.Length; i++)
+    {
+        var option = new SelectListItem();
+        option.Value = ((int)genders.GetValue(i)).ToString();
+        option.Text = genders.GetValue(i).ToString();
+        genderOptions.Add(option);
+    }
+}
+
+@model RegistrationViewModel
+
+<div class="login-block">
+    <div class="panel">
+        <form action="/Human/Registration" method="post">
+            <div class="element">
+                @Html.TextBoxFor(Person => Person.Login, new { @placeholder = "Your login" })
+            </div>
+            <div class="element">
+                @Html.TextBoxFor(Person => Person.Password, new { @placeholder = "Your password" })
+            </div>
+            <div class="element">
+                @Html.TextBoxFor(Person => Person.UserProfile.Name, new { @placeholder = "Your name" })
+            </div>
+            <div class="element">
+                @Html.TextBoxFor(Person => Person.UserProfile.SurName, new { @placeholder = "Your surname" })
+            </div>
+            <div class="element">
+                @Html.TextBoxFor(Person => Person.Age, new { @placeholder = "Your age" })
+            </div>
+            <div class="element">
+                @Html.TextBoxFor(Person => Person.UserProfile.BirthDate, new { @type = "date", @placeholder = "Your birthday"})
+            </div>
+
+            <div class="element">
+                @Html.DropDownList("Gender", genderOptions)
+            </div>
+            <div class="element">
+                <input type="submit" value="send" />
+            </div>
+        </form>
+    </div>
+</div>
