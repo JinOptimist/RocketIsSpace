@@ -9,7 +9,7 @@ namespace SpaceWeb.EfStuff.Model
     public class BankAccount : BaseModel
     {
         public string BankAccountId { get; set; }
-        public string Currency { get; set; }
+        public Currency Currency { get; set; }
         public int Amount { get; set; }
         public string Type { get; set; }
 

@@ -42,6 +42,7 @@ namespace SpaceWeb
                 {
                     config.Cookie.Name = "Smile";
                     config.LoginPath = "/User/Login";
+                    config.AccessDeniedPath = "/User/AccessDenied";
                 });
 
             services.AddScoped<UserRepository>(diContainer =>
