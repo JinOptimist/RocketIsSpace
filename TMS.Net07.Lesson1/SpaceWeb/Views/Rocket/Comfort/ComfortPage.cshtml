@@ -1,5 +1,5 @@
 @section Style{
-    <link rel="stylesheet" href="~/css/Rocket/ComfortStyle.css">
+    <link rel="stylesheet" href="~/css/Rocket/ComfortStyle.css?v=1">
 }
 @{
     Layout = "_RocketLayout";
@@ -71,19 +71,35 @@
                 </div>
                 <div class="right-input-form">
                     <div style="margin: 40px">
-                        @Html.TextBoxFor(x => x.KitchenSeatsCount, new { @placeholder = "0" })
+                        @Html.TextBoxFor(x => x.KitchenSeatsCount, new {
+                             @placeholder = "0",
+                             @class = "inputFields1",
+                             type = "text"
+                        })
                         @Html.ValidationMessageFor(x => x.KitchenSeatsCount)
                     </div>
                     <div style="margin: 40px">
-                        @Html.TextBoxFor(x => x.StorageCapacity, new { @placeholder = "0" })
+                        @Html.TextBoxFor(x => x.StorageCapacity, new {
+                       @placeholder = "0",
+                       @class = "inputFields1",
+                       type = "text"
+                   })
                         @Html.ValidationMessageFor(x => x.StorageCapacity)
                     </div>
                     <div style="margin: 40px">
-                        @Html.TextBoxFor(x => x.SleepingCapsulesCount, new { @placeholder = "0" })
+                        @Html.TextBoxFor(x => x.SleepingCapsulesCount, new {
+                       @placeholder = "0",
+                       @class = "inputFields1",
+                       type = "text"
+                   })
                         @Html.ValidationMessageFor(x => x.SleepingCapsulesCount)
                     </div>
                     <div style="margin: 40px">
-                        @Html.TextBoxFor(x => x.ToiletCount, new { @placeholder = "0" })
+                        @Html.TextBoxFor(x => x.ToiletCount, new {
+                       @placeholder = "0",
+                       @class = "inputFields1",
+                       type = "text"
+                   })
                         @Html.ValidationMessageFor(x => x.ToiletCount)
                     </div>
                 </div>

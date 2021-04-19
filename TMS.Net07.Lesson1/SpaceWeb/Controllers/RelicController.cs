@@ -53,7 +53,6 @@ namespace SpaceWeb.Controllers
             }
 
             var relic = _mapper.Map<Relic>(viewModel);
-
             _relicRepository.Save(relic);
             return RedirectToAction("Index");
         }

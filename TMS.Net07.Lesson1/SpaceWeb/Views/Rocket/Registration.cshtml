@@ -4,42 +4,74 @@
 }
 @section Style
 {
-    <link rel="stylesheet" href="~/css/Rocket/Registration.css">
+    <link rel="stylesheet" href="~/css/Rocket/Registration.css?v=4">
 }
 @section Script
 {
     <script src="~/js/Rocket/registration.js"></script>
 }
 
-<div class="registration" >
-    <div>Registration</div>
+<div class="registration">
+    <div class="registr">Registration</div>
+    <div class="none"></div>
     <form action="Registration" method="post">
-            <div class="name">
+        <div class="reg-field">
+            <div class="first-text">
+                <div style="margin-top: 45px">Name:</div>
+                <div style="margin-top: 49px">Date of birth:</div>
+                <div style="margin-top: 49px">Username:</div>
+                <div style="margin-top: 49px">Password:</div>
+            </div>
+
+            <div class="first-field">
                 <div>
-                    Name: @Html.TextBoxFor(model => model.Name)
+                    @Html.TextBoxFor(model => model.Name,new {
+                        style="margin-top: 30px", @class="inputFields1" , type="text" ,
+                        placeholder="Name"})
                 </div>
                 <div>
-                    Last name: @Html.TextBoxFor(model => model.LastName)
-                </div>
-            </div>
-            <div class="date-of-birth">
-                Date of birth: @Html.TextBoxFor(model => model.DateOfBirth, "{0:MM\\/dd\\/yyyy}")
-            </div>
-            <div class="registration-login">
-                <div class="user-name">
-                    Username:  @Html.TextBoxFor(model => model.UserName)
+                    @Html.TextBoxFor(model => model.BirthDate,new {
+                        style="margin-top: 23px; background: rgba(20, 20, 20, .2)",
+                        @class="inputFields1", type="date" , placeholder="Date of birth"})
                 </div>
                 <div>
-                    Email:  @Html.TextBoxFor(model => model.Email)
+                    @Html.TextBoxFor(model => model.UserName,new {
+                        style="margin-top: 23px", @class="inputFields1", 
+                        type="text" , placeholder="Username"})
                 </div>
-            </div>
-            <div class="password">
                 <div>
-                    Password:  @Html.TextBoxFor(model => model.Password)
+                    @Html.TextBoxFor(model => model.Password,new {
+                        style="margin-top: 23px", @class="inputFields1", 
+                        type="text" , placeholder="Password"})
                 </div>
+                @* <input style="margin-top: 30px" name="Name" class="inputFields1" type="text" placeholder="Name"/> *@
+                @* <input style="margin-top: 23px; background: rgba(20, 20, 20, .2)" name="DateOfBirth" class="inputFields1" type="date" placeholder="Date of birth"/> *@
+                @* <input style="margin-top: 23px" name="UserName" class="inputFields1" type="text" placeholder="Username"/> *@
+                @* <input style="margin-top: 23px" name="Password" class="inputFields1" type="text" placeholder="Password"/> *@
             </div>
-            <div class="submit">
-                <input type="submit">
+
+            <div class="first-text second-text">
+                <div style="margin-top: 45px">Last name:</div>
+                <div style="margin-top: 123px">Email:</div>
             </div>
+
+            <div class="second-field">
+                <div>
+                    @Html.TextBoxFor(model => model.Surname,new {
+                        style="margin-top: 30px", @class="inputFields1", 
+                        type="text" , placeholder="Last name"})
+                </div>
+                <div>
+                    @Html.TextBoxFor(model => model.Email,new {
+                        style="margin-top: 95px", @class="inputFields1", 
+                        type="text" , placeholder="Email"})
+                </div>
+                @* <input style="margin-top: 30px" name="LastName" class="inputFields1" type="text" placeholder="Last name"/> *@
+                @* <input style="margin-top: 95px" name="Email" class="inputFields1" type="text" placeholder="Email"/> *@
+            </div>
+        </div>
+        <div>
+            <input class="sub" type="submit" value="Send" />
+        </div>
     </form>
 </div>

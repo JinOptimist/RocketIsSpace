@@ -6,9 +6,8 @@
     Layout = "_RocketLayout";
 }
 
-<!DOCTYPE html>
-<html>
-<body>
+@model SpaceWeb.Models.RocketModels.OrderViewModel
+
     <div class = "vraper">
         <div class = "header">
             <div class= "shop"><p class = "text-header">Shop Rocket</p></div>
@@ -64,44 +63,47 @@
                 </div>
             </a> 
         </div>
-        <div class = "section-shop">
-            <div class= "shop"><p class = "text-header">Rockets</p></div>
-        </div>
-        <div class = "rocket-shop">
-            <div class="rocket">
-                <div class="name">
-                  <div class="view">
-                    <div class="current-name">Proton</div>
-                    <img src="/image/RocketImages/good-rocket.png">
-                  </div>
-                  <div class="icon add">
-                    <span class="icon ok">Add</span>
-                  </div>
-                </div>
-              </div> 
-          <div class="rocket">
-            <div class="name">
-              <div class="view">
-                <div class="current-name">Proton</div>
-                <img src="/image/RocketImages/norm-rocket.jfif">
-              </div>
-              <div class="icon add">
-                <span class="icon ok">Add</span>
-              </div>
-            </div>
+    <div class = "section-shop">
+      <div class= "shop"><p class = "text-header">Rockets</p></div>
+    </div>
+    <div class="rocket-shop">
+      <div>
+        <a href="~/Rocket/AddNewItemAdmin"> Add New Item</a>
+      </div>
+      <div class="rocket">
+        <div class="name">
+          <div class="view">
+            <div class="current-name">Proton</div>
+            <img src="/image/RocketImages/good-rocket.png">
           </div>
-          <div class="rocket">
-            <div class="name">
-              <div class="view">
-                <div class="current-name">Proton</div>
-                <img src="/image/RocketImages/bad-rocket.png">
-              </div>
-              <div class="icon add">
-                <span class="icon ok">Add</span>
-              </div>
-            </div>
+          <div class="icon add">
+            <span class="icon ok">Add</span>
           </div>
         </div>
+      </div>
+      <div class="rocket">
+        <div class="name">
+          <div class="view">
+            <div class="current-name">Proton</div>
+            <img src="/image/RocketImages/norm-rocket.jfif">
+          </div>
+          <div class="icon add">
+            <span class="icon ok">Add</span>
+          </div>
+        </div>
+      </div>
+      <div class="rocket">
+        <div class="name">
+          <div class="view">
+            <div class="current-name">Proton</div>
+            <img src="/image/RocketImages/bad-rocket.png">
+          </div>
+          <div class="icon add">
+            <span class="icon ok">Add</span>
+          </div>
+        </div>
+      </div>
+    </div>
         <div class = "section-shop">
             <div class= "shop"><p class = "text-header">Fuel tank</p></div>
         </div>
@@ -316,5 +318,3 @@
         </div>
       </div>
     </div></div>
-</body>
-</html>
