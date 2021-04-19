@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SpaceWeb.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ namespace SpaceWeb.EfStuff.Model
     {
         public string Name { get; set; }
 
-        public string SurName { get; set; }
+        public string Surname { get; set; }
 
         public string Login { get; set; }
 
@@ -18,6 +19,8 @@ namespace SpaceWeb.EfStuff.Model
         public int Age { get; set; }
 
         public DateTime BirthDate { get; set; }
+
+        public Gender Gender { get; set; }
 
         public virtual List<Rocket> MyRockets { get; set; }
 

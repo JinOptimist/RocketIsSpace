@@ -19,5 +19,7 @@ namespace SpaceWeb.Models
         public string Surname { get; set; }
 
         public int Age { get; set; }
+
+        public UserProfileViewModel UserProfile { get; set; }
     }
 }

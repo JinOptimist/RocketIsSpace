@@ -70,13 +70,19 @@ namespace SpaceWeb
             configExpression.CreateMap<User, UserProfileViewModel>()
                 .ForMember(nameof(UserProfileViewModel.FullName),
                     config => config
-                        .MapFrom(dbModel => $"{dbModel.Name}, {dbModel.SurName} Mr"));
+                        .MapFrom(dbModel => $"{dbModel.Name}, {dbModel.Surname} Mr"));
 
             //configExpression.CreateMap<Relic, RelicViewModel>();
             //configExpression.CreateMap<RelicViewModel, Relic>();
             MapBoth<Relic, RelicViewModel>(configExpression);
 
             MapBoth<AdvImage, AdvImageViewModel>(configExpression);
+
+            MapBoth<User, UserProfileViewModel>(configExpression);
+
+            MapBoth<User,RegistrationViewModel>(configExpression);
+
+            MapBoth<Department, DepartmentViewModel>(configExpression);
 
             var mapperConfiguration = new MapperConfiguration(configExpression);
             var mapper = new Mapper(mapperConfiguration);

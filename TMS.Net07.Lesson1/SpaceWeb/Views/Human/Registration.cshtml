@@ -26,13 +26,16 @@
                 @Html.TextBoxFor(Person => Person.Password, new { @placeholder = "Your password" })
             </div>
             <div class="element">
-                @Html.TextBoxFor(Person => Person.Name, new { @placeholder = "Your name" })
+                @Html.TextBoxFor(Person => Person.UserProfile.Name, new { @placeholder = "Your name" })
             </div>
             <div class="element">
-                @Html.TextBoxFor(Person => Person.Surname, new { @placeholder = "Your surname" })
+                @Html.TextBoxFor(Person => Person.UserProfile.SurName, new { @placeholder = "Your surname" })
             </div>
             <div class="element">
                 @Html.TextBoxFor(Person => Person.Age, new { @placeholder = "Your age" })
+            </div>
+            <div class="element">
+                @Html.TextBoxFor(Person => Person.UserProfile.BirthDate, new { @type = "date", @placeholder = "Your birthday"})
             </div>
 
             <div class="element">
