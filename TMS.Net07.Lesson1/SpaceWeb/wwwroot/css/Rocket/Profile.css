@@ -55,7 +55,8 @@
     justify-content: center;
     align-items: center;
     font-family: "Hairline";
-    height: 50px;
+    height: 0px;
+    overflow: hidden;
 }
 
 .change-photo {
