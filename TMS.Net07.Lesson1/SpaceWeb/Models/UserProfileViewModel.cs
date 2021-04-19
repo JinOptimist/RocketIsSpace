@@ -1,6 +1,7 @@
 ﻿using SpaceWeb.Models.CustomValidationAttribute;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ namespace SpaceWeb.Models
     {
         [Required(ErrorMessage = "Не указано имя пользователя")]
         [StringLength(15, MinimumLength = 3, ErrorMessage = "Недопустимая длина имени")]
+        [DisplayName("Имя")]
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Не указано фамилия пользователя")]

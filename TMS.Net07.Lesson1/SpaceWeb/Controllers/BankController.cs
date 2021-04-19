@@ -19,11 +19,15 @@ namespace SpaceWeb.Controllers
     {
         private BankAccountRepository _bankAccountRepository;
         private ProfileRepository _profileRepository;
+        private UserRepository _userRepository;
 
-        public BankController(BankAccountRepository bankAccountRepository, ProfileRepository profileRepository)
+        public BankController(BankAccountRepository bankAccountRepository, 
+            ProfileRepository profileRepository, 
+            UserRepository userRepository)
         {
             _bankAccountRepository = bankAccountRepository;
             _profileRepository = profileRepository;
+            _userRepository = userRepository;
         }
 
         public IActionResult Bank()
@@ -139,15 +143,16 @@ namespace SpaceWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult Account(BankAccountViewModel model)
+        public IActionResult Account(BankAccountViewModel viewModel)
         {
-            if ( model.Currency == "BYN")
+            
+            if ( viewModel.Currency == "BYN")
             {
-                model.Type = "Счет";
+                viewModel.Type = "Счет";
             }
             else
             {
-                model.Type = "Валютный счет";
+                viewModel.Type = "Валютный счет";
             }
 
             StringBuilder sb = new StringBuilder();
@@ -158,17 +163,22 @@ namespace SpaceWeb.Controllers
             {
                 sb.Append(rnd.Next(0, 9));
             }
-            model.BankAccountId = sb.ToString();
+            viewModel.BankAccountId = sb.ToString();
 
-            var modelDB = new BankAccount
+            var bankAccountDB = new BankAccount
             {
-                Amount = model.Amount,
-                BankAccountId = model.BankAccountId,
-                Currency = model.Currency,
-                Type = model.Type
+                Amount = viewModel.Amount,
+                BankAccountId = viewModel.BankAccountId,
+                Currency = viewModel.Currency,
+                Type = viewModel.Type,
             };
 
-            _bankAccountRepository.Save(modelDB);
+            bankAccountDB.Owner = _userRepository.Get(viewModel.OwnerId);
+            _bankAccountRepository.Save(bankAccountDB);
+
+            //user.BankAccounts.Add(bankAccountDB);
+            //_userRepository.Save(user);
+
 
             var modelNew = _bankAccountRepository
                 .GetAll()

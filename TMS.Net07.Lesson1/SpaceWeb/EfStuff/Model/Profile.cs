@@ -16,7 +16,9 @@ namespace SpaceWeb.EfStuff.Model
 
         public string PostAddress { get; set; }
 
-
+        public virtual User User { get; set; }
+        public virtual long UserRef { get; set; }
+        
 
     }
 }

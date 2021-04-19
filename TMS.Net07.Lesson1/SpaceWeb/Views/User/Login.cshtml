@@ -1,7 +1,8 @@
 ﻿@model RegistrationViewModel
 <form action="/User/login" method="post">
     <div>
-        Login: @Html.TextBoxFor(x => x.Login)
+        @Html.DisplayNameFor(x => x.Login)
+        : @Html.TextBoxFor(x => x.Login)
         @Html.ValidationMessageFor(x => x.Login)
     </div>
 
@@ -9,12 +10,12 @@
         Password: @Html.TextBoxFor(x => x.Password)
         @Html.ValidationMessageFor(x => x.Password)
         last name: @Html.TextBoxFor(x => x.Password,
-new
- {
-     @type = "password",
-    @class = "nice-input",
-    @placeholder = "Password"
- })
+            new
+            {
+                @type = "password",
+                @class = "nice-input",
+                @placeholder = "Password"
+            })
     </div>
     @* <div> *@
     @*     Age: @Html.TextBoxFor(x => x.Age) *@
