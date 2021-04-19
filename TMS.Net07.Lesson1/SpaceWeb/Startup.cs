@@ -24,7 +24,6 @@ namespace SpaceWeb
     public class Startup
     {
         public const string AuthMethod = "FunCookie";
-        public const string RocketAuthMethod = "RocketCookie";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -42,15 +41,8 @@ namespace SpaceWeb
                 .AddCookie(AuthMethod, config =>
                 {
                     config.Cookie.Name = "Smile";
-                    config.LoginPath = "/User/Login";
-                    config.AccessDeniedPath = "/User/AccessDenied";
-                });
-            
-            services.AddAuthentication(RocketAuthMethod)
-                .AddCookie(RocketAuthMethod, config =>
-                {
-                    config.Cookie.Name = "Rocket";
                     config.LoginPath = "/Rocket/Login";
+                    config.AccessDeniedPath = "/User/AccessDenied";
                 });
 
             services.AddScoped<UserRepository>(diContainer =>
@@ -76,9 +68,6 @@ namespace SpaceWeb
             services.AddScoped<RocketStageRepository>(diContainer =>
                 new RocketStageRepository(diContainer.GetService<SpaceDbContext>()));
 
-            services.AddScoped<RocketProfileRepository>(diContainer =>
-                new RocketProfileRepository(diContainer.GetService<SpaceDbContext>()));
-
             services.AddScoped<UserService>(diContainer =>
                 new UserService(
                     diContainer.GetService<UserRepository>(),
@@ -86,7 +75,7 @@ namespace SpaceWeb
                 ));
             services.AddScoped<RocketService>(diContainer =>
                 new RocketService(
-                    diContainer.GetService<RocketProfileRepository>(),
+                    diContainer.GetService<UserRepository>(),
                     diContainer.GetService<IHttpContextAccessor>()
                 ));
 
@@ -122,13 +111,13 @@ namespace SpaceWeb
 
             MapBoth<AdvImage, AdvImageViewModel>(configExpression);
             
-            MapBoth<RocketProfile,RocketRegistrationViewModel>(configExpression);
+            MapBoth<User,RocketRegistrationViewModel>(configExpression);
             
             MapBoth<Order,OrderViewModel>(configExpression);
 
             MapBoth<BankAccount, BankAccountViewModel>(configExpression);
             
-            MapBoth<RocketProfile,RocketProfileViewModel>(configExpression);
+            MapBoth<User,RocketProfileViewModel>(configExpression);
 
             MapBoth<Comfort, ComfortFormViewModel>(configExpression);
             

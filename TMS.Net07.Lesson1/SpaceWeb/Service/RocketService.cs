@@ -8,16 +8,16 @@ namespace SpaceWeb.Service
     public class RocketService
     {
         private IHttpContextAccessor _contextAccessor;
-        private RocketProfileRepository _rocketRepository;
+        private UserRepository _userRepository;
 
-        public RocketService(RocketProfileRepository rocketRepository, 
+        public RocketService(UserRepository userRepository, 
             IHttpContextAccessor contextAccessor)
         {
-            _rocketRepository = rocketRepository;
+            _userRepository = userRepository;
             _contextAccessor = contextAccessor;
         }
 
-        public RocketProfile GetCurrent()
+        public User GetCurrent()
         {
             var idStr = _contextAccessor.HttpContext.User
                 .Claims.SingleOrDefault(x => x.Type == "Id")
@@ -28,7 +28,7 @@ namespace SpaceWeb.Service
             }
 
             var id = long.Parse(idStr);
-            return _rocketRepository.Get(id);
+            return _userRepository.Get(id);
         }
     }
 }

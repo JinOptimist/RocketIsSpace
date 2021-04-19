@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
-using SpaceWeb.Models;
 using SpaceWeb.Models.RocketModels;
 using SpaceWeb.Service;
 
@@ -17,7 +15,7 @@ namespace SpaceWeb.Controllers
 {
     public class RocketController : Controller
     {
-        private RocketProfileRepository _rocketProfileRepository;
+        private UserRepository _userRepository;
         private ComfortRepository _comfortRepository;
         private UserService _userService;
         private OrderRepository _orderRepository;
@@ -25,12 +23,12 @@ namespace SpaceWeb.Controllers
         private AdditionRepository _additionRepository;
         private ShopRocketRepository _shopRocketRepository;
         private RocketService _rocketService;
-        public RocketController(RocketProfileRepository rocketProfileRepository,
+        public RocketController(UserRepository userRepository,
             ComfortRepository comfortRepository, IMapper mapper, OrderRepository orderRepository,
         AdditionRepository additionRepository, RocketService rocketService, ShopRocketRepository shopRocketRepository,
         UserService userService)
         {
-            _rocketProfileRepository = rocketProfileRepository;
+            _userRepository = userRepository;
             _comfortRepository = comfortRepository;
             _mapper = mapper;
             _additionRepository = additionRepository;
@@ -87,7 +85,7 @@ namespace SpaceWeb.Controllers
                 return View(model);
             }
 
-            var user = _rocketProfileRepository.GetByName(model.UserName);
+            var user = _userRepository.Get(model.UserName);
 
             if (user == null)
             {
@@ -103,8 +101,8 @@ namespace SpaceWeb.Controllers
             claims.Add(new Claim("Id", user.Id.ToString()));
             claims.Add(new Claim(
                 ClaimTypes.AuthenticationMethod,
-                Startup.RocketAuthMethod));
-            var claimsIdentity = new ClaimsIdentity(claims, Startup.RocketAuthMethod);
+                Startup.AuthMethod));
+            var claimsIdentity = new ClaimsIdentity(claims, Startup.AuthMethod);
             var principal = new ClaimsPrincipal(claimsIdentity);
             await HttpContext.SignInAsync(principal);
 
@@ -137,11 +135,11 @@ namespace SpaceWeb.Controllers
                 return View(model);
             }
 
-            var isUserUniq = _rocketProfileRepository.GetByName(model.UserName) == null;
+            var isUserUniq = _userRepository.Get(model.UserName) == null;
             if (isUserUniq)
             {
-                var user = _mapper.Map<RocketProfile>(model);
-                _rocketProfileRepository.Save(user);
+                var user = _mapper.Map<User>(model);
+                _userRepository.Save(user);
             }
 
             return View(model);
@@ -167,7 +165,7 @@ namespace SpaceWeb.Controllers
         {
             var user = _rocketService.GetCurrent();
             user.Name = viewModel.NewName;
-            _rocketProfileRepository.Save(user);
+            _userRepository.Save(user);
             return RedirectToAction("Profile","Rocket");
         }
         
