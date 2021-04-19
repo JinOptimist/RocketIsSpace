@@ -178,7 +178,7 @@ namespace SpaceWeb.Controllers
             viewModel.BankAccountId = sb.ToString();
 
             var modelDB =
-                _mapper.Map<BankAccount>(model);
+                _mapper.Map<BankAccount>(viewModel);
 
             //new BankAccount
             //{
