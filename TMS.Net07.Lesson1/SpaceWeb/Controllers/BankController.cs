@@ -156,7 +156,7 @@ namespace SpaceWeb.Controllers
         [HttpPost]
         public IActionResult Account(BankAccountViewModel viewModel)
         {
-            if (viewModel.Currency.ToString() == "BYN")
+            if ( viewModel.Currency == Currency.BYN)
             {
                 viewModel.Type = "Счет";
             }
