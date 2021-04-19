@@ -1,3 +1,5 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using SpaceWeb.Controllers.CustomAttribute;
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -17,6 +19,7 @@ namespace SpaceWeb.Controllers
     {
         private RocketProfileRepository _rocketProfileRepository;
         private ComfortRepository _comfortRepository;
+        private UserService _userService;
         private OrderRepository _orderRepository;
         private IMapper _mapper;
         private AdditionRepository _additionRepository;
@@ -24,7 +27,8 @@ namespace SpaceWeb.Controllers
         private RocketService _rocketService;
         public RocketController(RocketProfileRepository rocketProfileRepository,
             ComfortRepository comfortRepository, IMapper mapper, OrderRepository orderRepository,
-        AdditionRepository additionRepository, RocketService rocketService, ShopRocketRepository shopRocketRepository)
+        AdditionRepository additionRepository, RocketService rocketService, ShopRocketRepository shopRocketRepository,
+        UserService userService)
         {
             _rocketProfileRepository = rocketProfileRepository;
             _comfortRepository = comfortRepository;
@@ -33,6 +37,7 @@ namespace SpaceWeb.Controllers
             _rocketService = rocketService;
             _orderRepository = orderRepository;
             _shopRocketRepository = shopRocketRepository;
+            _userService = userService;
         }
         
         [Authorize]
@@ -45,6 +50,7 @@ namespace SpaceWeb.Controllers
         
         [Authorize]
         [HttpGet]
+        [IsEngineer]
         public IActionResult ComfortPage()
         {
             var model = new ComfortFormViewModel();
@@ -52,6 +58,7 @@ namespace SpaceWeb.Controllers
         }
         [Authorize]
         [HttpPost]
+        [IsEngineer]
         public IActionResult ComfortPage(ComfortFormViewModel viewModel)
         {
             if (!ModelState.IsValid)
