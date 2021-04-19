@@ -33,7 +33,6 @@ namespace SpaceWeb.Controllers
             _mapper = mapper;
             _userService = userService;
         }
-
         public IActionResult Bank()
         {
             var input = new RegistrationViewModel();
@@ -108,16 +107,12 @@ namespace SpaceWeb.Controllers
                 PhoneNumber = model.PhoneNumber,
                 PostAddress = model.PostAddress,
                 IdentificationPassport = model.IdentificationPassport
-                
-                
-
             };
+
             var user = _userService.GetCurrent();
             userprofile.User = user;
             userprofile.UserRef = user.Id;
                
-
-           
             _profileRepository.Save(userprofile);
 
             return RedirectToAction("UserProfileDataOutput");
@@ -140,16 +135,9 @@ namespace SpaceWeb.Controllers
             var model = _bankAccountRepository
                 .GetAll()
                 .Select(dbModel =>
-                //куда                откуда
+                            //куда                откуда
                 _mapper.Map<BankAccountViewModel>(dbModel)
                 )
-                //new BankAccountViewModel
-                //{
-                //    BankAccountId = dbModel.BankAccountId,
-                //    Amount = dbModel.Amount,
-                //    Currency = dbModel.Currency,
-                //    Type = dbModel.Type
-                //})
                 .ToList();
 
             return View(model);
@@ -178,22 +166,10 @@ namespace SpaceWeb.Controllers
             viewModel.BankAccountId = sb.ToString();
 
             var modelDB =
-                _mapper.Map<BankAccount>(model);
-
-            //new BankAccount
-            //{
-            //    Amount = model.Amount,
-            //    BankAccountId = model.BankAccountId,
-            //    Currency = model.Currency,
-            //    Type = model.Type
-            //};
+                _mapper.Map<BankAccount>(viewModel);
 
             modelDB.Owner = _userRepository.Get(viewModel.OwnerId);
             _bankAccountRepository.Save(modelDB);
-
-            //user.BankAccounts.Add(bankAccountDB);
-            //_userRepository.Save(user);
-
 
             var modelNew = _bankAccountRepository
                 .GetAll()
@@ -201,13 +177,6 @@ namespace SpaceWeb.Controllers
                             //куда                 откуда
                 _mapper.Map<BankAccountViewModel>(dbModel)
                 )
-                //new BankAccountViewModel
-                //{
-                //    BankAccountId = dbModel.BankAccountId,
-                //    Amount = dbModel.Amount,
-                //    Currency = dbModel.Currency,
-                //    Type = dbModel.Type
-                //})
                 .ToList();
             return View(modelNew);
         }

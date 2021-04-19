@@ -12,6 +12,7 @@ namespace SpaceWeb.EfStuff.Repositories
             base(spaceDbContext)
         {
         }
+
         public BankAccount Get(string BankAccountID)
         {
             return _dbSet.SingleOrDefault(x => x.BankAccountId == BankAccountID);
@@ -19,14 +20,8 @@ namespace SpaceWeb.EfStuff.Repositories
 
         public void Remove(string id)
         {
-            if (model.Id > 0) {
-                _spaceDbContext.BankAccount.Update(model);
-            }
-            else
-            {
-                _spaceDbContext.BankAccount.Add(model);
-            }
-            _spaceDbContext.SaveChanges();
+            var model = Get(id);
+            Remove(model);
         }
     }
 }
