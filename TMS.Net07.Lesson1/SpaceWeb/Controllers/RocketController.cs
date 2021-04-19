@@ -228,7 +228,8 @@ namespace SpaceWeb.Controllers
         [HttpPost]
         public IActionResult AddNewItemAdmin(AdminAddRocketViewModel model)
         {
-            var rocket = 
+            var rocket = _mapper.Map<AddShopRocket>(model);
+            _shopRocketRepository.Save(rocket);
             return View("OriginRocket/AdminAddRocket");
         }
         
