@@ -11,6 +11,7 @@ using SpaceWeb.EfStuff;
 using AutoMapper;
 using Profile = SpaceWeb.EfStuff.Model.Profile;
 using SpaceWeb.Service;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SpaceWeb.Controllers
 {
@@ -33,7 +34,6 @@ namespace SpaceWeb.Controllers
             _mapper = mapper;
             _userService = userService;
         }
-
         public IActionResult Bank()
         {
             var input = new RegistrationViewModel();
@@ -108,16 +108,12 @@ namespace SpaceWeb.Controllers
                 PhoneNumber = model.PhoneNumber,
                 PostAddress = model.PostAddress,
                 IdentificationPassport = model.IdentificationPassport
-                
-                
-
             };
+
             var user = _userService.GetCurrent();
             userprofile.User = user;
             userprofile.UserRef = user.Id;
                
-
-           
             _profileRepository.Save(userprofile);
 
             return RedirectToAction("UserProfileDataOutput");
@@ -134,31 +130,33 @@ namespace SpaceWeb.Controllers
             return View(profileDateOutput);
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult Account()
         {
-            var model = _bankAccountRepository
-                .GetAll()
-                .Select(dbModel =>
+            var user = _userService.GetCurrent();
+            var modelNew = user.BankAccounts.Select(dbModel =>
                 //куда                откуда
                 _mapper.Map<BankAccountViewModel>(dbModel)
                 )
-                //new BankAccountViewModel
-                //{
-                //    BankAccountId = dbModel.BankAccountId,
-                //    Amount = dbModel.Amount,
-                //    Currency = dbModel.Currency,
-                //    Type = dbModel.Type
-                //})
                 .ToList();
 
-            return View(model);
+            //var model = _bankAccountRepository
+            //    .GetAll()
+            //    .Select(dbModel =>
+            //                //куда                откуда
+            //    _mapper.Map<BankAccountViewModel>(dbModel)
+            //    )
+            //    .ToList();
+
+            return View(modelNew);
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Account(BankAccountViewModel viewModel)
         {
-            if ( viewModel.Currency == "BYN")
+            if (viewModel.Currency.ToString() == "BYN")
             {
                 viewModel.Type = "Счет";
             }
@@ -180,35 +178,17 @@ namespace SpaceWeb.Controllers
             var modelDB =
                 _mapper.Map<BankAccount>(viewModel);
 
-            //new BankAccount
-            //{
-            //    Amount = model.Amount,
-            //    BankAccountId = model.BankAccountId,
-            //    Currency = model.Currency,
-            //    Type = model.Type
-            //};
+            var user = _userService.GetCurrent();
 
-            modelDB.Owner = _userRepository.Get(viewModel.OwnerId);
+            modelDB.Owner = user;
             _bankAccountRepository.Save(modelDB);
 
-            //user.BankAccounts.Add(bankAccountDB);
-            //_userRepository.Save(user);
-
-
-            var modelNew = _bankAccountRepository
-                .GetAll()
-                .Select(dbModel =>
-                            //куда                 откуда
+            var modelNew = user.BankAccounts.Select(dbModel =>
+                            //куда                откуда
                 _mapper.Map<BankAccountViewModel>(dbModel)
                 )
-                //new BankAccountViewModel
-                //{
-                //    BankAccountId = dbModel.BankAccountId,
-                //    Amount = dbModel.Amount,
-                //    Currency = dbModel.Currency,
-                //    Type = dbModel.Type
-                //})
                 .ToList();
+
             return View(modelNew);
         }
 
