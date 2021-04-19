@@ -272,9 +272,6 @@ namespace SpaceWeb.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<int>("JobType")
-                        .HasColumnType("int");
-
                     b.Property<long?>("MyFavouriteRocketId")
                         .HasColumnType("bigint");
 
