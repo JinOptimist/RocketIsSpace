@@ -17,15 +17,17 @@
     <div class="header">
         <div></div>
         <span class="header-text">Ракеты для каждого!</span>
-        <div class="login-block">
-            <div>
-                <input class="user-login" type="text" placeholder="login" />
+        <form action="/User/Login" method="post">
+            <div class="login-block">
+                <div>
+                    <input name="@nameof(RegistrationViewModel.Login)" class="user-login" type="text" placeholder="login" />
+                </div>
+                <div>
+                    <input name="@nameof(RegistrationViewModel.Password)" type="text" placeholder="password" />
+                    <input class="login" type="submit" value="Войти" />
+                </div>
             </div>
-            <div>
-                <input type="text" placeholder="password" />
-                <input class="login" type="button" value="Войти" />
-            </div>
-        </div>
+        </form>
     </div>
     <div class="center-block">
         <div class="left-menu">
@@ -55,6 +57,7 @@
                         <span class="text">Регистрация</span>
                     </div>
                 </a>
+
                 <a href="/User/Login">
                     <div class="link icon help">
                         <span class="text">Логин</span>
@@ -65,6 +68,25 @@
                         <span class="text">Human</span>
                     </div>
                 </a>
+
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a href="/User/Logout">
+                        <div class="link icon help">
+                            <span class="text">Logout</span>
+                        </div>
+                    </a>
+                }
+                else
+                {
+                    <a href="/User/Login">
+                        <div class="link icon help">
+                            <span class="text">Логин</span>
+                        </div>
+                    </a>
+                }
+
+
                 <div>
                     <div>
                         <label>

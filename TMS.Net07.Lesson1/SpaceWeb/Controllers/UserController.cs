@@ -1,12 +1,16 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SpaceWeb.EfStuff;
 using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
 using SpaceWeb.Models;
+using SpaceWeb.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -16,45 +20,30 @@ namespace SpaceWeb.Controllers
     {
         private UserRepository _userRepository;
         private IMapper _mapper;
+        private UserService _userService;
 
         public static int Counter = 0;
 
-        public UserController(UserRepository userRepository, IMapper mapper)
+        public UserController(UserRepository userRepository, IMapper mapper,
+            UserService userService)
         {
             _userRepository = userRepository;
             _mapper = mapper;
+            _userService = userService;
         }
 
+        [Authorize]
         public IActionResult Profile()
         {
-            var user = new User();
+            var user = _userService.GetCurrent();
+            //user.BankAccounts;
+            var viewModel = _mapper.Map<ProfileViewModel>(user);
+            var bankViewModels = user
+                .BankAccounts
+                .Select(x => _mapper.Map<BankAccountViewModel>(x)).ToList();
+            viewModel.MyAccounts = bankViewModels;
 
-            var userViewModel = _mapper.Map<UserProfileViewModel>(user);
-
-
-
-
-
-            var model = new List<RocketPreviewViewModel>();
-
-            model.Add(new RocketPreviewViewModel()
-            {
-                Name = "Союз",
-                Url = "/image/R1.jpeg"
-            });
-
-            model.Add(new RocketPreviewViewModel()
-            {
-                Name = "Протон",
-                Url = "/image/R2.jpg"
-            });
-
-            model.Add(new RocketPreviewViewModel()
-            {
-                Name = "Солют",
-                Url = "/image/R3.jpg"
-            });
-            return View(model);
+            return View(viewModel);
         }
 
         [HttpGet]
@@ -65,7 +54,7 @@ namespace SpaceWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(RegistrationViewModel model)
+        public async Task<IActionResult> Login(RegistrationViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -89,6 +78,17 @@ namespace SpaceWeb.Controllers
                     "Не правильный праоль");
                 return View(model);
             }
+
+            //Готов логиниться
+
+            var claims = new List<Claim>();
+            claims.Add(new Claim("Id", user.Id.ToString()));
+            claims.Add(new Claim(
+                ClaimTypes.AuthenticationMethod,
+                Startup.AuthMethod));
+            var claimsIdentity = new ClaimsIdentity(claims, Startup.AuthMethod);
+            var principal = new ClaimsPrincipal(claimsIdentity);
+            await HttpContext.SignInAsync(principal);
 
             return RedirectToAction("Profile", "User");
         }
@@ -134,10 +134,43 @@ namespace SpaceWeb.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public IActionResult ChangePassword(long id)
+        {
+            var viewModel = new ChangePasswordViewModel() { Id = id };
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult ChangePassword(ChangePasswordViewModel viewModel)
+        {
+            var user = _userRepository.Get(viewModel.Id);
+            if (user.Password != viewModel.OldPassword)
+            {
+                ModelState.AddModelError(nameof(ChangePasswordViewModel.OldPassword),
+                    "Не правильный старый пароль");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+
+            user.Password = viewModel.NewPassword;
+            _userRepository.Save(user);
+            return View(viewModel);
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
+
         public JsonResult IsUserExist(string name)
         {
             Thread.Sleep(3000);
-            var isExistUserWithTheName = 
+            var isExistUserWithTheName =
                 _userRepository.Get(name) != null;
             return Json(isExistUserWithTheName);
         }

@@ -41,6 +41,7 @@ namespace SpaceWeb.EfStuff
                 .HasOne(rocket => rocket.Qa)
                 .WithMany(user => user.TestedRockets);
 
+
             modelBuilder.Entity<Employe>()
                 .HasOne(emp => emp.Department)
                 .WithMany(department => department.Employes);
@@ -68,7 +69,23 @@ namespace SpaceWeb.EfStuff
                 .HasForeignKey<User>(user => user.EmployeForeignKey);
 
 
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.BankAccounts)
+                .WithOne(x => x.Owner);
+
+            modelBuilder.Entity<User>()
+                .HasOne(x => x.Profile)
+                .WithOne(x => x.User)
+                .HasForeignKey<Profile>(x => x.UserRef);
+
+
             base.OnModelCreating(modelBuilder);
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseLazyLoadingProxies();
+            base.OnConfiguring(optionsBuilder);
         }
     }
 }

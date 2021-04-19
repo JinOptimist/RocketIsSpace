@@ -28,7 +28,13 @@ namespace SpaceWeb.EfStuff.Repositories
 
         public void Save (BankAccount model)
         {
-            _spaceDbContext.BankAccount.Add(model);
+            if (model.Id > 0) {
+                _spaceDbContext.BankAccount.Update(model);
+            }
+            else
+            {
+                _spaceDbContext.BankAccount.Add(model);
+            }
             _spaceDbContext.SaveChanges();
         }
 
