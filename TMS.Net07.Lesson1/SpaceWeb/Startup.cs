@@ -86,10 +86,10 @@ namespace SpaceWeb
         {
             var configExpression = new MapperConfigurationExpression();
 
-            configExpression.CreateMap<User, UserProfileViewModel>()
-                .ForMember(nameof(UserProfileViewModel.FullName),
-                    config => config
-                        .MapFrom(dbModel => $"{dbModel.Name}, {dbModel.SurName} Mr"));
+            //configExpression.CreateMap<User, UserProfileViewModel>()
+            //    .ForMember(nameof(UserProfileViewModel.FullName),
+            //        config => config
+            //            .MapFrom(dbModel => $"{dbModel.Name}, {dbModel.SurName} Mr"));
 
             configExpression.CreateMap<User, ProfileViewModel>();
 
@@ -97,7 +97,11 @@ namespace SpaceWeb
             //configExpression.CreateMap<RelicViewModel, Relic>();
            
             MapBoth<Relic, RelicViewModel>(configExpression);
+            MapBoth<User, UserProfileViewModel>(configExpression);
+
             MapBoth<Profile, UserProfileViewModel>(configExpression);
+
+            MapBoth<Profile, ProfileViewModel>(configExpression);
 
             MapBoth<AdvImage, AdvImageViewModel>(configExpression);
 

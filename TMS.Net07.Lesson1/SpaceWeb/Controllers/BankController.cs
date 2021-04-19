@@ -112,14 +112,14 @@ namespace SpaceWeb.Controllers
 
             var user = _userService.GetCurrent();
             userprofile.User = user;
-            userprofile.UserRef = user.Id;
+            //userprofile.UserRef = user.Id;
                
             _profileRepository.Save(userprofile);
 
-            return RedirectToAction("UserProfileDataOutput");
+            return RedirectToAction("Profile");
         }
 
-        public IActionResult UserProfileDataOutput()
+        public IActionResult Profile()
         {
             var profileDateOutput = _profileRepository
                 .GetAll()
