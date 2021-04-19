@@ -15,6 +15,8 @@ namespace SpaceWeb.EfStuff.Model
 
         public int Age { get; set; }
 
+        public JobType JobType { get; set; }
+
         public virtual List<Rocket> MyRockets { get; set; }
 
         public virtual List<Rocket> TestedRockets { get; set; } 
