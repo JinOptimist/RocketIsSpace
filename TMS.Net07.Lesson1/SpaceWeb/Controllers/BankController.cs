@@ -11,6 +11,7 @@ using SpaceWeb.EfStuff;
 using AutoMapper;
 using Profile = SpaceWeb.EfStuff.Model.Profile;
 using SpaceWeb.Service;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SpaceWeb.Controllers
 {
@@ -129,24 +130,33 @@ namespace SpaceWeb.Controllers
             return View(profileDateOutput);
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult Account()
         {
-            var model = _bankAccountRepository
-                .GetAll()
-                .Select(dbModel =>
-                            //куда                откуда
+            var user = _userService.GetCurrent();
+            var modelNew = user.BankAccounts.Select(dbModel =>
+                //куда                откуда
                 _mapper.Map<BankAccountViewModel>(dbModel)
                 )
                 .ToList();
 
-            return View(model);
+            //var model = _bankAccountRepository
+            //    .GetAll()
+            //    .Select(dbModel =>
+            //                //куда                откуда
+            //    _mapper.Map<BankAccountViewModel>(dbModel)
+            //    )
+            //    .ToList();
+
+            return View(modelNew);
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Account(BankAccountViewModel viewModel)
         {
-            if ( viewModel.Currency == "BYN")
+            if (viewModel.Currency.ToString() == "BYN")
             {
                 viewModel.Type = "Счет";
             }
@@ -168,16 +178,17 @@ namespace SpaceWeb.Controllers
             var modelDB =
                 _mapper.Map<BankAccount>(viewModel);
 
-            modelDB.Owner = _userRepository.Get(viewModel.OwnerId);
+            var user = _userService.GetCurrent();
+
+            modelDB.Owner = user;
             _bankAccountRepository.Save(modelDB);
 
-            var modelNew = _bankAccountRepository
-                .GetAll()
-                .Select(dbModel =>
-                            //куда                 откуда
+            var modelNew = user.BankAccounts.Select(dbModel =>
+                            //куда                откуда
                 _mapper.Map<BankAccountViewModel>(dbModel)
                 )
                 .ToList();
+
             return View(modelNew);
         }
 

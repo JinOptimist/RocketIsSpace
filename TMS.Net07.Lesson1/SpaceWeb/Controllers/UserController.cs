@@ -43,9 +43,7 @@ namespace SpaceWeb.Controllers
                 .Select(x => _mapper.Map<BankAccountViewModel>(x)).ToList();
             viewModel.MyAccounts = bankViewModels;
 
-
             return View(viewModel);
-
         }
 
         [HttpGet]
