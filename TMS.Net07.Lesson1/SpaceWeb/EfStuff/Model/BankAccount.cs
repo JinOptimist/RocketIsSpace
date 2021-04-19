@@ -12,7 +12,6 @@ namespace SpaceWeb.EfStuff.Model
         public string Currency { get; set; }
         public int Amount { get; set; }
         public string Type { get; set; }
-
         public virtual User Owner { get; set; }
     }
 }
