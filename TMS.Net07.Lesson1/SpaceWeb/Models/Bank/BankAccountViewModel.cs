@@ -9,7 +9,7 @@ namespace SpaceWeb.Models
     public class BankAccountViewModel
     {
         public string BankAccountId { get; set; }
-        public string Currency { get; set; }
+        public Currency Currency { get; set; }
         public string Type { get; set; }
         public int Amount { get; set; }
         public long OwnerId { get; set; }
