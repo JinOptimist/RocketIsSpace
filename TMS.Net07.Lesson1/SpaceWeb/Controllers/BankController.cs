@@ -132,37 +132,30 @@ namespace SpaceWeb.Controllers
 
         [Authorize]
         [HttpGet]
-        public IActionResult Account()
+        public IActionResult Cabinet()
         {
             var user = _userService.GetCurrent();
             var modelNew = user.BankAccounts.Select(dbModel =>
-                //куда                откуда
+                            //куда                откуда
                 _mapper.Map<BankAccountViewModel>(dbModel)
                 )
                 .ToList();
-
-            //var model = _bankAccountRepository
-            //    .GetAll()
-            //    .Select(dbModel =>
-            //                //куда                откуда
-            //    _mapper.Map<BankAccountViewModel>(dbModel)
-            //    )
-            //    .ToList();
-
             return View(modelNew);
         }
 
         [Authorize]
         [HttpPost]
-        public IActionResult Account(BankAccountViewModel viewModel)
+        public IActionResult Cabinet(BankAccountViewModel viewModel)
         {
             if ( viewModel.Currency == Currency.BYN)
             {
                 viewModel.Type = "Счет";
+                accountLifeTime = 5;
             }
             else
             {
                 viewModel.Type = "Валютный счет";
+                accountLifeTime = 3;
             }
 
             StringBuilder sb = new StringBuilder();
@@ -173,7 +166,11 @@ namespace SpaceWeb.Controllers
             {
                 sb.Append(rnd.Next(0, 9));
             }
-            viewModel.BankAccountId = sb.ToString();
+            viewModel.AccountNumber = sb.ToString();
+
+            viewModel.CreationDate = DateTime.Now;
+
+            viewModel.ExpireDate = viewModel.CreationDate.AddYears(accountLifeTime);
 
             var modelDB =
                 _mapper.Map<BankAccount>(viewModel);
@@ -190,14 +187,6 @@ namespace SpaceWeb.Controllers
                 .ToList();
 
             return View(modelNew);
-        }
-
-        [HttpPost]
-        public IActionResult RemoveAccount(BankAccountViewModel model)
-        {
-            _bankAccountRepository.Remove(model.BankAccountId);
-
-            return RedirectToAction("Account", "Bank");
         }
     }
 }
