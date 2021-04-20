@@ -1,10 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SpaceWeb.EfStuff.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 
 namespace SpaceWeb.EfStuff
 {
@@ -38,6 +33,11 @@ namespace SpaceWeb.EfStuff
                 .WithMany(user => user.TestedRockets);
 
             base.OnModelCreating(modelBuilder);
+        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseLazyLoadingProxies();
+            base.OnConfiguring(optionsBuilder);
         }
     }
 }

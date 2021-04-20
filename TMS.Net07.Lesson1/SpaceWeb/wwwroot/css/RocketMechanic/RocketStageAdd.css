@@ -55,6 +55,7 @@ input {
     font-weight: bold;
 }
 
-    .Section .Container .ProductCard Icon.Delete{
-        cursor: pointer;
+    .Section .Container .ProductCard .ProductDescription .Icons {
+        display:flex;
+        justify-content: center, space-around;
     }

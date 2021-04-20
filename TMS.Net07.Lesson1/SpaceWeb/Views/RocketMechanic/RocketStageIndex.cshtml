@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="~/css/reset.css">
     <link rel="stylesheet" href="~/css/RocketMechanic/RocketStageAdd.css">
     <link rel="stylesheet" href="~/css/RocketMechanic/RocketMechanicIcon.css">
+    <link rel="stylesheet" href="~/css/icon.css">
 }
 
 @section Script{
@@ -22,6 +23,7 @@
                 <div class="ProductImage">
                     <div><img src="@rocketStage.ImageUrl"></div>
                 </div>
+                <div><a href="/RocketMechanic/RocketStageAdd?id=@rocketStage.Id" class="icon ok"></a></div>
                 <div class="ProductDescription">
                     <div class="ProductModel">@rocketStage.RocketStageModel</div>
                     <div>
@@ -30,8 +32,8 @@
                         <div class="ProductFuelTanks">@rocketStage.FuelTanksModel</div>
                     </div>
                     <div class="Description">@rocketStage.RocketStageDescription</div>
+                    <div><a href="/RocketMechanic/RocketStageRemove?id=@rocketStage.Id" class="icon close"></a></div>
                 </div>
-                <a href="/RocketMechanic/RocketStageRemove&id=@rocketStage.Id" class="icon delete"></a>
             </div>
         }
     </div>

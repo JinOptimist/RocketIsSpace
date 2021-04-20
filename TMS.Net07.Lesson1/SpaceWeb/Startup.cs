@@ -1,3 +1,5 @@
+using AutoMapper;
+using AutoMapper.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -5,13 +7,16 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SpaceWeb.EfStuff;
+using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
+using SpaceWeb.Models;
+using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 
 namespace SpaceWeb
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(Microsoft.Extensions.Configuration.IConfiguration configuration)
         {
             Configuration = configuration;
         }
@@ -21,7 +26,7 @@ namespace SpaceWeb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-               var connectionString = "Server=(localdb)\\MSSQLLocalDB;Database=SpaceWeb;Trusted_Connection=True";
+               var connectionString = Configuration.GetValue<string>("connectionString");
             services.AddDbContext<SpaceDbContext>(x => x.UseSqlServer(connectionString));
 
             services.AddScoped<UserRepository>(diContainer => 
@@ -38,8 +43,28 @@ namespace SpaceWeb
 
             services.AddScoped<RocketProfileRepository>(diContainer =>
                 new RocketProfileRepository(diContainer.GetService<SpaceDbContext>()));
+
             
+            RegisterMapper(services);
+
             services.AddControllersWithViews();
+        }
+
+        private void RegisterMapper(IServiceCollection services)
+        {
+            var congfigExpression = new MapperConfigurationExpression();
+
+            MapBoth<RocketStage, RocketStageAddViewModel>(congfigExpression);
+
+            var mapperConfiguration = new MapperConfiguration(congfigExpression);
+            var mapper = new Mapper(mapperConfiguration);
+            services.AddScoped<IMapper>(c => mapper);
+        }
+
+        public void MapBoth<Type1, Type2>(MapperConfigurationExpression configurationExpression) 
+        {
+            configurationExpression.CreateMap<Type1, Type2>();
+            configurationExpression.CreateMap<Type2, Type1>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

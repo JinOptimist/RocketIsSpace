@@ -16,6 +16,7 @@
 <section class="Section">
     <div class="Container">
         <form action="/RocketMechanic/RocketStageAdd" method="post">
+            @Html.HiddenFor(x=>x.Id)
 
             <div class="ProductImage">
                 @Html.TextBoxFor(x => x.ImageUrl, new { @placeholder = "Image url" })
