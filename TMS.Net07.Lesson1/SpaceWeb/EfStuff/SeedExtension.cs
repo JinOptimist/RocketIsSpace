@@ -15,8 +15,7 @@ namespace SpaceWeb.EfStuff
         {
             using (var serviceScope = server.Services.CreateScope())
             {
-                SetDefaultUser(server.Services);
-
+                SetDefaultUser(serviceScope.ServiceProvider);
             }
 
             return server;
