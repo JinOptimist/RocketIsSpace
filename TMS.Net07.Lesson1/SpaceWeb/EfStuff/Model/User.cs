@@ -18,10 +18,6 @@ namespace SpaceWeb.EfStuff.Model
 
         public int Age { get; set; }
 
-        public DateTime BirthDate { get; set; }
-
-        public Gender Gender { get; set; }
-
         public virtual List<Rocket> MyRockets { get; set; }
 
         public virtual List<Rocket> TestedRockets { get; set; } 
@@ -34,12 +30,6 @@ namespace SpaceWeb.EfStuff.Model
 
         public long? EmployeForeignKey { get; set; }
         public virtual Employe Employe { get; set; }
-
-        public string Phone { get; set; }
-
-        public string Email { get; set; }
-
-        public string PostAddress { get; set; }
 
         public virtual List<BankAccount> BankAccounts { get; set; }
 

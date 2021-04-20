@@ -1,8 +1,14 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
 using SpaceWeb.Models;
+using SpaceWeb.Service;
+using System.Collections.Generic;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace SpaceWeb.Controllers
 {
@@ -11,25 +17,23 @@ namespace SpaceWeb.Controllers
         private UserRepository _userRepository;
         private IMapper _mapper;
         private DepartmentRepository _departmentRepository;
+        private UserService _userService;
 
-        public HumanController(UserRepository userRepository, IMapper mapper, DepartmentRepository departmentRepository)
+        public HumanController(UserRepository userRepository, IMapper mapper, DepartmentRepository departmentRepository, UserService userService)
         {
             _userRepository = userRepository;
             _mapper = mapper;
             _departmentRepository = departmentRepository;
+            _userService = userService;
         }
 
         [HttpGet]
-        public IActionResult Profile(long id)
+        [Authorize]
+        public IActionResult Profile()
         {
-            var user = _userRepository.Get(id);
-            var model = new UserProfileViewModel()
-            {
-                Name = user.Name,
-                SurName = user.Surname,
-                Age = user.Age
-            };
-            return View(model);
+            var user = _userService.GetCurrent();
+            var viewModel = _mapper.Map<UserProfileViewModel>(user);
+            return View(viewModel);
         }
 
         [HttpGet]
@@ -55,14 +59,7 @@ namespace SpaceWeb.Controllers
             var isUserUniq = _userRepository.GetByLogin(model.Login) == null;
             if (isUserUniq)
             {
-                var user = new User
-                {
-                    Login = model.Login,
-                    Password = model.Password,
-                    Name = model.UserProfile.Name,
-                    Surname = model.UserProfile.SurName,
-                    BirthDate = model.UserProfile.BirthDate
-                };
+                var user = _mapper.Map<User>(model);
                 _userRepository.Save(user);
             }
 
@@ -77,7 +74,7 @@ namespace SpaceWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(RegistrationViewModel model)
+        public async Task<IActionResult> Login(RegistrationViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -102,7 +99,16 @@ namespace SpaceWeb.Controllers
                 return View(model);
             }
 
-            return Redirect($"Profile?id={user.Id}");
+            var claims = new List<Claim>();
+            claims.Add(new Claim("Id", user.Id.ToString()));
+            claims.Add(new Claim(
+                ClaimTypes.AuthenticationMethod,
+                Startup.AuthMethod));
+            var claimsIdentity = new ClaimsIdentity(claims, Startup.AuthMethod);
+            var principal = new ClaimsPrincipal(claimsIdentity);
+            await HttpContext.SignInAsync(principal);
+
+            return Redirect($"Profile");
         }
 
         [HttpGet]

@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
+using Profile = SpaceWeb.EfStuff.Model.Profile;
 namespace SpaceWeb
 {
     public class Startup
@@ -101,7 +102,7 @@ namespace SpaceWeb
             MapBoth<AdvImage, AdvImageViewModel>(configExpression);
 
 
-            MapBoth<User, UserProfileViewModel>(configExpression);
+            MapBoth<Profile, UserProfileViewModel>(configExpression);
 
             MapBoth<User,RegistrationViewModel>(configExpression);
 
