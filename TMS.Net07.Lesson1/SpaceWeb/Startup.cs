@@ -12,10 +12,6 @@ using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
 using SpaceWeb.Models;
 using SpaceWeb.Service;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using SpaceWeb.Models.RocketModels;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 
@@ -132,23 +128,6 @@ namespace SpaceWeb
         {
             configExpression.CreateMap<Type1, Type2>();
             configExpression.CreateMap<Type2, Type1>();
-        }
-
-        private void RegisterMapper(IServiceCollection services)
-        {
-            var congfigExpression = new MapperConfigurationExpression();
-
-            MapBoth<RocketStage, RocketStageAddViewModel>(congfigExpression);
-
-            var mapperConfiguration = new MapperConfiguration(congfigExpression);
-            var mapper = new Mapper(mapperConfiguration);
-            services.AddScoped<IMapper>(c => mapper);
-        }
-
-        public void MapBoth<Type1, Type2>(MapperConfigurationExpression configurationExpression) 
-        {
-            configurationExpression.CreateMap<Type1, Type2>();
-            configurationExpression.CreateMap<Type2, Type1>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
