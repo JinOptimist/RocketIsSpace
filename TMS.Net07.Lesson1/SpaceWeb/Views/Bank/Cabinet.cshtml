@@ -31,7 +31,7 @@
         </form>
     </div>
 </div>
-<div class="popup remove hide">
+@*<div class="popup remove hide">
     <div class="cover"></div>
     <div class="popup-content">
         <form action ="RemoveAccount" method="POST">
@@ -44,21 +44,23 @@
             </p>
         </form>
     </div>
-</div>
+</div>*@
 <div class="container">
     <div class="menu top">
         <div class="top-menu-text">СЧЕТА</div>
         <div class="bank-account-list">
             @foreach (var BankAccount in Model)
             {
-                <div class="bank-account">
-                    <div class="type">@BankAccount.Type</div>
-                    <div>
-                        <span class="amount">@BankAccount.Amount </span>
-                        <span class="currency">@BankAccount.Currency</span>
+                <a href="/Account/Index?id=@BankAccount.Id">
+                    <div class="bank-account">
+                        <div class="type">@BankAccount.Type</div>
+                        <div>
+                            <span class="amount">@BankAccount.Amount </span>
+                            <span class="currency">@BankAccount.Currency</span>
+                        </div>
+                        <div class="account-number">@BankAccount.AccountNumber</div>
                     </div>
-                    <div class="account-number">@BankAccount.BankAccountId</div>
-                </div>
+                </a>
             }
             <div class="add-new background">
                 <div class="add-new content">Добавить счет</div>

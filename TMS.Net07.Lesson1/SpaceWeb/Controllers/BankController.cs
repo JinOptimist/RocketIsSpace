@@ -132,7 +132,7 @@ namespace SpaceWeb.Controllers
 
         [Authorize]
         [HttpGet]
-        public IActionResult Account()
+        public IActionResult Cabinet()
         {
             var user = _userService.GetCurrent();
             var modelNew = user.BankAccounts.Select(dbModel =>
@@ -140,21 +140,28 @@ namespace SpaceWeb.Controllers
                 _mapper.Map<BankAccountViewModel>(dbModel)
                 )
                 .ToList();
+<<<<<<< Updated upstream
 
+=======
+            
+>>>>>>> Stashed changes
             return View(modelNew);
         }
 
         [Authorize]
         [HttpPost]
-        public IActionResult Account(BankAccountViewModel viewModel)
+        public IActionResult Cabinet(BankAccountViewModel viewModel)
         {
+            int accountLifeTime; 
             if ( viewModel.Currency == Currency.BYN)
             {
                 viewModel.Type = "Счет";
+                accountLifeTime = 5;
             }
             else
             {
                 viewModel.Type = "Валютный счет";
+                accountLifeTime = 3;
             }
 
             StringBuilder sb = new StringBuilder();
@@ -165,7 +172,11 @@ namespace SpaceWeb.Controllers
             {
                 sb.Append(rnd.Next(0, 9));
             }
-            viewModel.BankAccountId = sb.ToString();
+            viewModel.AccountNumber = sb.ToString();
+
+            viewModel.CreationDate = DateTime.Now;
+
+            viewModel.ExpireDate = viewModel.CreationDate.AddYears(accountLifeTime);
 
             var modelDB =
                 _mapper.Map<BankAccount>(viewModel);
@@ -182,14 +193,6 @@ namespace SpaceWeb.Controllers
                 .ToList();
 
             return View(modelNew);
-        }
-
-        [HttpPost]
-        public IActionResult RemoveAccount(BankAccountViewModel model)
-        {
-            _bankAccountRepository.Remove(model.BankAccountId);
-
-            return RedirectToAction("Account", "Bank");
         }
     }
 }

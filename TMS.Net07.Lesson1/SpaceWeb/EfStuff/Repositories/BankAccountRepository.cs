@@ -13,15 +13,9 @@ namespace SpaceWeb.EfStuff.Repositories
         {
         }
 
-        public BankAccount Get(string BankAccountID)
+        public BankAccount Get(string AccountNumber)
         {
-            return _dbSet.SingleOrDefault(x => x.BankAccountId == BankAccountID);
-        }
-
-        public void Remove(string id)
-        {
-            var model = Get(id);
-            Remove(model);
+            return _dbSet.SingleOrDefault(x => x.AccountNumber == AccountNumber);
         }
     }
 }
