@@ -1,83 +1,120 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SpaceWeb.Controllers.CustomAttribute;
+﻿using System.Collections.Generic;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using AutoMapper;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
 using SpaceWeb.Models.RocketModels;
+using SpaceWeb.Service;
 
 namespace SpaceWeb.Controllers
 {
     public class RocketController : Controller
     {
-        private RocketProfileRepository _rocketProfileRepository;
+        private UserRepository _userRepository;
         private ComfortRepository _comfortRepository;
-        public RocketController(RocketProfileRepository rocketProfileRepository,ComfortRepository comfortRepository)
+        private UserService _userService;
+        private OrderRepository _orderRepository;
+        private IMapper _mapper;
+        private AdditionRepository _additionRepository;
+        private ShopRocketRepository _shopRocketRepository;
+        private RocketService _rocketService;
+        public RocketController(UserRepository userRepository,
+            ComfortRepository comfortRepository, IMapper mapper, OrderRepository orderRepository,
+        AdditionRepository additionRepository, RocketService rocketService, ShopRocketRepository shopRocketRepository,
+        UserService userService)
         {
-            _rocketProfileRepository = rocketProfileRepository;
+            _userRepository = userRepository;
             _comfortRepository = comfortRepository;
+            _mapper = mapper;
+            _additionRepository = additionRepository;
+            _rocketService = rocketService;
+            _orderRepository = orderRepository;
+            _shopRocketRepository = shopRocketRepository;
+            _userService = userService;
         }
-
+        
+        [Authorize]
+        public IActionResult Profile()
+        {
+            var user = _rocketService.GetCurrent();
+            var viewModel = _mapper.Map<RocketProfileViewModel>(user);
+            return View("Profile",viewModel);
+        }
+        
+        [Authorize]
         [HttpGet]
+        [IsEngineer]
         public IActionResult ComfortPage()
         {
             var model = new ComfortFormViewModel();
-            //return View(model);
             return View("Comfort/ComfortPage", model);
         }
-
+        [Authorize]
         [HttpPost]
+        [IsEngineer]
         public IActionResult ComfortPage(ComfortFormViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
-                return View("Comfort/ComfortPage",viewModel);
+                return View("Comfort/ComfortPage", viewModel);
             }
 
-            var comfort = new Comfort()
-            {
-                ToiletCount = viewModel.ToiletCount,
-                KitchenSeatsCount = viewModel.KitchenSeatsCount,
-                StorageCapacity = viewModel.StorageCapacity,
-                SleepingCapsulesCount = viewModel.SleepingCapsulesCount
-            };
+            var comfort = _mapper.Map<Comfort>(viewModel);
 
             _comfortRepository.Save(comfort);
             return RedirectToAction("ComfortPage");
         }
-        // [HttpGet]
-        // public IActionResult Login()
-        // {
-        //     var model = new RocketLoginViewModel();
-        //     return View(model);
-        // }
-        //
-        // [HttpPost]
-        // public IActionResult Login(RocketLoginViewModel model)
-        // {
-        //     if (!ModelState.IsValid)
-        //     {
-        //         return View(model);
-        //     }
-        //
-        //     var user = RocketUsers
-        //         .SingleOrDefault(x => x.UserName == model.UserName);
-        //
-        //     if (user == null)
-        //     {
-        //         ModelState.AddModelError(
-        //             nameof(RocketLoginViewModel.Login),
-        //             "Нет такого пользователя");
-        //         return View(model);
-        //     }
-        //
-        //     if (user.Password != model.Password)
-        //     {
-        //         ModelState.AddModelError(
-        //             nameof(RegistrationViewModel.Password),
-        //             "Не правильный праоль");
-        //         return View(model);
-        //     }
-        //
-        //     return RedirectToAction("Profile", "User");
-        // }
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            var model = new RocketLoginViewModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(RocketLoginViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var user = _userRepository.Get(model.UserName);
+
+            if (user == null)
+            {
+                return View(model);
+            }
+
+            if (user.Password != model.Password)
+            {
+                return View(model);
+            }
+            
+            var claims = new List<Claim>();
+            claims.Add(new Claim("Id", user.Id.ToString()));
+            claims.Add(new Claim(
+                ClaimTypes.AuthenticationMethod,
+                Startup.AuthMethod));
+            var claimsIdentity = new ClaimsIdentity(claims, Startup.AuthMethod);
+            var principal = new ClaimsPrincipal(claimsIdentity);
+            await HttpContext.SignInAsync(principal);
+
+            return RedirectToAction("Profile", "Rocket");
+        }
+        
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            return RedirectToAction("MainPage", "Rocket");
+        }
+
         public IActionResult MainPage()
         {
             return View("Factory/MainPage");
@@ -89,31 +126,47 @@ namespace SpaceWeb.Controllers
             var model = new RocketRegistrationViewModel();
             return View(model);
         }
-        
+
         [HttpPost]
         public IActionResult Registration(RocketRegistrationViewModel model)
         {
-            // if (!ModelState.IsValid)
-            // {
-            //     return View("Registration",model);
-            // }
-
-            var isUserUniq = _rocketProfileRepository.GetByName(model.UserName)== null;
-            if (isUserUniq)
+            if (!ModelState.IsValid)
             {
-                var user = new RocketProfile
-                {
-                    Email = model.Email.ToString(),
-                    Name = model.Name,
-                    Surname = model.LastName,
-                    BirthDate = model.DateOfBirth,
-                    UserName = model.UserName,
-                    Password = model.Password
-                };
-                _rocketProfileRepository.Save(user);
+                return View(model);
             }
 
-            return View("Registration",model);
+            var isUserUniq = _userRepository.Get(model.UserName) == null;
+            if (isUserUniq)
+            {
+                var user = _mapper.Map<User>(model);
+                _userRepository.Save(user);
+            }
+
+            return View(model);
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult ChangeName()
+        {
+            var user = _rocketService.GetCurrent();
+            var model = new ChangeNameViewModel()
+            {
+                Id=user.Id,
+                OldName = user.Name
+            };
+
+            return View("Factory/ChangeName",model);
+        }
+        
+        [HttpPost]
+        [Authorize]
+        public IActionResult ChangeName(ChangeNameViewModel viewModel)
+        {
+            var user = _rocketService.GetCurrent();
+            user.Name = viewModel.NewName;
+            _userRepository.Save(user);
+            return RedirectToAction("Profile","Rocket");
         }
         
         // public JsonResult IsUserExist(string name)
@@ -121,35 +174,98 @@ namespace SpaceWeb.Controllers
         //     var answer = RocketUsers.Any(x => x.UserName == name);
         //     return Json(answer);
         // }
-
+        [Authorize]
         public IActionResult ToiletPage()
         {
             return View("Comfort/ToiletPage");
         }
-
+        [Authorize]
         public IActionResult KitchenPage()
         {
             return View("Comfort/KitchenPage");
         }
-
+        [Authorize]
         public IActionResult CCenterPage()
         {
             return View("Comfort/CCenterPage");
         }
-
+        [Authorize]
         public IActionResult CapsulePage()
         {
             return View("Comfort/CapsulePage");
         }
-
+        [Authorize]
         public IActionResult Rocket()
         {
             return View("OriginRocket/Rocket");
         }
-
+        [HttpGet]
+        [Authorize]
         public IActionResult RocketShop()
         {
-            return View("OriginRocket/RocketShop");
+            var order = new OrderViewModel();
+            return View("OriginRocket/RocketShop",order);
+        }
+        
+        [HttpPost]
+        [Authorize]
+        public IActionResult RocketShop(OrderViewModel orderViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("OriginRocket/RocketShop",orderViewModel);
+            }
+
+            var order = _mapper.Map<Order>(orderViewModel);
+            _orderRepository.Save(order);
+            
+            return View("OriginRocket/RocketShop",orderViewModel);
+
+        }
+        
+        [HttpGet]
+        public IActionResult AddNewItemAdmin()
+        {
+            var model = new AdminAddRocketViewModel();
+            return View("OriginRocket/AdminAddRocket", model);
+        }
+        
+        [HttpPost]
+        public IActionResult AddNewItemAdmin(AdminAddRocketViewModel model)
+        {
+            var rocket = _mapper.Map<AddShopRocket>(model);
+            _shopRocketRepository.Save(rocket);
+            return View("OriginRocket/AdminAddRocket");
+        }
+        
+        [HttpGet]
+        [Authorize]
+        public IActionResult AdditionPage()
+        {
+            var model = new AdditionFormViewModel();
+            return View("Addition/AdditionPage", model);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult AdditionPage(AdditionFormViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("Addition/AdditionPage", model);
+            }
+
+            var addition = new Addition()
+            {
+                RescueCapsuleCount = model.RescueCapsuleCount,
+                RestRoomCount = model.RestRoomCount,
+                Id = model.Id,
+                BotanicalCenterCount = model.BotanicalCenterCount,
+                ObservarionDeckCount = model.ObservarionDeckCount
+            };
+
+            _additionRepository.Save(addition);
+            return View("Comfort/ComfortPage");
         }
     }
 }

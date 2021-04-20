@@ -1,6 +1,7 @@
 ﻿using SpaceWeb.Models.CustomValidationAttribute;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ namespace SpaceWeb.Models
 {
     public class ProfileViewModel
     {
+        [DisplayName("Имя пользователя")]
         [Required(ErrorMessage = "Извини, но имя обязательно")]
         public string UserName { get; set; }
 
@@ -23,5 +25,7 @@ namespace SpaceWeb.Models
 
         public string Bio { get; set; }
         public DateTime DateRegistration { get; set; }
+
+        public List<BankAccountViewModel> MyAccounts { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using SpaceWeb.EfStuff.Model;
+﻿using Microsoft.EntityFrameworkCore;
+using SpaceWeb.EfStuff.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,13 +9,14 @@ namespace SpaceWeb.EfStuff.Repositories
 {
     public class UserRepository : BaseRepository<User>
     {
-        public UserRepository(SpaceDbContext spaceDbContext) : base (spaceDbContext)
+        public UserRepository(SpaceDbContext spaceDbContext)
+            : base(spaceDbContext)
         {
         }
-        public User GetByName(string name)
+
+        public User Get(string name)
         {
-            return _dbSet
-                .SingleOrDefault(x => x.Name == name);
+            return _dbSet.SingleOrDefault(x => x.Name == name || x.UserName==name);
         }
     }
 }

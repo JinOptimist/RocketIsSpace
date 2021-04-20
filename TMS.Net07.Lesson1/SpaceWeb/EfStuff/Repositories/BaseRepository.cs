@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SpaceWeb.EfStuff.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SpaceWeb.EfStuff.Repositories
 {
@@ -25,9 +27,9 @@ namespace SpaceWeb.EfStuff.Repositories
         {
             if (model.Id > 0)
             {
-                _spaceDbContext.Update(model);
+                _dbSet.Update(model);
             }
-            else 
+            else
             {
                 _dbSet.Add(model);
             }
@@ -47,7 +49,7 @@ namespace SpaceWeb.EfStuff.Repositories
 
         public void Remove(ModelType model)
         {
-            _dbSet.Remove(model);
+            _spaceDbContext.Remove(model);
             _spaceDbContext.SaveChanges();
         }
     }

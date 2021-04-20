@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
 using SpaceWeb.Models;
@@ -12,32 +13,35 @@ namespace SpaceWeb.Controllers
     public class RelicController : Controller
     {
         private RelicRepository _relicRepository;
+        private AdvImageRepository _advImageRepository;
+        private IMapper _mapper;
 
-        public RelicController(RelicRepository relicRepository)
+        public RelicController(RelicRepository relicRepository,
+            AdvImageRepository advImageRepository, IMapper mapper)
         {
             _relicRepository = relicRepository;
+            _advImageRepository = advImageRepository;
+            _mapper = mapper;
         }
 
         public IActionResult Index()
         {
             var models = _relicRepository
                 .GetAll()
-                .Select(dbModel => new RelicViewModel() {
-                    Id = dbModel.Id,
-                    RelicName = dbModel.RelicName,
-                    ImageUrl = dbModel.ImageUrl,
-                    Price = dbModel.Price,
-                    Count = dbModel.Count
-                })
+                .Select(dbModel => 
+                    _mapper.Map<RelicViewModel>(dbModel)
+                )
                 .ToList();
             return View(models);
         }
 
         [HttpGet]
-        public IActionResult Add()
+        public IActionResult Add(long id = 0)
         {
-            var model = new RelicViewModel();
-            return View(model);
+            var relic = _relicRepository.Get(id);
+            var viewModel = _mapper.Map<RelicViewModel>(relic)
+                ?? new RelicViewModel();
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -48,21 +52,26 @@ namespace SpaceWeb.Controllers
                 return View(viewModel);
             }
 
-            var relic = new Relic() { 
-                RelicName = viewModel.RelicName,
-                ImageUrl = viewModel.ImageUrl,
-                Price = viewModel.Price,
-                Count = viewModel.Count
-            };
-
+            var relic = _mapper.Map<Relic>(viewModel);
             _relicRepository.Save(relic);
             return RedirectToAction("Index");
         }
-    
+
         public IActionResult Remove(long id)
         {
             _relicRepository.Remove(id);
             return RedirectToAction("Index");
+        }
+
+        public IActionResult GetAdvImage()
+        {
+            var viewModel = _advImageRepository
+                .GetAll()
+                .Select(dbModel => 
+                    _mapper.Map<AdvImageViewModel>(dbModel)
+                )
+                .ToList();
+            return View();
         }
     }
 }
