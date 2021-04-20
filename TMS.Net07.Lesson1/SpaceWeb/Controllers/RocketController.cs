@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SpaceWeb.Controllers.CustomAttribute;
 using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
 using SpaceWeb.Models.RocketModels;
+using SpaceWeb.Service;
 
 namespace SpaceWeb.Controllers
 {
@@ -9,13 +11,21 @@ namespace SpaceWeb.Controllers
     {
         private RocketProfileRepository _rocketProfileRepository;
         private ComfortRepository _comfortRepository;
-        public RocketController(RocketProfileRepository rocketProfileRepository,ComfortRepository comfortRepository)
+
+        private UserService _userService;
+
+        public RocketController(
+            RocketProfileRepository rocketProfileRepository, 
+            ComfortRepository comfortRepository, 
+            UserService userService)
         {
             _rocketProfileRepository = rocketProfileRepository;
             _comfortRepository = comfortRepository;
+            _userService = userService;
         }
 
         [HttpGet]
+        [IsEngineer]
         public IActionResult ComfortPage()
         {
             var model = new ComfortFormViewModel();
@@ -24,6 +34,7 @@ namespace SpaceWeb.Controllers
         }
 
         [HttpPost]
+        [IsEngineer]
         public IActionResult ComfortPage(ComfortFormViewModel viewModel)
         {
             if (!ModelState.IsValid)
