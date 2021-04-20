@@ -136,18 +136,10 @@ namespace SpaceWeb.Controllers
         {
             var user = _userService.GetCurrent();
             var modelNew = user.BankAccounts.Select(dbModel =>
-                //куда                откуда
+                            //куда                откуда
                 _mapper.Map<BankAccountViewModel>(dbModel)
                 )
                 .ToList();
-
-            //var model = _bankAccountRepository
-            //    .GetAll()
-            //    .Select(dbModel =>
-            //                //куда                откуда
-            //    _mapper.Map<BankAccountViewModel>(dbModel)
-            //    )
-            //    .ToList();
 
             return View(modelNew);
         }
