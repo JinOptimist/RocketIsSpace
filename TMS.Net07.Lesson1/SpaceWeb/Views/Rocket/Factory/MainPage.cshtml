@@ -1,6 +1,3 @@
-@using SpaceWeb.Service
-@inject UserService userService  
-
 @section Style{
     <link rel="stylesheet" href="~/css/Rocket/Factory.css">
     <link rel="stylesheet" href="~/css/Rocket/iconFactory.css">
@@ -45,15 +42,11 @@
             <span class="text">Rocket Factory</span>
         </div>
     </a>
-    @if (userService.IsEngineer())
-    {
-        <a href="~/Rocket/ComfortPage" class="link">
-            <div class="comf">
-                <div class="text">Comfort Factory</div>
-            </div>
-        </a>
-    }
-
+    <a href="~/Rocket/ComfortPage" class="link">
+        <div class="comf">
+            <div class="text">Comfort Factory</div>
+        </div>
+    </a>
     <a href="#" class="link">
         <div class="add">
             <div class="text">Addition Factory</div>
