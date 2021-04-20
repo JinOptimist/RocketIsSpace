@@ -147,6 +147,7 @@ namespace SpaceWeb.Controllers
         [HttpPost]
         public IActionResult Cabinet(BankAccountViewModel viewModel)
         {
+            int accountLifeTime;
             if ( viewModel.Currency == Currency.BYN)
             {
                 viewModel.Type = "Счет";
