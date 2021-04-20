@@ -32,12 +32,5 @@ namespace SpaceWeb.Service
             var id = long.Parse(idStr);
             return _userRepository.Get(id);
         }
-
-        public bool IsEngineer()
-        {
-            var user = GetCurrent();
-            return user.JobType == JobType.Engineer
-                || user.JobType == JobType.Admin;
-        }
     }
 }

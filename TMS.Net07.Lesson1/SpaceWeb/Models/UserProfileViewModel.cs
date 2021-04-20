@@ -38,7 +38,7 @@ namespace SpaceWeb.Models
 
         public string FullName { get; set; }
 
-        
+        public ProfileViewModel Profile { get; set; }
 
         
 
