@@ -1,0 +1,156 @@
+﻿@model SpaceWeb.Models.RocketModels.AdditionFormViewModel
+
+@section Style{
+    <link rel="stylesheet" href="~/css/Rocket/additionPageStyle.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp">
+}
+@{
+    Layout = "_LayoutRocket";
+}
+@section Script{
+    <script src="~/js/Rocket/additionPage.js"></script>
+}
+
+<div class="header">
+    Addition Structure
+</div>
+<div class="icon-list">
+    <div class="addition-icon">
+        <div class="circle">
+            <span class="material-icons-outlined">
+                support
+            </span>
+        </div>
+        <div class="addition-name">Rescue capsule</div>
+    </div>
+    <div class="addition-icon">
+        <div class="circle">
+            <div class="material-icons-outlined" id="panorama-icon">
+                panorama_horizontal
+            </div>
+            <div class="material-icons-outlined" id="public-icon">
+                public
+            </div>
+        </div>
+        <div class="addition-name">Observation deck</div>
+    </div>
+    <div class="addition-icon">
+        <div class="circle">
+            <span class="material-icons-outlined">
+                chair
+            </span>
+        </div>
+        <div class="addition-name">Rest room</div>
+    </div>
+    <div class="addition-icon">
+        <div class="circle">
+            <span class="material-icons-outlined">
+                eco
+            </span>
+        </div>
+        <div class="addition-name">Botanical center</div>
+    </div>
+    <div class="addition-icon">
+        <div class="circle">
+            <span class="material-icons-outlined">
+                new_releases
+            </span>
+        </div>
+        <div class="addition-name">Coming soon...</div>
+    </div>
+</div>
+
+<form action="/Rocket/AdditionPage" method="post">
+    <div class="adding-test">
+        <label>Добавить ракету с дополнительными модулями</label>
+        <div>
+            Количество спасательных капсул: @Html.TextBoxFor(x => x.RescueCapsuleCount)
+            @Html.ValidationMessageFor(x => x.RescueCapsuleCount)
+        </div>
+        <div>
+            Количество комнат для отдыха: @Html.TextBoxFor(x => x.RestRoomCount)
+            @Html.ValidationMessageFor(x => x.RestRoomCount)
+        </div>
+        <div>
+            Количество обзорных площадок: @Html.TextBoxFor(x => x.ObservarionDeckCount)
+            @Html.ValidationMessageFor(x => x.ObservarionDeckCount)
+        </div>
+        <div>
+            Количество ботанических центров: @Html.TextBoxFor(x => x.BotanicalCenterCount)
+            @Html.ValidationMessageFor(x => x.BotanicalCenterCount)
+        </div>
+        <div><button type="submit">Добавить ракету</button></div>
+    </div>
+</form>
+
+<div class="addition-block black-background">
+    <div class="image-container">
+        <img src="/image/additionimages/rescue-capsule.jpg" alt="rescue_capsule" />
+    </div>
+    <div class="text-container">
+        <div class="text">
+            <div class="name">Resque capsule</div>
+            <div class="description">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+                aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </div>
+            <div class="learn-more">Learn more</div>
+        </div>
+    </div>
+</div>
+    <div></div>
+
+
+<div class="addition-block white-background">
+    <div class="image-container">
+        <img src="/image/additionimages/observation-deck.png" alt="observation_deck" />
+    </div>
+    <div class="text-container">
+        <div class="text">
+            <div class="name">Observation deck</div>
+            <div class="description">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+                aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </div>
+            <div class="learn-more">Learn more</div>
+        </div>
+    </div>
+</div>
+
+
+<div class="addition-block black-background">
+    <div class="image-container">
+        <img src="/image/additionimages/rest-room.jpg" alt="rest_room" />
+    </div>
+    <div class="text-container">
+        <div class="text">
+            <div class="name">Rest room</div>
+            <div class="description">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+                aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </div>
+            <div class="learn-more">Learn more</div>
+        </div>
+    </div>
+</div>
+    <div></div>
+
+
+<div class="addition-block white-background">
+    <div class="image-container">
+        <img src="/image/additionimages/botanical-center.jpg" alt="botanical_center" />
+    </div>
+    <div class="text-container">
+        <div class="text">
+            <div class="name">Botanical center</div>
+            <div class="description">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+                aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </div>
+            <a href="URL" class="learn-more">Learn more</a>
+            <!-- <div class="learn-more">Learn more</div> -->
+        </div>
+    </div>
+</div>
+
+
