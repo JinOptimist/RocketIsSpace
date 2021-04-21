@@ -140,7 +140,7 @@ namespace SpaceWeb.Controllers
         public IActionResult Account(BankAccountViewModel viewModel)
         {
             
-            if ( viewModel.Currency == "BYN")
+            if ( viewModel.Currency == Currency.BYN)
             {
                 viewModel.Type = "Счет";
             }

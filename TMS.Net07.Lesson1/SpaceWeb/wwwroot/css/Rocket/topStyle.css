@@ -1,88 +1,104 @@
-.log{
-	height: 100vh;
-	width: 100%;
-	background: black;
-	opacity: 0.7;
-	position: absolute;
-	z-index: 10;
-	position: fixed;
+.log {
+    height: 100vh;
+    width: 100%;
+    background: black;
+    opacity: 0.7;
+    position: absolute;
+    z-index: 10;
+    position: fixed;
 }
 
-.hide{
-	display: none!important;
+.hide {
+    display: none !important;
 }
 
-.info{
-	display: flex;
-	font-family: "Georgia";
-	font-size: 23px;
-	color: white;
+.info {
+    display: flex;
+    font-family: "Georgia";
+    font-size: 23px;
+    color: white;
+    background: rgba(0, 0, 0, 0.5);
+    height: 65px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
 }
 
-.cover{
-	position: fixed;
-	background: black;
-	opacity: 0.5;
-	height: 70px;
-	width: 100%;
+.cover {
+    position: fixed;
+    background: black;
+    opacity: 0.5;
+    height: 70px;
+    width: 100%;
 }
 
-.log-in{
-	right: 30px;
+.log-in {
+    right: 30px;
 }
 
-.home{
-	left: 110px;
+.home {
+    left: 110px;
 }
 
-.link{
-	display: flex;
-	cursor: pointer;
-	z-index: 1;
-	color: white;
-	margin-top: 15px;
+.link {
+    display: flex;
+    cursor: pointer;
+    z-index: 1;
+    color: white;
 }
 
-.link:hover{
-	color: #DCDCDC;
+    .link:hover {
+        color: #DCDCDC;
+    }
+
+.login-block {
+    display: flex;
+    z-index: 11;
+    position: absolute;
+    position: fixed;
+    background: url(../../image/comfortImage/fon.jpg) no-repeat center;
+    height: 600px;
+    width: 900px;
+    top: 16vh;
+    left: 55vh;
 }
 
-.login-block{
-	display: flex;
-	z-index: 11;
-	position: absolute;
-	position: fixed;
-	background: url(../../image/comfortImage/fon111.jpg) no-repeat center;
-	height: 600px;
-	width: 900px;
-	top: 16vh;
-	left: 55vh;
+.login-direction {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 68%;
 }
 
-.login-direction{
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	width: 68%;
+.user-login {
+    width: 300px;
+    height: 20px;
+    border: 0;
 }
 
-input[type="text"]{
-	outline: none;
-	height: 27px;
-	background: #DCDCDC;
+.password {
+    width: 300px;
+    height: 20px;
+    border: 0;
+    margin: 5px;
 }
 
-.comfort-link{
+input[type="text"] {
+    outline: none;
+    height: 27px;
+    background: #DCDCDC;
+}
+.comfort-link {
     text-decoration: none;
     color: white;
 }
 
 .or {
-	font-family: "Georgia";
-	margin: 15px;
-	font-size: 16px;
-	color: white;
+    font-family: "Georgia";
+    margin: 15px;
+    font-size: 16px;
+    color: white;
 }
 
 .loginformstyle {
@@ -118,3 +134,4 @@ input[type="text"] {
 	padding: 10px 50px;
 	cursor: pointer;
 }
+

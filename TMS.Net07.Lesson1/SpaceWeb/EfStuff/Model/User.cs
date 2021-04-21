@@ -18,6 +18,8 @@ namespace SpaceWeb.EfStuff.Model
         public string Password { get; set; }
         public int Age { get; set; }
 
+        public string AvatarUrl { get; set; }
+
         public JobType JobType { get; set; }
 
         public virtual List<Rocket> MyRockets { get; set; }
