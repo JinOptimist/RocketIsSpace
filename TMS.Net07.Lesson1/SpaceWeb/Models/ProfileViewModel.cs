@@ -29,5 +29,10 @@ namespace SpaceWeb.Models
         public string AvatarUrl { get; set; }
 
         public List<BankAccountViewModel> MyAccounts { get; set; }
+
+        public string Name { get; set; }
+        public string SurName { get; set; }
+        public DateTime BirthDate { get; set; }
+        public string Email { get; set; }
     }
 }
