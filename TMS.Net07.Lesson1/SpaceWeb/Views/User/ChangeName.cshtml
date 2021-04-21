@@ -1,0 +1,25 @@
+@model SpaceWeb.Models.RocketModels.ChangeNameViewModel
+
+@section Style{
+    @*<link rel="stylesheet" href="~/css/Rocket/ChangeName.css">*@
+}
+@{
+    Layout = "_RocketLayout";
+}
+@section Script{
+}
+
+<div class="change-name">
+    <form action="/User/ChangeName" method="post">
+        @Html.HiddenFor(x=>x.Id)
+        <div>
+            Current Name: @Model.OldName
+        </div>
+        <div>
+            New Name: @Html.TextBoxFor(x => x.NewName);
+        </div>
+        <div>
+            <input type="submit" value="change">
+        </div>
+    </form>
+</div>
