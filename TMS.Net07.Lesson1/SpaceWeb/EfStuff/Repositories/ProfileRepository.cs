@@ -6,24 +6,12 @@ using System.Threading.Tasks;
 
 namespace SpaceWeb.EfStuff.Repositories
 {
-    public class ProfileRepository
+    public class ProfileRepository : BaseRepository<Profile>
     {
-        private SpaceDbContext _spaceDbContext;
-
-        public  ProfileRepository(SpaceDbContext spaceDbContext)
-        {
-            _spaceDbContext = spaceDbContext;
+        public  ProfileRepository(SpaceDbContext spaceDbContext) : base(spaceDbContext)
+        { 
         }
-        public List<Profile> GetAll()
-        {
-            return _spaceDbContext.UserProfile.ToList();
-        }
-      
-        public void Save(Profile model)
-        {
-            _spaceDbContext.UserProfile.Add(model);
-            _spaceDbContext.SaveChanges();
-        }
+        
         public void ChangeProfile(Profile model, string userID)
         {
             if (model.Id == 0)

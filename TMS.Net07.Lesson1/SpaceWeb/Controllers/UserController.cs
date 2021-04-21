@@ -52,18 +52,22 @@ namespace SpaceWeb.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Profile(AvatarViewModel viewModel)
+        public async Task<IActionResult> Profile(ProfileUpdateViewModel viewModel)
         {
             var user = _userService.GetCurrent();
-            var webPath = _hostEnvironment.WebRootPath;
             
-            var path = Path.Combine(webPath, "image", "avatars", $"{user.Id}.jpg");
-            using (var fileStream = new FileStream(path, FileMode.OpenOrCreate))
+            if (viewModel.Avatar != null)
             {
-                await viewModel.Avatar.CopyToAsync(fileStream);
+                var webPath = _hostEnvironment.WebRootPath;
+                var path = Path.Combine(webPath, "image", "avatars", $"{user.Id}.jpg");
+                using (var fileStream = new FileStream(path, FileMode.OpenOrCreate))
+                {
+                    await viewModel.Avatar.CopyToAsync(fileStream);
+                }
+                user.AvatarUrl = $"/image/avatars/{user.Id}.jpg";
             }
-
-            user.AvatarUrl = $"/image/avatars/{user.Id}.jpg";
+            
+            user.Email = viewModel.Email;
             _userRepository.Save(user);
             
             return RedirectToAction("Profile");

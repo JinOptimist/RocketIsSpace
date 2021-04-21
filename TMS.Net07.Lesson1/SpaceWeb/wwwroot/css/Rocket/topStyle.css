@@ -1,4 +1,4 @@
-.log {
+.popup-cover {
     height: 100vh;
     width: 100%;
     background: black;
@@ -51,16 +51,23 @@
         color: #DCDCDC;
     }
 
+.nice-popup {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .login-block {
     display: flex;
     z-index: 11;
-    position: absolute;
-    position: fixed;
-    background: url(../../image/comfortImage/fon.jpg) no-repeat center;
+    background: url(../../image/comfortImage/fon111.jpg) no-repeat center;
     height: 600px;
     width: 900px;
-    top: 16vh;
-    left: 55vh;
 }
 
 .login-direction {
@@ -84,11 +91,7 @@
     margin: 5px;
 }
 
-input[type="text"] {
-    outline: none;
-    height: 27px;
-    background: #DCDCDC;
-}
+
 .comfort-link {
     text-decoration: none;
     color: white;
@@ -102,36 +105,37 @@ input[type="text"] {
 }
 
 .loginformstyle {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .inputFields {
-	margin: 15px 0;
-	font-size: 16px;
-	padding: 10px;
-	width: 250px;
-	border: 1px solid rgb(189, 118, 29);
-	border-top: none;
-	border-left: none;
-	border-right: none;
-	color: white;
-	outline: none;
+    margin: 15px 0;
+    font-size: 16px;
+    padding: 10px;
+    width: 250px;
+    border: 1px solid rgb(189, 118, 29);
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    color: white;
+    outline: none;
 }
 
-input[type="text"] {
-	height: 27px;
-	background: rgba(20, 20, 20, .2);
+input[type="text"],
+input[type="password"] {
+    height: 27px;
+    background: rgba(20, 20, 20, .2);
+    outline: none;
 }
 
 .pglogbut {
-	border: 1px solid rgb(189, 118, 29);
-	background: rgba(20, 20, 20, .6);
-	font-size: 18px;
-	color: white;
-	margin-top: 20px;
-	padding: 10px 50px;
-	cursor: pointer;
+    border: 1px solid rgb(189, 118, 29);
+    background: rgba(20, 20, 20, .6);
+    font-size: 18px;
+    color: white;
+    margin-top: 20px;
+    padding: 10px 50px;
+    cursor: pointer;
 }
-

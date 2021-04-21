@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using SpaceWeb.Service
+@inject UserService userService
+
+<!DOCTYPE html>
 <html>
 <head>
     <link rel="stylesheet" href="~/css/reset.css?v=4" />
@@ -13,23 +16,25 @@
     @RenderSection("Scripts", required: false)
 </head>
 <body>
-    <div class="nice-popup">
-        <div class="log hide"></div>
-        <div class="login-block hide">
+    <div class="nice-popup hide">
+        <div class="popup-cover"></div>
+        <div class="login-block">
             <div class="login-direction">
-                <div>
-                    <input class="user-login" type="text" placeholder="login" />
-                </div>
-                <div>
-                    <input class="password" type="text" placeholder="password" />
-                </div>
-                <div>
-                    <input class="login" type="submit" value="Log in" />
-                </div>
+                <form action="/User/Login" method="post" class="loginformstyle">
+                    <div>
+                        <input name="@nameof(RegistrationViewModel.Login)" class="inputFields" type="text" placeholder="login" />
+                    </div>
+                    <div>
+                        <input name="@nameof(RegistrationViewModel.Password)" class="inputFields" type="password" placeholder="password" />
+                    </div>
+                    <div>
+                        <input class="pglogbut" type="submit" value="Log in" />
+                    </div>
+                </form>
                 <div class="or">or</div>
                 <div>
                     <a href="/Rocket/Registration">
-                        <input class="login" type="button" value="Registration" />
+                        <input class="pglogbut" type="button" value="Registration" />
                     </a>
                 </div>
             </div>
@@ -44,8 +49,12 @@
             @if (User.Identity.IsAuthenticated)
             {
                 <div class="">
+                    <img class="avatar" src="@userService.GetCurrent().AvatarUrl" />
                     <a href="/User/Profile">
                         Profile
+                    </a>
+                    <a href="/User/Logout">
+                        Exit
                     </a>
                 </div>
             }
