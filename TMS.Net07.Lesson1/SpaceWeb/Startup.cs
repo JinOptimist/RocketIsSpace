@@ -42,7 +42,7 @@ namespace SpaceWeb
                 .AddCookie(AuthMethod, config =>
                 {
                     config.Cookie.Name = "Smile";
-                    config.LoginPath = "/Rocket/Login";
+                    config.LoginPath = "/User/Login";
                     config.AccessDeniedPath = "/User/AccessDenied";
                 });
 
