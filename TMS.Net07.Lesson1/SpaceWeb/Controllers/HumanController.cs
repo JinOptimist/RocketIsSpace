@@ -60,6 +60,7 @@ namespace SpaceWeb.Controllers
             if (isUserUniq)
             {
                 var user = _mapper.Map<User>(model);
+                user.Client = new Client();
                 _userRepository.Save(user);
             }
 

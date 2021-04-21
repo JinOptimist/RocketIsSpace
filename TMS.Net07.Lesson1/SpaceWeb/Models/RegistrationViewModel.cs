@@ -20,6 +20,6 @@ namespace SpaceWeb.Models
 
         public int Age { get; set; }
 
-        public UserProfileViewModel UserProfile { get; set; }
+        public UserProfileViewModel Profile { get; set; }
     }
 }

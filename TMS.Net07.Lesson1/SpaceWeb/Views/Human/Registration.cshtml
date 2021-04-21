@@ -21,25 +21,32 @@
         <form action="/Human/Registration" method="post">
             <div class="element">
                 @Html.TextBoxFor(Person => Person.Login, new { @placeholder = "Your login" })
+                @Html.ValidationMessageFor(x => x.Login);
             </div>
             <div class="element">
                 @Html.TextBoxFor(Person => Person.Password, new { @placeholder = "Your password" })
+                @Html.ValidationMessageFor(x => x.Password);
             </div>
             <div class="element">
-                @Html.TextBoxFor(Person => Person.UserProfile.Name, new { @placeholder = "Your name" })
+                @Html.TextBoxFor(Person => Person.Profile.Name, new { @placeholder = "Your name" })
+                @Html.ValidationMessageFor(x => x.Profile.Name);
             </div>
             <div class="element">
-                @Html.TextBoxFor(Person => Person.UserProfile.SurName, new { @placeholder = "Your surname" })
+                @Html.TextBoxFor(Person => Person.Profile.SurName, new { @placeholder = "Your surname" })
+                @Html.ValidationMessageFor(x => x.Profile.SurName);
             </div>
             <div class="element">
                 @Html.TextBoxFor(Person => Person.Age, new { @placeholder = "Your age" })
+                @Html.ValidationMessageFor(x => x.Age);
             </div>
             <div class="element">
-                @Html.TextBoxFor(Person => Person.UserProfile.BirthDate, new { @type = "date", @placeholder = "Your birthday"})
+                @Html.TextBoxFor(Person => Person.Profile.BirthDate, new { @type = "date", @placeholder = "Your birthday" })
+                @Html.ValidationMessageFor(x => x.Profile.BirthDate);
             </div>
 
             <div class="element">
                 @Html.DropDownList("Gender", genderOptions)
+                @Html.ValidationMessageFor(x => x.Profile.Gender);
             </div>
             <div class="element">
                 <input type="submit" value="send" />
