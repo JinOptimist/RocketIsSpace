@@ -65,7 +65,7 @@ namespace SpaceWeb.Controllers
             user.AvatarUrl = $"/image/avatars/{user.Id}.jpg";
             _userRepository.Save(user);
 
-            return View(viewModel);
+            return RedirectToAction("Profile");
         }
 
         [HttpGet]
