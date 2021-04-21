@@ -1,4 +1,63 @@
-﻿.registration{
-    padding-top: 75px ;
+﻿.registration {
+    padding-top: 75px;
+    background: url(../../image/comfortImage/sp5.jpg) center/cover no-repeat;
+    min-height: calc(100vh - 100px);  
 }
 
+.none {
+    height: 100px;
+}
+
+.registr {
+    margin-left: 150px;
+    font-family: "Century Gothic";
+    font-size: 100px;
+    color: white;
+}
+
+.reg-field {
+    display: flex;
+    height: 330px;
+    font-size: 23px;
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: Hairline;
+    src: url("../../image/comfortImage/font/19554.ttf");
+}
+
+.first-text {
+    color: #599bb3;
+    font-family: Hairline;
+    margin: 0px 100px;
+}
+
+.first-field{
+    color: white;
+}
+
+.sub {
+    border: 1px solid rgb(19, 211, 255);
+    background: rgba(20, 20, 20, .6);
+    font-size: 18px;
+    color: white;
+    margin-top: 20px;
+    padding: 10px 50px;
+    cursor: pointer;
+    margin-left: 100px;
+}
+
+.inputFields1 {
+    margin: 15px 0;
+    font-size: 16px;
+    padding: 10px;
+    width: 250px;
+    border: 1px solid rgb(19, 211, 255);
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    color: white;
+    outline: none;
+    display: flex;
+}

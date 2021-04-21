@@ -1,0 +1,93 @@
+﻿.rprofile {
+    padding-top: 75px;
+    background: #505050;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.bg-profile {
+    background: #ACACAC;
+    height: 100vh;
+    width: 60%;
+}
+
+.user-name {
+    margin: 15px 20px;
+    font-family: "Century Gothic";
+    font-size: 70px;
+    color: #EFEFEF;
+}
+
+.inform-block{
+    display: flex;
+}
+
+.user-photo {
+    background: url(../../image/comfortImage/avatar1.jpg);
+    height: 350px;
+    width: 300px;
+    margin-left: 30px;
+    cursor: pointer;
+}
+
+@font-face {
+    font-family: Hairline;
+    src: url("../../image/comfortImage/font/19554.ttf");
+}
+
+.user-information {
+    color: #EFEFEF;
+    font-family: Hairline;
+    font-size: 25px;
+    margin: 10px;
+}
+
+.user-info{
+    margin: 5px;
+}
+
+.bg-chage-delete {
+    background: rgba(0, 0, 0, 0.77);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: "Hairline";
+    height: 0px;
+    overflow: hidden;
+}
+
+.change-photo {
+    margin: 2px;
+}
+
+.delete-photo {
+    margin: 2px;
+}
+
+.change-photo:hover {
+    color: #ffe43f;
+}
+
+.delete-photo:hover {
+    color: #ffe43f;
+}
+
+.prlog {
+    height: 100vh;
+    width: 100%;
+    background: black;
+    opacity: 0.7;
+    position: absolute;
+    z-index: 10;
+    position: fixed;
+}
+
+.input-pic {
+    z-index: 11;
+    position: absolute;
+    height: 45vh;
+    width: 45%;
+}

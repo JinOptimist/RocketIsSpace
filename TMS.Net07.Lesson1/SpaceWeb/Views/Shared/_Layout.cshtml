@@ -1,119 +1,71 @@
-﻿<!DOCTYPE html>
+﻿@using SpaceWeb.Service
+@inject UserService userService
+
+<!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="~/css/reset.css" />
+    <link rel="stylesheet" href="~/css/reset.css?v=4" />
     <link rel="stylesheet" href="~/css/icon.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/Rocket/iconsMenu.css">
+    <link rel="stylesheet" href="~/css/site.css?v=1" />
+    <link rel="stylesheet" href="~/css/Rocket/topStyle.css" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/site.js"></script>
+    <script src="~/js/layout.js"></script>
 
     @RenderSection("Scripts", required: false)
 </head>
 <body>
-    <div class="popup">
-        <div class="cover"></div>
-        <div class="popup-content">Ты согласен?</div>
-    </div>
-    <div class="header">
-        <div></div>
-        <span class="header-text">Ракеты для каждого!</span>
-        <form action="/User/Login" method="post">
-            <div class="login-block">
+    <div class="nice-popup">
+        <div class="log hide"></div>
+        <div class="login-block hide">
+            <div class="login-direction">
+                <form action="/User/Login" method="post" class="loginformstyle">
+                    <div>
+                        <input name="@nameof(RegistrationViewModel.Login)" class="inputFields" type="text" placeholder="login" />
+                    </div>
+                    <div>
+                        <input name="@nameof(RegistrationViewModel.Password)" class="inputFields" type="password" placeholder="password" />
+                    </div>
+                    <div>
+                        <input class="pglogbut" type="submit" value="Log in" />
+                    </div>
+                </form>
+                <div class="or">or</div>
                 <div>
-                    <input name="@nameof(RegistrationViewModel.Login)" class="user-login" type="text" placeholder="login" />
-                </div>
-                <div>
-                    <input name="@nameof(RegistrationViewModel.Password)" type="text" placeholder="password" />
-                    <input class="login" type="submit" value="Войти" />
+                    <a href="/Rocket/Registration">
+                        <input class="pglogbut" type="button" value="Registration" />
+                    </a>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
-    <div class="center-block">
-        <div class="left-menu">
-            <div class="left-menu-absolute">
-                <a href="/Bank/Bank">
-                    <div class="link icon home">
-                        <span class="text">Bank</span>
-                    </div>
-                </a>
-                <a href="/Rocket/MainPage">
-                    <div class="link icon rocket-icon">
-                        <span class="text">Rocket</span>
-                    </div>
-                </a>
-                <a href="/User/Profile">
-                    <div class="link icon account">
-                        <span class="text">Profile</span>
-                    </div>
-                </a>
-                <a href="/User/Login">
-                    <div class="link icon help">
-                        <span class="text">Help</span>
-                    </div>
-                </a>
-                <a href="/User/Registration">
-                    <div class="link icon help">
-                        <span class="text">Регистрация</span>
-                    </div>
-                </a>
-                @if (User.Identity.IsAuthenticated)
-                {
+    <div class="top">
+        <div class="info">
+            <a href="/">
+                <div class="home">LOGO</div>
+            </a>
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="">
+                    <img class="avatar" src="@userService.GetCurrent().AvatarUrl" />
+                    <a href="/User/Profile">
+                        Profile
+                    </a>
                     <a href="/User/Logout">
-                        <div class="link icon help">
-                            <span class="text">Logout</span>
-                        </div>
+                        Exit
                     </a>
-                }
-                else
-                {
-                    <a href="/User/Login">
-                        <div class="link icon help">
-                            <span class="text">Логин</span>
-                        </div>
-                    </a>
-                }
-
-                <div>
-                    <div>
-                        <label>
-                            <input type="radio"
-                                   name="visible-remove"
-                                   value="1"
-                                   checked="checked" />
-                            Вкл
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            <input type="radio" name="visible-remove" value="0" />
-                            Выкл
-                        </label>
-                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="content">
-            @RenderBody()
+            }
+            else
+            {
+                <div class="link icon log-in">Log in</div>
+            }
         </div>
     </div>
-
-    <div class="hide">
-        <div class="rocket template">
-            <div class="name">
-                <div class="view">
-                    <span class="current-name">***</span>
-                    <span class="icon close"></span>
-                </div>
-                <div class="edit hide">
-                    <input class="new-name" />
-                    <span class="icon ok">OK</span>
-                </div>
-            </div>
-            <div class="image-container">
-                <img src="***" />
-            </div>
-        </div>
+    <div class="content">
+        @RenderBody()
     </div>
 </body>
 </html>
