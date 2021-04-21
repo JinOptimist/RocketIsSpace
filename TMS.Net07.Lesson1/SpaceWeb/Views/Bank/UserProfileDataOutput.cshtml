@@ -1,7 +1,10 @@
 ﻿@model List<UserProfileViewModel>
+@{
+    Layout = "_LayoutBank";
+}
 @section Scripts{
     <link rel="stylesheet" href="~/css/bank/styleProfile.css" />
-    }
+}
 <div class="">
     <div class="profile">
         <form action="/Bank/UserProfileDataoutput" method="post">

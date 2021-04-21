@@ -29,7 +29,7 @@ namespace SpaceWeb.EfStuff.Model
         public virtual Rocket MyFavouriteRocket { get; set; }
 
         public virtual List<BankAccount> BankAccounts { get; set; }
-
+       
         public virtual Profile Profile { get; set; }
     }
 }
