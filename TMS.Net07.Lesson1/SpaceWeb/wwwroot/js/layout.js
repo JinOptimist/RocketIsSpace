@@ -1,4 +1,4 @@
-$(document).ready(function (){
+﻿$(document).ready(function () {
 	$('.log').click(function () {
 		$(this).addClass('hide');
 		$('.login-block').addClass('hide');
@@ -8,4 +8,4 @@ $(document).ready(function (){
 		$('.log').removeClass('hide');
 		$('.login-block').removeClass('hide');
 	});
-})
+});

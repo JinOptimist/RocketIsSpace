@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using SpaceWeb.EfStuff;
 using SpaceWeb.EfStuff.Model;
@@ -9,6 +10,7 @@ using SpaceWeb.Models;
 using SpaceWeb.Service;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading;
@@ -21,15 +23,17 @@ namespace SpaceWeb.Controllers
         private UserRepository _userRepository;
         private IMapper _mapper;
         private UserService _userService;
+        private IWebHostEnvironment _hostEnvironment;
 
         public static int Counter = 0;
 
         public UserController(UserRepository userRepository, IMapper mapper,
-            UserService userService)
+            UserService userService, IWebHostEnvironment hostEnvironment)
         {
             _userRepository = userRepository;
             _mapper = mapper;
             _userService = userService;
+            _hostEnvironment = hostEnvironment;
         }
 
         [Authorize]
@@ -42,6 +46,24 @@ namespace SpaceWeb.Controllers
                 .BankAccounts
                 .Select(x => _mapper.Map<BankAccountViewModel>(x)).ToList();
             viewModel.MyAccounts = bankViewModels;
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Profile(AvatarViewModel viewModel)
+        {
+            var user = _userService.GetCurrent();
+            var webPath = _hostEnvironment.WebRootPath;
+            
+            var path = Path.Combine(webPath, "image", "avatars", $"{user.Id}.jpg");
+            using (var fileStream = new FileStream(path, FileMode.OpenOrCreate))
+            {
+                await viewModel.Avatar.CopyToAsync(fileStream);
+            }
+
+            user.AvatarUrl = $"/image/avatars/{user.Id}.jpg";
+            _userRepository.Save(user);
 
             return View(viewModel);
         }
