@@ -33,52 +33,7 @@ namespace SpaceWeb.Controllers
             var viewModel = _mapper.Map<RocketProfileViewModel>(user);
             return View("Profile",viewModel);
         }
-       
-        [HttpGet]
-        public IActionResult Login()
-        {
-            var model = new RocketLoginViewModel();
-            return View(model);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Login(RocketLoginViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            var user = _userRepository.Get(model.UserName);
-
-            if (user == null)
-            {
-                return View(model);
-            }
-
-            if (user.Password != model.Password)
-            {
-                return View(model);
-            }
-            
-            var claims = new List<Claim>();
-            claims.Add(new Claim("Id", user.Id.ToString()));
-            claims.Add(new Claim(
-                ClaimTypes.AuthenticationMethod,
-                Startup.AuthMethod));
-            var claimsIdentity = new ClaimsIdentity(claims, Startup.AuthMethod);
-            var principal = new ClaimsPrincipal(claimsIdentity);
-            await HttpContext.SignInAsync(principal);
-
-            return RedirectToAction("Profile", "Rocket");
-        }
-        
-        public async Task<IActionResult> Logout()
-        {
-            await HttpContext.SignOutAsync();
-            return RedirectToAction("MainPage", "Rocket");
-        }
-
+      
         public IActionResult MainPage()
         {
             return View();

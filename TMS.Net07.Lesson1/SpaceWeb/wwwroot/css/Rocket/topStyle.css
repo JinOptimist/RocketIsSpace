@@ -56,7 +56,7 @@
     z-index: 11;
     position: absolute;
     position: fixed;
-    background: url(../../image/comfortImage/fon.jpg) no-repeat center;
+    background: url(../../image/comfortImage/fon111.jpg) no-repeat center;
     height: 600px;
     width: 900px;
     top: 16vh;
@@ -84,11 +84,7 @@
     margin: 5px;
 }
 
-input[type="text"] {
-    outline: none;
-    height: 27px;
-    background: #DCDCDC;
-}
+
 .comfort-link {
     text-decoration: none;
     color: white;
@@ -120,9 +116,11 @@ input[type="text"] {
 	outline: none;
 }
 
-input[type="text"] {
-	height: 27px;
-	background: rgba(20, 20, 20, .2);
+input[type="text"],
+input[type="password"] {
+    height: 27px;
+    background: rgba(20, 20, 20, .2);
+    outline: none;
 }
 
 .pglogbut {

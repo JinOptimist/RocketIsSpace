@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace SpaceWeb.Models
 {
-    public class AvatarViewModel
+    public class ProfileUpdateViewModel
     {
         public IFormFile Avatar { get; set; }
+
+        public string Email { get; set; }
     }
 }

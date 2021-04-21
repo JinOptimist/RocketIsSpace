@@ -7,8 +7,13 @@
     </div>
     <div>
         <form action="/User/Profile" method="post" enctype="multipart/form-data">
-            Новый аватар 
-            <input type="file" name="@nameof(AvatarViewModel.Avatar)" />
+            <div>
+                Новый аватар
+                <input type="file" name="@nameof(ProfileUpdateViewModel.Avatar)" />
+            </div>
+            <div>
+                email <input name="@nameof(ProfileUpdateViewModel.Email)" value="@Model.Email" />
+            </div>
             <div>
                 <input type="submit" value="Обновить аватар" />
             </div>

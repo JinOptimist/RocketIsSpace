@@ -197,3 +197,9 @@
     max-width: 200px;
     max-height: 200px;
 }
+
+.top .avatar {
+    max-width: 40px;
+    max-height: 40px;
+    border-radius: 20px;
+}
