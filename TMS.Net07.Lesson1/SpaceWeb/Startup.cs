@@ -73,11 +73,6 @@ namespace SpaceWeb
                     diContainer.GetService<UserRepository>(),
                     diContainer.GetService<IHttpContextAccessor>()
                 ));
-            services.AddScoped<RocketService>(diContainer =>
-                new RocketService(
-                    diContainer.GetService<UserRepository>(),
-                    diContainer.GetService<IHttpContextAccessor>()
-                ));
 
             services.AddControllersWithViews();
 

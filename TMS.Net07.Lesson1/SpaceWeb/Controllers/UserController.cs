@@ -6,6 +6,7 @@ using SpaceWeb.EfStuff;
 using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
 using SpaceWeb.Models;
+using SpaceWeb.Models.RocketModels;
 using SpaceWeb.Service;
 using System;
 using System.Collections.Generic;
@@ -78,8 +79,6 @@ namespace SpaceWeb.Controllers
                     "Не правильный праоль");
                 return View(model);
             }
-
-            //Готов логиниться
 
             var claims = new List<Claim>();
             claims.Add(new Claim("Id", user.Id.ToString()));
@@ -173,6 +172,34 @@ namespace SpaceWeb.Controllers
             var isExistUserWithTheName =
                 _userRepository.Get(name) != null;
             return Json(isExistUserWithTheName);
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult ChangeName()
+        {
+            var user = _userService.GetCurrent();
+            var model = new ChangeNameViewModel()
+            {
+                Id = user.Id,
+                OldName = user.Name
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult ChangeName(ChangeNameViewModel viewModel)
+        {
+            if(!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+            var user = _userService.GetCurrent();
+            user.Name = viewModel.NewName;
+            _userRepository.Save(user);
+            return RedirectToAction("Profile", "User");
         }
     }
 }

@@ -16,23 +16,16 @@ namespace SpaceWeb.Controllers
     public class RocketController : Controller
     {
         private UserRepository _userRepository;
-        private ComfortRepository _comfortRepository;
         private UserService _userService;
         private OrderRepository _orderRepository;
         private IMapper _mapper;
-        private AdditionRepository _additionRepository;
         private ShopRocketRepository _shopRocketRepository;
-        private RocketService _rocketService;
-        public RocketController(UserRepository userRepository,
-            ComfortRepository comfortRepository, IMapper mapper, OrderRepository orderRepository,
-        AdditionRepository additionRepository, RocketService rocketService, ShopRocketRepository shopRocketRepository,
+        public RocketController(UserRepository userRepository,IMapper mapper,
+            OrderRepository orderRepository,ShopRocketRepository shopRocketRepository,
         UserService userService)
         {
             _userRepository = userRepository;
-            _comfortRepository = comfortRepository;
             _mapper = mapper;
-            _additionRepository = additionRepository;
-            _rocketService = rocketService;
             _orderRepository = orderRepository;
             _shopRocketRepository = shopRocketRepository;
             _userService = userService;
@@ -41,35 +34,11 @@ namespace SpaceWeb.Controllers
         [Authorize]
         public IActionResult Profile()
         {
-            var user = _rocketService.GetCurrent();
+            var user = _userService.GetCurrent();
             var viewModel = _mapper.Map<RocketProfileViewModel>(user);
             return View("Profile",viewModel);
         }
-        
-        [Authorize]
-        [HttpGet]
-        [IsEngineer]
-        public IActionResult ComfortPage()
-        {
-            var model = new ComfortFormViewModel();
-            return View("Comfort/ComfortPage", model);
-        }
-        [Authorize]
-        [HttpPost]
-        [IsEngineer]
-        public IActionResult ComfortPage(ComfortFormViewModel viewModel)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View("Comfort/ComfortPage", viewModel);
-            }
-
-            var comfort = _mapper.Map<Comfort>(viewModel);
-
-            _comfortRepository.Save(comfort);
-            return RedirectToAction("ComfortPage");
-        }
-
+       
         [HttpGet]
         public IActionResult Login()
         {
@@ -117,7 +86,7 @@ namespace SpaceWeb.Controllers
 
         public IActionResult MainPage()
         {
-            return View("Factory/MainPage");
+            return View();
         }
 
         [HttpGet]
@@ -144,128 +113,11 @@ namespace SpaceWeb.Controllers
 
             return View(model);
         }
-
-        [HttpGet]
-        [Authorize]
-        public IActionResult ChangeName()
-        {
-            var user = _rocketService.GetCurrent();
-            var model = new ChangeNameViewModel()
-            {
-                Id=user.Id,
-                OldName = user.Name
-            };
-
-            return View("Factory/ChangeName",model);
-        }
         
-        [HttpPost]
-        [Authorize]
-        public IActionResult ChangeName(ChangeNameViewModel viewModel)
-        {
-            var user = _rocketService.GetCurrent();
-            user.Name = viewModel.NewName;
-            _userRepository.Save(user);
-            return RedirectToAction("Profile","Rocket");
-        }
-        
-        // public JsonResult IsUserExist(string name)
-        // {
-        //     var answer = RocketUsers.Any(x => x.UserName == name);
-        //     return Json(answer);
-        // }
-        [Authorize]
-        public IActionResult ToiletPage()
-        {
-            return View("Comfort/ToiletPage");
-        }
-        [Authorize]
-        public IActionResult KitchenPage()
-        {
-            return View("Comfort/KitchenPage");
-        }
-        [Authorize]
-        public IActionResult CCenterPage()
-        {
-            return View("Comfort/CCenterPage");
-        }
-        [Authorize]
-        public IActionResult CapsulePage()
-        {
-            return View("Comfort/CapsulePage");
-        }
         [Authorize]
         public IActionResult Rocket()
         {
-            return View("OriginRocket/Rocket");
-        }
-        [HttpGet]
-        [Authorize]
-        public IActionResult RocketShop()
-        {
-            var order = new OrderViewModel();
-            return View("OriginRocket/RocketShop",order);
-        }
-        
-        [HttpPost]
-        [Authorize]
-        public IActionResult RocketShop(OrderViewModel orderViewModel)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View("OriginRocket/RocketShop",orderViewModel);
-            }
-
-            var order = _mapper.Map<Order>(orderViewModel);
-            _orderRepository.Save(order);
-            
-            return View("OriginRocket/RocketShop",orderViewModel);
-
-        }
-        
-        [HttpGet]
-        public IActionResult AddNewItemAdmin()
-        {
-            var model = new AdminAddRocketViewModel();
-            return View("OriginRocket/AdminAddRocket", model);
-        }
-        
-        [HttpPost]
-        public IActionResult AddNewItemAdmin(AdminAddRocketViewModel model)
-        {
-            var rocket = _mapper.Map<AddShopRocket>(model);
-            _shopRocketRepository.Save(rocket);
-            return View("OriginRocket/AdminAddRocket");
-        }
-        
-        [HttpGet]
-        [Authorize]
-        public IActionResult AdditionPage()
-        {
-            var model = new AdditionFormViewModel();
-            return View("Addition/AdditionPage", model);
-        }
-
-        [HttpPost]
-        [Authorize]
-        public IActionResult AdditionPage(AdditionFormViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View("Addition/AdditionPage", model);
-            }
-
-            var addition = new Addition()
-            {
-                RescueCapsuleCount = model.RescueCapsuleCount,
-                RestRoomCount = model.RestRoomCount,
-                Id = model.Id,
-                BotanicalCenterCount = model.BotanicalCenterCount,
-                ObservarionDeckCount = model.ObservarionDeckCount
-            };
-
-            _additionRepository.Save(addition);
-            return View("Comfort/ComfortPage");
+            return View();
         }
     }
 }
