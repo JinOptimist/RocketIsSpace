@@ -17,6 +17,14 @@ namespace SpaceWeb.Controllers
         private OrderRepository _orderRepository;
         private ShopRocketRepository _shopRocketRepository;
 
+        public RocketShopController(IMapper mapper, OrderRepository orderRepository, 
+            ShopRocketRepository shopRocketRepository)
+        {
+            _mapper = mapper;
+            _orderRepository = orderRepository;
+            _shopRocketRepository = shopRocketRepository;
+        }
+
         [HttpGet]
         [Authorize]
         public IActionResult RocketShop()
