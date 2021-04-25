@@ -16,8 +16,7 @@
     display: flex;
     font-family: "Georgia";
     font-size: 23px;
-    color: white;
-    background: rgba(0, 0, 0, 0.5);
+    background: #1f1f1f;
     height: 65px;
     align-items: center;
     justify-content: space-between;
@@ -95,6 +94,7 @@
 .comfort-link {
     text-decoration: none;
     color: white;
+    margin-right: 17px;
 }
 
 .or {
@@ -139,3 +139,13 @@ input[type="password"] {
     padding: 10px 50px;
     cursor: pointer;
 }
+
+.profile-exit{
+    color: white;
+    text-decoration: none;
+    margin: 17px;
+}
+
+    .profile-exit:hover {
+        color: #DCDCDC;
+    }
