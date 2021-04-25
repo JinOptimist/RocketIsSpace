@@ -1,10 +1,13 @@
-﻿<!DOCTYPE html>
+﻿@using SpaceWeb.Service
+@inject UserService userService
+
+<!DOCTYPE html>
 <html>
 <head>
     <link rel="stylesheet" href="~/css/reset.css" />
     <link rel="stylesheet" href="~/css/Rocket/iconsMenu.css">
     <link rel="stylesheet" href="~/css/Rocket/endBlockStyle.css">
-    <link rel="stylesheet" href="~/css/Rocket/topStyle.css?v=3">
+    <link rel="stylesheet" href="~/css/Rocket/topStyle.css?v=1">
     <link rel="stylesheet" href="~/css/Rocket/rocketlayout.css">
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/layout.js"></script>
@@ -24,7 +27,7 @@
                 <div class="login-direction">
                     <form action="/User/Login" method="post" id="login-or-registration" class="loginformstyle">
                         <div>
-                            <input name="@nameof(RegistrationViewModel.UserName)" class="inputFields" type="text" placeholder="login" />
+                            <input name="@nameof(RegistrationViewModel.Login)" class="inputFields" type="text" placeholder="login" />
                         </div>
                         <div>
                             <input name="@nameof(RegistrationViewModel.Password)" class="inputFields" type="password" placeholder="password" />
@@ -42,28 +45,42 @@
             </div>
         </div>
 
-
         <div class="info">
-            <div>
+            <div style="display: flex">
                 <a href="javascript:history.go(-1)" class="comfort-link">
                     <div class="link icon back">Back</div>
                 </a>
-                <a href="../Home/Index">
+                <a href="../Home/Index" class="comfort-link">
                     <div class="link icon home">Home</div>
                 </a>
             </div>
-            <div class="link icon log-in">Log in</div>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="">
+                    <img class="avatar" src="@userService.GetCurrent().AvatarUrl" />
+                    <a href="/User/Profile" class="profile-exit">
+                        Profile
+                    </a>
+                    <a href="/User/Logout" class="profile-exit">
+                        Exit
+                    </a>
+                </div>
+            }
+            else
+            {
+                <div class="link icon log-in">Log in</div>
+            }
         </div>
     </div>
-<div class="content">
+    <div class="content">
         @RenderBody()
-</div>
-<div class="end-block">
-    <div class="telephone">
-        <span>Contscts: +375-44-XX-XX-XXX, +375-29-XX-XX-XXX</span>
     </div>
-    <div class="email">Email: info@comfort.com</div>
-</div>
+    <div class="end-block">
+        <div class="telephone">
+            <span>Contscts: +375-44-XX-XX-XXX, +375-29-XX-XX-XXX</span>
+        </div>
+        <div class="email">Email: info@comfort.com</div>
+    </div>
 </body>
 
 </html>
