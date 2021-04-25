@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="~/css/bank/styleBank.css?v=3" />
     <link rel="stylesheet" href="~/css/bank/centralButtonStartPage.css?v=3" />
 
-    
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/bank/bank.js"></script>
     <script src="~/js/bank/centralButtonStartPage.js"></script>
@@ -48,10 +48,21 @@
                 </a>
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <div class="login-button">
-                        <span>Вход</span>
-                        <img class="login-icon" src="../image/icon/login-24px.svg" />
-                    </div>
+                    <a href="/User/Logout">
+                        <div class="login-button">
+                            <span>Выход</span>
+                            <img class="login-icon" src="../image/icon/login-24px.svg" />
+                        </div>
+                    </a>
+                }
+                else
+                {
+                    <a href="/User/Login">
+                        <div class="login-button">
+                            <span>Вход</span>
+                            <img class="login-icon" src="../image/icon/login-24px.svg" />
+                        </div>
+                    </a>
                 }
 
             </div>

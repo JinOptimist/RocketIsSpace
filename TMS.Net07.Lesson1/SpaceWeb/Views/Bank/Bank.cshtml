@@ -3,6 +3,9 @@
     Layout = "_LayoutBank";
 }
 
+@using SpaceWeb.Service
+@inject UserService userService
+
 <div class="header-for-start-page">
     <div class="logo">
         <a href="/">
@@ -21,18 +24,33 @@
         <a href="/Bank/Contacts">
             <div class="contacts-button-for-start-page">Контакты</div>
         </a>
-        <a href="/Bank/Cabinet">
-            <div class="internet-banking-button-for-start-page">
-                <span>Интернет-банкинг</span>
-                <img class="login-icon" src="../image/icon/account_bank.svg" />
-            </div>
-        </a>
+        @if (User.Identity.IsAuthenticated && userService.IsBankPerson())
+        {
+            <a href="/Bank/Cabinet">
+                <div class="internet-banking-button-for-start-page">
+                    <span>Интернет-банкинг</span>
+                    <img class="login-icon" src="../image/icon/account_bank.svg" />
+                </div>
+            </a>
+        }
+
         @if (User.Identity.IsAuthenticated)
         {
-            <div class="login-button-for-start-page">
-                <span>Вход</span>
-                <img class="login-icon" src="../image/icon/login-white-18dp.svg" />
-            </div>
+            <a href="/User/Logout">
+                <div class="login-button-for-start-page">
+                    <span>Выход</span>
+                    <img class="login-icon" src="../image/icon/login-white-18dp.svg" />
+                </div>
+            </a>
+        }
+        else
+        {
+            <a href="/User/Login">
+                <div class="login-button-for-start-page">
+                    <span>Вход</span>
+                    <img class="login-icon" src="../image/icon/login-white-18dp.svg" />
+                </div>
+            </a>
         }
 
     </div>
