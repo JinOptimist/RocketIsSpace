@@ -1,4 +1,5 @@
-﻿@section Style{
+﻿@inject UserService UserService
+@section Style{
     <link rel="stylesheet" href="~/css/Rocket/RocketShopStyle.css">
 }
 
@@ -6,6 +7,7 @@
     Layout = "_LayoutRocket";
 }
 
+@using SpaceWeb.Service
 @model SpaceWeb.Models.RocketModels.OrderViewModel
 
     <div class = "vraper">
@@ -67,9 +69,13 @@
       <div class= "shop"><p class = "text-header">Rockets</p></div>
     </div>
     <div class="rocket-shop">
-      <div>
-        <a href="~/RocketShop/AdminAddRocket"> Add New Item</a>
-      </div>
+      @if (UserService.IsAdmin())
+      {
+        <div>
+          <a href="~/RocketShop/AdminAddRocket"> Add New Item</a>
+        </div>
+      }
+      
       <div class="rocket">
         <div class="name">
           <div class="view">

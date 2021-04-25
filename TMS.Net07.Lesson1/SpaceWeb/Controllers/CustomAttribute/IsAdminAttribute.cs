@@ -17,7 +17,7 @@ namespace SpaceWeb.Controllers.CustomAttribute
                 .HttpContext
                 .RequestServices
                 .GetService(typeof(UserService));
-            if (_userService.GetCurrent().JobType != JobType.Admin)
+            if (!_userService.IsAdmin())
             {
                 context.Result = new ForbidResult();
             }
