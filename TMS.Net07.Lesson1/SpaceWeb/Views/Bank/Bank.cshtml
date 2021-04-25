@@ -21,10 +21,20 @@
         <a href="/Bank/Contacts">
             <div class="contacts-button-for-start-page">Контакты</div>
         </a>
-        <div class="login-button-for-start-page">
-            <span>Вход</span>
-            <img class="login-icon" src="../image/icon/login-white-18dp.svg" />
-        </div>
+        <a href="/Bank/Cabinet">
+            <div class="internet-banking-button-for-start-page">
+                <span>Интернет-банкинг</span>
+                <img class="login-icon" src="../image/icon/account_bank.svg" />
+            </div>
+        </a>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="login-button-for-start-page">
+                <span>Вход</span>
+                <img class="login-icon" src="../image/icon/login-white-18dp.svg" />
+            </div>
+        }
+
     </div>
 </div>
 

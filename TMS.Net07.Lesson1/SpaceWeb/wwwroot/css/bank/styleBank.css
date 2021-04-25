@@ -98,7 +98,7 @@ a {
     align-items: center;
 }
 
-.home-button, .about-button, .contacts-button, .login-button {
+.home-button, .about-button, .contacts-button, .internet-banking-button, .login-button {
     color: rgb(26, 43, 99);
     margin: 0.2em;
     padding: 0.5em;
@@ -109,7 +109,8 @@ a {
 }
 
 .home-button-for-start-page, .about-button-for-start-page,
-.contacts-button-for-start-page, .login-button-for-start-page {
+.contacts-button-for-start-page, .internet-banking-button-for-start-page,
+.login-button-for-start-page {
     color: rgb(255, 255, 255);
     margin: 0.2em;
     padding: 0.5em;
@@ -119,7 +120,8 @@ a {
     opacity: 0.8;
 }
 
-.home-button:hover, .about-button:hover, .contacts-button:hover, .login-button:hover {
+.home-button:hover, .about-button:hover, .contacts-button:hover,
+.internet-banking-button:hover, .login-button:hover {
     /*margin: 0.5em;*/
     /*font-weight: 600;*/
     font-size: calc(25px+2px);
@@ -131,7 +133,8 @@ a {
 }
 
 .home-button-for-start-page:hover, .about-button-for-start-page:hover,
-.contacts-button-for-start-page:hover, .login-button-for-start-page:hover {
+.contacts-button-for-start-page:hover, .internet-banking-button-for-start-page:hover,
+.login-button-for-start-page:hover {
     /*margin: 0.5em;*/
     /*font-weight: 600;*/
     font-size: calc(25px+2px);

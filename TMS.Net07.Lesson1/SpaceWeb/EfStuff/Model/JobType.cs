@@ -11,6 +11,8 @@ namespace SpaceWeb.EfStuff.Model
         BankMan = 2,
         EngineerQa = 3,
         Junior = 4,
+        BankClient = 5,
+        ChiefBankMan = 6,
         Admin = 99
     }
 }

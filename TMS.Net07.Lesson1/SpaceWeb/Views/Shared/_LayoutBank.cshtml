@@ -41,15 +41,19 @@
                     <div class="contacts-button">Контакты</div>
                 </a>
                 <a href="/Bank/Cabinet">
-                    <div class="login-button">
-                        <span>Кабинет</span>
+                    <div class="internet-banking-button">
+                        <span>Интернет-банкинг</span>
                         <img class="login-icon" src="../image/icon/account_bank.svg" />
                     </div>
                 </a>
-                <div class="login-button">
-                    <span>Вход</span>
-                    <img class="login-icon" src="../image/icon/login-24px.svg" />
-                </div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="login-button">
+                        <span>Вход</span>
+                        <img class="login-icon" src="../image/icon/login-24px.svg" />
+                    </div>
+                }
+
             </div>
         </div>
 
