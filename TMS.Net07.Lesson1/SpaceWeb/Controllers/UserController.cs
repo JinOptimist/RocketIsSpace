@@ -88,7 +88,7 @@ namespace SpaceWeb.Controllers
                 return View(model);
             }
 
-            var user = _userRepository.Get(model.UserName);
+            var user = _userRepository.Get(model.Login);
 
             if (user == null)
             {
@@ -127,7 +127,7 @@ namespace SpaceWeb.Controllers
                 return View(model);
             }
 
-            var isUserUniq = _userRepository.Get(model.UserName) == null;
+            var isUserUniq = _userRepository.Get(model.Login) == null;
             if (isUserUniq)
             {
                 var user = _mapper.Map<User>(model);
