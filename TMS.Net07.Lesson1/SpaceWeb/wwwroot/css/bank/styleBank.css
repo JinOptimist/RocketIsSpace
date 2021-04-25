@@ -121,10 +121,10 @@ a {
 
 .home-button:hover, .about-button:hover, .contacts-button:hover, .login-button:hover {
     /*margin: 0.5em;*/
-    font-weight: 600;
+    /*font-weight: 600;*/
     font-size: calc(25px+2px);
     background-image: -webkit-linear-gradient(top,rgb(53, 189, 252),rgb(27, 89, 117));
-    border: 4px rgb(26, 43, 99) solid;
+    /*border: 4px rgb(26, 43, 99) solid;*/
     color: rgb(255, 255, 255);
     border-radius: 1em;
     opacity: 1;
@@ -133,10 +133,10 @@ a {
 .home-button-for-start-page:hover, .about-button-for-start-page:hover,
 .contacts-button-for-start-page:hover, .login-button-for-start-page:hover {
     /*margin: 0.5em;*/
-    font-weight: 600;
+    /*font-weight: 600;*/
     font-size: calc(25px+2px);
     background-image: -webkit-linear-gradient(top,rgb(53, 189, 252),rgb(27, 89, 117));
-    border: 4px rgb(26, 43, 99) solid;
+    /*border: 4px rgb(26, 43, 99) solid;*/
     border-radius: 1em;
     opacity: 1;
 }
