@@ -1,32 +1,32 @@
-﻿@model RegistrationViewModel
-
-@section Scripts{
-    <script src="~/js/registration.js"></script>
+﻿@model SpaceWeb.Models.RegistrationViewModel
+@{
+    Layout = "_LayoutRocket";
+}
+@section Style
+{
+    <link rel="stylesheet" href="~/css/Rocket/Login.css?v=4">
 }
 
-<div id="registration-block">
-    <div>
-        <h1>Регистриация</h1>
-    </div>
 
-    <div>
-        <form action="/User/Registration" method="post">
-            <div>
-                Login: @Html.TextBoxFor(model => model.Login)
-                <span class="icon ok hide"></span>
-                <span class="icon close hide"></span>
-                <span class="icon spinner hide"></span>
-                
-                @Html.ValidationMessageFor(model => model.Login)
-            </div>
-            <div>
-                Password: @Html.TextBoxFor(model => model.Password,
-new { @type = "password", @class = "test" })
-                @Html.ValidationMessageFor(x => x.Password)
-            </div>
-            <div>
-                <input type="submit" />
-            </div>
+<div class="loginpage">
+    <div class="pglogblock">
+        <div class="pginfo">
+            <div class="pglogin">Registration</div>
+        </div>
+        <form action="/User/Registration" method="post" class="loginformstyle1">
+            <ul class="noBullet">
+                <li>
+                    <label for="username"></label>
+                    <input name="@nameof(RegistrationViewModel.UserName)" class="inputFields" type="text" placeholder="Login" />
+                </li>
+                <li>
+                    <label for="password"></label>
+                    <input name="@nameof(RegistrationViewModel.Password)" class="inputFields" type="password" placeholder="Password" />
+                </li>
+                <li>
+                    <input class="pglogbut" type="submit" value="Registration" />
+                </li>
+            </ul>
         </form>
     </div>
 </div>

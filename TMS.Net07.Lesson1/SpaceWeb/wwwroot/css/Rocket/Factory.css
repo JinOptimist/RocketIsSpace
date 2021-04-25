@@ -1,133 +1,159 @@
-    body{
-		background: url(../../image/FactoryImages/spacefactory.jpg);
-		background-size: cover;
-		background-position: center;
-		background-repeat: no-repeat;
-	}
-	.pre-header{
-		display: flex;
-		justify-content: flex-end;
-		justify-content: space-between;
-		margin-top: 70px;
-	}
-	
-	.settings-menu.hide{
-		display: none;
-	}
+body {
+    background: url(../../image/FactoryImages/spacefactory.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
 
-	.authorization-field{
-		display: flex;
-		flex-direction: row;
-		opacity: 0.2;
-	}
-	.authorization-field:hover{
-		opacity: 1;
-	}
-	.authorization-field .log-field{
-		display: flex;
-		flex-direction: column;
-	}
-	.log-field .login-input,
-	.log-field .password-input{
-		border-radius: 8px;
-	}
-	.authorization-field .log-in-button{
-		align-self: flex-end;
-	}
-	.log-in-button [type="button"]{
-		display: flex;
-		justify-content: center;
-		width: 50px;
-		border-radius: 12px;
-	}
-	.header{
-		height: 100px;
-		width: 100%;
-		display:flex;
-		justify-content: center;
-		font-size: 70px;
-		line-height: 110px;
-		text-shadow: -1px 0 whitesmoke, 0 1px whitesmoke, 1px 0 whitesmoke, 0 -1px whitesmoke;
-		font-family: Calibri, serif; color: black;
-	}
-	.search{
-		height: 60px;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-	.search .search-field{
-		opacity: 0.2;
-	}
-	.search .search-field:hover{
-		opacity: 1;
-	}
-	.search .search-field input{
-		border-radius: 4px;
-		width: 250px;
-	}
-	.center-block{
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: center;
-		align-items: center;
-		justify-content: space-between;
-		height: 80%;
-	}
-	.center-block a div {
-		text-align: center;
-		text-shadow: -1px 0 whitesmoke, 0 1px whitesmoke, 1px 0 whitesmoke, 0 -1px whitesmoke;
-		font-family: Calibri, serif; color: rgb(20, 149, 209);
-		font-size: 60px;
-		height: 200px;
-		width: 350px;
-		border-radius: 9px;
-	}
-	.rocket:hover{
-		transition:all .3s ease;
-  		background:url("../../image/FactoryImages/mainRocket.jpg") center/cover;
-		opacity: 1;
-	}
-	.add:hover{
-		transition:all .3s ease;
-		background:url("../../image/FactoryImages/living room.jpg") center/cover;
-		opacity:1;
-	}
-	.comf:hover{
-		transition:all .3s ease;
-		background:url("../../image/FactoryImages/command_center.jpg") center/cover;
-		opacity:1;
-	}
-	.stage:hover{
-		transition:all .3s ease;
-		background:url("../../image/FactoryImages/engine.jpg") center/cover;
-		opacity:1;
-	}
-	.link:hover .text{
-		opacity: 0.2;
-	}
-	.link{
-		text-decoration: none;
-	}
-	.settings-menu img{
-		width: 20px;
-		height: 20px;
-	}
-	.settings-menu img.full-size{
-		position: fixed;
-		width: 400px;
-		height: 250px;
-		align-self: center;
-		z-index: 100;
-	}
-	.settings-icon:hover{
-		cursor: pointer;
-	}
-	.settings-menu{
-		display: flex;
-		flex-direction: column;
-		position: absolute;
-	}
-	.settings-picture-block{
-		margin: 7px;
-	}
+.pre-header {
+    display: flex;
+    justify-content: flex-end;
+    justify-content: space-between;
+    margin-top: 70px;
+}
+
+.settings-menu.hide {
+    display: none;
+}
+
+.authorization-field {
+    display: flex;
+    flex-direction: row;
+    opacity: 0.2;
+}
+
+    .authorization-field:hover {
+        opacity: 1;
+    }
+
+    .authorization-field .log-field {
+        display: flex;
+        flex-direction: column;
+    }
+
+.log-field .login-input,
+.log-field .password-input {
+    border-radius: 8px;
+}
+
+.authorization-field .log-in-button {
+    align-self: flex-end;
+}
+
+.log-in-button [type="button"] {
+    display: flex;
+    justify-content: center;
+    width: 50px;
+    border-radius: 12px;
+}
+
+.header {
+    height: 100px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-size: 70px;
+    line-height: 110px;
+    text-shadow: -1px 0 whitesmoke, 0 1px whitesmoke, 1px 0 whitesmoke, 0 -1px whitesmoke;
+    font-family: Calibri, serif;
+    color: black;
+}
+
+.search {
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    .search .search-field {
+        opacity: 0.2;
+    }
+
+        .search .search-field:hover {
+            opacity: 1;
+        }
+
+        .search .search-field input {
+            border-radius: 4px;
+            width: 250px;
+        }
+
+.center-block {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    justify-content: space-between;
+    height: 80%;
+}
+
+    .center-block a div {
+        text-align: center;
+        text-shadow: -1px 0 whitesmoke, 0 1px whitesmoke, 1px 0 whitesmoke, 0 -1px whitesmoke;
+        font-family: Calibri, serif;
+        color: rgb(20, 149, 209);
+        font-size: 60px;
+        height: 200px;
+        width: 350px;
+        border-radius: 9px;
+    }
+
+.rocket:hover {
+    transition: all .3s ease;
+    background: url("../../image/FactoryImages/mainRocket.jpg") center/cover;
+    opacity: 1;
+}
+
+.add:hover {
+    transition: all .3s ease;
+    background: url("../../image/FactoryImages/living room.jpg") center/cover;
+    opacity: 1;
+}
+
+.comf:hover {
+    transition: all .3s ease;
+    background: url("../../image/FactoryImages/command_center.jpg") center/cover;
+    opacity: 1;
+}
+
+.stage:hover {
+    transition: all .3s ease;
+    background: url("../../image/FactoryImages/engine.jpg") center/cover;
+    opacity: 1;
+}
+
+.center-block .link:hover .text {
+    opacity: 0.2;
+}
+
+.center-block .link {
+    text-decoration: none;
+}
+
+.settings-menu img {
+    width: 20px;
+    height: 20px;
+}
+
+    .settings-menu img.full-size {
+        position: fixed;
+        width: 400px;
+        height: 250px;
+        align-self: center;
+        z-index: 100;
+    }
+
+.settings-icon:hover {
+    cursor: pointer;
+}
+
+.settings-menu {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+}
+
+.settings-picture-block {
+    margin: 7px;
+}
