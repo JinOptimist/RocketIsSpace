@@ -4,10 +4,11 @@
     <link rel="stylesheet" href="~/css/reset.css" />
     <link rel="stylesheet" href="~/css/Rocket/iconsMenu.css">
     <link rel="stylesheet" href="~/css/Rocket/endBlockStyle.css">
-    <link rel="stylesheet" href="~/css/Rocket/topStyle.css?v=2">
+    <link rel="stylesheet" href="~/css/Rocket/topStyle.css?v=3">
     <link rel="stylesheet" href="~/css/Rocket/rocketlayout.css">
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/js/Rocket/Menu.js"></script>
+    <script src="~/js/layout.js"></script>
+    <script src="~/js/butLG.js"></script>
 
     @RenderSection("Style", required: false)
     @RenderSection("Script", required: false)
@@ -15,41 +16,45 @@
 </head>
 
 <body>
-<div class="top">
-    <div class="log hide"></div>
-    <div class="login-block hide">
-        <div class="login-direction">
-            <form action="/Rocket/Login" method="post" class="loginformstyle">
-                <div>
-                    <input name="UserName" class="inputFields" type="text" placeholder="login" />
+    <div class="top">
+
+        <div class="nice-popup hide">
+            <div class="popup-cover"></div>
+            <div class="login-block">
+                <div class="login-direction">
+                    <form action="/User/Login" method="post" id="login-or-registration" class="loginformstyle">
+                        <div>
+                            <input name="@nameof(RegistrationViewModel.UserName)" class="inputFields" type="text" placeholder="login" />
+                        </div>
+                        <div>
+                            <input name="@nameof(RegistrationViewModel.Password)" class="inputFields" type="password" placeholder="password" />
+                        </div>
+                        <div class="but1">
+                            <input class="pglogbut" type="submit" value="Log in" />
+                        </div>
+
+                        <div class="or">or</div>
+                        <div class="but2">
+                            <input class="pglogbut" type="submit" value="Registration" />
+                        </div>
+                    </form>
                 </div>
-                <div>
-                    <input name="Password" class="inputFields" type="text" placeholder="password" />
-                </div>
-                <div>
-                    <input class="pglogbut" type="submit" value="Log in" />
-                </div>
-            </form>
-            <div class="or">or</div>
-            <div>
-                <a href="../Rocket/Registration">
-                    <input class="pglogbut" type="button" value="Registration" />
-                </a>
             </div>
         </div>
-    </div>
-    <div class="info">
-        <div>
-            <a href="javascript:history.go(-1)" class="comfort-link">
-                <div class="link icon back">Back</div>
-            </a>
-            <a href="../Rocket/MainPage">
-                <div class="link icon home">Home</div>
-            </a>
+
+
+        <div class="info">
+            <div>
+                <a href="javascript:history.go(-1)" class="comfort-link">
+                    <div class="link icon back">Back</div>
+                </a>
+                <a href="../Home/Index">
+                    <div class="link icon home">Home</div>
+                </a>
+            </div>
+            <div class="link icon log-in">Log in</div>
         </div>
-        <div class="link icon log-in">Log in</div>
     </div>
-</div>
 <div class="content">
         @RenderBody()
 </div>

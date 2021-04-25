@@ -40,16 +40,16 @@
     left: 110px;
 }
 
-.link {
+.info .link {
     display: flex;
     cursor: pointer;
     z-index: 1;
     color: white;
 }
 
-    .link:hover {
-        color: #DCDCDC;
-    }
+.info .link:hover {
+    color: #DCDCDC;
+}
 
 .nice-popup {
     position: fixed;
