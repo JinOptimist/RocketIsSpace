@@ -8,7 +8,8 @@ namespace SpaceWeb.EfStuff.Model
 
         public virtual Department Department { get; set; }
 
-        public virtual User User { get; set; }
+        public long ForeignKeyProfile { get; set; }
+        public virtual HumanProfile Profile { get; set; }
 
         public virtual List<OrderList> OrderList { get; set; }
 

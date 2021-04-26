@@ -34,21 +34,13 @@ namespace SpaceWeb.EfStuff.Model
         public virtual Rocket MyFavouriteRocket { get; set; }
 
 
-        public long? ClientForeignKey { get; set; }
-        public virtual Client Client { get; set; }
-
-        public long? EmployeForeignKey { get; set; }
-        public virtual Employe Employe { get; set; }
-
         public string Phone { get; set; }
-
-        public string Email { get; set; }
 
         public string PostAddress { get; set; }
 
         public virtual List<BankAccount> BankAccounts { get; set; }
-       
         public virtual Profile Profile { get; set; }
 
+        public virtual HumanProfile HumanProfile { get; set; }
     }
 }

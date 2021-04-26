@@ -18,9 +18,5 @@ namespace SpaceWeb.EfStuff.Repositories
         {
             return _dbSet.SingleOrDefault(x => x.Name.ToLower() == name.ToLower() || x.UserName.ToLower()==name.ToLower());
         }
-        public User GetByLogin(string login)
-        {
-            return _dbSet.SingleOrDefault(x => x.Login == login);
-        }
     }
 }

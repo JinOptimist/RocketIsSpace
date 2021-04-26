@@ -26,7 +26,7 @@ namespace SpaceWeb.Controllers
             var model = new UserProfileViewModel()
             {
                 Name = user.Name,
-                SurName = user.Surname,
+                SurName = user.SurName,
                 Age = user.Age
             };
             return View(model);
@@ -36,73 +36,6 @@ namespace SpaceWeb.Controllers
         public IActionResult Index()
         {
             return View();
-        }
-
-        [HttpGet]
-        public IActionResult Registration()
-        {
-            var model = new RegistrationViewModel();
-            return View(model);
-        }
-
-        [HttpPost]
-        public IActionResult Registration(RegistrationViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-            var isUserUniq = _userRepository.GetByLogin(model.Login) == null;
-            if (isUserUniq)
-            {
-                var user = new User
-                {
-                    Login = model.Login,
-                    Password = model.Password,
-                    Name = model.UserProfile.Name,
-                    Surname = model.UserProfile.SurName,
-                    BirthDate = model.UserProfile.BirthDate
-                };
-                _userRepository.Save(user);
-            }
-
-            return View(model);
-        }
-
-        [HttpGet]
-        public IActionResult Login()
-        {
-            var model = new RegistrationViewModel();
-            return View(model);
-        }
-
-        [HttpPost]
-        public IActionResult Login(RegistrationViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            var user = _userRepository.GetByLogin(model.Login);
-
-            if (user == null)
-            {
-                ModelState.AddModelError(
-                    nameof(RegistrationViewModel.Login),
-                    "Нет такого пользователя");
-                return View(model);
-            }
-
-            if (user.Password != model.Password)
-            {
-                ModelState.AddModelError(
-                    nameof(RegistrationViewModel.Password),
-                    "Не правильный праоль");
-                return View(model);
-            }
-
-            return Redirect($"Profile?id={user.Id}");
         }
 
         [HttpGet]
