@@ -61,6 +61,10 @@ namespace SpaceWeb
             services.AddScoped<BankAccountRepository>(diContainer =>
                 new BankAccountRepository(diContainer.GetService<SpaceDbContext>()));
 
+
+            services.AddScoped<DepartmentRepository>(diContainer =>
+                new DepartmentRepository(diContainer.GetService<SpaceDbContext>()));
+
             RegisterMapper(services);
 
             services.AddScoped<ComfortRepository>(diContainer =>
@@ -94,10 +98,12 @@ namespace SpaceWeb
         {
             var configExpression = new MapperConfigurationExpression();
 
+
             //configExpression.CreateMap<User, UserProfileViewModel>()
             //    .ForMember(nameof(UserProfileViewModel.FullName),
             //        config => config
             //            .MapFrom(dbModel => $"{dbModel.Name}, {dbModel.SurName} Mr"));
+
 
             configExpression.CreateMap<User, ProfileViewModel>();
 
@@ -117,6 +123,13 @@ namespace SpaceWeb
             
             MapBoth<Order,OrderViewModel>(configExpression);
 
+
+            MapBoth<User, UserProfileViewModel>(configExpression);
+
+            MapBoth<User,RegistrationViewModel>(configExpression);
+
+            MapBoth<Department, DepartmentViewModel>(configExpression);
+
             MapBoth<BankAccount, BankAccountViewModel>(configExpression);
             
             MapBoth<User,RocketProfileViewModel>(configExpression);
@@ -124,6 +137,7 @@ namespace SpaceWeb
             MapBoth<Comfort, ComfortFormViewModel>(configExpression);
             
             MapBoth<AddShopRocket, AdminAddRocketViewModel>(configExpression);
+
 
             var mapperConfiguration = new MapperConfiguration(configExpression);
             var mapper = new Mapper(mapperConfiguration);
@@ -154,10 +168,12 @@ namespace SpaceWeb
 
             app.UseRouting();
 
+
             //��� �?
             app.UseAuthentication();
 
             //���� ��� �����
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
