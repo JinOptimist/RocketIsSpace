@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SpaceWeb.EfStuff.Repositories
 {
-    public abstract class BaseRepository<ModelType> where ModelType : BaseModel
+    public abstract class BaseRepository<ModelType> : IBaseRepository<ModelType> where ModelType : BaseModel
     {
         protected SpaceDbContext _spaceDbContext;
         protected DbSet<ModelType> _dbSet;
