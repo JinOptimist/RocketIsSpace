@@ -12,7 +12,13 @@
 
     <div class = "vraper">
         <div class = "header">
-            <div class= "shop"><p class = "text-header">Shop Rocket</p></div>
+          <div class= "shop"><p class = "text-header">Shop Rocket</p></div>
+          @if (UserService.IsAdmin())
+                {
+                  <div>
+                    <a href="~/RocketShop/AdminAddRocket"> Add New Item</a>
+                  </div>
+                }
         </div>
         <div class="center-block">
             <a href="#" class="link">
@@ -68,13 +74,7 @@
     <div class = "section-shop">
       <div class= "shop"><p class = "text-header">Rockets</p></div>
     </div>
-    <div class="rocket-shop">
-      @if (UserService.IsAdmin())
-      {
-        <div>
-          <a href="~/RocketShop/AdminAddRocket"> Add New Item</a>
-        </div>
-      }
+    <div class="items-shop">
       @foreach (var rocket in Model.AddRockets)
       {
         <div class="rocket">
@@ -92,34 +92,11 @@
           </div>
         </div>
       }
-      
-      <div class="rocket">
-        <div class="name">
-          <div class="view">
-            <div class="current-name">Proton</div>
-            <img src="/image/RocketImages/norm-rocket.jfif">
-          </div>
-          <div class="icon add">
-            <span class="icon ok">Add</span>
-          </div>
-        </div>
-      </div>
-      <div class="rocket">
-        <div class="name">
-          <div class="view">
-            <div class="current-name">Proton</div>
-            <img src="/image/RocketImages/bad-rocket.png">
-          </div>
-          <div class="icon add">
-            <span class="icon ok">Add</span>
-          </div>
-        </div>
-      </div>
     </div>
         <div class = "section-shop">
             <div class= "shop"><p class = "text-header">Fuel tank</p></div>
         </div>
-        <div class = "Fuel-tank">
+        <div class = "items-shop">
             <div class="rocket">
                 <div class="name">
                   <div class="view">
@@ -163,7 +140,7 @@
         <div class = "section-shop">
             <div class= "shop"><p class = "text-header">Restroom</p></div>
         </div>
-        <div class = "Restroom">
+        <div class = "items-shop">
             <div class="rocket">
                 <div class="name">
                   <div class="view">
@@ -207,7 +184,7 @@
         <div class = "section-shop">
             <div class= "shop"><p class = "text-header">Kitchen</p></div>
         </div>
-        <div class = "Kitchen">
+        <div class = "items-shop">
             <div class="rocket">
                 <div class="name">
                   <div class="view">
@@ -249,7 +226,7 @@
         <div class = "section-shop">
             <div class= "shop"><p class = "text-header">Command center</p></div>
         </div>
-        <div class = "Command-center">
+        <div class = "items-shop">
             <div class="rocket">
                 <div class="name">
                   <div class="view">
@@ -291,7 +268,7 @@
         <div class = "section-shop">
             <div class= "shop"><p class = "text-header">Engine</p></div>
         </div>
-    <div class = "Engine">
+    <div class = "items-shop">
       <div class="rocket">
         <div class="name">
           <div class="view">
