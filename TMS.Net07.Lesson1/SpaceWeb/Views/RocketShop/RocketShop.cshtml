@@ -8,7 +8,7 @@
 }
 
 @using SpaceWeb.Service
-@model SpaceWeb.Models.RocketModels.OrderViewModel
+@model SpaceWeb.Models.RocketModels.CollectionRocketShopViewModel
 
     <div class = "vraper">
         <div class = "header">
@@ -75,18 +75,24 @@
           <a href="~/RocketShop/AdminAddRocket"> Add New Item</a>
         </div>
       }
-      
-      <div class="rocket">
-        <div class="name">
-          <div class="view">
-            <div class="current-name">Proton</div>
-            <img src="/image/RocketImages/good-rocket.png">
-          </div>
-          <div class="icon add">
-            <span class="icon ok">Add</span>
+      @foreach (var rocket in Model.AddRockets)
+      {
+        <div class="rocket">
+          <div class="name">
+            <div class="view">
+              <div class="current-name">@rocket.Name</div>
+              <img src="/image/RocketImages/good-rocket.png">
+            </div>
+            <div class="icon add">
+              <div>
+                @rocket.Cost $
+              </div>
+              <span class="icon ok">Add</span>
+            </div>
           </div>
         </div>
-      </div>
+      }
+      
       <div class="rocket">
         <div class="name">
           <div class="view">

@@ -33,23 +33,26 @@ namespace SpaceWeb.Controllers
         [Authorize]
         public IActionResult RocketShop()
         {
-            var order = new OrderViewModel();
-            return View(order);
+            var collection = new CollectionRocketShopViewModel
+            {
+                AddRockets = _shopRocketRepository.GetAll()
+            };
+            return View(collection);
         }
 
         [HttpPost]
         [Authorize]
-        public IActionResult RocketShop(OrderViewModel orderViewModel)
+        public IActionResult RocketShop(CollectionRocketShopViewModel collection)
         {
             if (!ModelState.IsValid)
             {
-                return View(orderViewModel);
+                return View(collection);
             }
 
-            var order = _mapper.Map<Order>(orderViewModel);
+            var order = _mapper.Map<Order>(collection);
             _orderRepository.Save(order);
 
-            return View(orderViewModel);
+            return View(collection);
 
         }
 
