@@ -38,6 +38,7 @@ namespace SpaceWeb.Controllers
         }
 
         [Authorize]
+        [HttpGet]
         public IActionResult Profile()
         {
             var user = _userService.GetCurrent();

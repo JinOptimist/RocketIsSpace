@@ -19,6 +19,8 @@ using System.Threading.Tasks;
 using SpaceWeb.Models.RocketModels;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 using Profile = SpaceWeb.EfStuff.Model.Profile;
+using SpaceWeb.EfStuff.Repositories.IRepository;
+using SpaceWeb.Presentation;
 
 namespace SpaceWeb
 {
@@ -46,10 +48,15 @@ namespace SpaceWeb
                     config.AccessDeniedPath = "/User/AccessDenied";
                 });
 
+            services.AddScoped<IRelicPresentation>(container =>
+                new RelicPresentation(
+                    container.GetService<IRelicRepository>(),
+                    container.GetService<IMapper>()));
+
             services.AddScoped<UserRepository>(diContainer =>
                 new UserRepository(diContainer.GetService<SpaceDbContext>()));
 
-            services.AddScoped<RelicRepository>(diContainer =>
+            services.AddScoped<IRelicRepository>(diContainer =>
                 new RelicRepository(diContainer.GetService<SpaceDbContext>()));
 
             services.AddScoped<ProfileRepository>(diContainer =>
