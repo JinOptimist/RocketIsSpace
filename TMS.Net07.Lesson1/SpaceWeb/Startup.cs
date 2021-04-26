@@ -16,7 +16,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SpaceWeb.Models.RocketModels;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
+using Profile = SpaceWeb.EfStuff.Model.Profile;
+
 namespace SpaceWeb
 {
     public class Startup
@@ -40,6 +43,7 @@ namespace SpaceWeb
                 {
                     config.Cookie.Name = "Smile";
                     config.LoginPath = "/User/Login";
+                    config.AccessDeniedPath = "/User/AccessDenied";
                 });
 
             services.AddScoped<UserRepository>(diContainer =>
@@ -57,6 +61,7 @@ namespace SpaceWeb
             services.AddScoped<BankAccountRepository>(diContainer =>
                 new BankAccountRepository(diContainer.GetService<SpaceDbContext>()));
 
+
             services.AddScoped<DepartmentRepository>(diContainer =>
                 new DepartmentRepository(diContainer.GetService<SpaceDbContext>()));
 
@@ -65,11 +70,8 @@ namespace SpaceWeb
             services.AddScoped<ComfortRepository>(diContainer =>
                 new ComfortRepository(diContainer.GetService<SpaceDbContext>()));
 
-            services.AddScoped<RocketStageRepository>(diContainer => 
+            services.AddScoped<RocketStageRepository>(diContainer =>
                 new RocketStageRepository(diContainer.GetService<SpaceDbContext>()));
-
-            services.AddScoped<RocketProfileRepository>(diContainer =>
-                new RocketProfileRepository(diContainer.GetService<SpaceDbContext>()));
 
             services.AddScoped<UserService>(diContainer =>
                 new UserService(
@@ -77,28 +79,49 @@ namespace SpaceWeb
                     diContainer.GetService<IHttpContextAccessor>()
                 ));
 
-
             services.AddControllersWithViews();
 
             services.AddHttpContextAccessor();
+ 
+            services.AddScoped<OrderRepository>(diContainer =>
+                new OrderRepository(diContainer.GetService<SpaceDbContext>()));
+            services.AddControllersWithViews();
+
+            services.AddScoped<AdditionRepository>(diContainer =>
+                new AdditionRepository(diContainer.GetService<SpaceDbContext>()));
+            
+            services.AddScoped<ShopRocketRepository>(diContainer =>
+                new ShopRocketRepository(diContainer.GetService<SpaceDbContext>()));
         }
 
         private void RegisterMapper(IServiceCollection services)
         {
             var configExpression = new MapperConfigurationExpression();
 
-            configExpression.CreateMap<User, UserProfileViewModel>()
-                .ForMember(nameof(UserProfileViewModel.FullName),
-                    config => config
-                        .MapFrom(dbModel => $"{dbModel.Name}, {dbModel.Surname} Mr"));
+
+            //configExpression.CreateMap<User, UserProfileViewModel>()
+            //    .ForMember(nameof(UserProfileViewModel.FullName),
+            //        config => config
+            //            .MapFrom(dbModel => $"{dbModel.Name}, {dbModel.SurName} Mr"));
+
 
             configExpression.CreateMap<User, ProfileViewModel>();
 
             //configExpression.CreateMap<Relic, RelicViewModel>();
             //configExpression.CreateMap<RelicViewModel, Relic>();
+           
             MapBoth<Relic, RelicViewModel>(configExpression);
+            MapBoth<User, UserProfileViewModel>(configExpression);
+
+            MapBoth<Profile, UserProfileViewModel>(configExpression);
+
+            MapBoth<Profile, ProfileViewModel>(configExpression);
 
             MapBoth<AdvImage, AdvImageViewModel>(configExpression);
+            
+            MapBoth<User,RocketRegistrationViewModel>(configExpression);
+            
+            MapBoth<Order,OrderViewModel>(configExpression);
 
 
             MapBoth<User, UserProfileViewModel>(configExpression);
@@ -108,6 +131,12 @@ namespace SpaceWeb
             MapBoth<Department, DepartmentViewModel>(configExpression);
 
             MapBoth<BankAccount, BankAccountViewModel>(configExpression);
+            
+            MapBoth<User,RocketProfileViewModel>(configExpression);
+
+            MapBoth<Comfort, ComfortFormViewModel>(configExpression);
+            
+            MapBoth<AddShopRocket, AdminAddRocketViewModel>(configExpression);
 
 
             var mapperConfiguration = new MapperConfiguration(configExpression);
@@ -139,10 +168,12 @@ namespace SpaceWeb
 
             app.UseRouting();
 
-            //Êòî ÿ?
+
+            //��� �?
             app.UseAuthentication();
 
-            //Êóäà ìíå ìîæíî
+            //���� ��� �����
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -1,13 +1,15 @@
-﻿.center-block {
+﻿.content {
     display: flex;
-    /* background: #1100aa; */
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 10px;
 }
 
-.content {
-    /* background: gray; */
-    display: flex;
-    flex: 1;
-    flex-wrap: wrap;
+.block {
+    width: 500px;
+    height: 300px;
+    border: 1px red solid;
+    margin: 20px;
 }
 
 
@@ -177,16 +179,27 @@
     border-radius: 10px;
 }
 
-.relic .name{
-    display: flex;
-    justify-content: space-between;
-}
-
-    .relic .name .icon.close{
-        cursor: pointer;
+    .relic .name {
+        display: flex;
+        justify-content: space-between;
     }
+
+        .relic .name .icon.close {
+            cursor: pointer;
+        }
 
     .relic img {
         max-width: 100px;
         max-height: 100px;
     }
+
+.avatar{
+    max-width: 200px;
+    max-height: 200px;
+}
+
+.top .avatar {
+    max-width: 40px;
+    max-height: 40px;
+    border-radius: 20px;
+}

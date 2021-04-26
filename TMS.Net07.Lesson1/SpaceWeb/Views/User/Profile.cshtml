@@ -3,7 +3,21 @@
 <div>
     <h1>Профиль</h1>
     <div>
-        @Model.UserName @Model.Age
+        <img class="avatar" src="@Model.AvatarUrl" />
+    </div>
+    <div>
+        <form action="/User/Profile" method="post" enctype="multipart/form-data">
+            <div>
+                Новый аватар
+                <input type="file" name="@nameof(ProfileUpdateViewModel.Avatar)" />
+            </div>
+            <div>
+                email <input name="@nameof(ProfileUpdateViewModel.Email)" value="@Model.Email" />
+            </div>
+            <div>
+                <input type="submit" value="Обновить аватар" />
+            </div>
+        </form>
     </div>
 
     <h2>Мои счета</h2>

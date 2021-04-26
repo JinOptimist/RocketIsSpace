@@ -1,0 +1,33 @@
+﻿@model SpaceWeb.Models.RocketModels.AdminAddRocketViewModel
+
+@{
+    Layout = "_LayoutRocket";
+}
+@section Style
+{
+    <link rel="stylesheet" href="~/css/Rocket/AdminAddRocket.css">
+}
+@section Script
+ {
+    
+ }
+<div class = "new-rocket-form">
+    <form action="/Rocket/AddNewItemAdmin" method="post">
+        <div>
+            Название сувенира: @Html.TextBoxFor(x => x.Name)
+        </div>
+        <div>
+            Путь к картинке:
+            @Html.TextBoxFor(x => x.ImageUrl)
+        </div>
+        <div>
+            Цена: @Html.TextBoxFor(x => x.Cost )
+        </div>
+        <div>
+            Остатока на складе: @Html.TextBoxFor(x => x.Count)
+        </div>
+        <div>
+            <button type="submit">Добавить товар</button>
+        </div>
+    </form>
+</div>
