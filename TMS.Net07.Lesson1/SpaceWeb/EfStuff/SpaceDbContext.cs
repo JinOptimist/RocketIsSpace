@@ -19,8 +19,11 @@ namespace SpaceWeb.EfStuff
         public DbSet<FactoryHistory> FactoryHistories { get; set; }
         public DbSet<Comfort> ComfortsExample { get; set; }
         public DbSet<RocketStage> RocketStages { get; set; }
-        public DbSet<Addition> AdditionsExample { get; set; }
+        public DbSet<Addition> Additions { get; set; }
         public DbSet<AddShopRocket> ShopRocket { get; set; }
+        
+        public DbSet<Relic> Relics { get; set; }
+
 
         public DbSet<Order> Orders { get; set; }
         public DbSet<ComfortStructure> Comforts { get; set; }

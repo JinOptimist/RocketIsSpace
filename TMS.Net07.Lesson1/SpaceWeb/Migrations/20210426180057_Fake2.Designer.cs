@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SpaceWeb.EfStuff;
 
 namespace SpaceWeb.Migrations
 {
     [DbContext(typeof(SpaceDbContext))]
-    partial class SpaceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210426180057_Fake2")]
+    partial class Fake2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,7 +42,7 @@ namespace SpaceWeb.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AddShopRocket");
+                    b.ToTable("ShopRocket");
                 });
 
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.Addition", b =>
@@ -64,10 +66,10 @@ namespace SpaceWeb.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AdditionsExample");
+                    b.ToTable("Additions");
                 });
 
-            modelBuilder.Entity("SpaceWeb.EfStuff.Model.AdditionStructure", b =>
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.AdditionStructureDBmodel", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -84,7 +86,7 @@ namespace SpaceWeb.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("Additions");
+                    b.ToTable("AdditionsOrder");
                 });
 
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.AdvImage", b =>
@@ -161,10 +163,10 @@ namespace SpaceWeb.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ComfortsExample");
+                    b.ToTable("Comforts");
                 });
 
-            modelBuilder.Entity("SpaceWeb.EfStuff.Model.ComfortStructure", b =>
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.ComfortStructureDBmodel", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -181,7 +183,7 @@ namespace SpaceWeb.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("Comforts");
+                    b.ToTable("ComfortsOrder");
                 });
 
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.FactoryHistory", b =>
@@ -369,9 +371,6 @@ namespace SpaceWeb.Migrations
                     b.Property<int>("JobType")
                         .HasColumnType("int");
 
-                    b.Property<string>("Login")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<long?>("MyFavouriteRocketId")
                         .HasColumnType("bigint");
 
@@ -384,6 +383,9 @@ namespace SpaceWeb.Migrations
                     b.Property<string>("SurName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("MyFavouriteRocketId");
@@ -391,7 +393,7 @@ namespace SpaceWeb.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("SpaceWeb.EfStuff.Model.AdditionStructure", b =>
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.AdditionStructureDBmodel", b =>
                 {
                     b.HasOne("SpaceWeb.EfStuff.Model.Order", "Order")
                         .WithMany("AdditionsList")
@@ -409,7 +411,7 @@ namespace SpaceWeb.Migrations
                     b.Navigation("Owner");
                 });
 
-            modelBuilder.Entity("SpaceWeb.EfStuff.Model.ComfortStructure", b =>
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.ComfortStructureDBmodel", b =>
                 {
                     b.HasOne("SpaceWeb.EfStuff.Model.Order", "Order")
                         .WithMany("ComfortsList")
