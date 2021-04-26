@@ -9,7 +9,7 @@ namespace SpaceWeb.Models
     public class RegistrationViewModel
     {
         [Required]
-        public string UserName { get; set; }
+        public string Login { get; set; }
         
         [Required]
         public string Password { get; set; }

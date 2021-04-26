@@ -8,13 +8,14 @@
     <link rel="stylesheet" href="~/css/icon.css" />
     <link rel="stylesheet" href="~/css/Rocket/iconsMenu.css">
     <link rel="stylesheet" href="~/css/site.css?v=1" />
-    <link rel="stylesheet" href="~/css/Rocket/topStyle.css" />
+    <link rel="stylesheet" href="~/css/Rocket/topStyle.css?v=1" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/site.js"></script>
     <script src="~/js/layout.js"></script>
     <script src="~/js/butLG.js"></script>
 
     @RenderSection("Scripts", required: false)
+    @RenderSection("Style", required: false)
 </head>
 <body>
     <div class="nice-popup hide">
@@ -23,7 +24,7 @@
             <div class="login-direction">
                 <form action="/User/Login" method="post" id="login-or-registration" class="loginformstyle">
                     <div>
-                        <input name="@nameof(RegistrationViewModel.UserName)" class="inputFields" type="text" placeholder="login" />
+                        <input name="@nameof(RegistrationViewModel.Login)" class="inputFields" type="text" placeholder="login" />
                     </div>
                     <div>
                         <input name="@nameof(RegistrationViewModel.Password)" class="inputFields" type="password" placeholder="password" />
@@ -50,10 +51,10 @@
             {
                 <div class="">
                     <img class="avatar" src="@userService.GetCurrent().AvatarUrl" />
-                    <a href="/User/Profile">
+                    <a href="/User/Profile" class="profile-exit">
                         Profile
                     </a>
-                    <a href="/User/Logout">
+                    <a href="/User/Logout" class="profile-exit">
                         Exit
                     </a>
                 </div>
