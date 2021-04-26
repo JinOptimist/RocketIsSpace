@@ -120,7 +120,7 @@ namespace SpaceWeb
 
             MapBoth<AdvImage, AdvImageViewModel>(configExpression);
             
-            MapBoth<User,RocketRegistrationViewModel>(configExpression);
+            MapBoth<User,RegistrationViewModel>(configExpression);
             
             MapBoth<Order,OrderViewModel>(configExpression);
 

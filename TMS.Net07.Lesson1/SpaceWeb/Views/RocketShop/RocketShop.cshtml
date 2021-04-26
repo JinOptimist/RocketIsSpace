@@ -1,4 +1,5 @@
-﻿@section Style{
+﻿@inject UserService UserService
+@section Style{
     <link rel="stylesheet" href="~/css/Rocket/RocketShopStyle.css">
 }
 
@@ -6,7 +7,8 @@
     Layout = "_LayoutRocket";
 }
 
-@model SpaceWeb.Models.RocketModels.OrderViewModel
+@using SpaceWeb.Service
+@model SpaceWeb.Models.RocketModels.CollectionRocketShopViewModel
 
     <div class = "vraper">
         <div class = "header">
@@ -67,20 +69,30 @@
       <div class= "shop"><p class = "text-header">Rockets</p></div>
     </div>
     <div class="rocket-shop">
-      <div>
-        <a href="~/RocketShop/AdminAddRocket"> Add New Item</a>
-      </div>
-      <div class="rocket">
-        <div class="name">
-          <div class="view">
-            <div class="current-name">Proton</div>
-            <img src="/image/RocketImages/good-rocket.png">
-          </div>
-          <div class="icon add">
-            <span class="icon ok">Add</span>
+      @if (UserService.IsAdmin())
+      {
+        <div>
+          <a href="~/RocketShop/AdminAddRocket"> Add New Item</a>
+        </div>
+      }
+      @foreach (var rocket in Model.AddRockets)
+      {
+        <div class="rocket">
+          <div class="name">
+            <div class="view">
+              <div class="current-name">@rocket.Name</div>
+              <img src="/image/RocketImages/good-rocket.png">
+            </div>
+            <div class="icon add">
+              <div>
+                @rocket.Cost $
+              </div>
+              <span class="icon ok">Add</span>
+            </div>
           </div>
         </div>
-      </div>
+      }
+      
       <div class="rocket">
         <div class="name">
           <div class="view">

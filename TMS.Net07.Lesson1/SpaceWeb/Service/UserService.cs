@@ -36,5 +36,11 @@ namespace SpaceWeb.Service
             return user.JobType == JobType.Engineer
                 || user.JobType == JobType.Admin;
         }
+
+        public bool IsAdmin()
+        {
+            var user = GetCurrent();
+            return user.JobType == JobType.Admin;
+        }
     }
 }

@@ -31,7 +31,7 @@ namespace SpaceWeb.Controllers
         {
             var user = _userService.GetCurrent();
             var viewModel = _mapper.Map<RocketProfileViewModel>(user);
-            return View("Profile",viewModel);
+            return View("RocketProfile",viewModel);
         }
       
         public IActionResult MainPage()
@@ -39,31 +39,6 @@ namespace SpaceWeb.Controllers
             return View();
         }
 
-        [HttpGet]
-        public IActionResult Registration()
-        {
-            var model = new RocketRegistrationViewModel();
-            return View(model);
-        }
-
-        [HttpPost]
-        public IActionResult Registration(RocketRegistrationViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            var isUserUniq = _userRepository.Get(model.UserName) == null;
-            if (isUserUniq)
-            {
-                var user = _mapper.Map<User>(model);
-                _userRepository.Save(user);
-            }
-
-            return View(model);
-        }
-        
         [Authorize]
         public IActionResult Rocket()
         {

@@ -9,8 +9,8 @@ namespace SpaceWeb.EfStuff.Model
         public string  Name { get; set; }
         public decimal Price { get; set; }
         public DateTime OrderDateTime { get; set; }
-        public virtual List<AdditionStructureDBmodel> AdditionsList { get; set; }
-        public virtual List<ComfortStructureDBmodel> ComfortsList { get; set; }
+        public virtual List<AdditionStructure> AdditionsList { get; set; }
+        public virtual List<ComfortStructure> ComfortsList { get; set; }
         
     }
 

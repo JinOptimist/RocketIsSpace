@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SpaceWeb.EfStuff;
 
 namespace SpaceWeb.Migrations
 {
     [DbContext(typeof(SpaceDbContext))]
-    partial class SpaceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210424061236_RenameSomeModels")]
+    partial class RenameSomeModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,7 +42,7 @@ namespace SpaceWeb.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AddShopRocket");
+                    b.ToTable("ShopRocket");
                 });
 
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.Addition", b =>
@@ -265,30 +267,6 @@ namespace SpaceWeb.Migrations
                     b.ToTable("UserProfile");
                 });
 
-            modelBuilder.Entity("SpaceWeb.EfStuff.Model.Relic", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Count")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ImageUrl")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Price")
-                        .HasColumnType("int");
-
-                    b.Property<string>("RelicName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Relics");
-                });
-
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.Rocket", b =>
                 {
                     b.Property<long>("Id")
@@ -369,9 +347,6 @@ namespace SpaceWeb.Migrations
                     b.Property<int>("JobType")
                         .HasColumnType("int");
 
-                    b.Property<string>("Login")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<long?>("MyFavouriteRocketId")
                         .HasColumnType("bigint");
 
@@ -382,6 +357,9 @@ namespace SpaceWeb.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SurName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
