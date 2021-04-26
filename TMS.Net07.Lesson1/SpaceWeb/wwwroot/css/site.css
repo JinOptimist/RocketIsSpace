@@ -12,6 +12,19 @@
     margin: 20px;
 }
 
+.block-bank {
+    width: 500px;
+    height: 300px;
+    border: 1px red solid;
+    margin: 20px;
+    color: white;
+    font-size: 30pt;
+    font-weight: bold;
+    text-decoration: none;
+    background: url("../../image/bank/wwwBank.jpeg") center;
+    background-size: cover;
+}
+
 
 .header {
     /* background: hotpink; */
