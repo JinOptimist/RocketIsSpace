@@ -146,7 +146,7 @@ namespace SpaceWeb.Controllers
                 return RedirectToAction("Profile", "User");
             }
 
-            return View("Registration", "User");
+            return View(model);
         }
 
         [HttpGet]
