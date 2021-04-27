@@ -68,6 +68,10 @@ a {
     text-decoration: none;
 }
 
+.home, .top-right-profile-exit a:visited {
+    color: white;
+}
+
 
 .header {
     /* background: hotpink; */
