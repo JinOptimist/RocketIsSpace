@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="~/css/reset.css?v=4" />
     <link rel="stylesheet" href="~/css/icon.css" />
     <link rel="stylesheet" href="~/css/Rocket/iconsMenu.css">
-    <link rel="stylesheet" href="~/css/site.css?v=19" />
-    <link rel="stylesheet" href="~/css/Rocket/topStyle.css?v=1" />
+    <link rel="stylesheet" href="~/css/site.css?v=20" />
+    <link rel="stylesheet" href="~/css/Rocket/topStyle.css?v=2" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/site.js"></script>
     <script src="~/js/layout.js"></script>
@@ -43,7 +43,9 @@
     <div class="top">
         <div class="info">
             <a href="/">
-                <div class="home">LOGO</div>
+                <div class="home">
+                    <img class="logo-image" src="../image/bank/logo.png" alt="logo">
+                </div>
             </a>
 
             @if (User.Identity.IsAuthenticated)
