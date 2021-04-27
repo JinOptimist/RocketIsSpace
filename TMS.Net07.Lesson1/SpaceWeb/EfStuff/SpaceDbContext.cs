@@ -20,7 +20,9 @@ namespace SpaceWeb.EfStuff
         public DbSet<Comfort> Comforts { get; set; }
         public DbSet<RocketStage> RocketStages { get; set; }
         public DbSet<Addition> Additions { get; set; }
-        public DbSet<AddShopRocket> AddShopRocket { get; set; }
+        public DbSet<AddShopRocket> ShopRocket { get; set; }
+        
+        public DbSet<Relic> Relics { get; set; }
 
         public DbSet<Order> Orders { get; set; }
         public DbSet<ComfortStructureDBmodel> ComfortsOrder { get; set; }
