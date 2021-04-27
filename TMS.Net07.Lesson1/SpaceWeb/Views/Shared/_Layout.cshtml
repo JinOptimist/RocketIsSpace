@@ -5,10 +5,11 @@
 <html>
 <head>
     <link rel="stylesheet" href="~/css/reset.css?v=4" />
-    <link rel="stylesheet" href="~/css/icon.css" />
+    <link rel="stylesheet" href="~/css/icon.css?v=1" />
     <link rel="stylesheet" href="~/css/Rocket/iconsMenu.css">
     <link rel="stylesheet" href="~/css/site.css?v=20" />
     <link rel="stylesheet" href="~/css/Rocket/topStyle.css?v=2" />
+    <link rel="stylesheet" href="~/css/footer.css" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/site.js"></script>
     <script src="~/js/layout.js"></script>
@@ -16,58 +17,74 @@
     @RenderSection("Scripts", required: false)
 </head>
 <body>
-    <div class="nice-popup hide">
-        <div class="popup-cover"></div>
-        <div class="login-block">
-            <div class="login-direction">
-                <form action="/User/Login" method="post" class="loginformstyle">
+    <div class="obertka">
+        <div class="nice-popup hide">
+            <div class="popup-cover"></div>
+            <div class="login-block">
+                <div class="login-direction">
+                    <form action="/User/Login" method="post" class="loginformstyle">
+                        <div>
+                            <input name="@nameof(RegistrationViewModel.Login)" class="inputFields" type="text" placeholder="login" />
+                        </div>
+                        <div>
+                            <input name="@nameof(RegistrationViewModel.Password)" class="inputFields" type="password" placeholder="password" />
+                        </div>
+                        <div>
+                            <input class="pglogbut" type="submit" value="Log in" />
+                        </div>
+                    </form>
+                    <div class="or">or</div>
                     <div>
-                        <input name="@nameof(RegistrationViewModel.Login)" class="inputFields" type="text" placeholder="login" />
+                        <a href="/Rocket/Registration">
+                            <input class="pglogbut" type="button" value="Registration" />
+                        </a>
                     </div>
-                    <div>
-                        <input name="@nameof(RegistrationViewModel.Password)" class="inputFields" type="password" placeholder="password" />
-                    </div>
-                    <div>
-                        <input class="pglogbut" type="submit" value="Log in" />
-                    </div>
-                </form>
-                <div class="or">or</div>
-                <div>
-                    <a href="/Rocket/Registration">
-                        <input class="pglogbut" type="button" value="Registration" />
-                    </a>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="top">
-        <div class="info">
-            <a href="/">
-                <div class="home">
-                    <img class="logo-image" src="../image/bank/logo.png" alt="logo">
-                </div>
-            </a>
+        <div class="top">
+            <div class="info">
+                <a href="/">
+                    <div class="home">
+                        <img class="logo-image" src="../image/bank/logo.png" alt="logo">
+                    </div>
+                </a>
 
-            @if (User.Identity.IsAuthenticated)
-            {
-                <div class="">
-                    <img class="avatar" src="@userService.GetCurrent().AvatarUrl" />
-                    <a href="/User/Profile">
-                        Profile2
-                    </a>
-                    <a href="/User/Logout">
-                        Exit
-                    </a>
-                </div>
-            }
-            else
-            {
-                <div class="link icon log-in">Log in</div>
-            }
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="">
+                        <img class="avatar" src="@userService.GetCurrent().AvatarUrl" />
+                        <a href="/User/Profile">
+                            Profile
+                        </a>
+                        <a href="/User/Logout">
+                            Exit
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <div class="link icon log-in">Log in</div>
+                }
+            </div>
         </div>
-    </div>
-    <div class="content">
-        @RenderBody()
+        <div class="content">
+            @RenderBody()
+        </div>
+
+        <div class="footer">
+            <div class="rights">©All rights reserved</div>
+            <div>Developed by TMS .Net07</div>
+            <div class="contacts">
+                <div class="social-media">
+                    
+                    
+                    
+                    
+                    <img class="footer-icon youtube" src="../image/icon/youtube.png">
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>
