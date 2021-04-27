@@ -116,7 +116,7 @@ namespace SpaceWeb.Controllers
             var principal = new ClaimsPrincipal(claimsIdentity);
             await HttpContext.SignInAsync(principal);
 
-            return RedirectToAction("Profile", "User");
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
