@@ -47,12 +47,13 @@
                 <a href="/">
                     <div class="home">
                         <img class="logo-image" src="../image/bank/logo.png" alt="logo">
+                        SpaceWeb
                     </div>
                 </a>
 
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <div class="">
+                    <div class="top-right-profile-exit">
                         <img class="avatar" src="@userService.GetCurrent().AvatarUrl" />
                         <a href="/User/Profile">
                             Profile

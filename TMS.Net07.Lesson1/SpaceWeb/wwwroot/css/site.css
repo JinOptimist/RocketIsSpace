@@ -17,23 +17,23 @@
 .content {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-evenly;
     padding: 10px;
 }
 
 .block {
-    width: 500px;
-    height: 315px;
+    width: 700px;
+    height: 270px;
     border: 1px red solid;
-    margin: 45px
+    margin: 25px
 }
 
 .block-bank {
-    width: 500px;
-    height: 315px;
+    width: 700px;
+    height: 270px;
     border: 5px black solid;
     box-shadow: 0 0 15px 10px black;
-    margin: 45px;
+    margin: 25px;
     color: white;
     font-size: 45pt;
     font-weight: bold;
@@ -66,6 +66,10 @@
 
 a {
     text-decoration: none;
+}
+
+.home, .top-right-profile-exit a:visited {
+    color: white;
 }
 
 
@@ -258,4 +262,74 @@ a {
     max-width: 40px;
     max-height: 40px;
     border-radius: 20px;
+}
+
+@media (max-width: 1600px) {
+    .block {
+        width: 600px;
+    }
+
+    .block-bank {
+        width: 600px;
+    }
+}
+
+@media (max-height: 800px) {
+    .block {
+        height: 230px;
+    }
+
+    .block-bank {
+        height: 230px;
+    }
+}
+
+@media (max-width: 1350px ) {
+    .block {
+        width: 550px;
+    }
+
+    .block-bank {
+        width: 550px;
+    }
+}
+
+@media (max-height: 725px) {
+    .block {
+        height: 210px;
+    }
+
+    .block-bank {
+        height: 210px;
+    }
+}
+
+@media (max-width: 1260px ) {
+    .block {
+        width: 480px;
+    }
+
+    .block-bank {
+        width: 480px;
+    }
+}
+
+@media (max-height: 675px) {
+    .block {
+        height: 180px;
+    }
+
+    .block-bank {
+        height: 180px;
+    }
+}
+
+@media (max-width: 1120px ) {
+    .block {
+        width: 400px;
+    }
+
+    .block-bank {
+        width: 400px;
+    }
 }

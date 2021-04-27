@@ -38,6 +38,10 @@
 
 .home {
     left: 110px;
+    display: flex;
+    align-items: center;
+    color: #ffffff;
+    font-size: 20pt;
 }
 
 .link {

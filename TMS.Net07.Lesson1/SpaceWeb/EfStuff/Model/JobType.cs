@@ -8,11 +8,11 @@ namespace SpaceWeb.EfStuff.Model
     public enum JobType
     {
         Engineer = 1,
-        BankMan = 2,
+        BankEmployee = 2,
         EngineerQa = 3,
         Junior = 4,
         BankClient = 5,
-        ChiefBankMan = 6,
+        ChiefBankEmployee = 6,
         Admin = 99
     }
 }
