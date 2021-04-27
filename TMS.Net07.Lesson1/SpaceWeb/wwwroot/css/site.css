@@ -2,6 +2,13 @@
     background-color: blanchedalmond;
 }
 
+.obertka {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 .logo-image {
     max-width: 50px;
     margin-right: 10px;
@@ -16,17 +23,17 @@
 
 .block {
     width: 500px;
-    height: 320px;
+    height: 315px;
     border: 1px red solid;
-    margin: 50px
+    margin: 45px
 }
 
 .block-bank {
     width: 500px;
-    height: 320px;
+    height: 315px;
     border: 5px black solid;
     box-shadow: 0 0 15px 10px black;
-    margin: 50px;
+    margin: 45px;
     color: white;
     font-size: 45pt;
     font-weight: bold;
@@ -46,13 +53,13 @@
     filter: blur(10px);
     width: 390px;
     height: 100px;
-    position: fixed;
+    position: absolute;
     border-radius: 30px;
     opacity: 0.8;
 }
 
 .text-block-bank {
-    position: fixed;
+    position: absolute;
     color: black;
     font-style: italic;
 }
