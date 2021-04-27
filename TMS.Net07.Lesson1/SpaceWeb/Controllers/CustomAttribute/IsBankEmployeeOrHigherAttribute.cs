@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SpaceWeb.Controllers.CustomAttribute
 {
-    public class IsBankPersonAttribute : ActionFilterAttribute
+    public class IsBankEmployeeOrHigherAttribute : ActionFilterAttribute
     {
         public override void OnActionExecuting(
             ActionExecutingContext context)
@@ -18,7 +18,7 @@ namespace SpaceWeb.Controllers.CustomAttribute
                 .HttpContext
                 .RequestServices
                 .GetService(typeof(UserService));
-            if (!_userService.IsBankPerson())
+            if (!_userService.IsBankEmployeeOrHigher())
             {
                 context.Result = new ForbidResult();
             }

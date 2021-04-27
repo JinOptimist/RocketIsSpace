@@ -132,7 +132,7 @@ namespace SpaceWeb.Controllers
         }
 
         [Authorize]
-        [IsBankPerson]
+        [IsBankClientOrHigher]
         [HttpGet]
         public IActionResult Cabinet()
         {

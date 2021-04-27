@@ -24,7 +24,7 @@
         <a href="/Bank/Contacts">
             <div class="contacts-button-for-start-page">Контакты</div>
         </a>
-        @if (User.Identity.IsAuthenticated && userService.IsBankPerson())
+        @if (User.Identity.IsAuthenticated && userService.IsBankClientOrHigher())
         {
             <a href="/Bank/Cabinet">
                 <div class="internet-banking-button-for-start-page">

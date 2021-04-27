@@ -37,30 +37,28 @@ namespace SpaceWeb.Service
                 || user.JobType == JobType.Admin;
         }
 
-        public bool IsBankPerson()
+        public bool IsChiefBankEmployee()
         {
             var user = GetCurrent();
-            return user.JobType == JobType.ChiefBankMan
-                || user.JobType == JobType.BankMan
-                || user.JobType == JobType.BankClient;
+            return user.JobType == JobType.ChiefBankEmployee
+                || user.JobType == JobType.Admin;
         }
 
-        public bool IsChiefBankMan()
+        public bool IsBankEmployeeOrHigher()
         {
             var user = GetCurrent();
-            return user.JobType == JobType.ChiefBankMan;
+            return user.JobType == JobType.BankEmployee
+                || user.JobType == JobType.ChiefBankEmployee
+                || user.JobType == JobType.Admin;
         }
 
-        public bool IsBankMan()
+        public bool IsBankClientOrHigher()
         {
             var user = GetCurrent();
-            return user.JobType == JobType.BankMan;
-        }
-
-        public bool IsBankClient()
-        {
-            var user = GetCurrent();
-            return user.JobType == JobType.BankClient;
+            return user.JobType == JobType.BankClient
+                || user.JobType == JobType.BankEmployee
+                || user.JobType == JobType.ChiefBankEmployee
+                || user.JobType == JobType.Admin;
         }
     }
 }
