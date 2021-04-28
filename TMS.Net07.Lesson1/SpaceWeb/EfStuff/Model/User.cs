@@ -14,9 +14,11 @@ namespace SpaceWeb.EfStuff.Model
         
         public string Email { get; set; }
 
-        public string UserName { get; set; }
+        public string Login { get; set; }
         public string Password { get; set; }
         public int Age { get; set; }
+
+        public string AvatarUrl { get; set; }
 
         public JobType JobType { get; set; }
 
@@ -27,7 +29,7 @@ namespace SpaceWeb.EfStuff.Model
         public virtual Rocket MyFavouriteRocket { get; set; }
 
         public virtual List<BankAccount> BankAccounts { get; set; }
-
+       
         public virtual Profile Profile { get; set; }
     }
 }

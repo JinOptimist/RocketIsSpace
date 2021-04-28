@@ -1,0 +1,87 @@
+﻿@model List<BankAccountViewModel>
+
+@{
+    Layout = "_LayoutBank";
+    var currencyOptions = new List<SelectListItem>();
+
+    var currencies = Enum.GetValues(typeof(Currency));
+
+    for (int i = 0; i < currencies.Length; i++)
+    {
+        var option = new SelectListItem();
+        option.Value = ((int)currencies.GetValue(i)).ToString();
+        option.Text = currencies.GetValue(i).ToString();
+        currencyOptions.Add(option);
+    }
+}
+<div class="client-before-content">
+</div>
+<div class="popup add hide">
+    <div class="cover"></div>
+    <div class="popup-content">
+        <form href ="Bank/Account" method="POST" autocomplete="off">
+            <p>
+                @Html.DropDownList("currency", currencyOptions)
+            </p>
+            <p><input class="amount-input" name="amount" placeholder="Начальная сумма"></p>
+            <p>
+                <input class="bank-account-submit" type="submit" value="Создать">
+                <input class="bank-account-cancel" type="reset" value="Отмена">
+            </p>
+        </form>
+    </div>
+</div>
+@*<div class="popup remove hide">
+    <div class="cover"></div>
+    <div class="popup-content">
+        <form action ="RemoveAccount" method="POST">
+            <div>Удалить счет?</div>
+            <p>            
+            <input class="account-remove-number" type="hidden" name="bankaccountid"></p>
+            <p>
+                <input class="account-remove-submit" type="submit" value="Удалить">
+                <input class="account-remove-cancel" type="reset" value="Отмена">
+            </p>
+        </form>
+    </div>
+</div>*@
+<div class="container">
+    <div class="menu top">
+        <div class="top-menu-text">СЧЕТА</div>
+        <div class="bank-account-list">
+            @foreach (var BankAccount in Model)
+            {
+                <a href="/Account/Index?id=@BankAccount.Id">
+                    <div class="bank-account">
+                        <div class="type">@BankAccount.Type</div>
+                        <div>
+                            <span class="amount">@BankAccount.Amount </span>
+                            <span class="currency">@BankAccount.Currency</span>
+                        </div>
+                        <div class="account-number">@BankAccount.AccountNumber</div>
+                    </div>
+                </a>
+            }
+            <div class="add-new background">
+                <div class="add-new content">Добавить счет</div>
+            </div>
+        </div>
+    </div>
+    <div class="menu bottom">
+        <div class="transactions button">Переводы</div>
+        <div class="bank-account button">Счета</div>
+
+        <a class="personal-info button" href="/Bank/UserProfile">
+            <div>Персональные</div>
+            <div>данные</div>
+        </a>
+        <div class="settings button">Настройки</div>
+    </div>
+</div>
+<div class="hide">
+    <div class="bank-account template">
+        <div class="type">Валютный счет</div>
+        <span class="amount"></span><span class="currency">$</span>
+        <div class="account-number"></div>
+    </div>
+</div>

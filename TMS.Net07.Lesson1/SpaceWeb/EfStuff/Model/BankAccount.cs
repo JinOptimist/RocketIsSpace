@@ -1,5 +1,7 @@
-﻿using System;
+﻿using SpaceWeb.Models;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,11 +9,13 @@ namespace SpaceWeb.EfStuff.Model
 {
     public class BankAccount : BaseModel
     {
-        public string BankAccountId { get; set; }
-        public string Currency { get; set; }
-        public int Amount { get; set; }
+        public string AccountNumber { get; set; }
+        public Currency Currency { get; set; }
+        [Column(TypeName = "decimal(18, 2)")]
+        public decimal Amount { get; set; }
         public string Type { get; set; }
-
         public virtual User Owner { get; set; }
+        public DateTime CreationDate { get; set; }
+        public DateTime ExpireDate { get; set; }
     }
 }

@@ -23,15 +23,15 @@ $(document).ready(function () {
     }
     );
 
-    $('.menu.top .bank-account').click(function () {
-        $('.popup.remove').removeClass('hide');
-        var accountNumber = $(this).find('.account-number').text();
-        $('.account-remove-number').val(accountNumber);
-    }
-    );
-    $('.account-remove-cancel, .account-remove-submit').click(function () {
-        $('.popup.remove').addClass('hide');
-    });
+    //$('.menu.top .bank-account').click(function () {
+    //    $('.popup.remove').removeClass('hide');
+    //    var accountNumber = $(this).find('.account-number').text();
+    //    $('.account-remove-number').val(accountNumber);
+    //}
+    //);
+    //$('.account-remove-cancel, .account-remove-submit').click(function () {
+    //    $('.popup.remove').addClass('hide');
+    //});
 
     $('.popup .cover').click(function () {
         $(this).parent().addClass('hide');

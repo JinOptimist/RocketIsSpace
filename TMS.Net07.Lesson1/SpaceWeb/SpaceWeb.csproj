@@ -14,18 +14,11 @@
   <ItemGroup>
     <Folder Include="wwwroot\image\human\" />
     <Folder Include="wwwroot\image\bank\" />
+    <Folder Include="wwwroot\image\avatars\" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\HumansResources\HumansResources.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Views\Comfort\CapsulePage.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\Comfort\CCenterPage.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\Comfort\ComfortPage.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\Comfort\KitchenPage.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\Comfort\ToiletPage.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

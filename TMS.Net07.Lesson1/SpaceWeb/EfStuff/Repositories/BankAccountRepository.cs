@@ -6,49 +6,16 @@ using System.Threading.Tasks;
 
 namespace SpaceWeb.EfStuff.Repositories
 {
-    public class BankAccountRepository
+    public class BankAccountRepository : BaseRepository<BankAccount>
     {
-        private SpaceDbContext _spaceDbContext;
-
-        public BankAccountRepository(SpaceDbContext spaceDbContext)
+        public BankAccountRepository(SpaceDbContext spaceDbContext) :
+            base(spaceDbContext)
         {
-            _spaceDbContext = spaceDbContext;
-        }
-        
-        public List <BankAccount> GetAll()
-        {
-            return _spaceDbContext.BankAccount.ToList();
         }
 
-        public BankAccount Get (string BankAccountId)
+        public BankAccount Get(string AccountNumber)
         {
-            return _spaceDbContext.BankAccount
-                .SingleOrDefault(account => account.BankAccountId == BankAccountId);
+            return _dbSet.SingleOrDefault(x => x.AccountNumber == AccountNumber);
         }
-
-        public void Save (BankAccount model)
-        {
-            if (model.Id > 0) {
-                _spaceDbContext.BankAccount.Update(model);
-            }
-            else
-            {
-                _spaceDbContext.BankAccount.Add(model);
-            }
-            _spaceDbContext.SaveChanges();
-        }
-
-        public void Remove(BankAccount model)
-        {
-            _spaceDbContext.BankAccount.Remove(model);
-            _spaceDbContext.SaveChanges();
-        }
-
-        public void Remove (string BankAccountId)
-        {
-            var modelToRemove = Get(BankAccountId);
-            Remove(modelToRemove);
-        }
-
     }
 }

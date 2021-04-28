@@ -1,26 +1,24 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SpaceWeb.Models;
+using SpaceWeb.Presentation;
 
 namespace SpaceWeb.Controllers
 {
     public class HumanController : Controller
     {
+        private IHumanPresentation _humanPresentation;
 
-        [HttpGet]
-        public IActionResult Person()
+        public HumanController(IHumanPresentation humanPresentation)
         {
-            var model = new PersonViewModel();
-            return View(model);
+            _humanPresentation = humanPresentation;
         }
 
-        [HttpPost]
-        public IActionResult Person(PersonViewModel model)
+        [HttpGet]
+        [Authorize]
+        public IActionResult AllUsers()
         {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-            return View(model);
+            return View(_humanPresentation.GetViewModelForAllUsers());
         }
 
         [HttpGet]

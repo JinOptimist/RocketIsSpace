@@ -19,6 +19,5 @@ namespace SpaceWeb.EfStuff.Model
         public virtual User User { get; set; }
         public virtual long UserRef { get; set; }
         
-
     }
 }

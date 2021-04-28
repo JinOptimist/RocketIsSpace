@@ -14,6 +14,10 @@ using SpaceWeb.Models;
 using SpaceWeb.Service;
 using SpaceWeb.Models.RocketModels;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
+using Profile = SpaceWeb.EfStuff.Model.Profile;
+using SpaceWeb.EfStuff.Repositories.IRepository;
+using SpaceWeb.Presentation;
+using SpaceWeb.Models.Human;
 
 namespace SpaceWeb
 {
@@ -37,14 +41,24 @@ namespace SpaceWeb
                 .AddCookie(AuthMethod, config =>
                 {
                     config.Cookie.Name = "Smile";
-                    config.LoginPath = "/Rocket/Login";
+                    config.LoginPath = "/User/Login";
                     config.AccessDeniedPath = "/User/AccessDenied";
                 });
 
-            services.AddScoped<UserRepository>(diContainer =>
+            services.AddScoped<IRelicPresentation>(container =>
+                new RelicPresentation(
+                    container.GetService<IRelicRepository>(),
+                    container.GetService<IMapper>()));
+
+            services.AddScoped<IHumanPresentation>(container =>
+                new HumanPresentation(
+                    container.GetService<IUserRepository>(),
+                    container.GetService<IMapper>()));
+
+            services.AddScoped<IUserRepository>(diContainer =>
                 new UserRepository(diContainer.GetService<SpaceDbContext>()));
 
-            services.AddScoped<RelicRepository>(diContainer =>
+            services.AddScoped<IRelicRepository>(diContainer =>
                 new RelicRepository(diContainer.GetService<SpaceDbContext>()));
 
             services.AddScoped<ProfileRepository>(diContainer =>
@@ -66,12 +80,7 @@ namespace SpaceWeb
 
             services.AddScoped<UserService>(diContainer =>
                 new UserService(
-                    diContainer.GetService<UserRepository>(),
-                    diContainer.GetService<IHttpContextAccessor>()
-                ));
-            services.AddScoped<RocketService>(diContainer =>
-                new RocketService(
-                    diContainer.GetService<UserRepository>(),
+                    diContainer.GetService<IUserRepository>(),
                     diContainer.GetService<IHttpContextAccessor>()
                 ));
 
@@ -94,16 +103,22 @@ namespace SpaceWeb
         {
             var configExpression = new MapperConfigurationExpression();
 
-            configExpression.CreateMap<User, UserProfileViewModel>()
-                .ForMember(nameof(UserProfileViewModel.FullName),
-                    config => config
-                        .MapFrom(dbModel => $"{dbModel.Name}, {dbModel.SurName} Mr"));
+            //configExpression.CreateMap<User, UserProfileViewModel>()
+            //    .ForMember(nameof(UserProfileViewModel.FullName),
+            //        config => config
+            //            .MapFrom(dbModel => $"{dbModel.Name}, {dbModel.SurName} Mr"));
 
             configExpression.CreateMap<User, ProfileViewModel>();
 
             //configExpression.CreateMap<Relic, RelicViewModel>();
             //configExpression.CreateMap<RelicViewModel, Relic>();
+           
             MapBoth<Relic, RelicViewModel>(configExpression);
+            MapBoth<User, UserProfileViewModel>(configExpression);
+
+            MapBoth<Profile, UserProfileViewModel>(configExpression);
+
+            MapBoth<Profile, ProfileViewModel>(configExpression);
 
             MapBoth<AdvImage, AdvImageViewModel>(configExpression);
             
@@ -118,6 +133,8 @@ namespace SpaceWeb
             MapBoth<Comfort, ComfortFormViewModel>(configExpression);
             
             MapBoth<AddShopRocket, AdminAddRocketViewModel>(configExpression);
+
+            MapBoth<ShortUserViewModel, User>(configExpression);
 
             var mapperConfiguration = new MapperConfiguration(configExpression);
             var mapper = new Mapper(mapperConfiguration);

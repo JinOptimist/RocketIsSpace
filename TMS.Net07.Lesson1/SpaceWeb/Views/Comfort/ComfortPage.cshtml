@@ -1,0 +1,113 @@
+@section Style{
+    <link rel="stylesheet" href="~/css/Rocket/ComfortStyle.css?v=1">
+}
+@{
+    Layout = "_LayoutRocket";
+}
+@model SpaceWeb.Models.RocketModels.ComfortFormViewModel
+<div class="header">
+    Comfort structure
+</div>
+<div class="none"></div>
+<div class="night">
+    <div class="text1">
+        Comfortable conditions for your rocket and a pleasant journey into space
+        <div class="text2">
+            Toilets, kitchen, sleep capsules, command center.
+            All this can make your trip much more enjoyable, if you choose the equipment of your choice.
+            So you can do it right here by selecting the appropriately named field.
+        </div>
+    </div>
+    <div class="none"></div>
+    <div class="center-block">
+        <a href="ToiletPage" class="toilet-link">
+            <div class="toilet">
+                Toilet
+            </div>
+        </a>
+
+        <a href="KitchenPage" class="kitchen-link">
+            <div class="kitchen">
+                Kitchen
+            </div>
+        </a>
+
+        <a href="CCenterPage" class="command-center-link">
+            <div class="command-center">
+                Command center
+            </div>
+        </a>
+
+        <a href="CapsulePage" class="capsule-link">
+            <div class="capsule">
+                Sleeping capsules
+            </div>
+        </a>
+    </div>
+</div>
+<div class="none"></div>
+<div class="text1">
+    Select the comforts you need in the fields below
+</div>
+<div class="none"></div>
+<div class="input-block">
+    <div class="right-input-block"></div>
+    <div class="left-input-block">
+        <form method="post">
+            <div class="without-botton">
+                <div class="left-input-text">
+                    <div style="margin: 50px">
+                        Count of seats in the kitchen:
+                    </div>
+                    <div style="margin: 50px">
+                        Storage Capasity:
+                    </div>
+                    <div style="margin: 50px">
+                        Count of sleeping capsules:
+                    </div>
+                    <div style="margin: 50px">
+                        Count of toilets:
+                    </div>
+                </div>
+                <div class="right-input-form">
+                    <div style="margin: 40px">
+                        @Html.TextBoxFor(x => x.KitchenSeatsCount, new {
+                             @placeholder = "0",
+                             @class = "inputFields1",
+                             type = "text"
+                        })
+                        @Html.ValidationMessageFor(x => x.KitchenSeatsCount)
+                    </div>
+                    <div style="margin: 40px">
+                        @Html.TextBoxFor(x => x.StorageCapacity, new {
+                       @placeholder = "0",
+                       @class = "inputFields1",
+                       type = "text"
+                   })
+                        @Html.ValidationMessageFor(x => x.StorageCapacity)
+                    </div>
+                    <div style="margin: 40px">
+                        @Html.TextBoxFor(x => x.SleepingCapsulesCount, new {
+                       @placeholder = "0",
+                       @class = "inputFields1",
+                       type = "text"
+                   })
+                        @Html.ValidationMessageFor(x => x.SleepingCapsulesCount)
+                    </div>
+                    <div style="margin: 40px">
+                        @Html.TextBoxFor(x => x.ToiletCount, new {
+                       @placeholder = "0",
+                       @class = "inputFields1",
+                       type = "text"
+                   })
+                        @Html.ValidationMessageFor(x => x.ToiletCount)
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <button class="input-botton" type="submit" >Add to rocket</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="none"></div>

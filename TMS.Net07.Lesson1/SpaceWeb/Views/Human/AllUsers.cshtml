@@ -1,0 +1,23 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+@using SpaceWeb.Models.Human
+@using SpaceWeb.Service
+
+@inject UserService userService
+
+@model List<ShortUserViewModel>
+
+<div class="all-users">
+    All users
+    @foreach (var shortUserViewModel in Model)
+    {
+        var userBlockViewModel = new UserBlockViewModel()
+        {
+            Name = shortUserViewModel.Name,
+            AvatarUrl = userService.GetAvatarUrl(shortUserViewModel.AvatarUrl)
+        };
+        @Html.Partial("_userBlock", userBlockViewModel)
+    }
+</div>
