@@ -1,4 +1,4 @@
-﻿@model BankAccountViewModel
+﻿ @model BankAccountViewModel
 
 @{
     Layout = "_LayoutBank";
@@ -6,21 +6,10 @@
 <div class="client-before-content">
 </div>
 <div class="container-accounts">
-    @*<div class="menu left">
+    <div class="menu left">
         <div class="left-menu-text">СЧЕТА</div>
-        <div class="bank-account-list">
-            <div class="bank-account">
-                <div class="type">Валютный счет</div>
-                <div>
-                    <span class="amount">1500 </span><span class="currency">$</span>
-                </div>
-                <div class="account-number">*000123</div>
-            </div>
-            <div class="add-new background">
-                <div class="add-new content"><a>Добавить счет</a></div>
-            </div>
-        </div>
-    </div>*@
+        @Html.Partial("_bankAccountsList")
+    </div>
     <div class="account-info-container">
         <div class="account-info">
             <div class="info">@Model.Type</div>
@@ -39,12 +28,5 @@
                 <div class="button">Удалить счет</div>
             </a>
         </div>
-    </div>
-</div>
-<div class="hide">
-    <div class="bank-account template">
-        <div class="type">Валютный счет</div>
-        <span class="amount"></span><span class="currency">$</span>
-        <div class="account-number"></div>
     </div>
 </div>

@@ -133,7 +133,7 @@ namespace SpaceWeb.Controllers
         }
 
         [Authorize]
-        [IsBankClientOrHigher]
+        //[IsBankClientOrHigher]
         [HttpGet]
         public IActionResult Cabinet()
         {
