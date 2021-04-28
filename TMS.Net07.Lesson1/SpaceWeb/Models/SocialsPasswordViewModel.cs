@@ -6,14 +6,11 @@ using System.Threading.Tasks;
 
 namespace SpaceWeb.Models
 {
-    public class RegistrationViewModel
+    public class SocialsPasswordViewModel
     {
-        [Required]
-        public string Login { get; set; }
-        
         [Required]
         public string Password { get; set; }
 
-        public string ReturnUrl { get; set; }
+        public string Link { get; set; }
     }
 }
