@@ -11,6 +11,16 @@
         background-size: contain;
     }
 
+.footer-icon {
+    padding: 15px;
+    max-height: 20px;
+    opacity: 0.5;
+}
+
+    .footer-icon:hover {
+        opacity: 0.8;
+    }
+
 .home::before {
     background-image: url('../image/icon/home-24px.svg');
 }
@@ -51,9 +61,10 @@
     background-image: url('../image/icon/spinner.gif');
 }
 
-.rocket-icon::before{
+.rocket-icon::before {
     background-image: url('../image/comfortImage/r1icon.png')
 }
+
 .rocket-icon:hover::before {
     background-image: url('../image/comfortImage/r2icon.png')
 }

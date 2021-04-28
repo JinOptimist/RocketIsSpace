@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width" />
     <link rel="stylesheet" href="~/css/reset.css" />
     <link rel="stylesheet" href="~/css/bank/iconBank.css" />
-    <link rel="stylesheet" href="~/css/bank/styleBank.css" />
+    <link rel="stylesheet" href="~/css/bank/styleBank.css?v=3" />
+    <link rel="stylesheet" href="~/css/bank/centralButtonStartPage.css?v=4" />
 
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/bank/bank.js"></script>
+    <script src="~/js/bank/centralButtonStartPage.js"></script>
     <title>Rocket</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
@@ -18,56 +20,72 @@
 
     @RenderSection("Scripts", required: false)
 </head>
-    <body>
-        <div class="obertka">
-            <div class="header">
-                <div class="logo">
+<body>
+    <div class="obertka">
+        <div class="header">
+            <div class="logo">
+                <a href="/">
                     <img class="logo-image" src="../image/bank/logo.png" alt="logo">
+                </a>
+                <a href="/Bank/Bank">
                     <div class="logoName">
-                    <div clacc="logoNameRocket">ROCKET</div>
-                    <div class="logoNameBank">BANK</div>
+                        <div clacc="logoNameRocket">ROCKET</div>
+                        <div class="logoNameBank">BANK</div>
                     </div>
-                </div>
-                <div class="empty-header"></div>
-                <div class="buttonList">
-                    <a href="/Bank/Bank">
-                        <div class="home-button">Домой</div>
-                    </a>
-                    <div class="about-button">О нас</div>
-                    <a href="/Bank/Contacts">
-                        <div class="contacts-button">Контакты</div>
-                    </a>
-                    <a href="/Bank/Cabinet">
+                </a>
+            </div>
+            <div class="empty-header"></div>
+            <div class="buttonList">
+                <div class="about-button">O нас</div>
+                <a href="/Bank/Contacts">
+                    <div class="contacts-button">Контакты</div>
+                </a>
+                <a href="/Bank/Cabinet">
+                    <div class="internet-banking-button">
+                        <span>Интернет-банкинг</span>
+                        <img class="login-icon" src="../image/icon/account_bank.svg" />
+                    </div>
+                </a>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a href="/User/Logout">
                         <div class="login-button">
-                            <span>Кабинет</span>
-                            <img class="login-icon" src="../image/icon/account_bank.svg" />
+                            <span>Выход</span>
+                            <img class="login-icon" src="../image/icon/login-24px.svg" />
                         </div>
-                        </a>
+                    </a>
+                }
+                else
+                {
+                    <a href="/User/Login">
                         <div class="login-button">
                             <span>Вход</span>
                             <img class="login-icon" src="../image/icon/login-24px.svg" />
                         </div>
-                </div>
-            </div>
+                    </a>
+                }
 
-            <div class="layout-content">
-                @RenderBody()
             </div>
+        </div>
 
-            <div class="footer">
-                <div class="rights">©All rights reserved</div>
-                <div></div>
-                <div class="contacts">
-                    <div class="social-media">
-                        <img class="footer-icon facebook" src="../image/icon/facebook.png">
-                        <img class="footer-icon google-plus" src="../image/icon/google-plus.png">
-                        <img class="footer-icon instagram" src="../image/icon/instagram.png">
-                        <img class="footer-icon twitter" src="../image/icon/twitter.png">
-                        <img class="footer-icon youtube" src="../image/icon/youtube.png">
-                    </div>
+        <div class="layout-content">
+            @RenderBody()
+        </div>
+
+        <div class="footer">
+            <div class="rights">©All rights reserved</div>
+            <div></div>
+            <div class="contacts">
+                <div class="social-media">
+                    <img class="footer-icon facebook" src="../image/icon/facebook.png">
+                    <img class="footer-icon google-plus" src="../image/icon/google-plus.png">
+                    <img class="footer-icon instagram" src="../image/icon/instagram.png">
+                    <img class="footer-icon twitter" src="../image/icon/twitter.png">
+                    <img class="footer-icon youtube" src="../image/icon/youtube.png">
                 </div>
             </div>
         </div>
-    </body>
+    </div>
+</body>
 </html>
 

@@ -12,6 +12,7 @@ using AutoMapper;
 using Profile = SpaceWeb.EfStuff.Model.Profile;
 using SpaceWeb.Service;
 using Microsoft.AspNetCore.Authorization;
+using SpaceWeb.Controllers.CustomAttribute;
 
 namespace SpaceWeb.Controllers
 {
@@ -131,6 +132,7 @@ namespace SpaceWeb.Controllers
         }
 
         [Authorize]
+        [IsBankClientOrHigher]
         [HttpGet]
         public IActionResult Cabinet()
         {

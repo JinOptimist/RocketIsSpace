@@ -7,10 +7,11 @@
 <html>
 <head>
     <link rel="stylesheet" href="~/css/reset.css?v=4" />
-    <link rel="stylesheet" href="~/css/icon.css" />
+    <link rel="stylesheet" href="~/css/icon.css?v=1" />
     <link rel="stylesheet" href="~/css/Rocket/iconsMenu.css">
-    <link rel="stylesheet" href="~/css/site.css?v=1" />
-    <link rel="stylesheet" href="~/css/Rocket/topStyle.css" />
+    <link rel="stylesheet" href="~/css/site.css?v=20" />
+    <link rel="stylesheet" href="~/css/Rocket/topStyle.css?v=2" />
+    <link rel="stylesheet" href="~/css/footer.css" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/site.js"></script>
     <script src="~/js/layout.js"></script>
@@ -42,15 +43,42 @@
             </div>
         </div>
     </div>
+
+    <div class="socials-popup hide">
+        <div class="socials-popup-cover"></div>
+        <div class="socials-block telegram">
+            Для получения доступа к Telegram-каналу группы TMS/.Net07,
+            пожалуйста, введите ключ доступа.
+            <form action="/User/Socials" method="post" class="loginformstyle">
+                <div>
+                    <input type="hidden"
+                           name="@nameof(SocialsPasswordViewModel.Link)"
+                           value="TgAllGroup" />
+                </div>
+                <div>
+                    <input name="@nameof(SocialsPasswordViewModel.Password)" type="text" placeholder="Passcode" />
+                </div>
+                <div>
+                    <input type="submit" value="Хочу туда!" />
+                </div>
+            </form>
+        </div>
+        <div class="socials-block youtube">
+            Youtube
+        </div>
+    </div>
+
     <div class="top">
         <div class="info">
             <a href="/">
-                <div class="home">LOGO</div>
+                <div class="home">
+                    <img class="logo-image" src="../image/bank/logo.png" alt="logo">
+                    SpaceWeb
+                </div>
             </a>
 
             @if (User.Identity.IsAuthenticated)
             {
-                
                 <div class="user-info">
                     <a href="/User/Profile">
                         @{
@@ -74,8 +102,20 @@
             }
         </div>
     </div>
+
     <div class="content">
         @RenderBody()
+    </div>
+
+    <div class="footer">
+        <div class="rights">©All rights reserved</div>
+        <div class="developed-by">Developed by TMS .Net07</div>
+        <div class="contacts">
+            <div class="social-media">
+                <img class="footer-icon telegram tmsgroup" src="../image/icon/telegram-24px.svg">
+                <img class="footer-icon youtube teacher" src="../image/icon/youtube.png">
+            </div>
+        </div>
     </div>
 </body>
 </html>

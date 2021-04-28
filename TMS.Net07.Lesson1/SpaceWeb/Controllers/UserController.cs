@@ -234,5 +234,24 @@ namespace SpaceWeb.Controllers
             _userRepository.Save(user);
             return RedirectToAction("Profile", "User");
         }
+
+        [HttpPost]
+        public IActionResult Socials(SocialsPasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            if ((model.Password == SocialsPassword.TgAllGroup.ToString()) 
+                && (model.Link == nameof(SocialsPassword.TgAllGroup)))
+            {
+                return Redirect("https://t.me/joinchat/Tv44VQeM8nXUusnV");
+            }
+            else
+            {
+                return RedirectToAction("Index", "User");
+            }
+        }
     }
 }
