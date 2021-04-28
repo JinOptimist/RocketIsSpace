@@ -1,9 +1,9 @@
 ﻿$(document).ready(function () {
-	$('.but1').click(function () {
+	$('.login-but').click(function () {
 		$("#login-or-registration").attr("action", "/User/Login");
 	})
 
-	$('.but2').click(function () {
+	$('.registration-but').click(function () {
 		$("#login-or-registration").attr("action", "/User/Registration");
 	})
 });

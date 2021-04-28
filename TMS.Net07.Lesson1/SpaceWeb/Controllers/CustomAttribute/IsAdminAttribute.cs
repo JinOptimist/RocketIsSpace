@@ -7,9 +7,6 @@ namespace SpaceWeb.Controllers.CustomAttribute
 {
     public class IsAdminAttribute : ActionFilterAttribute
     {
-        public IsAdminAttribute()
-        {
-        }
         public override void OnActionExecuting(
             ActionExecutingContext context)
         {
@@ -21,6 +18,7 @@ namespace SpaceWeb.Controllers.CustomAttribute
             {
                 context.Result = new ForbidResult();
             }
+            base.OnActionExecuting(context);
         }
     }
 }

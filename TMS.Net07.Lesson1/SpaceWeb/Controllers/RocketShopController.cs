@@ -35,7 +35,10 @@ namespace SpaceWeb.Controllers
         {
             var collection = new CollectionRocketShopViewModel
             {
+                //AddRockets = _mapper.Map<List<AddShopRocketViewModel>>(_shopRocketRepository.GetAll())
                 AddRockets = _shopRocketRepository.GetAll()
+                    .Select(x=>_mapper.Map<AddShopRocketViewModel>(x))
+                    .ToList()
             };
             return View(collection);
         }
@@ -60,13 +63,13 @@ namespace SpaceWeb.Controllers
         [IsAdmin]
         public IActionResult AdminAddRocket()
         {
-            var model = new AdminAddRocketViewModel();
+            var model = new AddShopRocketViewModel();
             return View(model);
         }
 
         [HttpPost]
         [IsAdmin]
-        public IActionResult AdminAddRocket(AdminAddRocketViewModel model)
+        public IActionResult AdminAddRocket(AddShopRocketViewModel model)
         {
             var rocket = _mapper.Map<AddShopRocket>(model);
             _shopRocketRepository.Save(rocket);

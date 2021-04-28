@@ -130,7 +130,9 @@ namespace SpaceWeb
 
             MapBoth<Comfort, ComfortFormViewModel>(configExpression);
             
-            MapBoth<AddShopRocket, AdminAddRocketViewModel>(configExpression);
+            MapBoth<AddShopRocket, AddShopRocketViewModel>(configExpression);
+            
+            MapBoth<AddShopRocketViewModel,AddShopRocket>(configExpression);
 
             var mapperConfiguration = new MapperConfiguration(configExpression);
             var mapper = new Mapper(mapperConfiguration);

@@ -31,7 +31,7 @@ namespace SpaceWeb.Controllers
         {
             var user = _userService.GetCurrent();
             var viewModel = _mapper.Map<RocketProfileViewModel>(user);
-            return View("RocketProfile",viewModel);
+            return View("Profile",viewModel);
         }
       
         public IActionResult MainPage()

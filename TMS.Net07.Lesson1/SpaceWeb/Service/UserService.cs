@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
 using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
 using System.Linq;
+using System.Security.Claims;
 
 namespace SpaceWeb.Service
 {
@@ -41,6 +43,18 @@ namespace SpaceWeb.Service
         {
             var user = GetCurrent();
             return user.JobType == JobType.Admin;
+        }
+
+        public ClaimsPrincipal GetPrincipal(User user)
+        {
+            var claims = new List<Claim>();
+            claims.Add(new Claim("Id", user.Id.ToString()));
+            claims.Add(new Claim(
+                ClaimTypes.AuthenticationMethod,
+                Startup.AuthMethod));
+            var claimsIdentity = new ClaimsIdentity(claims, Startup.AuthMethod);
+            var principal = new ClaimsPrincipal(claimsIdentity);
+            return principal;
         }
     }
 }

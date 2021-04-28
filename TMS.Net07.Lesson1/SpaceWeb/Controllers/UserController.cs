@@ -91,24 +91,13 @@ namespace SpaceWeb.Controllers
 
             var user = _userRepository.Get(model.Login);
 
-            if (user == null)
+            if (user == null || user.Password != model.Password)
             {
                 return View(model);
             }
 
-            if (user.Password != model.Password)
-            {
-                return View(model);
-            }
-
-            var claims = new List<Claim>();
-            claims.Add(new Claim("Id", user.Id.ToString()));
-            claims.Add(new Claim(
-                ClaimTypes.AuthenticationMethod,
-                Startup.AuthMethod));
-            var claimsIdentity = new ClaimsIdentity(claims, Startup.AuthMethod);
-            var principal = new ClaimsPrincipal(claimsIdentity);
-            await HttpContext.SignInAsync(principal);
+            await HttpContext.SignInAsync(
+                _userService.GetPrincipal(user));
 
             return RedirectToAction("Profile", "User");
         }
@@ -134,14 +123,9 @@ namespace SpaceWeb.Controllers
                 var user = _mapper.Map<User>(model);
                 _userRepository.Save(user);
 
-                var claims = new List<Claim>();
-                claims.Add(new Claim("Id", user.Id.ToString()));
-                claims.Add(new Claim(
-                    ClaimTypes.AuthenticationMethod,
-                    Startup.AuthMethod));
-                var claimsIdentity = new ClaimsIdentity(claims, Startup.AuthMethod);
-                var principal = new ClaimsPrincipal(claimsIdentity);
-                await HttpContext.SignInAsync(principal);
+                
+                await HttpContext.SignInAsync(
+                    _userService.GetPrincipal(user));
 
                 return RedirectToAction("Profile", "User");
             }
