@@ -1,15 +1,75 @@
-﻿.content {
+﻿body {
+    background-color: blanchedalmond;
+}
+
+.obertka {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.logo-image {
+    max-width: 50px;
+    margin-right: 10px;
+}
+
+.content {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-evenly;
     padding: 10px;
 }
 
 .block {
-    width: 500px;
-    height: 300px;
+    width: 700px;
+    height: 270px;
     border: 1px red solid;
-    margin: 20px;
+    margin: 25px
+}
+
+.block-bank {
+    width: 700px;
+    height: 270px;
+    border: 5px black solid;
+    box-shadow: 0 0 15px 10px black;
+    margin: 25px;
+    color: white;
+    font-size: 45pt;
+    font-weight: bold;
+    background: url("../../image/bank/wwwBank.jpeg") center;
+    background-size: cover;
+    align-content: center;
+    text-align: center;
+    vertical-align: middle;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px 120px
+}
+
+.cover-text-block-bank {
+    background: #e6ebf1;
+    filter: blur(10px);
+    width: 390px;
+    height: 100px;
+    position: absolute;
+    border-radius: 30px;
+    opacity: 0.8;
+}
+
+.text-block-bank {
+    position: absolute;
+    color: black;
+    font-style: italic;
+}
+
+a {
+    text-decoration: none;
+}
+
+.home, .top-right-profile-exit a:visited {
+    color: white;
 }
 
 
@@ -205,6 +265,109 @@
     border-radius: 20px;
 }
 
+.socials-popup {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+}
+
+.socials-popup-cover {
+    height: 100vh;
+    width: 100%;
+    background: black;
+    opacity: 0.7;
+    position: absolute;
+    z-index: 10;
+    position: fixed;
+}
+
+.socials-block {
+    display: flex;
+    z-index: 11;
+    background: url(../../image/comfortImage/fon111.jpg) no-repeat center;
+    height: 600px;
+    width: 900px;
+}
+
+.error-socials {
+    font-size: 22pt;
+}
+
+@media (max-width: 1600px) {
+    .block {
+        width: 600px;
+    }
+
+    .block-bank {
+        width: 600px;
+    }
+}
+
+@media (max-height: 800px) {
+    .block {
+        height: 230px;
+    }
+
+    .block-bank {
+        height: 230px;
+    }
+}
+
+@media (max-width: 1350px ) {
+    .block {
+        width: 550px;
+    }
+
+    .block-bank {
+        width: 550px;
+    }
+}
+
+@media (max-height: 725px) {
+    .block {
+        height: 210px;
+    }
+
+    .block-bank {
+        height: 210px;
+    }
+}
+
+@media (max-width: 1260px ) {
+    .block {
+        width: 480px;
+    }
+
+    .block-bank {
+        width: 480px;
+    }
+}
+
+@media (max-height: 675px) {
+    .block {
+        height: 180px;
+    }
+
+    .block-bank {
+        height: 180px;
+    }
+}
+
+@media (max-width: 1120px ) {
+    .block {
+        width: 400px;
+    }
+
+    .block-bank {
+        width: 400px;
+    }
+}
 .user-info {
     display: flex;
     align-items: center;
