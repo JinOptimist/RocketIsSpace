@@ -27,6 +27,11 @@ namespace SpaceWeb.EfStuff
         public DbSet<Order> Orders { get; set; }
         public DbSet<ComfortStructureDBmodel> ComfortsOrder { get; set; }
         public DbSet<AdditionStructureDBmodel> AdditionsOrder { get; set; }
+        public DbSet<HumanProfile> HumanProfiles { get; set; }
+        public DbSet<Client> Clients { get; set; }
+        public DbSet<Employe> Employes { get; set; }
+        public DbSet<Department> Departments { get; set; }
+        public DbSet<OrderList> OrderLists { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()
@@ -56,7 +61,40 @@ namespace SpaceWeb.EfStuff
             modelBuilder.Entity<Order>()
                 .HasMany(order => order.ComfortsList)
                 .WithOne(comforts => comforts.Order);
-            
+
+            modelBuilder.Entity<HumanProfile>()
+                .HasOne(x => x.User)
+                .WithOne(x => x.HumanProfile)
+                .HasForeignKey<HumanProfile>(x => x.ForeignKeyUser);
+
+            modelBuilder.Entity<Client>()
+                .HasOne(x => x.Profile)
+                .WithOne(x => x.Client)
+                .HasForeignKey<Client>(x => x.ForeignKeyProfile);
+
+            modelBuilder.Entity<Employe>()
+                .HasOne(x => x.Profile)
+                .WithOne(x => x.Employe)
+                .HasForeignKey<Employe>(x => x.ForeignKeyProfile);
+
+            modelBuilder.Entity<Employe>()
+                .HasOne(emp => emp.Department)
+                .WithMany(department => department.Employes);
+
+            modelBuilder.Entity<OrderList>()
+                .HasOne(orderList => orderList.Employe)
+                .WithMany(employe => employe.OrderList);
+
+            modelBuilder.Entity<OrderList>()
+                .HasOne(orderList => orderList.Order)
+                .WithMany(order => order.OrderList);
+
+            modelBuilder.Entity<Order>()
+                .HasOne(order => order.Client)
+                .WithMany(client => client.Orders);
+
+
+
             base.OnModelCreating(modelBuilder);
         }
 

@@ -95,6 +95,9 @@ namespace SpaceWeb
             
             services.AddScoped<ShopRocketRepository>(diContainer =>
                 new ShopRocketRepository(diContainer.GetService<SpaceDbContext>()));
+
+            services.AddScoped<DepartmentRepository>(diContainer =>
+                new DepartmentRepository(diContainer.GetService<SpaceDbContext>()));
         }
 
         private void RegisterMapper(IServiceCollection services)
@@ -131,6 +134,8 @@ namespace SpaceWeb
             MapBoth<Comfort, ComfortFormViewModel>(configExpression);
             
             MapBoth<AddShopRocket, AdminAddRocketViewModel>(configExpression);
+
+            MapBoth<Department, DepartmentViewModel>(configExpression);
 
             var mapperConfiguration = new MapperConfiguration(configExpression);
             var mapper = new Mapper(mapperConfiguration);

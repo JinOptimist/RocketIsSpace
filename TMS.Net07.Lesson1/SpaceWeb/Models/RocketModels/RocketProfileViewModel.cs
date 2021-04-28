@@ -1,5 +1,4 @@
 ﻿using System;
-using HumansResources.Humans.Persons;
 using SpaceWeb.Migrations;
 
 namespace SpaceWeb.Models.RocketModels
