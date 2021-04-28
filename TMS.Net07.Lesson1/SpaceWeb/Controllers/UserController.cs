@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
+using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Models;
 using SpaceWeb.Models.RocketModels;
 using SpaceWeb.Service;
@@ -19,14 +20,14 @@ namespace SpaceWeb.Controllers
 {
     public class UserController : Controller
     {
-        private UserRepository _userRepository;
+        private IUserRepository _userRepository;
         private IMapper _mapper;
         private UserService _userService;
         private IWebHostEnvironment _hostEnvironment;
 
         public static int Counter = 0;
 
-        public UserController(UserRepository userRepository, IMapper mapper,
+        public UserController(IUserRepository userRepository, IMapper mapper,
             UserService userService, IWebHostEnvironment hostEnvironment)
         {
             _userRepository = userRepository;

@@ -136,6 +136,8 @@ namespace SpaceWeb
 
             MapBoth<ShortUserViewModel, User>(configExpression);
 
+            MapBoth<RocketStageAddViewModel, RocketStage>(configExpression);
+
             var mapperConfiguration = new MapperConfiguration(configExpression);
             var mapper = new Mapper(mapperConfiguration);
             services.AddScoped<IMapper>(c => mapper);

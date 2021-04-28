@@ -11,12 +11,10 @@ input {
     margin: 10px;
 }
 
-.Section .Container {
-    display: flex;
-    flex-direction: column;
+.Section {
     background: url('/image/RocketMechanic/rocket-companies-getty-pic (1).jpg') center no-repeat;
     background-size: cover;
-    height: 100%;
+    height: 100vh;
 }
 
     .Section .Container .Header {
