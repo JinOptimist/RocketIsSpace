@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace SpaceWeb.Service
 {
@@ -31,6 +28,37 @@ namespace SpaceWeb.Service
 
             var id = long.Parse(idStr);
             return _userRepository.Get(id);
+        }
+
+        public bool IsEngineer()
+        {
+            var user = GetCurrent();
+            return user.JobType == JobType.Engineer
+                || user.JobType == JobType.Admin;
+        }
+
+        public bool IsChiefBankEmployee()
+        {
+            var user = GetCurrent();
+            return user.JobType == JobType.ChiefBankEmployee
+                || user.JobType == JobType.Admin;
+        }
+
+        public bool IsBankEmployeeOrHigher()
+        {
+            var user = GetCurrent();
+            return user.JobType == JobType.BankEmployee
+                || user.JobType == JobType.ChiefBankEmployee
+                || user.JobType == JobType.Admin;
+        }
+
+        public bool IsBankClientOrHigher()
+        {
+            var user = GetCurrent();
+            return user.JobType == JobType.BankClient
+                || user.JobType == JobType.BankEmployee
+                || user.JobType == JobType.ChiefBankEmployee
+                || user.JobType == JobType.Admin;
         }
     }
 }

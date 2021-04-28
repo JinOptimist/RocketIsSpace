@@ -1,0 +1,38 @@
+@model SpaceWeb.Models.RocketModels.RocketProfileViewModel
+
+@{
+    Layout = "_LayoutRocket";
+}
+@section Style
+{
+    <link rel="stylesheet" href="~/css/Rocket/Profile.css?v=1">
+}
+@section Script
+{
+    <script src="~/js/Rocket/profile.js"></script>
+}
+
+@*<div class="prlog hide"></div>
+<div class="input-pic">
+    <form method="post">
+        <input type="file" value="Choose file" />
+    </form>
+</div>*@
+<div class="rprofile">
+    <div class="bg-profile">
+        <div class="user-name">@Model.Name @Model.SurName </div>
+        <div class="inform-block">
+            <div class="user-photo">
+            <div class="bg-chage-delete ">
+                <div class="change-photo">Change photo</div>
+                <div class="delete-photo">Delete photo</div>
+            </div>
+            </div>
+            <div class="user-information">
+                <div class="user-info">Username: @Model.UserName</div>
+                <div class="user-info">Birthday: @Model.BirthDate.Day.@Model.BirthDate.Month.@Model.BirthDate.Year</div>
+                <div class="user-info">Email:    @Model.Email</div>
+            </div>
+        </div>
+    </div>
+</div>

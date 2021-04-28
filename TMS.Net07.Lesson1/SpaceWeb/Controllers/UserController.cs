@@ -1,14 +1,17 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using SpaceWeb.EfStuff;
 using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
 using SpaceWeb.Models;
+using SpaceWeb.Models.RocketModels;
 using SpaceWeb.Service;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading;
@@ -21,18 +24,21 @@ namespace SpaceWeb.Controllers
         private UserRepository _userRepository;
         private IMapper _mapper;
         private UserService _userService;
+        private IWebHostEnvironment _hostEnvironment;
 
         public static int Counter = 0;
 
         public UserController(UserRepository userRepository, IMapper mapper,
-            UserService userService)
+            UserService userService, IWebHostEnvironment hostEnvironment)
         {
             _userRepository = userRepository;
             _mapper = mapper;
             _userService = userService;
+            _hostEnvironment = hostEnvironment;
         }
 
         [Authorize]
+        [HttpGet]
         public IActionResult Profile()
         {
             var user = _userService.GetCurrent();
@@ -44,6 +50,28 @@ namespace SpaceWeb.Controllers
             viewModel.MyAccounts = bankViewModels;
 
             return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Profile(ProfileUpdateViewModel viewModel)
+        {
+            var user = _userService.GetCurrent();
+            
+            if (viewModel.Avatar != null)
+            {
+                var webPath = _hostEnvironment.WebRootPath;
+                var path = Path.Combine(webPath, "image", "avatars", $"{user.Id}.jpg");
+                using (var fileStream = new FileStream(path, FileMode.OpenOrCreate))
+                {
+                    await viewModel.Avatar.CopyToAsync(fileStream);
+                }
+                user.AvatarUrl = $"/image/avatars/{user.Id}.jpg";
+            }
+            
+            user.Email = viewModel.Email;
+            _userRepository.Save(user);
+            
+            return RedirectToAction("Profile");
         }
 
         [HttpGet]
@@ -79,8 +107,6 @@ namespace SpaceWeb.Controllers
                 return View(model);
             }
 
-            //Готов логиниться
-
             var claims = new List<Claim>();
             claims.Add(new Claim("Id", user.Id.ToString()));
             claims.Add(new Claim(
@@ -90,7 +116,7 @@ namespace SpaceWeb.Controllers
             var principal = new ClaimsPrincipal(claimsIdentity);
             await HttpContext.SignInAsync(principal);
 
-            return RedirectToAction("Profile", "User");
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
@@ -173,6 +199,34 @@ namespace SpaceWeb.Controllers
             var isExistUserWithTheName =
                 _userRepository.Get(name) != null;
             return Json(isExistUserWithTheName);
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult ChangeName()
+        {
+            var user = _userService.GetCurrent();
+            var model = new ChangeNameViewModel()
+            {
+                Id = user.Id,
+                OldName = user.Name
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult ChangeName(ChangeNameViewModel viewModel)
+        {
+            if(!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+            var user = _userService.GetCurrent();
+            user.Name = viewModel.NewName;
+            _userRepository.Save(user);
+            return RedirectToAction("Profile", "User");
         }
     }
 }
