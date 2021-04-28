@@ -116,10 +116,10 @@ namespace SpaceWeb.Controllers
                
             _profileRepository.Save(userprofile);
 
-            return RedirectToAction("Profile");
+            return RedirectToAction("UserProfileDataOutput");
         }
 
-        public IActionResult Profile()
+        public IActionResult UserProfileDataOutput()
         {
             var profileDateOutput = _profileRepository
                 .GetAll()

@@ -11,12 +11,13 @@
 
             @foreach (var profile in Model)
             {
-                <div class="profile-text">
-                    <div class="name">@profile.Name </div>
-                    <div class="name">@profile.SurName </div>
-                    <div class="name">@profile.BirthDate </div>
-                    <div class="name">@profile.Age </div>
-                </div>
+            <div class="profile-text">
+                <div class="name">@profile.Name @profile.SurName </div>
+                <div class="name">@profile.BirthDate</div>
+                <div class="name">@profile.Age </div>
+                <div class="name">@profile.PhoneNumber</div>
+                <div class="name">@profile.PostAddress</div>
+            </div>
             }
 
         </form>
