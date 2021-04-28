@@ -1,0 +1,21 @@
+﻿.rocketfield{
+    background: url(/image/comfortImage/rocketbut1.jpg) no-repeat;
+    color: white;
+    font-size: 50px;
+    font-family: Hairline;
+    width: 500px;
+    border: none!important;
+}
+
+.rocket-link {
+    text-decoration: none;
+}
+
+@font-face {
+    font-family: Hairline;
+    src: url("../../image/comfortImage/font/19554.ttf");
+}
+
+.rocketword{
+    padding: 20px;
+}
