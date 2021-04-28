@@ -1,0 +1,12 @@
+﻿@using SpaceWeb.Service
+
+@using SpaceWeb.Models.Human
+
+@inject UserService userService
+
+@model UserBlockViewModel
+
+<div class="user-block">
+    @Model.Name
+    <img class="avatar" src="@userService.GetAvatarUrl(Model.AvatarUrl)" />
+</div>

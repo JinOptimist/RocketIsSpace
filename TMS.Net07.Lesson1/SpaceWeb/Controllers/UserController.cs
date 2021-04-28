@@ -56,7 +56,7 @@ namespace SpaceWeb.Controllers
         public async Task<IActionResult> Profile(ProfileUpdateViewModel viewModel)
         {
             var user = _userService.GetCurrent();
-            
+
             if (viewModel.Avatar != null)
             {
                 var webPath = _hostEnvironment.WebRootPath;
@@ -67,10 +67,10 @@ namespace SpaceWeb.Controllers
                 }
                 user.AvatarUrl = $"/image/avatars/{user.Id}.jpg";
             }
-            
+
             user.Email = viewModel.Email;
             _userRepository.Save(user);
-            
+
             return RedirectToAction("Profile");
         }
 
@@ -123,7 +123,7 @@ namespace SpaceWeb.Controllers
                 return Redirect(model.ReturnUrl);
             }
 
-            return RedirectToAction("Home", "Index");
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
@@ -226,7 +226,7 @@ namespace SpaceWeb.Controllers
         [Authorize]
         public IActionResult ChangeName(ChangeNameViewModel viewModel)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(viewModel);
             }
