@@ -19,106 +19,103 @@
     @RenderSection("Scripts", required: false)
 </head>
 <body>
-    <div class="obertka">
-        <div class="nice-popup hide">
-            <div class="popup-cover"></div>
-            <div class="login-block">
-                <div class="login-direction">
-                    <form action="/User/Login" method="post" class="loginformstyle">
-                        <div>
-                            <input name="@nameof(RegistrationViewModel.Login)" class="inputFields" type="text" placeholder="login" />
-                        </div>
-                        <div>
-                            <input name="@nameof(RegistrationViewModel.Password)" class="inputFields" type="password" placeholder="password" />
-                        </div>
-                        <div>
-                            <input class="pglogbut" type="submit" value="Log in" />
-                        </div>
-                    </form>
-                    <div class="or">or</div>
+    <div class="nice-popup hide">
+        <div class="popup-cover"></div>
+        <div class="login-block">
+            <div class="login-direction">
+                <form action="/User/Login" method="post" class="loginformstyle">
                     <div>
-                        <a href="/Rocket/Registration">
-                            <input class="pglogbut" type="button" value="Registration" />
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="socials-popup hide">
-            <div class="socials-popup-cover"></div>
-            <div class="socials-block telegram">
-                Для получения доступа к Telegram-каналу группы TMS/.Net07,
-                пожалуйста, введите ключ доступа.
-                <form action="/User/Socials" method="post" class="loginformstyle">
-                    <div>
-                        <input type="hidden"
-                               name="@nameof(SocialsPasswordViewModel.Link)"
-                               value="TgAllGroup" />
+                        <input name="@nameof(RegistrationViewModel.Login)" class="inputFields" type="text" placeholder="login" />
                     </div>
                     <div>
-                        <input name="@nameof(SocialsPasswordViewModel.Password)" type="text" placeholder="Passcode" />
+                        <input name="@nameof(RegistrationViewModel.Password)" class="inputFields" type="password" placeholder="password" />
                     </div>
                     <div>
-                        <input type="submit" value="Хочу туда!" />
+                        <input class="pglogbut" type="submit" value="Log in" />
                     </div>
                 </form>
-            </div>
-            <div class="socials-block youtube">
-                Youtube
-            </div>
-        </div>
-
-        <div class="top">
-            <div class="info">
-                <a href="/">
-                    <div class="home">
-                        <img class="logo-image" src="../image/bank/logo.png" alt="logo">
-                        SpaceWeb
-                    </div>
-                </a>
-
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <div class="user-info">
-                      <a href="/User/Profile">
-                          @{
-                              var user = userService.GetCurrent();
-                              var userBlockViewModel = new UserBlockViewModel()
-                              {
-                                  Name = user.Name,
-                                  AvatarUrl = userService.GetAvatarUrl()
-                              };
-                          }
-                          @Html.Partial("_userBlock", userBlockViewModel)
-                      </a>
-                      <a href="/User/Logout">
-                          Exit
-                      </a>
-                    </div>
-                }
-                else
-                {
-                    <div class="link icon log-in">Log in</div>
-                }
-            </div>
-        </div>
-
-        <div class="content">
-            @RenderBody()
-        </div>
-
-        <div class="footer">
-            <div class="rights">©All rights reserved</div>
-            <div class="developed-by">Developed by TMS .Net07</div>
-            <div class="contacts">
-                <div class="social-media">
-                    <img class="footer-icon telegram tmsgroup" src="../image/icon/telegram-24px.svg">
-                    <img class="footer-icon youtube teacher" src="../image/icon/youtube.png">
+                <div class="or">or</div>
+                <div>
+                    <a href="/Rocket/Registration">
+                        <input class="pglogbut" type="button" value="Registration" />
+                    </a>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="socials-popup hide">
+        <div class="socials-popup-cover"></div>
+        <div class="socials-block telegram">
+            Для получения доступа к Telegram-каналу группы TMS/.Net07,
+            пожалуйста, введите ключ доступа.
+            <form action="/User/Socials" method="post" class="loginformstyle">
+                <div>
+                    <input type="hidden"
+                           name="@nameof(SocialsPasswordViewModel.Link)"
+                           value="TgAllGroup" />
+                </div>
+                <div>
+                    <input name="@nameof(SocialsPasswordViewModel.Password)" type="text" placeholder="Passcode" />
+                </div>
+                <div>
+                    <input type="submit" value="Хочу туда!" />
+                </div>
+            </form>
+        </div>
+        <div class="socials-block youtube">
+            Youtube
+        </div>
+    </div>
+
+    <div class="top">
+        <div class="info">
+            <a href="/">
+                <div class="home">
+                    <img class="logo-image" src="../image/bank/logo.png" alt="logo">
+                    SpaceWeb
+                </div>
+            </a>
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="user-info">
+                    <a href="/User/Profile">
+                        @{
+                            var user = userService.GetCurrent();
+                            var userBlockViewModel = new UserBlockViewModel()
+                            {
+                                Name = user.Name,
+                                AvatarUrl = userService.GetAvatarUrl()
+                            };
+                        }
+                        @Html.Partial("_userBlock", userBlockViewModel)
+                    </a>
+                    <a href="/User/Logout">
+                        Exit
+                    </a>
+                </div>
+            }
+            else
+            {
+                <div class="link icon log-in">Log in</div>
+            }
+        </div>
+    </div>
+
+    <div class="content">
+        @RenderBody()
+    </div>
+
+    <div class="footer">
+        <div class="rights">©All rights reserved</div>
+        <div class="developed-by">Developed by TMS .Net07</div>
+        <div class="contacts">
+            <div class="social-media">
+                <img class="footer-icon telegram tmsgroup" src="../image/icon/telegram-24px.svg">
+                <img class="footer-icon youtube teacher" src="../image/icon/youtube.png">
+            </div>
+        </div>
     </div>
 </body>
 </html>

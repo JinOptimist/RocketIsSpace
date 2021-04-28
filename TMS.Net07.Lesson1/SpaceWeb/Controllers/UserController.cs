@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using SpaceWeb.EfStuff;
 using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
+using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Models;
 using SpaceWeb.Models.RocketModels;
 using SpaceWeb.Service;
@@ -21,14 +22,14 @@ namespace SpaceWeb.Controllers
 {
     public class UserController : Controller
     {
-        private UserRepository _userRepository;
+        private IUserRepository _userRepository;
         private IMapper _mapper;
         private UserService _userService;
         private IWebHostEnvironment _hostEnvironment;
 
         public static int Counter = 0;
 
-        public UserController(UserRepository userRepository, IMapper mapper,
+        public UserController(IUserRepository userRepository, IMapper mapper,
             UserService userService, IWebHostEnvironment hostEnvironment)
         {
             _userRepository = userRepository;
@@ -236,8 +237,6 @@ namespace SpaceWeb.Controllers
             return RedirectToAction("Profile", "User");
         }
 
-        
-
         [HttpPost]
         public IActionResult Socials(SocialsPasswordViewModel model)
         {
@@ -246,7 +245,7 @@ namespace SpaceWeb.Controllers
                 return View(model);
             }
 
-            if (((int)model.Password == (int)SocialsPassword.TgAllGroup) 
+            if ((model.Password == SocialsPassword.TgAllGroup.ToString()) 
                 && (model.Link == nameof(SocialsPassword.TgAllGroup)))
             {
                 return Redirect("https://t.me/joinchat/Tv44VQeM8nXUusnV");

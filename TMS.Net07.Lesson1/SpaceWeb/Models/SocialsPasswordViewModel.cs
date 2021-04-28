@@ -9,7 +9,7 @@ namespace SpaceWeb.Models
     public class SocialsPasswordViewModel
     {
         [Required]
-        public SocialsPassword Password { get; set; }
+        public string Password { get; set; }
 
         public string Link { get; set; }
     }
