@@ -33,7 +33,6 @@ namespace SpaceWeb.EfStuff
                 {
                     Login = "Admin",
                     Name = "Admin",
-                    Login = "admin",
                     Password = "123",
                     Age = 100,
                     JobType = JobType.Admin

@@ -154,3 +154,24 @@ input[type="password"] {
     .profile-exit:hover {
         color: #DCDCDC;
     }
+
+.top .avatar,
+.user-block .avatar {
+    max-width: 40px;
+    max-height: 40px;
+    border-radius: 20px;
+}
+
+.user-block {
+    display: flex;
+    margin: 5px;
+    border: 2px red solid;
+    border-radius: 5px;
+    padding: 5px;
+    align-items: center;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}

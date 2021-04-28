@@ -43,7 +43,31 @@ namespace SpaceWeb.Migrations
                     b.ToTable("ShopRocket");
                 });
 
-            modelBuilder.Entity("SpaceWeb.EfStuff.Model.AdditionStructure", b =>
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.Addition", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BotanicalCenterCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ObservarionDeckCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RescueCapsuleCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RestRoomCount")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Additions");
+                });
+
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.AdditionStructureDBmodel", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -60,7 +84,7 @@ namespace SpaceWeb.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("Additions");
+                    b.ToTable("AdditionsOrder");
                 });
 
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.AdvImage", b =>
@@ -137,10 +161,10 @@ namespace SpaceWeb.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ComfortsExample");
+                    b.ToTable("Comforts");
                 });
 
-            modelBuilder.Entity("SpaceWeb.EfStuff.Model.ComfortStructure", b =>
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.ComfortStructureDBmodel", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -157,7 +181,7 @@ namespace SpaceWeb.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("Comforts");
+                    b.ToTable("ComfortsOrder");
                 });
 
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.FactoryHistory", b =>
@@ -367,7 +391,7 @@ namespace SpaceWeb.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("SpaceWeb.EfStuff.Model.AdditionStructure", b =>
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.AdditionStructureDBmodel", b =>
                 {
                     b.HasOne("SpaceWeb.EfStuff.Model.Order", "Order")
                         .WithMany("AdditionsList")
@@ -385,7 +409,7 @@ namespace SpaceWeb.Migrations
                     b.Navigation("Owner");
                 });
 
-            modelBuilder.Entity("SpaceWeb.EfStuff.Model.ComfortStructure", b =>
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.ComfortStructureDBmodel", b =>
                 {
                     b.HasOne("SpaceWeb.EfStuff.Model.Order", "Order")
                         .WithMany("ComfortsList")

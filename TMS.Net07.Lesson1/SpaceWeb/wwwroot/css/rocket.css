@@ -3,6 +3,8 @@
     color: white;
     font-size: 50px;
     font-family: Hairline;
+    width: 500px;
+    border: none!important;
 }
 
 .rocket-link {
@@ -15,5 +17,5 @@
 }
 
 .rocketword{
-    margin: 20px;
+    padding: 20px;
 }

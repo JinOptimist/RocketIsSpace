@@ -1,4 +1,5 @@
 ﻿@using SpaceWeb.Service
+@using SpaceWeb.Models.Human
 @inject UserService userService
 
 <!DOCTYPE html>
@@ -54,21 +55,28 @@
                 </a>
             </div>
             @if (User.Identity.IsAuthenticated)
-            {
-                <div class="">
-                    <img class="avatar" src="@userService.GetCurrent().AvatarUrl" />
-                    <a href="/User/Profile" class="profile-exit">
-                        Profile
-                    </a>
-                    <a href="/User/Logout" class="profile-exit">
-                        Exit
-                    </a>
-                </div>
-            }
-            else
-            {
-                <div class="link icon log-in">Log in</div>
-            }
+                        {
+                            <div class="user-info">
+                                <a href="/User/Profile">
+                                    @{
+                                        var user = userService.GetCurrent();
+                                        var userBlockViewModel = new UserBlockViewModel()
+                                        {
+                                            Name = user.Name,
+                                            AvatarUrl = userService.GetAvatarUrl()
+                                        };
+                                    }
+                                    @Html.Partial("_userBlock", userBlockViewModel)
+                                </a>
+                                <a href="/User/Logout" class="profile-exit">
+                                    Exit
+                                </a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="link icon log-in">Log in</div>
+                        }
         </div>
     </div>
     <div class="content">

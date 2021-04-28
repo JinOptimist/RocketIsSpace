@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
+using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Models.RocketModels;
 using SpaceWeb.Service;
 
@@ -15,10 +16,10 @@ namespace SpaceWeb.Controllers
 {
     public class RocketController : Controller
     {
-        private UserRepository _userRepository;
+        private IUserRepository _userRepository;
         private UserService _userService;
         private IMapper _mapper;
-        public RocketController(UserRepository userRepository,IMapper mapper,
+        public RocketController(IUserRepository userRepository,IMapper mapper,
         UserService userService)
         {
             _userRepository = userRepository;
