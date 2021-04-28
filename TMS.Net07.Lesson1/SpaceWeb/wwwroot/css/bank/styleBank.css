@@ -98,7 +98,7 @@ a {
     align-items: center;
 }
 
-.home-button, .about-button, .contacts-button, .login-button {
+.home-button, .about-button, .contacts-button, .internet-banking-button, .login-button {
     color: rgb(26, 43, 99);
     margin: 0.2em;
     padding: 0.5em;
@@ -109,7 +109,8 @@ a {
 }
 
 .home-button-for-start-page, .about-button-for-start-page,
-.contacts-button-for-start-page, .login-button-for-start-page {
+.contacts-button-for-start-page, .internet-banking-button-for-start-page,
+.login-button-for-start-page {
     color: rgb(255, 255, 255);
     margin: 0.2em;
     padding: 0.5em;
@@ -119,24 +120,26 @@ a {
     opacity: 0.8;
 }
 
-.home-button:hover, .about-button:hover, .contacts-button:hover, .login-button:hover {
+.home-button:hover, .about-button:hover, .contacts-button:hover,
+.internet-banking-button:hover, .login-button:hover {
     /*margin: 0.5em;*/
-    font-weight: 600;
+    /*font-weight: 600;*/
     font-size: calc(25px+2px);
     background-image: -webkit-linear-gradient(top,rgb(53, 189, 252),rgb(27, 89, 117));
-    border: 4px rgb(26, 43, 99) solid;
+    /*border: 4px rgb(26, 43, 99) solid;*/
     color: rgb(255, 255, 255);
     border-radius: 1em;
     opacity: 1;
 }
 
 .home-button-for-start-page:hover, .about-button-for-start-page:hover,
-.contacts-button-for-start-page:hover, .login-button-for-start-page:hover {
+.contacts-button-for-start-page:hover, .internet-banking-button-for-start-page:hover,
+.login-button-for-start-page:hover {
     /*margin: 0.5em;*/
-    font-weight: 600;
+    /*font-weight: 600;*/
     font-size: calc(25px+2px);
     background-image: -webkit-linear-gradient(top,rgb(53, 189, 252),rgb(27, 89, 117));
-    border: 4px rgb(26, 43, 99) solid;
+    /*border: 4px rgb(26, 43, 99) solid;*/
     border-radius: 1em;
     opacity: 1;
 }
@@ -191,26 +194,26 @@ a {
     justify-content: center;
 }
 
-.rocket .name {
-    display: flex;
-    justify-content: center;
-    color: aliceblue;
-    padding: 20px, 0;
-}
+    .rocket .name {
+        display: flex;
+        justify-content: center;
+        color: aliceblue;
+        padding: 20px, 0;
+    }
 
-.rocket .image-container {
-    height: 150px;
-    width: 150px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+    .rocket .image-container {
+        height: 150px;
+        width: 150px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
 
-.rocket img {
-    max-width: 150px;
-    max-height: calc(150px - 16px);
-}
+    .rocket img {
+        max-width: 150px;
+        max-height: calc(150px - 16px);
+    }
 
 
 .intro {
@@ -257,7 +260,7 @@ a {
     text-align: center;
     margin-bottom: 25px;
 }
-
+/*
 .button-login {
     vertical-align: top;
     padding: 8px 30px;
@@ -273,7 +276,7 @@ a {
 .button-login:hover {
     background-color: #fff;
     color: #333;
-}
+}*/
 
 .header-inner {
     display: flex;
@@ -301,28 +304,30 @@ a {
     text-decoration: none;
     transition: color .2s linear;
 }
-.nav-link:hover
-{
-    color: #00ffff;
-}
-.nav-link:after {
-    content: "";
-    display: block;
-    width: 100%;
-    height: 3px;
-    display: none;
-    background-color: #ffffff;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    z-index: 1;
-    opacity: 0;
+
+    .nav-link:hover {
+        color: #00ffff;
     }
 
-.nav-link:hover:after {
-    display: block;
-    opacity: 1;
-}
+    .nav-link:after {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 3px;
+        display: none;
+        background-color: #ffffff;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 1;
+        opacity: 0;
+    }
+
+    .nav-link:hover:after {
+        display: block;
+        opacity: 1;
+    }
+
 .slider {
     display: flex;
     justify-content: space-between;
@@ -339,21 +344,23 @@ a {
     opacity: .7;
     position: relative;
 }
-.slider-item.active:before {
-    content: "";
-    display: block;
-    width: 70px;
-    position: absolute;
-    height: 3px;
-    top: -3px;
-    left: 0;
-    z-index: 1;
-    background-color: blue;
-}
 
-.slider-item.active {
-    opacity: 1;
-}
+    .slider-item.active:before {
+        content: "";
+        display: block;
+        width: 70px;
+        position: absolute;
+        height: 3px;
+        top: -3px;
+        left: 0;
+        z-index: 1;
+        background-color: blue;
+    }
+
+    .slider-item.active {
+        opacity: 1;
+    }
+
 .slider-num {
     font-weight: 700;
     font-size: 24px;
@@ -389,6 +396,7 @@ a {
 .client-text-centre {
     padding-top: 300px;
 }
+
 @media (max-height: 1080px) {
     .client-text-centre {
         padding-top: 250px;
@@ -447,13 +455,13 @@ a {
     left: 0;
 }
 
-.popup .cover {
-    background: black;
-    position: fixed;        
-    width: 100%;
-    height: 100vh;
-    opacity: 0.6;
-}
+    .popup .cover {
+        background: black;
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        opacity: 0.6;
+    }
 
 .popup-content {
     background-color: rgb(230, 230, 230);
@@ -475,69 +483,11 @@ a {
     margin: 10px auto;
 }
 
-.bank-popup {
-    width: 100%;
-    height: 100vh;
-    position: fixed;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 25;
-}
-
-.bank-cover {
-    background: black;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    opacity: 0.7;
-    z-index: 30;
-}
-
-.bank-popup-content {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 15px;
-    background-color: rgb(161, 161, 161);
-    border-radius: 1em;
-    display: flex;
-    justify-content: center;
-    flex-flow: column;
-    align-items: center;
-    box-shadow: 0px 0px 30px gray;
-    width: 41%;
-    height: 48%;
-    z-index: 35;
-}
-
 @font-face {
     font-family: 'Exon';
     src: url('../fonts/ExonFont/ExonRegular-0WjEd.otf');
     font-weight: normal;
     font-style: normal;
-}
-
-.before-bank-login-menu {
-    padding-bottom: 20px;
-}
-
-.bank-setters {
-    background-color: rgb(245, 245, 245);
-    display: flex;
-    flex-flow: column;
-    align-content: center;
-    border: 0px rgb(58, 58, 58) solid;
-    border-radius: 1em;
-    box-shadow: 0px 0px 10px gray;
-    padding-left: 5px;
-}
-
-.bank-setter {
-    display: flex;
-    margin: 10px;
-    width: 350px;
-    justify-content: space-between;
 }
 
 .submit {
@@ -563,7 +513,7 @@ a {
     font-weight: bolder;
 }
 
-.menu.top{
+.menu.top {
     height: 160px;
     width: 1000px;
     margin: 20px;
@@ -573,12 +523,14 @@ a {
     flex-direction: column;
     padding: 10px;
 }
-.top-menu-text{
+
+.top-menu-text {
     font-size: 20pt;
     align-self: center;
     justify-items: flex-start;
 }
-.bank-account-list{
+
+.bank-account-list {
     align-self: center;
     justify-self: center;
     height: 100%;
@@ -593,27 +545,27 @@ a {
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
+}
+
+/* Track */
+::-webkit-scrollbar-track {
     background: #f1f1f1;
     border-radius: 10px;
-  }
-  
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
     background-color: rgb(210, 210, 210);
     border-radius: 10px;
     transition: 300ms;
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background-color: rgb(190,190,190);
-  }
+}
 
-.menu.top .bank-account{
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: rgb(190,190,190);
+    }
+
+.menu.top .bank-account {
     height: 96px;
     min-width: 166px;
     margin: 10px;
@@ -627,17 +579,17 @@ a {
     transition: 300ms;
 }
 
-.menu.top .bank-account:hover{
-    background-color: rgb(0, 185, 229);
-    cursor: pointer;
-}
+    .menu.top .bank-account:hover {
+        background-color: rgb(0, 185, 229);
+        cursor: pointer;
+    }
 
-.bank-account .account-number{
+.bank-account .account-number {
     margin-right: 10px;
     align-self: flex-end;
 }
 
-.add-new.background{
+.add-new.background {
     padding: 5px;
     margin: 10px;
     background-color: rgb(210, 210, 210);
@@ -650,12 +602,12 @@ a {
     transition: 300ms;
 }
 
-.add-new.background:hover{
-    background-color: rgb(190, 190, 190);
-    cursor: pointer;
-}
+    .add-new.background:hover {
+        background-color: rgb(190, 190, 190);
+        cursor: pointer;
+    }
 
-.add-new.content{
+.add-new.content {
     height: 80px;
     width: 150px;
     border: 3px rgb(255, 255, 255) dashed;
@@ -669,43 +621,45 @@ a {
     font-weight: bolder;
 }
 
-.menu.bottom{
+.menu.bottom {
     height: 250px;
     width: 1000px;
     margin: 20px;
     border-radius: 1em;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
 }
 
-.menu.bottom .button{
-    height: 130px;
-    width: 220px;
-    border-radius: 1em;
-    background-color: rgb(230, 230, 230);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 15pt;
-    font-weight: 400;
-    transition: 500ms;
-}
+    .menu.bottom .button {
+        margin: 10px 15px;
+        height: 130px;
+        width: 220px;
+        border-radius: 1em;
+        background-color: rgb(230, 230, 230);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 15pt;
+        font-weight: 400;
+        transition: 500ms;
+    }
 
-.menu.bottom .button:hover{
-    background-color: rgb(210,210,210);
-    font-weight: 600;
-    cursor: pointer;
-}
+        .menu.bottom .button:hover {
+            background-color: rgb(210,210,210);
+            font-weight: 600;
+            cursor: pointer;
+        }
 
-.personal-info.button{
+.personal-info.button {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.bank-account-submit{
+.bank-account-submit {
     background-color: rgb(0, 185, 229);
 }
 
@@ -713,15 +667,15 @@ a {
     display: none;
 }
 
-a{
+a {
     text-decoration: none;
     color: black;
 }
 
-a:visited{
-    text-decoration: none;
-    color: black;
-}
+    a:visited {
+        text-decoration: none;
+        color: black;
+    }
 
 .account-info-container {
     height: 500px;
@@ -738,65 +692,65 @@ a:visited{
     padding: 10px;
 }
 
-.account-info-container .account-info {
-    height: 175px;
-    width: 300px;
-    background-color: rgba(0, 185, 229, 0.7);
-    border-radius: 1em;
-    margin: 10px;
-    box-shadow: 3px 3px 6px 0px rgb(150, 150, 150);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    padding: 10px;
-}
+    .account-info-container .account-info {
+        height: 175px;
+        width: 300px;
+        background-color: rgba(0, 185, 229, 0.7);
+        border-radius: 1em;
+        margin: 10px;
+        box-shadow: 3px 3px 6px 0px rgb(150, 150, 150);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        padding: 10px;
+    }
 
-.account-info-container .info {
-    font-size: 13pt;
-    font-weight: 500;
-    color: rgba(250, 250, 250, 0.9);
-    margin: 5px;
-}
+    .account-info-container .info {
+        font-size: 13pt;
+        font-weight: 500;
+        color: rgba(250, 250, 250, 0.9);
+        margin: 5px;
+    }
 
-.account-info-container .button-list {
-    height: 260px;
-    width: 500px;
-    margin: 10px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-}
+    .account-info-container .button-list {
+        height: 260px;
+        width: 500px;
+        margin: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
 
-.account-info-container .button {
-    height: 100px;
-    width: 140px;
-    margin: 10px;
-    border-radius: 1em;
-    background-color: rgb(230, 230, 230);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    font-size: 11pt;
-    font-weight: 400;
-    transition: 300ms;
-    text-align: center;
-    border: 1px outset;
-}
+    .account-info-container .button {
+        height: 100px;
+        width: 140px;
+        margin: 10px;
+        border-radius: 1em;
+        background-color: rgb(230, 230, 230);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        font-size: 11pt;
+        font-weight: 400;
+        transition: 300ms;
+        text-align: center;
+        border: 1px outset;
+    }
 
-.account-info-container .button:hover {
-    background-color: rgb(210,210,210);
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: inset 3px 3px 6px 0px rgb(150, 150, 150);
-    border: 1px inset;
-}
+        .account-info-container .button:hover {
+            background-color: rgb(210,210,210);
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: inset 3px 3px 6px 0px rgb(150, 150, 150);
+            border: 1px inset;
+        }
 
 .container-accounts {
-    height:100%;
+    height: 100%;
     width: 100%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
