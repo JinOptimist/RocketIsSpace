@@ -13,21 +13,32 @@ input {
 
 .Section .Container {
     display: flex;
+    flex-direction: column;
+    background: url('/image/RocketMechanic/rocket-companies-getty-pic (1).jpg') center no-repeat;
+    background-size: cover;
+    height: 100%;
 }
 
-.Section .Container .ProductCard {
-    width: 570px;
-    height: 300px;
-    margin: 15px;
-    border-width: 1px;
-    border-radius: 5px;
-    border-style: solid;
-    border-color: cornflowerblue;
-    display: flex;
-    justify-content: center;
-    justify-content: space-around;
-    align-items: center;
-}
+    .Section .Container .Header {
+        font-family: fantasy;
+        font-size: 40px;
+        line-height: 1.6;
+        color: black;
+    }
+
+    .Section .Container .ProductCard {
+        width: 570px;
+        height: 300px;
+        margin: 15px;
+        border-width: 1px;
+        border-radius: 5px;
+        border-style: solid;
+        border-color: cornflowerblue;
+        display: flex;
+        justify-content: center;
+        justify-content: space-around;
+        align-items: center;
+    }
 
 .Section .Container .ProductCard .ProductImage {
     display: flex;
