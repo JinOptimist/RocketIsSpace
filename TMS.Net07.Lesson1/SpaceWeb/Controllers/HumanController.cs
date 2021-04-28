@@ -1,10 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SpaceWeb.Models;
 
 namespace SpaceWeb.Controllers
 {
     public class HumanController : Controller
     {
+        [HttpGet]
+        [Authorize]
+        public IActionResult AllUsers()
+        {
+            return View();
+        }
+
 
         [HttpGet]
         public IActionResult Person()

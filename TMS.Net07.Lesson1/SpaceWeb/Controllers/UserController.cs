@@ -78,6 +78,8 @@ namespace SpaceWeb.Controllers
         public IActionResult Login()
         {
             var model = new RegistrationViewModel();
+            var returnUrl = Request.Query["ReturnUrl"];
+            model.ReturnUrl = returnUrl;
             return View(model);
         }
 
@@ -116,7 +118,12 @@ namespace SpaceWeb.Controllers
             var principal = new ClaimsPrincipal(claimsIdentity);
             await HttpContext.SignInAsync(principal);
 
-            return RedirectToAction("Profile", "User");
+            if (!string.IsNullOrEmpty(model.ReturnUrl))
+            {
+                return Redirect(model.ReturnUrl);
+            }
+
+            return RedirectToAction("Home", "Index");
         }
 
         [HttpGet]
