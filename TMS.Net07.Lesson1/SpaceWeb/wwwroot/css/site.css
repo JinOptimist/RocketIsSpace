@@ -258,7 +258,8 @@ a {
     max-height: 200px;
 }
 
-.top .avatar {
+.top .avatar,
+.user-block .avatar {
     max-width: 40px;
     max-height: 40px;
     border-radius: 20px;
@@ -366,4 +367,17 @@ a {
     .block-bank {
         width: 400px;
     }
+}
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-block {
+    display: flex;
+    margin: 5px;
+    border: 2px red solid;
+    border-radius: 5px;
+    padding: 5px;
+    align-items: center;
 }

@@ -1,5 +1,6 @@
 ﻿@model RegistrationViewModel
 <form action="/User/login" method="post">
+    @Html.HiddenFor(x => x.ReturnUrl)
     <div>
         @Html.DisplayNameFor(x => x.Login)
         : @Html.TextBoxFor(x => x.Login)

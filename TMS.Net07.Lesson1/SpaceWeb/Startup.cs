@@ -21,6 +21,7 @@ using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 using Profile = SpaceWeb.EfStuff.Model.Profile;
 using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Presentation;
+using SpaceWeb.Models.Human;
 
 namespace SpaceWeb
 {
@@ -53,7 +54,12 @@ namespace SpaceWeb
                     container.GetService<IRelicRepository>(),
                     container.GetService<IMapper>()));
 
-            services.AddScoped<UserRepository>(diContainer =>
+            services.AddScoped<IHumanPresentation>(container =>
+                new HumanPresentation(
+                    container.GetService<IUserRepository>(),
+                    container.GetService<IMapper>()));
+
+            services.AddScoped<IUserRepository>(diContainer =>
                 new UserRepository(diContainer.GetService<SpaceDbContext>()));
 
             services.AddScoped<IRelicRepository>(diContainer =>
@@ -78,7 +84,7 @@ namespace SpaceWeb
 
             services.AddScoped<UserService>(diContainer =>
                 new UserService(
-                    diContainer.GetService<UserRepository>(),
+                    diContainer.GetService<IUserRepository>(),
                     diContainer.GetService<IHttpContextAccessor>()
                 ));
 
@@ -131,6 +137,8 @@ namespace SpaceWeb
             MapBoth<Comfort, ComfortFormViewModel>(configExpression);
             
             MapBoth<AddShopRocket, AdminAddRocketViewModel>(configExpression);
+
+            MapBoth<ShortUserViewModel, User>(configExpression);
 
             var mapperConfiguration = new MapperConfiguration(configExpression);
             var mapper = new Mapper(mapperConfiguration);
