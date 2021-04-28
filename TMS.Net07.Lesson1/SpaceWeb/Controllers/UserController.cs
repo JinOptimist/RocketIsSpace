@@ -56,7 +56,7 @@ namespace SpaceWeb.Controllers
         public async Task<IActionResult> Profile(ProfileUpdateViewModel viewModel)
         {
             var user = _userService.GetCurrent();
-            
+
             if (viewModel.Avatar != null)
             {
                 var webPath = _hostEnvironment.WebRootPath;
@@ -67,10 +67,10 @@ namespace SpaceWeb.Controllers
                 }
                 user.AvatarUrl = $"/image/avatars/{user.Id}.jpg";
             }
-            
+
             user.Email = viewModel.Email;
             _userRepository.Save(user);
-            
+
             return RedirectToAction("Profile");
         }
 
@@ -78,6 +78,8 @@ namespace SpaceWeb.Controllers
         public IActionResult Login()
         {
             var model = new RegistrationViewModel();
+            var returnUrl = Request.Query["ReturnUrl"];
+            model.ReturnUrl = returnUrl;
             return View(model);
         }
 
@@ -115,6 +117,11 @@ namespace SpaceWeb.Controllers
             var claimsIdentity = new ClaimsIdentity(claims, Startup.AuthMethod);
             var principal = new ClaimsPrincipal(claimsIdentity);
             await HttpContext.SignInAsync(principal);
+
+            if (!string.IsNullOrEmpty(model.ReturnUrl))
+            {
+                return Redirect(model.ReturnUrl);
+            }
 
             return RedirectToAction("Index", "Home");
         }
@@ -219,7 +226,7 @@ namespace SpaceWeb.Controllers
         [Authorize]
         public IActionResult ChangeName(ChangeNameViewModel viewModel)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(viewModel);
             }
@@ -227,6 +234,27 @@ namespace SpaceWeb.Controllers
             user.Name = viewModel.NewName;
             _userRepository.Save(user);
             return RedirectToAction("Profile", "User");
+        }
+
+        
+
+        [HttpPost]
+        public IActionResult Socials(SocialsPasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            if (((int)model.Password == (int)SocialsPassword.TgAllGroup) 
+                && (model.Link == nameof(SocialsPassword.TgAllGroup)))
+            {
+                return Redirect("https://t.me/joinchat/Tv44VQeM8nXUusnV");
+            }
+            else
+            {
+                return RedirectToAction("Index", "User");
+            }
         }
     }
 }

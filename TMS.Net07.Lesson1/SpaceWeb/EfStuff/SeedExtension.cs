@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Hosting;
 using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
+using SpaceWeb.EfStuff.Repositories.IRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,13 +24,14 @@ namespace SpaceWeb.EfStuff
 
         private static void SetDefaultUser(IServiceProvider services)
         {
-            var userRepository = services.GetService<UserRepository>();
+            var userRepository = services.GetService<IUserRepository>();
 
             var admin = userRepository.Get("admin");
             if (admin == null)
             {
                 admin = new User()
                 {
+                    Login = "Admin",
                     Name = "Admin",
                     Password = "123",
                     Age = 100,
