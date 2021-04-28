@@ -94,30 +94,13 @@ namespace SpaceWeb.Controllers
 
             var user = _userRepository.Get(model.Login);
 
-            if (user == null)
+            if (user == null || user.Password != model.Password)
             {
-                ModelState.AddModelError(
-                    nameof(RegistrationViewModel.Login),
-                    "Нет такого пользователя");
                 return View(model);
             }
 
-            if (user.Password != model.Password)
-            {
-                ModelState.AddModelError(
-                    nameof(RegistrationViewModel.Password),
-                    "Не правильный праоль");
-                return View(model);
-            }
-
-            var claims = new List<Claim>();
-            claims.Add(new Claim("Id", user.Id.ToString()));
-            claims.Add(new Claim(
-                ClaimTypes.AuthenticationMethod,
-                Startup.AuthMethod));
-            var claimsIdentity = new ClaimsIdentity(claims, Startup.AuthMethod);
-            var principal = new ClaimsPrincipal(claimsIdentity);
-            await HttpContext.SignInAsync(principal);
+            await HttpContext.SignInAsync(
+                _userService.GetPrincipal(user));
 
             if (!string.IsNullOrEmpty(model.ReturnUrl))
             {
@@ -135,34 +118,24 @@ namespace SpaceWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult Registration(RegistrationViewModel model)
+        public async Task<IActionResult> Registration(RegistrationViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            //Старый способ.
-            //var isUserUniq = true;
-            //foreach (var user in Users)
-            //{
-            //    if (user.UserName == model.Login)
-            //    {
-            //        isUserUniq = false;
-            //    }
-            //}
-
-            //Новый способ LINQ
             var isUserUniq = _userRepository.Get(model.Login) == null;
             if (isUserUniq)
             {
-                var user = new User()
-                {
-                    Name = model.Login,
-                    Password = model.Password,
-                    Age = 18
-                };
+                var user = _mapper.Map<User>(model);
                 _userRepository.Save(user);
+
+                
+                await HttpContext.SignInAsync(
+                    _userService.GetPrincipal(user));
+
+                return RedirectToAction("Profile", "User");
             }
 
             return View(model);

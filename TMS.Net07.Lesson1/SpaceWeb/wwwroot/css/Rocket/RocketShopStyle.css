@@ -5,27 +5,15 @@ body{
     background-attachment: fixed; 
 }
 
-
-
 .vraper{
     width: 100%;
     padding-top: 75px;
 }
-.Fuel-tank{
-    display: flex   ;
-}
-.Restroom{
+.items-shop{
     display: flex;
+    flex-wrap: wrap;
 }
-.Kitchen{
-    display: flex;
-}
-.Command-center{
-    display: flex;
-}
-.Engine{
-    display: flex;
-}
+
 .shop{
     border-radius: 20px;
     padding: 5px;

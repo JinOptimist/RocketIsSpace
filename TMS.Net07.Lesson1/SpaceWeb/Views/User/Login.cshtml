@@ -1,33 +1,32 @@
-﻿@model RegistrationViewModel
-<form action="/User/login" method="post">
-    @Html.HiddenFor(x => x.ReturnUrl)
-    <div>
-        @Html.DisplayNameFor(x => x.Login)
-        : @Html.TextBoxFor(x => x.Login)
-        @Html.ValidationMessageFor(x => x.Login)
-    </div>
+﻿@model SpaceWeb.Models.RegistrationViewModel
+@{
+    Layout = "_LayoutRocket";
+}
+@section Style
+{
+    <link rel="stylesheet" href="~/css/Rocket/Login.css?v=4">
+}
 
-    <div>
-        Password: @Html.TextBoxFor(x => x.Password)
-        @Html.ValidationMessageFor(x => x.Password)
-        last name: @Html.TextBoxFor(x => x.Password,
-            new
-            {
-                @type = "password",
-                @class = "nice-input",
-                @placeholder = "Password"
-            })
+<div class="loginpage">
+    <div class="pglogblock">
+        <div class="pginfo">
+            <div class="pglogin">Login</div>
+        </div>
+        <form action="/User/Login" method="post" class="loginformstyle1">
+            @Html.HiddenFor(x => x.ReturnUrl)
+            <ul class="noBullet">
+                <li>
+                    <label for="username"></label>
+                    <input name="UserName" class="inputFields" type="text" placeholder="Login" />
+                </li>
+                <li>
+                    <label for="password"></label>
+                    <input name="Password" class="inputFields" type="password" placeholder="Password" />
+                </li>
+                <li>
+                    <input class="pglogbut" type="submit" value="Log in" />
+                </li>
+            </ul>
+        </form>
     </div>
-    @* <div> *@
-    @*     Age: @Html.TextBoxFor(x => x.Age) *@
-    @*     @Html.ValidationMessageFor(x => x.Age) *@
-    @* </div> *@
-    @* <div> *@
-    @*     Money: @Html.TextBoxFor(x => x.Money) *@
-    @*     @Html.ValidationMessageFor(x => x.Money) *@
-    @* *@
-    @* </div> *@
-    <div>
-        <input type="submit" value="send" />
-    </div>
-</form>
+</div>
