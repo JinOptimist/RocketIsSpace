@@ -34,6 +34,7 @@ a {
     justify-content: space-between;
     align-content: center;
     border-bottom: 3px solid rgb(190,190,190);
+    backdrop-filter: blur(3px);
 }
 
 .header-for-start-page {
