@@ -13,6 +13,11 @@
             accounts.Add(mapper.Map<BankAccountViewModel>(accountBD));
         }
     }
+    <a href="/Account/Creation">
+        <div class="add-new background">
+            <div class="add-new content">Добавить счет</div>
+        </div>
+    </a>
     @foreach (var BankAccount in accounts)
     {
         <a href="/Account/Index?id=@BankAccount.Id">
@@ -26,7 +31,5 @@
             </div>
         </a>
     }
-    <div class="add-new background">
-        <div class="add-new content">Добавить счет</div>
-    </div>
+
 </div>

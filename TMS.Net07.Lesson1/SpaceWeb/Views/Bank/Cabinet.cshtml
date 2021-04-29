@@ -1,5 +1,4 @@
 ﻿@using SpaceWeb.Service
-@using AutoMapper
 
 @inject UserService userService
 
@@ -17,37 +16,24 @@
         currencyOptions.Add(option);
     }
 }
-<div class="client-before-content">
-</div>
-<div class="popup add hide">
-    <div class="cover"></div>
-    <div class="popup-content">
-        <form href="Bank/Account" method="POST" autocomplete="off">
-            <p>
-                @Html.DropDownList("currency", currencyOptions)
-            </p>
-            <p><input class="amount-input" name="@nameof(BankAccountViewModel.Amount)" placeholder="Начальная сумма"></p>
-            <p>
-                <input class="bank-account-submit" type="submit" value="Создать">
-                <input class="bank-account-cancel" type="reset" value="Отмена">
-            </p>
-        </form>
-    </div>
-</div>
-<div class="container">
-    <div class="menu top">
-        <div class="top-menu-text">СЧЕТА</div>
-        @Html.Partial("_bankAccountsList")
-    </div>
-    <div class="menu bottom">
-        <div class="transactions button">Переводы</div>
-        <div class="bank-account button">Счета</div>
+<body>
+    <div class="client-before-content"></div>
 
-        <a class="personal-info button" href="/Bank/UserProfile">
-            <div>Персональные</div>
-            <div>данные</div>
-        </a>
-        <div class="settings button">Настройки</div>
-        <div class="insurance button">Страхование</div>
+    <div class="container">
+        <div class="menu top">
+            <div class="top-menu-text">СЧЕТА</div>
+            @Html.Partial("_bankAccountsList")
+        </div>
+        <div class="menu bottom">
+            <div class="transactions button">Переводы</div>
+            <div class="bank-account button">Счета</div>
+
+            <a class="personal-info button" href="/Bank/UserProfile">
+                <div>Персональные</div>
+                <div>данные</div>
+            </a>
+            <div class="settings button">Настройки</div>
+            <div class="insurance button">Страхование</div>
+        </div>
     </div>
-</div>
+</body>

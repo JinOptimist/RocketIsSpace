@@ -1,32 +1,35 @@
-﻿ @model BankAccountViewModel
+﻿@model BankAccountViewModel
 
 @{
     Layout = "_LayoutBank";
 }
-<div class="client-before-content">
-</div>
-<div class="container-accounts">
-    <div class="menu left">
-        <div class="left-menu-text">СЧЕТА</div>
-        @Html.Partial("_bankAccountsList")
-    </div>
-    <div class="account-info-container">
-        <div class="account-info">
-            <div class="info">@Model.Type</div>
-            <div class="info">@Model.Amount @Model.Currency.ToString()</div>
-            <div class="info">@Model.AccountNumber</div>
-            <div class="info">Создан: @Model.CreationDate.Month/@Model.CreationDate.Year</div>
-            <div class="info">Действителен до: @Model.ExpireDate.Month/@Model.ExpireDate.Year</div>
+
+<body>
+    <div class="client-before-content"></div>
+
+    <div class="container-accounts">
+        <div class="menu left">
+            <div class="left-menu-text">СЧЕТА</div>
+            @Html.Partial("_bankAccountsList")
         </div>
-        <div class="button-list">
-            <div class="button">Пополнить счет</div>
-            <div class="button">Снять со счета</div>
-            <div class="button">Заморозить счета</div>
-            <div class="button">История операций</div>
-            <div class="button">Перевод со счета</div>
-            <a href = "/Account/Remove?id=@Model.Id">
-                <div class="button">Удалить счет</div>
-            </a>
+        <div class="account-info-container">
+            <div class="account-info">
+                <div class="info">@Model.Type</div>
+                <div class="info">@Model.Amount @Model.Currency.ToString()</div>
+                <div class="info">@Model.AccountNumber</div>
+                <div class="info">Создан: @Model.CreationDate.Month/@Model.CreationDate.Year</div>
+                <div class="info">Действителен до: @Model.ExpireDate.Month/@Model.ExpireDate.Year</div>
+            </div>
+            <div class="button-list">
+                <div class="button">Пополнить счет</div>
+                <div class="button">Снять со счета</div>
+                <div class="button">Заморозить счета</div>
+                <div class="button">История операций</div>
+                <div class="button">Перевод со счета</div>
+                <a href="/Account/Remove?id=@Model.Id">
+                    <div class="button">Удалить счет</div>
+                </a>
+            </div>
         </div>
     </div>
-</div>
+</body>

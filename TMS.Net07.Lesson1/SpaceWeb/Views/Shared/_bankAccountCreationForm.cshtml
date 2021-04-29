@@ -1,0 +1,28 @@
+﻿@{
+    var currencyOptions = new List<SelectListItem>();
+
+    var currencies = Enum.GetValues(typeof(Currency));
+
+    for (int i = 0; i < currencies.Length; i++)
+    {
+        var option = new SelectListItem();
+        option.Value = ((int)currencies.GetValue(i)).ToString();
+        option.Text = currencies.GetValue(i).ToString();
+        currencyOptions.Add(option);
+    }
+}
+
+<form class="creation-form" method="POST">
+    <div>Название счета</div>
+    <input type="text" autocomplete="off" name = "@nameof(BankAccountViewModel.Type)">
+    <div>Валюта счета</div>
+    <p>
+        @Html.DropDownList("currency", currencyOptions)
+    </p>
+    <div>Начальная сумма</div>
+    <input type="text" autocomplete="off" name ="@nameof(BankAccountViewModel.Amount)">
+    <p class="buttons">
+        <input class="create-account button" type="submit" value="Создать">
+        <input class="cancel-creation button" type="reset" value="Сброс">
+    </p>
+</form>

@@ -6,60 +6,63 @@
 @using SpaceWeb.Service
 @inject UserService userService
 
-<div class="header-for-start-page">
-    <div class="logo">
-        <a href="/">
-            <img class="logo-image" src="../image/bank/logo.png" alt="logo">
-        </a>
-        <a href="/Bank/Bank">
-            <div class="logoName-for-start-page">
-                <div clacc="logoNameRocket">ROCKET</div>
-                <div class="logoNameBank">BANK</div>
-            </div>
-        </a>
-    </div>
-    <div class="empty-header"></div>
-    <div class="buttonList">
-        <div class="about-button-for-start-page">О нас</div>
-        <a href="/Bank/Contacts">
-            <div class="contacts-button-for-start-page">Контакты</div>
-        </a>
-        @if (User.Identity.IsAuthenticated && userService.IsBankClientOrHigher())
-        {
-            <a href="/Bank/Cabinet">
-                <div class="internet-banking-button-for-start-page">
-                    <span>Интернет-банкинг</span>
-                    <img class="login-icon" src="../image/icon/account_bank_white.svg" />
+
+<body>
+    <div class="header-for-start-page">
+        <div class="logo">
+            <a href="/">
+                <img class="logo-image" src="../image/bank/logo.png" alt="logo">
+            </a>
+            <a href="/Bank/Bank">
+                <div class="logoName-for-start-page">
+                    <div clacc="logoNameRocket">ROCKET</div>
+                    <div class="logoNameBank">BANK</div>
                 </div>
             </a>
-        }
-
-        @if (User.Identity.IsAuthenticated)
-        {
-            <a href="/User/Logout">
-                <div class="login-button-for-start-page">
-                    <span>Выход</span>
-                    <img class="login-icon" src="../image/icon/login-white-18dp.svg" />
-                </div>
+        </div>
+        <div class="header-empty-space"></div>
+        <div class="buttonList">
+            <div class="about button">О нас</div>
+            <a href="/Bank/Contacts">
+                <div class="contacts button">Контакты</div>
             </a>
-        }
-        else
-        {
-            <a href="/User/Login">
-                <div class="login-button-for-start-page">
-                    <span>Вход</span>
-                    <img class="login-icon" src="../image/icon/login-white-18dp.svg" />
-                </div>
-            </a>
-        }
+            @if (User.Identity.IsAuthenticated && userService.IsBankClientOrHigher())
+            {
+                <a href="/Bank/Cabinet">
+                    <div class="cabinet button">
+                        <span>Личный кабинет</span>
+                        <img class="login-icon" src="../image/icon/account_bank_white.svg" />
+                    </div>
+                </a>
+            }
 
-    </div>
-</div>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a href="/User/Logout">
+                    <div class="login button">
+                        <span>Выход</span>
+                        <img class="login-icon" src="../image/icon/login-white-18dp.svg" />
+                    </div>
+                </a>
+            }
+            else
+            {
+                <a href="/User/Login">
+                    <div class="login button">
+                        <span>Вход</span>
+                        <img class="login-icon" src="../image/icon/login-white-18dp.svg" />
+                    </div>
+                </a>
+            }
 
-<div class="client-content">
-    <div class="client-text-centre">
-        <h1 class="intro-titel">Мы открываем новые миры</h1>
-        <h2 class="intro-suptitel">Ты готов с нами?</h2>
-        <center><button class="button-login" type="button">Я с вами!</button></center>
+        </div>
     </div>
-</div>
+
+    <div class="client-content">
+        <div class="client-text-centre">
+            <h1 class="intro-titel">Мы открываем новые миры</h1>
+            <h2 class="intro-suptitel">Ты готов с нами?</h2>
+            <center><button class="button-login" type="button">Я с вами!</button></center>
+        </div>
+    </div>
+</body>
