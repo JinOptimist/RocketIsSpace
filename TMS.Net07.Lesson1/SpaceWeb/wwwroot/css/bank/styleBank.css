@@ -13,29 +13,23 @@ a {
 }
 
 .obertka {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    background-color: rgba(208, 219, 225, 0.1);
 }
 
 .client-before-content {
     height: 62px;
 }
 
-/*.client-after-content {
-    height: 80px;
-}*/
-
 .header {
     z-index: 10;
-    position: absolute;
+    position: fixed;
     height: 60px;
     width: 100%;
-    box-shadow: 0px 4px 5px gray;
-    background-image: -o-linear-gradient(top,rgba(53, 189, 252, 0.3),rgba(27, 89, 117, 0.3));
-    background-image: -moz-linear-gradient(top,rgba(53, 189, 252, 0.3),rgba(27, 89, 117, 0.3));
-    background-image: -webkit-linear-gradient(top,rgb(255 244 244 / 32%),rgb(32 52 76 / 30%));
+    background-color: rgba(201, 201, 201, 0.9);
     display: flex;
     justify-content: space-between;
     align-content: center;
@@ -175,7 +169,6 @@ a {
     height: 100%;
     width: 100%;
     margin: 10px auto;
-    background-color: rgba(208, 219, 225, 0.1);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -390,7 +383,6 @@ a {
 }
 
 .layout-content {
-    height: auto;
 }
 
 .client-text-centre {

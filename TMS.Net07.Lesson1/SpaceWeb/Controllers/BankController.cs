@@ -184,13 +184,13 @@ namespace SpaceWeb.Controllers
             modelDB.Owner = user;
             _bankAccountRepository.Save(modelDB);
 
-            var modelNew = user.BankAccounts.Select(dbModel =>
-                            //куда                откуда
-                _mapper.Map<BankAccountViewModel>(dbModel)
-                )
-                .ToList();
+            //var modelNew = user.BankAccounts.Select(dbModel =>
+            //                //куда                откуда
+            //    _mapper.Map<BankAccountViewModel>(dbModel)
+            //    )
+            //    .ToList();
 
-            return View(modelNew);
+            return View(/*modelNew*/);
         }
     }
 }

@@ -45,5 +45,11 @@ namespace SpaceWeb.Controllers
 
             return RedirectToAction("Cabinet", "Bank");
         }
+
+        [HttpGet]
+        public IActionResult Creation()
+        {
+            return View("~/Views/Bank/Account/Creation.cshtml");
+        }
     }
 }
