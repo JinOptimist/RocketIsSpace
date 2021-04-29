@@ -18,17 +18,17 @@
             </div>
         </a>
     </div>
-    <div class="empty-header"></div>
+    <div class="header-empty-space"></div>
     <div class="buttonList">
-        <div class="about-button-for-start-page">О нас</div>
+        <div class="about button">О нас</div>
         <a href="/Bank/Contacts">
-            <div class="contacts-button-for-start-page">Контакты</div>
+            <div class="contacts button">Контакты</div>
         </a>
         @if (User.Identity.IsAuthenticated && userService.IsBankClientOrHigher())
         {
             <a href="/Bank/Cabinet">
-                <div class="internet-banking-button-for-start-page">
-                    <span>Интернет-банкинг</span>
+                <div class="cabinet button">
+                    <span>Личный кабинет</span>
                     <img class="login-icon" src="../image/icon/account_bank_white.svg" />
                 </div>
             </a>
@@ -37,7 +37,7 @@
         @if (User.Identity.IsAuthenticated)
         {
             <a href="/User/Logout">
-                <div class="login-button-for-start-page">
+                <div class="login button">
                     <span>Выход</span>
                     <img class="login-icon" src="../image/icon/login-white-18dp.svg" />
                 </div>
@@ -46,7 +46,7 @@
         else
         {
             <a href="/User/Login">
-                <div class="login-button-for-start-page">
+                <div class="login button">
                     <span>Вход</span>
                     <img class="login-icon" src="../image/icon/login-white-18dp.svg" />
                 </div>

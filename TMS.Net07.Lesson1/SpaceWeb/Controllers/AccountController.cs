@@ -1,12 +1,14 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
 using SpaceWeb.Models;
 using SpaceWeb.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace SpaceWeb.Controllers
@@ -51,5 +53,52 @@ namespace SpaceWeb.Controllers
         {
             return View("~/Views/Bank/Account/Creation.cshtml");
         }
+
+
+        [HttpPost]
+        public IActionResult Creation(BankAccountViewModel viewModel)
+        {
+            int accountLifeTime;
+            if (viewModel.Currency == Currency.BYN)
+            {
+                viewModel.Type = "Счет";
+                accountLifeTime = 5;
+            }
+            else
+            {
+                viewModel.Type = "Валютный счет";
+                accountLifeTime = 3;
+            }
+
+            StringBuilder sb = new StringBuilder();
+
+            Random rnd = new Random();
+
+            for (int i = 0; i < 10; i++)
+            {
+                sb.Append(rnd.Next(0, 9));
+            }
+            viewModel.AccountNumber = sb.ToString();
+
+            viewModel.CreationDate = DateTime.Now;
+
+            viewModel.ExpireDate = viewModel.CreationDate.AddYears(accountLifeTime);
+
+            var modelDB =
+                _mapper.Map<BankAccount>(viewModel);
+
+            var user = _userService.GetCurrent();
+
+            modelDB.Owner = user;
+            
+            _bankAccountRepository.Save(modelDB);
+
+            var id = user.BankAccounts?.
+                SingleOrDefault(x => x.AccountNumber == viewModel.AccountNumber)
+                .Id;
+
+            return RedirectToAction("Index", new { id });
+        }
+
     }
 }

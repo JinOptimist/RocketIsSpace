@@ -137,60 +137,7 @@ namespace SpaceWeb.Controllers
         [HttpGet]
         public IActionResult Cabinet()
         {
-            var user = _userService.GetCurrent();
-            var modelNew = user.BankAccounts.Select(dbModel =>
-                            //куда                откуда
-                _mapper.Map<BankAccountViewModel>(dbModel)
-                )
-                .ToList();
-            return View(modelNew);
-        }
-
-        [Authorize]
-        [HttpPost]
-        public IActionResult Cabinet(BankAccountViewModel viewModel)
-        {
-            int accountLifeTime;
-            if ( viewModel.Currency == Currency.BYN)
-            {
-                viewModel.Type = "Счет";
-                accountLifeTime = 5;
-            }
-            else
-            {
-                viewModel.Type = "Валютный счет";
-                accountLifeTime = 3;
-            }
-
-            StringBuilder sb = new StringBuilder();
-
-            Random rnd = new Random();
-
-            for (int i = 0; i < 10; i++)
-            {
-                sb.Append(rnd.Next(0, 9));
-            }
-            viewModel.AccountNumber = sb.ToString();
-
-            viewModel.CreationDate = DateTime.Now;
-
-            viewModel.ExpireDate = viewModel.CreationDate.AddYears(accountLifeTime);
-
-            var modelDB =
-                _mapper.Map<BankAccount>(viewModel);
-
-            var user = _userService.GetCurrent();
-
-            modelDB.Owner = user;
-            _bankAccountRepository.Save(modelDB);
-
-            //var modelNew = user.BankAccounts.Select(dbModel =>
-            //                //куда                откуда
-            //    _mapper.Map<BankAccountViewModel>(dbModel)
-            //    )
-            //    .ToList();
-
-            return View(/*modelNew*/);
+            return View();
         }
     }
 }

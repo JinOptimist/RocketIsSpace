@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width" />
     <link rel="stylesheet" href="~/css/reset.css" />
     <link rel="stylesheet" href="~/css/bank/iconBank.css" />
-    <link rel="stylesheet" href="~/css/bank/styleBank.css?v=7" />
+    <link rel="stylesheet" href="~/css/bank/styleBank.css?v=12" />
     <link rel="stylesheet" href="~/css/bank/centralButtonStartPage.css?v=5" />
     <link rel="stylesheet" href="~/css/bank/styleAccountCreation.css?v=1" />
 
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/js/bank/bank.js"></script>
+    <script src="~/js/bank/bank.js?v=0"></script>
     <script src="~/js/bank/centralButtonStartPage.js"></script>
     <title>Rocket</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -35,34 +35,28 @@
                     </div>
                 </a>
             </div>
-            <div class="empty-header"></div>
+            <div class="header-empty-space"></div>
             <div class="buttonList">
-                <div class="about-button">O нас</div>
-                <a href="/Bank/Contacts">
-                    <div class="contacts-button">Контакты</div>
+                <div class="about button">O нас</div>
+                <a href="/Bank/Contacts" class="contacts button">
+                    <div >Контакты</div>
                 </a>
-                <a href="/Bank/Cabinet">
-                    <div class="internet-banking-button">
-                        <span>Интернет-банкинг</span>
-                        <img class="login-icon" src="../image/icon/account_bank.svg" />
-                    </div>
+                <a href="/Bank/Cabinet" class="cabinet button">
+                    <div>Личный кабинет</div>
+                    <img class="login-icon" src="../image/icon/account_bank.svg" />
                 </a>
                 @if (User.Identity.IsAuthenticated)
-                {
-                    <a href="/User/Logout">
-                        <div class="login-button">
-                            <span>Выход</span>
-                            <img class="login-icon" src="../image/icon/login-24px.svg" />
-                        </div>
+                 {
+                    <a href="/User/Logout" class="login button">
+                        <div>Выход</div>
+                        <img class="login-icon" src="../image/icon/login-24px.svg" />
                     </a>
-                }
+                 }
                 else
                 {
-                    <a href="/User/Login">
-                        <div class="login-button">
-                            <span>Вход</span>
-                            <img class="login-icon" src="../image/icon/login-24px.svg" />
-                        </div>
+                    <a href="/User/Login" class="login button">
+                        <div>Выход</div>
+                        <img class="login-icon" src="../image/icon/login-24px.svg" />
                     </a>
                 }
             </div>
