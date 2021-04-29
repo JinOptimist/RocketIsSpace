@@ -5,17 +5,18 @@ using SpaceWeb.EfStuff.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using SpaceWeb.Models;
 using SpaceWeb.Presentation;
+using SpaceWeb.EfStuff.Repositories.IRepository;
 
 namespace SpaceWeb.Controllers
 {
     public class HumanController : Controller
     {
         private IHumanPresentation _humanPresentation;
-        private UserRepository _userRepository;
+        private IUserRepository _userRepository;
         private IMapper _mapper;
         private DepartmentRepository _departmentRepository;
 
-        public HumanController(UserRepository userRepository, IMapper mapper, DepartmentRepository departmentRepository, IHumanPresentation humanPresentation)
+        public HumanController(IUserRepository userRepository, IMapper mapper, DepartmentRepository departmentRepository, IHumanPresentation humanPresentation)
         {
             _userRepository = userRepository;
             _mapper = mapper;
