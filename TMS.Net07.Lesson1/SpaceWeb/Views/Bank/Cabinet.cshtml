@@ -16,21 +16,24 @@
         currencyOptions.Add(option);
     }
 }
+<body>
+    <div class="client-before-content"></div>
 
-<div class="container">
-    <div class="menu top">
-        <div class="top-menu-text">СЧЕТА</div>
-        @Html.Partial("_bankAccountsList")
-    </div>
-    <div class="menu bottom">
-        <div class="transactions button">Переводы</div>
-        <div class="bank-account button">Счета</div>
+    <div class="container">
+        <div class="menu top">
+            <div class="top-menu-text">СЧЕТА</div>
+            @Html.Partial("_bankAccountsList")
+        </div>
+        <div class="menu bottom">
+            <div class="transactions button">Переводы</div>
+            <div class="bank-account button">Счета</div>
 
-        <a class="personal-info button" href="/Bank/UserProfile">
-            <div>Персональные</div>
-            <div>данные</div>
-        </a>
-        <div class="settings button">Настройки</div>
-        <div class="insurance button">Страхование</div>
+            <a class="personal-info button" href="/Bank/UserProfile">
+                <div>Персональные</div>
+                <div>данные</div>
+            </a>
+            <div class="settings button">Настройки</div>
+            <div class="insurance button">Страхование</div>
+        </div>
     </div>
-</div>
+</body>

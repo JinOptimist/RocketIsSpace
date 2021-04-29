@@ -28,6 +28,7 @@ namespace SpaceWeb.Controllers
             _mapper = mapper;
             _userService = userService;
         }
+
         [HttpGet]
         public IActionResult Index(long id)
         {
@@ -38,14 +39,21 @@ namespace SpaceWeb.Controllers
                 var viewModel = _mapper.Map<BankAccountViewModel>(dbModel);
                 return View("~/Views/Bank/Account/Index.cshtml", viewModel);
             }
-            return View();
+            return RedirectToAction("Creation");
         }
 
         public IActionResult Remove(long id)
         {
             _bankAccountRepository.Remove(id);
 
-            return RedirectToAction("Cabinet", "Bank");
+            var user = _userService.GetCurrent();
+
+            var newId = user.BankAccounts?.FirstOrDefault()?.Id;
+            if (newId != null)
+            {
+                return RedirectToAction("Index",  new { id = (long)newId });
+            }
+            return RedirectToAction("Creation");
         }
 
         [HttpGet]
@@ -54,19 +62,24 @@ namespace SpaceWeb.Controllers
             return View("~/Views/Bank/Account/Creation.cshtml");
         }
 
-
         [HttpPost]
         public IActionResult Creation(BankAccountViewModel viewModel)
         {
             int accountLifeTime;
-            if (viewModel.Currency == Currency.BYN)
+            if (viewModel.Currency == Currency.BYN) //заменить двойной if
             {
-                viewModel.Type = "Счет";
+                if (viewModel.Type == null) 
+                { 
+                    viewModel.Type = "Счет"; 
+                }
                 accountLifeTime = 5;
             }
             else
             {
-                viewModel.Type = "Валютный счет";
+                if (viewModel.Type == null) 
+                {
+                    viewModel.Type = "Валютный счет";
+                }
                 accountLifeTime = 3;
             }
 
@@ -99,6 +112,5 @@ namespace SpaceWeb.Controllers
 
             return RedirectToAction("Index", new { id });
         }
-
     }
 }
