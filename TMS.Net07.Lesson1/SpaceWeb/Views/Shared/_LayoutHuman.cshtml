@@ -1,20 +1,59 @@
-﻿<!DOCTYPE html>
+﻿@using SpaceWeb.Service
+@using SpaceWeb.Models.Human
+
+@inject UserService userService
+<!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="~/css/human/reset.css" />
-    <link rel="stylesheet" href="~/css/human/site.css" />
+    <link rel="stylesheet" href="~/css/human/human.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/js/site.js"></script>
-
-    @RenderSection("Scripts", required: false)
+    <script src="~/js/site.js" asp-append-version="true"></script>
 </head>
-<body>
-    <div class="header">
-        Team#3 Humans
+
+@RenderSection("Scripts", required: false)
+
+<body class="human-body">
+    
+    <div class="human-header">
+        <img class="human-logo" src="/image/human/human-logo.png" alt="logo">
+        <div>
+            <a href="/">SpaceWeb</a>
+        </div>
+        <div>
+            <a href="/Human/Department">Department</a>
+        </div>
+        <div class="human-user-info">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a href="/User/Profile">
+                    @{
+                        var user = userService.GetCurrent();
+                        var userBlockViewModel = new UserBlockViewModel()
+                        {
+                            Name = user.Name,
+                            AvatarUrl = userService.GetAvatarUrl()
+                        };
+                    }
+                    <partial name="_userBlock" model="userBlockViewModel">
+                </a>
+                <a href="/User/Logout">Exit</a>
+            }
+            else
+            {
+                <a href="/">Login</a>
+            }
+        </div>
     </div>
-    <div class="content">
+
+    <div class="human-content">
         @RenderBody()
     </div>
+
+    <div class="human-footer">
+        ©Team#3 HumanResources, 2021
+    </div>
+
 </body>
 </html>
