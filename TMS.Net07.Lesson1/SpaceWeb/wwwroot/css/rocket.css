@@ -9,7 +9,8 @@
 
 .rocket-link {
     text-decoration: none;
-    margin: 25px;
+    margin: 15px;
+    height: 270px;
 }
 
 @font-face {

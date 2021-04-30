@@ -39,6 +39,20 @@ namespace SpaceWeb.EfStuff
                 };
                 userRepository.Save(admin);
             }
+
+            var chiefBankEmployee = userRepository.Get("chiefBankEmployee");
+            if (chiefBankEmployee == null)
+            {
+                chiefBankEmployee = new User()
+                {
+                    Login = "ChiefBankEmployee",
+                    Name = "ChiefBankEmployee",
+                    Password = "123",
+                    Age = 100,
+                    JobType = JobType.ChiefBankEmployee
+                };
+                userRepository.Save(chiefBankEmployee);
+            }
         }
     }
 }

@@ -26,14 +26,13 @@
 }
 
 .block {
-    width: 700px;
+    width: 500px;
     height: 270px;
     border: 1px red solid;
-    margin: 25px
 }
 
 .block-bank {
-    width: 700px;
+    width: 500px;
     height: 270px;
     border: 5px black solid;
     box-shadow: 0 0 15px 10px black;
@@ -302,7 +301,7 @@ a {
 .error-socials {
     font-size: 22pt;
 }
-
+/*
 @media (max-width: 1600px) {
     .block {
         width: 600px;
@@ -371,7 +370,7 @@ a {
     .block-bank {
         width: 400px;
     }
-}
+}*/
 .user-info {
     display: flex;
     align-items: center;
@@ -384,4 +383,15 @@ a {
     border-radius: 5px;
     padding: 5px;
     align-items: center;
+}
+
+.team-link {
+    height: 270px;
+    margin: 15px;
+}
+
+.bank-link {
+    height: 270px;
+    margin: 15px;
+    border-radius: 20px 120px;
 }
