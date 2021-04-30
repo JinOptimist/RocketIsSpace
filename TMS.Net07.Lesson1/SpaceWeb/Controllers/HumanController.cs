@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using SpaceWeb.Models;
 using SpaceWeb.Presentation;
 using SpaceWeb.EfStuff.Repositories.IRepository;
+using System.Linq;
 
 namespace SpaceWeb.Controllers
 {
@@ -44,6 +45,18 @@ namespace SpaceWeb.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public IActionResult AllDepartments()
+        {
+            var departments = _departmentRepository
+                .GetAll()
+                .Select(x => _mapper.Map<DepartmentViewModel>(x))
+                .ToList();           
+            
+            return View(departments);
+        }
+
+
         [HttpPost]
         public IActionResult Department(DepartmentViewModel model)
         {
@@ -54,8 +67,7 @@ namespace SpaceWeb.Controllers
 
             var department = _mapper.Map<Department>(model);
             _departmentRepository.Save(department);
-
-            return View(model);
+            return RedirectToAction("AllDepartments");
         }
     }
 }

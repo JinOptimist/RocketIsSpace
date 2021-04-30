@@ -55,3 +55,12 @@
     display: flex;
     align-items: center;
 }
+
+.human-department-info {
+    display: block;
+    width: 350px;
+    background-color: white;
+    border-radius: 3px;
+    margin: 20px 0px;
+    padding: 20px;
+}

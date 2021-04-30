@@ -1,0 +1,22 @@
+﻿@using SpaceWeb.Service
+
+@model List<DepartmentViewModel>
+
+@{
+    Layout = "_LayoutHuman";
+}
+
+<div class="human-department-info">
+    <h3>All departments:</h3>
+</div>
+
+@foreach (var department in Model)
+{
+    <div class="human-department-info">
+        <div><b>Department name: </b>@department.DepartmentName</div>
+        <div><b>Department type: </b>@department.DepartmentType</div>
+        <div><b>Maximum employes: </b>@department.MaximumCountEmployes</div>
+        <div><b>Working hours: </b>@department.HourStartWorking - @department.HourEndWorking</div>
+    </div>
+}
+<button onclick="window.location.href='/human/department' "class="btn btn-primary">Add department</button>
