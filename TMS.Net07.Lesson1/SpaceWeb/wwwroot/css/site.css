@@ -386,5 +386,12 @@ a {
 }
 
 .team-link {
+    height: 270px;
+    margin: 15px;
+}
 
+.bank-link {
+    height: 270px;
+    margin: 15px;
+    border-radius: 20px 120px;
 }
