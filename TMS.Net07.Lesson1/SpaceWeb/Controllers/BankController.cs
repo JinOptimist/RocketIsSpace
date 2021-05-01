@@ -72,6 +72,18 @@ namespace SpaceWeb.Controllers
 
             return View(model);
         }
+        public IActionResult BanksCard()
+        {
+            /*var bankscard = new BanksCardViewModel();
+             return View(bankscard);*/
+            var bankscard = _userService.GetCurrent();
+             var modelNew = bankscard.BanksCards.Select(dbModel =>
+                 //куда                откуда
+                 _mapper.Map<BanksCardViewModel>(dbModel)
+                 )
+                 .ToList();
+             return View(modelNew);
+        }
 
         public IActionResult Contacts()
         {

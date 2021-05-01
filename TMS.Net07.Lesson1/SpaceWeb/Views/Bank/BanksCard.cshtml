@@ -1,0 +1,31 @@
+﻿@model List<BanksCardViewModel>
+
+@{
+    Layout = "_LayoutBank";
+}
+@using SpaceWeb.Service
+@inject UserService userService
+@section Style{
+    <link rel="stylesheet" href="~/css/bank/banks/Bankscard.css">
+}
+
+<div class="header">Карты банков</div>
+
+<div class="center-block">
+    <a href="~/Bank/BanksCard" class="link">
+        <div class="card-mocn">
+            <span class="text">Моцная картаy</span>
+        </div>
+    </a>
+    <a href="~/Comfort/ComfortPage" class="link">
+        <div class="card-shopp">
+            <div class="text">Карта покупок</div>
+        </div>
+    </a>
+    <a href="~/Addition/AdditionPage" class="link">
+        <div class="card-x">
+            <div class="text">Х карта</div>
+        </div>
+    </a>
+
+</div>

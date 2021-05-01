@@ -119,6 +119,7 @@ namespace SpaceWeb
            
             MapBoth<Relic, RelicViewModel>(configExpression);
             MapBoth<User, UserProfileViewModel>(configExpression);
+            MapBoth<User, BanksCardViewModel>(configExpression);
 
             MapBoth<Profile, UserProfileViewModel>(configExpression);
 
@@ -131,7 +132,9 @@ namespace SpaceWeb
             MapBoth<Order,OrderViewModel>(configExpression);
 
             MapBoth<BankAccount, BankAccountViewModel>(configExpression);
-            
+
+            MapBoth<BanksCard, BanksCardViewModel>(configExpression);
+
             MapBoth<User,RocketProfileViewModel>(configExpression);
 
             MapBoth<Comfort, ComfortFormViewModel>(configExpression);
