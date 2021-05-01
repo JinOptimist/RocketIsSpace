@@ -55,7 +55,7 @@
                 <div>
                     <input type="hidden"
                            name="@nameof(SocialsPasswordViewModel.Link)"
-                           value="TgAllGroup" />
+                           value="@SocialsPassword.TgAllGroup" />
                 </div>
                 <div>
                     <input name="@nameof(SocialsPasswordViewModel.Password)" type="text" placeholder="Passcode" />
@@ -67,6 +67,19 @@
         </div>
         <div class="socials-block youtube">
             Youtube
+            <form action="/User/Socials" method="post" class="loginformstyle">
+                <div>
+                    <input type="hidden"
+                           name="@nameof(SocialsPasswordViewModel.Link)"
+                           value="@SocialsPassword.YoutubeTeacher" />
+                </div>
+                <div>
+                    <input name="@nameof(SocialsPasswordViewModel.Password)" type="text" placeholder="Passcode" />
+                </div>
+                <div>
+                    <input type="submit" value="Хочу туда!" />
+                </div>
+            </form>
         </div>
     </div>
 
