@@ -24,6 +24,24 @@ body {
     font-family: Calibri, serif;
     color: black;
 }
+.search {
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+    .search .search-field {
+        opacity: 0.2;
+    }
+
+        .search .search-field:hover {
+            opacity: 1;
+        }
+
+        .search .search-field input {
+            border-radius: 4px;
+            width: 250px;
+        }
 
 
 .center-block {
@@ -48,19 +66,19 @@ body {
 
 .card-mocn:hover {
     transition: all .3s ease;
-    background: url("../banks/Bankscard.css/card-mocn.png");
+    background: url("../../../image/bank/card-mocn.jpg");
     opacity: 1;
 }
 
 .card-shopp:hover {
     transition: all .3s ease;
-    background: url("../banks/Bankscard.css/card-shopp.png");
+    background: url("../../../image/bank/card-shopp.jpg");
     opacity: 1;
 }
 
 .card-x:hover {
     transition: all .3s ease;
-    background: url("../banks/Bankscard.css/card-x.png");
+    background: url("../../../image/bank/card-x.jpg");
     opacity: 1;
 }
 
