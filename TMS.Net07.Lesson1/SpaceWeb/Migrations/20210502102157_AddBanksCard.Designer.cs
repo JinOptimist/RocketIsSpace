@@ -10,8 +10,8 @@ using SpaceWeb.EfStuff;
 namespace SpaceWeb.Migrations
 {
     [DbContext(typeof(SpaceDbContext))]
-    [Migration("20210501201631_BanksCard")]
-    partial class BanksCard
+    [Migration("20210502102157_AddBanksCard")]
+    partial class AddBanksCard
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
