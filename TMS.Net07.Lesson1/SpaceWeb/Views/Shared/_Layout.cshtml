@@ -49,37 +49,51 @@
     <div class="socials-popup hide">
         <div class="socials-popup-cover"></div>
         <div class="socials-block telegram">
-            Для получения доступа к Telegram-каналу группы TMS/.Net07,
-            пожалуйста, введите ключ доступа.
-            <form action="/User/Socials" method="post" class="loginformstyle">
+            <div class="popup-text-telegram-group">
+                Для получения доступа к Telegram-каналу группы TMS/.Net07,
+                пожалуйста, введите ключ доступа.
+            </div>
+            <div class="empty-place-telegram"></div>
+            <form action="/User/Socials" method="post" class="socials-form-telegram">
                 <div>
                     <input type="hidden"
                            name="@nameof(SocialsPasswordViewModel.Link)"
                            value="@SocialsPassword.TgAllGroup" />
                 </div>
                 <div>
-                    <input name="@nameof(SocialsPasswordViewModel.Password)" type="text" placeholder="Passcode" />
+                    Ключ доступа:
                 </div>
                 <div>
-                    <input type="submit" value="Хочу туда!" />
+                    <input name="@nameof(SocialsPasswordViewModel.Password)" class="socials-passcode-telegram" type="text" placeholder="Passcode" />
+                </div>
+                <div>
+                    <input type="submit" value="Хочу туда!" class="socials-submit-telegram" />
                 </div>
             </form>
         </div>
         <div class="socials-block youtube">
-            Youtube
-            <form action="/User/Socials" method="post" class="loginformstyle">
-                <div>
-                    <input type="hidden"
-                           name="@nameof(SocialsPasswordViewModel.Link)"
-                           value="@SocialsPassword.YoutubeTeacher" />
+            <div class="left-socials-youtube"></div>
+            <div class="right-socials-youtube">
+                <div class="popup-text-youtube-group">
+                    Пересмотреть видео-уроки можно на Youtube-канале. Введите ключ доступа.
                 </div>
-                <div>
-                    <input name="@nameof(SocialsPasswordViewModel.Password)" type="text" placeholder="Passcode" />
-                </div>
-                <div>
-                    <input type="submit" value="Хочу туда!" />
-                </div>
-            </form>
+                <form action="/User/Socials" method="post" class="socials-form-youtube">
+                    <div>
+                        <input type="hidden"
+                               name="@nameof(SocialsPasswordViewModel.Link)"
+                               value="@SocialsPassword.YoutubeTeacher" />
+                    </div>
+                    <div>
+                        Ключ доступа:
+                    </div>
+                    <div>
+                        <input name="@nameof(SocialsPasswordViewModel.Password)" class="socials-passcode-youtube" type="text" placeholder="Passcode" />
+                    </div>
+                    <div>
+                        <input type="submit" value="Хочу туда!" class="socials-submit-youtube" />
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
