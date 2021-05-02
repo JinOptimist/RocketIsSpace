@@ -36,7 +36,7 @@ namespace SpaceWeb.Controllers
             _mapper = mapper;
             _userService = userService;
         }
-        public IActionResult Bank()
+        public IActionResult Index()
         {
             var input = new RegistrationViewModel();
 
