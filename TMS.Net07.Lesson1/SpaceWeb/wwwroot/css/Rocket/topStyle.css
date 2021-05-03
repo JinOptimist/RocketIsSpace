@@ -50,9 +50,9 @@
     color: white;
 }
 
-.info .link:hover {
-    color: #DCDCDC;
-}
+    .info .link:hover {
+        color: #DCDCDC;
+    }
 
 .nice-popup {
     position: fixed;
@@ -145,7 +145,7 @@ input[type="password"] {
     cursor: pointer;
 }
 
-.profile-exit{
+.profile-exit {
     color: white;
     text-decoration: none;
     margin: 17px;
@@ -160,6 +160,7 @@ input[type="password"] {
     max-width: 40px;
     max-height: 40px;
     border-radius: 20px;
+    margin-left: 20px;
 }
 
 .user-block {
@@ -175,3 +176,7 @@ input[type="password"] {
     display: flex;
     align-items: center;
 }
+
+    .user-info a:visited {
+        color: white;
+    }

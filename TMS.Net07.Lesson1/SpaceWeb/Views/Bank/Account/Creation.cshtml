@@ -1,0 +1,18 @@
+﻿@{
+    Layout = "_LayoutBank";
+}
+
+<body>
+    <div class="client-before-content"></div>
+
+    <div class="container-accounts">
+        <div class="menu left">
+            <div class="left-menu-text">СЧЕТА</div>
+            @Html.Partial("_bankAccountsList")
+        </div>
+        <div class="account-creation-container">
+            <div class="creation-container-text">СОЗДАНИЕ СЧЕТА</div>
+            @Html.Partial("_bankAccountCreationForm")
+        </div>
+    </div>
+</body>

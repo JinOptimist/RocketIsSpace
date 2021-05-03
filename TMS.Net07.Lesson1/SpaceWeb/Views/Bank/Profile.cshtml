@@ -1,17 +1,20 @@
 ﻿@model UserProfileViewModel
 
-<div>
-    <h1>Профиль</h1>
+<body>
+    <div class="client-before-content"></div>
     <div>
-        @Model.Name @Model.IdentificationPassport @Model.Profile.Money
-    </div>
+        <h1>Профиль</h1>
+        <div>
+            @Model.Name @Model.IdentificationPassport @Model.Profile.Money
+        </div>
 
-    <h2>Мои анкеты</h2>
-    
+        <h2>Мои анкеты</h2>
+
         <div>
             @Model.Sex @Model.PostAddress @Model.PhoneNumber
         </div>
-    
 
-    <a href="/User/ChangePassword?id=1">Обновить password</a>
-</div>
+
+        <a href="/User/ChangePassword?id=1">Обновить password</a>
+    </div>
+</body>
