@@ -9,6 +9,8 @@ namespace SpaceWeb.EfStuff.Model
     {
         public string Name { get; set; }
 
-        public int CostPerYear { get; set; }
+        public int CostPerMonth { get; set; }
+
+        public int Period { get; set; }
     }
 }
