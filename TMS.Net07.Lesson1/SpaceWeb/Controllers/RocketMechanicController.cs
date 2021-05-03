@@ -2,21 +2,24 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SpaceWeb.EfStuff.Model;
-using SpaceWeb.EfStuff.Repositories;
+using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Models;
+using SpaceWeb.Presentation;
 using System.Linq;
 
 namespace SpaceWeb.Controllers
 {
     public class RocketMechanicController : Controller
     {
-        private RocketStageRepository _rocketStageRepository;
+        private IRocketStageRepository _rocketStageRepository;
         private IMapper _mapper;
+        private IRocketMechanicPresentation _rocketMechanicPresentation;
 
-        public RocketMechanicController(RocketStageRepository rocketStageRepository, IMapper mapper)
+        public RocketMechanicController(IRocketStageRepository rocketStageRepository, IMapper mapper, IRocketMechanicPresentation rocketMechanicPresentation)
         {
             _rocketStageRepository = rocketStageRepository;
             _mapper = mapper;
+            _rocketMechanicPresentation = rocketMechanicPresentation;
         }
 
         [HttpGet]
@@ -33,31 +36,30 @@ namespace SpaceWeb.Controllers
         {
             return View(mainViewModel);
         }
+
         [Authorize]
         public IActionResult RocketStageIndex()
         {
-            var models = _rocketStageRepository
-                .GetAll()
-                .Select(dbModel => _mapper.Map<RocketStageAddViewModel>(dbModel))
-                .ToList();
+            var models = _rocketMechanicPresentation.GetIndexViewModel();
 
             return View(models);
         }
+
         [Authorize]
         public IActionResult RocketStageRemove(long id) 
         {
             _rocketStageRepository.Remove(id);
             return RedirectToAction("RocketStageIndex");
         }
+
         [Authorize]
         [HttpGet]
         public IActionResult RocketStageAdd(long id = 0)
         {
-            var rocketStage = _rocketStageRepository.Get(id);
-            var viewModel = _mapper.Map<RocketStageAddViewModel>(rocketStage)
-                ?? new RocketStageAddViewModel();
+            var viewModel = _rocketMechanicPresentation.GetRocketStageAddViewModel(id);
             return View(viewModel);
         }
+
         [Authorize]
         [HttpPost]
         public IActionResult RocketStageAdd(RocketStageAddViewModel rocketStageAddViewModel)

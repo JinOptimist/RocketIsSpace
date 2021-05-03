@@ -55,6 +55,11 @@ namespace SpaceWeb
                     container.GetService<IUserRepository>(),
                     container.GetService<IMapper>()));
 
+            services.AddScoped<IRocketMechanicPresentation>(container =>
+               new RocketMechanicPresentation(
+                   container.GetService<IRocketStageRepository>(),
+                   container.GetService<IMapper>()));
+
             services.AddScoped<IUserRepository>(diContainer =>
                 new UserRepository(diContainer.GetService<SpaceDbContext>()));
 
@@ -75,7 +80,7 @@ namespace SpaceWeb
             services.AddScoped<ComfortRepository>(diContainer =>
                 new ComfortRepository(diContainer.GetService<SpaceDbContext>()));
 
-            services.AddScoped<RocketStageRepository>(diContainer =>
+            services.AddScoped<IRocketStageRepository>(diContainer =>
                 new RocketStageRepository(diContainer.GetService<SpaceDbContext>()));
 
             services.AddScoped<UserService>(diContainer =>
