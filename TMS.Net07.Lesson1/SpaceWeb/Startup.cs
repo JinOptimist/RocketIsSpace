@@ -57,6 +57,7 @@ namespace SpaceWeb
             services.AddScoped<IHumanPresentation>(container =>
                 new HumanPresentation(
                     container.GetService<IUserRepository>(),
+                    container.GetService<IDepartmentRepository>(),
                     container.GetService<IMapper>()));
 
             services.AddScoped<IUserRepository>(diContainer =>
@@ -67,6 +68,9 @@ namespace SpaceWeb
 
             services.AddScoped<IRelicRepository>(diContainer =>
                 new RelicRepository(diContainer.GetService<SpaceDbContext>()));
+
+            services.AddScoped<IDepartmentRepository>(diContainer =>
+                new DepartmentRepository(diContainer.GetService<SpaceDbContext>()));
 
             services.AddScoped<ProfileRepository>(diContainer =>
                 new ProfileRepository(diContainer.GetService<SpaceDbContext>()));
@@ -103,7 +107,7 @@ namespace SpaceWeb
                 new AdditionRepository(diContainer.GetService<SpaceDbContext>()));
             
             services.AddScoped<ShopRocketRepository>(diContainer =>
-                new ShopRocketRepository(diContainer.GetService<SpaceDbContext>()));
+                new ShopRocketRepository(diContainer.GetService<SpaceDbContext>()));            
         }
 
         private void RegisterMapper(IServiceCollection services)
@@ -142,6 +146,8 @@ namespace SpaceWeb
             MapBoth<AddShopRocket, AddShopRocketViewModel>(configExpression);
             
             MapBoth<AddShopRocketViewModel,AddShopRocket>(configExpression);
+
+            MapBoth<Department, DepartmentViewModel>(configExpression);
 
             MapBoth<ShortUserViewModel, User>(configExpression);
 

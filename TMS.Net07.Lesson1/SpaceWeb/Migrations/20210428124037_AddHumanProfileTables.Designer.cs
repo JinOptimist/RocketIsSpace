@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SpaceWeb.EfStuff;
 
 namespace SpaceWeb.Migrations
 {
     [DbContext(typeof(SpaceDbContext))]
-    partial class SpaceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210428124037_AddHumanProfileTables")]
+    partial class AddHumanProfileTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,7 +45,31 @@ namespace SpaceWeb.Migrations
                     b.ToTable("ShopRocket");
                 });
 
-            modelBuilder.Entity("SpaceWeb.EfStuff.Model.AdditionStructure", b =>
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.Addition", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BotanicalCenterCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ObservarionDeckCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RescueCapsuleCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RestRoomCount")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Additions");
+                });
+
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.AdditionStructureDBmodel", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -60,7 +86,7 @@ namespace SpaceWeb.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("Additions");
+                    b.ToTable("AdditionsOrder");
                 });
 
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.AdvImage", b =>
@@ -123,12 +149,12 @@ namespace SpaceWeb.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("ForeignKeyUser")
+                    b.Property<long>("ForeignKeyProfile")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ForeignKeyUser")
+                    b.HasIndex("ForeignKeyProfile")
                         .IsUnique();
 
                     b.ToTable("Clients");
@@ -155,10 +181,10 @@ namespace SpaceWeb.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ComfortsExample");
+                    b.ToTable("Comforts");
                 });
 
-            modelBuilder.Entity("SpaceWeb.EfStuff.Model.ComfortStructure", b =>
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.ComfortStructureDBmodel", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -175,7 +201,7 @@ namespace SpaceWeb.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("Comforts");
+                    b.ToTable("ComfortsOrder");
                 });
 
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.Department", b =>
@@ -215,11 +241,11 @@ namespace SpaceWeb.Migrations
                     b.Property<long?>("DepartmentId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("ForeignKeyUser")
+                    b.Property<long>("ForeignKeyProfile")
                         .HasColumnType("bigint");
 
                     b.Property<decimal>("SalaryPerHour")
-                        .HasColumnType("money");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Specification")
                         .HasColumnType("int");
@@ -228,7 +254,7 @@ namespace SpaceWeb.Migrations
 
                     b.HasIndex("DepartmentId");
 
-                    b.HasIndex("ForeignKeyUser")
+                    b.HasIndex("ForeignKeyProfile")
                         .IsUnique();
 
                     b.ToTable("Employes");
@@ -253,6 +279,24 @@ namespace SpaceWeb.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("FactoryHistories");
+                });
+
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.HumanProfile", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("ForeignKeyUser")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ForeignKeyUser")
+                        .IsUnique();
+
+                    b.ToTable("HumanProfiles");
                 });
 
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.Order", b =>
@@ -281,7 +325,7 @@ namespace SpaceWeb.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("SpaceWeb.EfStuff.Model.OrdersEmployes", b =>
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.OrderList", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -300,7 +344,7 @@ namespace SpaceWeb.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrdersEmployes");
+                    b.ToTable("OrderLists");
                 });
 
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.Profile", b =>
@@ -440,17 +484,11 @@ namespace SpaceWeb.Migrations
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DefaultCurrency")
-                        .HasColumnType("int");
-
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("JobType")
                         .HasColumnType("int");
-
-                    b.Property<string>("Login")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("MyFavouriteRocketId")
                         .HasColumnType("bigint");
@@ -464,6 +502,9 @@ namespace SpaceWeb.Migrations
                     b.Property<string>("SurName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("MyFavouriteRocketId");
@@ -471,7 +512,7 @@ namespace SpaceWeb.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("SpaceWeb.EfStuff.Model.AdditionStructure", b =>
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.AdditionStructureDBmodel", b =>
                 {
                     b.HasOne("SpaceWeb.EfStuff.Model.Order", "Order")
                         .WithMany("AdditionsList")
@@ -489,20 +530,18 @@ namespace SpaceWeb.Migrations
                     b.Navigation("Owner");
                 });
 
-
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.Client", b =>
                 {
-                    b.HasOne("SpaceWeb.EfStuff.Model.User", "User")
+                    b.HasOne("SpaceWeb.EfStuff.Model.HumanProfile", "Profile")
                         .WithOne("Client")
-                        .HasForeignKey("SpaceWeb.EfStuff.Model.Client", "ForeignKeyUser")
+                        .HasForeignKey("SpaceWeb.EfStuff.Model.Client", "ForeignKeyProfile")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
+                    b.Navigation("Profile");
                 });
 
-
-            modelBuilder.Entity("SpaceWeb.EfStuff.Model.ComfortStructure", b =>
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.ComfortStructureDBmodel", b =>
                 {
                     b.HasOne("SpaceWeb.EfStuff.Model.Order", "Order")
                         .WithMany("ComfortsList")
@@ -517,13 +556,24 @@ namespace SpaceWeb.Migrations
                         .WithMany("Employes")
                         .HasForeignKey("DepartmentId");
 
-                    b.HasOne("SpaceWeb.EfStuff.Model.User", "User")
+                    b.HasOne("SpaceWeb.EfStuff.Model.HumanProfile", "Profile")
                         .WithOne("Employe")
-                        .HasForeignKey("SpaceWeb.EfStuff.Model.Employe", "ForeignKeyUser")
+                        .HasForeignKey("SpaceWeb.EfStuff.Model.Employe", "ForeignKeyProfile")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Department");
+
+                    b.Navigation("Profile");
+                });
+
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.HumanProfile", b =>
+                {
+                    b.HasOne("SpaceWeb.EfStuff.Model.User", "User")
+                        .WithOne("HumanProfile")
+                        .HasForeignKey("SpaceWeb.EfStuff.Model.HumanProfile", "ForeignKeyUser")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });
@@ -537,14 +587,14 @@ namespace SpaceWeb.Migrations
                     b.Navigation("Client");
                 });
 
-            modelBuilder.Entity("SpaceWeb.EfStuff.Model.OrdersEmployes", b =>
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.OrderList", b =>
                 {
                     b.HasOne("SpaceWeb.EfStuff.Model.Employe", "Employe")
-                        .WithMany("OrdersEmployes")
+                        .WithMany("OrderList")
                         .HasForeignKey("EmployeId");
 
                     b.HasOne("SpaceWeb.EfStuff.Model.Order", "Order")
-                        .WithMany("OrdersEmployes")
+                        .WithMany("OrderList")
                         .HasForeignKey("OrderId");
 
                     b.Navigation("Employe");
@@ -599,7 +649,14 @@ namespace SpaceWeb.Migrations
 
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.Employe", b =>
                 {
-                    b.Navigation("OrdersEmployes");
+                    b.Navigation("OrderList");
+                });
+
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.HumanProfile", b =>
+                {
+                    b.Navigation("Client");
+
+                    b.Navigation("Employe");
                 });
 
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.Order", b =>
@@ -608,7 +665,7 @@ namespace SpaceWeb.Migrations
 
                     b.Navigation("ComfortsList");
 
-                    b.Navigation("OrdersEmployes");
+                    b.Navigation("OrderList");
                 });
 
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.Rocket", b =>
@@ -620,9 +677,7 @@ namespace SpaceWeb.Migrations
                 {
                     b.Navigation("BankAccounts");
 
-                    b.Navigation("Client");
-
-                    b.Navigation("Employe");
+                    b.Navigation("HumanProfile");
 
                     b.Navigation("MyRockets");
 

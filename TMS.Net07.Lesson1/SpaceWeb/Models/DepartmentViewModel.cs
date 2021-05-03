@@ -18,6 +18,8 @@ namespace SpaceWeb.Models
     };
     public class DepartmentViewModel
     {
+        public long Id { get; set; }
+
         [Required(ErrorMessage = "Department name is required!")]
         public string DepartmentName { get; set; }
         public DepartmentType DepartmentType { get; set; }

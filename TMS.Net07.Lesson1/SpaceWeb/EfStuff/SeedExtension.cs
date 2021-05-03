@@ -18,6 +18,7 @@ namespace SpaceWeb.EfStuff
             using (var serviceScope = server.Services.CreateScope())
             {
                 SetDefaultUser(serviceScope.ServiceProvider);
+                SetDefaultDepartment(serviceScope.ServiceProvider);
             }
 
             return server;
@@ -39,6 +40,25 @@ namespace SpaceWeb.EfStuff
                     JobType = JobType.Admin
                 };
                 userRepository.Save(admin);
+            }
+        }
+
+        private static void SetDefaultDepartment(IServiceProvider services)
+        {
+            var departmentRepository = services.GetService<IDepartmentRepository>();
+            string defaultDepartmentName = "Administration";
+            var department = departmentRepository.Get(defaultDepartmentName);
+            if (department == null)
+            {
+                department = new Department
+                {
+                    DepartmentName = defaultDepartmentName,
+                    DepartmentType = DepartmentType.Other,
+                    MaximumCountEmployes = 1,
+                    HourStartWorking = 8,
+                    HourEndWorking = 17
+                };
+                departmentRepository.Save(department);
             }
         }
     }
