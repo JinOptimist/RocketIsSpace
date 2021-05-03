@@ -130,7 +130,7 @@ namespace SpaceWeb
 
             MapBoth<AdvImage, AdvImageViewModel>(configExpression);
             
-            MapBoth<User,RocketRegistrationViewModel>(configExpression);
+            MapBoth<User,RegistrationViewModel>(configExpression);
             
             MapBoth<Order,OrderViewModel>(configExpression);
 
@@ -140,7 +140,9 @@ namespace SpaceWeb
 
             MapBoth<Comfort, ComfortFormViewModel>(configExpression);
             
-            MapBoth<AddShopRocket, AdminAddRocketViewModel>(configExpression);
+            MapBoth<AddShopRocket, AddShopRocketViewModel>(configExpression);
+            
+            MapBoth<AddShopRocketViewModel,AddShopRocket>(configExpression);
 
             MapBoth<Department, DepartmentViewModel>(configExpression);
 

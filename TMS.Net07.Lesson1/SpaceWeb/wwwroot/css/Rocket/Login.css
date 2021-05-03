@@ -1,15 +1,16 @@
 ﻿.loginpage {
-    padding-top: 75px;
+    /*padding-top: 75px;*/
     background: #171717;
     height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .pglogblock {
     background: url(../../image/comfortImage/rocket3.jpg);
-    position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
     width: 800px;
     height: 450px;
     box-shadow: 3px 10px 20px 5px rgb(0 0 0 / 50%);

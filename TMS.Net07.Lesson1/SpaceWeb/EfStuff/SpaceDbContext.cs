@@ -17,21 +17,23 @@ namespace SpaceWeb.EfStuff
         public DbSet<BankAccount> BankAccount { get; set; }
         public DbSet<AdvImage> AdvImages { get; set; }
         public DbSet<FactoryHistory> FactoryHistories { get; set; }
-        public DbSet<Comfort> Comforts { get; set; }
+        public DbSet<Comfort> ComfortsExample { get; set; }
         public DbSet<RocketStage> RocketStages { get; set; }
-        public DbSet<Addition> Additions { get; set; }
         public DbSet<AddShopRocket> ShopRocket { get; set; }
         
         public DbSet<Relic> Relics { get; set; }
 
+
         public DbSet<Order> Orders { get; set; }
-        public DbSet<ComfortStructureDBmodel> ComfortsOrder { get; set; }
-        public DbSet<AdditionStructureDBmodel> AdditionsOrder { get; set; }
 
         public DbSet<Client> Clients { get; set; }
         public DbSet<Employe> Employes { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<OrdersEmployes> OrdersEmployes { get; set; }
+
+        public DbSet<ComfortStructure> Comforts { get; set; }
+        public DbSet<AdditionStructure> Additions { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()

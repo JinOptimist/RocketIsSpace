@@ -13,6 +13,7 @@ using Profile = SpaceWeb.EfStuff.Model.Profile;
 using SpaceWeb.Service;
 using Microsoft.AspNetCore.Authorization;
 using SpaceWeb.Controllers.CustomAttribute;
+using SpaceWeb.EfStuff.Repositories.IRepository;
 
 namespace SpaceWeb.Controllers
 {
@@ -21,12 +22,12 @@ namespace SpaceWeb.Controllers
         private BankAccountRepository _bankAccountRepository;
         private ProfileRepository _profileRepository;
         private IMapper _mapper;
-        private UserRepository _userRepository;
+        private IUserRepository _userRepository;
         private UserService _userService;
 
         public BankController(BankAccountRepository bankAccountRepository,
             ProfileRepository profileRepository,
-            UserRepository userRepository,
+            IUserRepository userRepository,
             IMapper mapper, UserService userService)
         {
             _bankAccountRepository = bankAccountRepository;
