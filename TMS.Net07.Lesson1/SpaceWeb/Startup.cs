@@ -82,7 +82,7 @@ namespace SpaceWeb
             services.AddScoped<RocketStageRepository>(diContainer =>
                 new RocketStageRepository(diContainer.GetService<SpaceDbContext>()));
 
-            services.AddScoped<InsuranceTypeRepository>(diContainer =>
+            services.AddScoped<InsuranceRepository>(diContainer =>
                 new InsuranceTypeRepository(diContainer.GetService<SpaceDbContext>()));
 
             services.AddScoped<UserService>(diContainer =>
