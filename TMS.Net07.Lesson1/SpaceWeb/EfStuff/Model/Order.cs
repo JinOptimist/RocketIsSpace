@@ -12,7 +12,7 @@ namespace SpaceWeb.EfStuff.Model
         public virtual List<AdditionStructureDBmodel> AdditionsList { get; set; }
         public virtual List<ComfortStructureDBmodel> ComfortsList { get; set; }
         public virtual Client Client { get; set; }
-        public virtual List<OrderList> OrderList { get; set; }
+        public virtual List<OrdersEmployes> OrdersEmployes { get; set; }
     }
 
 }
