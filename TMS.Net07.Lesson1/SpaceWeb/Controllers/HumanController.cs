@@ -15,14 +15,14 @@ namespace SpaceWeb.Controllers
         private IHumanPresentation _humanPresentation;
         private IUserRepository _userRepository;
         private IMapper _mapper;
-        private DepartmentRepository _departmentRepository;
+        private IDepartmentRepository _departmentRepository;
 
-        public HumanController(IUserRepository userRepository, IMapper mapper, DepartmentRepository departmentRepository, IHumanPresentation humanPresentation)
+        public HumanController(IUserRepository userRepository, IMapper mapper, IDepartmentRepository departmentRepository, IHumanPresentation humanPresentation)
         {
             _userRepository = userRepository;
             _mapper = mapper;
             _departmentRepository = departmentRepository;
-            _humanPresentation = humanPresentation;            
+            _humanPresentation = humanPresentation;
         }
 
         [HttpGet]
@@ -39,23 +39,17 @@ namespace SpaceWeb.Controllers
         }
 
         [HttpGet]
+        public IActionResult AllDepartments()
+        {
+            return View(_humanPresentation.GetViewModelForAllDepartments());
+        }
+
+        [HttpGet]
         public IActionResult Department()
         {
             var model = new DepartmentViewModel();
             return View(model);
         }
-
-        [HttpGet]
-        public IActionResult AllDepartments()
-        {
-            var departments = _departmentRepository
-                .GetAll()
-                .Select(x => _mapper.Map<DepartmentViewModel>(x))
-                .ToList();           
-            
-            return View(departments);
-        }
-
 
         [HttpPost]
         public IActionResult Department(DepartmentViewModel model)
