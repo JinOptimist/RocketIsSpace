@@ -6,9 +6,9 @@ namespace SpaceWeb.EfStuff.Model
     {
         public Specification Specification { get; set; }
         public virtual Department Department { get; set; }
-        public long ForeignKeyProfile { get; set; }
-        public virtual HumanProfile Profile { get; set; }
-        public virtual List<OrderList> OrderList { get; set; }
+        public long ForeignKeyUser { get; set; }
+        public virtual User User { get; set; }
+        public virtual List<OrdersEmployes> OrdersEmployes { get; set; }
         public decimal SalaryPerHour { get; set; }
     }
 }

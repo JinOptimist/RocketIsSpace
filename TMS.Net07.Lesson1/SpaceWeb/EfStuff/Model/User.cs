@@ -32,6 +32,7 @@ namespace SpaceWeb.EfStuff.Model
        
         public virtual Profile Profile { get; set; }
 
-        public virtual HumanProfile HumanProfile { get; set; }
+        public virtual Client Client { get; set; }
+        public virtual Employe Employe { get; set; }
     }
 }
