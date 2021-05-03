@@ -20,13 +20,11 @@ namespace SpaceWeb.EfStuff
         public DbSet<Comfort> ComfortsExample { get; set; }
         public DbSet<RocketStage> RocketStages { get; set; }
         public DbSet<AddShopRocket> ShopRocket { get; set; }
-        
         public DbSet<Relic> Relics { get; set; }
-
-
         public DbSet<Order> Orders { get; set; }
         public DbSet<ComfortStructure> Comforts { get; set; }
         public DbSet<AdditionStructure> Additions { get; set; }
+        public DbSet<InsuranceType> InsuranceTypes { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()
@@ -49,14 +47,14 @@ namespace SpaceWeb.EfStuff
                 .HasOne(x => x.Profile)
                 .WithOne(x => x.User)
                 .HasForeignKey<Profile>(x => x.UserRef);
-                
+
             modelBuilder.Entity<Order>()
                 .HasMany(order => order.AdditionsList)
                 .WithOne(addition => addition.Order);
             modelBuilder.Entity<Order>()
                 .HasMany(order => order.ComfortsList)
                 .WithOne(comforts => comforts.Order);
-            
+
             base.OnModelCreating(modelBuilder);
         }
 
