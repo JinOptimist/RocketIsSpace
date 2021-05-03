@@ -71,7 +71,7 @@ namespace SpaceWeb
             services.AddScoped<AdvImageRepository>(diContainer =>
                 new AdvImageRepository(diContainer.GetService<SpaceDbContext>()));
 
-            services.AddScoped<BankAccountRepository>(diContainer =>
+            services.AddScoped<IBankAccountRepository>(diContainer =>
                 new BankAccountRepository(diContainer.GetService<SpaceDbContext>()));
 
             RegisterMapper(services);
