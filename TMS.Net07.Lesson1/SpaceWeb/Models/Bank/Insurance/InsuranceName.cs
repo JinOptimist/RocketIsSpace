@@ -5,7 +5,11 @@ using System.Threading.Tasks;
 
 namespace SpaceWeb.Models.Bank.Insurance
 {
-    public class InsuranceName
+    public enum InsuranceName
     {
+        Start = 1,
+        Casco = 2,
+        Medhelp = 3,
+        Air = 4
     }
 }
