@@ -2,21 +2,21 @@
 using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Models;
 using SpaceWeb.Models.Human;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace SpaceWeb.Presentation
 {
     public class HumanPresentation : IHumanPresentation
     {
         private IUserRepository _userRepository;
+        private IDepartmentRepository _departmentRepository;
         private IMapper _mapper;
 
-        public HumanPresentation(IUserRepository userRepository, IMapper mapper)
+        public HumanPresentation(IUserRepository userRepository, IDepartmentRepository departmentRepository, IMapper mapper)
         {
             _userRepository = userRepository;
+            _departmentRepository = departmentRepository;
             _mapper = mapper;
         }
 
@@ -25,6 +25,14 @@ namespace SpaceWeb.Presentation
             return _userRepository
                 .GetAll()
                 .Select(x => _mapper.Map<ShortUserViewModel>(x))
+                .ToList();
+        }
+
+        public List<DepartmentViewModel> GetViewModelForAllDepartments()
+        {
+            return _departmentRepository
+                .GetAll()
+                .Select(x => _mapper.Map<DepartmentViewModel>(x))
                 .ToList();
         }
     }
