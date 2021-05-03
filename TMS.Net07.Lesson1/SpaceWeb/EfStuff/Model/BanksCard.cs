@@ -9,8 +9,9 @@ namespace SpaceWeb.EfStuff.Model
 {
     public class BanksCard : BaseModel
     {
+
         public string CardNumber { get; set; }
-        public virtual User Owner { get; set; }
+        public virtual BankAccount BankAccount { get; set; }
         public DateTime CreationDate { get; set; }
         
     }
