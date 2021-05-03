@@ -1,42 +1,29 @@
 ﻿@model DepartmentViewModel
 
-<div class="modal" id="modal-add-department" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Add new department</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="/Human/SaveDepartment" method="post">
-                    <div class="form-group">
-                        <label>Department name:</label>
-                        @Html.TextBoxFor(x => x.DepartmentName, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(x => x.DepartmentName)
-                    </div>
-                    <div class="form-group">
-                        <label>Department type:</label>
-                        @Html.DropDownListFor(model => model.DepartmentType, new SelectList(Enum.GetValues(typeof(DepartmentType))), new { @class = "form-control" })
-                    </div>
-                    <div class="form-group">
-                        <label>Maximum count employes:</label>
-                        @Html.TextBoxFor(x => x.MaximumCountEmployes, new { @class = "form-control" })
-                    </div>
-                    <div class="form-group">
-                        <label>Hour start working:</label>
-                        @Html.TextBoxFor(x => x.HourStartWorking, new { @class = "form-control" })
-                    </div>
-                    <div class="form-group">
-                        <label>Hour end working:</label>
-                        @Html.TextBoxFor(x => x.HourEndWorking, new { @class = "form-control" })
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
-                </form>
-            </div>
-        </div>
+
+<form action="/Human/SaveDepartment" method="post">
+    <div class="form-group">
+        <label>Department name:</label>
+        @Html.TextBoxFor(x => x.DepartmentName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.DepartmentName)
     </div>
-</div>
+    <div class="form-group">
+        <label>Department type:</label>
+        @Html.DropDownListFor(model => model.DepartmentType, new SelectList(Enum.GetValues(typeof(DepartmentType))), new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>Maximum count employes:</label>
+        @Html.TextBoxFor(x => x.MaximumCountEmployes, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>Hour start working:</label>
+        @Html.TextBoxFor(x => x.HourStartWorking, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>Hour end working:</label>
+        @Html.TextBoxFor(x => x.HourEndWorking, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>

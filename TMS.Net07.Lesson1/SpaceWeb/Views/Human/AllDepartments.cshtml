@@ -11,13 +11,17 @@
 
 @foreach (var department in Model)
 {
-    <div class="human-department-info">
-        <div><b>Department name: </b>@department.DepartmentName</div>
-        <div><b>Department type: </b>@department.DepartmentType</div>
-        <div><b>Maximum employes: </b>@department.MaximumCountEmployes</div>
-        <div><b>Working hours: </b>@department.HourStartWorking - @department.HourEndWorking</div>
+<div class="human-department-info">
+    <div><b>Department name: </b>@department.DepartmentName</div>
+    <div><b>Department type: </b>@department.DepartmentType</div>
+    <div><b>Maximum employes: </b>@department.MaximumCountEmployes</div>
+    <div><b>Working hours: </b>@department.HourStartWorking - @department.HourEndWorking</div>    
+    <div>
+        <button onclick="window.location.href='/human/DeleteDepartment?id=@department.Id'" class="btn btn-danger" style="margin: 10px 10px 0px 0px">Delete</button>
+        <button onclick="window.location.href='/human/EditDepartment?id=@department.Id'" class="btn btn-info" style="margin: 10px 10px 0px 0px">Edit</button>
     </div>
+</div>    
 }
 @*<button onclick="window.location.href='/human/Department' "class="btn btn-primary">Add department</button>*@
 <button class="btn btn-primary" data-toggle="modal" data-target="#modal-add-department">Add department</button>
-<partial name="_Department" model="new DepartmentViewModel()" />
+<partial name="_AddDepartment" model="new DepartmentViewModel()" />
