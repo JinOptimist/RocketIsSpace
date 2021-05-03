@@ -34,5 +34,8 @@ namespace SpaceWeb.Models
         public string SurName { get; set; }
         public DateTime BirthDate { get; set; }
         public string Email { get; set; }
+
+        public Currency DefaultCurrency { get; set; }
+        public List<Currency> MyCurrencies { get; set; }
     }
 }

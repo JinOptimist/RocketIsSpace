@@ -23,6 +23,7 @@ namespace SpaceWeb.Controllers
     public class UserController : Controller
     {
         private IUserRepository _userRepository;
+        private IBankAccountRepository _bankAccountRepository;
         private IMapper _mapper;
         private UserService _userService;
         private IWebHostEnvironment _hostEnvironment;
@@ -30,12 +31,14 @@ namespace SpaceWeb.Controllers
         public static int Counter = 0;
 
         public UserController(IUserRepository userRepository, IMapper mapper,
-            UserService userService, IWebHostEnvironment hostEnvironment)
+            UserService userService, IWebHostEnvironment hostEnvironment,
+            IBankAccountRepository bankAccountRepository)
         {
             _userRepository = userRepository;
             _mapper = mapper;
             _userService = userService;
             _hostEnvironment = hostEnvironment;
+            _bankAccountRepository = bankAccountRepository;
         }
 
         [Authorize]
@@ -49,8 +52,19 @@ namespace SpaceWeb.Controllers
                 .BankAccounts
                 .Select(x => _mapper.Map<BankAccountViewModel>(x)).ToList();
             viewModel.MyAccounts = bankViewModels;
+            viewModel.DefaultCurrency = user.DefaultCurrency;
+            viewModel.MyCurrencies = _bankAccountRepository.GetCurrencies(user.Id);
 
             return View(viewModel);
+        }
+
+        public IActionResult UpdateFavCurrency(Currency currency)
+        {
+            var user = _userService.GetCurrent();
+            user.DefaultCurrency = currency;
+            _userRepository.Save(user);
+
+            return Json(true);
         }
 
         [HttpPost]
@@ -131,7 +145,7 @@ namespace SpaceWeb.Controllers
                 var user = _mapper.Map<User>(model);
                 _userRepository.Save(user);
 
-                
+
                 await HttpContext.SignInAsync(
                     _userService.GetPrincipal(user));
 
@@ -218,7 +232,7 @@ namespace SpaceWeb.Controllers
                 return View(model);
             }
 
-            if ((model.Password == SocialsPassword.TgAllGroup.ToString()) 
+            if ((model.Password == SocialsPassword.TgAllGroup.ToString())
                 && (model.Link == nameof(SocialsPassword.TgAllGroup)))
             {
                 return Redirect("https://t.me/joinchat/Tv44VQeM8nXUusnV");

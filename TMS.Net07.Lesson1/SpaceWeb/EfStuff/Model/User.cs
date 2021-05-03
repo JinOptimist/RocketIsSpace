@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SpaceWeb.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,6 +22,8 @@ namespace SpaceWeb.EfStuff.Model
         public string AvatarUrl { get; set; }
 
         public JobType JobType { get; set; }
+
+        public Currency DefaultCurrency { get; set; }
 
         public virtual List<Rocket> MyRockets { get; set; }
 
