@@ -27,11 +27,11 @@ namespace SpaceWeb.EfStuff
         public DbSet<Order> Orders { get; set; }
         public DbSet<ComfortStructureDBmodel> ComfortsOrder { get; set; }
         public DbSet<AdditionStructureDBmodel> AdditionsOrder { get; set; }
-        public DbSet<HumanProfile> HumanProfiles { get; set; }
+
         public DbSet<Client> Clients { get; set; }
         public DbSet<Employe> Employes { get; set; }
         public DbSet<Department> Departments { get; set; }
-        public DbSet<OrderList> OrderLists { get; set; }
+        public DbSet<OrdersEmployes> OrdersEmployes { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()
@@ -62,32 +62,27 @@ namespace SpaceWeb.EfStuff
                 .HasMany(order => order.ComfortsList)
                 .WithOne(comforts => comforts.Order);
 
-            modelBuilder.Entity<HumanProfile>()
-                .HasOne(x => x.User)
-                .WithOne(x => x.HumanProfile)
-                .HasForeignKey<HumanProfile>(x => x.ForeignKeyUser);
-
             modelBuilder.Entity<Client>()
-                .HasOne(x => x.Profile)
+                .HasOne(x => x.User)
                 .WithOne(x => x.Client)
-                .HasForeignKey<Client>(x => x.ForeignKeyProfile);
+                .HasForeignKey<Client>(x => x.ForeignKeyUser);
 
             modelBuilder.Entity<Employe>()
-                .HasOne(x => x.Profile)
+                .HasOne(x => x.User)
                 .WithOne(x => x.Employe)
-                .HasForeignKey<Employe>(x => x.ForeignKeyProfile);
+                .HasForeignKey<Employe>(x => x.ForeignKeyUser);
 
             modelBuilder.Entity<Employe>()
                 .HasOne(emp => emp.Department)
                 .WithMany(department => department.Employes);
 
-            modelBuilder.Entity<OrderList>()
+            modelBuilder.Entity<OrdersEmployes>()
                 .HasOne(orderList => orderList.Employe)
-                .WithMany(employe => employe.OrderList);
+                .WithMany(employe => employe.OrdersEmployes);
 
-            modelBuilder.Entity<OrderList>()
+            modelBuilder.Entity<OrdersEmployes>()
                 .HasOne(orderList => orderList.Order)
-                .WithMany(order => order.OrderList);
+                .WithMany(order => order.OrdersEmployes);
 
             modelBuilder.Entity<Order>()
                 .HasOne(order => order.Client)
