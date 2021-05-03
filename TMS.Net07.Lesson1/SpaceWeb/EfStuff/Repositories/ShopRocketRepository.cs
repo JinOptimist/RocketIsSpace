@@ -4,7 +4,7 @@ using SpaceWeb.EfStuff.Model;
 
 namespace SpaceWeb.EfStuff.Repositories
 {
-    public class ShopRocketRepository: BaseRepository<AddShopRocket>
+    public class ShopRocketRepository: BaseRepository<Rocket>
     {
         public ShopRocketRepository(SpaceDbContext spaceDbContext) : base(spaceDbContext)
         {

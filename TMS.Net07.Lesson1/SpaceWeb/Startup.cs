@@ -136,9 +136,7 @@ namespace SpaceWeb
 
             MapBoth<Comfort, ComfortFormViewModel>(configExpression);
             
-            MapBoth<AddShopRocket, AddShopRocketViewModel>(configExpression);
-            
-            MapBoth<AddShopRocketViewModel,AddShopRocket>(configExpression);
+            MapBoth<Rocket, AddShopRocketViewModel>(configExpression);
 
             MapBoth<ShortUserViewModel, User>(configExpression);
 
