@@ -1,7 +1,6 @@
 ﻿@using SpaceWeb.Service
 
 @model List<DepartmentViewModel>
-
 @{
     Layout = "_LayoutHuman";
 }
@@ -19,4 +18,6 @@
         <div><b>Working hours: </b>@department.HourStartWorking - @department.HourEndWorking</div>
     </div>
 }
-<button onclick="window.location.href='/human/Department' "class="btn btn-primary">Add department</button>
+@*<button onclick="window.location.href='/human/Department' "class="btn btn-primary">Add department</button>*@
+<button class="btn btn-primary" data-toggle="modal" data-target="#modal-add-department">Add department</button>
+<partial name="_Department" model="new DepartmentViewModel()" />

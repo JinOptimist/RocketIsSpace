@@ -51,14 +51,22 @@ namespace SpaceWeb.Controllers
             return View(model);
         }
 
-        [HttpPost]
+        //deprecated, unused now
+        [HttpPost]        
         public IActionResult Department(DepartmentViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
+            var department = _mapper.Map<Department>(model);
+            _departmentRepository.Save(department);
+            return RedirectToAction("AllDepartments");
+        }
 
+        [HttpPost]
+        public IActionResult SaveDepartment(DepartmentViewModel model)
+        {
             var department = _mapper.Map<Department>(model);
             _departmentRepository.Save(department);
             return RedirectToAction("AllDepartments");
