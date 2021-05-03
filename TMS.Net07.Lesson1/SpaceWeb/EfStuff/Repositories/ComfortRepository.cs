@@ -17,12 +17,12 @@ namespace SpaceWeb.EfStuff.Repositories
 
         public List<Comfort> GetAll()
         {
-            return _spaceDbContext.Comforts.ToList();
+            return _spaceDbContext.ComfortsExample.ToList();
         }
 
         public void Save(Comfort model)
         {
-            _spaceDbContext.Comforts.Add(model);
+            _spaceDbContext.ComfortsExample.Add(model);
             _spaceDbContext.SaveChanges();
         }
     }

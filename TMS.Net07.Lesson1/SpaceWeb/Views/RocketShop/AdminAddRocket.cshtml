@@ -1,4 +1,4 @@
-﻿@model SpaceWeb.Models.RocketModels.AdminAddRocketViewModel
+﻿@model SpaceWeb.Models.RocketModels.AddShopRocketViewModel
 
 @{
     Layout = "_LayoutRocket";
@@ -12,7 +12,7 @@
     
  }
 <div class = "new-rocket-form">
-    <form action="/Rocket/AddNewItemAdmin" method="post">
+    <form action="/RocketShop/AdminAddRocket" method="post">
         <div>
             Название сувенира: @Html.TextBoxFor(x => x.Name)
         </div>

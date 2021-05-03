@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
+using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Models.RocketModels;
 using SpaceWeb.Service;
 using SpaceWeb.EfStuff.Repositories.IRepository;
@@ -40,31 +41,6 @@ namespace SpaceWeb.Controllers
             return View();
         }
 
-        [HttpGet]
-        public IActionResult Registration()
-        {
-            var model = new RocketRegistrationViewModel();
-            return View(model);
-        }
-
-        [HttpPost]
-        public IActionResult Registration(RocketRegistrationViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            var isUserUniq = _userRepository.Get(model.UserName) == null;
-            if (isUserUniq)
-            {
-                var user = _mapper.Map<User>(model);
-                _userRepository.Save(user);
-            }
-
-            return View(model);
-        }
-        
         [Authorize]
         public IActionResult Rocket()
         {
