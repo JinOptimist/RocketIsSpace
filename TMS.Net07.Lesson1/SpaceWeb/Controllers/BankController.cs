@@ -23,18 +23,20 @@ namespace SpaceWeb.Controllers
         private ProfileRepository _profileRepository;
         private IMapper _mapper;
         private IUserRepository _userRepository;
+        private BanksCardRepository _banksCardRepository;
         private UserService _userService;
 
         public BankController(BankAccountRepository bankAccountRepository,
             ProfileRepository profileRepository,
             IUserRepository userRepository,
-            IMapper mapper, UserService userService)
+            IMapper mapper, UserService userService, BanksCardRepository banksCardRepository)
         {
             _bankAccountRepository = bankAccountRepository;
             _profileRepository = profileRepository;
             _userRepository = userRepository;
             _mapper = mapper;
             _userService = userService;
+            _banksCardRepository = banksCardRepository;
         }
         public IActionResult Bank()
         {
@@ -113,7 +115,8 @@ namespace SpaceWeb.Controllers
                 return View(model);
             }
             //var user = _userRepository.Get(model.Id);
-            var userprofile = new Profile()
+            var userprofile = _mapper.Map<Profile>(model);
+            /*= new Profile()
             {
                 Name = model.Name,
                 SurName = model.SurName,
@@ -122,7 +125,7 @@ namespace SpaceWeb.Controllers
                 PhoneNumber = model.PhoneNumber,
                 PostAddress = model.PostAddress,
                 IdentificationPassport = model.IdentificationPassport
-            };
+            };*/
 
             var user = _userService.GetCurrent();
             userprofile.User = user;

@@ -12,6 +12,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\css\bank\Humans\Employes\DepartmentTest.cs" />
+    <Content Remove="wwwroot\css\bank\Humans\Orders\OrderTest.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="wwwroot\css\bank\Humans\Employes\DepartmentTest.cs" />
+    <Compile Include="wwwroot\css\bank\Humans\Orders\OrderTest.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\image\human\" />
     <Folder Include="wwwroot\image\avatars\" />
   </ItemGroup>
