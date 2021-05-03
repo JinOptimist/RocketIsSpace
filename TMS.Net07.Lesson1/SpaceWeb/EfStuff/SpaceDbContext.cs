@@ -43,7 +43,8 @@ namespace SpaceWeb.EfStuff
 
             modelBuilder.Entity<User>()
                 .HasMany(x => x.BankAccounts)
-                .WithOne(x => x.Owner);
+                .WithOne(x => x.Owner)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<User>()
                 .HasOne(x => x.Profile)

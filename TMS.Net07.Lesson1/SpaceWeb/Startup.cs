@@ -60,7 +60,10 @@ namespace SpaceWeb
                     container.GetService<IMapper>()));
 
             services.AddScoped<IUserRepository>(diContainer =>
-                new UserRepository(diContainer.GetService<SpaceDbContext>()));
+                new UserRepository(
+                    diContainer.GetService<SpaceDbContext>(),
+                    diContainer.GetService<IBankAccountRepository>()
+                    ));
 
             services.AddScoped<IRelicRepository>(diContainer =>
                 new RelicRepository(diContainer.GetService<SpaceDbContext>()));

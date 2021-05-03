@@ -257,7 +257,7 @@ a {
         max-height: 100px;
     }
 
-.avatar{
+.avatar {
     max-width: 200px;
     max-height: 200px;
 }
@@ -372,6 +372,7 @@ a {
         width: 400px;
     }
 }
+
 .user-info {
     display: flex;
     align-items: center;
@@ -386,6 +387,11 @@ a {
     align-items: center;
 }
 
-.active{
+.active {
     border: 1px red solid;
+}
+
+.user-for-remove {
+    display: flex;
+    align-items: center;
 }

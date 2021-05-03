@@ -27,5 +27,10 @@ namespace SpaceWeb.Presentation
                 .Select(x => _mapper.Map<ShortUserViewModel>(x))
                 .ToList();
         }
+
+        public void Remove(List<long> userIds)
+        {
+            _userRepository.Remove(userIds);
+        }
     }
 }
