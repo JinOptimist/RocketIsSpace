@@ -8,5 +8,6 @@ namespace SpaceWeb.EfStuff.Repositories.IRepository
 {
     public interface IDepartmentRepository : IBaseRepository<Department>
     {
+        Department Get(string name);
     }
 }
