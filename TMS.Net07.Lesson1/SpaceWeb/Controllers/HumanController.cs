@@ -7,6 +7,8 @@ using SpaceWeb.Models;
 using SpaceWeb.Presentation;
 using SpaceWeb.EfStuff.Repositories.IRepository;
 using System.Linq;
+using SpaceWeb.Service;
+using SpaceWeb.Models.Human;
 
 namespace SpaceWeb.Controllers
 {
@@ -16,13 +18,15 @@ namespace SpaceWeb.Controllers
         private IUserRepository _userRepository;
         private IMapper _mapper;
         private IDepartmentRepository _departmentRepository;
+        private UserService _userService;
 
-        public HumanController(IUserRepository userRepository, IMapper mapper, IDepartmentRepository departmentRepository, IHumanPresentation humanPresentation)
+        public HumanController(IUserRepository userRepository, IMapper mapper, IDepartmentRepository departmentRepository, IHumanPresentation humanPresentation, UserService userService = null)
         {
             _userRepository = userRepository;
             _mapper = mapper;
             _departmentRepository = departmentRepository;
             _humanPresentation = humanPresentation;
+            _userService = userService;
         }
 
         [HttpGet]
@@ -87,6 +91,14 @@ namespace SpaceWeb.Controllers
             //todo: return modal view to edit department
             var department = _departmentRepository.Get(id);
             return RedirectToAction("AllDepartments");
+        }
+
+        [HttpGet]
+        public IActionResult ClientPage()
+        {
+            var user = _userService.GetCurrent();
+            var userViewModel = _mapper.Map<ShortUserViewModel>(user);
+            return View(userViewModel);
         }
     }
 }

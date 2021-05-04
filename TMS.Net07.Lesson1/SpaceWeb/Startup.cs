@@ -148,6 +148,10 @@ namespace SpaceWeb
 
             MapBoth<ShortUserViewModel, User>(configExpression);
 
+            MapBoth<ClientViewModel, Client>(configExpression);
+
+            MapBoth<HumanOrderViewModel, Order>(configExpression);
+
             var mapperConfiguration = new MapperConfiguration(configExpression);
             var mapper = new Mapper(mapperConfiguration);
             services.AddScoped<IMapper>(c => mapper);
