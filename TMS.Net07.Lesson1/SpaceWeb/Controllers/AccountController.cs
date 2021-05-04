@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
+using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Models;
 using SpaceWeb.Service;
 using System;
@@ -18,10 +19,12 @@ namespace SpaceWeb.Controllers
     {
         private BankAccountRepository _bankAccountRepository;
         private IMapper _mapper;
+        private IUserRepository _userRepository; //удалить?
         private UserService _userService;
 
         public AccountController(BankAccountRepository bankAccountRepository,
             ProfileRepository profileRepository,
+            IUserRepository userRepository,
             IMapper mapper, UserService userService)
         {
             _bankAccountRepository = bankAccountRepository;

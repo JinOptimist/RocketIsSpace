@@ -74,6 +74,9 @@ namespace SpaceWeb
             services.AddScoped<BankAccountRepository>(diContainer =>
                 new BankAccountRepository(diContainer.GetService<SpaceDbContext>()));
 
+            services.AddScoped<BanksCardRepository>(diContainer =>
+                new BanksCardRepository(diContainer.GetService<SpaceDbContext>()));
+
             RegisterMapper(services);
 
             services.AddScoped<ComfortRepository>(diContainer =>
@@ -119,6 +122,7 @@ namespace SpaceWeb
            
             MapBoth<Relic, RelicViewModel>(configExpression);
             MapBoth<User, UserProfileViewModel>(configExpression);
+            MapBoth<User, BanksCardViewModel>(configExpression);
 
             MapBoth<Profile, UserProfileViewModel>(configExpression);
 
@@ -131,7 +135,8 @@ namespace SpaceWeb
             MapBoth<Order,OrderViewModel>(configExpression);
 
             MapBoth<BankAccount, BankAccountViewModel>(configExpression);
-            
+
+
             MapBoth<User,RocketProfileViewModel>(configExpression);
 
             MapBoth<Comfort, ComfortFormViewModel>(configExpression);
