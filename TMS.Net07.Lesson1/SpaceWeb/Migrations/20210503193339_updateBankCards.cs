@@ -15,10 +15,10 @@ namespace SpaceWeb.Migrations
                 table: "BanksCard",
                 newName: "UserId");
 
-            migrationBuilder.RenameIndex(
-                name: "IX_BanksCard_OwnerId",
+            migrationBuilder.CreateIndex(
+                name: "IX_BanksCard_UserId",
                 table: "BanksCard",
-                newName: "IX_BanksCard_UserId");
+                column: "UserId");
 
             migrationBuilder.AddColumn<long>(
                 name: "BankAccountId",
