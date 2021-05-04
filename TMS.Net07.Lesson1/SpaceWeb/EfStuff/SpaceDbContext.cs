@@ -25,6 +25,7 @@ namespace SpaceWeb.EfStuff
         public DbSet<ComfortStructure> Comforts { get; set; }
         public DbSet<AdditionStructure> Additions { get; set; }
         public DbSet<InsuranceType> InsuranceTypes { get; set; }
+        public DbSet<Insurance> Insurances { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()

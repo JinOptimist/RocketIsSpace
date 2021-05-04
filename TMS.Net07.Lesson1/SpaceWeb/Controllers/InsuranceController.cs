@@ -10,10 +10,10 @@ namespace SpaceWeb.Controllers
 {
     public class InsuranceController : Controller
     {
-        private InsuranceTypeRepository _insuranceTypeRepository;
+        private InsuranceRepository _insuranceTypeRepository;
         private UserService _userService;
 
-        public InsuranceController(InsuranceTypeRepository insuranceTypeRepository,
+        public InsuranceController(InsuranceRepository insuranceTypeRepository,
             UserService userService)
         {
             _insuranceTypeRepository = insuranceTypeRepository;

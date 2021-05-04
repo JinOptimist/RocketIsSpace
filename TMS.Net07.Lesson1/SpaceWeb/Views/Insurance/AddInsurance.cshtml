@@ -1,0 +1,42 @@
+﻿@using SpaceWeb.Models.Bank 
+@using SpaceWeb.Models.Bank.Insurance 
+@model InsuranceViewModel
+
+@{
+    Layout = "_LayoutBank";
+
+    var insuranceNameOptions = new List<SelectListItem>();
+    var insuranceNames = Enum.GetValues(typeof(InsuranceName));
+
+    for (int i = 0; i < insuranceNames.Length; i++)
+    {
+        var insuranceNameOption = new SelectListItem();
+        insuranceNameOption.Value = ((int)insuranceNames.GetValue(i)).ToString();
+        insuranceNameOption.Text = insuranceNames.GetValue(i).ToString();
+        insuranceNameOptions.Add(insuranceNameOption);
+    }
+
+    var insurancePeriodOptions = new List<SelectListItem>();
+    var insurancePeriods = Enum.GetValues(typeof(InsurancePeriod));
+
+    for (int i = 0; i < insurancePeriods.Length; i++)
+    {
+        var insurancePeriodOption = new SelectListItem();
+        insurancePeriodOption.Value = ((int)insurancePeriods.GetValue(i)).ToString();
+        insurancePeriodOption.Text = insurancePeriods.GetValue(i).ToString();
+        insurancePeriodOptions.Add(insurancePeriodOption);
+    }
+}
+
+<body>
+    <div class="client-before-content"></div>
+
+    <form class="" method="POST">
+        <div>
+            @Html.DropDownList("insuranceName", insuranceNameOptions)
+        </div>
+        <div>
+            @Html.DropDownList("insurancePeriod", insurancePeriodOptions)
+        </div>
+    </form>
+</body>
