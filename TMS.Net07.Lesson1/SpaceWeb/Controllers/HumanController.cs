@@ -94,6 +94,7 @@ namespace SpaceWeb.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult ClientPage()
         {
             var user = _userService.GetCurrent();
