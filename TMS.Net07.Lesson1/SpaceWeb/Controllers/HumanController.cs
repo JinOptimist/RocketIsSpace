@@ -7,6 +7,7 @@ using SpaceWeb.Models;
 using SpaceWeb.Presentation;
 using SpaceWeb.EfStuff.Repositories.IRepository;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace SpaceWeb.Controllers
 {
@@ -36,6 +37,12 @@ namespace SpaceWeb.Controllers
         public IActionResult AllUsers()
         {
             return View(_humanPresentation.GetViewModelForAllUsers());
+        }
+
+        public IActionResult Remove(List<long> userIds)
+        {
+            _humanPresentation.Remove(userIds);
+            return RedirectToAction("AllUsers");
         }
 
         [HttpGet]

@@ -40,5 +40,10 @@ namespace SpaceWeb.Presentation
         {
             return _mapper.Map<DepartmentViewModel>(_departmentRepository.Get(id));
         }
+
+        public void Remove(List<long> userIds)
+        {
+            _userRepository.Remove(userIds);
+        }
     }
 }

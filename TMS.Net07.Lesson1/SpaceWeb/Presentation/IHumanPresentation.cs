@@ -1,4 +1,4 @@
-﻿using SpaceWeb.Models;
+using SpaceWeb.Models;
 using SpaceWeb.Models.Human;
 using System.Collections.Generic;
 
@@ -9,5 +9,6 @@ namespace SpaceWeb.Presentation
         List<ShortUserViewModel> GetViewModelForAllUsers();
         List<DepartmentViewModel> GetViewModelForAllDepartments();
         DepartmentViewModel GetViewModelForDepartment(long id);
+        void Remove(List<long> userIds);
     }
 }

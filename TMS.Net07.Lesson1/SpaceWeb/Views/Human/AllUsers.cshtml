@@ -10,14 +10,21 @@
 @model List<ShortUserViewModel>
 
 <div class="all-users">
-    All users
-    @foreach (var shortUserViewModel in Model)
-    {
-        var userBlockViewModel = new UserBlockViewModel()
+    <form action="/Human/Remove" method="post">
+
+        All users
+        @foreach (var shortUserViewModel in Model)
         {
-            Name = shortUserViewModel.Name,
-            AvatarUrl = userService.GetAvatarUrl(shortUserViewModel.AvatarUrl)
-        };
-        @Html.Partial("_userBlock", userBlockViewModel)
-    }
+            var userBlockViewModel = new UserBlockViewModel()
+            {
+                Name = shortUserViewModel.Login,
+                AvatarUrl = userService.GetAvatarUrl(shortUserViewModel.AvatarUrl)
+            };
+        <label class="user-for-remove">
+            <input type="checkbox" name="userIds" value="@shortUserViewModel.Id" />
+            @Html.Partial("_userBlock", userBlockViewModel)
+        </label>
+        }
+        <input type="submit" value="remove" />
+    </form>
 </div>
