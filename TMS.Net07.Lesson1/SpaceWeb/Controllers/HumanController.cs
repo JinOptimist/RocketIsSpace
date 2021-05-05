@@ -44,33 +44,10 @@ namespace SpaceWeb.Controllers
             return View(_humanPresentation.GetViewModelForAllDepartments());
         }
 
-        //deprecated, unused now
-        [HttpGet]
-        public IActionResult Department()
-        {
-            var model = new DepartmentViewModel();
-            return View(model);
-        }
-
-        //deprecated, unused now
-        [HttpPost]
-        public IActionResult Department(DepartmentViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-            var department = _mapper.Map<Department>(model);
-            _departmentRepository.Save(department);
-            return RedirectToAction("AllDepartments");
-        }
-
         [HttpPost]
         public IActionResult SaveDepartment(DepartmentViewModel model)
         {
-            //todo: if department id exist on BD then update this department else save new department
-            var department = _mapper.Map<Department>(model);
-            _departmentRepository.Save(department);
+            _departmentRepository.Save(_mapper.Map<Department>(model));
             return RedirectToAction("AllDepartments");
         }
 
@@ -84,9 +61,7 @@ namespace SpaceWeb.Controllers
         [HttpGet]
         public IActionResult EditDepartment(long id)
         {
-            //todo: return modal view to edit department
-            var department = _departmentRepository.Get(id);
-            return RedirectToAction("AllDepartments");
+            return PartialView("Department", _humanPresentation.GetViewModelForDepartment(id));
         }
     }
 }

@@ -8,5 +8,6 @@ namespace SpaceWeb.Presentation
     {
         List<ShortUserViewModel> GetViewModelForAllUsers();
         List<DepartmentViewModel> GetViewModelForAllDepartments();
+        DepartmentViewModel GetViewModelForDepartment(long id);
     }
 }

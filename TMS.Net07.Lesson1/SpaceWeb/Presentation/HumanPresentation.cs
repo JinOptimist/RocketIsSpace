@@ -35,5 +35,10 @@ namespace SpaceWeb.Presentation
                 .Select(x => _mapper.Map<DepartmentViewModel>(x))
                 .ToList();
         }
+
+        public DepartmentViewModel GetViewModelForDepartment(long id)
+        {
+            return _mapper.Map<DepartmentViewModel>(_departmentRepository.Get(id));
+        }
     }
 }
