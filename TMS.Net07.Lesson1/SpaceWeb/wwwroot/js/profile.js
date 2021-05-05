@@ -15,4 +15,10 @@
 
             });
     });
+
+    $('[name=CurrentLang]').change(function () {
+        var lang = $(this).val();
+        var url = '/User/UpdateLang?Lang=' + lang;
+        $.get(url);
+    });
 });

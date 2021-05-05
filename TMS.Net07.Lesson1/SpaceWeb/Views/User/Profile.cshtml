@@ -23,9 +23,12 @@
             </div>
         </form>
     </div>
-    <h2>Мои валюты</h2>
+    <h2>Язык</h2>
+    <div>
+        @Html.DropDownList("CurrentLang", Model.LangOptions)
+    </div>
+    <h2>Основная валюта</h2>
     <div class="currency-block">
-        основная валюта
         @foreach (var currency in Model.MyCurrencies)
         {
             <label class="currency-option @(currency == Model.DefaultCurrency ? "active" : "")">
@@ -38,6 +41,7 @@
             </label>
         }
     </div>
+    
 
     <h2>Мои счета</h2>
     @foreach (var bankAccountView in Model.MyAccounts)

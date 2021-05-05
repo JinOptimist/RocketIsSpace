@@ -67,6 +67,15 @@ namespace SpaceWeb.Controllers
             return Json(true);
         }
 
+        public IActionResult UpdateLang(Lang lang)
+        {
+            var user = _userService.GetCurrent();
+            user.Lang = lang;
+            _userRepository.Save(user);
+
+            return Json(true);
+        }
+        
         [HttpPost]
         public async Task<IActionResult> Profile(ProfileUpdateViewModel viewModel)
         {

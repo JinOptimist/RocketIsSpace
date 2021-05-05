@@ -1,4 +1,6 @@
-﻿using SpaceWeb.Models.CustomValidationAttribute;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using SpaceWeb.EfStuff.Model;
+using SpaceWeb.Models.CustomValidationAttribute;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,6 +12,21 @@ namespace SpaceWeb.Models
 {
     public class ProfileViewModel
     {
+        public ProfileViewModel()
+        {
+            var options = Enum.GetValues(typeof(Lang));
+            LangOptions = new List<SelectListItem>();
+            foreach (var option in options)
+            {
+                var selectListItem = new SelectListItem()
+                {
+                    Text = option.ToString(),
+                    Value = option.ToString()
+                };
+                LangOptions.Add(selectListItem);
+            }
+        }
+
         [DisplayName("Имя пользователя")]
         [Required(ErrorMessage = "Извини, но имя обязательно")]
         public string UserName { get; set; }
@@ -37,5 +54,7 @@ namespace SpaceWeb.Models
 
         public Currency DefaultCurrency { get; set; }
         public List<Currency> MyCurrencies { get; set; }
+
+        public List<SelectListItem> LangOptions { get; set; }
     }
 }
