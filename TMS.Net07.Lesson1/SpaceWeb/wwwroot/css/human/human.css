@@ -68,3 +68,13 @@
     color: red;
     font-size: 80%;
 }
+
+.content-orders {
+    display:flex;
+    flex-wrap: wrap;
+    flex-direction:row;
+}
+
+.block-order {
+    margin: 5px;
+}
