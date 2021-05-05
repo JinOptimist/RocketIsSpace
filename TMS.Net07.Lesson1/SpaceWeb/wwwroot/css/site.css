@@ -399,6 +399,11 @@ a {
     align-items: center;
 }
 
-.active{
+.active {
     border: 1px red solid;
+}
+
+.user-for-remove {
+    display: flex;
+    align-items: center;
 }
