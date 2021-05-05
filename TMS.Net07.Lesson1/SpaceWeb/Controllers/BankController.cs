@@ -79,12 +79,57 @@ namespace SpaceWeb.Controllers
             /*var bankscard = new BanksCardViewModel();
              return View(bankscard);*/
             var bankscard = _userService.GetCurrent();
-             var modelNew = bankscard.BanksCards.Select(dbModel =>
-                 //куда                откуда
-                 _mapper.Map<BanksCardViewModel>(dbModel)
-                 )
-                 .ToList();
-             return View(modelNew);
+            var modelNew = bankscard.BanksCards.Select(dbModel =>
+                //куда                откуда
+                _mapper.Map<BanksCardViewModel>(dbModel)
+                )
+                .ToList();
+            return View(modelNew);
+        }
+        [HttpPost]
+        public IActionResult AddBanksCard(BanksCardViewModel viewModel, BankAccountViewModel accountViewModel)
+        {
+            int bankCard;
+
+            if (viewModel.Card == EnumBankCard.PayCard)
+            {
+                if (viewModel.Type == null)
+                {
+                    viewModel.Type = "Платежная карта";
+                }
+                bankCard = (int)viewModel.Card;
+            }
+            else if (viewModel.Card == EnumBankCard.valueCard)
+            {
+                if (viewModel.Type == null)
+                {
+                    viewModel.Type = "Валютная карта";
+                }
+                bankCard = 2;
+            }
+            else
+            {
+                viewModel.Type = "Валютная карта";
+                bankCard = 3;
+            }
+
+            var bankAcc = _bankAccountRepository
+                .Get(viewModel.BankAccountId)
+                ?? new BankAccount() { 
+
+                };
+
+            viewModel.CreationDate = DateTime.Now;
+            var modelDB =
+                _mapper.Map<BanksCard>(viewModel);
+
+            var user = _userService.GetCurrent();
+           
+            _banksCardRepository.Save(modelDB);
+
+            var pinCard = new Random().Next(1, 9999).ToString(format: "D4");
+
+            return View(pinCard);
         }
 
         public IActionResult Contacts()
@@ -130,7 +175,7 @@ namespace SpaceWeb.Controllers
             var user = _userService.GetCurrent();
             userprofile.User = user;
             //userprofile.UserRef = user.Id;
-               
+
             _profileRepository.Save(userprofile);
 
             return RedirectToAction("UserProfileDataOutput");
@@ -140,7 +185,7 @@ namespace SpaceWeb.Controllers
         {
             var profileDateOutput = _profileRepository
                 .GetAll()
-                .Select(dbModel =>_mapper.Map<UserProfileViewModel>(dbModel)
+                .Select(dbModel => _mapper.Map<UserProfileViewModel>(dbModel)
                 )
                 .ToList();
 
