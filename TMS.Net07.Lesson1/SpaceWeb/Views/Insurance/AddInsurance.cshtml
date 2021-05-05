@@ -1,19 +1,19 @@
 ﻿@using SpaceWeb.Models.Bank 
-@using SpaceWeb.Models.Bank.Insurance 
+@using SpaceWeb.EfStuff.Model
 @model InsuranceViewModel
 
 @{
     Layout = "_LayoutBank";
 
-    var insuranceNameOptions = new List<SelectListItem>();
-    var insuranceNames = Enum.GetValues(typeof(InsuranceName));
+    var insuranceTypeOptions = new List<SelectListItem>();
+    var insuranceTypes = Enum.GetValues(typeof(InsuranceNameType));
 
-    for (int i = 0; i < insuranceNames.Length; i++)
+    for (int i = 0; i < insuranceTypes.Length; i++)
     {
-        var insuranceNameOption = new SelectListItem();
-        insuranceNameOption.Value = ((int)insuranceNames.GetValue(i)).ToString();
-        insuranceNameOption.Text = insuranceNames.GetValue(i).ToString();
-        insuranceNameOptions.Add(insuranceNameOption);
+        var insuranceTypeOption = new SelectListItem();
+        insuranceTypeOption.Value = ((int)insuranceTypes.GetValue(i)).ToString();
+        insuranceTypeOption.Text = insuranceTypes.GetValue(i).ToString();
+        insuranceTypeOptions.Add(insuranceTypeOption);
     }
 
     var insurancePeriodOptions = new List<SelectListItem>();
@@ -31,12 +31,15 @@
 <body>
     <div class="client-before-content"></div>
 
-    <form class="" method="POST">
+    <form action="/Insurance/AddInsurance" class="" method="POST">
         <div>
-            @Html.DropDownList("insuranceName", insuranceNameOptions)
+            @Html.DropDownList("insuranceNameType", insuranceTypeOptions)
         </div>
         <div>
             @Html.DropDownList("insurancePeriod", insurancePeriodOptions)
+        </div>
+        <div>
+            <input type="submit" value="Че дальше">
         </div>
     </form>
 </body>

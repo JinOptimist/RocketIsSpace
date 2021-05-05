@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SpaceWeb.Models.Bank.Insurance
+namespace SpaceWeb.EfStuff.Model
 {
     public enum InsurancePeriod
     {

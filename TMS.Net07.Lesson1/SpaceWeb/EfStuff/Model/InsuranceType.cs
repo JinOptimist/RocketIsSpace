@@ -7,10 +7,10 @@ namespace SpaceWeb.EfStuff.Model
 {
     public class InsuranceType : BaseModel
     {
-        public string Name { get; set; }
+        public InsuranceNameType InsuranceNameType { get; set; }
 
-        public int CostPerMonth { get; set; }
+        public decimal Cost { get; set; }
 
-        public int Period { get; set; }
+        public InsurancePeriod InsurancePeriod { get; set; }
     }
 }

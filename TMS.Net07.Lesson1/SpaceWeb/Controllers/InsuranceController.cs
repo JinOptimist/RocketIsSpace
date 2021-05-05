@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SpaceWeb.EfStuff.Repositories;
+using SpaceWeb.Models.Bank;
 using SpaceWeb.Service;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,12 @@ namespace SpaceWeb.Controllers
 
         [HttpGet]
         public ActionResult AddInsurance()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddInsurance(InsuranceViewModel model)
         {
             return View();
         }
