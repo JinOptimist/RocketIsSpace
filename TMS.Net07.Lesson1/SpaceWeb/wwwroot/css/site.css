@@ -407,3 +407,6 @@ a {
     display: flex;
     align-items: center;
 }
+.currency-block input{
+    display: none;
+}

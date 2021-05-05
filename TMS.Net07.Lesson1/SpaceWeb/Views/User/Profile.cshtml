@@ -25,16 +25,18 @@
     </div>
     <h2>Мои валюты</h2>
     <div class="currency-block">
+        основная валюта
         @foreach (var currency in Model.MyCurrencies)
         {
-        <label class="@(currency == Model.DefaultCurrency ? "active" : "")">
-            <input type="radio" name="currency" 
-                   value="@((int)currency)" 
-                   checked="@(currency == Model.DefaultCurrency ? "checked" : null)" /> 
-            @currency.ToString() 
-        </label>
+            <label class="currency-option @(currency == Model.DefaultCurrency ? "active" : "")">
+                <input type="radio" name="currency"
+                       value="@((int)currency)"
+                       checked="@(currency == Model.DefaultCurrency ? "checked" : null)" />
+                <span class="text">
+                    @currency.ToString()
+                </span>
+            </label>
         }
-        <input type="button" class="update-currency-btn" value="обновить основную валюту"/>
     </div>
 
     <h2>Мои счета</h2>

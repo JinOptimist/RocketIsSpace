@@ -25,6 +25,8 @@ namespace SpaceWeb.EfStuff.Model
 
         public Currency DefaultCurrency { get; set; }
 
+        public Lang Lang { get; set; }
+
         public virtual List<Rocket> MyRockets { get; set; }
 
         public virtual List<Rocket> TestedRockets { get; set; } 

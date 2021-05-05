@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
-    $('.update-currency-btn').click(function () {
-        var currencyInput = $('[name=currency]:checked');
+    $('.currency-option .text').click(function () {
+        var currencyInput = $(this).parent('label').find('input');
         var currency = currencyInput.val();
         var url = '/User/UpdateFavCurrency?currency=' + currency;
 

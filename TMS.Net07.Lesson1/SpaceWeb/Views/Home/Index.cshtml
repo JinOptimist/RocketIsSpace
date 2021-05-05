@@ -1,4 +1,5 @@
-﻿@model int
+﻿@using SpaceWeb.Localization
+@model int
 
 @{
     ViewData["Title"] = "Home Page";
@@ -8,11 +9,14 @@
 {
     <link rel="stylesheet" href="~/css/rocket.css?v=1">
 }
+<div>
+    @Resource.HomeIndex_NewText
+</div>
 
 <a href="/Rocket/MainPage" class="rocket-link">
     <div class="block rocketfield">
         <div class="rocketword">
-            Rocket
+            @Resource.HomeIndex_Rocket
         </div>
     </div>
 </a>
@@ -21,7 +25,8 @@
     <div class="block-bank">
         <div class="cover-text-block-bank">.</div>
         <div class="text-block-bank">
-            RocketBank
+            @Resource.HomeIndex_RocketBank
+            
         </div>
     </div>
 </a>
@@ -32,5 +37,5 @@
 
 
 <div class="block">
-    FAQ
+    @Resource.HomeIndex_FAQ
 </div>
