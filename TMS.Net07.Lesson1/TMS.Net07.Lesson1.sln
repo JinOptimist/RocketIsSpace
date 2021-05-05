@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HumansResources", "HumansRe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HumansResources.Test", "HumansResources.Test\HumansResources.Test.csproj", "{38E5BF82-802A-48FC-8F77-5E03A64D24CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceWeb.Test", "SpaceWeb.Test\SpaceWeb.Test.csproj", "{151B4C53-9B58-4FB3-A058-4BB409F79617}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpaceWeb.Test", "SpaceWeb.Test\SpaceWeb.Test.csproj", "{151B4C53-9B58-4FB3-A058-4BB409F79617}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

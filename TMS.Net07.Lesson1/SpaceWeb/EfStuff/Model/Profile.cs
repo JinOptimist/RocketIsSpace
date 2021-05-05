@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SpaceWeb.EfStuff.Model
 {
-    public class Profile: BaseModel
+    public class Profile : BaseModel
     {
         public string Name { get; set; }
         public string SurName { get; set; }
@@ -18,6 +18,6 @@ namespace SpaceWeb.EfStuff.Model
 
         public virtual User User { get; set; }
         public virtual long UserRef { get; set; }
-        
+
     }
 }

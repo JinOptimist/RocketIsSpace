@@ -31,6 +31,18 @@
     border: 1px red solid;
 }
 
+.block-human {
+    border: 5px #151563 solid !important;
+    box-shadow: 0 0 15px 10px #070746;
+    border-radius: 20px 120px;
+    background: url(/image/human/button-background.jpg) center;
+    background-size: cover;
+}
+
+    .block-human:hover {
+        border-color: white !important;
+    }
+
 .block-bank {
     width: 500px;
     height: 270px;
@@ -389,6 +401,10 @@ a {
     font-size: 22pt;
 }
 
+    .block-bank {
+        width: 400px;
+    }
+}
 .user-info {
     display: flex;
     align-items: center;
@@ -401,6 +417,18 @@ a {
     border-radius: 5px;
     padding: 5px;
     align-items: center;
+}
+
+.active {
+    border: 1px red solid;
+}
+
+.user-for-remove {
+    display: flex;
+    align-items: center;
+}
+.currency-block input{
+    display: none;
 }
 
 .team-link {

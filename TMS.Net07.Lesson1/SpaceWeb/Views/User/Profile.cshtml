@@ -1,5 +1,9 @@
 ﻿@model ProfileViewModel
 
+@section Scripts{
+    <script src="~/js/profile.js"></script>
+}
+
 <div>
     <h1>Профиль</h1>
     <div>
@@ -19,6 +23,25 @@
             </div>
         </form>
     </div>
+    <h2>Язык</h2>
+    <div>
+        @Html.DropDownList("CurrentLang", Model.LangOptions)
+    </div>
+    <h2>Основная валюта</h2>
+    <div class="currency-block">
+        @foreach (var currency in Model.MyCurrencies)
+        {
+            <label class="currency-option @(currency == Model.DefaultCurrency ? "active" : "")">
+                <input type="radio" name="currency"
+                       value="@((int)currency)"
+                       checked="@(currency == Model.DefaultCurrency ? "checked" : null)" />
+                <span class="text">
+                    @currency.ToString()
+                </span>
+            </label>
+        }
+    </div>
+    
 
     <h2>Мои счета</h2>
     @foreach (var bankAccountView in Model.MyAccounts)

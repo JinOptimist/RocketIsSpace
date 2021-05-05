@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace SpaceWeb.EfStuff.Repositories
 {
-    public abstract class BaseRepository<ModelType> : IBaseRepository<ModelType> where ModelType : BaseModel
+    public abstract class BaseRepository<ModelType> 
+        : IBaseRepository<ModelType> where ModelType : BaseModel
     {
         protected SpaceDbContext _spaceDbContext;
         protected DbSet<ModelType> _dbSet;
@@ -18,7 +19,7 @@ namespace SpaceWeb.EfStuff.Repositories
             _dbSet = _spaceDbContext.Set<ModelType>();
         }
 
-        public List<ModelType> GetAll()
+        public virtual List<ModelType> GetAll()
         {
             return _dbSet.ToList();
         }
@@ -28,7 +29,7 @@ namespace SpaceWeb.EfStuff.Repositories
             return _dbSet.SingleOrDefault(x => x.Id == id);
         }
 
-        public void Save(ModelType model)
+        public virtual void Save(ModelType model)
         {
             if (model.Id > 0)
             {
@@ -41,16 +42,24 @@ namespace SpaceWeb.EfStuff.Repositories
             _spaceDbContext.SaveChanges();
         }
 
-        public void Remove(long id)
+        public virtual void Remove(long id)
         {
             var model = Get(id);
             Remove(model);
         }
 
-        public void Remove(ModelType model)
+        public virtual void Remove(ModelType model)
         {
             _spaceDbContext.Remove(model);
             _spaceDbContext.SaveChanges();
+        }
+
+        public virtual void Remove(IEnumerable<long> ids)
+        {
+            foreach (var userid in ids)
+            {
+                Remove(userid);
+            }
         }
     }
 }
