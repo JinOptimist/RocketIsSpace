@@ -26,10 +26,9 @@
 }
 
 .block {
-    width: 700px;
+    width: 500px;
     height: 270px;
     border: 1px red solid;
-    margin: 25px
 }
 
 .block-human {
@@ -45,11 +44,11 @@
     }
 
 .block-bank {
-    width: 700px;
+    width: 500px;
     height: 270px;
     border: 5px black solid;
     box-shadow: 0 0 15px 10px black;
-    margin: 25px;
+    /*margin: 25px;*/
     color: white;
     font-size: 45pt;
     font-weight: bold;
@@ -297,94 +296,115 @@ a {
     height: 100vh;
     width: 100%;
     background: black;
-    opacity: 0.7;
+    opacity: 0.9;
     position: absolute;
     z-index: 10;
     position: fixed;
 }
 
-.socials-block {
+.socials-block.telegram {
     display: flex;
     z-index: 11;
-    background: url(../../image/comfortImage/fon111.jpg) no-repeat center;
-    height: 600px;
-    width: 900px;
+    background: url(../image/Socials/telegram.PNG) center;
+    background-size: cover;
+    height: 380px;
+    width: 630px;
+    border-radius: 100px;
+}
+
+.socials-block.youtube {
+    display: flex;
+    flex-direction: row;
+    z-index: 11;
+    background: url(../image/Socials/youtube.jpg) no-repeat center;
+    height: 380px;
+    width: 630px;
+    border-radius: 100px;
+}
+
+.popup-text-telegram-group {
+    color: white;
+    display: flex;
+    flex: 3;
+    align-items: center;
+    font-family: system-ui;
+    margin-left: 15px;
+    text-align: center;
+    font-style: italic;
+}
+
+.empty-place-telegram {
+    flex: 5;
+}
+
+.socials-form-telegram {
+    display: flex;
+    flex: 3;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 15px;
+    color: white;
+}
+
+    .socials-form-telegram .socials-passcode-telegram {
+        background: rgb(255 255 255 / 60%);
+        border-radius: 10px;
+        color: black;
+        text-align: center;
+        margin: 10px 0;
+    }
+
+.socials-submit-telegram {
+    border-radius: 10px;
+    background-color: #2c4f44;
+    color: white;
+    height: 30px;
+}
+
+.left-socials-youtube {
+    flex: 10;
+}
+
+.right-socials-youtube {
+    flex: 6;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    margin-right: 10px;
+    color: wheat;
+}
+
+.popup-text-youtube-group {
+    text-align: center;
+    margin-bottom: 20px;
+    color: white;
+    font-style: italic;
+    font-family: system-ui;
+}
+
+.socials-form-youtube .socials-passcode-youtube {
+    margin: 10px 0;
+    border-radius: 10px;
+    text-align: center;
+    color: aquamarine;
+}
+
+.socials-submit-youtube {
+    height: 25px;
+    border-radius: 10px;
+    background-color: indianred;
 }
 
 .error-socials {
     font-size: 22pt;
 }
 
-@media (max-width: 1600px) {
-    .block {
-        width: 600px;
-    }
-
-    .block-bank {
-        width: 600px;
-    }
-}
-
-@media (max-height: 800px) {
-    .block {
-        height: 230px;
-    }
-
-    .block-bank {
-        height: 230px;
-    }
-}
-
-@media (max-width: 1350px ) {
-    .block {
-        width: 550px;
-    }
-
-    .block-bank {
-        width: 550px;
-    }
-}
-
-@media (max-height: 725px) {
-    .block {
-        height: 210px;
-    }
-
-    .block-bank {
-        height: 210px;
-    }
-}
-
-@media (max-width: 1260px ) {
-    .block {
-        width: 480px;
-    }
-
-    .block-bank {
-        width: 480px;
-    }
-}
-
-@media (max-height: 675px) {
-    .block {
-        height: 180px;
-    }
-
-    .block-bank {
-        height: 180px;
-    }
-}
-
-@media (max-width: 1120px ) {
-    .block {
-        width: 400px;
-    }
-
     .block-bank {
         width: 400px;
     }
 }
-
 .user-info {
     display: flex;
     align-items: center;
@@ -409,4 +429,15 @@ a {
 }
 .currency-block input{
     display: none;
+}
+
+.team-link {
+    height: 270px;
+    margin: 15px;
+}
+
+.bank-link {
+    height: 270px;
+    margin: 15px;
+    border-radius: 20px 120px;
 }

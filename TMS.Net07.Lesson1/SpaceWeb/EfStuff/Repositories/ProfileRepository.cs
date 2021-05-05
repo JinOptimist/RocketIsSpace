@@ -16,11 +16,12 @@ namespace SpaceWeb.EfStuff.Repositories
         {
             if (model.Id == 0)
             {
-                _spaceDbContext.UserProfile.Add(model);
+                _dbSet.Add(model);
+                //_spaceDbContext.UserProfile.Add(model);
             }
             else
             {
-                Profile profileToUpdate = _spaceDbContext.UserProfile
+                Profile profileToUpdate = _dbSet
                   .Where(p => p.Id == model.Id).FirstOrDefault();
 
                 if (profileToUpdate != null)

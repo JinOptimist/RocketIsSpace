@@ -116,6 +116,34 @@ namespace SpaceWeb.Migrations
                     b.ToTable("BankAccount");
                 });
 
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.BanksCard", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long?>("BankAccountId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("CardNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BankAccountId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("BanksCard");
+                });
+
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.Client", b =>
                 {
                     b.Property<long>("Id")
@@ -493,6 +521,19 @@ namespace SpaceWeb.Migrations
                     b.Navigation("Owner");
                 });
 
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.BanksCard", b =>
+                {
+                    b.HasOne("SpaceWeb.EfStuff.Model.BankAccount", "BankAccount")
+                        .WithMany("BanksCards")
+                        .HasForeignKey("BankAccountId");
+
+                    b.HasOne("SpaceWeb.EfStuff.Model.User", null)
+                        .WithMany("BanksCards")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("BankAccount");
+                });
+
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.Client", b =>
                 {
                     b.HasOne("SpaceWeb.EfStuff.Model.User", "User")
@@ -589,6 +630,11 @@ namespace SpaceWeb.Migrations
                     b.Navigation("MyFavouriteRocket");
                 });
 
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.BankAccount", b =>
+                {
+                    b.Navigation("BanksCards");
+                });
+
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.Client", b =>
                 {
                     b.Navigation("Orders");
@@ -621,6 +667,8 @@ namespace SpaceWeb.Migrations
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.User", b =>
                 {
                     b.Navigation("BankAccounts");
+
+                    b.Navigation("BanksCards");
 
                     b.Navigation("Client");
 

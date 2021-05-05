@@ -241,10 +241,15 @@ namespace SpaceWeb.Controllers
                 return View(model);
             }
 
-            if ((model.Password == SocialsPassword.TgAllGroup.ToString())
+            if ((model.Password == ((int)SocialsPassword.TgAllGroup).ToString()) 
                 && (model.Link == nameof(SocialsPassword.TgAllGroup)))
             {
                 return Redirect("https://t.me/joinchat/Tv44VQeM8nXUusnV");
+            }
+            else if ((model.Password == ((int)SocialsPassword.YoutubeTeacher).ToString())
+                && (model.Link == nameof(SocialsPassword.YoutubeTeacher)))
+            {
+                return Redirect("https://www.youtube.com/c/ПашаЛьвов/featured");
             }
             else
             {
