@@ -60,7 +60,7 @@
     width: 350px;
     background-color: white;
     border-radius: 3px;
-    margin: 20px 0px;
+    margin: 20px;
     padding: 20px;
 }
 
@@ -78,3 +78,5 @@
 .block-order {
     margin: 5px;
 }
+
+.human-department-clickable{}
