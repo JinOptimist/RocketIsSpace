@@ -11,5 +11,24 @@ namespace SpaceWeb.EfStuff.Repositories
         public InsuranceTypeRepository(SpaceDbContext spaceDbContext) : base(spaceDbContext)
         {
         }
+
+        public InsuranceType GetType(InsuranceNameType type)
+        {
+            return _dbSet.SingleOrDefault(x =>
+                x.InsuranceNameType == type);
+        }
+
+        public InsuranceType GetPeriod(InsurancePeriod period)
+        {
+            return _dbSet.SingleOrDefault(x =>
+                x.InsurancePeriod == period);
+        }
+
+        public InsuranceType GetPolis(InsuranceNameType type, InsurancePeriod period)
+        {
+            return _dbSet.SingleOrDefault(x =>
+                x.InsuranceNameType == type
+                && x.InsurancePeriod == period);
+        }
     }
 }
