@@ -11,12 +11,14 @@
         @foreach (var department in Model)
         {
             <label class="human-department-info human-department-clickable">
-                <input type="radio" name="current" value="" />
-                <div><b>Department name: </b>@department.DepartmentName</div>
-                <div><b>Department type: </b>@department.DepartmentType</div>
-                <div><b>Maximum employes: </b>@department.MaximumCountEmployes</div>
-                <div><b>Working hours: </b>@department.HourStartWorking - @department.HourEndWorking</div>
-                <div>
+                <input class="undisplayable" type="radio" name="current" value="@department.Id" />
+                <div class="temp">
+                    <div><b>Department name: </b>@department.DepartmentName</div>
+                    <div><b>Department type: </b>@department.DepartmentType</div>
+                    <div><b>Maximum employes: </b>@department.MaximumCountEmployes</div>
+                    <div><b>Working hours: </b>@department.HourStartWorking - @department.HourEndWorking</div>
+                    <div>
+                </div>
                     <button onclick="window.location.href='/human/DeleteDepartment?id=@department.Id'" class="btn btn-danger" style="margin: 10px 10px 0px 0px">Delete</button>
                     <button onclick="editDepartment(@department.Id)" class="btn btn-info" style="margin: 10px 10px 0px 0px">Edit</button>
                 </div>

@@ -107,7 +107,10 @@ namespace SpaceWeb
                 new AdditionRepository(diContainer.GetService<SpaceDbContext>()));
             
             services.AddScoped<ShopRocketRepository>(diContainer =>
-                new ShopRocketRepository(diContainer.GetService<SpaceDbContext>()));            
+                new ShopRocketRepository(diContainer.GetService<SpaceDbContext>()));
+
+            services.AddScoped<IEmployeRepository>(diContainer =>
+                new EmployeRepository(diContainer.GetService<SpaceDbContext>()));
         }
 
         private void RegisterMapper(IServiceCollection services)
@@ -118,6 +121,12 @@ namespace SpaceWeb
             //    .ForMember(nameof(UserProfileViewModel.FullName),
             //        config => config
             //            .MapFrom(dbModel => $"{dbModel.Name}, {dbModel.SurName} Mr"));
+
+            configExpression.CreateMap<Employe, ShortEmployeViewModel>().
+                ForMember(nameof(ShortEmployeViewModel.Name), config => config.MapFrom(x => x.User.Name)).
+                ForMember(nameof(ShortEmployeViewModel.Surname), config => config.MapFrom(x => x.User.SurName)).
+                ForMember(nameof(ShortEmployeViewModel.SalaryPerHour), config => config.MapFrom(x => x.SalaryPerHour)).
+                ForMember(nameof(ShortEmployeViewModel.Specification), config => config.MapFrom(x => x.Specification));
 
             configExpression.CreateMap<User, ProfileViewModel>();
 

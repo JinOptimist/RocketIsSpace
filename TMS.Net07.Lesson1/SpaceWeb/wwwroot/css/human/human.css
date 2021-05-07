@@ -79,4 +79,6 @@
     margin: 5px;
 }
 
-.human-department-clickable{}
+.undisplayable {
+    display: none;
+}
