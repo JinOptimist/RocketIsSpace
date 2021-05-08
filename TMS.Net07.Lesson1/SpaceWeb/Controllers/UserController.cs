@@ -230,8 +230,14 @@ namespace SpaceWeb.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("SocialsWrongPass", "User");
             }
+        }
+
+        [HttpGet]
+        public IActionResult SocialsWrongPass()
+        {
+            return View();
         }
     }
 }
