@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using HumansResources.Humans.Persons;
 
 namespace SpaceWeb.Models.RocketModels
 {

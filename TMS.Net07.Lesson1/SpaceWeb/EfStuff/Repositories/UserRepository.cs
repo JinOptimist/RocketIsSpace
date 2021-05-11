@@ -10,9 +10,13 @@ namespace SpaceWeb.EfStuff.Repositories
 {
     public class UserRepository : BaseRepository<User>, IUserRepository
     {
-        public UserRepository(SpaceDbContext spaceDbContext)
+        private IBankAccountRepository _bankAccountRepository;
+
+        public UserRepository(SpaceDbContext spaceDbContext,
+            IBankAccountRepository bankAccountRepository)
             : base(spaceDbContext)
         {
+            _bankAccountRepository = bankAccountRepository;
         }
 
         public User Get(string name)
@@ -20,6 +24,25 @@ namespace SpaceWeb.EfStuff.Repositories
             return _dbSet.SingleOrDefault(x =>
                 x.Name.ToLower() == name.ToLower()
                 || x.Login.ToLower() == name.ToLower());
+        }
+
+        public override void Remove(User user)
+        {
+            var admin = Get(SeedExtension.AdminName);
+
+            if (user.Id == admin.Id)
+            {
+                throw new Exception("Never remove admin");
+            }
+
+            var copy = user.BankAccounts.ToList();
+            foreach (var bankAccount in copy)
+            {
+                bankAccount.Owner = admin;
+                _bankAccountRepository.Save(bankAccount);
+            }
+
+            base.Remove(user);
         }
     }
 }

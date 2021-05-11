@@ -12,11 +12,13 @@ namespace SpaceWeb.EfStuff
 {
     public static class SeedExtension
     {
+        public const string AdminName = "admin";
         public static IHost SeedData(this IHost server)
         {
             using (var serviceScope = server.Services.CreateScope())
             {
                 SetDefaultUser(serviceScope.ServiceProvider);
+                SetDefaultDepartment(serviceScope.ServiceProvider);
             }
 
             return server;
@@ -26,18 +28,51 @@ namespace SpaceWeb.EfStuff
         {
             var userRepository = services.GetService<IUserRepository>();
 
-            var admin = userRepository.Get("admin");
+            var admin = userRepository.Get(AdminName);
             if (admin == null)
             {
                 admin = new User()
                 {
-                    Login = "Admin",
-                    Name = "Admin",
+                    Login = AdminName,
+                    Name = AdminName,
                     Password = "123",
                     Age = 100,
                     JobType = JobType.Admin
                 };
                 userRepository.Save(admin);
+            }
+
+            var chiefBankEmployee = userRepository.Get("chiefBankEmployee");
+            if (chiefBankEmployee == null)
+            {
+                chiefBankEmployee = new User()
+                {
+                    Login = "ChiefBankEmployee",
+                    Name = "ChiefBankEmployee",
+                    Password = "123",
+                    Age = 100,
+                    JobType = JobType.ChiefBankEmployee
+                };
+                userRepository.Save(chiefBankEmployee);
+            }
+        }
+
+        private static void SetDefaultDepartment(IServiceProvider services)
+        {
+            var departmentRepository = services.GetService<IDepartmentRepository>();
+            string defaultDepartmentName = "Administration";
+            var department = departmentRepository.Get(defaultDepartmentName);
+            if (department == null)
+            {
+                department = new Department
+                {
+                    DepartmentName = defaultDepartmentName,
+                    DepartmentType = DepartmentType.Other,
+                    MaximumCountEmployes = 1,
+                    HourStartWorking = 8,
+                    HourEndWorking = 17
+                };
+                departmentRepository.Save(department);
             }
         }
     }

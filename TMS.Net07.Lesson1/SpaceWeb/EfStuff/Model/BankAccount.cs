@@ -17,5 +17,6 @@ namespace SpaceWeb.EfStuff.Model
         public virtual User Owner { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime ExpireDate { get; set; }
+        public virtual List<BanksCard> BanksCards { get; set; }
     }
 }

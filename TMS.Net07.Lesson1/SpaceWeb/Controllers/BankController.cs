@@ -13,29 +13,32 @@ using Profile = SpaceWeb.EfStuff.Model.Profile;
 using SpaceWeb.Service;
 using Microsoft.AspNetCore.Authorization;
 using SpaceWeb.Controllers.CustomAttribute;
+using SpaceWeb.EfStuff.Repositories.IRepository;
 
 namespace SpaceWeb.Controllers
 {
     public class BankController : Controller
     {
-        private BankAccountRepository _bankAccountRepository;
+        private IBankAccountRepository _bankAccountRepository;
         private ProfileRepository _profileRepository;
         private IMapper _mapper;
-        private UserRepository _userRepository;
+        private IUserRepository _userRepository;
+        private BanksCardRepository _banksCardRepository;
         private UserService _userService;
 
-        public BankController(BankAccountRepository bankAccountRepository,
+        public BankController(IBankAccountRepository bankAccountRepository,
             ProfileRepository profileRepository,
-            UserRepository userRepository,
-            IMapper mapper, UserService userService)
+            IUserRepository userRepository,
+            IMapper mapper, UserService userService, BanksCardRepository banksCardRepository)
         {
             _bankAccountRepository = bankAccountRepository;
             _profileRepository = profileRepository;
             _userRepository = userRepository;
             _mapper = mapper;
             _userService = userService;
+            _banksCardRepository = banksCardRepository;
         }
-        public IActionResult Bank()
+        public IActionResult Index()
         {
             var input = new RegistrationViewModel();
 
@@ -71,6 +74,18 @@ namespace SpaceWeb.Controllers
 
             return View(model);
         }
+        public IActionResult BanksCard()
+        {
+            /*var bankscard = new BanksCardViewModel();
+             return View(bankscard);*/
+            var bankscard = _userService.GetCurrent();
+             var modelNew = bankscard.BanksCards.Select(dbModel =>
+                 //куда                откуда
+                 _mapper.Map<BanksCardViewModel>(dbModel)
+                 )
+                 .ToList();
+             return View(modelNew);
+        }
 
         public IActionResult Contacts()
         {
@@ -100,7 +115,8 @@ namespace SpaceWeb.Controllers
                 return View(model);
             }
             //var user = _userRepository.Get(model.Id);
-            var userprofile = new Profile()
+            var userprofile = _mapper.Map<Profile>(model);
+            /*= new Profile()
             {
                 Name = model.Name,
                 SurName = model.SurName,
@@ -109,7 +125,7 @@ namespace SpaceWeb.Controllers
                 PhoneNumber = model.PhoneNumber,
                 PostAddress = model.PostAddress,
                 IdentificationPassport = model.IdentificationPassport
-            };
+            };*/
 
             var user = _userService.GetCurrent();
             userprofile.User = user;
@@ -117,10 +133,10 @@ namespace SpaceWeb.Controllers
                
             _profileRepository.Save(userprofile);
 
-            return RedirectToAction("Profile");
+            return RedirectToAction("UserProfileDataOutput");
         }
 
-        public IActionResult Profile()
+        public IActionResult UserProfileDataOutput()
         {
             var profileDateOutput = _profileRepository
                 .GetAll()
@@ -132,64 +148,11 @@ namespace SpaceWeb.Controllers
         }
 
         [Authorize]
-        [IsBankClientOrHigher]
+        //[IsBankClientOrHigher]
         [HttpGet]
         public IActionResult Cabinet()
         {
-            var user = _userService.GetCurrent();
-            var modelNew = user.BankAccounts.Select(dbModel =>
-                            //куда                откуда
-                _mapper.Map<BankAccountViewModel>(dbModel)
-                )
-                .ToList();
-            return View(modelNew);
-        }
-
-        [Authorize]
-        [HttpPost]
-        public IActionResult Cabinet(BankAccountViewModel viewModel)
-        {
-            int accountLifeTime;
-            if ( viewModel.Currency == Currency.BYN)
-            {
-                viewModel.Type = "Счет";
-                accountLifeTime = 5;
-            }
-            else
-            {
-                viewModel.Type = "Валютный счет";
-                accountLifeTime = 3;
-            }
-
-            StringBuilder sb = new StringBuilder();
-
-            Random rnd = new Random();
-
-            for (int i = 0; i < 10; i++)
-            {
-                sb.Append(rnd.Next(0, 9));
-            }
-            viewModel.AccountNumber = sb.ToString();
-
-            viewModel.CreationDate = DateTime.Now;
-
-            viewModel.ExpireDate = viewModel.CreationDate.AddYears(accountLifeTime);
-
-            var modelDB =
-                _mapper.Map<BankAccount>(viewModel);
-
-            var user = _userService.GetCurrent();
-
-            modelDB.Owner = user;
-            _bankAccountRepository.Save(modelDB);
-
-            var modelNew = user.BankAccounts.Select(dbModel =>
-                            //куда                откуда
-                _mapper.Map<BankAccountViewModel>(dbModel)
-                )
-                .ToList();
-
-            return View(modelNew);
+            return View();
         }
     }
 }

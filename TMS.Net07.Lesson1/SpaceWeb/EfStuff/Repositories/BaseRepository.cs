@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using SpaceWeb.EfStuff.Model;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace SpaceWeb.EfStuff.Repositories
 {
-    public abstract class BaseRepository<ModelType> : IBaseRepository<ModelType> where ModelType : BaseModel
+    public abstract class BaseRepository<ModelType> 
+        : IBaseRepository<ModelType> where ModelType : BaseModel
     {
         protected SpaceDbContext _spaceDbContext;
         protected DbSet<ModelType> _dbSet;
@@ -18,22 +19,9 @@ namespace SpaceWeb.EfStuff.Repositories
             _dbSet = _spaceDbContext.Set<ModelType>();
         }
 
-        public List<ModelType> GetAll()
+        public virtual List<ModelType> GetAll()
         {
             return _dbSet.ToList();
-        }
-
-        public void Save(ModelType model)
-        {
-            if (model.Id > 0)
-            {
-                _dbSet.Update(model);
-            }
-            else
-            {
-                _dbSet.Add(model);
-            }
-            _spaceDbContext.SaveChanges();
         }
 
         public ModelType Get(long id)
@@ -47,10 +35,18 @@ namespace SpaceWeb.EfStuff.Repositories
             Remove(model);
         }
 
-        public void Remove(ModelType model)
+        public virtual void Remove(ModelType model)
         {
             _spaceDbContext.Remove(model);
             _spaceDbContext.SaveChanges();
+        }
+
+        public virtual void Remove(IEnumerable<long> ids)
+        {
+            foreach (var userid in ids)
+            {
+                Remove(userid);
+            }
         }
     }
 }

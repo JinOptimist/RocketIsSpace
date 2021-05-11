@@ -53,6 +53,7 @@ namespace SpaceWeb
             services.AddScoped<IHumanPresentation>(container =>
                 new HumanPresentation(
                     container.GetService<IUserRepository>(),
+                    container.GetService<IDepartmentRepository>(),
                     container.GetService<IMapper>()));
 
             services.AddScoped<IRocketMechanicPresentation>(container =>
@@ -61,10 +62,16 @@ namespace SpaceWeb
                    container.GetService<IMapper>()));
 
             services.AddScoped<IUserRepository>(diContainer =>
-                new UserRepository(diContainer.GetService<SpaceDbContext>()));
+                new UserRepository(
+                    diContainer.GetService<SpaceDbContext>(),
+                    diContainer.GetService<IBankAccountRepository>()
+                    ));
 
             services.AddScoped<IRelicRepository>(diContainer =>
                 new RelicRepository(diContainer.GetService<SpaceDbContext>()));
+
+            services.AddScoped<IDepartmentRepository>(diContainer =>
+                new DepartmentRepository(diContainer.GetService<SpaceDbContext>()));
 
             services.AddScoped<ProfileRepository>(diContainer =>
                 new ProfileRepository(diContainer.GetService<SpaceDbContext>()));
@@ -72,8 +79,11 @@ namespace SpaceWeb
             services.AddScoped<AdvImageRepository>(diContainer =>
                 new AdvImageRepository(diContainer.GetService<SpaceDbContext>()));
 
-            services.AddScoped<BankAccountRepository>(diContainer =>
+            services.AddScoped<IBankAccountRepository>(diContainer =>
                 new BankAccountRepository(diContainer.GetService<SpaceDbContext>()));
+
+            services.AddScoped<BanksCardRepository>(diContainer =>
+                new BanksCardRepository(diContainer.GetService<SpaceDbContext>()));
 
             RegisterMapper(services);
 
@@ -101,7 +111,7 @@ namespace SpaceWeb
                 new AdditionRepository(diContainer.GetService<SpaceDbContext>()));
             
             services.AddScoped<ShopRocketRepository>(diContainer =>
-                new ShopRocketRepository(diContainer.GetService<SpaceDbContext>()));
+                new ShopRocketRepository(diContainer.GetService<SpaceDbContext>()));            
         }
 
         private void RegisterMapper(IServiceCollection services)
@@ -120,6 +130,7 @@ namespace SpaceWeb
            
             MapBoth<Relic, RelicViewModel>(configExpression);
             MapBoth<User, UserProfileViewModel>(configExpression);
+            MapBoth<User, BanksCardViewModel>(configExpression);
 
             MapBoth<Profile, UserProfileViewModel>(configExpression);
 
@@ -132,7 +143,8 @@ namespace SpaceWeb
             MapBoth<Order,OrderViewModel>(configExpression);
 
             MapBoth<BankAccount, BankAccountViewModel>(configExpression);
-            
+
+
             MapBoth<User,RocketProfileViewModel>(configExpression);
 
             MapBoth<Comfort, ComfortFormViewModel>(configExpression);
@@ -141,9 +153,15 @@ namespace SpaceWeb
             
             MapBoth<AddShopRocketViewModel,AddShopRocket>(configExpression);
 
+            MapBoth<Department, DepartmentViewModel>(configExpression);
+
             MapBoth<ShortUserViewModel, User>(configExpression);
 
             MapBoth<RocketStageAddViewModel, RocketStage>(configExpression);
+
+            MapBoth<ClientViewModel, Client>(configExpression);
+
+            MapBoth<HumanOrderViewModel, Order>(configExpression);
 
             var mapperConfiguration = new MapperConfiguration(configExpression);
             var mapper = new Mapper(mapperConfiguration);

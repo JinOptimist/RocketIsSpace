@@ -13,15 +13,15 @@ $(document).ready(function () {
         $('.bank-popup').addClass('hide');
     });
 
-    $('.add-new').click(function () {
-        $('.popup.add').removeClass('hide');
-    }
-    );
+    //$('.add-new').click(function () {
+    //    $('.popup.add').removeClass('hide');
+    //}
+    //);
 
-    $('.bank-account-cancel, .bank-account-submit').click(function () {
-        $('.popup.add').addClass('hide');
-    }
-    );
+    //$('.bank-account-cancel, .bank-account-submit').click(function () {
+    //    $('.popup.add').addClass('hide');
+    //}
+    //);
 
     //$('.menu.top .bank-account').click(function () {
     //    $('.popup.remove').removeClass('hide');
