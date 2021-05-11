@@ -19,22 +19,28 @@
     <div class="Container">
         @foreach (var rocketStage in Model)
         {
-            <div class="ProductCard">
-                <div class="ProductImage">
-                    <div><img src="@rocketStage.ImageUrl"></div>
-                </div>
-                <a href="/RocketMechanic/RocketStageRemove?id=@rocketStage.Id" class="icon close"></a>
-                <a href="/RocketMechanic/RocketStageAdd?id=@rocketStage.Id" class="icon ok"></a>
-                <div class="ProductDescription">
-                    <div class="ProductModel">@rocketStage.RocketStageModel</div>
-                    <div>
-                        <div class="ProductWeight">@rocketStage.Weight</div>
-                        <div class="ProductEngines">@rocketStage.EnginesModel</div>
-                        <div class="ProductFuelTanks">@rocketStage.FuelTanksModel</div>
+            <form action="RocketMechanic/RocketStageRemove" , method="post">
+                <div class="ProductCard">
+                    <div class="ProductImage">
+                        <div><img src="@rocketStage.ImageUrl"></div>
                     </div>
-                    <div class="Description">@rocketStage.RocketStageDescription</div>
+                    <a href="/RocketMechanic/RocketStageRemove?id=@rocketStage.Id" class="icon close"></a>
+                    <a href="/RocketMechanic/RocketStageAdd?id=@rocketStage.Id" class="icon ok"></a>
+                    <div class="ProductDescription">
+                        <div class="ProductModel">@rocketStage.RocketStageModel</div>
+                        <div>
+                            <div class="ProductWeight">@rocketStage.Weight</div>
+                            <div class="ProductEngines">@rocketStage.EnginesModel</div>
+                            <div class="ProductFuelTanks">@rocketStage.FuelTanksModel</div>
+                        </div>
+                        <div class="Description">@rocketStage.RocketStageDescription</div>
+                    </div>
                 </div>
-            </div>
+                <div>
+                    <input type="checkbox" name="rocketStagesId" value="@rocketStage.Id"/>
+                </div>
+                <input type="submit" value="remove">
+            </form>
         }
     </div>
 </section>

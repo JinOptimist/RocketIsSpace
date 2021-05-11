@@ -1,17 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SpaceWeb.Controllers.CustomAttribute;
-﻿using System.Collections.Generic;
-using System.Security.Claims;
-using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
-using SpaceWeb.EfStuff.Model;
-using SpaceWeb.EfStuff.Repositories;
 using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Models.RocketModels;
 using SpaceWeb.Service;
-using SpaceWeb.EfStuff.Repositories.IRepository;
 
 namespace SpaceWeb.Controllers
 {
