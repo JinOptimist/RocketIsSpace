@@ -53,6 +53,12 @@ namespace SpaceWeb
                     container.GetService<IRelicRepository>(),
                     container.GetService<IMapper>()));
 
+            services.AddScoped<IBankAccountPresentation>(container =>
+                new BankAccountPresentation(
+                    container.GetService<IBankAccountRepository>(),
+                    container.GetService<IMapper>(),
+                    container.GetService<IUserService>()));
+
             services.AddScoped<UserRepository>(diContainer =>
                 new UserRepository(diContainer.GetService<SpaceDbContext>()));
 
@@ -76,7 +82,7 @@ namespace SpaceWeb
             services.AddScoped<RocketStageRepository>(diContainer =>
                 new RocketStageRepository(diContainer.GetService<SpaceDbContext>()));
 
-            services.AddScoped<UserService>(diContainer =>
+            services.AddScoped<IUserService>(diContainer =>
                 new UserService(
                     diContainer.GetService<UserRepository>(),
                     diContainer.GetService<IHttpContextAccessor>()

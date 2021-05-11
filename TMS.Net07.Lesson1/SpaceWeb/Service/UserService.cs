@@ -5,12 +5,12 @@ using System.Linq;
 
 namespace SpaceWeb.Service
 {
-    public class UserService
+    public class UserService : IUserService
     {
         private IHttpContextAccessor _contextAccessor;
         private UserRepository _userRepository;
 
-        public UserService(UserRepository userRepository, 
+        public UserService(UserRepository userRepository,
             IHttpContextAccessor contextAccessor)
         {
             _userRepository = userRepository;

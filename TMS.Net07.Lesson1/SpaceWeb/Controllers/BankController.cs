@@ -12,22 +12,27 @@ using AutoMapper;
 using Profile = SpaceWeb.EfStuff.Model.Profile;
 using SpaceWeb.Service;
 using Microsoft.AspNetCore.Authorization;
+using SpaceWeb.Presentation;
+using SpaceWeb.EfStuff.Repositories.IRepository;
 
 namespace SpaceWeb.Controllers
 {
     public class BankController : Controller
     {
-        private BankAccountRepository _bankAccountRepository;
+        private IBankAccountRepository _bankAccountRepository;
+        private IBankAccountPresentation _bankAccountPresentation;
         private ProfileRepository _profileRepository;
         private IMapper _mapper;
         private UserRepository _userRepository;
-        private UserService _userService;
+        private IUserService _userService;
 
-        public BankController(BankAccountRepository bankAccountRepository,
+        public BankController(IBankAccountPresentation bankAccountPresentation,
+            IBankAccountRepository bankAccountRepository,
             ProfileRepository profileRepository,
             UserRepository userRepository,
-            IMapper mapper, UserService userService)
+            IMapper mapper, IUserService userService)
         {
+            _bankAccountPresentation = bankAccountPresentation;
             _bankAccountRepository = bankAccountRepository;
             _profileRepository = profileRepository;
             _userRepository = userRepository;
@@ -147,45 +152,7 @@ namespace SpaceWeb.Controllers
         [HttpPost]
         public IActionResult Cabinet(BankAccountViewModel viewModel)
         {
-            int accountLifeTime;
-            if ( viewModel.Currency == Currency.BYN)
-            {
-                viewModel.Type = "Счет";
-                accountLifeTime = 5;
-            }
-            else
-            {
-                viewModel.Type = "Валютный счет";
-                accountLifeTime = 3;
-            }
-
-            StringBuilder sb = new StringBuilder();
-
-            Random rnd = new Random();
-
-            for (int i = 0; i < 10; i++)
-            {
-                sb.Append(rnd.Next(0, 9));
-            }
-            viewModel.AccountNumber = sb.ToString();
-
-            viewModel.CreationDate = DateTime.Now;
-
-            viewModel.ExpireDate = viewModel.CreationDate.AddYears(accountLifeTime);
-
-            var modelDB =
-                _mapper.Map<BankAccount>(viewModel);
-
-            var user = _userService.GetCurrent();
-
-            modelDB.Owner = user;
-            _bankAccountRepository.Save(modelDB);
-
-            var modelNew = user.BankAccounts.Select(dbModel =>
-                            //куда                откуда
-                _mapper.Map<BankAccountViewModel>(dbModel)
-                )
-                .ToList();
+            var modelNew = _bankAccountPresentation.GetViewModelForCabinet(viewModel);
 
             return View(modelNew);
         }

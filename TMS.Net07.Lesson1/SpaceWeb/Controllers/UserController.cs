@@ -23,13 +23,13 @@ namespace SpaceWeb.Controllers
     {
         private UserRepository _userRepository;
         private IMapper _mapper;
-        private UserService _userService;
+        private IUserService _userService;
         private IWebHostEnvironment _hostEnvironment;
 
         public static int Counter = 0;
 
         public UserController(UserRepository userRepository, IMapper mapper,
-            UserService userService, IWebHostEnvironment hostEnvironment)
+            IUserService userService, IWebHostEnvironment hostEnvironment)
         {
             _userRepository = userRepository;
             _mapper = mapper;

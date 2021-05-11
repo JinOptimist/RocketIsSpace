@@ -17,12 +17,12 @@ namespace SpaceWeb.Controllers
         private BankAccountRepository _bankAccountRepository;
         private IMapper _mapper;
         private UserRepository _userRepository; //удалить?
-        private UserService _userService;
+        private IUserService _userService;
 
         public AccountController(BankAccountRepository bankAccountRepository,
             ProfileRepository profileRepository,
             UserRepository userRepository,
-            IMapper mapper, UserService userService)
+            IMapper mapper, IUserService userService)
         {
             _bankAccountRepository = bankAccountRepository;
             _userRepository = userRepository;
