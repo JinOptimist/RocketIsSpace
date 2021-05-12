@@ -2,40 +2,51 @@
 @{
     Layout = "_LayoutHuman";
 }
-
-<div class="human-department-info">
-    <h3>All departments:</h3>
-</div>
-
-@foreach (var department in Model)
-{
-    <div class="human-department-info">
-        <div><b>Department name: </b>@department.DepartmentName</div>
-        <div><b>Department type: </b>@department.DepartmentType</div>
-        <div><b>Maximum employes: </b>@department.MaximumCountEmployes</div>
-        <div><b>Working hours: </b>@department.HourStartWorking - @department.HourEndWorking</div>
-        <div>
-            <button onclick="window.location.href='/human/DeleteDepartment?id=@department.Id'" class="btn btn-danger" style="margin: 10px 10px 0px 0px">Delete</button>
-            <button onclick="editDepartment(@department.Id)" class="btn btn-info" style="margin: 10px 10px 0px 0px">Edit</button>
+<div style="display:flex; flex-direction:row">
+    <div class="department-list">
+        <div class="human-department-info">
+            <h3>All departments:</h3>
         </div>
-    </div>
-}
-<button class="btn btn-primary" data-toggle="modal" data-target="#modal-department">Add department</button>
 
-<div class="modal" id="modal-department" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Department</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div id="partial">
-                    <partial name="Department" model="new DepartmentViewModel()" />
+        @foreach (var department in Model)
+        {
+            <label class="human-department-info human-department-clickable">
+                <input class="undisplayable" type="radio" name="current" value="@department.Id" />
+                <div class="department-info-block">
+                    <div><b>Department name: </b>@department.DepartmentName</div>
+                    <div><b>Department type: </b>@department.DepartmentType</div>
+                    <div><b>Maximum employes: </b>@department.MaximumCountEmployes</div>
+                    <div><b>Working hours: </b>@department.HourStartWorking - @department.HourEndWorking</div>
+                    <div>
+                </div>
+                    <button onclick="window.location.href='/human/DeleteDepartment?id=@department.Id'" class="btn btn-danger" style="margin: 10px 10px 0px 0px">Delete</button>
+                    <button onclick="editDepartment(@department.Id)" class="btn btn-info" style="margin: 10px 10px 0px 0px">Edit</button>
+                </div>
+            </label>
+        }
+        <button class="btn btn-primary" data-toggle="modal" data-target="#modal-department">Add department</button>
+
+        <div class="modal" id="modal-department" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Department</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="partial">
+                            <partial name="Department" model="new DepartmentViewModel()" />
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="employes-list">
+        <div class="human-department-info">
+
         </div>
     </div>
 </div>
