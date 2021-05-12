@@ -19,14 +19,14 @@ namespace SpaceWeb.Controllers
 {
     public class BankController : Controller
     {
-        private BankAccountRepository _bankAccountRepository;
+        private IBankAccountRepository _bankAccountRepository;
         private ProfileRepository _profileRepository;
         private IMapper _mapper;
         private IUserRepository _userRepository;
         private BanksCardRepository _banksCardRepository;
         private UserService _userService;
 
-        public BankController(BankAccountRepository bankAccountRepository,
+        public BankController(IBankAccountRepository bankAccountRepository,
             ProfileRepository profileRepository,
             IUserRepository userRepository,
             IMapper mapper, UserService userService, BanksCardRepository banksCardRepository)

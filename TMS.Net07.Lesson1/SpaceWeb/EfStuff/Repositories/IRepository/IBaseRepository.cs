@@ -8,6 +8,7 @@ namespace SpaceWeb.EfStuff.Repositories
         ModelType Get(long id);
         List<ModelType> GetAll();
         void Remove(long id);
+        void Remove(IEnumerable<long> id);
         void Remove(ModelType model);
         void Save(ModelType model);
     }

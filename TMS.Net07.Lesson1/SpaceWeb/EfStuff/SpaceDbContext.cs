@@ -26,8 +26,15 @@ namespace SpaceWeb.EfStuff
 
 
         public DbSet<Order> Orders { get; set; }
+
+        public DbSet<Client> Clients { get; set; }
+        public DbSet<Employe> Employes { get; set; }
+        public DbSet<Department> Departments { get; set; }
+        public DbSet<OrdersEmployes> OrdersEmployes { get; set; }
+
         public DbSet<ComfortStructure> Comforts { get; set; }
         public DbSet<AdditionStructure> Additions { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()
@@ -44,7 +51,8 @@ namespace SpaceWeb.EfStuff
 
             modelBuilder.Entity<User>()
                 .HasMany(x => x.BankAccounts)
-                .WithOne(x => x.Owner);
+                .WithOne(x => x.Owner)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<BankAccount>()
                 .HasMany(x => x.BanksCards)
@@ -61,7 +69,35 @@ namespace SpaceWeb.EfStuff
             modelBuilder.Entity<Order>()
                 .HasMany(order => order.ComfortsList)
                 .WithOne(comforts => comforts.Order);
-            
+
+            modelBuilder.Entity<Client>()
+                .HasOne(x => x.User)
+                .WithOne(x => x.Client)
+                .HasForeignKey<Client>(x => x.ForeignKeyUser);
+
+            modelBuilder.Entity<Employe>()
+                .HasOne(x => x.User)
+                .WithOne(x => x.Employe)
+                .HasForeignKey<Employe>(x => x.ForeignKeyUser);
+
+            modelBuilder.Entity<Employe>()
+                .HasOne(emp => emp.Department)
+                .WithMany(department => department.Employes);
+
+            modelBuilder.Entity<OrdersEmployes>()
+                .HasOne(orderList => orderList.Employe)
+                .WithMany(employe => employe.OrdersEmployes);
+
+            modelBuilder.Entity<OrdersEmployes>()
+                .HasOne(orderList => orderList.Order)
+                .WithMany(order => order.OrdersEmployes);
+
+            modelBuilder.Entity<Order>()
+                .HasOne(order => order.Client)
+                .WithMany(client => client.Orders);
+
+
+
             base.OnModelCreating(modelBuilder);
         }
 

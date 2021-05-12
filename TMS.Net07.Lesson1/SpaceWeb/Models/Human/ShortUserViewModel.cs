@@ -18,5 +18,7 @@ namespace SpaceWeb.Models.Human
         public int Age { get; set; }
 
         public string Email { get; set; }
+
+        public ClientViewModel Client { get; set; }
     }
 }

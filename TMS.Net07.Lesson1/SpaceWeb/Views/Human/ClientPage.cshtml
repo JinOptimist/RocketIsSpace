@@ -1,0 +1,34 @@
+﻿@using SpaceWeb.Models.Human
+@model ShortUserViewModel
+
+@{
+    Layout = "_LayoutHuman";
+}
+
+<div>
+    <div>
+        @Model.Name
+    </div>
+    <div>
+        @Model.Email
+    </div>
+    <h2>
+        Заказы:
+    </h2>
+    <div class="content-orders">
+        @foreach (var x in Model.Client.Orders)
+        {
+            <div class="block-order">
+                <div>
+                    @x.Name
+                </div>
+                <div>
+                    @x.Price
+                </div>
+                <div>
+                    @x.OrderDateTime
+                </div>
+            </div>
+        }
+    </div>
+</div>
