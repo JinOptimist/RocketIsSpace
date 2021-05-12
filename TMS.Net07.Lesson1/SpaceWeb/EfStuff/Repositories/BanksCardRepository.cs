@@ -13,9 +13,11 @@ namespace SpaceWeb.EfStuff.Repositories
         {
         }
 
-        public BanksCard Get(string CardNumber)
+        public List<BanksCard> Get(string bankAccount)
         {
-            return _dbSet.SingleOrDefault(x => x.CardNumber == CardNumber);
+            return _dbSet
+                .Where(x => x.BankAccount.AccountNumber == bankAccount)
+                .ToList();
         }
     }
 }

@@ -76,8 +76,6 @@ namespace SpaceWeb.Controllers
         }
         public IActionResult BanksCard()
         {
-            /*var bankscard = new BanksCardViewModel();
-             return View(bankscard);*/
             var bankscard = _userService.GetCurrent();
             var modelNew = bankscard.BanksCards.Select(dbModel =>
                 //куда                откуда
@@ -87,49 +85,48 @@ namespace SpaceWeb.Controllers
             return View(modelNew);
         }
         [HttpPost]
-        public IActionResult AddBanksCard(BanksCardViewModel viewModel, BankAccountViewModel accountViewModel)
+        public IActionResult AddBanksCard(long accountId, EnumBankCard card)
         {
             int bankCard;
 
-            if (viewModel.Card == EnumBankCard.PayCard)
+
+            BankAccount bankAccount = _bankAccountRepository.Get(accountId);
+            if (bankAccount == null)
             {
-                if (viewModel.Type == null)
+                switch (card)
                 {
-                    viewModel.Type = "Платежная карта";
+                    case EnumBankCard.PayCard:
+                        bankAccount = new BankAccount()
+                        {
+                            Currency = Currency.BYN
+                        };
+                        break;
+                    case EnumBankCard.valueCard:
+                        bankAccount = new BankAccount()
+                        {
+                            Currency = Currency.BYN
+                        };
+                        break;
+                    case EnumBankCard.XCard:
+                        bankAccount = new BankAccount()
+                        {
+                            Currency = Currency.BYN
+                        };
+                        break;
                 }
-                bankCard = (int)viewModel.Card;
-            }
-            else if (viewModel.Card == EnumBankCard.valueCard)
-            {
-                if (viewModel.Type == null)
-                {
-                    viewModel.Type = "Валютная карта";
-                }
-                bankCard = 2;
-            }
-            else
-            {
-                viewModel.Type = "Валютная карта";
-                bankCard = 3;
             }
 
-            var bankAcc = _bankAccountRepository
-                .Get(viewModel.BankAccountId)
-                ?? new BankAccount() { 
 
-                };
-
-            viewModel.CreationDate = DateTime.Now;
-            var modelDB =
-                _mapper.Map<BanksCard>(viewModel);
-
-            var user = _userService.GetCurrent();
-           
-            _banksCardRepository.Save(modelDB);
-
+            var bankCardNew = new BanksCard();
+            bankCardNew.BankAccount = bankAccount;
+            bankCardNew.CreationDate = DateTime.Now;
             var pinCard = new Random().Next(1, 9999).ToString(format: "D4");
+            bankCardNew.PinCard = pinCard;
+            _banksCardRepository.Save(bankCardNew);
 
-            return View(pinCard);
+
+
+            return RedirectToAction("Index");
         }
 
         public IActionResult Contacts()
