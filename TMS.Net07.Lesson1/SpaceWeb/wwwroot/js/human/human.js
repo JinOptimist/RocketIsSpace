@@ -1,10 +1,9 @@
 ﻿$(document).ready(function () {
     var tag = '.employes-list .human-department-info';
-    $('.human-department-clickable .temp').click(function () {
-        var currentDepartment = $(this).parent('label').find('input');
-        var departmentId = currentDepartment.val();
+    $('.human-department-clickable .department-info-block').click(function () {
+        var departmentId = $(this).parent('label').find('input').val();
         var url = 'UpdateEmployes?idDepartment=' + departmentId;
-
+        $('.employes-list .human-department-info div').remove();
         $.getJSON(url)
             .done(function (json) {
                 for (var i = 0; i < json.employes.length; i++) {
@@ -15,7 +14,7 @@
             });
     });
     function InsertText(inputTag, inputText) {
-        $(inputTag).text('<div>' + inputText + '</div>');
+        $(inputTag).append('<div>' + inputText + '</div>');
 
     };
 });

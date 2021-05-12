@@ -82,3 +82,8 @@
 .undisplayable {
     display: none;
 }
+
+.employes-list {
+    display:flex;
+    flex-direction:column;
+}
