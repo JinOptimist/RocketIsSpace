@@ -1,4 +1,5 @@
-﻿@model List<DepartmentViewModel>
+﻿@using SpaceWeb.Localization
+@model List<DepartmentViewModel>
 @{
     Layout = "_LayoutHuman";
 }
@@ -17,8 +18,6 @@
                     <div><b>Department type: </b>@department.DepartmentType</div>
                     <div><b>Maximum employes: </b>@department.MaximumCountEmployes</div>
                     <div><b>Working hours: </b>@department.HourStartWorking - @department.HourEndWorking</div>
-                    <div>
-                </div>
                     <button onclick="window.location.href='/human/DeleteDepartment?id=@department.Id'" class="btn btn-danger" style="margin: 10px 10px 0px 0px">Delete</button>
                     <button onclick="editDepartment(@department.Id)" class="btn btn-info" style="margin: 10px 10px 0px 0px">Edit</button>
                 </div>
@@ -45,7 +44,19 @@
         </div>
     </div>
     <div class="employes-list">
-        <div class="human-department-info">
+        <div class="human-department-info clone undisplayable">
+            <div>
+                @Resource.AllDepartments_Name
+            </div>
+            <div>
+                @Resource.AllDepartments_Surname
+            </div>
+            <div>
+                @Resource.AllDepartments_Specification
+            </div>
+            <div>
+                @Resource.AllDepartments_Salary
+            </div>
 
         </div>
     </div>

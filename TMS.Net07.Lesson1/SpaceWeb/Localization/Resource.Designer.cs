@@ -61,6 +61,42 @@ namespace SpaceWeb.Localization {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Имя.
+        /// </summary>
+        public static string AllDepartments_Name {
+            get {
+                return ResourceManager.GetString("AllDepartments_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Оклад.
+        /// </summary>
+        public static string AllDepartments_Salary {
+            get {
+                return ResourceManager.GetString("AllDepartments_Salary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Специальность.
+        /// </summary>
+        public static string AllDepartments_Specification {
+            get {
+                return ResourceManager.GetString("AllDepartments_Specification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Фамилия.
+        /// </summary>
+        public static string AllDepartments_Surname {
+            get {
+                return ResourceManager.GetString("AllDepartments_Surname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Вопрос ответ.
         /// </summary>
         public static string HomeIndex_FAQ {
