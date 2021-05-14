@@ -6,6 +6,7 @@
         $('.employes-list .human-department-info:not(.clone)').remove();
         $.getJSON(url)
             .done(function (json) {
+                console.log(json);
                 for (var i = 0; i < json.employes.length; i++) {
                     var block = $('.clone').clone().appendTo('.employes-list');
                     block.removeClass('clone undisplayable');

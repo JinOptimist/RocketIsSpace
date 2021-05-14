@@ -22,6 +22,7 @@ using Profile = SpaceWeb.EfStuff.Model.Profile;
 using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Presentation;
 using SpaceWeb.Models.Human;
+using SpaceWeb.Extensions;
 
 namespace SpaceWeb
 {
@@ -129,7 +130,7 @@ namespace SpaceWeb
                 ForMember(nameof(ShortEmployeViewModel.Name), config => config.MapFrom(x => x.User.Name)).
                 ForMember(nameof(ShortEmployeViewModel.Surname), config => config.MapFrom(x => x.User.SurName)).
                 ForMember(nameof(ShortEmployeViewModel.SalaryPerHour), config => config.MapFrom(x => x.SalaryPerHour)).
-                ForMember(nameof(ShortEmployeViewModel.Specification), config => config.MapFrom(x => x.Specification));
+                ForMember(nameof(ShortEmployeViewModel.Specification), config => config.MapFrom(x => x.Specification.DispalybleName()));
 
             configExpression.CreateMap<User, ProfileViewModel>();
 
