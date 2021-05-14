@@ -1,4 +1,5 @@
 ﻿using SpaceWeb.EfStuff.Model;
+using SpaceWeb.Models.Bank;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,13 @@ namespace SpaceWeb.EfStuff.Repositories
     {
         public InsuranceRepository(SpaceDbContext spaceDbContext) : base(spaceDbContext)
         {
+        }
+
+        public List<Insurance> GetnsuranceViewModels()
+        {
+            var models = _dbSet
+                .ToList();
+            return models;
         }
     }
 }

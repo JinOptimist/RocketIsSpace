@@ -22,6 +22,7 @@ using Profile = SpaceWeb.EfStuff.Model.Profile;
 using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Presentation;
 using SpaceWeb.Models.Human;
+using SpaceWeb.Models.Bank;
 
 namespace SpaceWeb
 {
@@ -147,6 +148,8 @@ namespace SpaceWeb
             MapBoth<AddShopRocketViewModel,AddShopRocket>(configExpression);
 
             MapBoth<ShortUserViewModel, User>(configExpression);
+
+            MapBoth<InsurancePrintViewModel, Insurance>(configExpression);
 
             var mapperConfiguration = new MapperConfiguration(configExpression);
             var mapper = new Mapper(mapperConfiguration);

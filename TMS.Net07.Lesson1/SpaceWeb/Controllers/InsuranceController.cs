@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
 using SpaceWeb.Models.Bank;
@@ -14,20 +15,28 @@ namespace SpaceWeb.Controllers
     {
         private InsuranceTypeRepository _insuranceTypeRepository;
         private InsuranceRepository _insuranceRepository;
+        private IMapper _mapper;
         private UserService _userService;
 
         public InsuranceController(InsuranceTypeRepository insuranceTypeRepository, InsuranceRepository insuranceRepository,
-            UserService userService)
+            IMapper mapper, UserService userService)
         {
             _insuranceTypeRepository = insuranceTypeRepository;
             _insuranceRepository = insuranceRepository;
+            _mapper = mapper;
             _userService = userService;
         }
 
         [HttpGet]
         public ActionResult Insurance()
         {
-            return View();
+            var models = _insuranceRepository
+                .GetAll()
+                .Select(dbModel =>
+                    _mapper.Map<InsurancePrintViewModel>(dbModel)
+                )
+                .ToList();
+            return View(models);
         }
 
         [HttpGet]

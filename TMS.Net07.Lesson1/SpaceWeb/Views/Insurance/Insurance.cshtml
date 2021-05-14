@@ -1,5 +1,5 @@
 ﻿@using SpaceWeb.Models.Bank
-@model List<InsuranceViewModel>
+@model List<InsurancePrintViewModel>
 
 @{
     Layout = "_LayoutBank";
@@ -9,10 +9,10 @@
 {
     <div>
         <div>
-            Тип страхового полиса: @insurance.InsuranceNameType
+            Тип страхового полиса: @insurance.InsuranceType
         </div>
         <div>
-
+            Дата оформления: @insurance.DateCreationing
         </div>
     </div>
 }
