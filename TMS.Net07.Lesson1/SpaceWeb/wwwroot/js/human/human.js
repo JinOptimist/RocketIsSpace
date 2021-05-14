@@ -7,15 +7,16 @@
         $.getJSON(url)
             .done(function (json) {
                 for (var i = 0; i < json.employes.length; i++) {
-                      Test();
-                //    InsertText(tag, json.employes[i].name);
-                //    InsertText(tag, json.employes[i].surname);
-                //    InsertText(tag, json.employes[i].specification);
+                    var block = $('.clone').clone().appendTo('.employes-list');
+                    block.removeClass('clone undisplayable');
+                    InsertText(block, '#name', json.employes[i].name);
+                    InsertText(block, '#surname', json.employes[i].surname);
+                    InsertText(block, '#specification', json.employes[i].specification);
+                    InsertText(block, '#salary', json.employes[i].salaryPerHour);
                 }
             });
     });
-    function Test() {
-        var t = $('.clone').clone().appendTo('.employes-list');
-        t.removeClass('clone undisplayable');
+    function InsertText(block, divToFind, arg) {
+        block.find(divToFind).append(arg);
     };
 });
