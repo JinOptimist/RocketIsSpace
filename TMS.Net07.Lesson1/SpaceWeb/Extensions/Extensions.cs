@@ -12,13 +12,13 @@ namespace SpaceWeb.Extensions
         /// </summary>
         /// <param name="value"></param>
         /// <returns>Возвращает поле Name атрибуа Display, или пустую строку в случае если атрибута нету</returns>
-        public static string DispalybleName(this Enum value)
+        public static string GetDisplayableName(this Enum value)
         {
             return value.GetType().
                 GetMember(value.ToString()).
                 SingleOrDefault().
                 GetCustomAttribute<DisplayAttribute>()?.
-                Name;
+                GetName();
         }
     }
 }

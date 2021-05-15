@@ -129,6 +129,24 @@
   <data name="AllDepartments_Surname" xml:space="preserve">
     <value>Фамилия</value>
   </data>
+  <data name="DepartmentType_Laboratory" xml:space="preserve">
+    <value>Лаборатория</value>
+  </data>
+  <data name="DepartmentType_Manufactory" xml:space="preserve">
+    <value>Производство</value>
+  </data>
+  <data name="DepartmentType_MissionControlCenter" xml:space="preserve">
+    <value>Центр управления полетами</value>
+  </data>
+  <data name="DepartmentType_Other" xml:space="preserve">
+    <value>Другое</value>
+  </data>
+  <data name="DepartmentType_SpacecraftCrew" xml:space="preserve">
+    <value>Космонавт</value>
+  </data>
+  <data name="DepartmentType_Unknown" xml:space="preserve">
+    <value>Неизвестно</value>
+  </data>
   <data name="HomeIndex_FAQ" xml:space="preserve">
     <value>Вопрос ответ</value>
   </data>
@@ -152,5 +170,26 @@
   </data>
   <data name="Layout_Registration" xml:space="preserve">
     <value>Регистрация</value>
+  </data>
+  <data name="Specification_Leader" xml:space="preserve">
+    <value>Заведующий отделением</value>
+  </data>
+  <data name="Specification_Other" xml:space="preserve">
+    <value>Другое</value>
+  </data>
+  <data name="Specification_Scientist" xml:space="preserve">
+    <value>Ученый</value>
+  </data>
+  <data name="Specification_Spacemen" xml:space="preserve">
+    <value>Космонавт</value>
+  </data>
+  <data name="Specification_Technicist" xml:space="preserve">
+    <value>Техник</value>
+  </data>
+  <data name="Specification_Unknow" xml:space="preserve">
+    <value>Не назанчено</value>
+  </data>
+  <data name="Specification_Еngineer" xml:space="preserve">
+    <value>Инженер</value>
   </data>
 </root>

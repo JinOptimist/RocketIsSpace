@@ -1,20 +1,21 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using SpaceWeb.Localization;
+using System.ComponentModel.DataAnnotations;
 
 namespace SpaceWeb.Models
 {
     public enum DepartmentType
     {
-        [Display(Name= "Unknown disply")]
+        [Display(ResourceType = typeof(Resource), Name = "DepartmentType_Unknown")]
         Unknown = 0,
-        [Display(Name = "Manufactory disply")]
+        [Display(ResourceType = typeof(Resource), Name = "DepartmentType_Manufactory")]
         Manufactory = 1,
-        [Display(Name = "Laboratory disply")]
+        [Display(ResourceType = typeof(Resource), Name = "DepartmentType_Laboratory")]
         Laboratory = 2,
-        [Display(Name = "MissionControlCenter disply")]
+        [Display(ResourceType = typeof(Resource), Name = "DepartmentType_MissionControlCenter")]
         MissionControlCenter = 3,
-        [Display(Name = "SpacecraftCrew disply")]
+        [Display(ResourceType = typeof(Resource), Name = "DepartmentType_SpacecraftCrew")]
         SpacecraftCrew = 4,
-        [Display(Name = "Other disply")]
+        [Display(ResourceType = typeof(Resource), Name = "DepartmentType_Other")]
         Other = 5
     };
 }

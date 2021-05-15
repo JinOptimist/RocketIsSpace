@@ -1,22 +1,23 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using SpaceWeb.Localization;
+using System.ComponentModel.DataAnnotations;
 
 namespace SpaceWeb.EfStuff.Model
 {
     public enum Specification
     {
-        [Display(Name= "Unknown d")]
+        [Display(ResourceType = typeof(Resource),Name = "Specification_Unknow")]
         Unknown = 0,
-        [Display(Name = "Leader d")]
+        [Display(ResourceType = typeof(Resource), Name = "Specification_Leader")]
         Leader = 1,
-        [Display(Name = "Spaceman d")]
+        [Display(ResourceType = typeof(Resource), Name = "Specification_Spacemen")]
         Spaceman = 2,
-        [Display(Name = "Scientist d")]
+        [Display(ResourceType = typeof(Resource), Name = "Specification_Scientist")]
         Scientist = 3,
-        [Display(Name = "Еngineer d")]
+        [Display(ResourceType = typeof(Resource), Name = "Specification_Еngineer")]
         Еngineer = 4,
-        [Display(Name = "Technicist d")]
+        [Display(ResourceType = typeof(Resource), Name = "Specification_Technicist")]
         Technicist = 5,
-        [Display(Name = "Other d")]
+        [Display(ResourceType = typeof(Resource), Name = "Specification_Other")]
         Other = 6
     }
 }
