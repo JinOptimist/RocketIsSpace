@@ -10,9 +10,11 @@ using System.Linq;
 using SpaceWeb.Service;
 using SpaceWeb.Models.Human;
 using System.Collections.Generic;
+using SpaceWeb.Controllers.CustomAttribute;
 
 namespace SpaceWeb.Controllers
 {
+    [Localize]
     public class HumanController : Controller
     {
         private IHumanPresentation _humanPresentation;

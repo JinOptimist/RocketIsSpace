@@ -3,18 +3,21 @@
     $('.human-department-clickable .department-info-block').click(function () {
         var departmentId = $(this).parent('label').find('input').val();
         var url = 'UpdateEmployes?idDepartment=' + departmentId;
-        $('.employes-list .human-department-info div').remove();
+        $('.employes-list .human-department-info:not(.clone)').remove();
         $.getJSON(url)
             .done(function (json) {
+                console.log(json);
                 for (var i = 0; i < json.employes.length; i++) {
-                    InsertText(tag, json.employes[i].name);
-                    InsertText(tag, json.employes[i].surname);
-                    InsertText(tag, json.employes[i].specification);
+                    var block = $('.clone').clone().appendTo('.employes-list');
+                    block.removeClass('clone undisplayable');
+                    InsertText(block, '#name', json.employes[i].name);
+                    InsertText(block, '#surname', json.employes[i].surname);
+                    InsertText(block, '#specification', json.employes[i].specification);
+                    InsertText(block, '#salary', json.employes[i].salaryPerHour);
                 }
             });
     });
-    function InsertText(inputTag, inputText) {
-        $(inputTag).append('<div>' + inputText + '</div>');
-
+    function InsertText(block, divToFind, arg) {
+        block.find(divToFind).append(arg);
     };
 });
