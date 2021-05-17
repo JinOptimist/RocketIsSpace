@@ -190,7 +190,9 @@ namespace SpaceWeb
 
             MapBoth<AddShopRocketViewModel, AddShopRocket>(configExpression);
 
-            MapBoth<Department, DepartmentViewModel>(configExpression);
+            
+            MapBoth<Rocket, AddShopRocketViewModel>(configExpression);
+
 
             MapBoth<ShortUserViewModel, User>(configExpression);
 
