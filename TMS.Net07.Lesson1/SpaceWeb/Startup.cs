@@ -22,6 +22,7 @@ using Profile = SpaceWeb.EfStuff.Model.Profile;
 using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Presentation;
 using SpaceWeb.Models.Human;
+using SpaceWeb.Extensions;
 using System.Reflection;
 
 namespace SpaceWeb
@@ -101,6 +102,10 @@ namespace SpaceWeb
             services.AddScoped<ShopRocketRepository>(diContainer =>
                 new ShopRocketRepository(diContainer.GetService<SpaceDbContext>()));
 
+
+            //services.AddScoped<IEmployeRepository>(diContainer =>
+            //    new EmployeRepository(diContainer.GetService<SpaceDbContext>()));
+
             RegisterMapper(services);
             services.AddScoped<UserService>(diContainer =>
                new UserService(
@@ -159,6 +164,12 @@ namespace SpaceWeb
             //    .ForMember(nameof(UserProfileViewModel.FullName),
             //        config => config
             //            .MapFrom(dbModel => $"{dbModel.Name}, {dbModel.SurName} Mr"));
+
+            configExpression.CreateMap<Employe, ShortEmployeViewModel>().
+                ForMember(nameof(ShortEmployeViewModel.Name), config => config.MapFrom(x => x.User.Name)).
+                ForMember(nameof(ShortEmployeViewModel.Surname), config => config.MapFrom(x => x.User.SurName)).
+                ForMember(nameof(ShortEmployeViewModel.SalaryPerHour), config => config.MapFrom(x => x.SalaryPerHour)).
+                ForMember(nameof(ShortEmployeViewModel.Specification), config => config.MapFrom(x => x.Specification.GetDisplayableName()));
 
             configExpression.CreateMap<User, ProfileViewModel>();
 
