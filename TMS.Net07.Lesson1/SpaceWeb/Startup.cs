@@ -23,6 +23,8 @@ using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Presentation;
 using SpaceWeb.Models.Human;
 using System.Reflection;
+using SpaceWeb.Migrations;
+using AdvImage = SpaceWeb.EfStuff.Model.AdvImage;
 
 namespace SpaceWeb
 {

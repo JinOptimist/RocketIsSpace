@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SpaceWeb.Migrations;
+using AdvImage = SpaceWeb.EfStuff.Model.AdvImage;
 
 
 namespace SpaceWeb.EfStuff
@@ -67,6 +69,7 @@ namespace SpaceWeb.EfStuff
             modelBuilder.Entity<Order>()
                 .HasMany(x => x.Rockets)
                 .WithMany(x => x.OrderedBy);
+            modelBuilder.Entity<Order>()
                 .HasMany(order => order.AdditionsList)
                 .WithOne(addition => addition.Order);
             modelBuilder.Entity<Order>()
