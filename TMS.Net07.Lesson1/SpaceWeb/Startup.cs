@@ -162,6 +162,17 @@ namespace SpaceWeb
 
             configExpression.CreateMap<User, ProfileViewModel>();
 
+            configExpression.CreateMap<User, EmployeeProfileViewModel>()
+                .ForMember(nameof(EmployeeProfileViewModel.DepartmentName),
+                    config => config.MapFrom(user =>
+                    user.Employe.Department == null
+                        ? "N/A"
+                        : user.Employe.Department.DepartmentName))
+                .ForMember(nameof(EmployeeProfileViewModel.Salary),
+                    config => config.MapFrom(user =>
+                        user.Employe.SalaryPerHour));
+            
+
             //configExpression.CreateMap<Relic, RelicViewModel>();
             //configExpression.CreateMap<RelicViewModel, Relic>();
 
@@ -181,7 +192,6 @@ namespace SpaceWeb
 
             MapBoth<BankAccount, BankAccountViewModel>(configExpression);
 
-
             MapBoth<User, RocketProfileViewModel>(configExpression);
 
             MapBoth<Comfort, ComfortFormViewModel>(configExpression);
@@ -197,6 +207,8 @@ namespace SpaceWeb
             MapBoth<ClientViewModel, Client>(configExpression);
 
             MapBoth<HumanOrderViewModel, Order>(configExpression);
+
+
 
             var mapperConfiguration = new MapperConfiguration(configExpression);
             var mapper = new Mapper(mapperConfiguration);

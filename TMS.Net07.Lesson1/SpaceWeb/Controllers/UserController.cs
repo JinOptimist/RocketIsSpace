@@ -8,6 +8,7 @@ using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
 using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Models;
+using SpaceWeb.Models.Human;
 using SpaceWeb.Models.RocketModels;
 using SpaceWeb.Service;
 using System;
@@ -255,6 +256,13 @@ namespace SpaceWeb.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+        }
+    
+        public IActionResult EmployeeProfile()
+        {
+            var user = _userService.GetCurrent();
+            var viewModel = _mapper.Map<EmployeeProfileViewModel>(user);
+            return View(viewModel);
         }
     }
 }
