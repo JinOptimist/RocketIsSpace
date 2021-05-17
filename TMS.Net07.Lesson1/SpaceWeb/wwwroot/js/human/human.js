@@ -2,7 +2,7 @@
     var tag = '.employes-list .human-department-info';
     $('.human-department-clickable .department-info-block').click(function () {
         var departmentId = $(this).parent('label').find('input').val();
-        var url = 'UpdateEmployes?idDepartment=' + departmentId;
+        var url = '/Human/UpdateEmployes?idDepartment=' + departmentId;
         $('.employes-list .human-department-info:not(.clone)').remove();
         $.getJSON(url)
             .done(function (json) {
