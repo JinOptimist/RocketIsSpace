@@ -61,7 +61,7 @@ namespace SpaceWeb.Controllers
 
         [HttpGet]
         [IsAdmin]
-        public IActionResult AdminAddRocket()
+        public IActionResult AddRocket()
         {
             var model = new AddShopRocketViewModel();
             return View(model);
@@ -69,10 +69,23 @@ namespace SpaceWeb.Controllers
 
         [HttpPost]
         [IsAdmin]
-        public IActionResult AdminAddRocket(AddShopRocketViewModel model)
+        public IActionResult AddRocket(AddShopRocketViewModel model)
         {
             var rocket = _mapper.Map<Rocket>(model);
             _shopRocketRepository.Save(rocket);
+            return View();
+        }
+        [HttpGet]
+        public IActionResult Basket()
+        {
+            var order = new OrderViewModel();
+            return View(order);
+        }
+        
+        [HttpPost]
+        public IActionResult Basket(OrderViewModel order)
+        {
+            
             return View();
         }
     }
