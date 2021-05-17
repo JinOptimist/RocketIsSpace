@@ -8,8 +8,8 @@ namespace SpaceWeb.Models
 {
     public enum SocialsPassword
     {
-        TgAllGroup = 1234,
-        YoutubeTeacher = 5678,
-        TgTeamBank = 4321,
+        TgAllGroup = 911,
+        YoutubeTeacher = 1337,
+        TgTeamBank = 228,
     }
 }

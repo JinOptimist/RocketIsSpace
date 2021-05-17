@@ -1,0 +1,80 @@
+﻿.human-body {
+    font-family: "Georgia";
+    font-size: 16px;
+    background: rgba(15, 50, 110, 0.15);
+}
+
+.human-header {
+    display: flex;
+    background: rgba(15, 50, 110, 0.8);
+    height: 65px;
+    align-items: center;
+    padding: 0 20px;
+    font-size: 20px;
+    color: white;
+}
+
+    .human-header a {
+        color: white;
+        padding-right: 20px;
+    }
+
+        .human-header a:hover {
+            color: orange;
+            text-decoration: none;
+        }
+
+.human-logo {
+    max-width: 50px;
+    margin-right: 10px;
+}
+
+.human-content {
+    margin: 20px;
+}
+
+.human-login {
+    margin-left: auto;
+}
+
+
+.human-footer {
+    display: flex;
+    margin-top: auto;
+    background: rgba(15, 50, 110, 0.8);
+    height: 50px;
+    line-height: 50px;
+    padding: 0 20px;
+    font-size: 20px;
+    color: white;
+}
+
+.human-user-info {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+
+.human-department-info {
+    display: block;
+    width: 350px;
+    background-color: white;
+    border-radius: 3px;
+    margin: 20px 0px;
+    padding: 20px;
+}
+
+.field-validation-error {
+    color: red;
+    font-size: 80%;
+}
+
+.content-orders {
+    display:flex;
+    flex-wrap: wrap;
+    flex-direction:row;
+}
+
+.block-order {
+    margin: 5px;
+}

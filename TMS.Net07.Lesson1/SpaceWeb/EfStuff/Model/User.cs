@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SpaceWeb.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,6 +23,10 @@ namespace SpaceWeb.EfStuff.Model
 
         public JobType JobType { get; set; }
 
+        public Currency DefaultCurrency { get; set; }
+
+        public Lang Lang { get; set; }
+
         public virtual List<Rocket> MyRockets { get; set; }
 
         public virtual List<Rocket> TestedRockets { get; set; } 
@@ -31,5 +36,9 @@ namespace SpaceWeb.EfStuff.Model
         public virtual List<BankAccount> BankAccounts { get; set; }
        
         public virtual Profile Profile { get; set; }
+        public virtual List<BanksCard> BanksCards { get; set; }
+
+        public virtual Client Client { get; set; }
+        public virtual Employe Employe { get; set; }
     }
 }
