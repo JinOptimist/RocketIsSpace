@@ -71,7 +71,7 @@ namespace SpaceWeb.Controllers
         [IsAdmin]
         public IActionResult AdminAddRocket(AddShopRocketViewModel model)
         {
-            var rocket = _mapper.Map<AddShopRocket>(model);
+            var rocket = _mapper.Map<Rocket>(model);
             _shopRocketRepository.Save(rocket);
             return View();
         }

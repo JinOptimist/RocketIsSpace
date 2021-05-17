@@ -20,6 +20,7 @@ namespace SpaceWeb.EfStuff
         public DbSet<FactoryHistory> FactoryHistories { get; set; }
         public DbSet<Comfort> ComfortsExample { get; set; }
         public DbSet<RocketStage> RocketStages { get; set; }
+
         public DbSet<AddShopRocket> ShopRocket { get; set; }
         
         public DbSet<Relic> Relics { get; set; }
@@ -62,8 +63,10 @@ namespace SpaceWeb.EfStuff
                 .HasOne(x => x.Profile)
                 .WithOne(x => x.User)
                 .HasForeignKey<Profile>(x => x.UserRef);
-                
+
             modelBuilder.Entity<Order>()
+                .HasMany(x => x.Rockets)
+                .WithMany(x => x.OrderedBy);
                 .HasMany(order => order.AdditionsList)
                 .WithOne(addition => addition.Order);
             modelBuilder.Entity<Order>()
