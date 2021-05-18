@@ -14,6 +14,7 @@ using SpaceWeb.Service;
 using Microsoft.AspNetCore.Authorization;
 using SpaceWeb.Controllers.CustomAttribute;
 using SpaceWeb.EfStuff.Repositories.IRepository;
+using SpaceWeb.EfStuff.Model;
 
 namespace SpaceWeb.Controllers
 {
@@ -84,6 +85,12 @@ namespace SpaceWeb.Controllers
                 .ToList();
             return View(modelNew);
         }
+        public IActionResult ShowBanksCard(long accountId)
+        {
+            BanksCard banksCard = _banksCardRepository.Get(accountId);
+            return RedirectToAction("Index");
+
+        }
         [HttpPost]
         public IActionResult AddBanksCard(long accountId, EnumBankCard card)
         {
@@ -104,13 +111,13 @@ namespace SpaceWeb.Controllers
                     case EnumBankCard.valueCard:
                         bankAccount = new BankAccount()
                         {
-                            Currency = Currency.BYN
+                            Currency = Currency.USD
                         };
                         break;
                     case EnumBankCard.XCard:
                         bankAccount = new BankAccount()
                         {
-                            Currency = Currency.BYN
+                            Currency = Currency.EUR
                         };
                         break;
                 }
