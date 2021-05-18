@@ -19,7 +19,7 @@ namespace SpaceWeb.EfStuff.Repositories
         {
             return _dbSet.SingleOrDefault(x => x.AccountNumber == AccountNumber);
         }
-
+       
         public List<BankAccount> GetBankAccounts(long userId)
         {
             return _dbSet.Where(x => x.Owner.Id == userId).ToList();

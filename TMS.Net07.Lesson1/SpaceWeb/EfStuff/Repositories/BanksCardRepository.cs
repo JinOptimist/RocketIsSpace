@@ -27,5 +27,22 @@ namespace SpaceWeb.EfStuff.Repositories
                 .ToList();
                 
         }
+        public List<BanksCard> GetAmount(decimal ammount)
+        {
+            return _dbSet
+                .Where(x => x.BankAccount.Amount == ammount)
+              .ToList();
+        }
+        public decimal GetAmount(string AccountNumber)
+        {
+            return _dbSet.SingleOrDefault(x => x.BankAccount.AccountNumber == AccountNumber).BankAccount.Amount;
+        }
+        public string GetTransaction(long transferToId)
+        {
+            return _dbSet.Where(x => x.Transaction.ToAccountId == transferToId).ToString();
+        }
+
+      
+
     }
 }

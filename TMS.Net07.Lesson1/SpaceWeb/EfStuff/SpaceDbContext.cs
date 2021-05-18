@@ -16,6 +16,8 @@ namespace SpaceWeb.EfStuff
         public DbSet<Profile> UserProfile { get; set; }
         public DbSet<BankAccount> BankAccount { get; set; }
         public DbSet<BanksCard> BanksCard { get; set; }
+        public DbSet<Transaction> Transaction { get; set; }
+
         public DbSet<AdvImage> AdvImages { get; set; }
         public DbSet<FactoryHistory> FactoryHistories { get; set; }
         public DbSet<Comfort> ComfortsExample { get; set; }

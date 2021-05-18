@@ -130,6 +130,9 @@ namespace SpaceWeb
             MapBoth<Relic, RelicViewModel>(configExpression);
             MapBoth<User, UserProfileViewModel>(configExpression);
             MapBoth<User, BanksCardViewModel>(configExpression);
+            
+            MapBoth<Transaction, TransactionCardViewModel>(configExpression);
+            MapBoth<BanksCard, TransactionCardViewModel>(configExpression);
 
             MapBoth<Profile, UserProfileViewModel>(configExpression);
 

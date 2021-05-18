@@ -135,6 +135,16 @@ namespace SpaceWeb.Controllers
 
             return RedirectToAction("Index");
         }
+        public IActionResult AddTransaction(long transferToId)
+        {
+            BanksCard banksCard = _banksCardRepository.GetTransaction(transferToId);
+            var transaction = new Transaction();
+            transaction.BanksCard = banksCard;
+            _banksCardRepository.Save(transaction);
+
+
+            return RedirectToAction("Index");
+        }
 
 
         public IActionResult Contacts()

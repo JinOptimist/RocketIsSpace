@@ -13,5 +13,9 @@ namespace SpaceWeb.EfStuff.Repositories.IRepository
 
         List<BanksCard> GetCardUser(long userId);
 
+        decimal GetAmount(string AccountNumber);
+
+        public string GetTransaction(long transferToId);
+
     }
 }
