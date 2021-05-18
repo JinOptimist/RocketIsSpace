@@ -85,6 +85,7 @@ namespace SpaceWeb.Controllers
                 .ToList();
             return View(modelNew);
         }
+
         public IActionResult ShowBanksCard(long accountId)
         {
             BanksCard banksCard = _banksCardRepository.Get(accountId);
@@ -95,7 +96,6 @@ namespace SpaceWeb.Controllers
         public IActionResult AddBanksCard(long accountId, EnumBankCard card)
         {
             int bankCard;
-
 
             BankAccount bankAccount = _bankAccountRepository.Get(accountId);
             if (bankAccount == null)
@@ -135,6 +135,7 @@ namespace SpaceWeb.Controllers
 
             return RedirectToAction("Index");
         }
+
 
         public IActionResult Contacts()
         {
