@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace SpaceWeb.Models.Bank
 {
-    public class InsurancePrintViewModel
+    public class InsuranceTypeViewModel
     {
         public long Id { get; set; }
-        public DateTime DateCreationing { get; set; }
-        public InsuranceTypeViewModel InsuranceType { get; set; }
+        public InsuranceNameType InsuranceNameType { get; set; }
+        public InsurancePeriod InsurancePeriod { get; set; }
+        public decimal Cost { get; set; }
     }
 }

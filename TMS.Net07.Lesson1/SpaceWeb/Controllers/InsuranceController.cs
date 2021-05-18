@@ -30,10 +30,13 @@ namespace SpaceWeb.Controllers
         [HttpGet]
         public ActionResult Insurance()
         {
+            var user = _userService.GetCurrent();
+
             var models = _insuranceRepository
                 .GetAll()
-                .Select(dbModel =>
-                    _mapper.Map<InsurancePrintViewModel>(dbModel)
+                .Where(x => x.Owner.Id == user.Id)
+                .Select(insurance =>
+                    _mapper.Map<InsurancePrintViewModel>(insurance)
                 )
                 .ToList();
             return View(models);

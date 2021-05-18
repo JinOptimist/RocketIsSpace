@@ -151,6 +151,10 @@ namespace SpaceWeb
 
             MapBoth<InsurancePrintViewModel, Insurance>(configExpression);
 
+            MapBoth<InsuranceTypeViewModel, InsuranceType>(configExpression);
+
+            MapBoth<InsuranceViewModel, Insurance>(configExpression);
+
             var mapperConfiguration = new MapperConfiguration(configExpression);
             var mapper = new Mapper(mapperConfiguration);
             services.AddScoped<IMapper>(c => mapper);
