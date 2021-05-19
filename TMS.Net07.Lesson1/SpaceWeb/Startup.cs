@@ -68,6 +68,12 @@ namespace SpaceWeb
                     diContainer.GetService<IBankAccountRepository>()
                     ));
 
+            services.AddScoped<IRocketShopPresentation>(container =>
+                new RocketShopPresentation(
+                    container.GetService<IMapper>(),
+                    container.GetService<IOrderRepository>(),
+                    container.GetService<IShopRocketRepository>()));
+
             //services.AddScoped<IRelicRepository>(diContainer =>
             //    new RelicRepository(diContainer.GetService<SpaceDbContext>()));
 
