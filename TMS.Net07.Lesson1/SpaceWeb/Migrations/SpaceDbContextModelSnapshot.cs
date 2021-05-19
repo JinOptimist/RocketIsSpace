@@ -640,107 +640,108 @@ namespace SpaceWeb.Migrations
 
                     b.Navigation("Order");
 
-            modelBuilder.Entity("SpaceWeb.EfStuff.Model.Insurance", b =>
-                {
-                    b.HasOne("SpaceWeb.EfStuff.Model.InsuranceType", "InsuranceType")
-                        .WithMany()
-                        .HasForeignKey("InsuranceTypeId");
+                    modelBuilder.Entity("SpaceWeb.EfStuff.Model.Insurance", b =>
+                        {
+                            b.HasOne("SpaceWeb.EfStuff.Model.InsuranceType", "InsuranceType")
+                                .WithMany()
+                                .HasForeignKey("InsuranceTypeId");
 
-                    b.HasOne("SpaceWeb.EfStuff.Model.User", "Owner")
-                        .WithMany()
-                        .HasForeignKey("OwnerId");
+                            b.HasOne("SpaceWeb.EfStuff.Model.User", "Owner")
+                                .WithMany()
+                                .HasForeignKey("OwnerId");
 
-                    b.Navigation("InsuranceType");
+                            b.Navigation("InsuranceType");
 
-                    b.Navigation("Owner");
-                });
+                            b.Navigation("Owner");
+                        });
 
-            modelBuilder.Entity("SpaceWeb.EfStuff.Model.Profile", b =>
-                {
-                    b.HasOne("SpaceWeb.EfStuff.Model.User", "User")
-                        .WithOne("Profile")
-                        .HasForeignKey("SpaceWeb.EfStuff.Model.Profile", "UserRef")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    modelBuilder.Entity("SpaceWeb.EfStuff.Model.Profile", b =>
+                        {
+                            b.HasOne("SpaceWeb.EfStuff.Model.User", "User")
+                                .WithOne("Profile")
+                                .HasForeignKey("SpaceWeb.EfStuff.Model.Profile", "UserRef")
+                                .OnDelete(DeleteBehavior.Cascade)
+                                .IsRequired();
 
-                    b.Navigation("User");
-                });
+                            b.Navigation("User");
+                        });
 
-            modelBuilder.Entity("SpaceWeb.EfStuff.Model.Rocket", b =>
-                {
-                    b.HasOne("SpaceWeb.EfStuff.Model.User", "Author")
-                        .WithMany("MyRockets")
-                        .HasForeignKey("AuthorId");
+                    modelBuilder.Entity("SpaceWeb.EfStuff.Model.Rocket", b =>
+                        {
+                            b.HasOne("SpaceWeb.EfStuff.Model.User", "Author")
+                                .WithMany("MyRockets")
+                                .HasForeignKey("AuthorId");
 
-                    b.HasOne("SpaceWeb.EfStuff.Model.User", "Qa")
-                        .WithMany("TestedRockets")
-                        .HasForeignKey("QaId");
+                            b.HasOne("SpaceWeb.EfStuff.Model.User", "Qa")
+                                .WithMany("TestedRockets")
+                                .HasForeignKey("QaId");
 
-                    b.Navigation("Author");
+                            b.Navigation("Author");
 
-                    b.Navigation("Qa");
-                });
+                            b.Navigation("Qa");
+                        });
 
-            modelBuilder.Entity("SpaceWeb.EfStuff.Model.User", b =>
-                {
-                    b.HasOne("SpaceWeb.EfStuff.Model.Rocket", "MyFavouriteRocket")
-                        .WithMany("UserWhoFavouriteTheRocket")
-                        .HasForeignKey("MyFavouriteRocketId");
+                    modelBuilder.Entity("SpaceWeb.EfStuff.Model.User", b =>
+                        {
+                            b.HasOne("SpaceWeb.EfStuff.Model.Rocket", "MyFavouriteRocket")
+                                .WithMany("UserWhoFavouriteTheRocket")
+                                .HasForeignKey("MyFavouriteRocketId");
 
-                    b.Navigation("MyFavouriteRocket");
-                });
+                            b.Navigation("MyFavouriteRocket");
+                        });
 
-            modelBuilder.Entity("SpaceWeb.EfStuff.Model.BankAccount", b =>
-                {
-                    b.Navigation("BanksCards");
-                });
+                    modelBuilder.Entity("SpaceWeb.EfStuff.Model.BankAccount", b =>
+                        {
+                            b.Navigation("BanksCards");
+                        });
 
-            modelBuilder.Entity("SpaceWeb.EfStuff.Model.Client", b =>
-                {
-                    b.Navigation("Orders");
-                });
+                    modelBuilder.Entity("SpaceWeb.EfStuff.Model.Client", b =>
+                        {
+                            b.Navigation("Orders");
+                        });
 
-            modelBuilder.Entity("SpaceWeb.EfStuff.Model.Department", b =>
-                {
-                    b.Navigation("Employes");
-                });
+                    modelBuilder.Entity("SpaceWeb.EfStuff.Model.Department", b =>
+                        {
+                            b.Navigation("Employes");
+                        });
 
-            modelBuilder.Entity("SpaceWeb.EfStuff.Model.Employe", b =>
-                {
-                    b.Navigation("OrdersEmployes");
-                });
+                    modelBuilder.Entity("SpaceWeb.EfStuff.Model.Employe", b =>
+                        {
+                            b.Navigation("OrdersEmployes");
+                        });
 
-            modelBuilder.Entity("SpaceWeb.EfStuff.Model.Order", b =>
-                {
-                    b.Navigation("AdditionsList");
+                    modelBuilder.Entity("SpaceWeb.EfStuff.Model.Order", b =>
+                        {
+                            b.Navigation("AdditionsList");
 
-                    b.Navigation("ComfortsList");
+                            b.Navigation("ComfortsList");
 
-                    b.Navigation("OrdersEmployes");
-                });
+                            b.Navigation("OrdersEmployes");
+                        });
 
-            modelBuilder.Entity("SpaceWeb.EfStuff.Model.Rocket", b =>
-                {
-                    b.Navigation("UserWhoFavouriteTheRocket");
-                });
+                    modelBuilder.Entity("SpaceWeb.EfStuff.Model.Rocket", b =>
+                        {
+                            b.Navigation("UserWhoFavouriteTheRocket");
+                        });
 
-            modelBuilder.Entity("SpaceWeb.EfStuff.Model.User", b =>
-                {
-                    b.Navigation("BankAccounts");
+                    modelBuilder.Entity("SpaceWeb.EfStuff.Model.User", b =>
+                        {
+                            b.Navigation("BankAccounts");
 
-                    b.Navigation("BanksCards");
+                            b.Navigation("BanksCards");
 
-                    b.Navigation("Client");
+                            b.Navigation("Client");
 
-                    b.Navigation("Employe");
+                            b.Navigation("Employe");
 
-                    b.Navigation("MyRockets");
+                            b.Navigation("MyRockets");
 
-                    b.Navigation("Profile");
+                            b.Navigation("Profile");
 
-                    b.Navigation("TestedRockets");
-                });
+                            b.Navigation("TestedRockets");
+                        });
 #pragma warning restore 612, 618
+                });
         }
     }
 }

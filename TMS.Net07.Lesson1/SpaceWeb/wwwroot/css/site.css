@@ -415,10 +415,10 @@ a {
     margin-bottom: 25px;
 }
 
-.error-socials-image img {
-    width: 100%;
-    height: 100%;
-}
+    .error-socials-image img {
+        width: 100%;
+        height: 100%;
+    }
 
 .socials-content {
     display: flex;
@@ -428,10 +428,6 @@ a {
     flex-direction: column;
 }
 
-    .block-bank {
-        width: 400px;
-    }
-}
 .user-info {
     display: flex;
     align-items: center;
@@ -454,7 +450,8 @@ a {
     display: flex;
     align-items: center;
 }
-.currency-block input{
+
+.currency-block input {
     display: none;
 }
 
