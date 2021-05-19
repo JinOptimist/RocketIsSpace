@@ -23,6 +23,8 @@ using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Presentation;
 using SpaceWeb.Models.Human;
 using SpaceWeb.Models.Bank;
+using SpaceWeb.Extensions;
+using System.Reflection;
 
 namespace SpaceWeb
 {
@@ -67,11 +69,14 @@ namespace SpaceWeb
                     diContainer.GetService<IBankAccountRepository>()
                     ));
 
-            services.AddScoped<IRelicRepository>(diContainer =>
-                new RelicRepository(diContainer.GetService<SpaceDbContext>()));
+            //services.AddScoped<IRelicRepository>(diContainer =>
+            //    new RelicRepository(diContainer.GetService<SpaceDbContext>()));
 
-            services.AddScoped<IDepartmentRepository>(diContainer =>
-                new DepartmentRepository(diContainer.GetService<SpaceDbContext>()));
+            //services.AddScoped<IDepartmentRepository>(diContainer =>
+            //    new DepartmentRepository(diContainer.GetService<SpaceDbContext>()));
+
+            //services.AddScoped<IBankAccountRepository>(diContainer =>
+            //    new BankAccountRepository(diContainer.GetService<SpaceDbContext>()));
 
             services.AddScoped<ProfileRepository>(diContainer =>
                 new ProfileRepository(diContainer.GetService<SpaceDbContext>()));
@@ -79,13 +84,8 @@ namespace SpaceWeb
             services.AddScoped<AdvImageRepository>(diContainer =>
                 new AdvImageRepository(diContainer.GetService<SpaceDbContext>()));
 
-            services.AddScoped<IBankAccountRepository>(diContainer =>
-                new BankAccountRepository(diContainer.GetService<SpaceDbContext>()));
-
             services.AddScoped<BanksCardRepository>(diContainer =>
                 new BanksCardRepository(diContainer.GetService<SpaceDbContext>()));
-
-            RegisterMapper(services);
 
             services.AddScoped<ComfortRepository>(diContainer =>
                 new ComfortRepository(diContainer.GetService<SpaceDbContext>()));
@@ -115,9 +115,62 @@ namespace SpaceWeb
 
             services.AddScoped<AdditionRepository>(diContainer =>
                 new AdditionRepository(diContainer.GetService<SpaceDbContext>()));
-            
+
             services.AddScoped<ShopRocketRepository>(diContainer =>
-                new ShopRocketRepository(diContainer.GetService<SpaceDbContext>()));            
+                new ShopRocketRepository(diContainer.GetService<SpaceDbContext>()));
+
+
+            //services.AddScoped<IEmployeRepository>(diContainer =>
+            //    new EmployeRepository(diContainer.GetService<SpaceDbContext>()));
+
+            RegisterMapper(services);
+            services.AddScoped<UserService>(diContainer =>
+               new UserService(
+                   diContainer.GetService<IUserRepository>(),
+                   diContainer.GetService<IHttpContextAccessor>()
+               ));
+
+            services.AddControllersWithViews();
+
+            services.AddHttpContextAccessor();
+
+            RegistrationRepositories(services);
+        }
+
+        private void RegistrationRepositories(IServiceCollection services)
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+
+            var types = assembly.GetTypes();
+
+            foreach (var iRepo in types.Where(type =>
+                type.IsInterface
+                && type.GetInterfaces()
+                    .Any(x =>
+                        x.IsGenericType
+                        && x.GetGenericTypeDefinition() == typeof(IBaseRepository<>))
+                ))
+            {
+                var realization = types.Single(x => x.GetInterfaces().Contains(iRepo));
+                services.AddScoped(
+                    iRepo,
+                    diContainer =>
+                    {
+                        var constructor = realization.GetConstructors()[0];
+                        var paramInfoes = constructor.GetParameters();
+
+                        var paramValues = new object[paramInfoes.Length];
+                        for (int i = 0; i < paramInfoes.Length; i++)
+                        {
+                            var paramInfo = paramInfoes[i];
+                            var paramValue = diContainer.GetService(paramInfo.ParameterType);
+                            paramValues[i] = paramValue;
+                        }
+
+                        var answer = constructor.Invoke(paramValues);
+                        return answer;
+                    });
+            }
         }
 
         private void RegisterMapper(IServiceCollection services)
@@ -129,11 +182,28 @@ namespace SpaceWeb
             //        config => config
             //            .MapFrom(dbModel => $"{dbModel.Name}, {dbModel.SurName} Mr"));
 
+            configExpression.CreateMap<Employe, ShortEmployeViewModel>().
+                ForMember(nameof(ShortEmployeViewModel.Name), config => config.MapFrom(x => x.User.Name)).
+                ForMember(nameof(ShortEmployeViewModel.Surname), config => config.MapFrom(x => x.User.SurName)).
+                ForMember(nameof(ShortEmployeViewModel.SalaryPerHour), config => config.MapFrom(x => x.SalaryPerHour)).
+                ForMember(nameof(ShortEmployeViewModel.Specification), config => config.MapFrom(x => x.Specification.GetDisplayableName()));
+
             configExpression.CreateMap<User, ProfileViewModel>();
+
+            configExpression.CreateMap<User, EmployeeProfileViewModel>()
+                .ForMember(nameof(EmployeeProfileViewModel.DepartmentName),
+                    config => config.MapFrom(user =>
+                    user.Employe.Department == null
+                        ? "N/A"
+                        : user.Employe.Department.DepartmentName))
+                .ForMember(nameof(EmployeeProfileViewModel.Salary),
+                    config => config.MapFrom(user =>
+                        user.Employe.SalaryPerHour));
+            
 
             //configExpression.CreateMap<Relic, RelicViewModel>();
             //configExpression.CreateMap<RelicViewModel, Relic>();
-           
+
             MapBoth<Relic, RelicViewModel>(configExpression);
             MapBoth<User, UserProfileViewModel>(configExpression);
             MapBoth<User, BanksCardViewModel>(configExpression);
@@ -143,21 +213,20 @@ namespace SpaceWeb
             MapBoth<Profile, ProfileViewModel>(configExpression);
 
             MapBoth<AdvImage, AdvImageViewModel>(configExpression);
-            
-            MapBoth<User,RegistrationViewModel>(configExpression);
-            
-            MapBoth<Order,OrderViewModel>(configExpression);
+
+            MapBoth<User, RegistrationViewModel>(configExpression);
+
+            MapBoth<Order, OrderViewModel>(configExpression);
 
             MapBoth<BankAccount, BankAccountViewModel>(configExpression);
 
-
-            MapBoth<User,RocketProfileViewModel>(configExpression);
+            MapBoth<User, RocketProfileViewModel>(configExpression);
 
             MapBoth<Comfort, ComfortFormViewModel>(configExpression);
-            
+
             MapBoth<AddShopRocket, AddShopRocketViewModel>(configExpression);
-            
-            MapBoth<AddShopRocketViewModel,AddShopRocket>(configExpression);
+
+            MapBoth<AddShopRocketViewModel, AddShopRocket>(configExpression);
 
             MapBoth<Department, DepartmentViewModel>(configExpression);
 
