@@ -6,19 +6,18 @@ namespace RocketSMS
 {
     public class Class1
     {
-        static String Username = "123456789";
-        static String Password = "password";
-        static String Sender = "SMS-INFO";
+        static String Username = "193197322";
+        static String Password = "aA8M8yAdl9sMs";
 
         public static void Main(string[] args)
         {
-            sendSMS("375296890043", "HELLO, C#");
+            sendSMS("375296890043", "console app");
         }
 
         public static Boolean sendSMS(String to, String text)
         {
             HttpWebRequest request = (HttpWebRequest)
-            WebRequest.Create("http://api.rocketsms.by/simple/send?username=" + Username + "&password=" + Password + "&phone=" + Uri.EscapeUriString(to) + "&sender=" + Uri.EscapeUriString(Sender) + "&text=" + Uri.EscapeUriString(text));
+            WebRequest.Create("http://api.rocketsms.by/simple/send?username=" + Username + "&password=" + Password + "&phone=" + Uri.EscapeUriString(to) + "&text=" + Uri.EscapeUriString(text) + "&priority=true");
             try
             {
                 using (WebResponse response = request.GetResponse())

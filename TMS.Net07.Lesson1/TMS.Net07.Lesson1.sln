@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HumansResources.Test", "Hum
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpaceWeb.Test", "SpaceWeb.Test\SpaceWeb.Test.csproj", "{151B4C53-9B58-4FB3-A058-4BB409F79617}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RocketSMS", "RocketSMS\RocketSMS.csproj", "{A03DEB47-48E1-4E52-9D25-743C4D408F39}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RocketSms2", "RocketSms2\RocketSms2.csproj", "{6D1AC089-748F-423A-96EA-924F4E4A9763}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,10 @@ Global
 		{151B4C53-9B58-4FB3-A058-4BB409F79617}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{151B4C53-9B58-4FB3-A058-4BB409F79617}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{151B4C53-9B58-4FB3-A058-4BB409F79617}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A03DEB47-48E1-4E52-9D25-743C4D408F39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A03DEB47-48E1-4E52-9D25-743C4D408F39}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A03DEB47-48E1-4E52-9D25-743C4D408F39}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A03DEB47-48E1-4E52-9D25-743C4D408F39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D1AC089-748F-423A-96EA-924F4E4A9763}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D1AC089-748F-423A-96EA-924F4E4A9763}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D1AC089-748F-423A-96EA-924F4E4A9763}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D1AC089-748F-423A-96EA-924F4E4A9763}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
