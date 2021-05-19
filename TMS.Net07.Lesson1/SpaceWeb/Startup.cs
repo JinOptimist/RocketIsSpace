@@ -22,6 +22,7 @@ using Profile = SpaceWeb.EfStuff.Model.Profile;
 using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Presentation;
 using SpaceWeb.Models.Human;
+using SpaceWeb.Models.Bank;
 
 namespace SpaceWeb
 {
@@ -92,6 +93,12 @@ namespace SpaceWeb
             services.AddScoped<RocketStageRepository>(diContainer =>
                 new RocketStageRepository(diContainer.GetService<SpaceDbContext>()));
 
+            services.AddScoped<InsuranceTypeRepository>(diContainer =>
+                new InsuranceTypeRepository(diContainer.GetService<SpaceDbContext>()));
+
+            services.AddScoped<InsuranceRepository>(diContainer =>
+                new InsuranceRepository(diContainer.GetService<SpaceDbContext>()));
+
             services.AddScoped<UserService>(diContainer =>
                 new UserService(
                     diContainer.GetService<IUserRepository>(),
@@ -159,6 +166,12 @@ namespace SpaceWeb
             MapBoth<ClientViewModel, Client>(configExpression);
 
             MapBoth<HumanOrderViewModel, Order>(configExpression);
+
+            MapBoth<InsurancePrintViewModel, Insurance>(configExpression);
+
+            MapBoth<InsuranceTypeViewModel, InsuranceType>(configExpression);
+
+            MapBoth<InsuranceViewModel, Insurance>(configExpression);
 
             var mapperConfiguration = new MapperConfiguration(configExpression);
             var mapper = new Mapper(mapperConfiguration);

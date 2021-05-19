@@ -19,6 +19,7 @@ namespace SpaceWeb.EfStuff
             {
                 SetDefaultUser(serviceScope.ServiceProvider);
                 SetDefaultDepartment(serviceScope.ServiceProvider);
+                SetDefaultInsuranceType(serviceScope.ServiceProvider);
             }
 
             return server;
@@ -73,6 +74,107 @@ namespace SpaceWeb.EfStuff
                     HourEndWorking = 17
                 };
                 departmentRepository.Save(department);
+            }
+        }
+
+        private static void SetDefaultInsuranceType(IServiceProvider services)
+        {
+            var insuranceTypeRepository = services.GetService<InsuranceTypeRepository>();
+
+            var insurancePolis = insuranceTypeRepository.GetPolis(InsuranceNameType.Start, InsurancePeriod.Six);
+            if (insurancePolis == null)
+            {
+                insurancePolis = new InsuranceType()
+                {
+                    InsuranceNameType = InsuranceNameType.Start,
+                    Cost = 15,
+                    InsurancePeriod = InsurancePeriod.Six,
+                };
+                insuranceTypeRepository.Save(insurancePolis);
+            }
+
+            insurancePolis = insuranceTypeRepository.GetPolis(InsuranceNameType.Start, InsurancePeriod.Twelve);
+            if (insurancePolis == null)
+            {
+                insurancePolis = new InsuranceType()
+                {
+                    InsuranceNameType = InsuranceNameType.Start,
+                    Cost = 30,
+                    InsurancePeriod = InsurancePeriod.Twelve,
+                };
+                insuranceTypeRepository.Save(insurancePolis);
+            }
+
+            insurancePolis = insuranceTypeRepository.GetPolis(InsuranceNameType.Casco, InsurancePeriod.Six);
+            if (insurancePolis == null)
+            {
+                insurancePolis = new InsuranceType()
+                {
+                    InsuranceNameType = InsuranceNameType.Casco,
+                    Cost = 100,
+                    InsurancePeriod = InsurancePeriod.Six,
+                };
+                insuranceTypeRepository.Save(insurancePolis);
+            }
+
+            insurancePolis = insuranceTypeRepository.GetPolis(InsuranceNameType.Casco, InsurancePeriod.Twelve);
+            if (insurancePolis == null)
+            {
+                insurancePolis = new InsuranceType()
+                {
+                    InsuranceNameType = InsuranceNameType.Casco,
+                    Cost = 200,
+                    InsurancePeriod = InsurancePeriod.Twelve,
+                };
+                insuranceTypeRepository.Save(insurancePolis);
+            }
+
+            insurancePolis = insuranceTypeRepository.GetPolis(InsuranceNameType.Medhelp, InsurancePeriod.Six);
+            if (insurancePolis == null)
+            {
+                insurancePolis = new InsuranceType()
+                {
+                    InsuranceNameType = InsuranceNameType.Medhelp,
+                    Cost = 250,
+                    InsurancePeriod = InsurancePeriod.Six,
+                };
+                insuranceTypeRepository.Save(insurancePolis);
+            }
+
+            insurancePolis = insuranceTypeRepository.GetPolis(InsuranceNameType.Medhelp, InsurancePeriod.Twelve);
+            if (insurancePolis == null)
+            {
+                insurancePolis = new InsuranceType()
+                {
+                    InsuranceNameType = InsuranceNameType.Medhelp,
+                    Cost = 500,
+                    InsurancePeriod = InsurancePeriod.Twelve,
+                };
+                insuranceTypeRepository.Save(insurancePolis);
+            }
+
+            insurancePolis = insuranceTypeRepository.GetPolis(InsuranceNameType.Air, InsurancePeriod.Six);
+            if (insurancePolis == null)
+            {
+                insurancePolis = new InsuranceType()
+                {
+                    InsuranceNameType = InsuranceNameType.Air,
+                    Cost = 5000,
+                    InsurancePeriod = InsurancePeriod.Six,
+                };
+                insuranceTypeRepository.Save(insurancePolis);
+            }
+
+            insurancePolis = insuranceTypeRepository.GetPolis(InsuranceNameType.Air, InsurancePeriod.Twelve);
+            if (insurancePolis == null)
+            {
+                insurancePolis = new InsuranceType()
+                {
+                    InsuranceNameType = InsuranceNameType.Air,
+                    Cost = 10000,
+                    InsurancePeriod = InsurancePeriod.Twelve,
+                };
+                insuranceTypeRepository.Save(insurancePolis);
             }
         }
     }
