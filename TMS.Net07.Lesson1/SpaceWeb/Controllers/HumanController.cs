@@ -94,8 +94,7 @@ namespace SpaceWeb.Controllers
                 GetEmployesByDepartment(idDepartment).
                 Select(x => _mapper.Map<ShortEmployeViewModel>(x)).
                 ToList();
-            var jsonData = new { Employes = employes };
-            return Json(jsonData);
+            return Json(employes);
         }
     }
 }

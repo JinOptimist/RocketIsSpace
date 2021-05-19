@@ -5,15 +5,15 @@
         var url = '/Human/UpdateEmployes?idDepartment=' + departmentId;
         $('.employes-list .human-department-info:not(.clone)').remove();
         $.getJSON(url)
-            .done(function (json) {
-                console.log(json);
-                for (var i = 0; i < json.employes.length; i++) {
+            .done(function (employes) {
+                console.log(employes);
+                for (var i = 0; i < employes.length; i++) {
                     var block = $('.clone').clone().appendTo('.employes-list');
                     block.removeClass('clone undisplayable');
-                    InsertText(block, '#name', json.employes[i].name);
-                    InsertText(block, '#surname', json.employes[i].surname);
-                    InsertText(block, '#specification', json.employes[i].specification);
-                    InsertText(block, '#salary', json.employes[i].salaryPerHour);
+                    InsertText(block, '#name', employes[i].name);
+                    InsertText(block, '#surname', employes[i].surname);
+                    InsertText(block, '#specification', employes[i].specification);
+                    InsertText(block, '#salary', employes[i].salaryPerHour);
                 }
             });
     });
