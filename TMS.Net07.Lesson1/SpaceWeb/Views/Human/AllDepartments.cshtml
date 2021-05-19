@@ -1,4 +1,6 @@
 ﻿@using SpaceWeb.Localization
+@using SpaceWeb.Models.Human
+
 @model List<DepartmentViewModel>
 @{
     Layout = "_LayoutHuman";
@@ -15,7 +17,7 @@
                 <input class="undisplayable" type="radio" name="current" value="@department.Id" />
                 <div class="department-info-block">
                     <div><b>Department name: </b>@department.DepartmentName</div>
-                    <div><b>Department type: </b>@department.DepartmentType</div>
+                    <div><b>Department type: </b>@department.DepartmentSpecificationType</div>
                     <div><b>Maximum employes: </b>@department.MaximumCountEmployes</div>
                     <div><b>Working hours: </b>@department.HourStartWorking - @department.HourEndWorking</div>
                     <button onclick="window.location.href='/human/DeleteDepartment?id=@department.Id'" class="btn btn-danger" style="margin: 10px 10px 0px 0px">Delete</button>

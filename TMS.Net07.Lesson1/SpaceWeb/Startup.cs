@@ -130,7 +130,7 @@ namespace SpaceWeb
                 ForMember(nameof(ShortEmployeViewModel.Name), config => config.MapFrom(x => x.User.Name)).
                 ForMember(nameof(ShortEmployeViewModel.Surname), config => config.MapFrom(x => x.User.SurName)).
                 ForMember(nameof(ShortEmployeViewModel.SalaryPerHour), config => config.MapFrom(x => x.SalaryPerHour)).
-                ForMember(nameof(ShortEmployeViewModel.Specification), config => config.MapFrom(x => x.Specification.GetDisplayableName()));
+                ForMember(nameof(ShortEmployeViewModel.Specification), config => config.MapFrom(x => x.Position.GetDisplayableName()));
 
             configExpression.CreateMap<User, ProfileViewModel>();
 

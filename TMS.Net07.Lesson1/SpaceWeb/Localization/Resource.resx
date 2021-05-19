@@ -171,25 +171,19 @@
   <data name="Layout_Registration" xml:space="preserve">
     <value>Регистрация</value>
   </data>
-  <data name="Specification_Leader" xml:space="preserve">
-    <value>Заведующий отделением</value>
+  <data name="Positin_Leader" xml:space="preserve">
+    <value>Глава отдела</value>
   </data>
-  <data name="Specification_Other" xml:space="preserve">
-    <value>Другое</value>
+  <data name="Position_Deputy" xml:space="preserve">
+    <value>Заместитель</value>
   </data>
-  <data name="Specification_Scientist" xml:space="preserve">
-    <value>Ученый</value>
+  <data name="Position_Manager" xml:space="preserve">
+    <value>Менеджер</value>
   </data>
-  <data name="Specification_Spacemen" xml:space="preserve">
-    <value>Космонавт</value>
+  <data name="Position_ProfessionalWorker" xml:space="preserve">
+    <value>Профессиональный рабочий</value>
   </data>
-  <data name="Specification_Technicist" xml:space="preserve">
-    <value>Техник</value>
-  </data>
-  <data name="Specification_Unknow" xml:space="preserve">
-    <value>Не назанчено</value>
-  </data>
-  <data name="Specification_Еngineer" xml:space="preserve">
-    <value>Инженер</value>
+  <data name="Position_Trainee" xml:space="preserve">
+    <value>Стажер</value>
   </data>
 </root>

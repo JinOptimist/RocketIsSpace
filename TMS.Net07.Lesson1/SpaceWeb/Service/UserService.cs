@@ -5,6 +5,7 @@ using SpaceWeb.EfStuff.Repositories;
 using SpaceWeb.EfStuff.Repositories.IRepository;
 using System.Linq;
 using System.Security.Claims;
+using SpaceWeb.Models.Human;
 
 namespace SpaceWeb.Service
 {
@@ -96,5 +97,9 @@ namespace SpaceWeb.Service
             var principal = new ClaimsPrincipal(claimsIdentity);
             return principal;
         }
+
+        public bool IsLeader()=>
+            GetCurrent()
+            .Employe.Position == Position.Leader;
     }
 }
