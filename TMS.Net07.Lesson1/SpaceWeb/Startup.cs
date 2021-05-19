@@ -24,6 +24,7 @@ using SpaceWeb.Presentation;
 using SpaceWeb.Models.Human;
 using SpaceWeb.Extensions;
 using System.Reflection;
+using Microsoft.Extensions.Logging;
 
 namespace SpaceWeb
 {
@@ -233,8 +234,13 @@ namespace SpaceWeb
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, 
+            IWebHostEnvironment env,
+            ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddFile("Logs/log-{Date}.txt");
+            loggerFactory.AddFile("Logs/ERROR-{Date}.txt", LogLevel.Error);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -255,6 +261,8 @@ namespace SpaceWeb
 
             //���� ��� �����
             app.UseAuthorization();
+
+            app.UseMiddleware<ErrorHandlerMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {
