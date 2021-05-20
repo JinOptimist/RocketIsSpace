@@ -96,5 +96,14 @@ namespace SpaceWeb.Controllers
                 ToList();
             return Json(employes);
         }
+
+        [HttpGet]
+        [IsLeaderOfDepartment]
+        public IActionResult Personnel()
+        {
+            var user = _userService.GetCurrent();
+            var viewModel = _mapper.Map<DepartmentViewModel>(user.Employe.Department);
+            return View(viewModel);
+        }
     }
 }

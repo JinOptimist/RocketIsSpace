@@ -223,65 +223,47 @@ namespace SpaceWeb.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Заведующий отделением.
+        ///   Ищет локализованную строку, похожую на Глава отдела.
         /// </summary>
-        public static string Specification_Leader {
+        public static string Positin_Leader {
             get {
-                return ResourceManager.GetString("Specification_Leader", resourceCulture);
+                return ResourceManager.GetString("Positin_Leader", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Другое.
+        ///   Ищет локализованную строку, похожую на Заместитель.
         /// </summary>
-        public static string Specification_Other {
+        public static string Position_Deputy {
             get {
-                return ResourceManager.GetString("Specification_Other", resourceCulture);
+                return ResourceManager.GetString("Position_Deputy", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Ученый.
+        ///   Ищет локализованную строку, похожую на Менеджер.
         /// </summary>
-        public static string Specification_Scientist {
+        public static string Position_Manager {
             get {
-                return ResourceManager.GetString("Specification_Scientist", resourceCulture);
+                return ResourceManager.GetString("Position_Manager", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Космонавт.
+        ///   Ищет локализованную строку, похожую на Профессиональный рабочий.
         /// </summary>
-        public static string Specification_Spacemen {
+        public static string Position_ProfessionalWorker {
             get {
-                return ResourceManager.GetString("Specification_Spacemen", resourceCulture);
+                return ResourceManager.GetString("Position_ProfessionalWorker", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Техник.
+        ///   Ищет локализованную строку, похожую на Стажер.
         /// </summary>
-        public static string Specification_Technicist {
+        public static string Position_Trainee {
             get {
-                return ResourceManager.GetString("Specification_Technicist", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Не назанчено.
-        /// </summary>
-        public static string Specification_Unknow {
-            get {
-                return ResourceManager.GetString("Specification_Unknow", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Инженер.
-        /// </summary>
-        public static string Specification_Еngineer {
-            get {
-                return ResourceManager.GetString("Specification_Еngineer", resourceCulture);
+                return ResourceManager.GetString("Position_Trainee", resourceCulture);
             }
         }
     }
