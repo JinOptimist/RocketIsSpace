@@ -32,9 +32,7 @@ namespace SpaceWeb.Controllers
             {
                 return View(collection);
             }
-
             _rocketShopPresentation.SaveOrder(collection);
-
             return View(collection);
         }
 

@@ -44,9 +44,12 @@ namespace SpaceWeb.Presentation
         }
 
         public void SaveRocket(AddShopRocketViewModel model)
-        {
-            var rocket = _mapper.Map<AddShopRocket>(model);
-            _shopRocketRepository.Save(rocket);
+        {           
+            if (model.Count >= 0 && model.Cost > 0)
+            {
+                var rocket = _mapper.Map<AddShopRocket>(model);
+                _shopRocketRepository.Save(rocket);
+            }
         }
     }
 }

@@ -50,19 +50,28 @@ namespace SpaceWeb.Test.Presentation
             var rockets = new List<AddShopRocket>() { rocket };
             _mockShopRocketRepository.Setup(x => x.GetAll()).Returns(rockets);
             var viewModels = _presentation.GetCollectionRocketShopViewModel();
-            var expectedCount = isValid ? 1 : 0;
-            Assert.AreEqual(expectedCount, viewModels.AddRockets.Count);
+            var countExpected = isValid ? 1 : 0;
+            Assert.AreEqual(countExpected, viewModels.AddRockets.Count);
         }
 
-        //prototype test: todo check _mockShopRocketRepository after save object  
-        public void SaveRocket_CheckNegativeValues(int count, double cost, bool iFiltered)
+
+        [Test]
+        [TestCase(10, 100, true)]
+        [TestCase(0, 0.1, true)]
+        [TestCase(-10, 100, false)]
+        [TestCase(10, -100, false)]
+        [TestCase(-10, -100, false)]
+        public void SaveRocket_CheckNegativeValues(int count, double cost, bool isValid)
         {
-            var rocket = new AddShopRocketViewModel()
+            var rocketViewModel = new AddShopRocketViewModel()
             {
                 Count = count,
                 Cost = cost
             };
-            _presentation.SaveRocket(rocket);
+            _presentation.SaveRocket(rocketViewModel);
+            int countInvocation = _mockShopRocketRepository.Invocations.Count;
+            int countExpected = isValid ? 1 : 0;
+            Assert.AreEqual(countExpected, countInvocation);
         }
     }
 }
