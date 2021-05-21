@@ -11,7 +11,7 @@ namespace RocketSms2
         private InsuranceTypeRepository _insuranceTypeRepository;
         private InsuranceRepository _insuranceRepository;
 
-        public CheckDatabase() { }
+        //public CheckDatabase() { }
 
         /*public CheckDatabase(InsuranceTypeRepository insuranceTypeRepository, InsuranceRepository insuranceRepository)
         {
@@ -19,12 +19,12 @@ namespace RocketSms2
             _insuranceRepository = insuranceRepository;
         }*/
 
-        public void CheckDb(InsuranceTypeRepository _insuranceTypeRepository, InsuranceRepository _insuranceRepository)
+        /*public void CheckDb(InsuranceTypeRepository _insuranceTypeRepository, InsuranceRepository _insuranceRepository)
         {
             var models = _insuranceRepository
                 .GetAll()
                 .ToList();
             Console.WriteLine();
-        }
+        }*/
     }
 }

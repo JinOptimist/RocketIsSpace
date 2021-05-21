@@ -76,7 +76,7 @@ namespace SpaceWeb.Controllers
 
             return Json(true);
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> Profile(ProfileUpdateViewModel viewModel)
         {
@@ -242,7 +242,7 @@ namespace SpaceWeb.Controllers
                 return View(model);
             }
 
-            if ((model.Password == GlobalConst.TELEGRAMGROUPPASS) 
+            if ((model.Password == GlobalConst.TELEGRAMGROUPPASS)
                 && (model.Link.ToLower() == nameof(GlobalConst.TELEGRAMGROUPLINK).ToLower()))
             {
                 return Redirect(GlobalConst.TELEGRAMGROUPLINK);
@@ -262,7 +262,8 @@ namespace SpaceWeb.Controllers
         public IActionResult SocialsWrongPass()
         {
             return View();
-    
+        }
+
         public IActionResult EmployeeProfile()
         {
             var user = _userService.GetCurrent();
