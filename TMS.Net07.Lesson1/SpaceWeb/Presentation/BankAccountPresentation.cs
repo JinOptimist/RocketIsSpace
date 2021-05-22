@@ -57,7 +57,7 @@ namespace SpaceWeb.Presentation
                 _mapper.Map<BankAccount>(viewModel);
 
             var user = _userService.GetCurrent();
-
+            
             modelDB.Owner = user;
             _bankAccountRepository.Save(modelDB);
 

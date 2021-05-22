@@ -55,15 +55,11 @@ namespace SpaceWeb.Test.Presentation
             userMock.Setup(x => x.BankAccounts).Returns(bankAccs);
             _mockUserService.Setup(x => x.GetCurrent()).Returns(userMock.Object);
 
-            
+            _mockMapper.Setup(x => x.Map<BankAccount>(viewModel)).Returns(bankAcc1);
+
             
 
             var models = _presentation.GetViewModelForCabinet(viewModel);
-
-            bankAcc1.Owner = userMock.Object;
-            bankAcc2.Owner = userMock.Object;
-            _mockRepository.Verify(x => x.Save(bankAcc1), Times.Once);
-            _mockRepository.Verify(x => x.Save(bankAcc2), Times.Once);
             
 
             foreach (var model in models)
