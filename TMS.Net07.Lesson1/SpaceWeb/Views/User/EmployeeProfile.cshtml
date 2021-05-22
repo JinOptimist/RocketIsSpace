@@ -1,0 +1,23 @@
+﻿@using SpaceWeb.Models.Human
+@model EmployeeProfileViewModel
+
+<div>
+    <div>
+        Name = @Model.Name
+    </div>
+    <div>
+        DepartmentName = @Model.DepartmentName
+    </div>
+    <div>
+        Salary = @Model.Salary
+    </div>
+    Client.Id = @Model.Client.Id
+
+    @foreach (var orderViewModel in Model.Client.Orders)
+    {
+        <div>
+            @orderViewModel.Name @orderViewModel.Price
+        </div>
+    }
+
+</div>

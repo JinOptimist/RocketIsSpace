@@ -22,7 +22,9 @@ using Profile = SpaceWeb.EfStuff.Model.Profile;
 using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Presentation;
 using SpaceWeb.Models.Human;
+using SpaceWeb.Extensions;
 using System.Reflection;
+using Microsoft.Extensions.Logging;
 
 namespace SpaceWeb
 {
@@ -101,6 +103,10 @@ namespace SpaceWeb
             services.AddScoped<ShopRocketRepository>(diContainer =>
                 new ShopRocketRepository(diContainer.GetService<SpaceDbContext>()));
 
+
+            //services.AddScoped<IEmployeRepository>(diContainer =>
+            //    new EmployeRepository(diContainer.GetService<SpaceDbContext>()));
+
             RegisterMapper(services);
             services.AddScoped<UserService>(diContainer =>
                new UserService(
@@ -160,7 +166,24 @@ namespace SpaceWeb
             //        config => config
             //            .MapFrom(dbModel => $"{dbModel.Name}, {dbModel.SurName} Mr"));
 
+            configExpression.CreateMap<Employe, ShortEmployeViewModel>().
+                ForMember(nameof(ShortEmployeViewModel.Name), config => config.MapFrom(x => x.User.Name)).
+                ForMember(nameof(ShortEmployeViewModel.Surname), config => config.MapFrom(x => x.User.SurName)).
+                ForMember(nameof(ShortEmployeViewModel.SalaryPerHour), config => config.MapFrom(x => x.SalaryPerHour)).
+                ForMember(nameof(ShortEmployeViewModel.Specification), config => config.MapFrom(x => x.Specification.GetDisplayableName()));
+
             configExpression.CreateMap<User, ProfileViewModel>();
+
+            configExpression.CreateMap<User, EmployeeProfileViewModel>()
+                .ForMember(nameof(EmployeeProfileViewModel.DepartmentName),
+                    config => config.MapFrom(user =>
+                    user.Employe.Department == null
+                        ? "N/A"
+                        : user.Employe.Department.DepartmentName))
+                .ForMember(nameof(EmployeeProfileViewModel.Salary),
+                    config => config.MapFrom(user =>
+                        user.Employe.SalaryPerHour));
+            
 
             //configExpression.CreateMap<Relic, RelicViewModel>();
             //configExpression.CreateMap<RelicViewModel, Relic>();
@@ -181,7 +204,6 @@ namespace SpaceWeb
 
             MapBoth<BankAccount, BankAccountViewModel>(configExpression);
 
-
             MapBoth<User, RocketProfileViewModel>(configExpression);
 
             MapBoth<Comfort, ComfortFormViewModel>(configExpression);
@@ -200,6 +222,8 @@ namespace SpaceWeb
 
             MapBoth<HumanOrderViewModel, Order>(configExpression);
 
+
+
             var mapperConfiguration = new MapperConfiguration(configExpression);
             var mapper = new Mapper(mapperConfiguration);
             services.AddScoped<IMapper>(c => mapper);
@@ -212,8 +236,13 @@ namespace SpaceWeb
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, 
+            IWebHostEnvironment env,
+            ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddFile("Logs/log-{Date}.txt");
+            loggerFactory.AddFile("Logs/ERROR-{Date}.txt", LogLevel.Error);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -234,6 +263,8 @@ namespace SpaceWeb
 
             //���� ��� �����
             app.UseAuthorization();
+
+            app.UseMiddleware<ErrorHandlerMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

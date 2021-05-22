@@ -10,24 +10,28 @@ using System.Linq;
 using SpaceWeb.Service;
 using SpaceWeb.Models.Human;
 using System.Collections.Generic;
+using SpaceWeb.Controllers.CustomAttribute;
 
 namespace SpaceWeb.Controllers
 {
+    [Localize]
     public class HumanController : Controller
     {
         private IHumanPresentation _humanPresentation;
         private IUserRepository _userRepository;
         private IMapper _mapper;
         private IDepartmentRepository _departmentRepository;
+        private IEmployeRepository _employeRepository;
         private UserService _userService;
 
-        public HumanController(IUserRepository userRepository, IMapper mapper, IDepartmentRepository departmentRepository, IHumanPresentation humanPresentation, UserService userService = null)
+        public HumanController(IUserRepository userRepository, IMapper mapper, IDepartmentRepository departmentRepository, IHumanPresentation humanPresentation, IEmployeRepository employeRepository, UserService userService = null)
         {
             _userRepository = userRepository;
             _mapper = mapper;
             _departmentRepository = departmentRepository;
             _humanPresentation = humanPresentation;
             _userService = userService;
+            _employeRepository = employeRepository;
         }
 
         [HttpGet]
@@ -82,6 +86,16 @@ namespace SpaceWeb.Controllers
             var user = _userService.GetCurrent();
             var userViewModel = _mapper.Map<ShortUserViewModel>(user);
             return View(userViewModel);
+        }
+
+        public IActionResult UpdateEmployes(long idDepartment)
+        {
+            var employes = _employeRepository.
+                GetEmployesByDepartment(idDepartment).
+                Select(x => _mapper.Map<ShortEmployeViewModel>(x)).
+                ToList();
+            var jsonData = new { Employes = employes };
+            return Json(jsonData);
         }
     }
 }
