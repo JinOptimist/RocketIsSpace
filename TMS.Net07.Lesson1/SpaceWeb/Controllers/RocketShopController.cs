@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SpaceWeb.Controllers.CustomAttribute;
+using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Service;
 
 namespace SpaceWeb.Controllers
@@ -16,12 +17,12 @@ namespace SpaceWeb.Controllers
     public class RocketShopController : Controller
     {
         private IMapper _mapper;
-        private OrderRepository _orderRepository;
-        private ShopRocketRepository _shopRocketRepository;
+        private IOrderRepository _orderRepository;
+        private IShopRocketRepository _shopRocketRepository;
         private UserService _userService;
 
-        public RocketShopController(IMapper mapper, OrderRepository orderRepository, 
-            ShopRocketRepository shopRocketRepository, UserService userService)
+        public RocketShopController(IMapper mapper, IOrderRepository orderRepository, 
+            IShopRocketRepository shopRocketRepository, UserService userService)
         {
             _mapper = mapper;
             _orderRepository = orderRepository;
