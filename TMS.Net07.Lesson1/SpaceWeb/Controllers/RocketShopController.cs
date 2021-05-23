@@ -67,8 +67,6 @@ namespace SpaceWeb.Controllers
             {
                 order.Price += rocket.Cost;
             }
-            order.Name = "Заказ№";
-            //Client = {Id = model.ClientId}
             _orderRepository.Save(order);
             order.Name = "Заказ№" + order.Id;
             _orderRepository.Save(order);
@@ -100,7 +98,11 @@ namespace SpaceWeb.Controllers
                 .Where(x => x.State == OrderStates.Pending)
                 .ToList();
             var orderViewModel = _mapper.Map<List<OrderViewModel>>(orders);
-            return View(orderViewModel);
+            var basketVM = new BasketViewModel(user.BankAccounts)
+            {
+                Orders = orderViewModel
+            };
+            return View(basketVM);
         }
         
         [HttpPost]

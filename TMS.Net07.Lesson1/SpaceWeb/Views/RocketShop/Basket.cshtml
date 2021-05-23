@@ -1,6 +1,6 @@
 ﻿@using System.Collections.Generic;
 @using SpaceWeb.Models.RocketModels;
-@model List<OrderViewModel>
+@model BasketViewModel
 
 @{
     Layout = "_LayoutRocket";
@@ -11,16 +11,22 @@
 }
 
 <div class="bg">
-    <div>Basket</div>
-    <div>Your order:</div>
-    <div>
-        @foreach (var ord in Model)
-        {
-            @ord.Name
-            @foreach (var rock in ord.Rockets)
+    <div class="block">
+        <div class="title">Basket</div>
+        <div class="yorder">Your order:</div>
+        <div>
+            @foreach (var ord in Model.Orders)
             {
-                @rock.Name @rock.Cost
+                @ord.Name
+                @foreach (var rock in ord.Rockets)
+                {
+                    @rock.Name
+                }
+                @ord.Price
+                <div>
+                    @Html.DropDownList("account", Model.BAOptions)
+                </div>
             }
-        }
+        </div>        
     </div>
 </div>
