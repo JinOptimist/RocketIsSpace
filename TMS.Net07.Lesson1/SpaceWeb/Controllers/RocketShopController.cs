@@ -33,43 +33,49 @@ namespace SpaceWeb.Controllers
         [Authorize]
         public IActionResult RocketShop()
         {
-            var collection = new CollectionRocketShopViewModel
+            var collection = new ComplexRocketShopViewModel
             {
-                //AddRockets = _mapper.Map<List<AddShopRocketViewModel>>(_shopRocketRepository.GetAll())
                 AddRockets = _shopRocketRepository.GetAll()
-                    .Select(x=>_mapper.Map<AddShopRocketViewModel>(x))
-                    .ToList()
+                    .Select(x => _mapper.Map<ShopRocketViewModel>(x))
+                    .ToList(),
+                ClientId = _userService.GetCurrent().Client.Id
             };
             return View(collection);
         }
 
         [HttpPost]
         [Authorize]
-        public IActionResult RocketShop(CollectionRocketShopViewModel collection)
+        public IActionResult RocketShop(ComplexRocketShopViewModel model)
         {
-            if (!ModelState.IsValid)
+            var rocketList = new List<Rocket>();
+            foreach (var rocketid in model.RocketIds)
             {
-                return View(collection);
+                rocketList.Add(_shopRocketRepository.Get(rocketid));
             }
 
-            var order = _mapper.Map<Order>(collection);
+            var order = new Order {Rockets = rocketList, OrderDateTime = DateTime.Now};
+            foreach (var rocket in order.Rockets)
+            {
+                order.Price += rocket.Cost;
+            }
+            order.Name = "Заказ№";
+            //Client = {Id = model.ClientId}
             _orderRepository.Save(order);
 
-            return View(collection);
-
+            return RedirectToAction("RocketShop");
         }
 
         [HttpGet]
         [IsAdmin]
         public IActionResult AddRocket()
         {
-            var model = new AddShopRocketViewModel();
+            var model = new ShopRocketViewModel();
             return View(model);
         }
 
         [HttpPost]
         [IsAdmin]
-        public IActionResult AddRocket(AddShopRocketViewModel model)
+        public IActionResult AddRocket(ShopRocketViewModel model)
         {
             var rocket = _mapper.Map<Rocket>(model);
             _shopRocketRepository.Save(rocket);

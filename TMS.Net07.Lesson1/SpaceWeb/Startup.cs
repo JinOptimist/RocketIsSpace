@@ -15,6 +15,7 @@ using SpaceWeb.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Threading.Tasks;
 using SpaceWeb.Models.RocketModels;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
@@ -210,21 +211,19 @@ namespace SpaceWeb
 
             MapBoth<Comfort, ComfortFormViewModel>(configExpression);
 
-            MapBoth<AddShopRocket, AddShopRocketViewModel>(configExpression);
+            MapBoth<AddShopRocket, ShopRocketViewModel>(configExpression);
 
-            MapBoth<AddShopRocketViewModel, AddShopRocket>(configExpression);
-
+            MapBoth<ShopRocketViewModel, AddShopRocket>(configExpression);
             
-            MapBoth<Rocket, AddShopRocketViewModel>(configExpression);
-
-
+            MapBoth<Rocket, ShopRocketViewModel>(configExpression);
+            
             MapBoth<ShortUserViewModel, User>(configExpression);
 
             MapBoth<ClientViewModel, Client>(configExpression);
 
             MapBoth<HumanOrderViewModel, Order>(configExpression);
 
-
+            MapBoth<ComplexRocketShopViewModel, Order>(configExpression);
 
             var mapperConfiguration = new MapperConfiguration(configExpression);
             var mapper = new Mapper(mapperConfiguration);

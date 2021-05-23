@@ -11,7 +11,7 @@ namespace SpaceWeb.EfStuff.Model
         [Column(TypeName = "decimal(18, 2)")]
         public decimal Price { get; set; }
         public DateTime OrderDateTime { get; set; }
-
+        public OrderStates State { get; set; }
         public virtual Client Client { get; set; }
         public virtual List<OrdersEmployes> OrdersEmployes { get; set; }
 

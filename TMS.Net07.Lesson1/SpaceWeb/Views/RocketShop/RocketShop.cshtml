@@ -9,7 +9,8 @@
 }
 
 @using SpaceWeb.Service
-@model SpaceWeb.Models.RocketModels.CollectionRocketShopViewModel
+@using SpaceWeb.Models.RocketModels
+@model SpaceWeb.Models.RocketModels.ComplexRocketShopViewModel
 
 <div class="vraper">
     <div class="header">
@@ -22,10 +23,11 @@
             <div class="shop-header">
                 <p class="text-header">Rockets</p>
             </div>
-            <div class="items-shop">
+            <form action="/RocketShop/RocketShop" class="items-shop" method="post">
+                @Html.HiddenFor(x=>x.ClientId)
                 @foreach (var rocket in Model.AddRockets)
                 {
-                    <div class="rocket">
+                    <label class="rocket">
                         <div class="view">
                             <div class="current-name">@rocket.Name</div>
                             <img src="/image/RocketImages/good-rocket.png">
@@ -34,14 +36,12 @@
                             <div>
                                 @rocket.Cost $
                             </div>
-                            <input type="checkbox" name="rocket">
+                            <input type="checkbox" name="@nameof(ComplexRocketShopViewModel.RocketIds)" value="@rocket.Id">
                         </div>
-                    </div>
+                    </label>
                 }
-            </div>
-        </div>
-        <div class="basket">
-            @* @Html.Partial(); *@
+                <input type="submit" value="Add to basket">
+            </form>
         </div>
     </div>
 </div>
