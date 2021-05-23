@@ -3,11 +3,12 @@ using SpaceWeb.EfStuff.Repositories.IRepository;
 
 namespace SpaceWeb.EfStuff.Repositories
 {
-    public class OrderRepository:BaseRepository<Order>, IOrderRepository
+    public class ClientRepository:BaseRepository<Client>, IClientRepository
     {
-        public OrderRepository(SpaceDbContext spaceDbContext) : base(spaceDbContext)
+        public ClientRepository(SpaceDbContext spaceDbContext) : base(spaceDbContext)
         {
             
         }
     }
+    
 }
