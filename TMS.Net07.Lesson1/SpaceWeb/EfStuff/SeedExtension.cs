@@ -3,10 +3,12 @@ using Microsoft.Extensions.Hosting;
 using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
 using SpaceWeb.EfStuff.Repositories.IRepository;
+using SpaceWeb.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DepartmentType = SpaceWeb.EfStuff.Model.DepartmentType;
 
 namespace SpaceWeb.EfStuff
 {
@@ -23,6 +25,7 @@ namespace SpaceWeb.EfStuff
                 SetDefaultUser(serviceScope.ServiceProvider);
                 SetDefaultDepartment(serviceScope.ServiceProvider);
                 SetDefaultInsuranceType(serviceScope.ServiceProvider);
+                SetDefaultExchangeRateToUsdCurrent(serviceScope.ServiceProvider);
                 SetDefaultEmploye(serviceScope.ServiceProvider);
             }
 
@@ -181,7 +184,108 @@ namespace SpaceWeb.EfStuff
                 insuranceTypeRepository.Save(insurancePolis);
             }
         }
-      
+
+        private static void SetDefaultExchangeRateToUsdCurrent(IServiceProvider services)
+        {
+            var exchangeRateToUsdCurrentRepository = services.GetService<ExchangeRateToUsdCurrentRepository>();
+
+            var exchangeRate = exchangeRateToUsdCurrentRepository.GetExchangeRate(Currency.BYN, TypeOfExchange.Sell);
+            if (exchangeRate == null)
+            {
+                exchangeRate = new ExchangeRateToUsdCurrent()
+                {
+                    Currency = Currency.BYN,
+                    TypeOfExch = TypeOfExchange.Sell,
+                    ExchRate = 2.505m,
+                };
+                exchangeRateToUsdCurrentRepository.Save(exchangeRate);
+            }
+
+            exchangeRate = exchangeRateToUsdCurrentRepository.GetExchangeRate(Currency.BYN, TypeOfExchange.Buy);
+            if (exchangeRate == null)
+            {
+                exchangeRate = new ExchangeRateToUsdCurrent()
+                {
+                    Currency = Currency.BYN,
+                    TypeOfExch = TypeOfExchange.Buy,
+                    ExchRate = 2.510m,
+                };
+                exchangeRateToUsdCurrentRepository.Save(exchangeRate);
+            }
+
+            exchangeRate = exchangeRateToUsdCurrentRepository.GetExchangeRate(Currency.EUR, TypeOfExchange.Sell);
+            if (exchangeRate == null)
+            {
+                exchangeRate = new ExchangeRateToUsdCurrent()
+                {
+                    Currency = Currency.EUR,
+                    TypeOfExch = TypeOfExchange.Sell,
+                    ExchRate = 0.818m,
+                };
+                exchangeRateToUsdCurrentRepository.Save(exchangeRate);
+            }
+
+            exchangeRate = exchangeRateToUsdCurrentRepository.GetExchangeRate(Currency.EUR, TypeOfExchange.Buy);
+            if (exchangeRate == null)
+            {
+                exchangeRate = new ExchangeRateToUsdCurrent()
+                {
+                    Currency = Currency.EUR,
+                    TypeOfExch = TypeOfExchange.Buy,
+                    ExchRate = 0.824m,
+                };
+                exchangeRateToUsdCurrentRepository.Save(exchangeRate);
+            }
+
+            exchangeRate = exchangeRateToUsdCurrentRepository.GetExchangeRate(Currency.TUG, TypeOfExchange.Sell);
+            if (exchangeRate == null)
+            {
+                exchangeRate = new ExchangeRateToUsdCurrent()
+                {
+                    Currency = Currency.TUG,
+                    TypeOfExch = TypeOfExchange.Sell,
+                    ExchRate = 2851.17m,
+                };
+                exchangeRateToUsdCurrentRepository.Save(exchangeRate);
+            }
+
+            exchangeRate = exchangeRateToUsdCurrentRepository.GetExchangeRate(Currency.TUG, TypeOfExchange.Buy);
+            if (exchangeRate == null)
+            {
+                exchangeRate = new ExchangeRateToUsdCurrent()
+                {
+                    Currency = Currency.TUG,
+                    TypeOfExch = TypeOfExchange.Buy,
+                    ExchRate = 2853.75m,
+                };
+                exchangeRateToUsdCurrentRepository.Save(exchangeRate);
+            }
+
+            exchangeRate = exchangeRateToUsdCurrentRepository.GetExchangeRate(Currency.ZIM, TypeOfExchange.Sell);
+            if (exchangeRate == null)
+            {
+                exchangeRate = new ExchangeRateToUsdCurrent()
+                {
+                    Currency = Currency.ZIM,
+                    TypeOfExch = TypeOfExchange.Sell,
+                    ExchRate = 361.21m,
+                };
+                exchangeRateToUsdCurrentRepository.Save(exchangeRate);
+            }
+
+            exchangeRate = exchangeRateToUsdCurrentRepository.GetExchangeRate(Currency.ZIM, TypeOfExchange.Buy);
+            if (exchangeRate == null)
+            {
+                exchangeRate = new ExchangeRateToUsdCurrent()
+                {
+                    Currency = Currency.ZIM,
+                    TypeOfExch = TypeOfExchange.Buy,
+                    ExchRate = 361.83m,
+                };
+                exchangeRateToUsdCurrentRepository.Save(exchangeRate);
+            }
+        }
+
         private static void SetDefaultEmploye(IServiceProvider service)
         {
             var userReposirory = service.GetService<IUserRepository>();
@@ -204,6 +308,7 @@ namespace SpaceWeb.EfStuff
             }
             userReposirory.Save(user);
         }
+
         private static Employe CreateEmploye(IDepartmentRepository departmentRepository) =>
             new Employe
             {

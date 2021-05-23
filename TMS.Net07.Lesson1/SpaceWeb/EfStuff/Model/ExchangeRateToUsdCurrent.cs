@@ -9,7 +9,7 @@ namespace SpaceWeb.EfStuff.Model
     public class ExchangeRateToUsdCurrent : BaseModel
     {
         public Currency Currency { get; set; }
-        public string TypeOfExch { get; set; }
+        public TypeOfExchange TypeOfExch { get; set; }
         public decimal ExchRate { get; set; }
     }
 }
