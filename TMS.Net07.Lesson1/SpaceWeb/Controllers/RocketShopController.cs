@@ -38,7 +38,7 @@ namespace SpaceWeb.Controllers
                 AddRockets = _shopRocketRepository.GetAll()
                     .Select(x => _mapper.Map<ShopRocketViewModel>(x))
                     .ToList(),
-                ClientId = _userService.GetCurrent().Client.Id
+                //ClientId = _userService.GetCurrent().Client.Id
             };
             return View(collection);
         }
