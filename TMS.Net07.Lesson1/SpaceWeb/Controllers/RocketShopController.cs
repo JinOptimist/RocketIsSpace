@@ -20,14 +20,17 @@ namespace SpaceWeb.Controllers
         private IOrderRepository _orderRepository;
         private IShopRocketRepository _shopRocketRepository;
         private UserService _userService;
+        private IClientRepository _clientRepository;
 
         public RocketShopController(IMapper mapper, IOrderRepository orderRepository, 
-            IShopRocketRepository shopRocketRepository, UserService userService)
+            IShopRocketRepository shopRocketRepository, UserService userService, 
+            IClientRepository clientRepository)
         {
             _mapper = mapper;
             _orderRepository = orderRepository;
             _shopRocketRepository = shopRocketRepository;
             _userService = userService;
+            _clientRepository = clientRepository;
         }
 
         [HttpGet]
@@ -39,7 +42,7 @@ namespace SpaceWeb.Controllers
                 AddRockets = _shopRocketRepository.GetAll()
                     .Select(x => _mapper.Map<ShopRocketViewModel>(x))
                     .ToList(),
-                //ClientId = _userService.GetCurrent().Client.Id
+                ClientId = _userService.GetCurrent().Client.Id
             };
             return View(collection);
         }
@@ -54,13 +57,17 @@ namespace SpaceWeb.Controllers
                 rocketList.Add(_shopRocketRepository.Get(rocketid));
             }
 
-            var order = new Order {Rockets = rocketList, OrderDateTime = DateTime.Now};
+            var client = _clientRepository.Get(model.ClientId);
+            var order = new Order {Rockets = rocketList, 
+                OrderDateTime = DateTime.Now,
+                Client = client,
+                State = OrderStates.Pending
+            };
             foreach (var rocket in order.Rockets)
             {
                 order.Price += rocket.Cost;
             }
             order.Name = "Заказ№";
-            //Client = {Id = model.ClientId}
             _orderRepository.Save(order);
 
             return RedirectToAction("RocketShop");
