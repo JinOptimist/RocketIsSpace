@@ -61,6 +61,96 @@ namespace SpaceWeb.Localization {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Имя.
+        /// </summary>
+        public static string AllDepartments_Name {
+            get {
+                return ResourceManager.GetString("AllDepartments_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Оклад.
+        /// </summary>
+        public static string AllDepartments_Salary {
+            get {
+                return ResourceManager.GetString("AllDepartments_Salary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Специальность.
+        /// </summary>
+        public static string AllDepartments_Specification {
+            get {
+                return ResourceManager.GetString("AllDepartments_Specification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Фамилия.
+        /// </summary>
+        public static string AllDepartments_Surname {
+            get {
+                return ResourceManager.GetString("AllDepartments_Surname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Лаборатория.
+        /// </summary>
+        public static string DepartmentType_Laboratory {
+            get {
+                return ResourceManager.GetString("DepartmentType_Laboratory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Производство.
+        /// </summary>
+        public static string DepartmentType_Manufactory {
+            get {
+                return ResourceManager.GetString("DepartmentType_Manufactory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Центр управления полетами.
+        /// </summary>
+        public static string DepartmentType_MissionControlCenter {
+            get {
+                return ResourceManager.GetString("DepartmentType_MissionControlCenter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Другое.
+        /// </summary>
+        public static string DepartmentType_Other {
+            get {
+                return ResourceManager.GetString("DepartmentType_Other", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Космонавт.
+        /// </summary>
+        public static string DepartmentType_SpacecraftCrew {
+            get {
+                return ResourceManager.GetString("DepartmentType_SpacecraftCrew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Неизвестно.
+        /// </summary>
+        public static string DepartmentType_Unknown {
+            get {
+                return ResourceManager.GetString("DepartmentType_Unknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Вопрос ответ.
         /// </summary>
         public static string HomeIndex_FAQ {
@@ -129,6 +219,69 @@ namespace SpaceWeb.Localization {
         public static string Layout_Registration {
             get {
                 return ResourceManager.GetString("Layout_Registration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Заведующий отделением.
+        /// </summary>
+        public static string Specification_Leader {
+            get {
+                return ResourceManager.GetString("Specification_Leader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Другое.
+        /// </summary>
+        public static string Specification_Other {
+            get {
+                return ResourceManager.GetString("Specification_Other", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Ученый.
+        /// </summary>
+        public static string Specification_Scientist {
+            get {
+                return ResourceManager.GetString("Specification_Scientist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Космонавт.
+        /// </summary>
+        public static string Specification_Spacemen {
+            get {
+                return ResourceManager.GetString("Specification_Spacemen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Техник.
+        /// </summary>
+        public static string Specification_Technicist {
+            get {
+                return ResourceManager.GetString("Specification_Technicist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Не назанчено.
+        /// </summary>
+        public static string Specification_Unknow {
+            get {
+                return ResourceManager.GetString("Specification_Unknow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Инженер.
+        /// </summary>
+        public static string Specification_Еngineer {
+            get {
+                return ResourceManager.GetString("Specification_Еngineer", resourceCulture);
             }
         }
     }

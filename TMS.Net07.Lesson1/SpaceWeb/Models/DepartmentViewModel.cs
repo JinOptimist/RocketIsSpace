@@ -7,15 +7,6 @@ using System.Threading.Tasks;
 
 namespace SpaceWeb.Models
 {
-    public enum DepartmentType
-    {
-        Unknown = 0,
-        Manufactory = 1,
-        Laboratory = 2,
-        MissionControlCenter = 3,
-        SpacecraftCrew = 4,
-        Other = 5
-    };
     public class DepartmentViewModel
     {
         public long Id { get; set; }

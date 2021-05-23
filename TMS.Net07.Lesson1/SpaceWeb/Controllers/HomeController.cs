@@ -25,6 +25,8 @@ namespace SpaceWeb.Controllers
 
         public IActionResult Index()
         {
+            _logger.LogInformation("Smile");
+
             return View();
         }
 
