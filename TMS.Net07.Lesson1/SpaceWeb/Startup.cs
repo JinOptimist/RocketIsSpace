@@ -25,6 +25,8 @@ using SpaceWeb.Models.Human;
 using SpaceWeb.Extensions;
 using System.Reflection;
 using Microsoft.Extensions.Logging;
+using SpaceWeb.Migrations;
+using AdvImage = SpaceWeb.EfStuff.Model.AdvImage;
 
 namespace SpaceWeb
 {
