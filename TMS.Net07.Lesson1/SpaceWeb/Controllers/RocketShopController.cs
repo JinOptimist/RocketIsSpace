@@ -58,8 +58,10 @@ namespace SpaceWeb.Controllers
             {
                 order.Price += rocket.Cost;
             }
-            order.Name = "Заказ№";
+            
             //Client = {Id = model.ClientId}
+            _orderRepository.Save(order);
+            order.Name = "Заказ№" + order.Id;
             _orderRepository.Save(order);
 
             return RedirectToAction("RocketShop");
@@ -84,14 +86,17 @@ namespace SpaceWeb.Controllers
         [HttpGet]
         public IActionResult Basket()
         {
-            var order = new OrderViewModel();
-            return View(order);
+            var user = _userService.GetCurrent();
+            var orders = user.Client.Orders
+                .Where(x => x.State == OrderStates.Pending)
+                .ToList();
+            var orderViewModel = _mapper.Map<List<OrderViewModel>>(orders);
+            return View(orderViewModel);
         }
         
         [HttpPost]
         public IActionResult Basket(OrderViewModel order)
         {
-            
             return View();
         }
     }
