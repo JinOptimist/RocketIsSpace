@@ -24,7 +24,7 @@
                 <p class="text-header">Rockets</p>
             </div>
             <form action="/RocketShop/RocketShop" class="items-shop" method="post">
-                @Html.HiddenFor(x=>x.ClientId)
+                @Html.HiddenFor(x => x.ClientId)
                 @foreach (var rocket in Model.AddRockets)
                 {
                     <label class="rocket">
@@ -41,7 +41,9 @@
                     </label>
                 }
                 <input type="submit" value="Add to basket">
+                <a href="Basket">BASKET</a>
             </form>
+            
         </div>
     </div>
 </div>
