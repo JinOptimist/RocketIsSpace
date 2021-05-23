@@ -7,14 +7,13 @@ body{
 
 .vraper{
     width: 100%;
-    padding-top: 75px;
 }
 .items-shop{
     display: flex;
     flex-wrap: wrap;
 }
 
-.shop{
+.shop-header{
     border-radius: 20px;
     padding: 5px;
     margin: 2px;
@@ -70,53 +69,6 @@ body{
     text-align: center;
 }
 
-.rocket-text:hover .block{
-    display: block;
-}
-
-.rocket-text:hover .text-rocket{
-    display: none;
-}
-
-.fuel-text:hover .block{
-    display: block;
-}
-.fuel-text:hover .text-fuel{
-    display: none;
-}
-
-.restroom-text:hover .block{
-    display: block;
-}
-.restroom-text:hover .text-restroom{
-    display: none;
-}
-
-.kitchen-text:hover .block{
-    display: block;
-}
-.kitchen-text:hover .text-kitchen{
-    display: none;
-}
-
-.command-text:hover .block{
-    display: block;
-}
-.command-text:hover .text-command{
-    display: none;
-}
-
-.engine-text:hover .block{
-    display: block;
-}
-.engine-text:hover .text-engine{
-    display: none;
-}
-
-
-.rocket-shop{
-    display: flex;
-}
 .rocket{
     font-family: Calibri; color: rgb(252, 252, 252);
     width: 170px;
@@ -130,20 +82,23 @@ body{
     text-shadow: 1px 1px 2px black, 0 0 1em red;
 }
 
-.content .rocket .image-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: calc(150px - 16px);
-}
-
 .rocket img {
     max-width: 150px;
     max-height: calc(150px - 16px);
 }
 
+.shop-content{
+    display: flex;
+}
 
+.shelf{
+    width: 74%;
+}
 
+.basket{
+    width: 26%;
+    background: #00BFFF;
+}
 
 
 

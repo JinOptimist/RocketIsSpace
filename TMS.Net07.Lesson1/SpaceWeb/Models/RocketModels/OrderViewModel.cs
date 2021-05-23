@@ -9,8 +9,7 @@ namespace SpaceWeb.Models.RocketModels
         public string  Name { get; set; }
         public decimal Price { get; set; }
         public DateTime OrderDateTime { get; set; }
-        // public List<AdditionStructureViewModel> AdditionsList { get; set; }
-        // public List<ComfortStructureViewModel> ComfortsList { get; set; }
         
+        public List<Rocket> Rockets { get; set; }
     }
 }
