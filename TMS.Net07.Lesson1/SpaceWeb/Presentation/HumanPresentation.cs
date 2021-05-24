@@ -69,7 +69,7 @@ namespace SpaceWeb.Presentation
 
             viewModel.RequestsToEmploy = 
                 _employeRepository.GetRequestsToEmploy(department)
-                .Select(x => _mapper.Map<ShortEmployeViewModel>(x))
+                .Select(x => _mapper.Map<RequestViewModel>(x.User))
                 .ToList();
 
             return viewModel;

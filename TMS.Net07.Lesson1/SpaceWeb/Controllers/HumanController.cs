@@ -103,5 +103,15 @@ namespace SpaceWeb.Controllers
         {
             return View(_humanPresentation.GetPersonnelViewModel());
         }
+
+        [HttpPost]
+        public IActionResult PersonnelSubmit(PersonnelViewModel viewModel)
+        {
+            //not working
+            var employes = viewModel.RequestsToEmploy.Select(x => _mapper.Map<Employe>(x)).ToList();
+            foreach (var x in employes)
+                _employeRepository.Save(x);
+            return View();
+        }
     }
 }

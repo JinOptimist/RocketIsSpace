@@ -1,7 +1,20 @@
 ﻿@using SpaceWeb.Models.Human
+@using SpaceWeb.Extensions
+@{ 
+    Layout = "_LayoutHuman";
+}
 
 @model PersonnelViewModel
 
-@Model.Department.DepartmentName
-@*TODO:
-partial view of request to employ*@
+<div>
+    <form action="/Human/PersonnelSubmit" method="post">
+        @foreach (var x in Model.RequestsToEmploy)
+        {
+            <label>
+                <input type="checkbox" name="eployeId" value="@x.Id" />
+                @Html.Partial("_employ", x)
+            </label>
+        }
+        <input type="submit" name="accept" value="accept" />
+    </form>
+</div>

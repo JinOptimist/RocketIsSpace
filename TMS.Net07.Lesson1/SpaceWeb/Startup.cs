@@ -128,11 +128,21 @@ namespace SpaceWeb
             //        config => config
             //            .MapFrom(dbModel => $"{dbModel.Name}, {dbModel.SurName} Mr"));
 
-            configExpression.CreateMap<Employe, ShortEmployeViewModel>().
-                ForMember(nameof(ShortEmployeViewModel.Name), config => config.MapFrom(x => x.User.Name)).
-                ForMember(nameof(ShortEmployeViewModel.Surname), config => config.MapFrom(x => x.User.SurName)).
-                ForMember(nameof(ShortEmployeViewModel.SalaryPerHour), config => config.MapFrom(x => x.SalaryPerHour)).
-                ForMember(nameof(ShortEmployeViewModel.Position), config => config.MapFrom(x => x.Position.GetDisplayableName()));
+            configExpression.CreateMap<Employe, ShortEmployeViewModel>()
+                .ForMember(nameof(ShortEmployeViewModel.Name), config => config.MapFrom(x => x.User.Name))
+                .ForMember(nameof(ShortEmployeViewModel.Surname), config => config.MapFrom(x => x.User.SurName))
+                .ForMember(nameof(ShortEmployeViewModel.SalaryPerHour), config => config.MapFrom(x => x.SalaryPerHour))
+                .ForMember(nameof(ShortEmployeViewModel.Position), config => config.MapFrom(x => x.Position.GetDisplayableName()));
+
+            configExpression.CreateMap<User, RequestViewModel>()
+                .ForMember(nameof(RequestViewModel.Id), config => config.MapFrom(x => x.Employe.Id))
+                .ForMember(nameof(RequestViewModel.ForeignKeyUser), config => config.MapFrom(x => x.Employe.ForeignKeyUser))
+                .ForMember(nameof(RequestViewModel.Position), config => config.MapFrom(x => x.Employe.Position))
+                .ForMember(nameof(RequestViewModel.SalaryPerHour), config => config.MapFrom(x => x.Employe.SalaryPerHour))
+                .ForMember(nameof(RequestViewModel.EmployeStatus), config => config.MapFrom(x => x.Employe.EmployeStatus));
+
+            configExpression.CreateMap<RequestViewModel, Employe>();
+
 
             configExpression.CreateMap<User, ProfileViewModel>();
 
