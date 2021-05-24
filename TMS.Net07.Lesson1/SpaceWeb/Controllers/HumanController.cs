@@ -101,9 +101,10 @@ namespace SpaceWeb.Controllers
         [IsLeaderOfDepartment]
         public IActionResult Personnel()
         {
-            var user = _userService.GetCurrent();
-            var viewModel = _mapper.Map<DepartmentViewModel>(user.Employe.Department);
-            return View(viewModel);
+            var id = _userService.GetCurrent().Employe.Department.Id;
+            PersonnelViewModel viewModel = new PersonnelViewModel();
+            viewModel.Department = _mapper.Map<DepartmentViewModel>(_userService.GetCurrent().Employe.Department);
+            return View();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories.IRepository;
+using SpaceWeb.Models.Human;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,11 +12,10 @@ namespace SpaceWeb.EfStuff.Repositories
 
         public List<Employe> GetEmployesByDepartment(long idDepartment)
         {
-            return 
-                _dbSet.
-                Select(x => x).
-                Where(x => x.Department.Id == idDepartment).
-                ToList();
+            return
+                _dbSet.Select(x => x)
+                .Where(x => x.Department.Id == idDepartment && x.EmployeStatus == EmployeStatus.Accepted)
+                .ToList();
         }
     }
 }

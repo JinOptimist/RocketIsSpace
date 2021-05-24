@@ -147,6 +147,18 @@
   <data name="DepartmentType_Unknown" xml:space="preserve">
     <value>Неизвестно</value>
   </data>
+  <data name="EmployeStatus_Accepted" xml:space="preserve">
+    <value>Работает</value>
+  </data>
+  <data name="EmployeStatus_Denied" xml:space="preserve">
+    <value>Не принят</value>
+  </data>
+  <data name="EmployeStatus_Fired" xml:space="preserve">
+    <value>Уволен</value>
+  </data>
+  <data name="EmployeStatus_Request" xml:space="preserve">
+    <value>Заявка на работу</value>
+  </data>
   <data name="HomeIndex_FAQ" xml:space="preserve">
     <value>Вопрос ответ</value>
   </data>

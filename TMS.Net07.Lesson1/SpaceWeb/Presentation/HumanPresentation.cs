@@ -45,5 +45,11 @@ namespace SpaceWeb.Presentation
         {
             _userRepository.Remove(userIds);
         }
+
+        public PersonnelViewModel GetPersonnelViewModel()
+        {
+
+            return null;
+        }
     }
 }
