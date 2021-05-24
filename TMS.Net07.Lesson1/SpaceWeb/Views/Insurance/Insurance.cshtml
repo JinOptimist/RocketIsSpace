@@ -1,0 +1,31 @@
+﻿@using SpaceWeb.Models.Bank
+@model List<InsurancePrintViewModel>
+
+@{
+    Layout = "_LayoutBank";
+}
+
+<div class="client-before-content"></div>
+
+@foreach (var insurance in Model)
+{
+    <div class="insurances">
+        <div>
+            Тип страхового полиса: @insurance.InsuranceType.InsuranceNameType
+        </div>
+        <div>
+            Период страхового полиса: @insurance.InsuranceType.InsurancePeriod
+        </div>
+        <div>
+            Стоимость страхового полиса: @insurance.InsuranceType.Cost
+        </div>
+        <div>
+            Дата оформления: @insurance.DateCreationing
+        </div>
+    </div>
+}
+
+<div class="client-before-content"></div>
+<div>
+    Что-то
+</div>

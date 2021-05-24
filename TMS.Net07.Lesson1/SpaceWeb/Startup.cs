@@ -15,6 +15,7 @@ using SpaceWeb.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Threading.Tasks;
 using SpaceWeb.Models.RocketModels;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
@@ -22,9 +23,12 @@ using Profile = SpaceWeb.EfStuff.Model.Profile;
 using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Presentation;
 using SpaceWeb.Models.Human;
+using SpaceWeb.Models.Bank;
 using SpaceWeb.Extensions;
 using System.Reflection;
+using SpaceWeb.Migrations;
 using Microsoft.Extensions.Logging;
+using AdvImage = SpaceWeb.EfStuff.Model.AdvImage;
 
 namespace SpaceWeb
 {
@@ -93,6 +97,22 @@ namespace SpaceWeb
             services.AddScoped<RocketStageRepository>(diContainer =>
                 new RocketStageRepository(diContainer.GetService<SpaceDbContext>()));
 
+            services.AddScoped<InsuranceTypeRepository>(diContainer =>
+                new InsuranceTypeRepository(diContainer.GetService<SpaceDbContext>()));
+
+            services.AddScoped<InsuranceRepository>(diContainer =>
+                new InsuranceRepository(diContainer.GetService<SpaceDbContext>()));
+
+            services.AddScoped<UserService>(diContainer =>
+                new UserService(
+                    diContainer.GetService<IUserRepository>(),
+                    diContainer.GetService<IHttpContextAccessor>()
+                ));
+
+            services.AddControllersWithViews();
+
+            services.AddHttpContextAccessor();
+ 
             services.AddScoped<OrderRepository>(diContainer =>
                 new OrderRepository(diContainer.GetService<SpaceDbContext>()));
             services.AddControllersWithViews();
@@ -208,19 +228,25 @@ namespace SpaceWeb
 
             MapBoth<Comfort, ComfortFormViewModel>(configExpression);
 
-            MapBoth<AddShopRocket, AddShopRocketViewModel>(configExpression);
+            MapBoth<AddShopRocket, ShopRocketViewModel>(configExpression);
 
-            MapBoth<AddShopRocketViewModel, AddShopRocket>(configExpression);
-
-            MapBoth<Department, DepartmentViewModel>(configExpression);
-
+            MapBoth<ShopRocketViewModel, AddShopRocket>(configExpression);
+            
+            MapBoth<Rocket, ShopRocketViewModel>(configExpression);
+            
             MapBoth<ShortUserViewModel, User>(configExpression);
 
             MapBoth<ClientViewModel, Client>(configExpression);
 
             MapBoth<HumanOrderViewModel, Order>(configExpression);
 
+            MapBoth<InsurancePrintViewModel, Insurance>(configExpression);
 
+            MapBoth<InsuranceTypeViewModel, InsuranceType>(configExpression);
+
+            MapBoth<InsuranceViewModel, Insurance>(configExpression);
+
+            MapBoth<ComplexRocketShopViewModel, Order>(configExpression);
 
             var mapperConfiguration = new MapperConfiguration(configExpression);
             var mapper = new Mapper(mapperConfiguration);
