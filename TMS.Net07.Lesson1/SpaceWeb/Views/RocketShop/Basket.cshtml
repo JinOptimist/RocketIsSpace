@@ -7,26 +7,46 @@
 }
 @section Style
 {
-    <link rel="stylesheet" href="~/css/Rocket/basket.css?v=2">
+    <link rel="stylesheet" href="~/css/Rocket/basket.css?v=3">
 }
 
 <div class="bg">
-    <div class="block">
-        <div class="title">Basket</div>
-        <div class="yorder">Your order:</div>
-        <div>
-            @foreach (var ord in Model.Orders)
-            {
-                @ord.Name
-                @foreach (var rock in ord.Rockets)
+    <div class="bg-block">
+        <div class="ani-top">
+            <img src="/image/comfortImage/lefttopani.png" style="height: 170px"/>
+            <img src="/image/comfortImage/righttopani.png" style="height: 170px"/>
+        </div>
+        <div class="content-basket">
+            <div class="title">Basket</div>
+            <div class="yorder">Your order:</div>
+            <div style="padding-left: 30px">
+                @foreach (var ord in Model.Orders)
                 {
-                    @rock.Name
+                    <div class="order">
+                        <div>@ord.Name</div>
+                        <div>
+                            @foreach (var rock in ord.Rockets)
+                            {
+                                <div>
+                                    @rock.Name
+                                </div>
+                            }
+                        </div>
+                        <div>@ord.Price</div>
+                    </div>
+                    <div>
+                        @Html.DropDownList("account", Model.BAOptions, new { @class = "dropdown" })
+                    </div>
                 }
-                @ord.Price
-                <div>
-                    @Html.DropDownList("account", Model.BAOptions)
-                </div>
-            }
-        </div>        
+            </div>
+            <lable class="pointerhover">
+                <img src="/image/comfortImage/cat4.png" class="cat" />
+                <input type="submit" class="button-buy" value="Buy">
+            </lable>
+        </div>
+        <div class="ani-end">
+            <img src="/image/comfortImage/leftanime.png" style="height: 170px"/>
+            <img src="/image/comfortImage/rightanime.png" style="height: 170px"/>
+        </div>
     </div>
 </div>
