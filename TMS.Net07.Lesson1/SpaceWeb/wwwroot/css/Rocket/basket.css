@@ -19,8 +19,9 @@
 }
 
 .can-pay{
-    border: green;
+    background:green;
 }
 .cant-pay{
-    border:red;
+    background:red;
+
 }

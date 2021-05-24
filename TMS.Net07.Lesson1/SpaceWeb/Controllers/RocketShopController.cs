@@ -55,11 +55,7 @@ namespace SpaceWeb.Controllers
         [Authorize]
         public IActionResult RocketShop(ComplexRocketShopViewModel model)
         {
-            var rocketList = new List<Rocket>();
-            foreach (var rocketid in model.RocketIds)
-            {
-                rocketList.Add(_shopRocketRepository.Get(rocketid));
-            }
+            var rocketList = model.RocketIds.Select(rocketid => _shopRocketRepository.Get(rocketid)).ToList();
 
             var client = _clientRepository.Get(model.ClientId);
             var order = new Order {Rockets = rocketList, 
@@ -115,14 +111,11 @@ namespace SpaceWeb.Controllers
             return View();
         }
         
-        public IActionResult PayAbilityCheck(string accountNumber,decimal amount)
+        public IActionResult PayAbilityCheck(string accountNumber,string amount)
         {
             var account = _accountRepository.Get(accountNumber);
-            if (_currencyService.CheckBalanceToPay(account, amount))
-            {
-                return Json(true);
-            }
-            return Json(false);
+            var result = _currencyService.CheckBalanceToPay(account, Convert.ToDecimal(amount));
+            return Json(result);
         }
     }
 }

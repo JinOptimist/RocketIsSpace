@@ -1,16 +1,17 @@
 $(document).ready(function () {
     $('[name=account]').change(function () {
+        var self=$(this);
         var accountNumber = $(this).val();
-        var amount= $(this).parent('div').parent('div').find('.amount-js').text();
-        var url = '/RocketShop/PayAbilityCheck?accountId=' + accountNumber+'&amount='+amount;
+        var amount= $(this).closest('.order-rocket').find('[name=Price]').val();
+        var url = '/RocketShop/PayAbilityCheck?accountNumber=' + accountNumber+'&amount='+amount;
 
         $.get(url)
             .done(function (answer) {
                 if (answer) {
-                    $(this).parent('div').parent('div').addClass('can-pay')
+                    self.closest('.order-rocket').addClass('can-pay')
                 }
                 else{
-                    $(this).parent('div').parent('div').addClass('cant-pay')
+                    self.closest('.order-rocket').addClass('cant-pay')
                 }
             })
             .fail(function () {

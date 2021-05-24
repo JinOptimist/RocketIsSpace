@@ -108,7 +108,7 @@ namespace SpaceWeb
                     diContainer.GetService<IUserRepository>(),
                     diContainer.GetService<IHttpContextAccessor>()
                 ));
-
+            
             services.AddControllersWithViews();
 
             services.AddHttpContextAccessor();
@@ -127,6 +127,9 @@ namespace SpaceWeb
             //services.AddScoped<IEmployeRepository>(diContainer =>
             //    new EmployeRepository(diContainer.GetService<SpaceDbContext>()));
 
+            services.AddScoped<ICurrencyService>(diContainer =>
+                new CurrencyService());
+            
             RegisterMapper(services);
             services.AddScoped<UserService>(diContainer =>
                new UserService(
