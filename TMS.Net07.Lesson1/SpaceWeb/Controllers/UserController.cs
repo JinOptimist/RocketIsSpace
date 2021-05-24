@@ -79,7 +79,7 @@ namespace SpaceWeb.Controllers
 
             return Json(true);
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> Profile(ProfileUpdateViewModel viewModel)
         {
@@ -247,22 +247,28 @@ namespace SpaceWeb.Controllers
                 return View(model);
             }
 
-            if ((model.Password == ((int)SocialsPassword.TgAllGroup).ToString()) 
-                && (model.Link == nameof(SocialsPassword.TgAllGroup)))
+            if ((model.Password == GlobalConst.TELEGRAMGROUPPASS)
+                && (model.Link.ToLower() == nameof(GlobalConst.TELEGRAMGROUPLINK).ToLower()))
             {
-                return Redirect("https://t.me/joinchat/Tv44VQeM8nXUusnV");
+                return Redirect(GlobalConst.TELEGRAMGROUPLINK);
             }
-            else if ((model.Password == ((int)SocialsPassword.YoutubeTeacher).ToString())
-                && (model.Link == nameof(SocialsPassword.YoutubeTeacher)))
+            else if ((model.Password == GlobalConst.YOUTUBETEACHERPASS)
+                && (model.Link.ToLower() == nameof(GlobalConst.YOUTUBETEACHERLINK).ToLower()))
             {
-                return Redirect("https://www.youtube.com/c/ПашаЛьвов/featured");
+                return Redirect(GlobalConst.YOUTUBETEACHERLINK);
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("SocialsWrongPass", "User");
             }
         }
-    
+
+        [HttpGet]
+        public IActionResult SocialsWrongPass()
+        {
+            return View();
+        }
+
         public IActionResult EmployeeProfile()
         {
             var user = _userService.GetCurrent();

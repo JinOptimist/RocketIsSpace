@@ -23,6 +23,7 @@ using Profile = SpaceWeb.EfStuff.Model.Profile;
 using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Presentation;
 using SpaceWeb.Models.Human;
+using SpaceWeb.Models.Bank;
 using SpaceWeb.Extensions;
 using System.Reflection;
 using SpaceWeb.Migrations;
@@ -96,6 +97,22 @@ namespace SpaceWeb
             services.AddScoped<RocketStageRepository>(diContainer =>
                 new RocketStageRepository(diContainer.GetService<SpaceDbContext>()));
 
+            services.AddScoped<InsuranceTypeRepository>(diContainer =>
+                new InsuranceTypeRepository(diContainer.GetService<SpaceDbContext>()));
+
+            services.AddScoped<InsuranceRepository>(diContainer =>
+                new InsuranceRepository(diContainer.GetService<SpaceDbContext>()));
+
+            services.AddScoped<UserService>(diContainer =>
+                new UserService(
+                    diContainer.GetService<IUserRepository>(),
+                    diContainer.GetService<IHttpContextAccessor>()
+                ));
+
+            services.AddControllersWithViews();
+
+            services.AddHttpContextAccessor();
+ 
             services.AddScoped<OrderRepository>(diContainer =>
                 new OrderRepository(diContainer.GetService<SpaceDbContext>()));
             services.AddControllersWithViews();
@@ -222,6 +239,12 @@ namespace SpaceWeb
             MapBoth<ClientViewModel, Client>(configExpression);
 
             MapBoth<HumanOrderViewModel, Order>(configExpression);
+
+            MapBoth<InsurancePrintViewModel, Insurance>(configExpression);
+
+            MapBoth<InsuranceTypeViewModel, InsuranceType>(configExpression);
+
+            MapBoth<InsuranceViewModel, Insurance>(configExpression);
 
             MapBoth<ComplexRocketShopViewModel, Order>(configExpression);
 
