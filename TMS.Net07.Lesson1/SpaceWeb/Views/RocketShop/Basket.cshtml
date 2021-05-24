@@ -5,28 +5,37 @@
 @{
     Layout = "_LayoutRocket";
 }
+
 @section Style
 {
     <link rel="stylesheet" href="~/css/Rocket/basket.css?v=2">
+}
+
+@section Script
+{
+    <script src="~/js/Rocket/basket.js"></script>
 }
 
 <div class="bg">
     <div class="block">
         <div class="title">Basket</div>
         <div class="yorder">Your order:</div>
-        <div>
+        <div class="order-rockets">
             @foreach (var ord in Model.Orders)
             {
-                @ord.Name
-                @foreach (var rock in ord.Rockets)
-                {
-                    @rock.Name
-                }
-                @ord.Price
-                <div>
-                    @Html.DropDownList("account", Model.BAOptions)
+                <div class="order-rocket">
+                    @ord.Name
+                    @foreach (var rock in ord.Rockets)
+                    {
+                        @rock.Name
+                    }
+                    @Html.Hidden("Price", ord.Price)
+                    <div class="amount-js">@ord.Price</div>
+                    <div>
+                        @Html.DropDownList("account", Model.BAOptions)
+                    </div>
                 </div>
             }
-        </div>        
+        </div>
     </div>
 </div>
