@@ -21,16 +21,20 @@ namespace SpaceWeb.Controllers
         private IShopRocketRepository _shopRocketRepository;
         private UserService _userService;
         private IClientRepository _clientRepository;
+        private ICurrencyService _currencyService;
+        private IBankAccountRepository _accountRepository;
 
         public RocketShopController(IMapper mapper, IOrderRepository orderRepository, 
             IShopRocketRepository shopRocketRepository, UserService userService, 
-            IClientRepository clientRepository)
+            IClientRepository clientRepository, ICurrencyService currencyService, IBankAccountRepository accountRepository)
         {
             _mapper = mapper;
             _orderRepository = orderRepository;
             _shopRocketRepository = shopRocketRepository;
             _userService = userService;
             _clientRepository = clientRepository;
+            _currencyService = currencyService;
+            _accountRepository = accountRepository;
         }
 
         [HttpGet]
@@ -109,6 +113,16 @@ namespace SpaceWeb.Controllers
         public IActionResult Basket(OrderViewModel order)
         {
             return View();
+        }
+        
+        public IActionResult PayAbilityCheck(string accountNumber,decimal amount)
+        {
+            var account = _accountRepository.Get(accountNumber);
+            if (_currencyService.CheckBalanceToPay(account, amount))
+            {
+                return Json(true);
+            }
+            return Json(false);
         }
     }
 }

@@ -14,7 +14,7 @@
     <div class="block">
         <div class="title">Basket</div>
         <div class="yorder">Your order:</div>
-        <div>
+        <div class="order-rockets">
             @foreach (var ord in Model.Orders)
             {
                 @ord.Name
@@ -22,10 +22,13 @@
                 {
                     @rock.Name
                 }
-                @ord.Price
+                <div class="amount-js">
+                    @ord.Price
+                </div>
                 <div>
                     @Html.DropDownList("account", Model.BAOptions)
                 </div>
+                
             }
         </div>        
     </div>
