@@ -30,9 +30,10 @@ namespace SpaceWeb.Controllers
 
         public RocketShopController(IMapper mapper, IOrderRepository orderRepository, 
             IShopRocketRepository shopRocketRepository, UserService userService, 
-            IClientRepository clientRepository, ICurrencyService currencyService, IBankAccountRepository accountRepository)
+            IClientRepository clientRepository, ICurrencyService currencyService, IBankAccountRepository accountRepository,
+            IRocketShopPresentation rocketShopPresentation)
         {
-            _rocketShopPresentation = rocketShopPresentation;
+            
             _mapper = mapper;
             _orderRepository = orderRepository;
             _shopRocketRepository = shopRocketRepository;
@@ -40,19 +41,14 @@ namespace SpaceWeb.Controllers
             _clientRepository = clientRepository;
             _currencyService = currencyService;
             _accountRepository = accountRepository;
+            _rocketShopPresentation = rocketShopPresentation;
         }
 
         [HttpGet]
         [Authorize]
         public IActionResult RocketShop()
         {
-            var collection = new ComplexRocketShopViewModel
-            {
-                AddRockets = _shopRocketRepository.GetAll()
-                    .Select(x => _mapper.Map<ShopRocketViewModel>(x))
-                    .ToList(),
-                ClientId = _userService.GetCurrent().Client.Id
-            };
+            var collection = _rocketShopPresentation.GetCollectionRocketShopViewModel();
             return View(collection);
         }
 

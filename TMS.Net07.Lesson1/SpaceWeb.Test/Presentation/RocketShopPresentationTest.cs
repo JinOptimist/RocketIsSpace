@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SpaceWeb.Service;
 
 namespace SpaceWeb.Test.Presentation
 {
@@ -19,7 +20,8 @@ namespace SpaceWeb.Test.Presentation
         private Mock<IMapper> _mockMapper;
         private Mock<IOrderRepository> _mockOrderRepository;
         private Mock<IShopRocketRepository> _mockShopRocketRepository;
-
+        private Mock<IUserService> _mockuserService;
+        
 
         [SetUp]
         public void Setup()
@@ -27,11 +29,18 @@ namespace SpaceWeb.Test.Presentation
             _mockMapper = new Mock<IMapper>();
             _mockOrderRepository = new Mock<IOrderRepository>();
             _mockShopRocketRepository = new Mock<IShopRocketRepository>();
-
+            _mockuserService = new Mock<IUserService>();
+            _mockuserService.Setup(x => x.GetCurrent()).Returns(new User()
+            {
+                Client = new Client(){Id=1}
+            });
             _presentation = new RocketShopPresentation(
                 _mockMapper.Object,
                 _mockOrderRepository.Object,
-                _mockShopRocketRepository.Object);
+                _mockShopRocketRepository.Object,
+                _mockuserService.Object
+                );
+            
         }
 
         [Test]
@@ -40,14 +49,14 @@ namespace SpaceWeb.Test.Presentation
         [TestCase(-10, 100, false)]
         [TestCase(10, -100, false)]
         [TestCase(-10, -100, false)]
-        public void GetCollectionRocketShopViewModel_CheckNegativeValues(int count, double cost, bool isValid)
+        public void GetCollectionRocketShopViewModel_CheckNegativeValues(int count, decimal cost, bool isValid)
         {
-            var rocket = new AddShopRocket()
+            var rocket = new Rocket()
             {
                 Count = count,
                 Cost = cost
             };
-            var rockets = new List<AddShopRocket>() { rocket };
+            var rockets = new List<Rocket>() { rocket };
             _mockShopRocketRepository.Setup(x => x.GetAll()).Returns(rockets);
             var viewModels = _presentation.GetCollectionRocketShopViewModel();
             var countExpected = isValid ? 1 : 0;
@@ -63,7 +72,7 @@ namespace SpaceWeb.Test.Presentation
         [TestCase(-10, -100, false)]
         public void SaveRocket_CheckNegativeValues(int count, double cost, bool isValid)
         {
-            var rocketViewModel = new AddShopRocketViewModel()
+            var rocketViewModel = new ShopRocketViewModel()
             {
                 Count = count,
                 Cost = cost

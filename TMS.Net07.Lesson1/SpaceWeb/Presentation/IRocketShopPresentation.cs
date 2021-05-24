@@ -7,8 +7,7 @@ namespace SpaceWeb.Presentation
 {
     public interface IRocketShopPresentation
     {
-        CollectionRocketShopViewModel GetCollectionRocketShopViewModel();
-        void SaveOrder(CollectionRocketShopViewModel collection);
-        void SaveRocket(AddShopRocketViewModel model);
+        ComplexRocketShopViewModel GetCollectionRocketShopViewModel();
+        void SaveRocket(ShopRocketViewModel model);
     }
 }

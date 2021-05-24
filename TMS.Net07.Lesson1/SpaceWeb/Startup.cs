@@ -79,7 +79,8 @@ namespace SpaceWeb
                 new RocketShopPresentation(
                     container.GetService<IMapper>(),
                     container.GetService<IOrderRepository>(),
-                    container.GetService<IShopRocketRepository>()));
+                    container.GetService<IShopRocketRepository>(),
+                    container.GetService<UserService>()));
 
             //services.AddScoped<IRelicRepository>(diContainer =>
             //    new RelicRepository(diContainer.GetService<SpaceDbContext>()));

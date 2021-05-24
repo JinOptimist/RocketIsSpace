@@ -9,7 +9,7 @@ using SpaceWeb.Models.Human;
 
 namespace SpaceWeb.Service
 {
-    public class UserService
+    public class UserService : IUserService
     {
         private IHttpContextAccessor _contextAccessor;
         private IUserRepository _userRepository;
