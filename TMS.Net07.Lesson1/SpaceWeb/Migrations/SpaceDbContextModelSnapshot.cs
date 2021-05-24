@@ -713,42 +713,13 @@ namespace SpaceWeb.Migrations
                             b.Navigation("User");
                         });
 
-            modelBuilder.Entity("SpaceWeb.EfStuff.Model.Transaction", b =>
-                {
-                    b.HasOne("SpaceWeb.EfStuff.Model.BanksCard", "BanksCard")
-                        .WithMany("Transactions")
-                        .HasForeignKey("BanksCardId");
-
-                    b.Navigation("BanksCard");
-                });
-
-            modelBuilder.Entity("SpaceWeb.EfStuff.Model.User", b =>
-                {
-                    b.HasOne("SpaceWeb.EfStuff.Model.Rocket", "MyFavouriteRocket")
-                        .WithMany("UserWhoFavouriteTheRocket")
-                        .HasForeignKey("MyFavouriteRocketId");
-                    modelBuilder.Entity("SpaceWeb.EfStuff.Model.Rocket", b =>
+                    modelBuilder.Entity("SpaceWeb.EfStuff.Model.Transaction", b =>
                         {
-                            b.HasOne("SpaceWeb.EfStuff.Model.User", "Author")
-                                .WithMany("MyRockets")
-                                .HasForeignKey("AuthorId");
+                            b.HasOne("SpaceWeb.EfStuff.Model.BanksCard", "BanksCard")
+                                .WithMany("Transactions")
+                                .HasForeignKey("BanksCardId");
 
-                            b.HasOne("SpaceWeb.EfStuff.Model.User", "Qa")
-                                .WithMany("TestedRockets")
-                                .HasForeignKey("QaId");
-
-                            b.Navigation("Author");
-
-            modelBuilder.Entity("SpaceWeb.EfStuff.Model.BanksCard", b =>
-                {
-                    b.Navigation("Transactions");
-                });
-
-            modelBuilder.Entity("SpaceWeb.EfStuff.Model.Client", b =>
-                {
-                    b.Navigation("Orders");
-                });
-                            b.Navigation("Qa");
+                            b.Navigation("BanksCard");
                         });
 
                     modelBuilder.Entity("SpaceWeb.EfStuff.Model.User", b =>
@@ -756,62 +727,94 @@ namespace SpaceWeb.Migrations
                             b.HasOne("SpaceWeb.EfStuff.Model.Rocket", "MyFavouriteRocket")
                                 .WithMany("UserWhoFavouriteTheRocket")
                                 .HasForeignKey("MyFavouriteRocketId");
+                            modelBuilder.Entity("SpaceWeb.EfStuff.Model.Rocket", b =>
+                                {
+                                    b.HasOne("SpaceWeb.EfStuff.Model.User", "Author")
+                                        .WithMany("MyRockets")
+                                        .HasForeignKey("AuthorId");
 
-                            b.Navigation("MyFavouriteRocket");
-                        });
+                                    b.HasOne("SpaceWeb.EfStuff.Model.User", "Qa")
+                                        .WithMany("TestedRockets")
+                                        .HasForeignKey("QaId");
 
-                    modelBuilder.Entity("SpaceWeb.EfStuff.Model.BankAccount", b =>
-                        {
-                            b.Navigation("BanksCards");
-                        });
+                                    b.Navigation("Author");
 
-                    modelBuilder.Entity("SpaceWeb.EfStuff.Model.Client", b =>
-                        {
-                            b.Navigation("Orders");
-                        });
+                                    modelBuilder.Entity("SpaceWeb.EfStuff.Model.BanksCard", b =>
+                                {
+                                    b.Navigation("Transactions");
+                                });
 
-                    modelBuilder.Entity("SpaceWeb.EfStuff.Model.Department", b =>
-                        {
-                            b.Navigation("Employes");
-                        });
+                                    modelBuilder.Entity("SpaceWeb.EfStuff.Model.Client", b =>
+                                {
+                                    b.Navigation("Orders");
+                                });
+                                    b.Navigation("Qa");
+                                });
 
-                    modelBuilder.Entity("SpaceWeb.EfStuff.Model.Employe", b =>
-                        {
-                            b.Navigation("OrdersEmployes");
-                        });
+                            modelBuilder.Entity("SpaceWeb.EfStuff.Model.User", b =>
+                                {
+                                    b.HasOne("SpaceWeb.EfStuff.Model.Rocket", "MyFavouriteRocket")
+                                        .WithMany("UserWhoFavouriteTheRocket")
+                                        .HasForeignKey("MyFavouriteRocketId");
 
-                    modelBuilder.Entity("SpaceWeb.EfStuff.Model.Order", b =>
-                        {
-                            b.Navigation("AdditionsList");
+                                    b.Navigation("MyFavouriteRocket");
+                                });
 
-                            b.Navigation("ComfortsList");
+                            modelBuilder.Entity("SpaceWeb.EfStuff.Model.BankAccount", b =>
+                                {
+                                    b.Navigation("BanksCards");
+                                });
 
-                            b.Navigation("OrdersEmployes");
-                        });
+                            modelBuilder.Entity("SpaceWeb.EfStuff.Model.Client", b =>
+                                {
+                                    b.Navigation("Orders");
+                                });
 
-                    modelBuilder.Entity("SpaceWeb.EfStuff.Model.Rocket", b =>
-                        {
-                            b.Navigation("UserWhoFavouriteTheRocket");
-                        });
+                            modelBuilder.Entity("SpaceWeb.EfStuff.Model.Department", b =>
+                                {
+                                    b.Navigation("Employes");
+                                });
 
-                    modelBuilder.Entity("SpaceWeb.EfStuff.Model.User", b =>
-                        {
-                            b.Navigation("BankAccounts");
+                            modelBuilder.Entity("SpaceWeb.EfStuff.Model.Employe", b =>
+                                {
+                                    b.Navigation("OrdersEmployes");
+                                });
 
-                            b.Navigation("BanksCards");
+                            modelBuilder.Entity("SpaceWeb.EfStuff.Model.Order", b =>
+                                {
+                                    b.Navigation("AdditionsList");
 
-                            b.Navigation("Client");
+                                    b.Navigation("ComfortsList");
 
-                            b.Navigation("Employe");
+                                    b.Navigation("OrdersEmployes");
+                                });
 
-                            b.Navigation("MyRockets");
+                            modelBuilder.Entity("SpaceWeb.EfStuff.Model.Rocket", b =>
+                                {
+                                    b.Navigation("UserWhoFavouriteTheRocket");
+                                });
 
-                            b.Navigation("Profile");
+                            modelBuilder.Entity("SpaceWeb.EfStuff.Model.User", b =>
+                                {
+                                    b.Navigation("BankAccounts");
 
-                            b.Navigation("TestedRockets");
-                        });
+                                    b.Navigation("BanksCards");
+
+                                    b.Navigation("Client");
+
+                                    b.Navigation("Employe");
+
+                                    b.Navigation("MyRockets");
+
+                                    b.Navigation("Profile");
+
+                                    b.Navigation("TestedRockets");
+                                });
 #pragma warning restore 612, 618
+                        });
                 });
         }
     }
 }
+     
+

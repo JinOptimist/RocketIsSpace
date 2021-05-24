@@ -14,7 +14,6 @@ using SpaceWeb.Service;
 using Microsoft.AspNetCore.Authorization;
 using SpaceWeb.Controllers.CustomAttribute;
 using SpaceWeb.EfStuff.Repositories.IRepository;
-using SpaceWeb.EfStuff.Model;
 
 namespace SpaceWeb.Controllers
 {
