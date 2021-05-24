@@ -12,14 +12,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Models\Bank\Insurance\" />
     <Folder Include="wwwroot\image\human\" />
     <Folder Include="wwwroot\image\avatars\" />
     <Folder Include="Logs\" />
+    <Folder Include="wwwroot\TempFile\" />
   </ItemGroup>
 
   <ItemGroup>
 
     <PackageReference Include="AutoMapper" Version="10.1.1" />
+
+    <PackageReference Include="DocXCore" Version="1.0.9" />
 
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.4" />
 

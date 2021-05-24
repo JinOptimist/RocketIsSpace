@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Novacode;
 using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
 using SpaceWeb.EfStuff.Repositories.IRepository;
@@ -8,6 +10,7 @@ using SpaceWeb.Models;
 using SpaceWeb.Service;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,19 +20,22 @@ namespace SpaceWeb.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        private BankAccountRepository _bankAccountRepository;
+        private IBankAccountRepository _bankAccountRepository;
         private IMapper _mapper;
         private IUserRepository _userRepository; //удалить?
+        private IWebHostEnvironment _hostEnvironment;
         private UserService _userService;
 
-        public AccountController(BankAccountRepository bankAccountRepository,
+        public AccountController(IBankAccountRepository bankAccountRepository,
             ProfileRepository profileRepository,
             IUserRepository userRepository,
-            IMapper mapper, UserService userService)
+            IMapper mapper, UserService userService, 
+            IWebHostEnvironment hostEnvironment)
         {
             _bankAccountRepository = bankAccountRepository;
             _mapper = mapper;
             _userService = userService;
+            _hostEnvironment = hostEnvironment;
         }
 
         [HttpGet]
@@ -72,15 +78,15 @@ namespace SpaceWeb.Controllers
             int accountLifeTime;
             if (viewModel.Currency == Currency.BYN) //заменить двойной if
             {
-                if (viewModel.Type == null) 
-                { 
-                    viewModel.Type = "Счет"; 
+                if (viewModel.Type == null)
+                {
+                    viewModel.Type = "Счет";
                 }
                 accountLifeTime = 5;
             }
             else
             {
-                if (viewModel.Type == null) 
+                if (viewModel.Type == null)
                 {
                     viewModel.Type = "Валютный счет";
                 }
@@ -107,7 +113,7 @@ namespace SpaceWeb.Controllers
             var user = _userService.GetCurrent();
 
             modelDB.Owner = user;
-            
+
             _bankAccountRepository.Save(modelDB);
 
             var id = user.BankAccounts?.
@@ -115,6 +121,24 @@ namespace SpaceWeb.Controllers
                 .Id;
 
             return RedirectToAction("Index", new { id });
+        }
+
+        public IActionResult DownloadLog(long id)
+        {
+            var webPath = _hostEnvironment.WebRootPath;
+            var path = Path.Combine(webPath, "TempFile", $"{id}.docx");
+
+            var account = _bankAccountRepository.Get(id);
+            using (var doc = DocX.Create(path))
+            {
+                doc.InsertParagraph($"Информация по счёту {account.Type}");
+                doc.InsertParagraph($"Остаток на счёту: {account.Amount}");
+                doc.Save();
+            }
+
+            var contentTypeDocx = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+            var fileName = $"{account.Type}.docx";
+            return PhysicalFile(path, contentTypeDocx, fileName);
         }
     }
 }

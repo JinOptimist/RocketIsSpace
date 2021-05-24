@@ -21,7 +21,7 @@ namespace SpaceWeb.Models.RocketModels
                 var selectListItem = new SelectListItem()
                 {
                     Text = option.AccountNumber,
-                    Value = option.Id.ToString()
+                    Value = option.AccountNumber
                 };
                 BAOptions.Add(selectListItem);
             }

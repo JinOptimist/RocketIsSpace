@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SpaceWeb.Migrations;
+using AdvImage = SpaceWeb.EfStuff.Model.AdvImage;
 
 
 namespace SpaceWeb.EfStuff
@@ -11,6 +13,7 @@ namespace SpaceWeb.EfStuff
     public class SpaceDbContext : DbContext
     {
         public SpaceDbContext(DbContextOptions options) : base(options) { }
+
         public DbSet<User> Users { get; set; }
         public DbSet<Rocket> Rockets { get; set; }
         public DbSet<Profile> UserProfile { get; set; }
@@ -22,8 +25,6 @@ namespace SpaceWeb.EfStuff
         public DbSet<RocketStage> RocketStages { get; set; }
 
         public DbSet<Relic> Relics { get; set; }
-
-
         public DbSet<Order> Orders { get; set; }
 
         public DbSet<Client> Clients { get; set; }
@@ -33,6 +34,9 @@ namespace SpaceWeb.EfStuff
 
         public DbSet<ComfortStructure> Comforts { get; set; }
         public DbSet<AdditionStructure> Additions { get; set; }
+
+        public DbSet<InsuranceType> InsuranceTypes { get; set; }
+        public DbSet<Insurance> Insurances { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -62,9 +66,15 @@ namespace SpaceWeb.EfStuff
                 .WithOne(x => x.User)
                 .HasForeignKey<Profile>(x => x.UserRef);
 
+
+            modelBuilder.Entity<Order>()
+                .HasMany(order => order.AdditionsList)
+                .WithOne(addition => addition.Order);
+
             modelBuilder.Entity<Order>()
                 .HasMany(order => order.ComfortsList)
                 .WithOne(comforts => comforts.Order);
+
 
             modelBuilder.Entity<Client>()
                 .HasOne(x => x.User)
@@ -91,10 +101,12 @@ namespace SpaceWeb.EfStuff
             modelBuilder.Entity<Order>()
                 .HasOne(order => order.Client)
                 .WithMany(client => client.Orders);
+
             modelBuilder.Entity<Order>()
                 .HasMany(x => x.Rockets)
                 .WithMany(x => x.OrderedBy);
             
+
             base.OnModelCreating(modelBuilder);
         }
 
