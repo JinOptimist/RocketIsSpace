@@ -8,7 +8,7 @@
 
 @section Style
 {
-    <link rel="stylesheet" href="~/css/Rocket/basket.css?v=2">
+    <link rel="stylesheet" href="~/css/Rocket/basket.css?v=4">
 }
 
 @section Script
@@ -17,25 +17,47 @@
 }
 
 <div class="bg">
-    <div class="block">
-        <div class="title">Basket</div>
-        <div class="yorder">Your order:</div>
-        <div class="order-rockets">
-            @foreach (var ord in Model.Orders)
-            {
-                <div class="order-rocket">
-                    @ord.Name
-                    @foreach (var rock in ord.Rockets)
+    <div class="bg-block">
+        <div class="ani-top">
+            <img src="/image/comfortImage/lefttopani.png" style="height: 170px"/>
+            <img src="/image/comfortImage/righttopani.png" style="height: 170px"/>
+        </div>
+        <div class="content-basket">
+            <div>
+                <div class="title">Basket</div>
+                <div class="yorder">Your orders:</div>
+                <div style="padding-left: 30px" class="order-rockets">
+                    @foreach (var ord in Model.Orders)
                     {
-                        @rock.Name
+                         <div class="order order-rocket">
+                            <div>@ord.Name</div>
+                            <div>
+                                @foreach (var rock in ord.Rockets)
+                                {
+                                    <div>
+                                        @rock.Name
+                                    </div>
+                                }
+                            </div>
+                           @Html.Hidden("Price", ord.Price)
+                            <div class="amount-js">@ord.Price</div>
+                           <div>
+                            @Html.DropDownList("account", Model.BAOptions, new { @class = "dropdown" })
+                           </div> 
+                        </div>
                     }
-                    @Html.Hidden("Price", ord.Price)
-                    <div class="amount-js">@ord.Price</div>
-                    <div>
-                        @Html.DropDownList("account", Model.BAOptions)
-                    </div>
                 </div>
-            }
+                <lable class="pointerhover">
+                    <button type="submit" class="button-buy" value="Buy">
+                        Buy
+                        <img src="/image/comfortImage/cat4.png" class="cat" />
+                    </button>
+                </lable>
+            </div>
+        </div>
+        <div class="ani-end">
+            <img src="/image/comfortImage/leftanime.png" style="height: 170px"/>
+            <img src="/image/comfortImage/rightanime.png" style="height: 170px"/>
         </div>
     </div>
 </div>
