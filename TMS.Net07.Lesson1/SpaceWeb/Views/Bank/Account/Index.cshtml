@@ -24,7 +24,9 @@
                 <div class="button">Пополнить счет</div>
                 <div class="button">Снять со счета</div>
                 <div class="button">Заморозить счета</div>
-                <div class="button">История операций</div>
+                <a href="/Account/DownloadLog?id=@Model.Id">
+                    <div class="button">История операций</div>
+                </a>
                 <div class="button">Перевод со счета</div>
                 <a href="/Account/Remove?id=@Model.Id">
                     <div class="button">Удалить счет</div>
