@@ -8,15 +8,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SpaceWeb.EfStuff.Repositories.IRepository;
 
 namespace SpaceWeb.Controllers
 {
     public class AdditionController : Controller
     {
-        private AdditionRepository _additionRepository;
+        private IAdditionRepository _additionRepository;
         private IMapper _mapper;
 
-        public AdditionController(AdditionRepository additionRepository, IMapper mapper)
+        public AdditionController(IAdditionRepository additionRepository, IMapper mapper)
         {
             _additionRepository = additionRepository;
             _mapper = mapper;

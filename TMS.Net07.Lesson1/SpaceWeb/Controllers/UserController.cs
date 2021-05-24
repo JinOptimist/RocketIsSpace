@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using SpaceWeb.EfStuff;
 using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
 using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Models;
+using SpaceWeb.Models.Human;
 using SpaceWeb.Models.RocketModels;
 using SpaceWeb.Service;
 using System;
@@ -27,18 +29,20 @@ namespace SpaceWeb.Controllers
         private IMapper _mapper;
         private UserService _userService;
         private IWebHostEnvironment _hostEnvironment;
+        private ILogger<UserController> _logger;
 
         public static int Counter = 0;
 
         public UserController(IUserRepository userRepository, IMapper mapper,
             UserService userService, IWebHostEnvironment hostEnvironment,
-            IBankAccountRepository bankAccountRepository)
+            IBankAccountRepository bankAccountRepository, ILogger<UserController> logger)
         {
             _userRepository = userRepository;
             _mapper = mapper;
             _userService = userService;
             _hostEnvironment = hostEnvironment;
             _bankAccountRepository = bankAccountRepository;
+            _logger = logger;
         }
 
         [Authorize]
@@ -75,7 +79,7 @@ namespace SpaceWeb.Controllers
 
             return Json(true);
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> Profile(ProfileUpdateViewModel viewModel)
         {
@@ -90,6 +94,8 @@ namespace SpaceWeb.Controllers
                     await viewModel.Avatar.CopyToAsync(fileStream);
                 }
                 user.AvatarUrl = $"/image/avatars/{user.Id}.jpg";
+
+                _logger.LogInformation($"User {user.Id} change avatar");
             }
 
             user.Email = viewModel.Email;
@@ -241,20 +247,33 @@ namespace SpaceWeb.Controllers
                 return View(model);
             }
 
-            if ((model.Password == ((int)SocialsPassword.TgAllGroup).ToString()) 
-                && (model.Link == nameof(SocialsPassword.TgAllGroup)))
+            if ((model.Password == GlobalConst.TELEGRAMGROUPPASS)
+                && (model.Link.ToLower() == nameof(GlobalConst.TELEGRAMGROUPLINK).ToLower()))
             {
-                return Redirect("https://t.me/joinchat/Tv44VQeM8nXUusnV");
+                return Redirect(GlobalConst.TELEGRAMGROUPLINK);
             }
-            else if ((model.Password == ((int)SocialsPassword.YoutubeTeacher).ToString())
-                && (model.Link == nameof(SocialsPassword.YoutubeTeacher)))
+            else if ((model.Password == GlobalConst.YOUTUBETEACHERPASS)
+                && (model.Link.ToLower() == nameof(GlobalConst.YOUTUBETEACHERLINK).ToLower()))
             {
-                return Redirect("https://www.youtube.com/c/ПашаЛьвов/featured");
+                return Redirect(GlobalConst.YOUTUBETEACHERLINK);
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("SocialsWrongPass", "User");
             }
+        }
+
+        [HttpGet]
+        public IActionResult SocialsWrongPass()
+        {
+            return View();
+        }
+
+        public IActionResult EmployeeProfile()
+        {
+            var user = _userService.GetCurrent();
+            var viewModel = _mapper.Map<EmployeeProfileViewModel>(user);
+            return View(viewModel);
         }
     }
 }
