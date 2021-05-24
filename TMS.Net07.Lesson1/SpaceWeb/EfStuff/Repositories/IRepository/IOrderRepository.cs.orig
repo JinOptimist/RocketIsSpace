@@ -1,0 +1,22 @@
+<<<<<<< HEAD
+using SpaceWeb.EfStuff.Model;
+
+namespace SpaceWeb.EfStuff.Repositories.IRepository
+{
+    public interface IOrderRepository:IBaseRepository<Order>
+    {
+        
+=======
+﻿using SpaceWeb.EfStuff.Model;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace SpaceWeb.EfStuff.Repositories.IRepository
+{
+    public interface IOrderRepository : IBaseRepository<Order>
+    {      
+>>>>>>> 50caf5b465bf183bb9a1e1f39f36dd10ac60c98e
+    }
+}

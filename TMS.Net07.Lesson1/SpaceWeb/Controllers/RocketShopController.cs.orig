@@ -1,0 +1,140 @@
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using SpaceWeb.Controllers.CustomAttribute;
+<<<<<<< HEAD
+using SpaceWeb.EfStuff.Repositories.IRepository;
+using SpaceWeb.Service;
+=======
+using SpaceWeb.Models.RocketModels;
+using SpaceWeb.Presentation;
+>>>>>>> 50caf5b465bf183bb9a1e1f39f36dd10ac60c98e
+
+namespace SpaceWeb.Controllers
+{
+    public class RocketShopController : Controller
+    {
+<<<<<<< HEAD
+        private IMapper _mapper;
+        private IOrderRepository _orderRepository;
+        private IShopRocketRepository _shopRocketRepository;
+        private UserService _userService;
+        private IClientRepository _clientRepository;
+        private ICurrencyService _currencyService;
+        private IBankAccountRepository _accountRepository;
+
+        public RocketShopController(IMapper mapper, IOrderRepository orderRepository, 
+            IShopRocketRepository shopRocketRepository, UserService userService, 
+            IClientRepository clientRepository, ICurrencyService currencyService, IBankAccountRepository accountRepository)
+        {
+            _mapper = mapper;
+            _orderRepository = orderRepository;
+            _shopRocketRepository = shopRocketRepository;
+            _userService = userService;
+            _clientRepository = clientRepository;
+            _currencyService = currencyService;
+            _accountRepository = accountRepository;
+=======
+
+        private readonly IRocketShopPresentation _rocketShopPresentation;
+
+        public RocketShopController(IRocketShopPresentation rocketShopPresentation)
+        {
+            _rocketShopPresentation = rocketShopPresentation;
+>>>>>>> 50caf5b465bf183bb9a1e1f39f36dd10ac60c98e
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult RocketShop()
+        {
+<<<<<<< HEAD
+            var collection = new ComplexRocketShopViewModel
+            {
+                AddRockets = _shopRocketRepository.GetAll()
+                    .Select(x => _mapper.Map<ShopRocketViewModel>(x))
+                    .ToList(),
+                ClientId = _userService.GetCurrent().Client.Id
+            };
+=======
+            var collection = _rocketShopPresentation.GetCollectionRocketShopViewModel();
+>>>>>>> 50caf5b465bf183bb9a1e1f39f36dd10ac60c98e
+            return View(collection);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult RocketShop(ComplexRocketShopViewModel model)
+        {
+            var rocketList = model.RocketIds.Select(rocketid => _shopRocketRepository.Get(rocketid)).ToList();
+
+            var client = _clientRepository.Get(model.ClientId);
+            var order = new Order {Rockets = rocketList, 
+                OrderDateTime = DateTime.Now,
+                Client = client,
+                State = OrderStates.Pending
+            };
+            foreach (var rocket in order.Rockets)
+            {
+                order.Price += rocket.Cost;
+            }
+<<<<<<< HEAD
+            _orderRepository.Save(order);
+            order.Name = "Заказ№" + order.Id;
+            _orderRepository.Save(order);
+
+            return RedirectToAction("RocketShop");
+=======
+            _rocketShopPresentation.SaveOrder(collection);
+            return View(collection);
+>>>>>>> 50caf5b465bf183bb9a1e1f39f36dd10ac60c98e
+        }
+
+        [HttpGet]
+        [IsAdmin]
+        public IActionResult AddRocket()
+        {
+            var model = new ShopRocketViewModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        [IsAdmin]
+        public IActionResult AddRocket(ShopRocketViewModel model)
+        {
+<<<<<<< HEAD
+            var rocket = _mapper.Map<Rocket>(model);
+            _shopRocketRepository.Save(rocket);
+=======
+            _rocketShopPresentation.SaveRocket(model);
+>>>>>>> 50caf5b465bf183bb9a1e1f39f36dd10ac60c98e
+            return View();
+        }
+        [HttpGet]
+        public IActionResult Basket()
+        {
+            var user = _userService.GetCurrent();
+            var orders = user.Client.Orders
+                .Where(x => x.State == OrderStates.Pending)
+                .ToList();
+            var orderViewModel = _mapper.Map<List<OrderViewModel>>(orders);
+            var basketVM = new BasketViewModel(user.BankAccounts)
+            {
+                Orders = orderViewModel
+            };
+            return View(basketVM);
+        }
+        
+        [HttpPost]
+        public IActionResult Basket(OrderViewModel order)
+        {
+            return View();
+        }
+        
+        public IActionResult PayAbilityCheck(string accountNumber,string amount)
+        {
+            var account = _accountRepository.Get(accountNumber);
+            var result = _currencyService.CheckBalanceToPay(account, Convert.ToDecimal(amount));
+            return Json(result);
+        }
+    }
+}
