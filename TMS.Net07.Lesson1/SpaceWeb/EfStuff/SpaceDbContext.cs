@@ -105,7 +105,15 @@ namespace SpaceWeb.EfStuff
             modelBuilder.Entity<Order>()
                 .HasMany(x => x.Rockets)
                 .WithMany(x => x.OrderedBy);
-            
+
+            modelBuilder.Entity<Transaction>()
+                .HasOne(x => x.BanksCardFrom)
+                .WithMany(x => x.TransactionsFrom);
+
+            modelBuilder.Entity<Transaction>()
+                .HasOne(x => x.BanksCardTo)
+                .WithMany(x => x.TransactionsTo);
+
 
             base.OnModelCreating(modelBuilder);
         }

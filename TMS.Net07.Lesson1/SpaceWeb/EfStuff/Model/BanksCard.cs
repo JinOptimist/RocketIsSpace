@@ -14,7 +14,8 @@ namespace SpaceWeb.EfStuff.Model
         public string PinCard { get; set; }
         public virtual BankAccount BankAccount { get; set; }
         public DateTime CreationDate { get; set; }
-        public virtual Transaction Transaction { get; set; }
+        public virtual List<Transaction> TransactionsFrom { get; set; }
+        public virtual List<Transaction> TransactionsTo { get; set; }
 
 
     }
