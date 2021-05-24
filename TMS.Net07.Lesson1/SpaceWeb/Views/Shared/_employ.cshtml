@@ -1,0 +1,34 @@
+﻿@using SpaceWeb.Models.Human
+@using SpaceWeb.Extensions
+
+@{
+    var Status = new List<SelectListItem>();
+    Status.Add(new SelectListItem() { Value = ((int)EmployeStatus.Request).ToString(), Text = EmployeStatus.Request.GetDisplayableName() });
+    Status.Add(new SelectListItem() { Value = ((int)EmployeStatus.Accepted).ToString(), Text = EmployeStatus.Accepted.GetDisplayableName() });
+    Status.Add(new SelectListItem() { Value = ((int)EmployeStatus.Denied).ToString(), Text = EmployeStatus.Denied.GetDisplayableName() });
+}
+
+
+@model RequestViewModel
+
+<div class="request-employ">
+    <div class="request-info">
+        @Html.HiddenFor(x => x.Id)
+        @Html.HiddenFor(x => x.ForeignKeyUser)
+        <div>
+            @Html.DisplayTextFor(x => x.Name)
+        </div>
+        <div>
+            @Html.DisplayTextFor(x => x.Surname)
+        </div>
+        <div>
+            @Html.TextBoxFor(x => x.SalaryPerHour)
+        </div>
+    </div>
+    <div class="request-position">
+        @Html.DropDownListFor(model => model.Position, new SelectList(Enum.GetValues(typeof(Position))))
+    </div>
+    <div>
+        @Html.DropDownList("status", Status)
+    </div>
+</div>

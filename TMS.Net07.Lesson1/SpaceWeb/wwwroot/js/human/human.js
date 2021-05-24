@@ -12,7 +12,7 @@
                     block.removeClass('clone undisplayable');
                     InsertText(block, '#name', employes[i].name);
                     InsertText(block, '#surname', employes[i].surname);
-                    InsertText(block, '#specification', employes[i].specification);
+                    InsertText(block, '#specification', employes[i].position);
                     InsertText(block, '#salary', employes[i].salaryPerHour);
                 }
             });

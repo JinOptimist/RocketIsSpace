@@ -151,6 +151,42 @@ namespace SpaceWeb.Localization {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Работает.
+        /// </summary>
+        public static string EmployeStatus_Accepted {
+            get {
+                return ResourceManager.GetString("EmployeStatus_Accepted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Не принят.
+        /// </summary>
+        public static string EmployeStatus_Denied {
+            get {
+                return ResourceManager.GetString("EmployeStatus_Denied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Уволен.
+        /// </summary>
+        public static string EmployeStatus_Fired {
+            get {
+                return ResourceManager.GetString("EmployeStatus_Fired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Заявка на работу.
+        /// </summary>
+        public static string EmployeStatus_Request {
+            get {
+                return ResourceManager.GetString("EmployeStatus_Request", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Вопрос ответ.
         /// </summary>
         public static string HomeIndex_FAQ {

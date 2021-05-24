@@ -13,5 +13,6 @@ namespace SpaceWeb.EfStuff.Model
         public virtual List<OrdersEmployes> OrdersEmployes { get; set; }
         [Column(TypeName ="money")]
         public decimal SalaryPerHour { get; set; }
+        public EmployeStatus EmployeStatus { get; set; }
     }
 }
