@@ -1,4 +1,5 @@
-﻿@model DepartmentViewModel
+﻿@using SpaceWeb.Models.Human
+@model DepartmentViewModel
 
 <form action="/Human/SaveDepartment" method="post">
     @Html.HiddenFor(x => x.Id)
@@ -9,7 +10,7 @@
     </div>
     <div class="form-group">
         <label>Department type:</label>
-        @Html.DropDownListFor(model => model.DepartmentType, new SelectList(Enum.GetValues(typeof(DepartmentType))), new { @class = "form-control" })
+        @Html.DropDownListFor(model => model.DepartmentSpecificationType, new SelectList(Enum.GetValues(typeof(DepartmentType))), new { @class = "form-control" })
     </div>
     <div class="form-group">
         <label>Maximum count employes:</label>

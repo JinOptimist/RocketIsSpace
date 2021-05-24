@@ -7,7 +7,7 @@ namespace SpaceWeb.EfStuff.Repositories
     {
         public OrderRepository(SpaceDbContext spaceDbContext) : base(spaceDbContext)
         {
-            
+
         }
     }
 }

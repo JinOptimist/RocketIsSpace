@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 using SpaceWeb.Controllers.CustomAttribute;
 using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Service;
+using SpaceWeb.Models.RocketModels;
+using SpaceWeb.Presentation;
+using SpaceWeb.Presentation;
 
 namespace SpaceWeb.Controllers
 {
@@ -23,11 +26,13 @@ namespace SpaceWeb.Controllers
         private IClientRepository _clientRepository;
         private ICurrencyService _currencyService;
         private IBankAccountRepository _accountRepository;
+        private readonly IRocketShopPresentation _rocketShopPresentation;
 
         public RocketShopController(IMapper mapper, IOrderRepository orderRepository, 
             IShopRocketRepository shopRocketRepository, UserService userService, 
             IClientRepository clientRepository, ICurrencyService currencyService, IBankAccountRepository accountRepository)
         {
+            _rocketShopPresentation = rocketShopPresentation;
             _mapper = mapper;
             _orderRepository = orderRepository;
             _shopRocketRepository = shopRocketRepository;
@@ -72,6 +77,7 @@ namespace SpaceWeb.Controllers
             _orderRepository.Save(order);
 
             return RedirectToAction("RocketShop");
+
         }
 
         [HttpGet]
