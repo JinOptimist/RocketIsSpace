@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using SpaceWeb.EfStuff;
 using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
@@ -28,18 +29,20 @@ namespace SpaceWeb.Controllers
         private IMapper _mapper;
         private UserService _userService;
         private IWebHostEnvironment _hostEnvironment;
+        private ILogger<UserController> _logger;
 
         public static int Counter = 0;
 
         public UserController(IUserRepository userRepository, IMapper mapper,
             UserService userService, IWebHostEnvironment hostEnvironment,
-            IBankAccountRepository bankAccountRepository)
+            IBankAccountRepository bankAccountRepository, ILogger<UserController> logger)
         {
             _userRepository = userRepository;
             _mapper = mapper;
             _userService = userService;
             _hostEnvironment = hostEnvironment;
             _bankAccountRepository = bankAccountRepository;
+            _logger = logger;
         }
 
         [Authorize]
@@ -91,6 +94,8 @@ namespace SpaceWeb.Controllers
                     await viewModel.Avatar.CopyToAsync(fileStream);
                 }
                 user.AvatarUrl = $"/image/avatars/{user.Id}.jpg";
+
+                _logger.LogInformation($"User {user.Id} change avatar");
             }
 
             user.Email = viewModel.Email;

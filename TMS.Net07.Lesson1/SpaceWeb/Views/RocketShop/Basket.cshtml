@@ -1,0 +1,32 @@
+﻿@using System.Collections.Generic;
+@using SpaceWeb.Models.RocketModels;
+@model BasketViewModel
+
+@{
+    Layout = "_LayoutRocket";
+}
+@section Style
+{
+    <link rel="stylesheet" href="~/css/Rocket/basket.css?v=2">
+}
+
+<div class="bg">
+    <div class="block">
+        <div class="title">Basket</div>
+        <div class="yorder">Your order:</div>
+        <div>
+            @foreach (var ord in Model.Orders)
+            {
+                @ord.Name
+                @foreach (var rock in ord.Rockets)
+                {
+                    @rock.Name
+                }
+                @ord.Price
+                <div>
+                    @Html.DropDownList("account", Model.BAOptions)
+                </div>
+            }
+        </div>        
+    </div>
+</div>

@@ -15,6 +15,7 @@ using SpaceWeb.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Threading.Tasks;
 using SpaceWeb.Models.RocketModels;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
@@ -25,6 +26,9 @@ using SpaceWeb.Models.Human;
 using SpaceWeb.Models.Bank;
 using SpaceWeb.Extensions;
 using System.Reflection;
+using SpaceWeb.Migrations;
+using Microsoft.Extensions.Logging;
+using AdvImage = SpaceWeb.EfStuff.Model.AdvImage;
 
 namespace SpaceWeb
 {
@@ -224,12 +228,12 @@ namespace SpaceWeb
 
             MapBoth<Comfort, ComfortFormViewModel>(configExpression);
 
-            MapBoth<AddShopRocket, AddShopRocketViewModel>(configExpression);
+            MapBoth<AddShopRocket, ShopRocketViewModel>(configExpression);
 
-            MapBoth<AddShopRocketViewModel, AddShopRocket>(configExpression);
-
-            MapBoth<Department, DepartmentViewModel>(configExpression);
-
+            MapBoth<ShopRocketViewModel, AddShopRocket>(configExpression);
+            
+            MapBoth<Rocket, ShopRocketViewModel>(configExpression);
+            
             MapBoth<ShortUserViewModel, User>(configExpression);
 
             MapBoth<ClientViewModel, Client>(configExpression);
@@ -241,6 +245,8 @@ namespace SpaceWeb
             MapBoth<InsuranceTypeViewModel, InsuranceType>(configExpression);
 
             MapBoth<InsuranceViewModel, Insurance>(configExpression);
+
+            MapBoth<ComplexRocketShopViewModel, Order>(configExpression);
 
             var mapperConfiguration = new MapperConfiguration(configExpression);
             var mapper = new Mapper(mapperConfiguration);
@@ -254,8 +260,13 @@ namespace SpaceWeb
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, 
+            IWebHostEnvironment env,
+            ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddFile("Logs/log-{Date}.txt");
+            loggerFactory.AddFile("Logs/ERROR-{Date}.txt", LogLevel.Error);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -276,6 +287,8 @@ namespace SpaceWeb
 
             //���� ��� �����
             app.UseAuthorization();
+
+            app.UseMiddleware<ErrorHandlerMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

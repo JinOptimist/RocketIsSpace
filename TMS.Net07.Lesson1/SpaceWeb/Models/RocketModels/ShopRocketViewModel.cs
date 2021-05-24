@@ -1,7 +1,8 @@
 ﻿namespace SpaceWeb.Models.RocketModels
 {
-    public class AddShopRocketViewModel
+    public class ShopRocketViewModel
     {
+        public long Id { get; set; }
         public string Name { get; set; }
         
         public double Cost { get; set; }

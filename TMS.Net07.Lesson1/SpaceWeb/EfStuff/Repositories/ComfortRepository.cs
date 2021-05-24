@@ -3,27 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SpaceWeb.EfStuff.Model;
+using SpaceWeb.EfStuff.Repositories.IRepository;
 
 namespace SpaceWeb.EfStuff.Repositories
 {
-    public class ComfortRepository
+    public class ComfortRepository:BaseRepository<Comfort>, IComfortRepository
     {
-        private SpaceDbContext _spaceDbContext;
-
-        public ComfortRepository(SpaceDbContext spaceDbContext)
+        public ComfortRepository(SpaceDbContext spaceDbContext) : base(spaceDbContext)
         {
-            _spaceDbContext = spaceDbContext;
-        }
-
-        public List<Comfort> GetAll()
-        {
-            return _spaceDbContext.ComfortsExample.ToList();
-        }
-
-        public void Save(Comfort model)
-        {
-            _spaceDbContext.ComfortsExample.Add(model);
-            _spaceDbContext.SaveChanges();
         }
     }
 }
