@@ -137,10 +137,6 @@ namespace SpaceWeb.Controllers
         }
         public IActionResult AddTransaction(long transferToId)
         {
-            BanksCard banksCard = _banksCardRepository.GetTransaction(transferToId);
-            var transaction = new Transaction();
-            transaction.BanksCard = banksCard;
-            _banksCardRepository.Save(transaction);
 
 
             return RedirectToAction("Index");

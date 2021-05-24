@@ -9,7 +9,7 @@ using System;
 
 namespace SpaceWeb.Service
 {
-    public class CurrecyService
+    public class TransactionService
     {
         private IHttpContextAccessor _contextAccessor;
         private IBanksCardRepository _banksCardRepository;
@@ -17,7 +17,7 @@ namespace SpaceWeb.Service
 
         private UserService _userService;
 
-        public CurrecyService(IBanksCardRepository banksCardRepository,
+        public TransactionService(IBanksCardRepository banksCardRepository,
             IHttpContextAccessor contextAccessor, UserService userService, IBankAccountRepository bankAccountRepository)
         {
             _banksCardRepository = banksCardRepository;
@@ -26,7 +26,7 @@ namespace SpaceWeb.Service
             _bankAccountRepository = bankAccountRepository;
         }
 
-        public BanksCard GetCardUser(long userId)
+        private BanksCard GetCardUser(long userId)
         {
             var user = _userService.GetCurrent();
             var cards = _banksCardRepository.GetCardUser(userId).FirstOrDefault();

@@ -19,7 +19,6 @@ namespace SpaceWeb.Controllers
     {
         private IBankAccountRepository _bankAccountRepository;
         private IMapper _mapper;
-        private IUserRepository _userRepository; //удалить?
         private UserService _userService;
 
         public AccountController(IBankAccountRepository bankAccountRepository,

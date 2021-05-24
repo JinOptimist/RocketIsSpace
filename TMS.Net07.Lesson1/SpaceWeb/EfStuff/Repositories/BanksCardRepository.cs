@@ -37,10 +37,7 @@ namespace SpaceWeb.EfStuff.Repositories
         {
             return _dbSet.SingleOrDefault(x => x.BankAccount.AccountNumber == AccountNumber).BankAccount.Amount;
         }
-        public string GetTransaction(long transferToId)
-        {
-            return _dbSet.Where(x => x.Transaction.ToAccountId == transferToId).ToString();
-        }
+        
 
       
 

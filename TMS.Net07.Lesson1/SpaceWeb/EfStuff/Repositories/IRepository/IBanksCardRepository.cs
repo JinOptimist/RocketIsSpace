@@ -15,7 +15,6 @@ namespace SpaceWeb.EfStuff.Repositories.IRepository
 
         decimal GetAmount(string AccountNumber);
 
-        public string GetTransaction(long transferToId);
 
     }
 }

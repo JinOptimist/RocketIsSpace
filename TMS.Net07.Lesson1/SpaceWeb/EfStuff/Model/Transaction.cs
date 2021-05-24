@@ -7,11 +7,9 @@ namespace SpaceWeb.EfStuff.Model
 {
     public class Transaction : BaseModel
     {
-        public long FromAccountId { get; set; }
-        public long ToAccountId { get; set; }
-        public string TransferAmount { get; set; }
-
-        public virtual BanksCard BanksCard { get; set; }
+        public virtual BanksCard BanksCardFrom { get; set; }
+        public virtual BanksCard BanksCardTo { get; set; }
+        public decimal TransferAmount { get; set; }
 
 
     }

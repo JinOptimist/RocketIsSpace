@@ -9,9 +9,9 @@ namespace SpaceWeb.Models
 {
     public class TransactionCardViewModel
     {
-        public long Id { get; set; }
         public DateTime CreationDate { get; set; }
-        public long BankAccountId { get; set; }
+        public long CardFromId { get; set; }
+        public long CardToId { get; set; }
         public virtual List<BanksCard> BanksCard { get; set; }
     }
 }
