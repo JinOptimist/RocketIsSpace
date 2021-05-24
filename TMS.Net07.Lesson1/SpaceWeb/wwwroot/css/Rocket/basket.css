@@ -17,3 +17,11 @@
 .yorder {
     font-size: 40px;
 }
+
+.can-pay{
+    background:green;
+}
+.cant-pay{
+    background:red;
+
+}

@@ -17,12 +17,12 @@ namespace SpaceWeb.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        private BankAccountRepository _bankAccountRepository;
+        private IBankAccountRepository _bankAccountRepository;
         private IMapper _mapper;
         private IUserRepository _userRepository; //удалить?
         private UserService _userService;
 
-        public AccountController(BankAccountRepository bankAccountRepository,
+        public AccountController(IBankAccountRepository bankAccountRepository,
             ProfileRepository profileRepository,
             IUserRepository userRepository,
             IMapper mapper, UserService userService)

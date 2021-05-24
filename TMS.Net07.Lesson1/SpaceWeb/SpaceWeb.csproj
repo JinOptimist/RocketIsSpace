@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Models\Bank\Insurance\" />
     <Folder Include="wwwroot\image\human\" />
     <Folder Include="wwwroot\image\avatars\" />
     <Folder Include="Logs\" />
