@@ -1,6 +1,5 @@
 .bg {
     background: #f3dfff;
-    height: 100vh;
     display: flex;
     justify-content: center;
 }
@@ -58,12 +57,16 @@
     background: #fcf7ff;
     font-family: Hairline;
     font-weight: bold;
+    cursor: pointer;
 }
+
 
 .cat {
     width: 235px;
     position: absolute;
     height: 165px;
+    margin-left: -110px;
+    margin-top: -87px;
 }
 
 .ani-end {
@@ -81,5 +84,6 @@
 }
 
 .content-basket{
+    display: flex;
     justify-content:center;
 }
