@@ -59,7 +59,9 @@ namespace SpaceWeb
                 new HumanPresentation(
                     container.GetService<IUserRepository>(),
                     container.GetService<IDepartmentRepository>(),
-                    container.GetService<IMapper>()));
+                    container.GetService<IMapper>(),
+                    container.GetService<IEmployeRepository>(),
+                    container.GetService<UserService>()));
 
             services.AddScoped<IUserRepository>(diContainer =>
                 new UserRepository(
