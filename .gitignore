@@ -361,4 +361,4 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-/TMS.Net07.Lesson1/SpaceWeb/appsettings.json
+/TMS.Net07.Lesson1/SpaceWeb/wwwroot/TempFile
