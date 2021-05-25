@@ -237,48 +237,48 @@ namespace SpaceWeb.EfStuff
                 exchangeRateToUsdCurrentRepository.Save(exchangeRate);
             }
 
-            exchangeRate = exchangeRateToUsdCurrentRepository.GetExchangeRate(Currency.TUG, TypeOfExchange.Sell);
+            exchangeRate = exchangeRateToUsdCurrentRepository.GetExchangeRate(Currency.PLN, TypeOfExchange.Sell);
             if (exchangeRate == null)
             {
                 exchangeRate = new ExchangeRateToUsdCurrent()
                 {
-                    Currency = Currency.TUG,
+                    Currency = Currency.PLN,
                     TypeOfExch = TypeOfExchange.Sell,
                     ExchRate = 2851.17m,
                 };
                 exchangeRateToUsdCurrentRepository.Save(exchangeRate);
             }
 
-            exchangeRate = exchangeRateToUsdCurrentRepository.GetExchangeRate(Currency.TUG, TypeOfExchange.Buy);
+            exchangeRate = exchangeRateToUsdCurrentRepository.GetExchangeRate(Currency.PLN, TypeOfExchange.Buy);
             if (exchangeRate == null)
             {
                 exchangeRate = new ExchangeRateToUsdCurrent()
                 {
-                    Currency = Currency.TUG,
+                    Currency = Currency.PLN,
                     TypeOfExch = TypeOfExchange.Buy,
                     ExchRate = 2853.75m,
                 };
                 exchangeRateToUsdCurrentRepository.Save(exchangeRate);
             }
 
-            exchangeRate = exchangeRateToUsdCurrentRepository.GetExchangeRate(Currency.ZIM, TypeOfExchange.Sell);
+            exchangeRate = exchangeRateToUsdCurrentRepository.GetExchangeRate(Currency.GBP, TypeOfExchange.Sell);
             if (exchangeRate == null)
             {
                 exchangeRate = new ExchangeRateToUsdCurrent()
                 {
-                    Currency = Currency.ZIM,
+                    Currency = Currency.GBP,
                     TypeOfExch = TypeOfExchange.Sell,
                     ExchRate = 361.21m,
                 };
                 exchangeRateToUsdCurrentRepository.Save(exchangeRate);
             }
 
-            exchangeRate = exchangeRateToUsdCurrentRepository.GetExchangeRate(Currency.ZIM, TypeOfExchange.Buy);
+            exchangeRate = exchangeRateToUsdCurrentRepository.GetExchangeRate(Currency.GBP, TypeOfExchange.Buy);
             if (exchangeRate == null)
             {
                 exchangeRate = new ExchangeRateToUsdCurrent()
                 {
-                    Currency = Currency.ZIM,
+                    Currency = Currency.GBP,
                     TypeOfExch = TypeOfExchange.Buy,
                     ExchRate = 361.83m,
                 };
