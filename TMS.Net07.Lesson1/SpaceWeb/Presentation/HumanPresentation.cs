@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Models.Human;
 using SpaceWeb.Service;
@@ -55,24 +56,27 @@ namespace SpaceWeb.Presentation
             _userRepository.Remove(userIds);
         }
 
-        public PersonnelViewModel GetPersonnelViewModel()
+        public List<RequestViewModel> GetPersonnelViewModel()
         {
-            //Get the department, where this employe lead the department
-            var department = _userService.GetCurrent().Employe.Department;
-            PersonnelViewModel viewModel = new PersonnelViewModel();
-
-            viewModel.Department = _mapper.Map<DepartmentViewModel>(department);
-            var list = _employeRepository.GetEmployesByDepartment(department);
-            viewModel.Department.Employes = 
-                list.Select(x => _mapper.Map<ShortEmployeViewModel>(x))
-                .ToList();
-
-            viewModel.RequestsToEmploy = 
-                _employeRepository.GetRequestsToEmploy(department)
+            List<RequestViewModel> viewModel = new List<RequestViewModel>();
+            viewModel =
+                _employeRepository.GetRequestsToEmploy(_userService.GetCurrent().Employe.Department)
                 .Select(x => _mapper.Map<RequestViewModel>(x.User))
                 .ToList();
-
             return viewModel;
+        }
+
+        public void SavePersonnelChanges(List<RequestViewModel> requestViewModels)
+        {
+            var employes = requestViewModels.Select(x => _mapper.Map<Employe>(x)).ToList();
+            foreach (var x in employes)
+            {
+                var employeTemp = _employeRepository.Get(x.Id);
+                employeTemp.Position = x.Position;
+                employeTemp.SalaryPerHour = x.SalaryPerHour;
+                employeTemp.EmployeStatus = x.EmployeStatus;
+                _employeRepository.Save(employeTemp);
+            }
         }
     }
 }
