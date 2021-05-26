@@ -81,6 +81,7 @@ namespace SpaceWeb.Controllers
 
         [HttpGet]
         [Authorize]
+        [IsClient]
         public IActionResult ClientPage()
         {
             var user = _userService.GetCurrent();
@@ -99,6 +100,7 @@ namespace SpaceWeb.Controllers
 
         [HttpGet]
         [Authorize]
+        [IsEmploye]
         [IsLeaderOfDepartment]
         public IActionResult Personnel()
         {
