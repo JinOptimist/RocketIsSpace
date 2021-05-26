@@ -1,13 +1,13 @@
 ﻿@model MainViewModel
 
 @section Style{
-    <link rel="stylesheet" href="~/css/reset.css">
-    <link rel="stylesheet" href="~/css/RocketMechanic/MainRocketMechanic.css">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/RocketMechanic/MainRocketMechanic.css">
 }
 
 @section Script{
-    <script src="~/js/RocketMechanic/jquery-3.6.0.min.js"></script>
-    <script src="~/js/RocketMechanic/MainRocketMechanic.js"></script>
+    <script src="/js/RocketMechanic/jquery-3.6.0.min.js"></script>
+    <script src="/js/RocketMechanic/MainRocketMechanic.js"></script>
 }
 
 @{
@@ -196,9 +196,8 @@
                         incididunt ut labore et dolore magna aliqua.”,
                     </h2>
                 </div>
-                <a href="/RocketMechanic/RocketStageIndex" class="about-button">about</a>
+                <button onclick="window.location.href = '/RocketMechanic/RocketStageIndex';" class="ButtonWhite">CREATE YOUR OWN ROCKET</button>
             </div>
-
         </div>
     </div>
 </section>

@@ -1,0 +1,116 @@
+.Section {
+    margin-top: 100px;
+}
+
+.Container {
+    width: 100%;
+    margin: 100px;
+}
+
+.Section .Container .Header {
+    font-family: fantasy;
+    font-size: 40px;
+    line-height: 1.6;
+    color: black;
+}
+
+.Section .Container .ProductCard {
+    width: 300px;
+    text-align: center;
+    background: #A9A9A9;
+    margin: 15px;
+}
+
+    .Section .Container .ProductCard .ProductImage {
+        position: relative;
+    }
+
+        .Section .Container .ProductCard .ProductImage a {
+            display: block;
+        }
+
+        .Section .Container .ProductCard .ProductImage img {
+            display: block;
+            width: 100%;
+        }
+
+.Shadow {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .2);
+    opacity: 0;
+    transition: 0.5s ease-in-out;
+}
+
+.ProductCard:hover .Shadow {
+    opacity: 1;
+}
+
+.Section .Container .ProductCard .ProductImage .Actions {
+    bottom: 15px;
+    right: 15px;
+    position: absolute;
+}
+
+.Remove {
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(0, -50px);
+    transition: 1s ease-in-out;
+}
+
+.Actions a {
+    background: #202020;
+    color: white;
+    display: block;
+    height: 36px;
+    line-height: 36px;
+    width: 42px;
+    transition: .3s ease-in-out;
+    text-decoration: none;
+}
+
+    .Actions a:before {
+        font-family: FontAwesome;
+        font-size: 14px;
+    }
+
+.Section .Container .ProductCard .ProductDescription {
+    margin: 15px;
+    font-size: 15px;
+    font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.Section .Container .ProductCard .Buttons {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+.Section .Container .ProductCard .ProductDescription .ProductModel {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+
+.button-red {
+    background: #ff0000;
+    color: #fff;
+    padding: 15px 25px;
+    text-decoration: none;
+    border-radius: 3px;
+}
+
+.button-green {
+    display: inline-block;
+    background: #43ed01;
+    color: #fff;
+    padding: 15px 25px;
+    text-decoration: none;
+    border-radius: 3px;
+}
