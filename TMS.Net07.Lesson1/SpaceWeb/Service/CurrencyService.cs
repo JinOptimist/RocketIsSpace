@@ -12,16 +12,13 @@ namespace SpaceWeb.Service
     public class CurrencyService : ICurrencyService
     {
         public const string DolarCode = "145";
-        public decimal ConvertAmount(decimal amount, Currency currency)
+        public decimal ConvertAmount( Currency currency)
         {
             WebClient client = new WebClient();
             string url = "https://www.nbrb.by/services/xmlexrates.aspx";
             var xml = client.DownloadString(url);
             XDocument xdoc = XDocument.Parse(xml);
             var allCurrencyInfo = xdoc.Element("DailyExRates").Elements("Currency");
-
-            var eur =
-
 
             switch (currency)
             {
@@ -39,12 +36,53 @@ namespace SpaceWeb.Service
                     throw new Exception("Не верная валюта");
             }
         }
-
-        public decimal ConvertCurrency(Currency currencyFrom, decimal amount, Currency currencyTo)
+       
+        public decimal GetExchangeRate(Currency currencyFrom, decimal amount, Currency currencyTo)
         {
+            //Convert Euro to Euro
+            if (currencyFrom == currencyTo)
+                return amount;
+            var toRate = ConvertAmount(currencyTo);
+            var fromRate = ConvertAmount(currencyFrom);
 
-            //TODO USer DB
-            return 0;
+            switch (currencyFrom)
+            {
+                case Currency.EUR:
+                    if (currencyFrom == Currency.EUR)
+                    {
+                        return (amount * toRate);
+                    }
+                    else if (currencyTo == Currency.EUR)
+                    {
+                        return (amount / fromRate);
+                    }
+                    else
+                    {
+                        return (amount * toRate) / fromRate;
+                    }
+                    break;
+                case Currency.USD:
+                    if (currencyFrom == Currency.USD)
+                    {
+                        return (amount * toRate);
+                    }
+                    else if (currencyTo == Currency.USD)
+                    { 
+                        return (amount / fromRate);
+                    }
+                    else
+                    {
+                        return (amount * toRate) / fromRate;
+                    }
+                    break;
+
+                default:
+                    throw new Exception("input amount");
+            }
+
+           
+          
         }
     }
+    
 }
