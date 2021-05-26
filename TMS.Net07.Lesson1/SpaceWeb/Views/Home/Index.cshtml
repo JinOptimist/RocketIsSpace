@@ -9,9 +9,10 @@
 {
     <link rel="stylesheet" href="~/css/rocket.css?v=1">
 }
-<div>
-    @Resource.HomeIndex_NewText
-</div>
+@section Scripts{ 
+    <script src="~/js/chart.min.js"></script>
+    <script src="~/js/index.js"></script>
+} 
 
 <a href="/Rocket/MainPage" class="rocket-link">
     <div class="block rocketfield">
@@ -30,6 +31,11 @@
         </div>
     </div>
 </a>
+
+<div class="block">
+    <canvas id="secondChart"></canvas>
+</div>
+
 <a href="/Human/Index">
     <div class="block block-human">        
     </div>
@@ -38,4 +44,8 @@
 
 <div class="block">
     @Resource.HomeIndex_FAQ
+</div>
+
+<div class="block">
+    <canvas id="myChart"></canvas>
 </div>

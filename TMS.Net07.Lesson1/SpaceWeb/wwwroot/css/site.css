@@ -5,6 +5,13 @@
     min-height: 100vh;
 }
 
+@media print {
+    .no-print {
+        display: none;
+    }
+}
+
+
 .obertka {
     height: 100vh;
     display: flex;
@@ -399,12 +406,35 @@ a {
 
 .error-socials {
     font-size: 22pt;
+    font-family: monospace;
 }
 
-    .block-bank {
-        width: 400px;
-    }
+.empty-socials-image {
+    background: url(../image/error404_2.png) no-repeat center;
+    background-size: cover;
+    width: 800px;
+    height: 454px;
 }
+
+.error-socials-image {
+    width: 556px;
+    height: 435px;
+    margin-bottom: 25px;
+}
+
+    .error-socials-image img {
+        width: 100%;
+        height: 100%;
+    }
+
+.socials-content {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
 .user-info {
     display: flex;
     align-items: center;
@@ -427,7 +457,8 @@ a {
     display: flex;
     align-items: center;
 }
-.currency-block input{
+
+.currency-block input {
     display: none;
 }
 

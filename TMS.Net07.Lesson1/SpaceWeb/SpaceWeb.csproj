@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -12,15 +12,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Models\Bank\Insurance\" />
     <Folder Include="wwwroot\image\human\" />
     <Folder Include="wwwroot\image\avatars\" />
+    <Folder Include="Logs\" />
+    <Folder Include="wwwroot\TempFile\" />
   </ItemGroup>
 
   <ItemGroup>
 
     <PackageReference Include="AutoMapper" Version="10.1.1" />
 
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.5" />
+    <PackageReference Include="DocXCore" Version="1.0.9" />
+
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.4" />
 
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.5">
       <PrivateAssets>all</PrivateAssets>
@@ -35,6 +40,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.3" />
+    <PackageReference Include="Serilog.Extensions.Logging.File" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>

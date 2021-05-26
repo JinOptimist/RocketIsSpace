@@ -1,4 +1,5 @@
 ﻿@inject UserService UserService
+
 @section Style{
     <link rel="stylesheet" href="~/css/Rocket/RocketShopStyle.css">
 }
@@ -8,302 +9,41 @@
 }
 
 @using SpaceWeb.Service
-@model SpaceWeb.Models.RocketModels.CollectionRocketShopViewModel
+@using SpaceWeb.Models.RocketModels
+@model SpaceWeb.Models.RocketModels.ComplexRocketShopViewModel
 
-    <div class = "vraper">
-        <div class = "header">
-          <div class= "shop"><p class = "text-header">Shop Rocket</p></div>
-          @if (UserService.IsAdmin())
+<div class="vraper">
+    <div class="header">
+        <div class="shop">
+            <p class="text-header">Shop Rocket</p>
+        </div>
+    </div>
+    <div class="shop-content">
+        <div class="shelf">
+            <div class="shop-header">
+                <p class="text-header">Rockets</p>
+            </div>
+            <form action="/RocketShop/RocketShop" class="items-shop" method="post">
+                @Html.HiddenFor(x => x.ClientId)
+                @foreach (var rocket in Model.AddRockets)
                 {
-                  <div>
-                    <a href="~/RocketShop/AdminAddRocket"> Add New Item</a>
-                  </div>
+                    <label class="rocket">
+                        <div class="view">
+                            <div class="current-name">@rocket.Name</div>
+                            <img src="/image/RocketImages/good-rocket.png">
+                        </div>
+                        <div class="icon add">
+                            <div>
+                                @rocket.Cost $
+                            </div>
+                            <input type="checkbox" name="@nameof(ComplexRocketShopViewModel.RocketIds)" value="@rocket.Id">
+                        </div>
+                    </label>
                 }
+                <input type="submit" value="Add to basket">
+                <a href="Basket">BASKET</a>
+            </form>
+            
         </div>
-        <div class="center-block">
-            <a href="#" class="link">
-                <div class="rocket-text" >
-                    <div class="text-rocket">Ready set of rocket</div>
-                    <div class = "block">
-                         <p class = "description" >You can buy a fully loaded rocket to your liking</p>
-                    </div>
-                </div>
-            </a>
-            <a href="#" class="link">
-                <div class="fuel-text" >
-                    <div class="text-fuel">Fuel tank</div>
-                    <div class = "block">
-                        <p class = "description" >You can buy a fuel tank in different sizes and qualities</p>
-                    </div>
-                </div>
-            </a>
-            <a href="#" class="link">
-                <div class="restroom-text">
-                    <div class="text-restroom">Restroom</div>
-                    <div class = "block">
-                        <p class = "description" >Choose the coolest toilet for yourself.
-                            If there is enough money</p>
-                   </div>
-                </div>
-            </a>
-            <a href="#" class="link">
-                <div class="kitchen-text">
-                    <div class="text-kitchen">Kitchen</div>
-                    <div class = "block">
-                        <p class = "description" >You can choose any cuisine you like</p>
-                   </div>
-                </div>
-            </a>
-            <a href="#" class="link">
-                <div class="command-text">
-                    <div class="text-command">Command center</div>
-                    <div class = "block">
-                        <p class = "description" >Your employees can control the rocket in the coolest command center</p>
-                   </div>
-                </div>
-            </a>
-            <a href="#" class="link">
-                <div class="engine-text">
-                    <div class="text-engine">Engine</div>
-                    <div class = "block">
-                        <p class = "description" >Buy yourself a powerful engine</p>
-                   </div>
-                </div>
-            </a> 
-        </div>
-    <div class = "section-shop">
-      <div class= "shop"><p class = "text-header">Rockets</p></div>
     </div>
-    <div class="items-shop">
-      @foreach (var rocket in Model.AddRockets)
-      {
-        <div class="rocket">
-          <div class="name">
-            <div class="view">
-              <div class="current-name">@rocket.Name</div>
-              <img src="/image/RocketImages/good-rocket.png">
-            </div>
-            <div class="icon add">
-              <div>
-                @rocket.Cost $
-              </div>
-              <span class="icon ok">Add</span>
-            </div>
-          </div>
-        </div>
-      }
-    </div>
-        <div class = "section-shop">
-            <div class= "shop"><p class = "text-header">Fuel tank</p></div>
-        </div>
-        <div class = "items-shop">
-            <div class="rocket">
-                <div class="name">
-                  <div class="view">
-                    <div class="current-name">Proton</div>
-                    <img src="/image/RocketImages/fuel-tank.jpg">
-                    <div>Price = 2k$</div>
-                    <div>Volume = 200</div>
-                  </div>
-                  <div class="icon add">
-                    <span class="icon ok">Add</span>
-                  </div>
-                </div>
-              </div>
-              <div class="rocket">
-                <div class="name">
-                  <div class="view">
-                    <div class="current-name">Proton</div>
-                    <img src="/image/RocketImages/fuel-tank.jpg">
-                    <div>Price = 5k$</div>
-                    <div>Volume = 500</div>
-                  </div>
-                  <div class="icon add">
-                    <span class="icon ok">Add</span>
-                  </div>
-                </div>
-              </div>
-              <div class="rocket">
-                <div class="name">
-                  <div class="view">
-                    <div class="current-name">Proton</div>
-                    <img src="/image/RocketImages/fuel-tank.jpg">
-                    <div>Price = 10k$</div>
-                    <div>Volume = 1000</div>
-                  </div>
-                  <div class="icon add">
-                    <span class="icon ok">Add</span>
-                  </div>
-                </div>
-              </div>
-        </div>
-        <div class = "section-shop">
-            <div class= "shop"><p class = "text-header">Restroom</p></div>
-        </div>
-        <div class = "items-shop">
-            <div class="rocket">
-                <div class="name">
-                  <div class="view">
-                    <div class="current-name">Proton</div>
-                    <img src="/image/RocketImages/fuel-tank.jpg">
-                    <div>Price = 10k$</div>
-                    <div>Volume = 1000</div>
-                  </div>
-                  <div class="icon add">
-                    <span class="icon ok">Add</span>
-                  </div>
-                </div>
-              </div>
-              <div class="rocket">
-                <div class="name">
-                  <div class="view">
-                    <div class="current-name">Proton</div>
-                    <img src="/image/RocketImages/fuel-tank.jpg">
-                    <div>Price = 10k$</div>
-                    <div>Volume = 1000</div>
-                  </div>
-                  <div class="icon add">
-                    <span class="icon ok">Add</span>
-                  </div>
-                </div>
-              </div>
-              <div class="rocket">
-                <div class="name">
-                  <div class="view">
-                    <div class="current-name">Proton</div>
-                    <img src="/image/RocketImages/fuel-tank.jpg">
-                    <div>Price = 10k$</div>
-                    <div>Volume = 1000</div>
-                  </div>
-                  <div class="icon add">
-                    <span class="icon ok">Add</span>
-                  </div>
-                </div>
-              </div>
-        </div>
-        <div class = "section-shop">
-            <div class= "shop"><p class = "text-header">Kitchen</p></div>
-        </div>
-        <div class = "items-shop">
-            <div class="rocket">
-                <div class="name">
-                  <div class="view">
-                    <div class="current-name">Proton</div>
-                    <img src="/image/RocketImages/fuel-tank.jpg">
-                    <div>Price = 10k$</div>
-                    <div>Volume = 1000</div>
-                  </div>
-                  <div class="icon add">
-                    <span class="icon ok">Add</span>
-                  </div>
-                </div>
-              </div><div class="rocket">
-                <div class="name">
-                  <div class="view">
-                    <div class="current-name">Proton</div>
-                    <img src="/image/RocketImages/fuel-tank.jpg">
-                    <div>Price = 10k$</div>
-                    <div>Volume = 1000</div>
-                  </div>
-                  <div class="icon add">
-                    <span class="icon ok">Add</span>
-                  </div>
-                </div>
-              </div><div class="rocket">
-                <div class="name">
-                  <div class="view">
-                    <div class="current-name">Proton</div>
-                    <img src="/image/RocketImages/fuel-tank.jpg">
-                    <div>Price = 10k$</div>
-                    <div>Volume = 1000</div>
-                  </div>
-                  <div class="icon add">
-                    <span class="icon ok">Add</span>
-                  </div>
-                </div>
-              </div>
-        </div>
-        <div class = "section-shop">
-            <div class= "shop"><p class = "text-header">Command center</p></div>
-        </div>
-        <div class = "items-shop">
-            <div class="rocket">
-                <div class="name">
-                  <div class="view">
-                    <div class="current-name">Proton</div>
-                    <img src="/image/RocketImages/fuel-tank.jpg">
-                    <div>Price = 10k$</div>
-                    <div>Volume = 1000</div>
-                  </div>
-                  <div class="icon add">
-                    <span class="icon ok">Add</span>
-                  </div>
-                </div>
-              </div><div class="rocket">
-                <div class="name">
-                  <div class="view">
-                    <div class="current-name">Proton</div>
-                    <img src="/image/RocketImages/fuel-tank.jpg">
-                    <div>Price = 10k$</div>
-                    <div>Volume = 1000</div>
-                  </div>
-                  <div class="icon add">
-                    <span class="icon ok">Add</span>
-                  </div>
-                </div>
-              </div><div class="rocket">
-                <div class="name">
-                  <div class="view">
-                    <div class="current-name">Proton</div>
-                    <img src="/image/RocketImages/fuel-tank.jpg">
-                    <div>Price = 10k$</div>
-                    <div>Volume = 1000</div>
-                  </div>
-                  <div class="icon add">
-                    <span class="icon ok">Add</span>
-                  </div>
-                </div>
-              </div>
-        </div>
-        <div class = "section-shop">
-            <div class= "shop"><p class = "text-header">Engine</p></div>
-        </div>
-    <div class = "items-shop">
-      <div class="rocket">
-        <div class="name">
-          <div class="view">
-            <div class="current-name">Proton</div>
-            <img src="/image/RocketImages/fuel-tank.jpg">
-            <div>Price = 10k$</div>
-            <div>Volume = 1000</div>
-          </div>
-          <div class="icon add">
-            <span class="icon ok">Add</span>
-          </div>
-        </div>
-      </div><div class="rocket">
-        <div class="name">
-          <div class="view">
-            <div class="current-name">Proton</div>
-            <img src="/image/RocketImages/fuel-tank.jpg">
-            <div>Price = 10k$</div>
-            <div>Volume = 1000</div>
-          </div>
-          <div class="icon add">
-            <span class="icon ok">Add</span>
-          </div>
-        </div>
-      </div><div class="rocket">
-        <div class="name">
-          <div class="view">
-            <div class="current-name">Proton</div>
-            <img src="/image/RocketImages/fuel-tank.jpg">
-            <div>Price = 10k$</div>
-            <div>Volume = 1000</div>
-          </div>
-          <div class="icon add">
-            <span class="icon ok">Add</span>
-          </div>
-        </div>
-      </div>
-    </div></div>
+</div>
