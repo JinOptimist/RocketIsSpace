@@ -11,6 +11,7 @@ using SpaceWeb.Service;
 using SpaceWeb.Models.Human;
 using System.Collections.Generic;
 using SpaceWeb.Controllers.CustomAttribute;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace SpaceWeb.Controllers
 {
@@ -113,5 +114,21 @@ namespace SpaceWeb.Controllers
             _humanPresentation.SavePersonnelChanges(requestViewModels);
             return RedirectToAction("Personnel");
         }
+
+        [HttpGet]
+        public IActionResult RequestEmploye()
+        {
+            var model = new RequestViewModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult RequestEmploye(RequestViewModel requestViewModel)
+        {
+
+            var c = requestViewModel.Department;
+            return View();
+        }
+
     }
 }

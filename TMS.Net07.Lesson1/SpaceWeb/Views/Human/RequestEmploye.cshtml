@@ -1,0 +1,29 @@
+﻿@using SpaceWeb.Models.Human
+@using SpaceWeb.EfStuff.Repositories.IRepository
+@using AutoMapper;
+
+@inject IDepartmentRepository departmentRepository
+@inject IMapper mapper
+
+
+@{
+    Layout = "_LayoutHuman";
+    var departments = departmentRepository.GetAll();
+    var view = departments.Select(x => mapper.Map<DepartmentViewModel>(x)).ToList();
+    var departmentOptions = new SelectList(view);
+}
+
+@model RequestViewModel
+
+<form action="/Human/RequestEmploye" method="post">
+    <div>
+        @Html.TextBoxFor(x => x.SalaryPerHour)
+    </div>
+    <div>
+        @Html.DropDownListFor(x => x.Position, new SelectList(Enum.GetValues(typeof(Position))))
+    </div>
+    <div>
+        @Html.DropDownListFor(x => x.Department, departmentOptions)
+    </div>
+    <input type="submit" name="send" />
+</form>
