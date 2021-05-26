@@ -4,9 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 //using Newtonsoft.Json;
 using SpaceWeb.EfStuff;
+using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -21,11 +23,6 @@ namespace ExchangeRate
     }
     class Program
     {
-        const string USERNAME = "193197322";
-        const string PASSWORD = "aA8M8yAdl9sMs";
-        const string TEL = "375293525980";
-        const string TEXT = "console app";
-
         //{
         //  "id": 141664774,
         //  "status": "QUEUED",
@@ -36,21 +33,30 @@ namespace ExchangeRate
         //}
         static void Main(string[] args)
         {
-            //string username = "193197322";
-            //string password = "aA8M8yAdl9sMs";
-            //string tel = "375293525980";
-            //string text = "console app";
 
             DbContextOptionsBuilder dbContextOptionsBuilder = new DbContextOptionsBuilder();
             var connection = dbContextOptionsBuilder
                 .UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=SpaceWeb;Trusted_Connection=True");
 
             SpaceDbContext spaceDbContext = new SpaceDbContext(connection.Options);
-            InsuranceTypeRepository insuranceTypeRepository = new InsuranceTypeRepository(spaceDbContext);
-            InsuranceRepository insuranceRepository = new InsuranceRepository(spaceDbContext);
+            ExchangeRateToUsdCurrentRepository exchangeRateToUsdCurrentRepository =
+                new ExchangeRateToUsdCurrentRepository(spaceDbContext);
+
+            
+
+            var currentDate = DateTime.Now;
+            while(true)
+            {
+                if (((currentDate.Minute / 45) == 1))
+                {
+                    var exchangeRates = GetExchangeRates();
+                    PutCurrentExchangeRatesToDb(exchangeRateToUsdCurrentRepository, exchangeRates);
+                }
+            }
+
+            
 
 
-            GetExchangeRates();
 
             //SendSMS(TEL, TEXT, USERNAME, PASSWORD);
             //CheckDb(insuranceTypeRepository, insuranceRepository);
@@ -59,25 +65,82 @@ namespace ExchangeRate
             //CheckDb(insuranceTypeRepository, insuranceRepository);
         }
 
-        //public static void CheckDb(InsuranceTypeRepository _insuranceTypeRepository, InsuranceRepository _insuranceRepository)
-        //{
-        //    DateTime compareDate = new DateTime(2021, 05, 12);
+        public static void PutCurrentExchangeRatesToDb(ExchangeRateToUsdCurrentRepository _exchangeRateToUsdCurrentRepository, Currency exchangeRates)
+        {
+            var exchangeRateDb = new ExchangeRateToUsdCurrent
+            {
+                Currency = SpaceWeb.Models.Currency.BYN,
+                TypeOfExch = SpaceWeb.Models.TypeOfExchange.Buy,
+                ExchRate = Convert.ToDecimal(exchangeRates.USD_in, new CultureInfo("en-US"))
+            };
+            _exchangeRateToUsdCurrentRepository.Save(exchangeRateDb);
 
-        //    var models = _insuranceRepository
-        //        .GetAll()
-        //        .Where(x => (x.DateCreationing.Year == compareDate.Year) && (x.DateCreationing.Month == compareDate.Month)
-        //            && (x.DateCreationing.Day == compareDate.Day))
-        //        .ToList();
+            exchangeRateDb = new ExchangeRateToUsdCurrent
+            {
+                Currency = SpaceWeb.Models.Currency.BYN,
+                TypeOfExch = SpaceWeb.Models.TypeOfExchange.Sell,
+                ExchRate = Convert.ToDecimal(exchangeRates.USD_out, new CultureInfo("en-US"))
+            };
+            _exchangeRateToUsdCurrentRepository.Save(exchangeRateDb);
 
-        //    foreach (var x in models)
-        //    {
-        //        SendSMS(x.Phone, TEXT, USERNAME, PASSWORD);
-        //    }
+            exchangeRateDb = new ExchangeRateToUsdCurrent
+            {
+                Currency = SpaceWeb.Models.Currency.EUR,
+                TypeOfExch = SpaceWeb.Models.TypeOfExchange.Buy,
+                ExchRate = Convert.ToDecimal(exchangeRates.USD_in, new CultureInfo("en-US"))
+                    / Convert.ToDecimal(exchangeRates.EUR_in, new CultureInfo("en-US"))
+            };
+            _exchangeRateToUsdCurrentRepository.Save(exchangeRateDb);
 
-        //    Console.WriteLine();
-        //}
+            exchangeRateDb = new ExchangeRateToUsdCurrent
+            {
+                Currency = SpaceWeb.Models.Currency.EUR,
+                TypeOfExch = SpaceWeb.Models.TypeOfExchange.Sell,
+                ExchRate = Convert.ToDecimal(exchangeRates.USD_out, new CultureInfo("en-US")) 
+                / Convert.ToDecimal(exchangeRates.EUR_out, new CultureInfo("en-US"))
+            };
+            _exchangeRateToUsdCurrentRepository.Save(exchangeRateDb);
 
-        public static void GetExchangeRates()
+            exchangeRateDb = new ExchangeRateToUsdCurrent
+            {
+                Currency = SpaceWeb.Models.Currency.GBP,
+                TypeOfExch = SpaceWeb.Models.TypeOfExchange.Buy,
+                ExchRate = Convert.ToDecimal(exchangeRates.USD_in, new CultureInfo("en-US")) 
+                / Convert.ToDecimal(exchangeRates.GBP_in, new CultureInfo("en-US"))
+            };
+            _exchangeRateToUsdCurrentRepository.Save(exchangeRateDb);
+
+            exchangeRateDb = new ExchangeRateToUsdCurrent
+            {
+                Currency = SpaceWeb.Models.Currency.GBP,
+                TypeOfExch = SpaceWeb.Models.TypeOfExchange.Sell,
+                ExchRate = Convert.ToDecimal(exchangeRates.USD_out, new CultureInfo("en-US")) 
+                / Convert.ToDecimal(exchangeRates.GBP_out, new CultureInfo("en-US"))
+            };
+            _exchangeRateToUsdCurrentRepository.Save(exchangeRateDb);
+
+            exchangeRateDb = new ExchangeRateToUsdCurrent
+            {
+                Currency = SpaceWeb.Models.Currency.PLN,
+                TypeOfExch = SpaceWeb.Models.TypeOfExchange.Buy,
+                ExchRate = Convert.ToDecimal(exchangeRates.USD_in, new CultureInfo("en-US")) 
+                / Convert.ToDecimal(exchangeRates.PLN_in, new CultureInfo("en-US"))
+            };
+            _exchangeRateToUsdCurrentRepository.Save(exchangeRateDb);
+
+            exchangeRateDb = new ExchangeRateToUsdCurrent
+            {
+                Currency = SpaceWeb.Models.Currency.PLN,
+                TypeOfExch = SpaceWeb.Models.TypeOfExchange.Sell,
+                ExchRate = Convert.ToDecimal(exchangeRates.USD_out, new CultureInfo("en-US")) 
+                / Convert.ToDecimal(exchangeRates.PLN_out, new CultureInfo("en-US"))
+            };
+            _exchangeRateToUsdCurrentRepository.Save(exchangeRateDb);
+
+            Console.WriteLine();
+        }
+
+        public static Currency GetExchangeRates()
         {
             HttpWebRequest request = (HttpWebRequest)
             WebRequest.Create("https://belarusbank.by/api/kursExchange?city=Минск");
@@ -97,33 +160,10 @@ namespace ExchangeRate
 
             var exchangeRates = fin[0];
 
-
-            /*try
-            {
-                using (WebResponse response = request.GetResponse())
-                {
-                    return true;
-                }
-            }
-            catch (WebException e)
-            {
-                using (WebResponse response = e.Response)
-                {
-                    HttpWebResponse httpResponse = (HttpWebResponse)response;
-                    Console.WriteLine("Error code: {0}", httpResponse.StatusCode);
-                    using (var streamReader = new StreamReader(response.GetResponseStream()))
-                        Console.WriteLine(streamReader.ReadToEnd());
-                    return false;
-                }
-            }*/
+            return exchangeRates;
         }
 
 
-    }
-
-    public class OverCurrency
-    {
-        public Currency[] Currency { get; set; }
     }
 
     public class Currency
@@ -136,32 +176,5 @@ namespace ExchangeRate
         public string GBP_out { get; set; }
         public string PLN_in { get; set; }
         public string PLN_out { get; set; }
-    }
-
-    public class Deser
-    {
-        public int Id { get; set; }
-        public string Status { get; set; }
-        //public Cost Cost { get; set; }
-        //public int Credits { get; set; }
-        //public decimal Money { get; set; }
-        //public decimal money { get; set; }
-        //public int countMessage = 0;
-        //public double money = 0;
-
-        public static void Print(Deser deser)
-        {
-            Console.WriteLine(deser.Id);
-            Console.WriteLine(deser.Status);
-            //Console.WriteLine(deser.Credits);
-            //Console.WriteLine(deser.Money);
-            //Console.WriteLine(deser.money);
-            //Console.WriteLine(deser.cost[1]);
-        }
-    }
-
-    public class Cost
-    {
-
     }
 }
