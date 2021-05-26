@@ -134,6 +134,9 @@ namespace SpaceWeb
                    diContainer.GetService<IHttpContextAccessor>()
                ));
 
+            services.AddScoped<ICurrencyService>(diContainer =>
+               new CurrencyService());
+
             services.AddControllersWithViews();
 
             services.AddHttpContextAccessor();

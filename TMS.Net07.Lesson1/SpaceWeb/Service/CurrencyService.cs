@@ -45,43 +45,8 @@ namespace SpaceWeb.Service
             var toRate = ConvertAmount(currencyTo);
             var fromRate = ConvertAmount(currencyFrom);
 
-            switch (currencyFrom)
-            {
-                case Currency.EUR:
-                    if (currencyFrom == Currency.EUR)
-                    {
-                        return (amount * toRate);
-                    }
-                    else if (currencyTo == Currency.EUR)
-                    {
-                        return (amount / fromRate);
-                    }
-                    else
-                    {
-                        return (amount * toRate) / fromRate;
-                    }
-                    break;
-                case Currency.USD:
-                    if (currencyFrom == Currency.USD)
-                    {
-                        return (amount * toRate);
-                    }
-                    else if (currencyTo == Currency.USD)
-                    { 
-                        return (amount / fromRate);
-                    }
-                    else
-                    {
-                        return (amount * toRate) / fromRate;
-                    }
-                    break;
-
-                default:
-                    throw new Exception("input amount");
-            }
-
-           
-          
+            return ((amount * toRate) / fromRate);
+         
         }
     }
     

@@ -25,11 +25,14 @@ namespace SpaceWeb.Controllers
         private IUserRepository _userRepository;
         private BanksCardRepository _banksCardRepository;
         private UserService _userService;
+       // private CurrencyService _currencyService;
 
         public BankController(IBankAccountRepository bankAccountRepository,
             ProfileRepository profileRepository,
             IUserRepository userRepository,
-            IMapper mapper, UserService userService, BanksCardRepository banksCardRepository)
+            IMapper mapper, UserService userService, 
+            BanksCardRepository banksCardRepository
+            )
         {
             _bankAccountRepository = bankAccountRepository;
             _profileRepository = profileRepository;
@@ -37,6 +40,7 @@ namespace SpaceWeb.Controllers
             _mapper = mapper;
             _userService = userService;
             _banksCardRepository = banksCardRepository;
+           
         }
         public IActionResult Index()
         {
@@ -134,12 +138,14 @@ namespace SpaceWeb.Controllers
 
             return RedirectToAction("Index");
         }
+      
         public IActionResult AddTransaction(long transferToId)
         {
 
 
             return RedirectToAction("Index");
         }
+        
 
 
         public IActionResult Contacts()
