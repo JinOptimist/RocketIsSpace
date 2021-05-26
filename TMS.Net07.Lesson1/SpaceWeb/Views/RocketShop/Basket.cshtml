@@ -14,6 +14,7 @@
 @section Script
 {
     <script src="~/js/Rocket/basket.js"></script>
+    <script src="~/js/Rocket/currency.js"></script>
 }
 
 <div class="bg">
@@ -34,16 +35,18 @@
                             <div>
                                 @foreach (var rock in ord.Rockets)
                                 {
-                                    <div>
-                                        @rock.Name
-                                    </div>
+                                    <div>@rock.Name</div>
                                 }
                             </div>
-                           @Html.Hidden("Price", ord.Price)
-                            <div class="amount-js">@ord.Price</div>
-                           <div>
-                            @Html.DropDownList("account", Model.BAOptions, new { @class = "dropdown" })
-                           </div> 
+                            @Html.Hidden("Price", ord.Price)
+                            
+                            @Html.Hidden("Currency", Model.currentCurrency)
+                            
+                            <div class="amount-js">@ord.Price @Html.DisplayFor(x=>x.currentCurrency)</div>
+                            
+                            <div>
+                                 @Html.DropDownList("account", Model.BAOptions, new { @class = "dropdown" })
+                            </div>
                         </div>
                     }
                 </div>

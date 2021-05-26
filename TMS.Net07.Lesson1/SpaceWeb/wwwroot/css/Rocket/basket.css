@@ -9,6 +9,7 @@
     padding: 20px;
     border: 15px solid #fcf7ff;
     margin: 10px;
+    background: #ffe0fd;
 }
 
 .title {
@@ -92,6 +93,6 @@
     background:green;
 }
 .cant-pay{
-    background:red;
+    background:black;
 
 }

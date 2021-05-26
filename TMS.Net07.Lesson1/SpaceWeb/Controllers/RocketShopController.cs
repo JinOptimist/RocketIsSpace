@@ -14,6 +14,7 @@ using SpaceWeb.Service;
 using SpaceWeb.Models.RocketModels;
 using SpaceWeb.Presentation;
 using SpaceWeb.Presentation;
+using SpaceWeb.Models;
 
 namespace SpaceWeb.Controllers
 {
@@ -118,6 +119,16 @@ namespace SpaceWeb.Controllers
             var account = _accountRepository.Get(accountNumber);
             var result = _currencyService.CheckBalanceToPay(account, Convert.ToDecimal(amount));
             return Json(result);
+        }
+
+        public IActionResult ChangeCurrency(string accountNumber, string amount, string currency)
+        {
+            var account = _accountRepository.Get(accountNumber);
+                         
+            var money = _currencyService.Convert((Currency)Enum.Parse(typeof(Currency), currency),
+                Convert.ToDecimal(amount), account.Currency);
+            return Json(new { money = money.ToString(),
+                currency = AttributeService.GetDisplayValue(account.Currency)});
         }
     }
 }
