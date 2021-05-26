@@ -270,6 +270,8 @@ namespace SpaceWeb
 
             MapBoth<ComplexRocketShopViewModel, Order>(configExpression);
 
+            MapBoth<Department, DepartmentViewModel>(configExpression);
+
             var mapperConfiguration = new MapperConfiguration(configExpression);
             var mapper = new Mapper(mapperConfiguration);
             services.AddScoped<IMapper>(c => mapper);
