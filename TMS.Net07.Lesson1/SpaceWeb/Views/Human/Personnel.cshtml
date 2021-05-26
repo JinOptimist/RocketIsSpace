@@ -2,19 +2,46 @@
 @using SpaceWeb.Extensions
 @{ 
     Layout = "_LayoutHuman";
+    var Status = new List<SelectListItem>();
+    Status.Add(new SelectListItem() { Value = ((int)EmployeStatus.Request).ToString(), Text = EmployeStatus.Request.GetDisplayableName() });
+    Status.Add(new SelectListItem() { Value = ((int)EmployeStatus.Accepted).ToString(), Text = EmployeStatus.Accepted.GetDisplayableName() });
+    Status.Add(new SelectListItem() { Value = ((int)EmployeStatus.Denied).ToString(), Text = EmployeStatus.Denied.GetDisplayableName() });
 }
 
-@model PersonnelViewModel
+@model List<RequestViewModel>
 
-<div>
+<div class="requests-list">
     <form action="/Human/PersonnelSubmit" method="post">
-        @foreach (var x in Model.RequestsToEmploy)
+        @for (var i = 0; i < Model.Count; i++)
         {
-            <label>
-                <input type="checkbox" name="eployeId" value="@x.Id" />
-                @Html.Partial("_employ", x)
-            </label>
+            <div class="request">
+                <div class="request-info">
+                    @Html.HiddenFor(x => x[i].Id)
+                    @Html.HiddenFor(x => x[i].ForeignKeyUser)
+                    <div>
+                        @Html.DisplayTextFor(x => x[i].Name)
+                    </div>
+                    <div>
+                        @Html.DisplayTextFor(x => x[i].Surname)
+                    </div>
+                    <div>
+                        @Html.TextBoxFor(x => x[i].SalaryPerHour)
+                    </div>
+                </div>
+                <div class="request-position">
+                    <div>
+                        @Html.DropDownListFor(x => x[i].Position, new SelectList(Enum.GetValues(typeof(Position))))
+                    </div>
+                    <div>
+                        @Html.DropDownListFor(x => x[i].EmployeStatus, Status)
+                    </div>
+                </div>
+
+            </div>
         }
-        <input type="submit" name="accept" value="accept" />
+        @if (Model.Count != 0)
+        {
+            <input type="submit" name="accept" value="accept" />
+        }
     </form>
 </div>

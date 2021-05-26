@@ -10,6 +10,7 @@ namespace SpaceWeb.Presentation
         List<DepartmentViewModel> GetViewModelForAllDepartments();
         DepartmentViewModel GetViewModelForDepartment(long id);
         void Remove(List<long> userIds);
-        PersonnelViewModel GetPersonnelViewModel();
+        List<RequestViewModel> GetPersonnelViewModel();
+        void SavePersonnelChanges(List<RequestViewModel> requestViewModels);
     }
 }

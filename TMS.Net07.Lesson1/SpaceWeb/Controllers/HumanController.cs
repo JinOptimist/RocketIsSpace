@@ -98,6 +98,7 @@ namespace SpaceWeb.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         [IsLeaderOfDepartment]
         public IActionResult Personnel()
         {
@@ -105,13 +106,10 @@ namespace SpaceWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult PersonnelSubmit(PersonnelViewModel viewModel)
+        public IActionResult PersonnelSubmit(List<RequestViewModel> requestViewModels)
         {
-            //not working
-            var employes = viewModel.RequestsToEmploy.Select(x => _mapper.Map<Employe>(x)).ToList();
-            foreach (var x in employes)
-                _employeRepository.Save(x);
-            return View();
+            _humanPresentation.SavePersonnelChanges(requestViewModels);
+            return RedirectToAction("Personnel");
         }
     }
 }

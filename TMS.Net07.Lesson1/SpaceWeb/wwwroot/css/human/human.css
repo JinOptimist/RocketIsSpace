@@ -87,3 +87,26 @@
     display:flex;
     flex-direction:column;
 }
+
+.requests-list {
+    display: flex;
+    justify-content: center;
+}
+
+.request-info {
+    display: flex;
+    flex-direction: row;
+}
+
+.request {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.request-position {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3px;
+}
