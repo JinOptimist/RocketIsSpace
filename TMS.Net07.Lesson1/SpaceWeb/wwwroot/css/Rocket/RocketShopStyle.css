@@ -94,6 +94,12 @@ body{
 .shelf{
     width: 100%;
 }
+.chart-for-order{
+    width: 700px;
+}
+#order-chart{
+    background: white;
+}
 
 
 

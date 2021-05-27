@@ -4,6 +4,12 @@
     <link rel="stylesheet" href="~/css/Rocket/RocketShopStyle.css">
 }
 
+@section Script
+{
+    <script src="~/js/chart.min.js"></script>
+    <script src="~/js/Rocket/RocketShopChart.js"></script>
+}
+
 @{
     Layout = "_LayoutRocket";
 }
@@ -43,7 +49,9 @@
                 <input type="submit" value="Add to basket">
                 <a href="Basket">BASKET</a>
             </form>
-            
         </div>
+    </div>
+    <div class="chart-for-order">
+        <canvas id="order-chart"></canvas>
     </div>
 </div>
