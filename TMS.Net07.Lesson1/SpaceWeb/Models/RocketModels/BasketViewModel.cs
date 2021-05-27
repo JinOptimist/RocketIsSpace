@@ -24,7 +24,7 @@ namespace SpaceWeb.Models.RocketModels
                 Value = "-1",
                 Disabled = true,
                 Selected=true
-            });
+            }); 
             foreach (var option in BankAccounts)
             {
                 var selectListItem = new SelectListItem()
