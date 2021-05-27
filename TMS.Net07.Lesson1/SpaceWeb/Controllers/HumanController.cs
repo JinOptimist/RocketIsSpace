@@ -125,10 +125,8 @@ namespace SpaceWeb.Controllers
         [HttpPost]
         public IActionResult RequestEmploye(RequestViewModel requestViewModel)
         {
-
-            var c = requestViewModel.Department;
-            return View();
+            _humanPresentation.SaveRequestEmploye(requestViewModel);
+            return RedirectToAction("Index");
         }
-
     }
 }

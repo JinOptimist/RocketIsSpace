@@ -7,10 +7,18 @@
 
 
 @{
-    Layout = "_LayoutHuman";
+    var deprtmentOptions = new List<SelectListItem>();
+
     var departments = departmentRepository.GetAll();
-    var view = departments.Select(x => mapper.Map<DepartmentViewModel>(x)).ToList();
-    var departmentOptions = new SelectList(view);
+
+    for (int i = 0; i < departments.Count; i++)
+    {
+        var option = new SelectListItem();
+        option.Value = ((long)departments[i].Id).ToString();
+        option.Text = departments[i].DepartmentName;
+        deprtmentOptions.Add(option);
+    }
+
 }
 
 @model RequestViewModel
@@ -23,7 +31,7 @@
         @Html.DropDownListFor(x => x.Position, new SelectList(Enum.GetValues(typeof(Position))))
     </div>
     <div>
-        @Html.DropDownListFor(x => x.Department, departmentOptions)
+        @Html.DropDownListFor(x => x.DepartmentId, deprtmentOptions)
     </div>
     <input type="submit" name="send" />
 </form>

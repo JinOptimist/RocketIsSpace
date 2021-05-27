@@ -12,5 +12,6 @@ namespace SpaceWeb.Presentation
         void Remove(List<long> userIds);
         List<RequestViewModel> GetPersonnelViewModel();
         void SavePersonnelChanges(List<RequestViewModel> requestViewModels);
+        void SaveRequestEmploye(RequestViewModel requestViewModel);
     }
 }
