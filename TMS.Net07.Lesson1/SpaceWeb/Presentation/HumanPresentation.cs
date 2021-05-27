@@ -78,5 +78,18 @@ namespace SpaceWeb.Presentation
                 _employeRepository.Save(employeTemp);
             }
         }
+
+        public void SaveRequestEmploye(RequestViewModel requestViewModel)
+        {
+            var user = _userService.GetCurrent();
+            var department = _departmentRepository.Get(requestViewModel.DepartmentId);
+            user.Employe = new Employe()
+            {
+                Department = department,
+                Position = requestViewModel.Position,
+                SalaryPerHour = requestViewModel.SalaryPerHour
+            };
+            _employeRepository.Save(user.Employe);
+        }
     }
 }
