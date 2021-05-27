@@ -1,7 +1,7 @@
 ﻿@inject UserService UserService
 
 @section Style{
-    <link rel="stylesheet" href="~/css/Rocket/RocketShopStyle.css">
+    <link rel="stylesheet" href="~/css/Rocket/RocketShopStyle.css?v=3">
 }
 
 @{
@@ -13,37 +13,40 @@
 @model SpaceWeb.Models.RocketModels.ComplexRocketShopViewModel
 
 <div class="vraper">
-    <div class="header">
-        <div class="shop">
-            <p class="text-header">Shop Rocket</p>
-        </div>
+    <div class="header-shop">
+        <p>Shop Rocket</p>
     </div>
     <div class="shop-content">
-        <div class="shelf">
-            <div class="shop-header">
-                <p class="text-header">Rockets</p>
-            </div>
-            <form action="/RocketShop/RocketShop" class="items-shop" method="post">
-                @Html.HiddenFor(x => x.ClientId)
+        <div style="height: 50px"></div>
+        <div class="rockets">Rockets</div>
+        <div style="height: 50px"></div>
+        <form action="/RocketShop/RocketShop"  method="post">
+            @Html.HiddenFor(x => x.ClientId)
+            <div class="items-shop">
                 @foreach (var rocket in Model.AddRockets)
                 {
                     <label class="rocket">
                         <div class="view">
                             <div class="current-name">@rocket.Name</div>
-                            <img src="/image/RocketImages/good-rocket.png">
+                            <img src="/image/comfortImage/rocketForShop.jpg">
                         </div>
-                        <div class="icon add">
-                            <div>
+                        <div class="add">
+                            <div class="cost">
                                 @rocket.Cost $
                             </div>
-                            <input type="checkbox" name="@nameof(ComplexRocketShopViewModel.RocketIds)" value="@rocket.Id">
+                            <label class="control control-checkbox">
+                                <input type="checkbox" name="@nameof(ComplexRocketShopViewModel.RocketIds)" value="@rocket.Id">
+                                <div class="control_indicator"></div>
+                            </label>
                         </div>
                     </label>
                 }
-                <input type="submit" value="Add to basket">
-                <a href="Basket">BASKET</a>
-            </form>
-            
-        </div>
+            </div>
+            <div class="input-for-shop">
+                <input type="submit" class="btn-shop" value="Add to basket">
+                <a href="Basket" class="btn-shop">BASKET</a>
+            </div>            
+        </form>
+        <div style="height: 100px"></div>
     </div>
 </div>

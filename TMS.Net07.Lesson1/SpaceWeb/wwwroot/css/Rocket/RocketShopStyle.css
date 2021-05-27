@@ -1,101 +1,220 @@
-body{
-    margin: 0;
-    padding: 0;
-    background: url(../../image/RocketImages/space_shop2.jpg) no-repeat center/ cover;
-    background-attachment: fixed; 
-}
-
-.vraper{
-    width: 100%;
-}
-.items-shop{
+.header-shop {
     display: flex;
-    flex-wrap: wrap;
-}
-
-.shop-header{
-    border-radius: 20px;
-    padding: 5px;
-    margin: 2px;
-    color: rgb(224, 219, 219);
-    background: transparent;
-    box-shadow: 0 5px 40px 10px #0d2d46;
-    text-shadow: 1px 1px 2px black, 0 0 1em red;
-}
-.text-header{
-    text-align: center;
-    font-size: 80pt;
-}
-.center-block{
-    display: flex;
-    flex-wrap: wrap;
+    height: 700px;
+    background: url(../../image/comfortImage/spaceShopBG.jpg) center/cover;
+    color: white;
+    justify-content: center;
     align-items: center;
-    justify-content: space-between;
+    font-family: "Century Gothic";
+    font-size: 120px;
 }
 
-.link {
-    text-decoration: none;
+.rockets {
+    font-size: 70px;
+    font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
+    margin-left: 20%;
+    color: #463b2e;
 }
 
-.center-block a div {
-    text-align: center;
-    text-shadow: -1px 0 whitesmoke, 0 1px whitesmoke, 1px 0 whitesmoke, 0 -1px whitesmoke;
-    font-family: Calibri; color: rgb(252, 252, 252);
-    font-size: 60px;
-    height: 200px;
-    width: 350px;
-    padding: 20px;
-    margin: 10px;
-    color: rgb(224, 219, 219);
-    transition: .7s;
-    text-shadow: 1px 1px 2px black, 0 0 1em red;
-}
-
-.center-block a:hover
-{
-    position:relative;
-    border-radius: 70px;
-    transition: 0.5s;
-    box-shadow: 0 5px 40px 10px #0d2d46;
-}
-
-.description{
-    text-align: center;
+.current-name {
+    font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
     font-size: 20px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+    color: #463b2e;
 }
 
-.block{
-    display:none;
-    text-align: center;
-}
-
-.rocket{
-    font-family: Calibri; color: rgb(252, 252, 252);
-    width: 170px;
-    
-    margin: 5px;
+.rocket {
+    width: 400px;
+    height: 400px;
+    margin: 70px 10px;
     padding: 10px;
+    background: #d8d8d8;
+}
 
-    border-radius: 20px;
-    background: transparent;
-    box-shadow: 0 5px 40px 10px #0d2d46;
-    text-shadow: 1px 1px 2px black, 0 0 1em red;
+.view {
+    height: 370px;
 }
 
 .rocket img {
-    max-width: 150px;
-    max-height: calc(150px - 16px);
+    max-width: 400px;
+    max-height: 320px;
 }
 
-.shop-content{
+.add {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cost {
+    font-size: 18px;
+}
+
+.items-shop {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0px 10%;
+    background: #36364ccf;
+}
+
+.form-shop{
     display: flex;
 }
 
-.shelf{
-    width: 100%;
+.input-for-shop {
+    display: flex;
+    margin-right: 15%;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-top: 25px;
 }
 
+.btn-shop {
+    font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
+    color: #ffffff;
+    font-size: 20px;
+    background: #598ba8;
+    padding: 15px 60px 16px 60px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+    .btn-shop:hover {
+        background: #93bfd9;
+        text-decoration: none;
+    }
 
 
+
+
+.control {
+    font-family: arial;
+    display: block;
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 5px;
+    padding-top: 3px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+    .control input {
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+    }
+
+.control_indicator {
+    position: absolute;
+    top: 3px;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background: #ececec;
+    border: 0px solid #000000;
+    border-radius: 0px;
+}
+
+.control:hover input ~ .control_indicator,
+.control input:focus ~ .control_indicator {
+    background: #cccccc;
+}
+
+.control input:checked ~ .control_indicator {
+    background: #4f78b6;
+}
+
+.control:hover input:not([disabled]):checked ~ .control_indicator,
+.control input:checked:focus ~ .control_indicator {
+    background: #85c071;
+}
+
+.control input:disabled ~ .control_indicator {
+    background: #e2e2e2;
+    opacity: 6;
+    pointer-events: none;
+}
+
+.control_indicator:after {
+    box-sizing: unset;
+    content: '';
+    position: absolute;
+    display: none;
+}
+
+.control input:checked ~ .control_indicator:after {
+    display: block;
+}
+
+.control-checkbox .control_indicator:after {
+    left: 8px;
+    top: 4px;
+    width: 3px;
+    height: 9px;
+    border: solid #ffffff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.control-checkbox .control_indicator::before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 4.577rem;
+    height: 4.523rem;
+    margin-left: -1.637rem;
+    margin-top: -1.5rem;
+    background: #736cbb;
+    border-radius: 3rem;
+    opacity: 0.3;
+    z-index: 99999;
+    transform: scale(0);
+}
+
+@keyframes s-ripple {
+    0% {
+        transform: scale(0);
+    }
+
+    20% {
+        transform: scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(1);
+    }
+}
+
+@keyframes s-ripple-dup {
+    0% {
+        transform: scale(0);
+    }
+
+    30% {
+        transform: scale(1);
+    }
+
+    60% {
+        transform: scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(1);
+    }
+}
+
+.control-checkbox input + .control_indicator::before {
+    animation: s-ripple 250ms ease-out;
+}
+
+.control-checkbox input:checked + .control_indicator::before {
+    animation-name: s-ripple-dup;
+}
 
 
