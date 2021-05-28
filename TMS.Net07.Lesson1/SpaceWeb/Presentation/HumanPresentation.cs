@@ -118,6 +118,7 @@ namespace SpaceWeb.Presentation
                     p.AppendLine($"Working hours: {department.HourStartWorking} - {department.HourEndWorking}").FontSize(14d);
                 }
                 doc.Save();
+            }
         }
 
         public void SaveDepartment(DepartmentViewModel model)
