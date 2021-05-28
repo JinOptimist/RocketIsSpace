@@ -8,8 +8,8 @@
 
 @section Style
 {
-    <link rel="stylesheet" href="~/css/Rocket/basket.css?v=5">
-    <link rel="stylesheet" href="~/css/Rocket/checkbox.css">
+    <link rel="stylesheet" href="~/css/Rocket/basket.css?v=6">
+    <link rel="stylesheet" href="~/css/Rocket/checkbox.css?v=4">
 }
 
 @section Script
@@ -34,13 +34,15 @@
                         @foreach (var ord in Model.Orders)
                         {
                             <div class="order order-rocket">
-                                <div>@ord.Name</div>
-                                <label class="control control-checkbox">
-                                    <input type="checkbox" 
-                                           name="@nameof(BasketViewModel.OrderNamesToPay)" 
-                                           value="@ord.Name">
-                                    <div class="control_indicator"></div>
-                                </label>
+                                <div style="display: flex">
+                                    <label class="control control-checkbox">
+                                        <input type="checkbox"
+                                               name="@nameof(BasketViewModel.OrderNamesToPay)"
+                                               value="@ord.Name">
+                                        <div class="control_indicator"></div>
+                                    </label>
+                                    <div>@ord.Name</div>
+                                </div>
                                 <div>
                                     @foreach (var rock in ord.Rockets)
                                     {
