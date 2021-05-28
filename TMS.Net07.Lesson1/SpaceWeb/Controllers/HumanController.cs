@@ -12,6 +12,8 @@ using SpaceWeb.Models.Human;
 using System.Collections.Generic;
 using SpaceWeb.Controllers.CustomAttribute;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace SpaceWeb.Controllers
 {
@@ -23,7 +25,9 @@ namespace SpaceWeb.Controllers
         private IMapper _mapper;
         private IDepartmentRepository _departmentRepository;
         private IEmployeRepository _employeRepository;
+        private IWebHostEnvironment _hostEnvironment;
         private UserService _userService;
+
 
         public HumanController(
             IUserRepository userRepository,
@@ -31,14 +35,17 @@ namespace SpaceWeb.Controllers
             IDepartmentRepository departmentRepository,
             IHumanPresentation humanPresentation,
             IEmployeRepository employeRepository,
-            UserService userService)
+            IWebHostEnvironment hostEnvironment,
+            UserService userService 
+            )
         {
             _userRepository = userRepository;
             _mapper = mapper;
             _departmentRepository = departmentRepository;
             _humanPresentation = humanPresentation;
-            _userService = userService;
             _employeRepository = employeRepository;
+            _hostEnvironment = hostEnvironment;
+            _userService = userService; 
         }
 
         [HttpGet]
@@ -124,5 +131,16 @@ namespace SpaceWeb.Controllers
             _humanPresentation.SaveRequestEmploye(requestViewModel);
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public IActionResult DownloadDepartments()
+        {
+            var webPath = _hostEnvironment.WebRootPath;
+            var path = Path.Combine(webPath, "TempFile", "temp-departments.docx");
+            var contentTypeDocx = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+            var fileName = "departments.docx";            
+             _humanPresentation.SaveDepartmentsToDocX(path);
+            return PhysicalFile(path, contentTypeDocx, fileName);
+        }        
     }
 }

@@ -18,15 +18,17 @@
                 <div class="department-info-block">
                     <div><b>Department name: </b>@department.DepartmentName</div>
                     <div><b>Department type: </b>@department.DepartmentSpecificationType</div>
-                    <div><b>Maximum employes: </b>@department.MaximumCountEmployes</div>
+                    <div><b>Employes (count/max): </b>@department.Employes.Count/@department.MaximumCountEmployes</div>
                     <div><b>Working hours: </b>@department.HourStartWorking - @department.HourEndWorking</div>
                     <button onclick="window.location.href='/human/DeleteDepartment?id=@department.Id'" class="btn btn-danger" style="margin: 10px 10px 0px 0px">Delete</button>
                     <button onclick="editDepartment(@department.Id)" class="btn btn-info" style="margin: 10px 10px 0px 0px">Edit</button>
                 </div>
             </label>
         }
-        <button class="btn btn-primary" data-toggle="modal" data-target="#modal-department">Add department</button>
-
+        <div style="margin: 20px">
+            <button class="btn btn-primary" data-toggle="modal" data-target="#modal-department">Add department</button>
+            <button onclick="window.location.href='/human/DownloadDepartments'" class="btn btn-primary">Save to file</button>
+        </div>
         <div class="modal" id="modal-department" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">

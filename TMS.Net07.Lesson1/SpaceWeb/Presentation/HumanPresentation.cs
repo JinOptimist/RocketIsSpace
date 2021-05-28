@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using Novacode;
 using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Models.Human;
 using SpaceWeb.Service;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace SpaceWeb.Presentation
@@ -21,7 +23,8 @@ namespace SpaceWeb.Presentation
             IDepartmentRepository departmentRepository,
             IMapper mapper,
             IEmployeRepository employeRepository,
-            UserService userService)
+            UserService userService
+            )
         {
             _userRepository = userRepository;
             _departmentRepository = departmentRepository;
@@ -90,6 +93,31 @@ namespace SpaceWeb.Presentation
                 SalaryPerHour = requestViewModel.SalaryPerHour
             };
             _employeRepository.Save(user.Employe);
+        }
+
+
+        public void SaveDepartmentsToDocX(string path)
+        {
+            if (!File.Exists(path))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(path));
+                File.Create(path).Dispose();
+            }
+            var departments = _departmentRepository.GetAll();
+
+            using (var doc = DocX.Create(path))
+            {
+                doc.InsertParagraph("All Departments:").FontSize(16d).Bold().SpacingAfter(28d).Alignment = Alignment.center;
+                foreach (Department department in departments)
+                {
+                    var p = doc.InsertParagraph().SpacingAfter(14d);
+                    p.AppendLine($"Department name: {department.DepartmentName}").FontSize(14d);
+                    p.AppendLine($"Department type: {department.DepartmentSpecificationType}").FontSize(14d);
+                    p.AppendLine($"Count employes: {department.Employes.Count}").FontSize(14d);
+                    p.AppendLine($"Maxumum employes: {department.MaximumCountEmployes}").FontSize(14d);
+                    p.AppendLine($"Working hours: {department.HourStartWorking} - {department.HourEndWorking}").FontSize(14d);
+                }
+                doc.Save();
         }
 
         public void SaveDepartment(DepartmentViewModel model)
