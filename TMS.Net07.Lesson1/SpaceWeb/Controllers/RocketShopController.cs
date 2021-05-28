@@ -93,6 +93,7 @@ namespace SpaceWeb.Controllers
             _shopRocketRepository.Save(rocket);
             return View();
         }
+
         [HttpGet]
         public IActionResult Basket()
         {
@@ -109,8 +110,10 @@ namespace SpaceWeb.Controllers
         }
         
         [HttpPost]
-        public IActionResult Basket(OrderViewModel order)
+        public IActionResult Basket(BasketViewModel order)
         {
+
+
             return View();
         }
         
