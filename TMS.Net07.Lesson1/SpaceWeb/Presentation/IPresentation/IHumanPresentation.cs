@@ -13,5 +13,6 @@ namespace SpaceWeb.Presentation
         List<RequestViewModel> GetPersonnelViewModel();
         void SavePersonnelChanges(List<RequestViewModel> requestViewModels);
         void SaveRequestEmploye(RequestViewModel requestViewModel);
+        void SaveDepartmentsToDocX(string path);
     }
 }
