@@ -19,6 +19,7 @@ namespace SpaceWeb.EfStuff
         public const string EmployeSurname = "Employe";
         public const string ClientName = "Client";
         public const string ClientSurname = "Example";
+        public const string DefaultPassword = "123";
         public static IHost SeedData(this IHost server)
         {
             using (var serviceScope = server.Services.CreateScope())
@@ -185,7 +186,7 @@ namespace SpaceWeb.EfStuff
                 insuranceTypeRepository.Save(insurancePolis);
             }
         }
-      
+
         private static void SetDefaultEmploye(IServiceProvider service)
         {
             var userReposirory = service.GetService<IUserRepository>();
@@ -193,18 +194,12 @@ namespace SpaceWeb.EfStuff
             var user = userReposirory.Get(string.Concat(EmployeName, EmployeSurname));
             if (user == null)
             {
-                user = new User()
-                {
-                    Login = string.Concat(EmployeName, EmployeSurname),
-                    Name = EmployeName,
-                    SurName = EmployeSurname,
-                    Password = "1111",
-                    Employe = CreateEmploye(departmentRepository)
-                };
+                user = CreateUser(string.Concat(EmployeName, EmployeSurname), EmployeName, EmployeSurname, DefaultPassword);
+                user.Employe = CreateEmploye(Position.Leader, EmployeStatus.Accepted, 200, departmentRepository.Get(DepartmentName));
             }
             else if (user.Employe == null)
             {
-                user.Employe = CreateEmploye(departmentRepository);
+                user.Employe = CreateEmploye(Position.Leader, EmployeStatus.Accepted, 200, departmentRepository.Get(DepartmentName));
             }
             userReposirory.Save(user);
         }
@@ -215,14 +210,8 @@ namespace SpaceWeb.EfStuff
             var user = userReposirory.Get(string.Concat(ClientName, ClientSurname));
             if (user == null)
             {
-                user = new User()
-                {
-                    Login = string.Concat(ClientName, ClientSurname),
-                    Name = ClientName,
-                    SurName = ClientSurname,
-                    Password = "1111",
-                    Client = CreateClient()
-                };
+                user = CreateUser(string.Concat(ClientName, ClientSurname), ClientName, ClientSurname, DefaultPassword);
+                user.Client = CreateClient();
             }
             else if (user.Client == null)
             {
@@ -230,6 +219,17 @@ namespace SpaceWeb.EfStuff
             }
             userReposirory.Save(user);
         }
+
+        private static User CreateUser(string Login, string Name, string SurName, string Password, string Email = "", int Age = 0) =>
+            new User
+            {
+                Login = Login,
+                Name = Name,
+                SurName = SurName,
+                Password = Password,
+                Email = Email,
+                Age = Age
+            };
 
         private static Client CreateClient() =>
             new Client
@@ -242,12 +242,13 @@ namespace SpaceWeb.EfStuff
                 }
             };
 
-        private static Employe CreateEmploye(IDepartmentRepository departmentRepository) =>
+        private static Employe CreateEmploye(Position position, EmployeStatus employeStatus, decimal salaryPerHour, Department department) =>
             new Employe
             {
-                Position = Position.Leader,
-                SalaryPerHour = 200,
-                Department = departmentRepository.Get(DepartmentName)
+                Position = position,
+                SalaryPerHour = salaryPerHour,
+                EmployeStatus = employeStatus,
+                Department = department
             };
     }
 }

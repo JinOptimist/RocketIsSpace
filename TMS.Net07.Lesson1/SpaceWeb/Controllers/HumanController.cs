@@ -25,7 +25,13 @@ namespace SpaceWeb.Controllers
         private IEmployeRepository _employeRepository;
         private UserService _userService;
 
-        public HumanController(IUserRepository userRepository, IMapper mapper, IDepartmentRepository departmentRepository, IHumanPresentation humanPresentation, IEmployeRepository employeRepository, UserService userService = null)
+        public HumanController(
+            IUserRepository userRepository,
+            IMapper mapper,
+            IDepartmentRepository departmentRepository,
+            IHumanPresentation humanPresentation,
+            IEmployeRepository employeRepository,
+            UserService userService)
         {
             _userRepository = userRepository;
             _mapper = mapper;
@@ -63,14 +69,14 @@ namespace SpaceWeb.Controllers
         [HttpPost]
         public IActionResult SaveDepartment(DepartmentViewModel model)
         {
-            _departmentRepository.Save(_mapper.Map<Department>(model));
+            _humanPresentation.SaveDepartment(model);
             return RedirectToAction("AllDepartments");
         }
 
         [HttpGet]
         public IActionResult DeleteDepartment(long id)
         {
-            _departmentRepository.Remove(id);
+            _humanPresentation.DeleteDepartment(id);
             return RedirectToAction("AllDepartments");
         }
 
@@ -81,27 +87,18 @@ namespace SpaceWeb.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         [IsClient]
         public IActionResult ClientPage()
         {
-            var user = _userService.GetCurrent();
-            var userViewModel = _mapper.Map<ShortUserViewModel>(user);
-            return View(userViewModel);
+            return View(_humanPresentation.ClientPage());
         }
 
         public IActionResult UpdateEmployes(long idDepartment)
         {
-            var employes = _employeRepository.
-                GetEmployesByDepartment(idDepartment).
-                Select(x => _mapper.Map<ShortEmployeViewModel>(x)).
-                ToList();
-            return Json(employes);
+            return Json(_humanPresentation.UpdateEmployes(idDepartment));
         }
 
         [HttpGet]
-        [Authorize]
-        [IsEmploye]
         [IsLeaderOfDepartment]
         public IActionResult Personnel()
         {
@@ -118,8 +115,7 @@ namespace SpaceWeb.Controllers
         [HttpGet]
         public IActionResult RequestEmploye()
         {
-            var model = new RequestViewModel();
-            return View(model);
+            return View(new RequestViewModel());
         }
 
         [HttpPost]
