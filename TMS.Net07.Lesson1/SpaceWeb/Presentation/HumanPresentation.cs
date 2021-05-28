@@ -95,6 +95,7 @@ namespace SpaceWeb.Presentation
             _employeRepository.Save(user.Employe);
         }
 
+
         public void SaveDepartmentsToDocX(string path)
         {
             if (!File.Exists(path))
@@ -117,7 +118,30 @@ namespace SpaceWeb.Presentation
                     p.AppendLine($"Working hours: {department.HourStartWorking} - {department.HourEndWorking}").FontSize(14d);
                 }
                 doc.Save();
-            }
+        }
+
+        public void SaveDepartment(DepartmentViewModel model)
+        {
+            _departmentRepository.Save(_mapper.Map<Department>(model));
+        }
+
+        public void DeleteDepartment(long id)
+        {
+            _departmentRepository.Remove(id);
+        }
+
+        public ShortUserViewModel ClientPage()
+        {
+            var user = _userService.GetCurrent();
+            return _mapper.Map<ShortUserViewModel>(user);
+        }
+
+        public List<ShortEmployeViewModel> UpdateEmployes(long idDepartment)
+        {
+            return _employeRepository
+                .GetEmployesByDepartment(idDepartment)
+                .Select(x => _mapper.Map<ShortEmployeViewModel>(x))
+                .ToList();
         }
     }
 }

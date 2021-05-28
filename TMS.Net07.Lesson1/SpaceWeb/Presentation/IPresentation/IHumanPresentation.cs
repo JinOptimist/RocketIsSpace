@@ -14,5 +14,9 @@ namespace SpaceWeb.Presentation
         void SavePersonnelChanges(List<RequestViewModel> requestViewModels);
         void SaveRequestEmploye(RequestViewModel requestViewModel);
         void SaveDepartmentsToDocX(string path);
+        void SaveDepartment(DepartmentViewModel model);
+        void DeleteDepartment(long id);
+        ShortUserViewModel ClientPage();
+        List<ShortEmployeViewModel> UpdateEmployes(long idDepartment);
     }
 }
