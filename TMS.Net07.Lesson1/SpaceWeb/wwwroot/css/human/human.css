@@ -96,6 +96,7 @@
 .request-info {
     display: flex;
     flex-direction: row;
+    justify-content: flex-end;
 }
 
 .request {
@@ -109,4 +110,13 @@
     flex-direction: column;
     align-items: center;
     padding: 3px;
+}
+
+.element-request{
+    padding: 5px;
+}
+
+.accept-button {
+    display: flex;
+    justify-content: center;
 }
