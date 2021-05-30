@@ -24,14 +24,17 @@ namespace SpaceWeb.Service
             _exchangeAccountHistoryRepository = exchangeAccountHistoryRepository;
         }
 
-        public decimal ConvertByAlex(decimal amount, Currency currency)
+        public decimal ConvertByAlex(decimal amount, Currency currencyTo)
         {
             var user = _userService.GetCurrent();
+            var currencyFrom = Currency.USD;
             var typeOfExchange = TypeOfExchange.Sell;
-            var exchangeRate = _exchangeRateToUsdCurrentRepository.GetExchangeRate(currency, typeOfExchange);
+            var exchangeRate = _exchangeRateToUsdCurrentRepository.GetExchangeRate(currencyTo, typeOfExchange).ExchRate;
 
-            var convertedAmount = amount * exchangeRate.ExchRate;
-            
+            var convertedAmount = amount * exchangeRate;
+
+            PutToExchangeAccountHistory(currencyFrom, currencyTo, typeOfExchange, exchangeRate, amount, user);
+
             return convertedAmount;
         }
 
@@ -40,10 +43,15 @@ namespace SpaceWeb.Service
             var user = _userService.GetCurrent();
             var typeOfExchangeToUsd = TypeOfExchange.Buy;
             var typeOfExchangeUsdToCurrencyFrom = TypeOfExchange.Sell;
-            var exchRateToUsd = _exchangeRateToUsdCurrentRepository.GetExchangeRate(currencyFrom, typeOfExchangeToUsd).ExchRate;
-            var exchRateUsdToCurrencyFrom = _exchangeRateToUsdCurrentRepository.GetExchangeRate(currencyTo, typeOfExchangeUsdToCurrencyFrom).ExchRate;
+            var exchRateToUsd = _exchangeRateToUsdCurrentRepository
+                .GetExchangeRate(currencyFrom, typeOfExchangeToUsd).ExchRate;
+            var exchRateUsdToCurrencyFrom = _exchangeRateToUsdCurrentRepository
+                .GetExchangeRate(currencyTo, typeOfExchangeUsdToCurrencyFrom).ExchRate;
 
             var convertedAmount = amount / exchRateToUsd * exchRateUsdToCurrencyFrom;
+
+            PutToExchangeAccountHistory(currencyFrom, currencyTo, typeOfExchangeUsdToCurrencyFrom,
+                exchRateUsdToCurrencyFrom, amount, user);
 
             return convertedAmount;
         }
@@ -62,7 +70,6 @@ namespace SpaceWeb.Service
                 Amount = amount,
                 ExchDate = currentDate,
                 Owner = owner
-
             };
             _exchangeAccountHistoryRepository.Save(exchangeAccountHistoryDb);
         }
