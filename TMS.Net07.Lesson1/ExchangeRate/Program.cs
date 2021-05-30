@@ -21,7 +21,7 @@ namespace ExchangeRate
     {
         public string Connection { get; set; }
     }
-    class Program
+    public class Program
     {
         //{
         //  "id": 141664774,
@@ -33,7 +33,23 @@ namespace ExchangeRate
         //}
         static void Main(string[] args)
         {
+            var currentDate = DateTime.Now;
+            //while(true)
+            //{
+                //if (((currentDate.Minute / 10) == 1) | ((currentDate.Minute / 11) == 1))
+                //{
+                    //var exchangeRates = GetExchangeRates();
+                    //PutCurrentExchangeRatesToDb(exchangeRateToUsdCurrentRepository, exchangeRates);
+                    //currentDate = DateTime.Now;
+                //}
+            //}
 
+            
+
+        }
+
+        public static void LaunchPuttingExchRatesToDb()
+        {
             DbContextOptionsBuilder dbContextOptionsBuilder = new DbContextOptionsBuilder();
             var connection = dbContextOptionsBuilder
                 .UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=SpaceWeb;Trusted_Connection=True");
@@ -42,27 +58,12 @@ namespace ExchangeRate
             ExchangeRateToUsdCurrentRepository exchangeRateToUsdCurrentRepository =
                 new ExchangeRateToUsdCurrentRepository(spaceDbContext);
 
-            
+
 
             var currentDate = DateTime.Now;
-            while(true)
-            {
-                if (((currentDate.Minute / 45) == 1))
-                {
-                    var exchangeRates = GetExchangeRates();
-                    PutCurrentExchangeRatesToDb(exchangeRateToUsdCurrentRepository, exchangeRates);
-                }
-            }
 
-            
-
-
-
-            //SendSMS(TEL, TEXT, USERNAME, PASSWORD);
-            //CheckDb(insuranceTypeRepository, insuranceRepository);
-
-            //CheckDatabase test = new CheckDatabase();
-            //CheckDb(insuranceTypeRepository, insuranceRepository);
+            var exchangeRates = GetExchangeRates();
+            PutCurrentExchangeRatesToDb(exchangeRateToUsdCurrentRepository, exchangeRates);
         }
 
         public static void PutCurrentExchangeRatesToDb(ExchangeRateToUsdCurrentRepository _exchangeRateToUsdCurrentRepository, Currency exchangeRates)
