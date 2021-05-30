@@ -33,13 +33,21 @@ namespace ExchangeRate
         //}
         static void Main(string[] args)
         {
+            DbContextOptionsBuilder dbContextOptionsBuilder = new DbContextOptionsBuilder();
+            var connection = dbContextOptionsBuilder
+                .UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=SpaceWeb;Trusted_Connection=True");
+
+            SpaceDbContext spaceDbContext = new SpaceDbContext(connection.Options);
+            ExchangeRateToUsdCurrentRepository exchangeRateToUsdCurrentRepository =
+                new ExchangeRateToUsdCurrentRepository(spaceDbContext);
+
             var currentDate = DateTime.Now;
             //while(true)
             //{
                 //if (((currentDate.Minute / 10) == 1) | ((currentDate.Minute / 11) == 1))
                 //{
-                    //var exchangeRates = GetExchangeRates();
-                    //PutCurrentExchangeRatesToDb(exchangeRateToUsdCurrentRepository, exchangeRates);
+                    var exchangeRates = GetExchangeRates();
+                    PutCurrentExchangeRatesToDb(exchangeRateToUsdCurrentRepository, exchangeRates);
                     //currentDate = DateTime.Now;
                 //}
             //}
@@ -81,6 +89,22 @@ namespace ExchangeRate
                 Currency = SpaceWeb.Models.Currency.BYN,
                 TypeOfExch = SpaceWeb.Models.TypeOfExchange.Sell,
                 ExchRate = Convert.ToDecimal(exchangeRates.USD_out, new CultureInfo("en-US"))
+            };
+            _exchangeRateToUsdCurrentRepository.Save(exchangeRateDb);
+
+            exchangeRateDb = new ExchangeRateToUsdCurrent
+            {
+                Currency = SpaceWeb.Models.Currency.USD,
+                TypeOfExch = SpaceWeb.Models.TypeOfExchange.Buy,
+                ExchRate = 1
+            };
+            _exchangeRateToUsdCurrentRepository.Save(exchangeRateDb);
+
+            exchangeRateDb = new ExchangeRateToUsdCurrent
+            {
+                Currency = SpaceWeb.Models.Currency.USD,
+                TypeOfExch = SpaceWeb.Models.TypeOfExchange.Sell,
+                ExchRate = 1
             };
             _exchangeRateToUsdCurrentRepository.Save(exchangeRateDb);
 

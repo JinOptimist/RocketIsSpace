@@ -10,7 +10,7 @@ namespace SpaceWeb.EfStuff.Model
     {
         public Currency CurrencyFrom { get; set; }
         public Currency CurrencyTo { get; set; }
-        public string TypeOfExch { get; set; }
+        public TypeOfExchange TypeOfExch { get; set; }
         public decimal ExchRate { get; set; }
         public decimal Amount { get; set; }
         public DateTime ExchDate { get; set; }
