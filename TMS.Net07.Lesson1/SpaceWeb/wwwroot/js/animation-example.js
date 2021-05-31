@@ -1,4 +1,6 @@
 ﻿$(document).ready(function () {
+    var isAnimationActive = false;
+    var isSliderHovered = false;
     var time = 2000;
     var images = [
         '/image/bank/card-shopp.jpg',
@@ -7,15 +9,63 @@
     ];
     var currentImageIndex = 0;
 
+    var animationFunctions = [];
+
+    setInterval(checkAnimation, 100);
+
+    setInterval(function () {
+        animationFunctions.push(function () {
+            runAnimation(true);
+        });
+    }, 3000);
+
+    function checkAnimation() {
+        if (isAnimationActive) {
+            return;
+        }
+
+        if (isSliderHovered) {
+            return;
+        }
+
+        var expectedMinTime =  2000 / animationFunctions.length;
+        if (expectedMinTime < time) {
+            time = expectedMinTime;
+        }
+        if (animationFunctions.length == 0) {
+            time = 2000;
+        }
+
+        if (animationFunctions.length > 0) {
+            var elem = animationFunctions.splice(0, 1);
+            elem[0]();
+        }
+    }
+
     $('.animate-block .next-btn').click(function () {
-        runAnimation(true);
+        animationFunctions.push(function () {
+            runAnimation(true);
+        });
     });
 
     $('.animate-block .prev-btn').click(function () {
-        runAnimation(false);
+        animationFunctions.push(function () {
+            runAnimation(false);
+        });
     });
 
+    $('.animate-block .choose').hover(
+        function () {
+            isSliderHovered = true;
+        },
+        function () {
+            isSliderHovered = false;
+        }
+    );
+
     function runAnimation(goForward) {
+        isAnimationActive = true;
+
         if (goForward) {
             currentImageIndex++;
         } else {
@@ -38,8 +88,6 @@
         var nextIndex = calcIndex(currentImageIndex + 1);
         var prevIndex = calcIndex(currentImageIndex - 1);
 
-        
-
         console.log('init state . cu Index = ' + currentImageIndex);
 
         var currentImage = images[currentImageIndex];
@@ -59,6 +107,8 @@
         $('.animate-block .current-image').css({
             width: 500
         });
+
+        isAnimationActive = false;
     }
 
     function calcIndex(index) {

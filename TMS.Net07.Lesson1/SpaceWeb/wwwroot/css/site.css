@@ -476,6 +476,7 @@ a {
 .animate-block {
     display: flex;
 }
+
     .animate-block .buttons {
         position: absolute;
         width: 500px;
@@ -483,7 +484,14 @@ a {
         display: flex;
     }
 
-
+    .animate-block .choose {
+        flex: 2;
+        cursor: pointer;
+    }
+        .animate-block .choose:hover {
+            background: red;
+            opacity: 0.3;
+        }
     .animate-block .next-btn,
     .animate-block .prev-btn {
         /*background: #ccc;*/
@@ -499,12 +507,12 @@ a {
             opacity: 0.3;
         }
 
-        .block .next-image,
-        .block .prev-image {
-            /*background: green;*/
-            height: 270px;
-            width: 0;
-        }
+.block .next-image,
+.block .prev-image {
+    /*background: green;*/
+    height: 270px;
+    width: 0;
+}
 
 .block .current-image {
     /*background: red;*/
