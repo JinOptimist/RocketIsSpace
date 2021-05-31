@@ -5,6 +5,13 @@
     min-height: 100vh;
 }
 
+@media print {
+    .no-print {
+        display: none;
+    }
+}
+
+
 .obertka {
     height: 100vh;
     display: flex;
