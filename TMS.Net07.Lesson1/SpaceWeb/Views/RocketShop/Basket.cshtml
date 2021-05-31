@@ -29,7 +29,7 @@
                 <div style="padding-left: 30px" class="order-rockets">
                     @foreach (var ord in Model.Orders)
                     {
-                         <div class="order order-rocket">
+                        <div class="order order-rocket">
                             <div>@ord.Name</div>
                             <div>
                                 @foreach (var rock in ord.Rockets)
@@ -39,18 +39,24 @@
                                     </div>
                                 }
                             </div>
-                           @Html.Hidden("Price", ord.Price)
+                            @Html.Hidden("Price", ord.Price)
                             <div class="amount-js">@ord.Price</div>
-                           <div>
-                            @Html.DropDownList("account", Model.BAOptions, new { @class = "dropdown" })
-                           </div> 
+                            <div>
+                                @Html.DropDownList("account", Model.BAOptions, new {@class = "dropdown"})
+                            </div>
+                            <div>
+                                Full order report
+                                <a href="/RocketShop/DownloadOrderFile?Name=@ord.Name">
+                                    <div class="button-download-file">SSilka</div>
+                                </a>
+                            </div>
                         </div>
                     }
                 </div>
                 <lable class="pointerhover">
                     <button type="submit" class="button-buy" value="Buy">
                         Buy
-                        <img src="/image/comfortImage/cat4.png" class="cat" />
+                        <img src="/image/comfortImage/cat4.png" class="cat"/>
                     </button>
                 </lable>
             </div>
