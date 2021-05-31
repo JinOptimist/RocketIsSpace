@@ -146,17 +146,7 @@ namespace SpaceWeb.Controllers
 
         public IActionResult GetGraph()
         {
-            var departments = _departmentRepository.GetAll();
-            var chartViewModel = new MyChartViewModel<int>();
-            chartViewModel.Labels = departments.Select(x => x.DepartmentName).ToList();
-            chartViewModel.Datasets.Add(new MyDatasetViewModel<int>()
-            {
-                Label = "Сотурдники",
-                Data = departments
-                    .Select(x => x.Employes.Count)
-                    .ToList()
-            });
-            return Json(chartViewModel);
+            return Json(_humanPresentation.GetChartForWorkersInDepartment());
         }
 
         public IActionResult Graph()

@@ -1,4 +1,5 @@
 using SpaceWeb.Models;
+using SpaceWeb.Models.Chart;
 using SpaceWeb.Models.Human;
 using System.Collections.Generic;
 
@@ -18,5 +19,6 @@ namespace SpaceWeb.Presentation
         void DeleteDepartment(long id);
         ShortUserViewModel ClientPage();
         List<ShortEmployeViewModel> UpdateEmployes(long idDepartment);
+        MyChartViewModel<int> GetChartForWorkersInDepartment();
     }
 }

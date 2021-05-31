@@ -2,6 +2,7 @@
 using Novacode;
 using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories.IRepository;
+using SpaceWeb.Models.Chart;
 using SpaceWeb.Models.Human;
 using SpaceWeb.Service;
 using System.Collections.Generic;
@@ -143,6 +144,21 @@ namespace SpaceWeb.Presentation
                 .GetEmployesByDepartment(idDepartment)
                 .Select(x => _mapper.Map<ShortEmployeViewModel>(x))
                 .ToList();
+        }
+
+        public MyChartViewModel<int> GetChartForWorkersInDepartment()
+        {
+            var departments = _departmentRepository.GetAll();
+            var chartViewModel = new MyChartViewModel<int>();
+            chartViewModel.Labels = departments.Select(x => x.DepartmentName).ToList();
+            chartViewModel.Datasets.Add(new MyDatasetViewModel<int>()
+            {
+                Label = "Сотурдники",
+                Data = departments
+                    .Select(x => x.Employes.Where(x => x.EmployeStatus == EmployeStatus.Accepted).Count())
+                    .ToList()
+            });
+            return chartViewModel;
         }
     }
 }
