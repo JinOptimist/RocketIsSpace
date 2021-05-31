@@ -12,6 +12,7 @@ namespace SpaceWeb.Models.RocketModels
         public List<OrderViewModel> Orders { get; set; }
         public List<SelectListItem> BAOptions { get; set; }
         public List<BankAccount> BankAccounts { get; set; }
+        public List<string> OrderNamesToPay { get; set; }
         
         public Currency currentCurrency { get; set; }
         public BasketViewModel(List<BankAccount> accounts)

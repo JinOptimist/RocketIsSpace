@@ -9,6 +9,7 @@
 @section Style
 {
     <link rel="stylesheet" href="~/css/Rocket/basket.css?v=6">
+    <link rel="stylesheet" href="~/css/Rocket/checkbox.css?v=4">
 }
 
 @section Script
@@ -28,36 +29,46 @@
             <div>
                 <div class="title">Basket</div>
                 <div class="yorder">Your orders:</div>
-                <div style="padding-left: 30px" class="order-rockets">
-                    @foreach (var ord in Model.Orders)
-                    {
-                         <div class="order order-rocket">
-                            <div>@ord.Name</div>
-                            <div>
-                                @foreach (var rock in ord.Rockets)
-                                {
-                                    <div>@rock.Name</div>
-                                }
+                <form action="/RocketShop/Basket" method="post">
+                    <div style="padding-left: 30px" class="order-rockets">
+                        @foreach (var ord in Model.Orders)
+                        {
+                            <div class="order order-rocket">
+                                <div style="display: flex">
+                                    <label class="control control-checkbox">
+                                        <input type="checkbox"
+                                               name="@nameof(BasketViewModel.OrderNamesToPay)"
+                                               value="@ord.Name">
+                                        <div class="control_indicator"></div>
+                                    </label>
+                                    <div>@ord.Name</div>
+                                </div>
+                                <div>
+                                    @foreach (var rock in ord.Rockets)
+                                    {
+                                        <div>@rock.Name</div>
+                                    }
+                                </div>
+                                @Html.Hidden("Price", ord.Price)
+
+                                @Html.Hidden("Currency", Model.currentCurrency)
+
+                                <div class="amount-js">@ord.Price @Html.DisplayFor(x => x.currentCurrency)</div>
+
+                                <div>
+                                    @Html.DropDownList("account", Model.BAOptions, new { @class = "dropdown" })
+                                </div>
                             </div>
-                            @Html.Hidden("Price", ord.Price)
-                            
-                            @Html.Hidden("Currency", Model.currentCurrency)
-                            
-                            <div class="amount-js">@ord.Price @Html.DisplayFor(x=>x.currentCurrency)</div>
-                            
-                            <div>
-                                 @Html.DropDownList("account", Model.BAOptions, new { @class = "dropdown" })
-                            </div>
-                        </div>
-                    }
-                </div>
-                <lable class="pointerhover">
-                    <button type="submit" class="button-buy" value="Buy">
-                        Buy
-                        <img src="/image/comfortImage/cat1.png" class="cat toRemoveHide" />
-                        <img src="~/image/comfortImage/cat1.gif" class="cat hide1 hide2" />
-                    </button>
-                </lable>
+                        }
+                    </div>
+                    <lable class="pointerhover">
+                        <button type="submit" class="button-buy" value="Buy">
+                            Buy
+                            <img src="/image/comfortImage/cat1.png" class="cat toRemoveHide" />
+                            <img src="~/image/comfortImage/cat1.gif" class="cat hide1 hide2" />
+                        </button>
+                    </lable>
+                </form>
             </div>
         </div>
         <div class="ani-end">
