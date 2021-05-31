@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SpaceWeb.EfStuff;
 
 namespace SpaceWeb.Migrations
 {
     [DbContext(typeof(SpaceDbContext))]
-    partial class SpaceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210523203210_EditExchangeRateToUsdCurrent")]
+    partial class EditExchangeRateToUsdCurrent
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -19,19 +21,28 @@ namespace SpaceWeb.Migrations
                 .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("OrderRocket", b =>
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.AddShopRocket", b =>
                 {
-                    b.Property<long>("OrderedById")
-                        .HasColumnType("bigint");
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("RocketsId")
-                        .HasColumnType("bigint");
+                    b.Property<double>("Cost")
+                        .HasColumnType("float");
 
-                    b.HasKey("OrderedById", "RocketsId");
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
 
-                    b.HasIndex("RocketsId");
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("OrderRocket");
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ShopRocket");
                 });
 
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.AdditionStructure", b =>
@@ -278,8 +289,8 @@ namespace SpaceWeb.Migrations
                     b.Property<long?>("OwnerId")
                         .HasColumnType("bigint");
 
-                    b.Property<int>("TypeOfExch")
-                        .HasColumnType("int");
+                    b.Property<string>("TypeOfExch")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -419,9 +430,6 @@ namespace SpaceWeb.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("State")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ClientId");
@@ -527,12 +535,6 @@ namespace SpaceWeb.Migrations
                     b.Property<int>("Cost")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsReady")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<long?>("QaId")
                         .HasColumnType("bigint");
 
@@ -626,21 +628,6 @@ namespace SpaceWeb.Migrations
                     b.HasIndex("MyFavouriteRocketId");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("OrderRocket", b =>
-                {
-                    b.HasOne("SpaceWeb.EfStuff.Model.Order", null)
-                        .WithMany()
-                        .HasForeignKey("OrderedById")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SpaceWeb.EfStuff.Model.Rocket", null)
-                        .WithMany()
-                        .HasForeignKey("RocketsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.AdditionStructure", b =>

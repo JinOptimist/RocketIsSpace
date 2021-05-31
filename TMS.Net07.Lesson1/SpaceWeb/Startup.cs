@@ -103,6 +103,15 @@ namespace SpaceWeb
             services.AddScoped<InsuranceRepository>(diContainer =>
                 new InsuranceRepository(diContainer.GetService<SpaceDbContext>()));
 
+            services.AddScoped<ExchangeRateToUsdCurrentRepository>(diContainer =>
+                new ExchangeRateToUsdCurrentRepository(diContainer.GetService<SpaceDbContext>()));
+
+            services.AddScoped<ExchangeRateToUsdHistoryRepository>(diContainer =>
+                new ExchangeRateToUsdHistoryRepository(diContainer.GetService<SpaceDbContext>()));
+
+            services.AddScoped<ExchangeAccountHistoryRepository>(diContainer =>
+                new ExchangeAccountHistoryRepository(diContainer.GetService<SpaceDbContext>()));
+
             services.AddScoped<UserService>(diContainer =>
                 new UserService(
                     diContainer.GetService<IUserRepository>(),

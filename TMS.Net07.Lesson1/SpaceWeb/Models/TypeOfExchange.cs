@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace SpaceWeb.Models
 {
-    public enum Currency
+    public enum TypeOfExchange
     {
-        BYN = 1,
-        USD = 2,
-        EUR = 3,
-        PLN = 4,
-        GBP = 5
+        Sell = 1,
+        Buy = 2
     }
 }
