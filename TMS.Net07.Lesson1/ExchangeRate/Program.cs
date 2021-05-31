@@ -121,7 +121,7 @@ namespace ExchangeRate
             {
                 Currency = SpaceWeb.Models.Currency.EUR,
                 TypeOfExch = SpaceWeb.Models.TypeOfExchange.Sell,
-                ExchRate = Convert.ToDecimal(exchangeRates.USD_out, new CultureInfo("en-US")) 
+                ExchRate = Convert.ToDecimal(exchangeRates.USD_out, new CultureInfo("en-US"))
                 / Convert.ToDecimal(exchangeRates.EUR_out, new CultureInfo("en-US"))
             };
             _exchangeRateToUsdCurrentRepository.Save(exchangeRateDb);
@@ -130,7 +130,7 @@ namespace ExchangeRate
             {
                 Currency = SpaceWeb.Models.Currency.GBP,
                 TypeOfExch = SpaceWeb.Models.TypeOfExchange.Buy,
-                ExchRate = Convert.ToDecimal(exchangeRates.USD_in, new CultureInfo("en-US")) 
+                ExchRate = Convert.ToDecimal(exchangeRates.USD_in, new CultureInfo("en-US"))
                 / Convert.ToDecimal(exchangeRates.GBP_in, new CultureInfo("en-US"))
             };
             _exchangeRateToUsdCurrentRepository.Save(exchangeRateDb);
@@ -139,7 +139,7 @@ namespace ExchangeRate
             {
                 Currency = SpaceWeb.Models.Currency.GBP,
                 TypeOfExch = SpaceWeb.Models.TypeOfExchange.Sell,
-                ExchRate = Convert.ToDecimal(exchangeRates.USD_out, new CultureInfo("en-US")) 
+                ExchRate = Convert.ToDecimal(exchangeRates.USD_out, new CultureInfo("en-US"))
                 / Convert.ToDecimal(exchangeRates.GBP_out, new CultureInfo("en-US"))
             };
             _exchangeRateToUsdCurrentRepository.Save(exchangeRateDb);
@@ -148,7 +148,7 @@ namespace ExchangeRate
             {
                 Currency = SpaceWeb.Models.Currency.PLN,
                 TypeOfExch = SpaceWeb.Models.TypeOfExchange.Buy,
-                ExchRate = Convert.ToDecimal(exchangeRates.USD_in, new CultureInfo("en-US")) 
+                ExchRate = Convert.ToDecimal(exchangeRates.USD_in, new CultureInfo("en-US"))
                 / Convert.ToDecimal(exchangeRates.PLN_in, new CultureInfo("en-US"))
             };
             _exchangeRateToUsdCurrentRepository.Save(exchangeRateDb);
@@ -157,7 +157,7 @@ namespace ExchangeRate
             {
                 Currency = SpaceWeb.Models.Currency.PLN,
                 TypeOfExch = SpaceWeb.Models.TypeOfExchange.Sell,
-                ExchRate = Convert.ToDecimal(exchangeRates.USD_out, new CultureInfo("en-US")) 
+                ExchRate = Convert.ToDecimal(exchangeRates.USD_out, new CultureInfo("en-US"))
                 / Convert.ToDecimal(exchangeRates.PLN_out, new CultureInfo("en-US"))
             };
             _exchangeRateToUsdCurrentRepository.Save(exchangeRateDb);

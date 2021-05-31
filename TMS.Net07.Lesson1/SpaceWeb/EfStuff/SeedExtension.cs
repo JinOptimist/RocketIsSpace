@@ -214,6 +214,30 @@ namespace SpaceWeb.EfStuff
                 exchangeRateToUsdCurrentRepository.Save(exchangeRate);
             }
 
+            exchangeRate = exchangeRateToUsdCurrentRepository.GetExchangeRate(Currency.USD, TypeOfExchange.Sell);
+            if (exchangeRate == null)
+            {
+                exchangeRate = new ExchangeRateToUsdCurrent()
+                {
+                    Currency = Currency.USD,
+                    TypeOfExch = TypeOfExchange.Sell,
+                    ExchRate = 1m,
+                };
+                exchangeRateToUsdCurrentRepository.Save(exchangeRate);
+            }
+
+            exchangeRate = exchangeRateToUsdCurrentRepository.GetExchangeRate(Currency.USD, TypeOfExchange.Buy);
+            if (exchangeRate == null)
+            {
+                exchangeRate = new ExchangeRateToUsdCurrent()
+                {
+                    Currency = Currency.USD,
+                    TypeOfExch = TypeOfExchange.Buy,
+                    ExchRate = 1m,
+                };
+                exchangeRateToUsdCurrentRepository.Save(exchangeRate);
+            }
+
             exchangeRate = exchangeRateToUsdCurrentRepository.GetExchangeRate(Currency.EUR, TypeOfExchange.Sell);
             if (exchangeRate == null)
             {

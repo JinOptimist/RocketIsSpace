@@ -8,6 +8,7 @@ namespace ExchangeCurrencyLauncher
     {
         static void Main(string[] args)
         {
+            SetDefaultExchangeRates();
         }
 
         public static void SetDefaultExchangeRates()

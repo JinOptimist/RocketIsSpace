@@ -112,6 +112,10 @@ namespace SpaceWeb
             services.AddScoped<ExchangeAccountHistoryRepository>(diContainer =>
                 new ExchangeAccountHistoryRepository(diContainer.GetService<SpaceDbContext>()));
 
+            services.AddScoped<ICurrencyService>(diContainer =>
+                new CurrencyService(diContainer.GetService<UserService>(), diContainer.GetService<ExchangeRateToUsdCurrentRepository>(),
+                    diContainer.GetService<ExchangeAccountHistoryRepository>()));
+
             services.AddScoped<UserService>(diContainer =>
                 new UserService(
                     diContainer.GetService<IUserRepository>(),
