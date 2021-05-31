@@ -5,10 +5,11 @@ using SpaceWeb.EfStuff.Repositories;
 using SpaceWeb.EfStuff.Repositories.IRepository;
 using System.Linq;
 using System.Security.Claims;
+using SpaceWeb.Models.Human;
 
 namespace SpaceWeb.Service
 {
-    public class UserService
+    public class UserService : IUserService
     {
         private IHttpContextAccessor _contextAccessor;
         private IUserRepository _userRepository;
@@ -18,6 +19,18 @@ namespace SpaceWeb.Service
         {
             _userRepository = userRepository;
             _contextAccessor = contextAccessor;
+        }
+
+        public bool IsClient()
+        {
+            var user = GetCurrent();
+            return user.Client != null ? true : false;
+        }
+
+        public bool IsEmploye()
+        {
+            var user = GetCurrent();
+            return user.Employe != null ? true : false;
         }
 
         public User GetCurrent()
@@ -96,5 +109,9 @@ namespace SpaceWeb.Service
             var principal = new ClaimsPrincipal(claimsIdentity);
             return principal;
         }
+
+        public bool IsLeader()=>
+            GetCurrent()
+            .Employe.Position == Position.Leader;
     }
 }

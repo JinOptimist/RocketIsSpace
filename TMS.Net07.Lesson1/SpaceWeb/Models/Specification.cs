@@ -1,7 +1,7 @@
 ﻿using SpaceWeb.Localization;
 using System.ComponentModel.DataAnnotations;
 
-namespace SpaceWeb.EfStuff.Model
+namespace SpaceWeb.Models
 {
     public enum Specification
     {

@@ -1,0 +1,18 @@
+﻿using System.Collections.Generic;
+using System.Linq;
+using SpaceWeb.EfStuff.Model;
+using SpaceWeb.EfStuff.Repositories.IRepository;
+
+namespace SpaceWeb.EfStuff.Repositories
+{
+<<<<<<< HEAD
+    public class ShopRocketRepository: BaseRepository<Rocket>, IShopRocketRepository
+=======
+    public class ShopRocketRepository : BaseRepository<AddShopRocket>, IShopRocketRepository
+>>>>>>> 50caf5b465bf183bb9a1e1f39f36dd10ac60c98e
+    {
+        public ShopRocketRepository(SpaceDbContext spaceDbContext) : base(spaceDbContext)
+        {
+        }
+    }
+}

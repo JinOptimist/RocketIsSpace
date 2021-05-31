@@ -65,13 +65,22 @@ namespace SpaceWeb
                 new HumanPresentation(
                     container.GetService<IUserRepository>(),
                     container.GetService<IDepartmentRepository>(),
-                    container.GetService<IMapper>()));
+                    container.GetService<IMapper>(),
+                    container.GetService<IEmployeRepository>(),
+                    container.GetService<UserService>()));
 
             services.AddScoped<IUserRepository>(diContainer =>
                 new UserRepository(
                     diContainer.GetService<SpaceDbContext>(),
                     diContainer.GetService<IBankAccountRepository>()
                     ));
+
+            services.AddScoped<IRocketShopPresentation>(container =>
+                new RocketShopPresentation(
+                    container.GetService<IMapper>(),
+                    container.GetService<IOrderRepository>(),
+                    container.GetService<IShopRocketRepository>(),
+                    container.GetService<UserService>()));
 
             //services.AddScoped<IRelicRepository>(diContainer =>
             //    new RelicRepository(diContainer.GetService<SpaceDbContext>()));
@@ -108,7 +117,7 @@ namespace SpaceWeb
                     diContainer.GetService<IUserRepository>(),
                     diContainer.GetService<IHttpContextAccessor>()
                 ));
-
+            
             services.AddControllersWithViews();
 
             services.AddHttpContextAccessor();
@@ -127,6 +136,9 @@ namespace SpaceWeb
             //services.AddScoped<IEmployeRepository>(diContainer =>
             //    new EmployeRepository(diContainer.GetService<SpaceDbContext>()));
 
+            services.AddScoped<ICurrencyService>(diContainer =>
+                new CurrencyService());
+            
             RegisterMapper(services);
             services.AddScoped<UserService>(diContainer =>
                new UserService(
@@ -186,11 +198,21 @@ namespace SpaceWeb
             //        config => config
             //            .MapFrom(dbModel => $"{dbModel.Name}, {dbModel.SurName} Mr"));
 
-            configExpression.CreateMap<Employe, ShortEmployeViewModel>().
-                ForMember(nameof(ShortEmployeViewModel.Name), config => config.MapFrom(x => x.User.Name)).
-                ForMember(nameof(ShortEmployeViewModel.Surname), config => config.MapFrom(x => x.User.SurName)).
-                ForMember(nameof(ShortEmployeViewModel.SalaryPerHour), config => config.MapFrom(x => x.SalaryPerHour)).
-                ForMember(nameof(ShortEmployeViewModel.Specification), config => config.MapFrom(x => x.Specification.GetDisplayableName()));
+            configExpression.CreateMap<Employe, ShortEmployeViewModel>()
+                .ForMember(nameof(ShortEmployeViewModel.Name), config => config.MapFrom(x => x.User.Name))
+                .ForMember(nameof(ShortEmployeViewModel.Surname), config => config.MapFrom(x => x.User.SurName))
+                .ForMember(nameof(ShortEmployeViewModel.SalaryPerHour), config => config.MapFrom(x => x.SalaryPerHour))
+                .ForMember(nameof(ShortEmployeViewModel.Position), config => config.MapFrom(x => x.Position.GetDisplayableName()));
+
+            configExpression.CreateMap<User, RequestViewModel>()
+                .ForMember(nameof(RequestViewModel.Id), config => config.MapFrom(x => x.Employe.Id))
+                .ForMember(nameof(RequestViewModel.ForeignKeyUser), config => config.MapFrom(x => x.Employe.ForeignKeyUser))
+                .ForMember(nameof(RequestViewModel.Position), config => config.MapFrom(x => x.Employe.Position))
+                .ForMember(nameof(RequestViewModel.SalaryPerHour), config => config.MapFrom(x => x.Employe.SalaryPerHour))
+                .ForMember(nameof(RequestViewModel.EmployeStatus), config => config.MapFrom(x => x.Employe.EmployeStatus));
+
+            configExpression.CreateMap<RequestViewModel, Employe>();
+
 
             configExpression.CreateMap<User, ProfileViewModel>();
 
@@ -247,6 +269,8 @@ namespace SpaceWeb
             MapBoth<InsuranceViewModel, Insurance>(configExpression);
 
             MapBoth<ComplexRocketShopViewModel, Order>(configExpression);
+
+            MapBoth<Department, DepartmentViewModel>(configExpression);
 
             var mapperConfiguration = new MapperConfiguration(configExpression);
             var mapper = new Mapper(mapperConfiguration);
