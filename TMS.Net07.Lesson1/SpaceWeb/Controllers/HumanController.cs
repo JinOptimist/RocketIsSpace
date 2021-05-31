@@ -14,6 +14,7 @@ using SpaceWeb.Controllers.CustomAttribute;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using SpaceWeb.Models.Chart;
 
 namespace SpaceWeb.Controllers
 {
@@ -141,6 +142,26 @@ namespace SpaceWeb.Controllers
             var fileName = "departments.docx";            
              _humanPresentation.SaveDepartmentsToDocX(path);
             return PhysicalFile(path, contentTypeDocx, fileName);
-        }        
+        }
+
+        public IActionResult GetGraph()
+        {
+            var departments = _departmentRepository.GetAll();
+            var chartViewModel = new MyChartViewModel<int>();
+            chartViewModel.Labels = departments.Select(x => x.DepartmentName).ToList();
+            chartViewModel.Datasets.Add(new MyDatasetViewModel<int>()
+            {
+                Label = "Сотурдники",
+                Data = departments
+                    .Select(x => x.Employes.Count)
+                    .ToList()
+            });
+            return Json(chartViewModel);
+        }
+
+        public IActionResult Graph()
+        {
+            return View();
+        }
     }
 }
