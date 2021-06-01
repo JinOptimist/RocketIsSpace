@@ -7,6 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SpaceWeb.EfStuff.Model;
+using System.Net;
+using System.IO;
+using System.Text.Json;
 
 namespace SpaceWeb.Service
 {
@@ -79,5 +82,40 @@ namespace SpaceWeb.Service
         {
             return false;
         }
+
+        public static GottenCurrency GetExchangeRates()
+        {
+            HttpWebRequest request = (HttpWebRequest)
+            WebRequest.Create("https://belarusbank.by/api/kursExchange?city=Минск");
+            WebResponse response = request.GetResponse();
+
+            List<GottenCurrency> fin = null;
+
+            using (Stream stream = response.GetResponseStream())
+            {
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    var cleanJson = reader.ReadToEnd();
+                    fin = JsonSerializer.Deserialize<List<GottenCurrency>>(cleanJson);
+                }
+            }
+            response.Close();
+
+            var exchangeRates = fin[0];
+
+            return exchangeRates;
+        }
+    }
+
+    public class GottenCurrency
+    {
+        public string USD_in { get; set; }
+        public string USD_out { get; set; }
+        public string EUR_in { get; set; }
+        public string EUR_out { get; set; }
+        public string GBP_in { get; set; }
+        public string GBP_out { get; set; }
+        public string PLN_in { get; set; }
+        public string PLN_out { get; set; }
     }
 }

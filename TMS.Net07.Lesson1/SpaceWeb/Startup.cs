@@ -145,13 +145,20 @@ namespace SpaceWeb
             services.AddScoped<ShopRocketRepository>(diContainer =>
                 new ShopRocketRepository(diContainer.GetService<SpaceDbContext>()));
 
+            services.AddScoped<ICurrencyService>(diContainer =>
+                new CurrencyService(diContainer.GetService<UserService>(), 
+                    diContainer.GetService<ExchangeRateToUsdCurrentRepository>(),
+                    diContainer.GetService<ExchangeAccountHistoryRepository>()));
+
+            services.AddScoped<IBankPresentation>(diContainer =>
+                new BankPresentation(diContainer.GetService<IProfileRepository>(), diContainer.GetService<IMapper>()));
+
+            services.AddScoped<BankPresentation>(diContainer =>
+                new BankPresentation(diContainer.GetService<IProfileRepository>(), diContainer.GetService<IMapper>()));
 
             //services.AddScoped<IEmployeRepository>(diContainer =>
             //    new EmployeRepository(diContainer.GetService<SpaceDbContext>()));
 
-            services.AddScoped<ICurrencyService>(diContainer =>
-                new CurrencyService());
-            
             RegisterMapper(services);
             services.AddScoped<UserService>(diContainer =>
                new UserService(
