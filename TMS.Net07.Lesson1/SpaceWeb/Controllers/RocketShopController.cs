@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 using SpaceWeb.Controllers.CustomAttribute;
 using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Service;
+using SpaceWeb.Models.RocketModels;
+using SpaceWeb.Presentation;
+using SpaceWeb.Presentation;
 
 namespace SpaceWeb.Controllers
 {
@@ -21,29 +24,31 @@ namespace SpaceWeb.Controllers
         private IShopRocketRepository _shopRocketRepository;
         private UserService _userService;
         private IClientRepository _clientRepository;
+        private ICurrencyService _currencyService;
+        private IBankAccountRepository _accountRepository;
+        private readonly IRocketShopPresentation _rocketShopPresentation;
 
         public RocketShopController(IMapper mapper, IOrderRepository orderRepository, 
             IShopRocketRepository shopRocketRepository, UserService userService, 
-            IClientRepository clientRepository)
+            IClientRepository clientRepository, ICurrencyService currencyService, IBankAccountRepository accountRepository,
+            IRocketShopPresentation rocketShopPresentation)
         {
+            
             _mapper = mapper;
             _orderRepository = orderRepository;
             _shopRocketRepository = shopRocketRepository;
             _userService = userService;
             _clientRepository = clientRepository;
+            _currencyService = currencyService;
+            _accountRepository = accountRepository;
+            _rocketShopPresentation = rocketShopPresentation;
         }
 
         [HttpGet]
         [Authorize]
         public IActionResult RocketShop()
         {
-            var collection = new ComplexRocketShopViewModel
-            {
-                AddRockets = _shopRocketRepository.GetAll()
-                    .Select(x => _mapper.Map<ShopRocketViewModel>(x))
-                    .ToList(),
-                ClientId = _userService.GetCurrent().Client.Id
-            };
+            var collection = _rocketShopPresentation.GetCollectionRocketShopViewModel();
             return View(collection);
         }
 
@@ -51,11 +56,7 @@ namespace SpaceWeb.Controllers
         [Authorize]
         public IActionResult RocketShop(ComplexRocketShopViewModel model)
         {
-            var rocketList = new List<Rocket>();
-            foreach (var rocketid in model.RocketIds)
-            {
-                rocketList.Add(_shopRocketRepository.Get(rocketid));
-            }
+            var rocketList = model.RocketIds.Select(rocketid => _shopRocketRepository.Get(rocketid)).ToList();
 
             var client = _clientRepository.Get(model.ClientId);
             var order = new Order {Rockets = rocketList, 
@@ -72,6 +73,7 @@ namespace SpaceWeb.Controllers
             _orderRepository.Save(order);
 
             return RedirectToAction("RocketShop");
+
         }
 
         [HttpGet]
@@ -109,6 +111,13 @@ namespace SpaceWeb.Controllers
         public IActionResult Basket(OrderViewModel order)
         {
             return View();
+        }
+        
+        public IActionResult PayAbilityCheck(string accountNumber,string amount)
+        {
+            var account = _accountRepository.Get(accountNumber);
+            var result = _currencyService.CheckBalanceToPay(account, Convert.ToDecimal(amount));
+            return Json(result);
         }
     }
 }

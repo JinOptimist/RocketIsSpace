@@ -1,0 +1,17 @@
+using SpaceWeb.EfStuff.Model;
+using SpaceWeb.EfStuff.Repositories.IRepository;
+
+namespace SpaceWeb.EfStuff.Repositories
+{
+<<<<<<< HEAD
+    public class OrderRepository:BaseRepository<Order>, IOrderRepository
+=======
+    public class OrderRepository : BaseRepository<Order>, IOrderRepository
+>>>>>>> 50caf5b465bf183bb9a1e1f39f36dd10ac60c98e
+    {
+        public OrderRepository(SpaceDbContext spaceDbContext) : base(spaceDbContext)
+        {
+
+        }
+    }
+}

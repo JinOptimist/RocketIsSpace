@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SpaceWeb.EfStuff.Model;
 
 namespace SpaceWeb.Service
 {
@@ -72,6 +73,11 @@ namespace SpaceWeb.Service
                 Owner = owner
             };
             _exchangeAccountHistoryRepository.Save(exchangeAccountHistoryDb);
+        }
+
+        public bool CheckBalanceToPay(BankAccount account, decimal amount)
+        {
+            return false;
         }
     }
 }

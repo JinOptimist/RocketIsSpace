@@ -14,6 +14,7 @@ using SpaceWeb.Service;
 using Microsoft.AspNetCore.Authorization;
 using SpaceWeb.Controllers.CustomAttribute;
 using SpaceWeb.EfStuff.Repositories.IRepository;
+using SpaceWeb.Presentation;
 
 namespace SpaceWeb.Controllers
 {
@@ -25,11 +26,12 @@ namespace SpaceWeb.Controllers
         private IUserRepository _userRepository;
         private BanksCardRepository _banksCardRepository;
         private UserService _userService;
+        private BankPresentation _bankPresentation;
 
         public BankController(IBankAccountRepository bankAccountRepository,
             ProfileRepository profileRepository,
             IUserRepository userRepository,
-            IMapper mapper, UserService userService, BanksCardRepository banksCardRepository)
+            IMapper mapper, UserService userService, BanksCardRepository banksCardRepository, BankPresentation bankPresentation)
         {
             _bankAccountRepository = bankAccountRepository;
             _profileRepository = profileRepository;
@@ -37,6 +39,7 @@ namespace SpaceWeb.Controllers
             _mapper = mapper;
             _userService = userService;
             _banksCardRepository = banksCardRepository;
+            _bankPresentation = bankPresentation;
         }
         public IActionResult Index()
         {
@@ -82,9 +85,7 @@ namespace SpaceWeb.Controllers
         [HttpGet]
         public IActionResult UserProfile(long id = 0)
         {
-            var userprofile = _profileRepository.Get(id);
-            var profile = _mapper.Map<UserProfileViewModel>(userprofile)
-                ?? new UserProfileViewModel();
+            var profile = _bankPresentation.GetProfileViewModel(id);
             return View(profile);
         }
 

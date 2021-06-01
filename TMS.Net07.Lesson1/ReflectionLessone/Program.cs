@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace ReflectionLessone
@@ -6,6 +7,17 @@ namespace ReflectionLessone
     class Program
     {
         static void Main(string[] args)
+        {
+            var dictionary = new HashSet<Human>();
+
+            dictionary.Add(new Human(201));
+
+            dictionary.Add(new Human(202));
+
+            dictionary.Add(new Human(203));
+        }
+
+        public static void Refl()
         {
             var kate = new Human(2000);
 

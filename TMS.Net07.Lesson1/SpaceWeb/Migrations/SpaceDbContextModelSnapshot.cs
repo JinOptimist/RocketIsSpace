@@ -207,7 +207,7 @@ namespace SpaceWeb.Migrations
                     b.Property<string>("DepartmentName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("DepartmentType")
+                    b.Property<int>("DepartmentSpecificationType")
                         .HasColumnType("int");
 
                     b.Property<int>("HourEndWorking")
@@ -234,14 +234,17 @@ namespace SpaceWeb.Migrations
                     b.Property<long?>("DepartmentId")
                         .HasColumnType("bigint");
 
+                    b.Property<int>("EmployeStatus")
+                        .HasColumnType("int");
+
                     b.Property<long>("ForeignKeyUser")
                         .HasColumnType("bigint");
 
+                    b.Property<int>("Position")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("SalaryPerHour")
                         .HasColumnType("money");
-
-                    b.Property<int>("Specification")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -524,7 +527,10 @@ namespace SpaceWeb.Migrations
                     b.Property<long?>("AuthorId")
                         .HasColumnType("bigint");
 
-                    b.Property<int>("Cost")
+                    b.Property<decimal>("Cost")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Count")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsReady")

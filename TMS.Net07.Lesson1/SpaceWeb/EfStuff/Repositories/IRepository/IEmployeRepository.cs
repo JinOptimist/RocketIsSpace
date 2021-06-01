@@ -6,5 +6,8 @@ namespace SpaceWeb.EfStuff.Repositories.IRepository
     public interface IEmployeRepository : IBaseRepository<Employe>
     {
         List<Employe> GetEmployesByDepartment(long idDepartment);
+        List<Employe> GetEmployesByDepartment(Department department);
+        List<Employe> GetRequestsToEmploy(long idDepartment);
+        List<Employe> GetRequestsToEmploy(Department department);
     }
 }

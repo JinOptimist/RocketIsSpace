@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace SpaceWeb.EfStuff.Repositories
 {
-    public class ProfileRepository : BaseRepository<Profile>
+    public class ProfileRepository : BaseRepository<Profile>, IProfileRepository
     {
-        public  ProfileRepository(SpaceDbContext spaceDbContext) : base(spaceDbContext)
-        { 
+        public ProfileRepository(SpaceDbContext spaceDbContext) : base(spaceDbContext)
+        {
         }
-        
+
         public void ChangeProfile(Profile model, string userID)
         {
             if (model.Id == 0)
