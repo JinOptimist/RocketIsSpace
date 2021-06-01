@@ -6,10 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using SpaceWeb.EfStuff.Model;
 using System.Net;
 using System.IO;
 using System.Text.Json;
+using System.Globalization;
 
 namespace SpaceWeb.Service
 {
@@ -83,7 +83,7 @@ namespace SpaceWeb.Service
             return false;
         }
 
-        public static GottenCurrency GetExchangeRates()
+        public GottenCurrency GetExchangeRates()
         {
             HttpWebRequest request = (HttpWebRequest)
             WebRequest.Create("https://belarusbank.by/api/kursExchange?city=Минск");
@@ -104,6 +104,107 @@ namespace SpaceWeb.Service
             var exchangeRates = fin[0];
 
             return exchangeRates;
+        }
+
+        public void PutCurrentExchangeRatesToDb(ExchangeRateToUsdCurrentRepository _exchangeRateToUsdCurrentRepository, GottenCurrency exchangeRates)
+        {
+            var exchangeRateDb = new ExchangeRateToUsdCurrent
+            {
+                Currency = Currency.BYN,
+                TypeOfExch = TypeOfExchange.Buy,
+                ExchRate = Convert.ToDecimal(exchangeRates.USD_in, new CultureInfo("en-US"))
+            };
+            _exchangeRateToUsdCurrentRepository.Save(exchangeRateDb);
+
+            exchangeRateDb = new ExchangeRateToUsdCurrent
+            {
+                Currency = Currency.BYN,
+                TypeOfExch = TypeOfExchange.Sell,
+                ExchRate = Convert.ToDecimal(exchangeRates.USD_out, new CultureInfo("en-US"))
+            };
+            _exchangeRateToUsdCurrentRepository.Save(exchangeRateDb);
+
+            exchangeRateDb = new ExchangeRateToUsdCurrent
+            {
+                Currency = Currency.USD,
+                TypeOfExch = TypeOfExchange.Buy,
+                ExchRate = 1
+            };
+            _exchangeRateToUsdCurrentRepository.Save(exchangeRateDb);
+
+            exchangeRateDb = new ExchangeRateToUsdCurrent
+            {
+                Currency = Currency.USD,
+                TypeOfExch = TypeOfExchange.Sell,
+                ExchRate = 1
+            };
+            _exchangeRateToUsdCurrentRepository.Save(exchangeRateDb);
+
+            exchangeRateDb = new ExchangeRateToUsdCurrent
+            {
+                Currency = Currency.EUR,
+                TypeOfExch = TypeOfExchange.Buy,
+                ExchRate = Convert.ToDecimal(exchangeRates.USD_in, new CultureInfo("en-US"))
+                    / Convert.ToDecimal(exchangeRates.EUR_in, new CultureInfo("en-US"))
+            };
+            _exchangeRateToUsdCurrentRepository.Save(exchangeRateDb);
+
+            exchangeRateDb = new ExchangeRateToUsdCurrent
+            {
+                Currency = Currency.EUR,
+                TypeOfExch = TypeOfExchange.Sell,
+                ExchRate = Convert.ToDecimal(exchangeRates.USD_out, new CultureInfo("en-US"))
+                / Convert.ToDecimal(exchangeRates.EUR_out, new CultureInfo("en-US"))
+            };
+            _exchangeRateToUsdCurrentRepository.Save(exchangeRateDb);
+
+            exchangeRateDb = new ExchangeRateToUsdCurrent
+            {
+                Currency = Currency.GBP,
+                TypeOfExch = TypeOfExchange.Buy,
+                ExchRate = Convert.ToDecimal(exchangeRates.USD_in, new CultureInfo("en-US"))
+                / Convert.ToDecimal(exchangeRates.GBP_in, new CultureInfo("en-US"))
+            };
+            _exchangeRateToUsdCurrentRepository.Save(exchangeRateDb);
+
+            exchangeRateDb = new ExchangeRateToUsdCurrent
+            {
+                Currency = Currency.GBP,
+                TypeOfExch = TypeOfExchange.Sell,
+                ExchRate = Convert.ToDecimal(exchangeRates.USD_out, new CultureInfo("en-US"))
+                / Convert.ToDecimal(exchangeRates.GBP_out, new CultureInfo("en-US"))
+            };
+            _exchangeRateToUsdCurrentRepository.Save(exchangeRateDb);
+
+            exchangeRateDb = new ExchangeRateToUsdCurrent
+            {
+                Currency = Currency.PLN,
+                TypeOfExch = TypeOfExchange.Buy,
+                ExchRate = Convert.ToDecimal(exchangeRates.USD_in, new CultureInfo("en-US"))
+                / Convert.ToDecimal(exchangeRates.PLN_in, new CultureInfo("en-US"))
+            };
+            _exchangeRateToUsdCurrentRepository.Save(exchangeRateDb);
+
+            exchangeRateDb = new ExchangeRateToUsdCurrent
+            {
+                Currency = Currency.PLN,
+                TypeOfExch = TypeOfExchange.Sell,
+                ExchRate = Convert.ToDecimal(exchangeRates.USD_out, new CultureInfo("en-US"))
+                / Convert.ToDecimal(exchangeRates.PLN_out, new CultureInfo("en-US"))
+            };
+            _exchangeRateToUsdCurrentRepository.Save(exchangeRateDb);
+
+            Console.WriteLine();
+        }
+
+        public void DeleteCurrentExchRatesFromDb(ExchangeRateToUsdCurrentRepository _exchangeRateToUsdCurrentRepository)
+        {
+            var exchRates = _exchangeRateToUsdCurrentRepository.GetAll();
+
+            foreach (var rate in exchRates)
+            {
+                _exchangeRateToUsdCurrentRepository.Remove(rate.Id);
+            }
         }
     }
 
