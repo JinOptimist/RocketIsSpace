@@ -150,7 +150,10 @@ namespace SpaceWeb
             //    new EmployeRepository(diContainer.GetService<SpaceDbContext>()));
 
             services.AddScoped<ICurrencyService>(diContainer =>
-                new CurrencyService());
+                new CurrencyService(
+                    diContainer.GetService<UserService>(),
+                    diContainer.GetService<ExchangeRateToUsdCurrentRepository>(),
+                    diContainer.GetService<ExchangeAccountHistoryRepository>()));
             
             RegisterMapper(services);
             services.AddScoped<UserService>(diContainer =>

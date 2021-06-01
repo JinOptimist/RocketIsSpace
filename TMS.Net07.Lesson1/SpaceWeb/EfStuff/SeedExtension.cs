@@ -7,10 +7,6 @@ using SpaceWeb.Models.Human;
 using SpaceWeb.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DepartmentType = SpaceWeb.EfStuff.Model.DepartmentType;
-
 namespace SpaceWeb.EfStuff
 {
     public static class SeedExtension

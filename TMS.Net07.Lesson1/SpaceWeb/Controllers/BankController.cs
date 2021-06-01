@@ -1,18 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
 using SpaceWeb.Models;
-using System;
-using System.Text;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using SpaceWeb.EfStuff;
 using AutoMapper;
 using Profile = SpaceWeb.EfStuff.Model.Profile;
 using SpaceWeb.Service;
 using Microsoft.AspNetCore.Authorization;
-using SpaceWeb.Controllers.CustomAttribute;
 using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Presentation;
 
