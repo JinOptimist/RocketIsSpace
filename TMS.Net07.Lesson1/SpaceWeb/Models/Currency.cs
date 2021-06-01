@@ -11,7 +11,7 @@ namespace SpaceWeb.Models
         BYN = 1,
         USD = 2,
         EUR = 3,
-        TUG = 4,
-        ZIM = 5
+        PLN = 4,
+        GBP = 5
     }
 }

@@ -7,13 +7,21 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using SpaceWeb.Service;
+using SpaceWeb.EfStuff.Repositories;
 
 namespace SpaceWeb.Models
 {
     public class ProfileViewModel
     {
+        //private CurrencyService _currencyService;
+        //private BankAccountRepository _bankAccountRepository;
+        //private UserService _userService;
+
         public ProfileViewModel()
         {
+            //_userService = userService;
+
             var options = Enum.GetValues(typeof(Lang));
             LangOptions = new List<SelectListItem>();
             foreach (var option in options)
@@ -25,6 +33,8 @@ namespace SpaceWeb.Models
                 };
                 LangOptions.Add(selectListItem);
             }
+
+            //AmountOfAllAccounts();
         }
 
         [DisplayName("Имя пользователя")]
@@ -56,5 +66,27 @@ namespace SpaceWeb.Models
         public List<Currency> MyCurrencies { get; set; }
 
         public List<SelectListItem> LangOptions { get; set; }
+        public decimal AmountAllMoneyInDefaultCurrency { get; set; }
+
+        //public void AmountOfAllAccounts()
+        //{
+        //    decimal allAmountInUsd = 0;
+
+        //    var user = _userService.GetCurrent();
+        //    var accounts = _bankAccountRepository.GetBankAccounts(user.Id);
+
+        //    foreach (var account in accounts)
+        //    {
+        //        var amount = _currencyService.ConvertByAlex(account.Currency, account.Amount, Currency.USD);
+        //        allAmountInUsd += amount;
+        //    }
+
+        //    decimal amountAllMoneyInDefaultCurrency = 0;
+
+        //    if (DefaultCurrency != 0)
+        //    {
+        //        amountAllMoneyInDefaultCurrency = _currencyService.ConvertByAlex(Currency.USD, allAmountInUsd, DefaultCurrency);
+        //    }
+        //}
     }
 }
