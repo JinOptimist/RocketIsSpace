@@ -58,6 +58,12 @@
                                 <div>
                                     @Html.DropDownList("account", Model.BAOptions, new { @class = "dropdown" })
                                 </div>
+                                <div>
+                                    Full order report
+                                    <a href="/RocketShop/DownloadOrderFile?Name=@ord.Name">
+                                    <div class="button-download-file">SSilka</div>
+                                    </a>
+                                </div>
                             </div>
                         }
                     </div>
