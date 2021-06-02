@@ -2,19 +2,62 @@
 @using SpaceWeb.Extensions
 @{ 
     Layout = "_LayoutHuman";
+    var Status = new List<SelectListItem>();
+    Status.Add(new SelectListItem() { Value = ((int)EmployeStatus.Request).ToString(), Text = EmployeStatus.Request.GetDisplayableName() });
+    Status.Add(new SelectListItem() { Value = ((int)EmployeStatus.Accepted).ToString(), Text = EmployeStatus.Accepted.GetDisplayableName() });
+    Status.Add(new SelectListItem() { Value = ((int)EmployeStatus.Denied).ToString(), Text = EmployeStatus.Denied.GetDisplayableName() });
+
+
+    var Positions = new List<SelectListItem>();
+
+    var enumPositions = Enum.GetValues(typeof(Position));
+
+    for (int i = 0; i < enumPositions.Length; i++)
+    {
+        var option = new SelectListItem();
+        option.Value = ((int)enumPositions.GetValue(i)).ToString();
+        option.Text = ((Position)enumPositions.GetValue(i)).GetDisplayableName();
+        Positions.Add(option);
+    }
+
 }
 
-@model PersonnelViewModel
+@model List<RequestViewModel>
 
-<div>
+<div class="requests-list">
     <form action="/Human/PersonnelSubmit" method="post">
-        @foreach (var x in Model.RequestsToEmploy)
+        @for (var i = 0; i < Model.Count; i++)
         {
-            <label>
-                <input type="checkbox" name="eployeId" value="@x.Id" />
-                @Html.Partial("_employ", x)
-            </label>
+            <div class="request">
+                <div class="request-info">
+                    @Html.HiddenFor(x => x[i].Id)
+                    @Html.HiddenFor(x => x[i].ForeignKeyUser)
+                    <div class="element-request">
+                        @Html.DisplayTextFor(x => x[i].Name)
+                    </div>
+                    <div class="element-request">
+                        @Html.DisplayTextFor(x => x[i].Surname)
+                    </div>
+                    <div class="element-request">
+                        @Html.TextBoxFor(x => x[i].SalaryPerHour)
+                    </div>
+                </div>
+                <div class="request-position">
+                    <div class="element-request">
+                        @Html.DropDownListFor(x => x[i].Position, Positions)
+                    </div>
+                    <div class="element-request">
+                        @Html.DropDownListFor(x => x[i].EmployeStatus, Status)
+                    </div>
+                </div>
+
+            </div>
         }
-        <input type="submit" name="accept" value="accept" />
+        @if (Model.Count != 0)
+        {
+            <div class="accept-button">
+                <input type="submit" name="accept" value="accept"/>
+            </div>
+        }
     </form>
 </div>

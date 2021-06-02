@@ -472,3 +472,65 @@ a {
     margin: 15px;
     border-radius: 20px 120px;
 }
+
+.animate-block {
+    display: flex;
+}
+
+    .animate-block .buttons {
+        position: absolute;
+        width: 500px;
+        height: 270px;
+        display: flex;
+    }
+
+    .animate-block .choose {
+        flex: 2;
+        cursor: pointer;
+    }
+        .animate-block .choose:hover {
+            background: red;
+            opacity: 0.3;
+        }
+    .animate-block .next-btn,
+    .animate-block .prev-btn {
+        /*background: #ccc;*/
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        flex: 1;
+    }
+
+        .animate-block .next-btn:hover,
+        .animate-block .prev-btn:hover {
+            background: #000;
+            opacity: 0.3;
+        }
+
+.block .next-image,
+.block .prev-image {
+    /*background: green;*/
+    height: 270px;
+    width: 0;
+}
+
+.block .current-image {
+    /*background: red;*/
+    height: 270px;
+    width: 500px;
+}
+
+.block .next-image,
+.block .prev-image,
+.block .current-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    .block .next-image img,
+    .block .prev-image img,
+    .block .current-image img {
+        max-width: 100%;
+        max-height: 100%;
+    }

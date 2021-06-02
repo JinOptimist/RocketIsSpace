@@ -21,6 +21,18 @@ namespace SpaceWeb.Service
             _contextAccessor = contextAccessor;
         }
 
+        public bool IsClient()
+        {
+            var user = GetCurrent();
+            return user.Client != null ? true : false;
+        }
+
+        public bool IsEmploye()
+        {
+            var user = GetCurrent();
+            return user.Employe != null ? true : false;
+        }
+
         public User GetCurrent()
         {
             var idStr = _contextAccessor.HttpContext.User

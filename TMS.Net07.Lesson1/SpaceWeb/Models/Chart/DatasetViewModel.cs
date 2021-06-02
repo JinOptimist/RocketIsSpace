@@ -9,6 +9,5 @@ namespace SpaceWeb.Models.Chart
     {
         public string Label { get; set; }
         public List<decimal> Data { get; set; }
-        
     }
 }
