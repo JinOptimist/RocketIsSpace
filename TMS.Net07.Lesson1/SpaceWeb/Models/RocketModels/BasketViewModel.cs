@@ -12,10 +12,20 @@ namespace SpaceWeb.Models.RocketModels
         public List<OrderViewModel> Orders { get; set; }
         public List<SelectListItem> BAOptions { get; set; }
         public List<BankAccount> BankAccounts { get; set; }
+        public List<string> OrderNamesToPay { get; set; }
+        
+        public Currency currentCurrency { get; set; }
         public BasketViewModel(List<BankAccount> accounts)
         {
             BankAccounts = accounts;
             BAOptions = new List<SelectListItem>();
+            BAOptions.Add(new SelectListItem()
+            {
+                Text = "Select",
+                Value = "-1",
+                Disabled = true,
+                Selected=true
+            }); 
             foreach (var option in BankAccounts)
             {
                 var selectListItem = new SelectListItem()
@@ -25,6 +35,8 @@ namespace SpaceWeb.Models.RocketModels
                 };
                 BAOptions.Add(selectListItem);
             }
+
+            currentCurrency = Currency.USD;
         }
     }
 }
