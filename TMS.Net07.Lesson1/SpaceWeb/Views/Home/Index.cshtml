@@ -10,6 +10,14 @@
     <link rel="stylesheet" href="~/css/rocket.css?v=1">
 }
 
+@section Scripts{
+    <script src="~/js/chart.min.js"></script>
+    <script src="~/js/index.js"></script>
+
+    <script src="~/js/animation-example.js"></script>
+}
+
+
 <a href="/Rocket/MainPage" class="rocket-link">
     <div class="block rocketfield">
         <div class="rocketword">
@@ -23,16 +31,43 @@
         <div class="cover-text-block-bank">.</div>
         <div class="text-block-bank">
             @Resource.HomeIndex_RocketBank
-            
+
         </div>
     </div>
 </a>
+
 <a href="/Human/Index">
-    <div class="block block-human">        
+    <div class="block block-human">
     </div>
 </a>
 
-
 <div class="block">
-    @Resource.HomeIndex_FAQ
+
+    <div class="animate-block">
+        <div class="buttons">
+            <div class="prev-btn"></div>
+            <div class="choose"></div>
+            <div class="next-btn"></div>
+        </div>
+        
+        <div class="next-image">
+            <img src="~/image/bank/card-mocn.jpg" />
+        </div>
+        <div class="current-image">
+            <img src="~/image/bank/card-shopp.jpg" />
+        </div>
+        <div class="prev-image">
+            <img src="~/image/bank/card-x.jpg" />
+        </div>
+       
+    </div>
+    
 </div>
+
+
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="block">
+        <canvas id="myChart"></canvas>
+    </div>
+}

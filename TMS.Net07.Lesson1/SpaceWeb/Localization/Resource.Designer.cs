@@ -151,6 +151,42 @@ namespace SpaceWeb.Localization {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Работает.
+        /// </summary>
+        public static string EmployeStatus_Accepted {
+            get {
+                return ResourceManager.GetString("EmployeStatus_Accepted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Не принят.
+        /// </summary>
+        public static string EmployeStatus_Denied {
+            get {
+                return ResourceManager.GetString("EmployeStatus_Denied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Уволен.
+        /// </summary>
+        public static string EmployeStatus_Fired {
+            get {
+                return ResourceManager.GetString("EmployeStatus_Fired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Заявка на работу.
+        /// </summary>
+        public static string EmployeStatus_Request {
+            get {
+                return ResourceManager.GetString("EmployeStatus_Request", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Вопрос ответ.
         /// </summary>
         public static string HomeIndex_FAQ {
@@ -223,65 +259,47 @@ namespace SpaceWeb.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Заведующий отделением.
+        ///   Ищет локализованную строку, похожую на Глава отдела.
         /// </summary>
-        public static string Specification_Leader {
+        public static string Positin_Leader {
             get {
-                return ResourceManager.GetString("Specification_Leader", resourceCulture);
+                return ResourceManager.GetString("Positin_Leader", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Другое.
+        ///   Ищет локализованную строку, похожую на Заместитель.
         /// </summary>
-        public static string Specification_Other {
+        public static string Position_Deputy {
             get {
-                return ResourceManager.GetString("Specification_Other", resourceCulture);
+                return ResourceManager.GetString("Position_Deputy", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Ученый.
+        ///   Ищет локализованную строку, похожую на Менеджер.
         /// </summary>
-        public static string Specification_Scientist {
+        public static string Position_Manager {
             get {
-                return ResourceManager.GetString("Specification_Scientist", resourceCulture);
+                return ResourceManager.GetString("Position_Manager", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Космонавт.
+        ///   Ищет локализованную строку, похожую на Профессиональный рабочий.
         /// </summary>
-        public static string Specification_Spacemen {
+        public static string Position_ProfessionalWorker {
             get {
-                return ResourceManager.GetString("Specification_Spacemen", resourceCulture);
+                return ResourceManager.GetString("Position_ProfessionalWorker", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Техник.
+        ///   Ищет локализованную строку, похожую на Стажер.
         /// </summary>
-        public static string Specification_Technicist {
+        public static string Position_Trainee {
             get {
-                return ResourceManager.GetString("Specification_Technicist", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Не назанчено.
-        /// </summary>
-        public static string Specification_Unknow {
-            get {
-                return ResourceManager.GetString("Specification_Unknow", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Инженер.
-        /// </summary>
-        public static string Specification_Еngineer {
-            get {
-                return ResourceManager.GetString("Specification_Еngineer", resourceCulture);
+                return ResourceManager.GetString("Position_Trainee", resourceCulture);
             }
         }
     }

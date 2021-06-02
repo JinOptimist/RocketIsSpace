@@ -2,19 +2,24 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SpaceWeb.EfStuff.Model;
-using SpaceWeb.EfStuff.Repositories;
 using SpaceWeb.Models.RocketModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+<<<<<<< HEAD
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.FileProviders.Physical;
 using Novacode;
+=======
+>>>>>>> a22dcb5b99d498d5080e639bb3cc89322d8f58ca
 using SpaceWeb.Controllers.CustomAttribute;
 using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Service;
+using SpaceWeb.Presentation;
+using SpaceWeb.Models;
+using SpaceWeb.Models.Chart;
 
 namespace SpaceWeb.Controllers
 {
@@ -27,12 +32,16 @@ namespace SpaceWeb.Controllers
         private IClientRepository _clientRepository;
         private ICurrencyService _currencyService;
         private IBankAccountRepository _accountRepository;
+        private IRocketShopPresentation _rocketShopPresentation;
+        private IUserRepository _userRepository;
         private IWebHostEnvironment _hostEnvironment;
 
         public RocketShopController(IMapper mapper, IOrderRepository orderRepository, 
             IShopRocketRepository shopRocketRepository, UserService userService, 
-            IClientRepository clientRepository, ICurrencyService currencyService, IBankAccountRepository accountRepository, IWebHostEnvironment hostEnvironment)
+            IClientRepository clientRepository, ICurrencyService currencyService, IBankAccountRepository accountRepository,
+            IRocketShopPresentation rocketShopPresentation, IUserRepository userRepository,IWebHostEnvironment hostEnvironment)
         {
+            
             _mapper = mapper;
             _orderRepository = orderRepository;
             _shopRocketRepository = shopRocketRepository;
@@ -41,19 +50,15 @@ namespace SpaceWeb.Controllers
             _currencyService = currencyService;
             _accountRepository = accountRepository;
             _hostEnvironment = hostEnvironment;
+            _rocketShopPresentation = rocketShopPresentation;
+            _userRepository = userRepository;
         }
 
         [HttpGet]
         [Authorize]
         public IActionResult RocketShop()
         {
-            var collection = new ComplexRocketShopViewModel
-            {
-                AddRockets = _shopRocketRepository.GetAll()
-                    .Select(x => _mapper.Map<ShopRocketViewModel>(x))
-                    .ToList(),
-                ClientId = _userService.GetCurrent().Client.Id
-            };
+            var collection = _rocketShopPresentation.GetCollectionRocketShopViewModel();
             return View(collection);
         }
 
@@ -65,7 +70,7 @@ namespace SpaceWeb.Controllers
 
             var client = _clientRepository.Get(model.ClientId);
             var order = new Order {Rockets = rocketList, 
-                OrderDateTime = DateTime.Now,
+                OrderDateTime = DateTime.Today,
                 Client = client,
                 State = OrderStates.Pending
             };
@@ -78,6 +83,7 @@ namespace SpaceWeb.Controllers
             _orderRepository.Save(order);
 
             return RedirectToAction("RocketShop");
+
         }
 
         [HttpGet]
@@ -96,6 +102,7 @@ namespace SpaceWeb.Controllers
             _shopRocketRepository.Save(rocket);
             return View();
         }
+
         [HttpGet]
         public IActionResult Basket()
         {
@@ -112,8 +119,10 @@ namespace SpaceWeb.Controllers
         }
         
         [HttpPost]
-        public IActionResult Basket(OrderViewModel order)
+        public IActionResult Basket(BasketViewModel order)
         {
+
+
             return View();
         }
         
@@ -123,7 +132,7 @@ namespace SpaceWeb.Controllers
             var result = _currencyService.CheckBalanceToPay(account, Convert.ToDecimal(amount));
             return Json(result);
         }
-        
+
         public IActionResult DownloadOrderFile(string name)
         {
              var webPath = _hostEnvironment.WebRootPath;
@@ -181,6 +190,45 @@ namespace SpaceWeb.Controllers
             // var contentTypeDocx = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
             // var fileNmae = "Order.docx";
             // return PhysicalFile(path, contentTypeDocx, fileNmae);
+        }
+
+        public IActionResult ChangeCurrency(string accountNumber, string amount, string currency)
+        {
+            var account = _accountRepository.Get(accountNumber);
+                         
+            var money = _currencyService.Convert((Currency)Enum.Parse(typeof(Currency), currency),
+                Convert.ToDecimal(amount), account.Currency);
+            return Json(new { money = money.ToString(),
+                currency = AttributeService.GetDisplayValue(account.Currency)});
+        }
+
+        public IActionResult OrderChartInfo()
+        {
+            var allUsers = _userRepository.GetAll().Where(x=>x.Client!=null).ToList();
+            var allOrders = allUsers.SelectMany(user => user.Client.Orders)
+                .Where(x=>
+                x.OrderDateTime.Month==DateTime.Today.Month 
+                && x.OrderDateTime.Year==DateTime.Today.Year)
+                .ToList();
+            var days = allOrders
+                .Select(x => x.OrderDateTime.Day)
+                .Distinct()
+                .ToList();
+            
+            var chartViewModel = new OrderChartViewModel
+            {
+                Labels = days
+            };
+            var datasetViewModel = new OrderDatasetViewModel()
+            {
+                Label = $"Orders for {DateTime.Today.Month}.{DateTime.Today.Year}",
+                BackgroundColor = "rgba(22, 53, 79, 0.83)",
+            };
+            var a =  days.Select(day =>
+                allOrders.Count(order => order.OrderDateTime.Day == day)).ToList();
+            datasetViewModel.Data = a;
+            chartViewModel.Datasets.Add(datasetViewModel);
+            return Json(chartViewModel);
         }
     }
 }
