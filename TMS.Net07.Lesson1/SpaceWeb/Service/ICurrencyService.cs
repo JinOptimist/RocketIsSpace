@@ -19,7 +19,7 @@ namespace SpaceWeb.Service
 
         public decimal GetExchangeRate(Currency currencyFrom,decimal amount, Currency currencyTo);
         
-        decimal Convert(Currency currencyFrom,decimal amount, Currency currencyTo);
+        //decimal Convert(Currency currencyFrom,decimal amount, Currency currencyTo);
 
         bool CheckBalanceToPay(BankAccount account,decimal amount);
     }

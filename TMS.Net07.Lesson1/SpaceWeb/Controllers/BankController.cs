@@ -36,7 +36,7 @@ namespace SpaceWeb.Controllers
             IUserRepository userRepository,
             IMapper mapper, UserService userService,
             BanksCardRepository banksCardRepository,
-            ICurrencyService currencyService)
+            ICurrencyService currencyService,
             BankPresentation bankPresentation)
         {
             _bankAccountRepository = bankAccountRepository;
