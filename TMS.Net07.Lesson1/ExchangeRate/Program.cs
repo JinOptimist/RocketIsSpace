@@ -35,7 +35,7 @@ namespace ExchangeRate
         {
             DbContextOptionsBuilder dbContextOptionsBuilder = new DbContextOptionsBuilder();
             var connection = dbContextOptionsBuilder
-                .UseSqlServer("Server=localhost;Database=SpaceWeb;Trusted_Connection=True");
+                .UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=SpaceWeb;Trusted_Connection=True");
 
             SpaceDbContext spaceDbContext = new SpaceDbContext(connection.Options);
             ExchangeRateToUsdCurrentRepository exchangeRateToUsdCurrentRepository =
