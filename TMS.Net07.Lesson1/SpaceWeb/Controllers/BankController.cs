@@ -25,7 +25,7 @@ namespace SpaceWeb.Controllers
         private IBankAccountRepository _bankAccountRepository;
         private ProfileRepository _profileRepository;
         private IMapper _mapper;
-       // private IUserRepository _userRepository;
+        private IUserRepository _userRepository;
         private BanksCardRepository _banksCardRepository;
         private UserService _userService;
         private ICurrencyService _currencyService;
@@ -41,7 +41,7 @@ namespace SpaceWeb.Controllers
         {
             _bankAccountRepository = bankAccountRepository;
             _profileRepository = profileRepository;
-           // _userRepository = userRepository;
+            _userRepository = userRepository;
             _mapper = mapper;
             _userService = userService;
             _banksCardRepository = banksCardRepository;
@@ -53,6 +53,25 @@ namespace SpaceWeb.Controllers
             var input = new RegistrationViewModel();
 
             return View(input);
+        }
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            var model = new ProfileViewModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Login(ProfileViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            model.Bio = model.UserName + model.Password;
+            return View(model);
         }
 
         public IActionResult Home()
