@@ -14,6 +14,8 @@ using SpaceWeb.Service;
 using Microsoft.AspNetCore.Authorization;
 using SpaceWeb.Controllers.CustomAttribute;
 using SpaceWeb.EfStuff.Repositories.IRepository;
+using SpaceWeb.Models.Chart;
+using System.Collections.Generic;
 
 namespace SpaceWeb.Controllers
 {
@@ -25,14 +27,14 @@ namespace SpaceWeb.Controllers
         private IUserRepository _userRepository;
         private BanksCardRepository _banksCardRepository;
         private UserService _userService;
-       // private CurrencyService _currencyService;
+        private ICurrencyService _currencyService;
 
         public BankController(IBankAccountRepository bankAccountRepository,
             ProfileRepository profileRepository,
             IUserRepository userRepository,
-            IMapper mapper, UserService userService, 
-            BanksCardRepository banksCardRepository
-            )
+            IMapper mapper, UserService userService,
+            BanksCardRepository banksCardRepository,
+            ICurrencyService currencyService)
         {
             _bankAccountRepository = bankAccountRepository;
             _profileRepository = profileRepository;
@@ -40,7 +42,7 @@ namespace SpaceWeb.Controllers
             _mapper = mapper;
             _userService = userService;
             _banksCardRepository = banksCardRepository;
-           
+            _currencyService = currencyService;
         }
         public IActionResult Index()
         {
@@ -80,13 +82,34 @@ namespace SpaceWeb.Controllers
         }
         public IActionResult BanksCard()
         {
-            var bankscard = _userService.GetCurrent();
-            var modelNew = bankscard.BanksCards.Select(dbModel =>
+            var userBanksCard = _userService.GetCurrent();
+            var modelNew = userBanksCard.BanksCards.Select(dbModel =>
                 //куда                откуда
                 _mapper.Map<BanksCardViewModel>(dbModel)
                 )
                 .ToList();
+
             return View(modelNew);
+        }
+        public IActionResult BankCurrensyChartInfo()
+        {
+            var allCurrency = new List<Currency>() { Currency.BYN, Currency.USD };
+
+            var chartViewModel = new ChartViewModel();
+            chartViewModel.Labels = allCurrency.Select(x=>x.ToString()).ToList();
+            var datasetViewModel = new DatasetViewModel()
+            {
+                Label = "Валюты"
+            };
+            datasetViewModel.Data =
+                allCurrency.Select(валютаОдна => 
+                    _currencyService.ConvertAmount(валютаОдна)
+                    )
+                .ToList();
+
+            chartViewModel.Datasets.Add(datasetViewModel);
+
+            return Json(chartViewModel);
         }
 
         public IActionResult ShowBanksCard(long accountId)
@@ -98,8 +121,6 @@ namespace SpaceWeb.Controllers
         [HttpPost]
         public IActionResult AddBanksCard(long accountId, EnumBankCard card)
         {
-            int bankCard;
-
             BankAccount bankAccount = _bankAccountRepository.Get(accountId);
             if (bankAccount == null)
             {
@@ -138,14 +159,14 @@ namespace SpaceWeb.Controllers
 
             return RedirectToAction("Index");
         }
-      
+
         public IActionResult AddTransaction(long transferToId)
         {
 
 
             return RedirectToAction("Index");
         }
-        
+
 
 
         public IActionResult Contacts()
@@ -215,5 +236,6 @@ namespace SpaceWeb.Controllers
         {
             return View();
         }
+
     }
 }

@@ -14,7 +14,7 @@ namespace SpaceWeb.Models
         public EnumBankCard Card { get; set; }
         public string Type { get; set; }
         public DateTime CreationDate { get; set; }
-        public virtual List<BankAccount> BankAccount { get; set; }
-        public CurrencyExchengerViewModel CurrencyExchengerViewModel { get; set; }
+        //public virtual List<BankAccount> BankAccount { get; set; }
+        public CurrencyExchengerViewModel CurrencyExchengerViewModel { get; set; } = new CurrencyExchengerViewModel();
     }
 }

@@ -1,4 +1,5 @@
 ﻿@model List<BanksCardViewModel>
+@using SpaceWeb.Models
 
 @{
     Layout = "_LayoutBank";
@@ -7,36 +8,37 @@
 @inject UserService userService
 @section Style{
     <link rel="stylesheet" href="~/css/bank/banks/Bankscard.css?v=1">
-    <link rel="stylesheet" href="~/css/bank/banks/Bankscard.css?v=1">
+}
 }
 <div class="pre-header"></div>
-    <div class="header">Карты банков</div>
-    <div class="search">
-        <div class="search-field icon-Factory search-icon">
-            <input type="search" placeholder="Search">
+<div class="header">Карты банков</div>
+<div class="search">
+    <div class="search-field icon-Factory search-icon">
+        <input type="search" placeholder="Search">
+    </div>
+</div>
+
+<div class="center-block">
+    <a href="~/Bank/BanksCard" class="link">
+        <div class="card-mocn">
+            <span class="text">Моцная картаy</span>
         </div>
-    </div>
+    </a>
+    <a href="~/Bank/AddBanksCard" class="link">
+        <div class="card-shopp">
+            <div class="text">Карта покупок</div>
+        </div>
+    </a>
+    <a href="~/Bank/BanksCard" class="link">
+        <div class="card-x">
+            <div class="text">Х карта</div>
+        </div>
+    </a>
 
-    <div class="center-block">
-        <a href="~/Bank/BanksCard" class="link">
-            <div class="card-mocn">
-                <span class="text">Моцная картаy</span>
-            </div>
-        </a>
-        <a href="~/Bank/AddBanksCard" class="link">
-            <div class="card-shopp">
-                <div class="text">Карта покупок</div>
-            </div>
-        </a>
-        <a href="~/Bank/BanksCard" class="link">
-            <div class="card-x">
-                <div class="text">Х карта</div>
-            </div>
-        </a>
+</div>
+<div class="account-creation-container">
+    <div class="creation-container-text">СОЗДАНИЕ КАРТЫ</div>
+    @{ Html.RenderPartial("_bankCards", new BanksCardViewModel()); }
+</div>
 
-    </div>
-    <div class="account-creation-container">
-        <div class="creation-container-text">СОЗДАНИЕ КАРТЫ</div>
-        @Html.Partial("_bankCards")
-    </div>
 

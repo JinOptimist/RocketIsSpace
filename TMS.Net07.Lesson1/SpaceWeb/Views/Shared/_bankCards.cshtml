@@ -1,7 +1,6 @@
-﻿@section Scripts{
-    <script src="~/js/chart.min.js"></script>
-    <script src="~/js/index.js"></script>
-}
+﻿@model BanksCardViewModel
+@using SpaceWeb.Models
+@using Microsoft.AspNetCore.Mvc.Rendering
 @{
     var cardOptions = new List<SelectListItem>();
 
@@ -15,7 +14,11 @@
         cardOptions.Add(option);
     }
 }
-@model BanksCardViewModel
+
+@section Scripts{
+    <script src="~/js/chart.min.js"></script>
+    <script src="~/js/index.js"></script>
+}
 
 
 <form class="creation-form" method="POST">
@@ -24,7 +27,7 @@
         @Html.DropDownList("enumBankCard", cardOptions)
     </p>
     <div>Начальная сумма</div>
-    <input type="text" autocomplete="off" name="@nameof(BanksCardViewModel.BankAccount))">
+    <input type="text" autocomplete="off" name="BankAccount">
     <p class="buttons">
         <input class="create-account button" type="submit" value="Создать">
         <input class="cancel-creation button" type="reset" value="Сброс">
@@ -36,7 +39,7 @@
 </div>
 
 <div class="currency-exchanger">
-    @Model.CurrencyExchengerViewModel.CurrencyFromDrop @Model.CurrencyExchengerViewModel.CurrencyToDrop
-
+    @Html.DropDownList("test", Model.CurrencyExchengerViewModel.CurrencyFromDrop)
+    @Html.DropDownList("test", Model.CurrencyExchengerViewModel.CurrencyToDrop)
 </div>
 
