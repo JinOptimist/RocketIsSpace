@@ -74,24 +74,6 @@ namespace ExchangeRate
 
         }
 
-        //public static void LaunchPuttingExchRatesToDb()
-        //{
-        //    DbContextOptionsBuilder dbContextOptionsBuilder = new DbContextOptionsBuilder();
-        //    var connection = dbContextOptionsBuilder
-        //        .UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=SpaceWeb;Trusted_Connection=True");
-
-        //    SpaceDbContext spaceDbContext = new SpaceDbContext(connection.Options);
-        //    ExchangeRateToUsdCurrentRepository exchangeRateToUsdCurrentRepository =
-        //        new ExchangeRateToUsdCurrentRepository(spaceDbContext);
-
-
-
-        //    var currentDate = DateTime.Now;
-
-        //    var exchangeRates = GetExchangeRates();
-        //    PutCurrentExchangeRatesToDb(exchangeRateToUsdCurrentRepository, exchangeRates);
-        //}
-
         //public static void PutCurrentExchangeRatesToDb(ExchangeRateToUsdCurrentRepository _exchangeRateToUsdCurrentRepository, Currency exchangeRates)
         //{
         //    var exchangeRateDb = new ExchangeRateToUsdCurrent
