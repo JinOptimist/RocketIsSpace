@@ -25,7 +25,7 @@ namespace SpaceWeb.Controllers
         private IBankAccountRepository _bankAccountRepository;
         private ProfileRepository _profileRepository;
         private IMapper _mapper;
-        private IUserRepository _userRepository;
+       // private IUserRepository _userRepository;
         private BanksCardRepository _banksCardRepository;
         private UserService _userService;
         private ICurrencyService _currencyService;
@@ -41,7 +41,7 @@ namespace SpaceWeb.Controllers
         {
             _bankAccountRepository = bankAccountRepository;
             _profileRepository = profileRepository;
-            _userRepository = userRepository;
+           // _userRepository = userRepository;
             _mapper = mapper;
             _userService = userService;
             _banksCardRepository = banksCardRepository;
