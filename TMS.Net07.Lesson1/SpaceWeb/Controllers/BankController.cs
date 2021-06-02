@@ -16,6 +16,7 @@ using SpaceWeb.Controllers.CustomAttribute;
 using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Models.Chart;
 using System.Collections.Generic;
+using SpaceWeb.Presentation;
 
 namespace SpaceWeb.Controllers
 {
@@ -28,6 +29,7 @@ namespace SpaceWeb.Controllers
         private BanksCardRepository _banksCardRepository;
         private UserService _userService;
         private ICurrencyService _currencyService;
+        private BankPresentation _bankPresentation;
 
         public BankController(IBankAccountRepository bankAccountRepository,
             ProfileRepository profileRepository,
@@ -35,6 +37,7 @@ namespace SpaceWeb.Controllers
             IMapper mapper, UserService userService,
             BanksCardRepository banksCardRepository,
             ICurrencyService currencyService)
+            BankPresentation bankPresentation)
         {
             _bankAccountRepository = bankAccountRepository;
             _profileRepository = profileRepository;
@@ -43,6 +46,7 @@ namespace SpaceWeb.Controllers
             _userService = userService;
             _banksCardRepository = banksCardRepository;
             _currencyService = currencyService;
+            _bankPresentation = bankPresentation;
         }
         public IActionResult Index()
         {
@@ -183,9 +187,7 @@ namespace SpaceWeb.Controllers
         [HttpGet]
         public IActionResult UserProfile(long id = 0)
         {
-            var userprofile = _profileRepository.Get(id);
-            var profile = _mapper.Map<UserProfileViewModel>(userprofile)
-                ?? new UserProfileViewModel();
+            var profile = _bankPresentation.GetProfileViewModel(id);
             return View(profile);
         }
 

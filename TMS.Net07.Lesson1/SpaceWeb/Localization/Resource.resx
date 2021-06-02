@@ -147,6 +147,18 @@
   <data name="DepartmentType_Unknown" xml:space="preserve">
     <value>Неизвестно</value>
   </data>
+  <data name="EmployeStatus_Accepted" xml:space="preserve">
+    <value>Работает</value>
+  </data>
+  <data name="EmployeStatus_Denied" xml:space="preserve">
+    <value>Не принят</value>
+  </data>
+  <data name="EmployeStatus_Fired" xml:space="preserve">
+    <value>Уволен</value>
+  </data>
+  <data name="EmployeStatus_Request" xml:space="preserve">
+    <value>Заявка на работу</value>
+  </data>
   <data name="HomeIndex_FAQ" xml:space="preserve">
     <value>Вопрос ответ</value>
   </data>
@@ -171,25 +183,19 @@
   <data name="Layout_Registration" xml:space="preserve">
     <value>Регистрация</value>
   </data>
-  <data name="Specification_Leader" xml:space="preserve">
-    <value>Заведующий отделением</value>
+  <data name="Positin_Leader" xml:space="preserve">
+    <value>Глава отдела</value>
   </data>
-  <data name="Specification_Other" xml:space="preserve">
-    <value>Другое</value>
+  <data name="Position_Deputy" xml:space="preserve">
+    <value>Заместитель</value>
   </data>
-  <data name="Specification_Scientist" xml:space="preserve">
-    <value>Ученый</value>
+  <data name="Position_Manager" xml:space="preserve">
+    <value>Менеджер</value>
   </data>
-  <data name="Specification_Spacemen" xml:space="preserve">
-    <value>Космонавт</value>
+  <data name="Position_ProfessionalWorker" xml:space="preserve">
+    <value>Профессиональный рабочий</value>
   </data>
-  <data name="Specification_Technicist" xml:space="preserve">
-    <value>Техник</value>
-  </data>
-  <data name="Specification_Unknow" xml:space="preserve">
-    <value>Не назанчено</value>
-  </data>
-  <data name="Specification_Еngineer" xml:space="preserve">
-    <value>Инженер</value>
+  <data name="Position_Trainee" xml:space="preserve">
+    <value>Стажер</value>
   </data>
 </root>

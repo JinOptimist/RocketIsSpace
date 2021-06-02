@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SpaceWeb.EfStuff.Model;
 
 namespace SpaceWeb.Service
 {
@@ -17,5 +18,9 @@ namespace SpaceWeb.Service
         public decimal ConvertAmount( Currency currency);
 
         public decimal GetExchangeRate(Currency currencyFrom,decimal amount, Currency currencyTo);
+        
+        decimal Convert(Currency currencyFrom,decimal amount, Currency currencyTo);
+
+        bool CheckBalanceToPay(BankAccount account,decimal amount);
     }
 }

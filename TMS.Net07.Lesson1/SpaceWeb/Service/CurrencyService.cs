@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Globalization;
 using System.Net;
+using SpaceWeb.EfStuff.Model;
 
 namespace SpaceWeb.Service
 {
@@ -47,6 +48,11 @@ namespace SpaceWeb.Service
 
             return ((amount * toRate) / fromRate);
          
+        }
+
+        public bool CheckBalanceToPay(BankAccount account, decimal amount)
+        {
+            return false;
         }
     }
     

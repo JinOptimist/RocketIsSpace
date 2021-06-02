@@ -3,6 +3,7 @@ using Microsoft.Extensions.Hosting;
 using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
 using SpaceWeb.EfStuff.Repositories.IRepository;
+using SpaceWeb.Models.Human;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,9 @@ namespace SpaceWeb.EfStuff
         public const string DepartmentName = "Administration";
         public const string EmployeName = "Test";
         public const string EmployeSurname = "Employe";
+        public const string ClientName = "Client";
+        public const string ClientSurname = "Example";
+        public const string DefaultPassword = "123";
         public static IHost SeedData(this IHost server)
         {
             using (var serviceScope = server.Services.CreateScope())
@@ -24,6 +28,7 @@ namespace SpaceWeb.EfStuff
                 SetDefaultDepartment(serviceScope.ServiceProvider);
                 SetDefaultInsuranceType(serviceScope.ServiceProvider);
                 SetDefaultEmploye(serviceScope.ServiceProvider);
+                SetDefaultCient(serviceScope.ServiceProvider);
             }
 
             return server;
@@ -72,7 +77,7 @@ namespace SpaceWeb.EfStuff
                 department = new Department
                 {
                     DepartmentName = defaultDepartmentName,
-                    DepartmentType = DepartmentType.Other,
+                    DepartmentSpecificationType = DepartmentType.Other,
                     MaximumCountEmployes = 1,
                     HourStartWorking = 8,
                     HourEndWorking = 17
@@ -181,7 +186,7 @@ namespace SpaceWeb.EfStuff
                 insuranceTypeRepository.Save(insurancePolis);
             }
         }
-      
+
         private static void SetDefaultEmploye(IServiceProvider service)
         {
             var userReposirory = service.GetService<IUserRepository>();
@@ -189,27 +194,61 @@ namespace SpaceWeb.EfStuff
             var user = userReposirory.Get(string.Concat(EmployeName, EmployeSurname));
             if (user == null)
             {
-                user = new User()
-                {
-                    Login = string.Concat(EmployeName,EmployeSurname),
-                    Name = EmployeName,
-                    SurName = EmployeSurname,
-                    Password = "1111",
-                    Employe = CreateEmploye(departmentRepository)
-                };
+                user = CreateUser(string.Concat(EmployeName, EmployeSurname), EmployeName, EmployeSurname, DefaultPassword);
+                user.Employe = CreateEmploye(Position.Leader, EmployeStatus.Accepted, 200, departmentRepository.Get(DepartmentName));
             }
-            else if (user != null && user.Employe == null)
+            else if (user.Employe == null)
             {
-                user.Employe = CreateEmploye(departmentRepository);
+                user.Employe = CreateEmploye(Position.Leader, EmployeStatus.Accepted, 200, departmentRepository.Get(DepartmentName));
             }
             userReposirory.Save(user);
         }
-        private static Employe CreateEmploye(IDepartmentRepository departmentRepository) =>
+
+        private static void SetDefaultCient(IServiceProvider service)
+        {
+            var userReposirory = service.GetService<IUserRepository>();
+            var user = userReposirory.Get(string.Concat(ClientName, ClientSurname));
+            if (user == null)
+            {
+                user = CreateUser(string.Concat(ClientName, ClientSurname), ClientName, ClientSurname, DefaultPassword);
+                user.Client = CreateClient();
+            }
+            else if (user.Client == null)
+            {
+                user.Client = CreateClient();
+            }
+            userReposirory.Save(user);
+        }
+
+        private static User CreateUser(string Login, string Name, string SurName, string Password, string Email = "", int Age = 0) =>
+            new User
+            {
+                Login = Login,
+                Name = Name,
+                SurName = SurName,
+                Password = Password,
+                Email = Email,
+                Age = Age
+            };
+
+        private static Client CreateClient() =>
+            new Client
+            {
+                Orders = new List<Order>
+                {
+                    new Order(){ Name="Big rocket", Price=4333, OrderDateTime=DateTime.Today },
+                    new Order(){ Name="Medium rocket", Price=2341, OrderDateTime=DateTime.Today },
+                    new Order(){ Name="Small rocket", Price=932, OrderDateTime=DateTime.Today },
+                }
+            };
+
+        private static Employe CreateEmploye(Position position, EmployeStatus employeStatus, decimal salaryPerHour, Department department) =>
             new Employe
             {
-                Specification = Specification.Leader,
-                SalaryPerHour = 200,
-                Department = departmentRepository.Get(DepartmentName)
+                Position = position,
+                SalaryPerHour = salaryPerHour,
+                EmployeStatus = employeStatus,
+                Department = department
             };
     }
 }

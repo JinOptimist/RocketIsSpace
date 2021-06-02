@@ -1,0 +1,57 @@
+﻿.carousel-smile {
+    display: flex;
+}
+
+    .carousel-smile .buttons {
+        position: absolute;
+        display: flex;
+    }
+
+    .carousel-smile .choose {
+        flex: 2;
+        cursor: pointer;
+    }
+        .carousel-smile .choose:hover {
+            background: red;
+            opacity: 0.3;
+        }
+
+    .carousel-smile .next-btn,
+    .carousel-smile .prev-btn {
+        /*background: #ccc;*/
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        flex: 1;
+    }
+
+        .carousel-smile .next-btn:hover,
+        .carousel-smile .prev-btn:hover {
+            background: #000;
+            opacity: 0.3;
+        }
+
+    .carousel-smile .next-image,
+    .carousel-smile .prev-image {
+        /*background: green;*/
+        height: 270px;
+        width: 0;
+    }
+
+    .carousel-smile .current-image {
+    }
+
+    .carousel-smile .next-image,
+    .carousel-smile .prev-image,
+    .carousel-smile .current-image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+        .carousel-smile .next-image img,
+        .carousel-smile .prev-image img,
+        .carousel-smile .current-image img {
+            max-width: 100%;
+            max-height: 100%;
+        }

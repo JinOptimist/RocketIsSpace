@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SpaceWeb.Migrations;
+using AdvImage = SpaceWeb.EfStuff.Model.AdvImage;
 
 
 namespace SpaceWeb.EfStuff

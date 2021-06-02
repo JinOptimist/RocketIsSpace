@@ -35,6 +35,10 @@ namespace SpaceWeb.Controllers
         public IActionResult AccountChartInfo()
         {
             var user = _userService.GetCurrent();
+            if (user == null)
+            {
+                return Json(null);
+            }
             var currencies = user.BankAccounts.Select(x => x.Currency).Distinct();
 
             var chartViewModel = new ChartViewModel();

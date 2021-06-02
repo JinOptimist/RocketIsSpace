@@ -9,11 +9,13 @@ namespace SpaceWeb.EfStuff.Model
     {
         public string Name { get; set; }
         
-        public int Cost { get; set; }
+        public decimal Cost { get; set; }
 
         public string Url { get; set; }
 
         public bool IsReady { get; set; }
+
+        public int Count { get; set; }
         
         public virtual User Author { get; set; }
         
