@@ -112,6 +112,19 @@ namespace SpaceWeb
             services.AddScoped<InsuranceRepository>(diContainer =>
                 new InsuranceRepository(diContainer.GetService<SpaceDbContext>()));
 
+            services.AddScoped<ExchangeRateToUsdCurrentRepository>(diContainer =>
+                new ExchangeRateToUsdCurrentRepository(diContainer.GetService<SpaceDbContext>()));
+
+            services.AddScoped<ExchangeRateToUsdHistoryRepository>(diContainer =>
+                new ExchangeRateToUsdHistoryRepository(diContainer.GetService<SpaceDbContext>()));
+
+            services.AddScoped<ExchangeAccountHistoryRepository>(diContainer =>
+                new ExchangeAccountHistoryRepository(diContainer.GetService<SpaceDbContext>()));
+
+            services.AddScoped<ICurrencyService>(diContainer =>
+                new CurrencyService(diContainer.GetService<UserService>(), diContainer.GetService<ExchangeRateToUsdCurrentRepository>(),
+                    diContainer.GetService<ExchangeAccountHistoryRepository>()));
+
             services.AddScoped<UserService>(diContainer =>
                 new UserService(
                     diContainer.GetService<IUserRepository>(),
@@ -132,13 +145,20 @@ namespace SpaceWeb
             services.AddScoped<ShopRocketRepository>(diContainer =>
                 new ShopRocketRepository(diContainer.GetService<SpaceDbContext>()));
 
+            services.AddScoped<ICurrencyService>(diContainer =>
+                new CurrencyService(diContainer.GetService<UserService>(), 
+                    diContainer.GetService<ExchangeRateToUsdCurrentRepository>(),
+                    diContainer.GetService<ExchangeAccountHistoryRepository>()));
+
+            services.AddScoped<IBankPresentation>(diContainer =>
+                new BankPresentation(diContainer.GetService<IProfileRepository>(), diContainer.GetService<IMapper>()));
+
+            services.AddScoped<BankPresentation>(diContainer =>
+                new BankPresentation(diContainer.GetService<IProfileRepository>(), diContainer.GetService<IMapper>()));
 
             //services.AddScoped<IEmployeRepository>(diContainer =>
             //    new EmployeRepository(diContainer.GetService<SpaceDbContext>()));
 
-            services.AddScoped<ICurrencyService>(diContainer =>
-                new CurrencyService());
-            
             RegisterMapper(services);
             services.AddScoped<UserService>(diContainer =>
                new UserService(

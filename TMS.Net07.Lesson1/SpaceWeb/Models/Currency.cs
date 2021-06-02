@@ -14,9 +14,12 @@ namespace SpaceWeb.Models
         USD = 2,
         [Display(Name = "EUR")]
         EUR = 3,
+        PLN = 4,
+        GBP = 5,
         [Display(Name = "TUG")]
-        TUG = 4,
+        TUG = 6,
         [Display(Name = "ZIM")]
-        ZIM = 5
+        ZIM = 7
+
     }
 }
