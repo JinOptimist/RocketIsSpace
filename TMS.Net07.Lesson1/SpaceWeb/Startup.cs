@@ -122,19 +122,24 @@ namespace SpaceWeb
                 new ExchangeAccountHistoryRepository(diContainer.GetService<SpaceDbContext>()));
 
             services.AddScoped<ICurrencyService>(diContainer =>
-                new CurrencyService(diContainer.GetService<UserService>(), diContainer.GetService<ExchangeRateToUsdCurrentRepository>(),
-                    diContainer.GetService<ExchangeAccountHistoryRepository>()));
+                new CurrencyService(
+                    diContainer.GetService<UserService>(),
+                    diContainer.GetService<ExchangeRateToUsdCurrentRepository>(),
+                    diContainer.GetService<ExchangeAccountHistoryRepository>(),
+                    diContainer.GetService<ExchangeRateToUsdHistoryRepository>(),
+                    diContainer.GetService<IMapper>()
+                ));
 
             services.AddScoped<UserService>(diContainer =>
                 new UserService(
                     diContainer.GetService<IUserRepository>(),
                     diContainer.GetService<IHttpContextAccessor>()
                 ));
-            
+
             services.AddControllersWithViews();
 
             services.AddHttpContextAccessor();
- 
+
             services.AddScoped<OrderRepository>(diContainer =>
                 new OrderRepository(diContainer.GetService<SpaceDbContext>()));
             services.AddControllersWithViews();
@@ -145,10 +150,10 @@ namespace SpaceWeb
             services.AddScoped<ShopRocketRepository>(diContainer =>
                 new ShopRocketRepository(diContainer.GetService<SpaceDbContext>()));
 
-            services.AddScoped<ICurrencyService>(diContainer =>
-                new CurrencyService(diContainer.GetService<UserService>(), 
-                    diContainer.GetService<ExchangeRateToUsdCurrentRepository>(),
-                    diContainer.GetService<ExchangeAccountHistoryRepository>()));
+            //services.AddScoped<ICurrencyService>(diContainer =>
+            //    new CurrencyService(diContainer.GetService<UserService>(),
+            //        diContainer.GetService<ExchangeRateToUsdCurrentRepository>(),
+            //        diContainer.GetService<ExchangeAccountHistoryRepository>()));
 
             services.AddScoped<IBankPresentation>(diContainer =>
                 new BankPresentation(diContainer.GetService<IProfileRepository>(), diContainer.GetService<IMapper>()));
@@ -245,7 +250,7 @@ namespace SpaceWeb
                 .ForMember(nameof(EmployeeProfileViewModel.Salary),
                     config => config.MapFrom(user =>
                         user.Employe.SalaryPerHour));
-            
+
 
             //configExpression.CreateMap<Relic, RelicViewModel>();
             //configExpression.CreateMap<RelicViewModel, Relic>();
@@ -273,9 +278,9 @@ namespace SpaceWeb
             MapBoth<AddShopRocket, ShopRocketViewModel>(configExpression);
 
             MapBoth<ShopRocketViewModel, AddShopRocket>(configExpression);
-            
+
             MapBoth<Rocket, ShopRocketViewModel>(configExpression);
-            
+
             MapBoth<ShortUserViewModel, User>(configExpression);
 
             MapBoth<ClientViewModel, Client>(configExpression);
@@ -306,7 +311,7 @@ namespace SpaceWeb
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, 
+        public void Configure(IApplicationBuilder app,
             IWebHostEnvironment env,
             ILoggerFactory loggerFactory)
         {

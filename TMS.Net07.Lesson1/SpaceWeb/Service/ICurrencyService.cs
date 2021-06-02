@@ -25,5 +25,7 @@ namespace SpaceWeb.Service
         public GottenCurrency GetExchangeRates();
         public void PutCurrentExchangeRatesToDb(ExchangeRateToUsdCurrentRepository _exchangeRateToUsdCurrentRepository, GottenCurrency exchangeRates);
         public void DeleteCurrentExchRatesFromDb(ExchangeRateToUsdCurrentRepository _exchangeRateToUsdCurrentRepository);
+        public void MoveCurrentExchangesDbToHistoryDb(ExchangeRateToUsdCurrentRepository _exchangeRateToUsdCurrentRepository,
+            ExchangeRateToUsdHistoryRepository _exchangeRateToUsdHistoryRepository);
     }
 }
