@@ -56,18 +56,17 @@ namespace ExchangeRate
             ICurrencyService currencyService =
                 new CurrencyService(userService, exchangeRateToUsdCurrentRepository, exchangeAccountHistoryRepository);
 
+            var exchangeRates = new GottenCurrency();
             var currentDate = DateTime.Now;
-            //var isTrue = true;
             while (true)
             {
-                if (((currentDate.Minute % 51) == 0) | ((currentDate.Minute % 52) == 0))
+                if ((currentDate.Minute % 3) == 0)
                 {
-                    var exchangeRates = currencyService.GetExchangeRates();
+                    exchangeRates = currencyService.GetExchangeRates();
                     currencyService.PutCurrentExchangeRatesToDb(exchangeRateToUsdCurrentRepository, exchangeRates);
                     Thread.Sleep(60000);
                 }
                 currentDate = DateTime.Now;
-                //isTrue = true;
             }
 
             //Console.WriteLine("Я тип закончил");

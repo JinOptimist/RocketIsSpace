@@ -292,6 +292,8 @@ namespace SpaceWeb
 
             MapBoth<Department, DepartmentViewModel>(configExpression);
 
+            MapBoth<ExchangeRateToUsdCurrent, ExchangeRateToUsdHistory>(configExpression);
+
             var mapperConfiguration = new MapperConfiguration(configExpression);
             var mapper = new Mapper(mapperConfiguration);
             services.AddScoped<IMapper>(c => mapper);

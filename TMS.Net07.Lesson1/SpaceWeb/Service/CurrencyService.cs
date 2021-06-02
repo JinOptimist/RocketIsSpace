@@ -106,7 +106,8 @@ namespace SpaceWeb.Service
             return exchangeRates;
         }
 
-        public void PutCurrentExchangeRatesToDb(ExchangeRateToUsdCurrentRepository _exchangeRateToUsdCurrentRepository, GottenCurrency exchangeRates)
+        public void PutCurrentExchangeRatesToDb(ExchangeRateToUsdCurrentRepository _exchangeRateToUsdCurrentRepository, 
+            GottenCurrency exchangeRates)
         {
             var exchangeRateDb = new ExchangeRateToUsdCurrent
             {
@@ -205,6 +206,12 @@ namespace SpaceWeb.Service
             {
                 _exchangeRateToUsdCurrentRepository.Remove(rate.Id);
             }
+        }
+
+        public void MoveCurrentExchangesDbToHistoryDb(ExchangeRateToUsdCurrentRepository _exchangeRateToUsdCurrentRepository,
+            ExchangeAccountHistoryRepository _exchangeAccountHistoryRepository)
+        {
+            var exchRates = _exchangeRateToUsdCurrentRepository.GetAll();
         }
     }
 
