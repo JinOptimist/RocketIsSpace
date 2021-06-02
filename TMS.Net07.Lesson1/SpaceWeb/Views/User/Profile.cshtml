@@ -52,6 +52,14 @@
         </div>
     }
 
+    @if (Model.DefaultCurrency != 0)
+    {
+    <h2>Сумма всех средств в основной валюте:</h2>
+    <div>
+        @Model.AmountAllMoneyInDefaultCurrency @Model.DefaultCurrency
+    </div>
+    }
+
     <a href="/User/ChangePassword?id=1">Обновить password</a>
 
     <div id="avatar-carousel"></div>

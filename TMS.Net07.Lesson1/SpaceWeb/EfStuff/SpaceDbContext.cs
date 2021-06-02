@@ -40,6 +40,10 @@ namespace SpaceWeb.EfStuff
         public DbSet<InsuranceType> InsuranceTypes { get; set; }
         public DbSet<Insurance> Insurances { get; set; }
 
+        public DbSet<ExchangeRateToUsdCurrent> ExchangeRatesToUsdCurrent { get; set; }
+        public DbSet<ExchangeRateToUsdHistory> ExchangeRatesToUsdHistory { get; set; }
+        public DbSet<ExchangeAccountHistory> ExchangeAccountHistory { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()
