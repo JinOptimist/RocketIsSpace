@@ -5,7 +5,12 @@ using SpaceWeb.EfStuff.Model;
 using SpaceWeb.Models.RocketModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.FileProviders.Physical;
+using Novacode;
 using SpaceWeb.Controllers.CustomAttribute;
 using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Service;
@@ -26,12 +31,12 @@ namespace SpaceWeb.Controllers
         private IBankAccountRepository _accountRepository;
         private IRocketShopPresentation _rocketShopPresentation;
         private IUserRepository _userRepository;
+        private IWebHostEnvironment _hostEnvironment;
 
-        public RocketShopController(IMapper mapper, IOrderRepository orderRepository,
-            IShopRocketRepository shopRocketRepository, UserService userService,
-            IClientRepository clientRepository, ICurrencyService currencyService,
-            IBankAccountRepository accountRepository,
-            IRocketShopPresentation rocketShopPresentation, IUserRepository userRepository)
+        public RocketShopController(IMapper mapper, IOrderRepository orderRepository, 
+            IShopRocketRepository shopRocketRepository, UserService userService, 
+            IClientRepository clientRepository, ICurrencyService currencyService, IBankAccountRepository accountRepository,
+            IRocketShopPresentation rocketShopPresentation, IUserRepository userRepository,IWebHostEnvironment hostEnvironment)
         {
             _mapper = mapper;
             _orderRepository = orderRepository;
@@ -40,6 +45,7 @@ namespace SpaceWeb.Controllers
             _clientRepository = clientRepository;
             _currencyService = currencyService;
             _accountRepository = accountRepository;
+            _hostEnvironment = hostEnvironment;
             _rocketShopPresentation = rocketShopPresentation;
             _userRepository = userRepository;
         }
@@ -123,9 +129,69 @@ namespace SpaceWeb.Controllers
             return Json(result);
         }
 
+        public IActionResult DownloadOrderFile(string name)
+        {
+             var webPath = _hostEnvironment.WebRootPath;
+             var path = Path.Combine(webPath, "TempFile", $"{name}.docx");
+             //var imagePath = Path.Combine(webPath, "TempFile", $"{name}.jpeg");
+             //var pathImage = AppDomain.CurrentDomain.BaseDirectory + "image.jpg";
+             const string password = "password";
+             
+             var order = _orderRepository.GetByName(name);
+             using (var doc = DocX.Create(path))
+             {
+                 doc.InsertParagraph("Hello dear customer!")
+                     .Font("BankGothic Md BT")
+                     .Bold()
+                     .FontSize(36)
+                     .Spacing(15)
+                     .Alignment = Alignment.center;;
+                 
+                 // Image image = doc.AddImage(imagePath);
+                 // Paragraph paragraph = doc.InsertParagraph();
+                 // paragraph.AppendPicture(image.CreatePicture());
+                 // paragraph.Alignment = Alignment.center;
+                 
+
+                 doc.InsertParagraph($"Your order: {order.Name}")
+                     .FontSize(14)
+                     .Spacing(1)
+                     .Font("Times New Roman");
+                 doc.InsertParagraph($"State: {order.State.ToString()}")
+                     .FontSize(14)
+                     .Spacing(1)
+                     .Font("Times New Roman");;
+                 doc.InsertParagraph($"Price: {order.Price}")
+                     .FontSize(14)
+                     .Spacing(1)
+                     .Font("Times New Roman");;
+                 doc.InsertParagraph($"Date: {order.OrderDateTime}")
+                     .FontSize(14)
+                     .Spacing(1)
+                     .Font("Times New Roman");
+                 doc.InsertParagraph($"Thank you!")
+                     .FontSize(14)
+                     .Spacing(1)
+                     .Font("Times New Roman");
+                 
+                 doc.AddProtection(EditRestrictions.readOnly, password);
+                 doc.Save();
+             }
+            
+             var contentTypeDocx = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+             var fileName = $"{order.Name}.docx";
+             return PhysicalFile(path, contentTypeDocx, fileName);
+            
+            // var path = "C:/Users/smuglifriend/OneDrive/Рабочий стол/RocketIsSpace/RocketIsSpace/TMS.Net07.Lesson1/Test/Smile.docx";
+            // var contentTypeDocx = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+            // var fileNmae = "Order.docx";
+            // return PhysicalFile(path, contentTypeDocx, fileNmae);
+        }
+
         public IActionResult ChangeCurrency(string accountNumber, string amount, string currency)
         {
             var account = _accountRepository.Get(accountNumber);
+
             var currencyFrom = (Currency) Enum.Parse(typeof(Currency), currency);
             var money = _currencyService.ConvertByAlex(currencyFrom,
                 Convert.ToDecimal(amount), account.Currency);
