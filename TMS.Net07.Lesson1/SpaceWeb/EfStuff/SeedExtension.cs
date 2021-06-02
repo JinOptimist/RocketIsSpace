@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SpaceWeb.Service;
 
 namespace SpaceWeb.EfStuff
 {
@@ -191,128 +192,13 @@ namespace SpaceWeb.EfStuff
 
         private static void SetDefaultExchangeRateToUsdCurrent(IServiceProvider services)
         {
+            var currencyService = services.GetService<ICurrencyService>();
+            var exchRateToUsdCurrentRepository = services.GetService<ExchangeRateToUsdCurrentRepository>();
 
-            //var exchangeRateToUsdCurrentRepository = services.GetService<ExchangeRateToUsdCurrentRepository>();
+            currencyService.DeleteCurrentExchRatesFromDb(exchRateToUsdCurrentRepository);
 
-            //var exchangeRate = exchangeRateToUsdCurrentRepository.GetExchangeRate(Currency.BYN, TypeOfExchange.Sell);
-            //if (exchangeRate == null)
-            //{
-            //    exchangeRate = new ExchangeRateToUsdCurrent()
-            //    {
-            //        Currency = Currency.BYN,
-            //        TypeOfExch = TypeOfExchange.Sell,
-            //        ExchRate = 2.505m,
-            //    };
-            //    exchangeRateToUsdCurrentRepository.Save(exchangeRate);
-            //}
-
-            //exchangeRate = exchangeRateToUsdCurrentRepository.GetExchangeRate(Currency.BYN, TypeOfExchange.Buy);
-            //if (exchangeRate == null)
-            //{
-            //    exchangeRate = new ExchangeRateToUsdCurrent()
-            //    {
-            //        Currency = Currency.BYN,
-            //        TypeOfExch = TypeOfExchange.Buy,
-            //        ExchRate = 2.510m,
-            //    };
-            //    exchangeRateToUsdCurrentRepository.Save(exchangeRate);
-            //}
-
-            //exchangeRate = exchangeRateToUsdCurrentRepository.GetExchangeRate(Currency.USD, TypeOfExchange.Sell);
-            //if (exchangeRate == null)
-            //{
-            //    exchangeRate = new ExchangeRateToUsdCurrent()
-            //    {
-            //        Currency = Currency.USD,
-            //        TypeOfExch = TypeOfExchange.Sell,
-            //        ExchRate = 1m,
-            //    };
-            //    exchangeRateToUsdCurrentRepository.Save(exchangeRate);
-            //}
-
-            //exchangeRate = exchangeRateToUsdCurrentRepository.GetExchangeRate(Currency.USD, TypeOfExchange.Buy);
-            //if (exchangeRate == null)
-            //{
-            //    exchangeRate = new ExchangeRateToUsdCurrent()
-            //    {
-            //        Currency = Currency.USD,
-            //        TypeOfExch = TypeOfExchange.Buy,
-            //        ExchRate = 1m,
-            //    };
-            //    exchangeRateToUsdCurrentRepository.Save(exchangeRate);
-            //}
-
-            //exchangeRate = exchangeRateToUsdCurrentRepository.GetExchangeRate(Currency.EUR, TypeOfExchange.Sell);
-            //if (exchangeRate == null)
-            //{
-            //    exchangeRate = new ExchangeRateToUsdCurrent()
-            //    {
-            //        Currency = Currency.EUR,
-            //        TypeOfExch = TypeOfExchange.Sell,
-            //        ExchRate = 0.818m,
-            //    };
-            //    exchangeRateToUsdCurrentRepository.Save(exchangeRate);
-            //}
-
-            //exchangeRate = exchangeRateToUsdCurrentRepository.GetExchangeRate(Currency.EUR, TypeOfExchange.Buy);
-            //if (exchangeRate == null)
-            //{
-            //    exchangeRate = new ExchangeRateToUsdCurrent()
-            //    {
-            //        Currency = Currency.EUR,
-            //        TypeOfExch = TypeOfExchange.Buy,
-            //        ExchRate = 0.824m,
-            //    };
-            //    exchangeRateToUsdCurrentRepository.Save(exchangeRate);
-            //}
-
-            //exchangeRate = exchangeRateToUsdCurrentRepository.GetExchangeRate(Currency.PLN, TypeOfExchange.Sell);
-            //if (exchangeRate == null)
-            //{
-            //    exchangeRate = new ExchangeRateToUsdCurrent()
-            //    {
-            //        Currency = Currency.PLN,
-            //        TypeOfExch = TypeOfExchange.Sell,
-            //        ExchRate = 2851.17m,
-            //    };
-            //    exchangeRateToUsdCurrentRepository.Save(exchangeRate);
-            //}
-
-            //exchangeRate = exchangeRateToUsdCurrentRepository.GetExchangeRate(Currency.PLN, TypeOfExchange.Buy);
-            //if (exchangeRate == null)
-            //{
-            //    exchangeRate = new ExchangeRateToUsdCurrent()
-            //    {
-            //        Currency = Currency.PLN,
-            //        TypeOfExch = TypeOfExchange.Buy,
-            //        ExchRate = 2853.75m,
-            //    };
-            //    exchangeRateToUsdCurrentRepository.Save(exchangeRate);
-            //}
-
-            //exchangeRate = exchangeRateToUsdCurrentRepository.GetExchangeRate(Currency.GBP, TypeOfExchange.Sell);
-            //if (exchangeRate == null)
-            //{
-            //    exchangeRate = new ExchangeRateToUsdCurrent()
-            //    {
-            //        Currency = Currency.GBP,
-            //        TypeOfExch = TypeOfExchange.Sell,
-            //        ExchRate = 361.21m,
-            //    };
-            //    exchangeRateToUsdCurrentRepository.Save(exchangeRate);
-            //}
-
-            //exchangeRate = exchangeRateToUsdCurrentRepository.GetExchangeRate(Currency.GBP, TypeOfExchange.Buy);
-            //if (exchangeRate == null)
-            //{
-            //    exchangeRate = new ExchangeRateToUsdCurrent()
-            //    {
-            //        Currency = Currency.GBP,
-            //        TypeOfExch = TypeOfExchange.Buy,
-            //        ExchRate = 361.83m,
-            //    };
-            //    exchangeRateToUsdCurrentRepository.Save(exchangeRate);
-            //}
+            var gottenCurrencies = currencyService.GetExchangeRates();
+            currencyService.PutCurrentExchangeRatesToDb(exchRateToUsdCurrentRepository, gottenCurrencies);
         }
 
         private static void SetDefaultEmploye(IServiceProvider service)
