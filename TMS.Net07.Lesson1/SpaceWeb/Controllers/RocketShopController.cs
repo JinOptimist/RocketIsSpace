@@ -7,13 +7,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-<<<<<<< HEAD
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.FileProviders.Physical;
 using Novacode;
-=======
->>>>>>> a22dcb5b99d498d5080e639bb3cc89322d8f58ca
 using SpaceWeb.Controllers.CustomAttribute;
 using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Service;
@@ -195,7 +192,7 @@ namespace SpaceWeb.Controllers
         public IActionResult ChangeCurrency(string accountNumber, string amount, string currency)
         {
             var account = _accountRepository.Get(accountNumber);
-                         
+            
             var money = _currencyService.Convert((Currency)Enum.Parse(typeof(Currency), currency),
                 Convert.ToDecimal(amount), account.Currency);
             return Json(new { money = money.ToString(),
