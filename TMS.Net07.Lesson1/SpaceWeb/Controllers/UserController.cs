@@ -61,21 +61,31 @@ namespace SpaceWeb.Controllers
             viewModel.DefaultCurrency = user.DefaultCurrency;
             viewModel.MyCurrencies = _bankAccountRepository.GetCurrencies(user.Id);
 
-            decimal allAmountInUsd = 0;
+            decimal amountAllMoneyInDefaultCurrency = 0;
             var accounts = _bankAccountRepository.GetBankAccounts(user.Id);
 
-            foreach (var account in accounts)
+            if (accounts.Count() != 0)
             {
-                var amount = _currencyService.ConvertByAlex(account.Currency, account.Amount, Currency.USD);
-                allAmountInUsd += amount;
+                viewModel.RandomCurrency = accounts.First().Currency;
             }
-
-            decimal amountAllMoneyInDefaultCurrency = 0;
 
             if (user.DefaultCurrency != 0)
             {
-                amountAllMoneyInDefaultCurrency = _currencyService.ConvertByAlex(Currency.USD, allAmountInUsd, user.DefaultCurrency);
+                foreach (var account in accounts)
+                {
+                    var amount = _currencyService.ConvertByAlex(account.Currency, account.Amount, viewModel.DefaultCurrency);
+                    amountAllMoneyInDefaultCurrency += amount;
+                }
             }
+            else
+            {
+                foreach (var account in accounts)
+                {
+                    var amount = _currencyService.ConvertByAlex(account.Currency, account.Amount, viewModel.RandomCurrency);
+                    amountAllMoneyInDefaultCurrency += amount;
+                }
+            }
+
             viewModel.AmountAllMoneyInDefaultCurrency = Math.Round(amountAllMoneyInDefaultCurrency, 2);
 
             return View(viewModel);
