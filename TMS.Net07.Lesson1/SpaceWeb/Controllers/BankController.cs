@@ -154,32 +154,7 @@ namespace SpaceWeb.Controllers
                 .Select(x => x.ExchRateDate.ToString())
                 .Distinct()
                 .ToList();
-
-
-
-            //var minRate = _exchangeRateToUsdHistoryRepository.GetAll().Select(x => x.ExchRate).Min() - 0.1m;
-            //var maxRate = _exchangeRateToUsdHistoryRepository.GetAll().Select(x => x.ExchRate).Max();
-            //var countIter = Convert.ToInt32((maxRate - minRate) / 0.2m + 1);
-            //var rates = new List<decimal>();
-            //while (countIter != 0)
-            //{
-            //    rates.Add(minRate);
-            //    minRate += 0.2m;
-            //    countIter -= 1;
-            //}
-
-
-
-            //var dataRatesBynBuy = _exchangeRateToUsdHistoryRepository
-            //    .GetAll()
-            //    .Where(x => x.TypeOfExch == TypeOfExchange.Buy)
-            //    .Where(x => x.Currency == Currency.BYN)
-            //    .Select(x => x.ExchRate)
-            //    .ToList();
-
-            //var temp = new List<decimal>() { 2.56m, 2.53m, 2.59m, 2.57m, 2.72m, 2.63m, 2.54m, 2.58m, 2.52m, 2.51m, 2.58m, 2.60m, 2.55m };
-            //var temp2 = new List<decimal>() { 1.56m, 1.53m, 1.59m, 1.57m, 1.72m, 1.63m, 1.54m, 1.58m, 1.52m, 1.51m, 1.58m, 1.60m, 1.55m };
-
+                        
             var datasetBynBuy = new DatasetViewModel()
             {
                 Label = "BYN покупка",
