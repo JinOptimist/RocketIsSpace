@@ -217,11 +217,14 @@ namespace SpaceWeb.Service
             ExchangeRateToUsdHistoryRepository _exchangeRateToUsdHistoryRepository)
         {
             var exchCurrentRates = _exchangeRateToUsdCurrentRepository.GetAll();
-            var exchRateHistory = new ExchangeRateToUsdHistory();
-
+            
             foreach (var exchCurrRate in exchCurrentRates)
             {
-                exchRateHistory = new ExchangeRateToUsdHistory
+                //var exchRateHistory = _mapper.Map<ExchangeRateToUsdHistory>(exchCurrRate);
+                //exchRateHistory.ExchRateDate = DateTime.Now;
+                //_exchangeRateToUsdHistoryRepository.Save(exchRateHistory);
+
+                var exchRateHistory = new ExchangeRateToUsdHistory
                 {
                     Currency = exchCurrRate.Currency,
                     TypeOfExch = exchCurrRate.TypeOfExch,
@@ -232,16 +235,18 @@ namespace SpaceWeb.Service
             }
         }
     }
+
+    public class GottenCurrency
+    {
+        public string USD_in { get; set; }
+        public string USD_out { get; set; }
+        public string EUR_in { get; set; }
+        public string EUR_out { get; set; }
+        public string GBP_in { get; set; }
+        public string GBP_out { get; set; }
+        public string PLN_in { get; set; }
+        public string PLN_out { get; set; }
+    }
 }
 
-public class GottenCurrency
-{
-    public string USD_in { get; set; }
-    public string USD_out { get; set; }
-    public string EUR_in { get; set; }
-    public string EUR_out { get; set; }
-    public string GBP_in { get; set; }
-    public string GBP_out { get; set; }
-    public string PLN_in { get; set; }
-    public string PLN_out { get; set; }
-}
+

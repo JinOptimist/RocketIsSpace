@@ -781,3 +781,8 @@ a:visited {
 .menu.left .bank-account-list {
     flex-direction: column;
 }
+
+.exchanges-history {
+    width: 700px;
+    height: 400px;
+}

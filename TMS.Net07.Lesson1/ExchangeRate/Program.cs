@@ -35,18 +35,19 @@ namespace ExchangeRate
             ExchangeRateToUsdHistoryRepository exchangeRateToUsdHistoryRepository =
                 new ExchangeRateToUsdHistoryRepository(spaceDbContext);
 
-            IBankAccountRepository bankAccountRepository = new BankAccountRepository(spaceDbContext);
-            IUserRepository userRepository = new UserRepository(spaceDbContext, bankAccountRepository);
-            IHttpContextAccessor contextAccessor = new HttpContextAccessor();
-            IMapper mapper = null;
+            var bankAccountRepository = new BankAccountRepository(spaceDbContext);
+            var userRepository = new UserRepository(spaceDbContext, bankAccountRepository);
+            var contextAccessor = new HttpContextAccessor();
 
             UserService userService = new UserService(userRepository, contextAccessor);
 
-            ICurrencyService currencyService =
-                new CurrencyService(userService, exchangeRateToUsdCurrentRepository, exchangeAccountHistoryRepository,
-                    exchangeRateToUsdHistoryRepository, mapper);
+            var currencyService =
+                new CurrencyService(userService, 
+                    exchangeRateToUsdCurrentRepository, 
+                    exchangeAccountHistoryRepository,
+                    exchangeRateToUsdHistoryRepository, 
+                    null);
 
-            var exchangeRates = new GottenCurrency();
             var currentDate = DateTime.Now;
             while (true)
             {
@@ -54,9 +55,11 @@ namespace ExchangeRate
                 {
                     currencyService.MoveCurrentExchangesDbToHistoryDb(exchangeRateToUsdCurrentRepository, exchangeRateToUsdHistoryRepository);
                     currencyService.DeleteCurrentExchRatesFromDb(exchangeRateToUsdCurrentRepository);
-                    exchangeRates = currencyService.GetExchangeRates();
-                    currencyService.PutCurrentExchangeRatesToDb(exchangeRateToUsdCurrentRepository, exchangeRates);
-                    Thread.Sleep(60000);
+                    currencyService.PutCurrentExchangeRatesToDb(
+                        exchangeRateToUsdCurrentRepository, 
+                        currencyService.GetExchangeRates());
+                    Console.Write($"Current exchanges update for History DB at {currentDate}");
+                    Thread.Sleep(3 * 60 * 1000);
                 }
                 currentDate = DateTime.Now;
             }

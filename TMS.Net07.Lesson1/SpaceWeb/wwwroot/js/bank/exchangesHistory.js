@@ -16,7 +16,7 @@
             options: {}
         };
         var myChart = new Chart(
-            document.getElementById('myChart'),
+            document.getElementById('exchangesHistoryChart'),
             config
         );
     }

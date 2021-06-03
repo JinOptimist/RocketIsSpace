@@ -15,6 +15,8 @@ using Microsoft.AspNetCore.Authorization;
 using SpaceWeb.Controllers.CustomAttribute;
 using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Presentation;
+using SpaceWeb.Models.Chart;
+using System.Collections.Generic;
 
 namespace SpaceWeb.Controllers
 {
@@ -27,11 +29,15 @@ namespace SpaceWeb.Controllers
         private BanksCardRepository _banksCardRepository;
         private UserService _userService;
         private BankPresentation _bankPresentation;
+        private ExchangeRateToUsdHistoryRepository _exchangeRateToUsdHistoryRepository;
 
         public BankController(IBankAccountRepository bankAccountRepository,
             ProfileRepository profileRepository,
             IUserRepository userRepository,
-            IMapper mapper, UserService userService, BanksCardRepository banksCardRepository, BankPresentation bankPresentation)
+            IMapper mapper, UserService userService,
+            BanksCardRepository banksCardRepository,
+            BankPresentation bankPresentation,
+            ExchangeRateToUsdHistoryRepository exchangeRateToUsdHistoryRepository)
         {
             _bankAccountRepository = bankAccountRepository;
             _profileRepository = profileRepository;
@@ -40,6 +46,7 @@ namespace SpaceWeb.Controllers
             _userService = userService;
             _banksCardRepository = banksCardRepository;
             _bankPresentation = bankPresentation;
+            _exchangeRateToUsdHistoryRepository = exchangeRateToUsdHistoryRepository;
         }
         public IActionResult Index()
         {
@@ -133,6 +140,48 @@ namespace SpaceWeb.Controllers
         //[IsBankClientOrHigher]
         [HttpGet]
         public IActionResult Cabinet()
+        {
+            return View();
+        }
+
+        public IActionResult ExchangesHistoryChartInfo()
+        {
+            var chartViewModel = new ChartViewModel();
+
+            chartViewModel.Labels = _exchangeRateToUsdHistoryRepository.GetAll().Select(x => x.ExchRateDate.ToString()).Distinct().ToList();
+
+
+
+            var minRate = _exchangeRateToUsdHistoryRepository.GetAll().Select(x => x.ExchRate).Min() - 0.1m;
+            var maxRate = _exchangeRateToUsdHistoryRepository.GetAll().Select(x => x.ExchRate).Max();
+            var countIter = Convert.ToInt32((maxRate - minRate) / 0.2m + 1);
+            var rates = new List<decimal>();
+            while (countIter != 0)
+            {
+                rates.Add(minRate);
+                minRate += 0.2m;
+                countIter -= 1;
+            }
+
+
+
+            var rates2 = _exchangeRateToUsdHistoryRepository
+                .GetAll()
+                .Select(x => x.TypeOfExch = TypeOfExchange.Buy);
+
+
+            var datasetViewModel = new DatasetViewModel()
+            {
+                Label = "Курсы валют"
+            };
+            datasetViewModel.Data = rates;
+
+            chartViewModel.Datasets.Add(datasetViewModel);
+
+            return Json(chartViewModel);
+        }
+
+        public IActionResult ExchangesHistory()
         {
             return View();
         }
