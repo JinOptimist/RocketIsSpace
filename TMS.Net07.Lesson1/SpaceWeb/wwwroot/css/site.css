@@ -36,6 +36,7 @@
     width: 500px;
     height: 270px;
     border: 1px red solid;
+    margin: 15px;
 }
 
 .block-human {

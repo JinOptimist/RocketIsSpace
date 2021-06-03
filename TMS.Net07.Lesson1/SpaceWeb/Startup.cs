@@ -127,7 +127,7 @@ namespace SpaceWeb
                     diContainer.GetService<ExchangeRateToUsdCurrentRepository>(),
                     diContainer.GetService<ExchangeAccountHistoryRepository>(),
                     diContainer.GetService<ExchangeRateToUsdHistoryRepository>(),
-                    diContainer.GetService<IMapper>()
+                    diContainer.GetService<Mapper>()
                 ));
 
             services.AddScoped<UserService>(diContainer =>

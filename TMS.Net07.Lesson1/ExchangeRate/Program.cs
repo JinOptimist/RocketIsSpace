@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.Configuration;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -41,19 +42,23 @@ namespace ExchangeRate
 
             UserService userService = new UserService(userRepository, contextAccessor);
 
+            var configExpression = new MapperConfigurationExpression();
+            var mapperConfiguration = new MapperConfiguration(configExpression);
+            var mapper = new Mapper(mapperConfiguration);
+
             var currencyService =
                 new CurrencyService(userService, 
                     exchangeRateToUsdCurrentRepository, 
                     exchangeAccountHistoryRepository,
-                    exchangeRateToUsdHistoryRepository, 
-                    null);
+                    exchangeRateToUsdHistoryRepository,
+                    mapper);
 
             var currentDate = DateTime.Now;
             while (true)
             {
                 if ((currentDate.Minute % 3) == 0)
                 {
-                    currencyService.MoveCurrentExchangesDbToHistoryDb(exchangeRateToUsdCurrentRepository, exchangeRateToUsdHistoryRepository);
+                    currencyService.MoveCurrentExchangesDbToHistoryDb(exchangeRateToUsdCurrentRepository, exchangeRateToUsdHistoryRepository, mapper);
                     currencyService.DeleteCurrentExchRatesFromDb(exchangeRateToUsdCurrentRepository);
                     currencyService.PutCurrentExchangeRatesToDb(
                         exchangeRateToUsdCurrentRepository, 

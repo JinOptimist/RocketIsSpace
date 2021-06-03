@@ -17,6 +17,7 @@ using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Presentation;
 using SpaceWeb.Models.Chart;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace SpaceWeb.Controllers
 {
@@ -70,12 +71,12 @@ namespace SpaceWeb.Controllers
             /*var bankscard = new BanksCardViewModel();
              return View(bankscard);*/
             var bankscard = _userService.GetCurrent();
-             var modelNew = bankscard.BanksCards.Select(dbModel =>
-                 //куда                откуда
-                 _mapper.Map<BanksCardViewModel>(dbModel)
-                 )
-                 .ToList();
-             return View(modelNew);
+            var modelNew = bankscard.BanksCards.Select(dbModel =>
+                //куда                откуда
+                _mapper.Map<BanksCardViewModel>(dbModel)
+                )
+                .ToList();
+            return View(modelNew);
         }
 
         public IActionResult Contacts()
@@ -119,7 +120,7 @@ namespace SpaceWeb.Controllers
             var user = _userService.GetCurrent();
             userprofile.User = user;
             //userprofile.UserRef = user.Id;
-               
+
             _profileRepository.Save(userprofile);
 
             return RedirectToAction("UserProfileDataOutput");
@@ -129,7 +130,7 @@ namespace SpaceWeb.Controllers
         {
             var profileDateOutput = _profileRepository
                 .GetAll()
-                .Select(dbModel =>_mapper.Map<UserProfileViewModel>(dbModel)
+                .Select(dbModel => _mapper.Map<UserProfileViewModel>(dbModel)
                 )
                 .ToList();
 
@@ -148,35 +149,108 @@ namespace SpaceWeb.Controllers
         {
             var chartViewModel = new ChartViewModel();
 
-            chartViewModel.Labels = _exchangeRateToUsdHistoryRepository.GetAll().Select(x => x.ExchRateDate.ToString()).Distinct().ToList();
-
-
-
-            var minRate = _exchangeRateToUsdHistoryRepository.GetAll().Select(x => x.ExchRate).Min() - 0.1m;
-            var maxRate = _exchangeRateToUsdHistoryRepository.GetAll().Select(x => x.ExchRate).Max();
-            var countIter = Convert.ToInt32((maxRate - minRate) / 0.2m + 1);
-            var rates = new List<decimal>();
-            while (countIter != 0)
-            {
-                rates.Add(minRate);
-                minRate += 0.2m;
-                countIter -= 1;
-            }
-
-
-
-            var rates2 = _exchangeRateToUsdHistoryRepository
+            chartViewModel.Labels = _exchangeRateToUsdHistoryRepository
                 .GetAll()
-                .Select(x => x.TypeOfExch = TypeOfExchange.Buy);
+                .Select(x => x.ExchRateDate.ToString())
+                .Distinct()
+                .ToList();
 
 
-            var datasetViewModel = new DatasetViewModel()
+
+            //var minRate = _exchangeRateToUsdHistoryRepository.GetAll().Select(x => x.ExchRate).Min() - 0.1m;
+            //var maxRate = _exchangeRateToUsdHistoryRepository.GetAll().Select(x => x.ExchRate).Max();
+            //var countIter = Convert.ToInt32((maxRate - minRate) / 0.2m + 1);
+            //var rates = new List<decimal>();
+            //while (countIter != 0)
+            //{
+            //    rates.Add(minRate);
+            //    minRate += 0.2m;
+            //    countIter -= 1;
+            //}
+
+
+
+            //var dataRatesBynBuy = _exchangeRateToUsdHistoryRepository
+            //    .GetAll()
+            //    .Where(x => x.TypeOfExch == TypeOfExchange.Buy)
+            //    .Where(x => x.Currency == Currency.BYN)
+            //    .Select(x => x.ExchRate)
+            //    .ToList();
+
+            //var temp = new List<decimal>() { 2.56m, 2.53m, 2.59m, 2.57m, 2.72m, 2.63m, 2.54m, 2.58m, 2.52m, 2.51m, 2.58m, 2.60m, 2.55m };
+            //var temp2 = new List<decimal>() { 1.56m, 1.53m, 1.59m, 1.57m, 1.72m, 1.63m, 1.54m, 1.58m, 1.52m, 1.51m, 1.58m, 1.60m, 1.55m };
+
+            var datasetBynBuy = new DatasetViewModel()
             {
-                Label = "Курсы валют"
+                Label = "BYN покупка",
+                Data = _exchangeRateToUsdHistoryRepository.GetExchangeRateForChart(Currency.BYN, TypeOfExchange.Buy),
+                BackgroundColor = "rgb(173, 255, 47)",
+                BorderColor = "rgb(173, 255, 47)"
             };
-            datasetViewModel.Data = rates;
+            chartViewModel.Datasets.Add(datasetBynBuy);
 
-            chartViewModel.Datasets.Add(datasetViewModel);
+            var datasetBynSell = new DatasetViewModel()
+            {
+                Label = "BYN продажа",
+                Data = _exchangeRateToUsdHistoryRepository.GetExchangeRateForChart(Currency.BYN, TypeOfExchange.Sell),
+                BackgroundColor = "rgb(127, 255, 0)",
+                BorderColor = "rgb(127, 255, 0)"
+            };
+            chartViewModel.Datasets.Add(datasetBynSell);
+
+            var datasetEurBuy = new DatasetViewModel()
+            {
+                Label = "EUR продажа",
+                Data = _exchangeRateToUsdHistoryRepository.GetExchangeRateForChart(Currency.EUR, TypeOfExchange.Buy),
+                BackgroundColor = "rgb(32, 178, 170)",
+                BorderColor = "rgb(32, 178, 170)"
+            };
+            chartViewModel.Datasets.Add(datasetEurBuy);
+
+            var datasetEurSell = new DatasetViewModel()
+            {
+                Label = "EUR продажа",
+                Data = _exchangeRateToUsdHistoryRepository.GetExchangeRateForChart(Currency.EUR, TypeOfExchange.Sell),
+                BackgroundColor = "rgb(0, 139, 139)",
+                BorderColor = "rgb(0, 139, 139)"
+            };
+            chartViewModel.Datasets.Add(datasetEurSell);
+
+            var datasetPlnBuy = new DatasetViewModel()
+            {
+                Label = "PLN продажа",
+                Data = _exchangeRateToUsdHistoryRepository.GetExchangeRateForChart(Currency.PLN, TypeOfExchange.Buy),
+                BackgroundColor = "rgb(178, 34, 34)",
+                BorderColor = "rgb(178, 34, 34)"
+            };
+            chartViewModel.Datasets.Add(datasetPlnBuy);
+
+            var datasetPlnSell = new DatasetViewModel()
+            {
+                Label = "PLN продажа",
+                Data = _exchangeRateToUsdHistoryRepository.GetExchangeRateForChart(Currency.PLN, TypeOfExchange.Sell),
+                BackgroundColor = "rgb(139, 0, 0)",
+                BorderColor = "rgb(139, 0, 0)"
+            };
+            chartViewModel.Datasets.Add(datasetPlnSell);
+
+            var datasetGbpBuy = new DatasetViewModel()
+            {
+                Label = "GBP продажа",
+                Data = _exchangeRateToUsdHistoryRepository.GetExchangeRateForChart(Currency.GBP, TypeOfExchange.Buy),
+                BackgroundColor = "rgb(148, 0, 211)",
+                BorderColor = "rgb(148, 0, 211)"
+            };
+            chartViewModel.Datasets.Add(datasetGbpBuy);
+
+            var datasetGbpSell = new DatasetViewModel()
+            {
+                Label = "GBP продажа",
+                Data = _exchangeRateToUsdHistoryRepository.GetExchangeRateForChart(Currency.GBP, TypeOfExchange.Sell),
+                BackgroundColor = "rgb(153, 50, 204)",
+                BorderColor = "rgb(153, 50, 204)"
+            };
+            chartViewModel.Datasets.Add(datasetGbpSell);
 
             return Json(chartViewModel);
         }

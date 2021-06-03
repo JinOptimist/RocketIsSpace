@@ -20,13 +20,13 @@ namespace SpaceWeb.Service
         private ExchangeRateToUsdCurrentRepository _exchangeRateToUsdCurrentRepository;
         private ExchangeAccountHistoryRepository _exchangeAccountHistoryRepository;
         private ExchangeRateToUsdHistoryRepository _exchangeRateToUsdHistoryRepository;
-        private IMapper _mapper;
+        private Mapper _mapper;
 
         public CurrencyService(UserService userService,
             ExchangeRateToUsdCurrentRepository exchangeRateToUsdCurrentRepository,
             ExchangeAccountHistoryRepository exchangeAccountHistoryRepository,
             ExchangeRateToUsdHistoryRepository exchangeRateToUsdHistoryRepository,
-            IMapper mapper)
+            Mapper mapper)
         {
             _userService = userService;
             _exchangeRateToUsdCurrentRepository = exchangeRateToUsdCurrentRepository;
@@ -214,7 +214,7 @@ namespace SpaceWeb.Service
         }
 
         public void MoveCurrentExchangesDbToHistoryDb(ExchangeRateToUsdCurrentRepository _exchangeRateToUsdCurrentRepository,
-            ExchangeRateToUsdHistoryRepository _exchangeRateToUsdHistoryRepository)
+            ExchangeRateToUsdHistoryRepository _exchangeRateToUsdHistoryRepository, Mapper _mapper)
         {
             var exchCurrentRates = _exchangeRateToUsdCurrentRepository.GetAll();
             
