@@ -53,23 +53,6 @@ namespace ExchangeRate
                     exchangeRateToUsdHistoryRepository,
                     mapper);
 
-            //var time = DateTime.Now;
-
-            //Console.WriteLine(time);
-
-            //var seconds = time.Second;
-            //var milliSeconds = time.Millisecond;
-
-            //Console.WriteLine(seconds);
-            //Console.WriteLine(milliSeconds);
-
-            //time = time.AddSeconds(-seconds);
-            //time = time.AddMilliseconds(-milliSeconds);
-
-            //Console.WriteLine(time.Second);
-            //Console.WriteLine(time.Millisecond);
-            //Console.WriteLine(time);
-
             var currentDate = DateTime.Now;
             while (true)
             {
