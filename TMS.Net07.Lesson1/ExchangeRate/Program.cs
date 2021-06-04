@@ -53,6 +53,23 @@ namespace ExchangeRate
                     exchangeRateToUsdHistoryRepository,
                     mapper);
 
+            //var time = DateTime.Now;
+
+            //Console.WriteLine(time);
+
+            //var seconds = time.Second;
+            //var milliSeconds = time.Millisecond;
+
+            //Console.WriteLine(seconds);
+            //Console.WriteLine(milliSeconds);
+
+            //time = time.AddSeconds(-seconds);
+            //time = time.AddMilliseconds(-milliSeconds);
+
+            //Console.WriteLine(time.Second);
+            //Console.WriteLine(time.Millisecond);
+            //Console.WriteLine(time);
+
             var currentDate = DateTime.Now;
             while (true)
             {
@@ -61,7 +78,7 @@ namespace ExchangeRate
                     currencyService.MoveCurrentExchangesDbToHistoryDb(exchangeRateToUsdCurrentRepository, exchangeRateToUsdHistoryRepository, mapper);
                     currencyService.DeleteCurrentExchRatesFromDb(exchangeRateToUsdCurrentRepository);
                     currencyService.PutCurrentExchangeRatesToDb(
-                        exchangeRateToUsdCurrentRepository, 
+                        exchangeRateToUsdCurrentRepository,
                         currencyService.GetExchangeRates());
                     Console.Write($"Current exchanges update for History DB at {currentDate}");
                     Thread.Sleep(3 * 60 * 1000);

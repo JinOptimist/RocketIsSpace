@@ -229,10 +229,23 @@ namespace SpaceWeb.Service
                     Currency = exchCurrRate.Currency,
                     TypeOfExch = exchCurrRate.TypeOfExch,
                     ExchRate = exchCurrRate.ExchRate,
-                    ExchRateDate = DateTime.Now
+                    ExchRateDate = GetDateWithNullSecAndMillisec()
                 };
                 _exchangeRateToUsdHistoryRepository.Save(exchRateHistory);
             }
+        }
+
+        /// <summary>
+        /// Method for getting Date with null seconds and milliseconds. Example: 04.06.2021 13:32:00.000
+        /// </summary>
+        /// <returns></returns>
+        public DateTime GetDateWithNullSecAndMillisec()
+        {
+            var time = DateTime.Now;
+            time.AddSeconds(time.Second);
+            time.AddMilliseconds(time.Millisecond);
+
+            return time;
         }
     }
 
