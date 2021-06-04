@@ -5,6 +5,9 @@
 @{
     Layout = "_LayoutHuman";
 }
+<link href="~/css/human/FlipFlopStyles.css" rel="stylesheet" />
+<script src="~/js/human/FlipFlopModule.js"></script>
+<script src="~/js/human/departments.js"></script>
 <div style="display:flex; flex-direction:row">
     <div class="department-list">
         <a href="/Human/Graph/" class="link">
@@ -50,7 +53,7 @@
         </div>
     </div>
     <div class="employes-list">
-        <div class="human-department-info clone undisplayable">
+        <div class="human-department-info clone undisplayable floppa">
             <div id="name">
                 @Resource.AllDepartments_Name:
             </div>
