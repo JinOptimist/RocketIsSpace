@@ -7,11 +7,13 @@ $(document).ready(function () {
 
         $.get(url)
             .done(function (answer) {
-                if (answer) {
-                    self.closest('.order-rocket').addClass('can-pay')
+                self.closest('.dropdownblock').find('.icon1').addClass('hideicon')
+                self.closest('.dropdownblock').find('.icon2').addClass('hideicon')
+                if (answer) {                    
+                    self.closest('.dropdownblock').find('.icon2').removeClass('hideicon')
                 }
-                else{
-                    self.closest('.order-rocket').addClass('cant-pay')
+                else {                    
+                    self.closest('.dropdownblock').find('.icon1').removeClass('hideicon')
                 }
             })
             .fail(function () {

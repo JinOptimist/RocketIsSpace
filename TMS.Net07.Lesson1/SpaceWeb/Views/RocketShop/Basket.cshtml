@@ -36,7 +36,7 @@
                             <div class="order order-rocket">
                                 <div style="display: flex">
                                     <label class="control control-checkbox">
-                                        <input type="checkbox"
+                                        <input type="radio"
                                                name="@nameof(BasketViewModel.OrderNamesToPay)"
                                                value="@ord.Name">
                                         <div class="control_indicator"></div>
@@ -55,8 +55,12 @@
 
                                 <div class="amount-js">@ord.Price @Html.DisplayFor(x => x.currentCurrency)</div>
 
-                                <div>
-                                    @Html.DropDownList("account", Model.BAOptions, new { @class = "dropdown" })
+                                <div class="dropdownblock">
+                                    <div>@Html.DropDownList("account", Model.BAOptions, new { @class = "dropdown" })</div>
+                                    <div>
+                                        <div class="icon1 hideicon"></div>
+                                        <div class="icon2 hideicon"></div>
+                                    </div>
                                 </div>
                                 <div>
                                     Full order report

@@ -88,9 +88,10 @@
     align-items: flex-start;
 }
 
-.content-basket{
+.content-basket {
     display: flex;
-    justify-content:center;
+    justify-content: center;
+    margin: 20px 0px;
 }
 
 .can-pay{
@@ -103,4 +104,28 @@
 
 .hide1{
     display: none;
+}
+
+
+.dropdownblock{
+    display: flex;
+}
+
+.icon1,
+.icon2 {
+    position: absolute;
+    width: 30px;
+    height: 30px;    
+}
+
+.hideicon {
+    display: none;
+}
+
+.icon1 {
+    background: url(/image/icon/cross1.png)
+}
+
+.icon2{
+    background: url(/image/icon/checkmark1.png)
 }
