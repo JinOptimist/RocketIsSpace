@@ -9,7 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using SpaceWeb.EfStuff;
 using AutoMapper;
-using Profile = SpaceWeb.EfStuff.Model.Profile;
+using Questionary = SpaceWeb.EfStuff.Model.Questionary;
 using SpaceWeb.Service;
 using Microsoft.AspNetCore.Authorization;
 using SpaceWeb.Controllers.CustomAttribute;
@@ -24,7 +24,7 @@ namespace SpaceWeb.Controllers
     public class BankController : Controller
     {
         private IBankAccountRepository _bankAccountRepository;
-        private ProfileRepository _profileRepository;
+        private QuestionaryRepository _questionaryRepository;
         private IMapper _mapper;
         private IUserRepository _userRepository;
         private BanksCardRepository _banksCardRepository;
@@ -33,7 +33,7 @@ namespace SpaceWeb.Controllers
         private ExchangeRateToUsdHistoryRepository _exchangeRateToUsdHistoryRepository;
 
         public BankController(IBankAccountRepository bankAccountRepository,
-            ProfileRepository profileRepository,
+            QuestionaryRepository questionaryRepository,
             IUserRepository userRepository,
             IMapper mapper, UserService userService,
             BanksCardRepository banksCardRepository,
@@ -41,7 +41,7 @@ namespace SpaceWeb.Controllers
             ExchangeRateToUsdHistoryRepository exchangeRateToUsdHistoryRepository)
         {
             _bankAccountRepository = bankAccountRepository;
-            _profileRepository = profileRepository;
+            _questionaryRepository = questionaryRepository;
             _userRepository = userRepository;
             _mapper = mapper;
             _userService = userService;
@@ -91,21 +91,21 @@ namespace SpaceWeb.Controllers
         }
 
         [HttpGet]
-        public IActionResult UserProfile(long id = 0)
+        public IActionResult Questionary(long id = 0)
         {
             var profile = _bankPresentation.GetProfileViewModel(id);
             return View(profile);
         }
 
         [HttpPost]
-        public IActionResult UserProfile(UserProfileViewModel model)
+        public IActionResult Questionary(QuestionaryViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
             //var user = _userRepository.Get(model.Id);
-            var userprofile = _mapper.Map<Profile>(model);
+            var questionary = _mapper.Map<Questionary>(model);
             /*= new Profile()
             {
                 Name = model.Name,
@@ -118,19 +118,19 @@ namespace SpaceWeb.Controllers
             };*/
 
             var user = _userService.GetCurrent();
-            userprofile.User = user;
-            //userprofile.UserRef = user.Id;
+            questionary.User = user;
+            //questionary.UserRef = user.Id;
 
-            _profileRepository.Save(userprofile);
+            _questionaryRepository.Save(questionary);
 
-            return RedirectToAction("UserProfileDataOutput");
+            return RedirectToAction("QuestionaryDataOutput");
         }
 
-        public IActionResult UserProfileDataOutput()
+        public IActionResult QuestionaryDataOutput()
         {
-            var profileDateOutput = _profileRepository
+            var profileDateOutput = _questionaryRepository
                 .GetAll()
-                .Select(dbModel => _mapper.Map<UserProfileViewModel>(dbModel)
+                .Select(dbModel => _mapper.Map<QuestionaryViewModel>(dbModel)
                 )
                 .ToList();
 

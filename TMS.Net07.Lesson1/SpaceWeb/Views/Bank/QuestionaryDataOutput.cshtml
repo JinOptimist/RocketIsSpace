@@ -1,4 +1,4 @@
-﻿@model List<UserProfileViewModel>
+﻿@model List<QuestionaryViewModel>
 @{
     Layout = "_LayoutBank";
 }
@@ -10,7 +10,7 @@
     <div class="client-before-content"></div>
     <div class="">
         <div class="profile">
-            <form action="/Bank/UserProfileDataoutput" method="post">
+            <form action="/Bank/QuestionaryDataoutput" method="post">
                 @foreach (var profile in Model)
                 {
                     <div class="profile-text">
