@@ -32,16 +32,17 @@ body {
   }
 
     .icon-list .addition-icon .circle {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 20px 40px;
-      width: 130px;
-      height: 130px;
-      border-radius: 50%;
-      border-style: dashed;
-      border-width: medium;
-      border-color: #414141;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 20px 40px;
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
+        border-style: dashed;
+        border-width: medium;
+        border-color: #414141;
+        cursor: pointer;
     }
 
       .icon-list .addition-icon .circle:hover {
@@ -56,9 +57,10 @@ body {
         }
 
     .icon-list .addition-icon .addition-name {
-      display: flex;
-      justify-content: center;
-      font-size: 18px;
+        display: flex;
+        justify-content: center;
+        font-size: 18px;
+        cursor: pointer;
     }
 
 .addition-icon .material-icons-outlined,
