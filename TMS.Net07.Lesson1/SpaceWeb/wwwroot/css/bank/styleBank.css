@@ -783,8 +783,8 @@ a:visited {
 }
 
 .exchanges-history {
-    width: 700px;
-    height: 400px;
+    width: 900px;
+    height: 450px;
 }
 
 .content-exchange-chart {
@@ -794,7 +794,7 @@ a:visited {
 }
 
 .title-exchange-chart {
-    margin: 60px 0px;
+    margin: 40px 0px;
     font-size: 30pt;
     font-family: system-ui;
     font-weight: 600;

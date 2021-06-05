@@ -71,24 +71,27 @@ namespace SpaceWeb.Controllers
 
             if (user.DefaultCurrency != 0)
             {
-                foreach (var account in accounts)
-                {
-                    var amount = _currencyService.ConvertByAlex(account.Currency, account.Amount, viewModel.DefaultCurrency);
-                    amountAllMoneyInDefaultCurrency += amount;
-                }
+                viewModel.AmountAllMoneyInDefaultCurrency = _currencyService.CountAllMoneyInWishingCurrency(accounts, viewModel.DefaultCurrency);
             }
             else
             {
-                foreach (var account in accounts)
-                {
-                    var amount = _currencyService.ConvertByAlex(account.Currency, account.Amount, viewModel.RandomCurrency);
-                    amountAllMoneyInDefaultCurrency += amount;
-                }
+                viewModel.AmountAllMoneyInDefaultCurrency = _currencyService.CountAllMoneyInWishingCurrency(accounts, viewModel.RandomCurrency);
             }
 
-            viewModel.AmountAllMoneyInDefaultCurrency = Math.Round(amountAllMoneyInDefaultCurrency, 2);
-
             return View(viewModel);
+        }
+
+        public IActionResult UpdateAllMoney(Currency currency)
+        {
+            Test t = new Test();
+
+            var user = _userService.GetCurrent();
+            var accounts = _bankAccountRepository.GetBankAccounts(user.Id);
+            t.count = _currencyService.CountAllMoneyInWishingCurrency(accounts, currency);
+            t.currency = currency.ToString();
+            
+
+            return Json(t);
         }
 
         public IActionResult UpdateFavCurrency(Currency currency)
@@ -304,5 +307,11 @@ namespace SpaceWeb.Controllers
             var viewModel = _mapper.Map<EmployeeProfileViewModel>(user);
             return View(viewModel);
         }
+    }
+
+    public class Test
+    {
+        public decimal count { get; set; }
+        public string currency { get; set; }
     }
 }

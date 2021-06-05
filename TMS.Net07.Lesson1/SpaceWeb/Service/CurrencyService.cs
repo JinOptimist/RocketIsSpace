@@ -242,10 +242,23 @@ namespace SpaceWeb.Service
         public DateTime GetDateWithNullSecAndMillisec()
         {
             var time = DateTime.Now;
-            time.AddSeconds(time.Second);
-            time.AddMilliseconds(time.Millisecond);
+            time = time.AddSeconds(-time.Second);
+            time = time.AddMilliseconds(-time.Millisecond);
 
             return time;
+        }
+
+        public decimal CountAllMoneyInWishingCurrency(List<BankAccount> accounts, Currency currencyTo)
+        {
+            decimal amountAllMoneyInDefaultCurrency = 0;
+
+            foreach (var account in accounts)
+            {
+                var amount = ConvertByAlex(account.Currency, account.Amount, currencyTo);
+                amountAllMoneyInDefaultCurrency += amount;
+            }
+
+            return Math.Round(amountAllMoneyInDefaultCurrency, 2);
         }
     }
 

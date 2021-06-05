@@ -21,5 +21,6 @@ namespace SpaceWeb.Service
         public void DeleteCurrentExchRatesFromDb(ExchangeRateToUsdCurrentRepository _exchangeRateToUsdCurrentRepository);
         public void MoveCurrentExchangesDbToHistoryDb(ExchangeRateToUsdCurrentRepository _exchangeRateToUsdCurrentRepository,
             ExchangeRateToUsdHistoryRepository _exchangeRateToUsdHistoryRepository, Mapper _mapper);
+        public decimal CountAllMoneyInWishingCurrency(List<BankAccount> accounts, Currency currencyTo);
     }
 }

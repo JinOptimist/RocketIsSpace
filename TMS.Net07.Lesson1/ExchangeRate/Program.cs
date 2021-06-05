@@ -64,9 +64,10 @@ namespace ExchangeRate
                         exchangeRateToUsdCurrentRepository,
                         currencyService.GetExchangeRates());
                     Console.Write($"Current exchanges update for History DB at {currentDate}");
-                    Thread.Sleep(3 * 60 * 1000);
+                    Thread.Sleep(3 * 59 * 1000); //  59 - because updating exchanges takes ~ 1 second and timer gets a displacement.
                 }
                 currentDate = DateTime.Now;
+                currentDate = currentDate.AddSeconds(-currentDate.Second);
             }
         }
     }

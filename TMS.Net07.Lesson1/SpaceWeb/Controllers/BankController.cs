@@ -168,8 +168,8 @@ namespace SpaceWeb.Controllers
             {
                 Label = "BYN продажа",
                 Data = _exchangeRateToUsdHistoryRepository.GetExchangeRateForChart(Currency.BYN, TypeOfExchange.Sell),
-                BackgroundColor = "rgb(127, 255, 0)",
-                BorderColor = "rgb(127, 255, 0)"
+                BackgroundColor = "rgb(0, 100, 0)",
+                BorderColor = "rgb(0, 100, 0)"
             };
             chartViewModel.Datasets.Add(datasetBynSell);
 
@@ -177,8 +177,8 @@ namespace SpaceWeb.Controllers
             {
                 Label = "EUR продажа",
                 Data = _exchangeRateToUsdHistoryRepository.GetExchangeRateForChart(Currency.EUR, TypeOfExchange.Buy),
-                BackgroundColor = "rgb(32, 178, 170)",
-                BorderColor = "rgb(32, 178, 170)"
+                BackgroundColor = "rgb(102, 205, 170)",
+                BorderColor = "rgb(102, 205, 170)"
             };
             chartViewModel.Datasets.Add(datasetEurBuy);
 
@@ -186,8 +186,8 @@ namespace SpaceWeb.Controllers
             {
                 Label = "EUR продажа",
                 Data = _exchangeRateToUsdHistoryRepository.GetExchangeRateForChart(Currency.EUR, TypeOfExchange.Sell),
-                BackgroundColor = "rgb(0, 139, 139)",
-                BorderColor = "rgb(0, 139, 139)"
+                BackgroundColor = "rgb(0, 128, 128)",
+                BorderColor = "rgb(0, 128, 128)"
             };
             chartViewModel.Datasets.Add(datasetEurSell);
 
@@ -195,8 +195,8 @@ namespace SpaceWeb.Controllers
             {
                 Label = "PLN продажа",
                 Data = _exchangeRateToUsdHistoryRepository.GetExchangeRateForChart(Currency.PLN, TypeOfExchange.Buy),
-                BackgroundColor = "rgb(178, 34, 34)",
-                BorderColor = "rgb(178, 34, 34)"
+                BackgroundColor = "rgb(205, 92, 92)",
+                BorderColor = "rgb(205, 92, 92)"
             };
             chartViewModel.Datasets.Add(datasetPlnBuy);
 
@@ -213,8 +213,8 @@ namespace SpaceWeb.Controllers
             {
                 Label = "GBP продажа",
                 Data = _exchangeRateToUsdHistoryRepository.GetExchangeRateForChart(Currency.GBP, TypeOfExchange.Buy),
-                BackgroundColor = "rgb(148, 0, 211)",
-                BorderColor = "rgb(148, 0, 211)"
+                BackgroundColor = "rgb(238, 130, 238)",
+                BorderColor = "rgb(238, 130, 238)"
             };
             chartViewModel.Datasets.Add(datasetGbpBuy);
 

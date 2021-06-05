@@ -14,6 +14,16 @@
             .fail(function () {
 
             });
+
+        var urlChangingAllMoney = '/User/UpdateAllMoney?currency=' + currency;
+
+        $.get(urlChangingAllMoney)
+            .done(function (answerFromUpdatingAllMoney) {
+                if (answerFromUpdatingAllMoney) {
+                    $('.money-count').text(answerFromUpdatingAllMoney.count);
+                    $('.default-currency').text(answerFromUpdatingAllMoney.currency);
+                }
+            })
     });
 
     $('[name=CurrentLang]').change(function () {
