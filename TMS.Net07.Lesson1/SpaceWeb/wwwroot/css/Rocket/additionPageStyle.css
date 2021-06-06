@@ -17,14 +17,15 @@ body {
 }
 
 .icon-list {
-  max-width: 864px;
-  padding-top: 25px;
-  padding-bottom: 40px;
-  margin-right: auto;
-  margin-left: auto;
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
+    max-width: 864px;
+    padding-top: 25px;
+    padding-bottom: 40px;
+    margin-right: auto;
+    margin-left: auto;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
   .icon-list .addition-icon {

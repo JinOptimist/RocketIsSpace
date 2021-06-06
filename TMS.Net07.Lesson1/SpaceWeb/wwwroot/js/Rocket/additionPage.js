@@ -1,5 +1,6 @@
 $(document).ready(function () {
 
+    var isAnimationActive = false;
     var time = 300;
 
     $('.circle').hover(function () {
@@ -24,7 +25,6 @@ $(document).ready(function () {
             width: 130 / 2,
             height: 130 / 2
         }, time)
-
     })
 
 
