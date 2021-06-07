@@ -16,6 +16,7 @@ $(document).ready(function () {
                 var str = answer.money + " " + answer.currency;
                 self.closest('.order-rocket').find('.amount-js').text(str);
                 $('[name=Currency]').val(answer.currency);
+                $('[name=Price]').val(answer.money);
             })
             .fail(function () {
 
