@@ -17,9 +17,6 @@ using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Models.Chart;
 using System.Collections.Generic;
 using SpaceWeb.Presentation;
-using SpaceWeb.Models.Chart;
-using System.Collections.Generic;
-using System.Drawing;
 
 namespace SpaceWeb.Controllers
 {
@@ -34,14 +31,13 @@ namespace SpaceWeb.Controllers
         private ICurrencyService _currencyService;
         private BankPresentation _bankPresentation;
         private ExchangeRateToUsdHistoryRepository _exchangeRateToUsdHistoryRepository;
-
         public BankController(IBankAccountRepository bankAccountRepository,
             QuestionaryRepository questionaryRepository,
             IUserRepository userRepository,
-            IMapper mapper, UserService userService,
+            IMapper mapper,
+            UserService userService,
             BanksCardRepository banksCardRepository,
             ICurrencyService currencyService,
-            BankPresentation bankPresentation)
             BankPresentation bankPresentation,
             ExchangeRateToUsdHistoryRepository exchangeRateToUsdHistoryRepository)
         {
@@ -230,10 +226,10 @@ namespace SpaceWeb.Controllers
             };*/
 
             var user = _userService.GetCurrent();
-            userprofile.User = user;
+            //userprofile.User = user;
             //userprofile.UserRef = user.Id;
 
-            _profileRepository.Save(userprofile);
+            //_userRepository.Save(userprofile);
             questionary.User = user;
             //questionary.UserRef = user.Id;
 
@@ -246,9 +242,8 @@ namespace SpaceWeb.Controllers
         {
             var profileDateOutput = _questionaryRepository
                 .GetAll()
-                .Select(dbModel => _mapper.Map<UserProfileViewModel>(dbModel)
-                .Select(dbModel => _mapper.Map<QuestionaryViewModel>(dbModel)
-                )
+               // .Select(dbModel => _mapper.Map<UserProfileViewModel>(dbModel))
+                .Select(dbModel => _mapper.Map<QuestionaryViewModel>(dbModel))
                 .ToList();
 
             return View(profileDateOutput);

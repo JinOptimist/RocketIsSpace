@@ -23,8 +23,6 @@ namespace SpaceWeb.Service
         private ExchangeRateToUsdHistoryRepository _exchangeRateToUsdHistoryRepository;
         private IMapper _mapper;
     
-       public CurrencyService(UserService userService,
-        private Mapper _mapper;
 
         public CurrencyService(UserService userService,
             ExchangeRateToUsdCurrentRepository exchangeRateToUsdCurrentRepository,
@@ -320,6 +318,4 @@ namespace SpaceWeb.Service
         public string PLN_in { get; set; }
         public string PLN_out { get; set; }
     }
-}
-
 
