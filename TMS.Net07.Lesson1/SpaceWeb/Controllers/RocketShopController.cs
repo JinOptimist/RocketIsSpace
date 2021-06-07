@@ -191,11 +191,11 @@ namespace SpaceWeb.Controllers
         public IActionResult ChangeCurrency(string accountNumber, string amount, string currency)
         {
             var account = _accountRepository.Get(accountNumber);
-                         
+
             var money = _currencyService.ConvertByAlex((Currency)Enum.Parse(typeof(Currency), currency),
 
-            var currencyFrom = (Currency) Enum.Parse(typeof(Currency), currency);
-            var money = _currencyService.ConvertByAlex(currencyFrom,
+            //var currencyFrom = (Currency)Enum.Parse(typeof(Currency), currency);
+            //var money = _currencyService.ConvertByAlex(currencyFrom,
                 Convert.ToDecimal(amount), account.Currency);
             return Json(new
             {
