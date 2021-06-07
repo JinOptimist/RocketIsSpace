@@ -28,7 +28,7 @@
         <div class="header">
             <div class="logo">
                 <a href="/">
-                    <img class="logo-image" src="../image/bank/logo.png" alt="logo">
+                    <img class="logo-image" src="~/image/bank/logo.png" alt="logo">
                 </a>
                 <a href="/Bank">
                     <div class="logoName">
@@ -45,20 +45,20 @@
                 </a>
                 <a href="/Bank/Cabinet" class="cabinet button">
                     <div>Личный кабинет</div>
-                    <img class="login-icon" src="../image/icon/account_bank.svg" />
+                    <img class="login-icon" src="~/image/icon/account_bank.svg" />
                 </a>
                 @if (User.Identity.IsAuthenticated)
                  {
                     <a href="/User/Logout" class="login button">
                         <div>Выход</div>
-                        <img class="login-icon" src="../image/icon/login-24px.svg" />
+                        <img class="login-icon" src="~/image/icon/login-24px.svg" />
                     </a>
                  }
                 else
                 {
                     <a href="/User/Login" class="login button">
                         <div>Выход</div>
-                        <img class="login-icon" src="../image/icon/login-24px.svg" />
+                        <img class="login-icon" src="~/image/icon/login-24px.svg" />
                     </a>
                 }
             </div>
@@ -73,11 +73,11 @@
             <div></div>
             <div class="contacts">
                 <div class="social-media">
-                    <img class="footer-icon facebook" src="../image/icon/facebook.png">
-                    <img class="footer-icon google-plus" src="../image/icon/google-plus.png">
-                    <img class="footer-icon instagram" src="../image/icon/instagram.png">
-                    <img class="footer-icon twitter" src="../image/icon/twitter.png">
-                    <img class="footer-icon youtube" src="../image/icon/youtube.png">
+                    <img class="footer-icon facebook" src="~/image/icon/facebook.png">
+                    <img class="footer-icon google-plus" src="~/image/icon/google-plus.png">
+                    <img class="footer-icon instagram" src="~/image/icon/instagram.png">
+                    <img class="footer-icon twitter" src="~/image/icon/twitter.png">
+                    <img class="footer-icon youtube" src="~/image/icon/youtube.png">
                 </div>
             </div>
         </div>
