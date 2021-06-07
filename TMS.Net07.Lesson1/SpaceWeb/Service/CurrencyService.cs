@@ -188,6 +188,7 @@ namespace SpaceWeb.Service
                 TypeOfExch = TypeOfExchange.Buy,
                 ExchRate = Convert.ToDecimal(exchangeRates.USD_in, new CultureInfo("en-US"))
                 / Convert.ToDecimal(exchangeRates.PLN_in, new CultureInfo("en-US"))
+                * 10
             };
             _exchangeRateToUsdCurrentRepository.Save(exchangeRateDb);
 
@@ -197,6 +198,7 @@ namespace SpaceWeb.Service
                 TypeOfExch = TypeOfExchange.Sell,
                 ExchRate = Convert.ToDecimal(exchangeRates.USD_out, new CultureInfo("en-US"))
                 / Convert.ToDecimal(exchangeRates.PLN_out, new CultureInfo("en-US"))
+                * 10
             };
             _exchangeRateToUsdCurrentRepository.Save(exchangeRateDb);
 
