@@ -9,11 +9,8 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Globalization;
 using System.Net;
-using SpaceWeb.EfStuff.Model;
-using System.Net;
 using System.IO;
 using System.Text.Json;
-using System.Globalization;
 using AutoMapper;
 
 namespace SpaceWeb.Service

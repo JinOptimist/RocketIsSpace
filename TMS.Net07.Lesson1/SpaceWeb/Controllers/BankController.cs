@@ -85,6 +85,7 @@ namespace SpaceWeb.Controllers
             return View(model);
         }
         public IActionResult BanksCard()
+        
         {
             var userBanksCard = _userService.GetCurrent();
             var modelNew = userBanksCard.BanksCards.Select(dbModel =>
@@ -133,7 +134,8 @@ namespace SpaceWeb.Controllers
                     case EnumBankCard.PayCard:
                         bankAccount = new BankAccount()
                         {
-                            Currency = Currency.BYN
+                            Currency
+                            = Currency.BYN
                         };
                         break;
                     case EnumBankCard.valueCard:
@@ -240,4 +242,5 @@ namespace SpaceWeb.Controllers
         }
 
     }
+
 }
