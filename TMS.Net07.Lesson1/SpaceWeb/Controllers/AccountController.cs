@@ -120,7 +120,9 @@ namespace SpaceWeb.Controllers
                 SingleOrDefault(x => x.AccountNumber == viewModel.AccountNumber)
                 .Id;
 
-            return RedirectToAction("Index", new { id });
+            //return RedirectToAction("Index", new { id });
+
+            return RedirectToRoute("default", new { controller = "Account", action = "Index", id});
         }
 
         public IActionResult DownloadLog(long id)

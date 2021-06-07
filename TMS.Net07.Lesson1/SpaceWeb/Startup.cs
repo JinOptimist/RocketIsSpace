@@ -168,7 +168,9 @@ namespace SpaceWeb
                 new CurrencyService(
                     diContainer.GetService<UserService>(),
                     diContainer.GetService<ExchangeRateToUsdCurrentRepository>(),
-                    diContainer.GetService<ExchangeAccountHistoryRepository>()));
+                    diContainer.GetService<ExchangeAccountHistoryRepository>(),
+                    diContainer.GetService<ExchangeRateToUsdHistoryRepository>(),
+                    diContainer.GetService<IMapper>()));
             
             RegisterMapper(services);
             services.AddScoped<UserService>(diContainer =>

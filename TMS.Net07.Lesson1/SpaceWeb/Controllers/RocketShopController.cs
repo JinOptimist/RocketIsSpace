@@ -127,7 +127,7 @@ namespace SpaceWeb.Controllers
         {
             var account = _accountRepository.Get(accountNumber);
                          
-            var money = _currencyService.Convert((Currency)Enum.Parse(typeof(Currency), currency),
+            var money = _currencyService.ConvertByAlex((Currency)Enum.Parse(typeof(Currency), currency),
                 Convert.ToDecimal(amount), account.Currency);
             return Json(new { money = money.ToString(),
                 currency = AttributeService.GetDisplayValue(account.Currency)});

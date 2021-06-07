@@ -6,6 +6,7 @@
 
 <div class="bank-account-list">
     @{
+        var accountListNumber = 0;
         var user = userService.GetCurrent();
         var accounts = new List<BankAccountViewModel>();
         foreach (var accountBD in user.BankAccounts)
@@ -28,8 +29,12 @@
                     <span class="currency">@BankAccount.Currency</span>
                 </div>
                 <div class="account-number">@BankAccount.AccountNumber</div>
+                @*<input class="account-list-number" type="hidden" value = "$accountListNumber"/>*@
+                <div class="account-list-number hide">@(accountListNumber++)</div>
             </div>
         </a>
+        @*<td>
+            <span>@(accountListNumber++)</span>
+        </td>*@
     }
-
 </div>
