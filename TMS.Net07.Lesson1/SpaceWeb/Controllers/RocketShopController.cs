@@ -2,18 +2,16 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SpaceWeb.EfStuff.Model;
-using SpaceWeb.EfStuff.Repositories;
 using SpaceWeb.Models.RocketModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using SpaceWeb.Controllers.CustomAttribute;
 using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Service;
-using SpaceWeb.Models.RocketModels;
 using SpaceWeb.Presentation;
-using SpaceWeb.Presentation;
+using SpaceWeb.Models;
+using SpaceWeb.Models.Chart;
 
 namespace SpaceWeb.Controllers
 {
@@ -26,12 +24,13 @@ namespace SpaceWeb.Controllers
         private IClientRepository _clientRepository;
         private ICurrencyService _currencyService;
         private IBankAccountRepository _accountRepository;
-        private readonly IRocketShopPresentation _rocketShopPresentation;
-
+        private IRocketShopPresentation _rocketShopPresentation;
+        private IUserRepository _userRepository;
+        
         public RocketShopController(IMapper mapper, IOrderRepository orderRepository, 
             IShopRocketRepository shopRocketRepository, UserService userService, 
             IClientRepository clientRepository, ICurrencyService currencyService, IBankAccountRepository accountRepository,
-            IRocketShopPresentation rocketShopPresentation)
+            IRocketShopPresentation rocketShopPresentation, IUserRepository userRepository)
         {
             
             _mapper = mapper;
@@ -42,6 +41,7 @@ namespace SpaceWeb.Controllers
             _currencyService = currencyService;
             _accountRepository = accountRepository;
             _rocketShopPresentation = rocketShopPresentation;
+            _userRepository = userRepository;
         }
 
         [HttpGet]
@@ -60,7 +60,7 @@ namespace SpaceWeb.Controllers
 
             var client = _clientRepository.Get(model.ClientId);
             var order = new Order {Rockets = rocketList, 
-                OrderDateTime = DateTime.Now,
+                OrderDateTime = DateTime.Today,
                 Client = client,
                 State = OrderStates.Pending
             };
@@ -92,6 +92,7 @@ namespace SpaceWeb.Controllers
             _shopRocketRepository.Save(rocket);
             return View();
         }
+
         [HttpGet]
         public IActionResult Basket()
         {
@@ -108,8 +109,10 @@ namespace SpaceWeb.Controllers
         }
         
         [HttpPost]
-        public IActionResult Basket(OrderViewModel order)
+        public IActionResult Basket(BasketViewModel order)
         {
+
+
             return View();
         }
         
@@ -118,6 +121,45 @@ namespace SpaceWeb.Controllers
             var account = _accountRepository.Get(accountNumber);
             var result = _currencyService.CheckBalanceToPay(account, Convert.ToDecimal(amount));
             return Json(result);
+        }
+
+        public IActionResult ChangeCurrency(string accountNumber, string amount, string currency)
+        {
+            var account = _accountRepository.Get(accountNumber);
+                         
+            var money = _currencyService.Convert((Currency)Enum.Parse(typeof(Currency), currency),
+                Convert.ToDecimal(amount), account.Currency);
+            return Json(new { money = money.ToString(),
+                currency = AttributeService.GetDisplayValue(account.Currency)});
+        }
+
+        public IActionResult OrderChartInfo()
+        {
+            var allUsers = _userRepository.GetAll().Where(x=>x.Client!=null).ToList();
+            var allOrders = allUsers.SelectMany(user => user.Client.Orders)
+                .Where(x=>
+                x.OrderDateTime.Month==DateTime.Today.Month 
+                && x.OrderDateTime.Year==DateTime.Today.Year)
+                .ToList();
+            var days = allOrders
+                .Select(x => x.OrderDateTime.Day)
+                .Distinct()
+                .ToList();
+            
+            var chartViewModel = new OrderChartViewModel
+            {
+                Labels = days
+            };
+            var datasetViewModel = new OrderDatasetViewModel()
+            {
+                Label = $"Orders for {DateTime.Today.Month}.{DateTime.Today.Year}",
+                BackgroundColor = "rgba(22, 53, 79, 0.83)",
+            };
+            var a =  days.Select(day =>
+                allOrders.Count(order => order.OrderDateTime.Day == day)).ToList();
+            datasetViewModel.Data = a;
+            chartViewModel.Datasets.Add(datasetViewModel);
+            return Json(chartViewModel);
         }
     }
 }
