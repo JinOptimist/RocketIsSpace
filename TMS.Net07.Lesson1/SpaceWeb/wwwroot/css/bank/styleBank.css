@@ -32,7 +32,7 @@ a {
     display: flex;
     justify-content: space-between;
     align-content: center;
-    border-bottom: 3px solid rgb(190,190,190);
+    border-bottom: 3px solid rgb(190, 190, 190);
     backdrop-filter: blur(3px);
 }
 
@@ -105,12 +105,12 @@ a {
     transition: 300ms;
 }
 
-    .header .buttonList .button:hover {
-        font-size: calc(20px + 1px);
-        background-color: rgba(26, 43, 99, 0.1);
-        border-bottom: 3px solid;
-        opacity: 1;
-    }
+.header .buttonList .button:hover {
+    font-size: calc(20px + 1px);
+    background-color: rgba(26, 43, 99, 0.1);
+    border-bottom: 3px solid;
+    opacity: 1;
+}
 
 .header-for-start-page .buttonList .button {
     color: rgb(255, 255, 255);
@@ -122,13 +122,13 @@ a {
     opacity: 0.8;
 }
 
-    .header-for-start-page .buttonList .button:hover {
-        font-size: calc(25px+2px);
-        background-image: -webkit-linear-gradient(top,rgb(53, 189, 252),rgb(27, 89, 117));
-        color: rgb(255, 255, 255);
-        border-radius: 1em;
-        opacity: 1;
-    }
+.header-for-start-page .buttonList .button:hover {
+    font-size: calc(25px+2px);
+    background-image: -webkit-linear-gradient(top, rgb(53, 189, 252), rgb(27, 89, 117));
+    color: rgb(255, 255, 255);
+    border-radius: 1em;
+    opacity: 1;
+}
 
 .footer {
     min-height: 50px;
@@ -178,27 +178,25 @@ a {
     justify-content: center;
 }
 
-    .rocket .name {
-        display: flex;
-        justify-content: center;
-        color: aliceblue;
-        padding: 20px, 0;
-    }
+.rocket .name {
+    display: flex;
+    justify-content: center;
+    color: aliceblue;
+    padding: 20px, 0;
+}
 
-    .rocket .image-container {
-        height: 150px;
-        width: 150px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+.rocket .image-container {
+    height: 150px;
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-
-    .rocket img {
-        max-width: 150px;
-        max-height: calc(150px - 16px);
-    }
-
+.rocket img {
+    max-width: 150px;
+    max-height: calc(150px - 16px);
+}
 
 .intro {
     width: 100%;
@@ -244,6 +242,8 @@ a {
     text-align: center;
     margin-bottom: 25px;
 }
+
+
 /*
 .button-login {
     vertical-align: top;
@@ -289,28 +289,28 @@ a {
     transition: color .2s linear;
 }
 
-    .nav-link:hover {
-        color: #00ffff;
-    }
+.nav-link:hover {
+    color: #00ffff;
+}
 
-    .nav-link:after {
-        content: "";
-        display: block;
-        width: 100%;
-        height: 3px;
-        display: none;
-        background-color: #ffffff;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        z-index: 1;
-        opacity: 0;
-    }
+.nav-link:after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 3px;
+    display: none;
+    background-color: #ffffff;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1;
+    opacity: 0;
+}
 
-    .nav-link:hover:after {
-        display: block;
-        opacity: 1;
-    }
+.nav-link:hover:after {
+    display: block;
+    opacity: 1;
+}
 
 .slider {
     display: flex;
@@ -329,21 +329,21 @@ a {
     position: relative;
 }
 
-    .slider-item.active:before {
-        content: "";
-        display: block;
-        width: 70px;
-        position: absolute;
-        height: 3px;
-        top: -3px;
-        left: 0;
-        z-index: 1;
-        background-color: blue;
-    }
+.slider-item.active:before {
+    content: "";
+    display: block;
+    width: 70px;
+    position: absolute;
+    height: 3px;
+    top: -3px;
+    left: 0;
+    z-index: 1;
+    background-color: blue;
+}
 
-    .slider-item.active {
-        opacity: 1;
-    }
+.slider-item.active {
+    opacity: 1;
+}
 
 .slider-num {
     font-weight: 700;
@@ -364,7 +364,6 @@ a {
     padding: 40px;
 }
 
-
 .client-content {
     position: relative;
     z-index: 15;
@@ -373,8 +372,7 @@ a {
     background-size: cover;
 }
 
-.layout-content {
-}
+.layout-content {}
 
 .client-text-centre {
     padding-top: 300px;
@@ -402,11 +400,9 @@ a {
     .client-text-centre {
         padding-top: 120px;
     }
-
     .intro-titel {
         font-size: 35px;
     }
-
     .intro-suptitel {
         font-size: 25px;
     }
@@ -416,11 +412,9 @@ a {
     .client-text-centre {
         padding-top: 90px;
     }
-
     .intro-titel {
         font-size: 35px;
     }
-
     .intro-suptitel {
         font-size: 25px;
     }
@@ -438,13 +432,13 @@ a {
     left: 0;
 }
 
-    .popup .cover {
-        background: black;
-        position: fixed;
-        width: 100%;
-        height: 100vh;
-        opacity: 0.6;
-    }
+.popup .cover {
+    background: black;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    opacity: 0.6;
+}
 
 .popup-content {
     background-color: rgb(230, 230, 230);
@@ -492,7 +486,8 @@ a {
     margin: 10px;
 }
 
-.link.enter:hover, .link.register:hover {
+.link.enter:hover,
+.link.register:hover {
     font-weight: bolder;
 }
 
@@ -524,29 +519,37 @@ a {
     white-space: nowrap;
 }
 
+
 /* width */
+
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
 }
 
+
 /* Track */
+
 ::-webkit-scrollbar-track {
     background: #f1f1f1;
     border-radius: 10px;
 }
 
+
 /* Handle */
+
 ::-webkit-scrollbar-thumb {
     background-color: rgb(210, 210, 210);
     border-radius: 10px;
     transition: 300ms;
 }
 
-    /* Handle on hover */
-    ::-webkit-scrollbar-thumb:hover {
-        background-color: rgb(190,190,190);
-    }
+
+/* Handle on hover */
+
+ ::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(190, 190, 190);
+}
 
 .menu.top .bank-account {
     height: 96px;
@@ -562,10 +565,10 @@ a {
     transition: 300ms;
 }
 
-    .menu.top .bank-account:hover {
-        background-color: rgb(0, 185, 229);
-        cursor: pointer;
-    }
+.menu.top .bank-account:hover {
+    background-color: rgb(0, 185, 229);
+    cursor: pointer;
+}
 
 .bank-account .account-number {
     margin-right: 10px;
@@ -585,10 +588,10 @@ a {
     transition: 300ms;
 }
 
-    .add-new.background:hover {
-        background-color: rgb(190, 190, 190);
-        cursor: pointer;
-    }
+.add-new.background:hover {
+    background-color: rgb(190, 190, 190);
+    cursor: pointer;
+}
 
 .add-new.content {
     height: 80px;
@@ -614,25 +617,25 @@ a {
     align-items: center;
 }
 
-    .menu.bottom .button {
-        margin: 10px 15px;
-        height: 130px;
-        width: 220px;
-        border-radius: 1em;
-        background-color: rgb(230, 230, 230);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 15pt;
-        font-weight: 400;
-        transition: 500ms;
-    }
+.menu.bottom .button {
+    margin: 10px 15px;
+    height: 130px;
+    width: 220px;
+    border-radius: 1em;
+    background-color: rgb(230, 230, 230);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15pt;
+    font-weight: 400;
+    transition: 500ms;
+}
 
-        .menu.bottom .button:hover {
-            background-color: rgb(210,210,210);
-            font-weight: 600;
-            cursor: pointer;
-        }
+.menu.bottom .button:hover {
+    background-color: rgb(210, 210, 210);
+    font-weight: 600;
+    cursor: pointer;
+}
 
 .personal-info.button {
     display: flex;
@@ -654,10 +657,10 @@ a {
     color: black;
 }
 
-    a:visited {
-        text-decoration: none;
-        color: black;
-    }
+a:visited {
+    text-decoration: none;
+    color: black;
+}
 
 .account-info-container {
     height: 500px;
@@ -674,60 +677,60 @@ a {
     padding: 10px;
 }
 
-    .account-info-container .account-info {
-        height: 175px;
-        width: 300px;
-        background-color: rgba(0, 185, 229, 0.7);
-        border-radius: 1em;
-        margin: 10px;
-        box-shadow: 3px 3px 6px 0px rgb(150, 150, 150);
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        padding: 10px;
-    }
+.account-info-container .account-info {
+    height: 175px;
+    width: 300px;
+    background-color: rgba(0, 185, 229, 0.7);
+    border-radius: 1em;
+    margin: 10px;
+    box-shadow: 3px 3px 6px 0px rgb(150, 150, 150);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 10px;
+}
 
-    .account-info-container .info {
-        font-size: 13pt;
-        font-weight: 500;
-        color: rgba(250, 250, 250, 0.9);
-        margin: 5px;
-    }
+.account-info-container .info {
+    font-size: 13pt;
+    font-weight: 500;
+    color: rgba(250, 250, 250, 0.9);
+    margin: 5px;
+}
 
-    .account-info-container .button-list {
-        height: 260px;
-        width: 500px;
-        margin: 10px;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-    }
+.account-info-container .button-list {
+    height: 260px;
+    width: 500px;
+    margin: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
 
-    .account-info-container .button {
-        height: 100px;
-        width: 140px;
-        margin: 10px;
-        border-radius: 1em;
-        background-color: rgb(230, 230, 230);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
-        font-size: 11pt;
-        font-weight: 400;
-        transition: 300ms;
-        text-align: center;
-        border: 1px outset;
-    }
+.account-info-container .button {
+    height: 100px;
+    width: 140px;
+    margin: 10px;
+    border-radius: 1em;
+    background-color: rgb(230, 230, 230);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 11pt;
+    font-weight: 400;
+    transition: 300ms;
+    text-align: center;
+    border: 1px outset;
+}
 
-        .account-info-container .button:hover {
-            background-color: rgb(210,210,210);
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: inset 3px 3px 6px 0px rgb(150, 150, 150);
-            border: 1px inset;
-        }
+.account-info-container .button:hover {
+    background-color: rgb(210, 210, 210);
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: inset 3px 3px 6px 0px rgb(150, 150, 150);
+    border: 1px inset;
+}
 
 .container-accounts {
     height: 100%;
@@ -762,7 +765,7 @@ a {
     min-width: 166px;
     margin: 10px;
     border-radius: 1em;
-    background-color: rgba(0, 185, 229,0.7);
+    background-color: rgba(0, 185, 229, 0.7);
     color: white;
     display: flex;
     flex-direction: column;
@@ -772,11 +775,35 @@ a {
     flex-direction: column;
 }
 
-    .menu.left .bank-account:hover {
-        background-color: rgb(0, 185, 229);
-        cursor: pointer;
-    }
+.menu.left .bank-account:hover {
+    background-color: rgb(0, 185, 229);
+    cursor: pointer;
+}
 
 .menu.left .bank-account-list {
     flex-direction: column;
+}
+
+.exchanges-history {
+    width: 900px;
+    height: 450px;
+}
+
+.content-exchange-chart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title-exchange-chart {
+    margin: 40px 0px;
+    font-size: 30pt;
+    font-family: system-ui;
+    font-weight: 600;
+}
+
+.block {
+    width: 500px;
+    height: 270px;
+    margin: 15px;
 }

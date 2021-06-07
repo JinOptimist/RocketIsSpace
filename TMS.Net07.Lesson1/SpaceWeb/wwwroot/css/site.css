@@ -11,7 +11,6 @@
     }
 }
 
-
 .obertka {
     height: 100vh;
     display: flex;
@@ -36,6 +35,7 @@
     width: 500px;
     height: 270px;
     border: 1px red solid;
+    margin: 15px;
 }
 
 .block-human {
@@ -46,9 +46,9 @@
     background-size: cover;
 }
 
-    .block-human:hover {
-        border-color: white !important;
-    }
+.block-human:hover {
+    border-color: white !important;
+}
 
 .block-bank {
     width: 500px;
@@ -90,10 +90,10 @@ a {
     text-decoration: none;
 }
 
-.home, .top-right-profile-exit a:visited {
+.home,
+.top-right-profile-exit a:visited {
     color: white;
 }
-
 
 .header {
     /* background: hotpink; */
@@ -102,13 +102,13 @@ a {
     align-items: center;
 }
 
-    .header input[type=text] {
-        width: 68px;
-        border-radius: 5px;
-        background: antiquewhite;
-        border: 0;
-        margin-top: 2px;
-    }
+.header input[type=text] {
+    width: 68px;
+    border-radius: 5px;
+    background: antiquewhite;
+    border: 0;
+    margin-top: 2px;
+}
 
 .left-menu {
     /* background: yellow; */
@@ -120,9 +120,9 @@ a {
     /* background: green; */
 }
 
-    .left-menu-absolute:hover {
-        width: 150px;
-    }
+.left-menu-absolute:hover {
+    width: 150px;
+}
 
 .left-menu .link {
     color: blue;
@@ -134,9 +134,9 @@ a {
     cursor: pointer;
 }
 
-    .left-menu .link:hover {
-        background: orange;
-    }
+.left-menu .link:hover {
+    background: orange;
+}
 
 .left-menu-absolute .link .text {
     display: none;
@@ -145,7 +145,6 @@ a {
 .left-menu-absolute:hover .link .text {
     display: flex;
 }
-
 
 .rocket {
     border: 1px green solid;
@@ -173,9 +172,6 @@ a {
     max-width: 150px;
     max-height: calc(150px - 16px);
 }
-
-
-
 
 .popup {
     width: 100%;
@@ -245,9 +241,9 @@ a {
     display: inline;
 }
 
-    #registration-block .icon.hide {
-        display: none;
-    }
+#registration-block .icon.hide {
+    display: none;
+}
 
 .relics {
     display: flex;
@@ -261,19 +257,19 @@ a {
     border-radius: 10px;
 }
 
-    .relic .name {
-        display: flex;
-        justify-content: space-between;
-    }
+.relic .name {
+    display: flex;
+    justify-content: space-between;
+}
 
-        .relic .name .icon.close {
-            cursor: pointer;
-        }
+.relic .name .icon.close {
+    cursor: pointer;
+}
 
-    .relic img {
-        max-width: 100px;
-        max-height: 100px;
-    }
+.relic img {
+    max-width: 100px;
+    max-height: 100px;
+}
 
 .avatar {
     max-width: 200px;
@@ -354,13 +350,13 @@ a {
     color: white;
 }
 
-    .socials-form-telegram .socials-passcode-telegram {
-        background: rgb(255 255 255 / 60%);
-        border-radius: 10px;
-        color: black;
-        text-align: center;
-        margin: 10px 0;
-    }
+.socials-form-telegram .socials-passcode-telegram {
+    background: rgb(255 255 255 / 60%);
+    border-radius: 10px;
+    color: black;
+    text-align: center;
+    margin: 10px 0;
+}
 
 .socials-submit-telegram {
     border-radius: 10px;
@@ -422,10 +418,10 @@ a {
     margin-bottom: 25px;
 }
 
-    .error-socials-image img {
-        width: 100%;
-        height: 100%;
-    }
+.error-socials-image img {
+    width: 100%;
+    height: 100%;
+}
 
 .socials-content {
     display: flex;
@@ -471,4 +467,78 @@ a {
     height: 270px;
     margin: 15px;
     border-radius: 20px 120px;
+}
+
+.animate-block {
+    display: flex;
+}
+
+.animate-block .buttons {
+    position: absolute;
+    width: 500px;
+    height: 270px;
+    display: flex;
+}
+
+.animate-block .choose {
+    flex: 2;
+    cursor: pointer;
+}
+
+.animate-block .choose:hover {
+    background: red;
+    opacity: 0.3;
+}
+
+.animate-block .next-btn,
+.animate-block .prev-btn {
+    /*background: #ccc;*/
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    flex: 1;
+}
+
+.animate-block .next-btn:hover,
+.animate-block .prev-btn:hover {
+    background: #000;
+    opacity: 0.3;
+}
+
+.block .next-image,
+.block .prev-image {
+    /*background: green;*/
+    height: 270px;
+    width: 0;
+}
+
+.block .current-image {
+    /*background: red;*/
+    height: 270px;
+    width: 500px;
+}
+
+.block .next-image,
+.block .prev-image,
+.block .current-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.block .next-image img,
+.block .prev-image img,
+.block .current-image img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.all-money-block {
+    display: flex;
+    font-weight: bold;
+}
+
+.money-count {
+    margin-right: 10px;
+    color: red;
 }

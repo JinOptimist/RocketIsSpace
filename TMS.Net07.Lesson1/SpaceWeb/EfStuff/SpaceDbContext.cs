@@ -16,7 +16,7 @@ namespace SpaceWeb.EfStuff
 
         public DbSet<User> Users { get; set; }
         public DbSet<Rocket> Rockets { get; set; }
-        public DbSet<Profile> UserProfile { get; set; }
+        public DbSet<Questionary> Questionaries { get; set; }
         public DbSet<BankAccount> BankAccount { get; set; }
         public DbSet<BanksCard> BanksCard { get; set; }
         public DbSet<Transaction> Transaction { get; set; }
@@ -68,9 +68,9 @@ namespace SpaceWeb.EfStuff
                 .WithOne(x => x.BankAccount);
 
             modelBuilder.Entity<User>()
-                .HasOne(x => x.Profile)
+                .HasOne(x => x.Questionaries)
                 .WithOne(x => x.User)
-                .HasForeignKey<Profile>(x => x.UserRef);
+                .HasForeignKey<Questionary>(x => x.UserRef);
 
 
             modelBuilder.Entity<Order>()

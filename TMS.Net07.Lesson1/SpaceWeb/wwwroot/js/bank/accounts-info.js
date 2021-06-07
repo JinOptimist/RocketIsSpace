@@ -2,7 +2,7 @@
     init();
     function init() {
 
-        var url = '/Home/AccountChartInfo';
+        var url = '/Bank/AccountsChartInfoDraw';
         $.get(url)
             .done(function (answer) {
                 if (answer) {

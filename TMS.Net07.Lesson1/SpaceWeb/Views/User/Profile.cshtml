@@ -52,13 +52,21 @@
         </div>
     }
 
-    @if (Model.DefaultCurrency != 0)
-    {
     <h2>Сумма всех средств в основной валюте:</h2>
-    <div>
-        @Model.AmountAllMoneyInDefaultCurrency @Model.DefaultCurrency
+    <div class="all-money-block">
+        <div class="money-count">
+            @Model.AmountAllMoneyInDefaultCurrency
+        </div>
+        <div class="default-currency">
+            @if (Model.DefaultCurrency != 0)
+            {@Model.DefaultCurrency }
+            else
+            {
+                if (Model.RandomCurrency != 0)
+                { @Model.RandomCurrency}
+            }
+        </div>
     </div>
-    }
 
     <a href="/User/ChangePassword?id=1">Обновить password</a>
 

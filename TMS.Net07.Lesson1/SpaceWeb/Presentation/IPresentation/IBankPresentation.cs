@@ -4,6 +4,6 @@ namespace SpaceWeb.Presentation
 {
     public interface IBankPresentation
     {
-        UserProfileViewModel GetProfileViewModel(long id);
+        QuestionaryViewModel GetProfileViewModel(long id);
     }
 }

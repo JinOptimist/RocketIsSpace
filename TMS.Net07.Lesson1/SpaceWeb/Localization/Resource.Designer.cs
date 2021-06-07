@@ -63,6 +63,7 @@ namespace SpaceWeb.Localization {
         /// <summary>
         ///   Looks up a localized string similar to Вопрос ответ.
         ///   Ищет локализованную строку, похожую на Имя.
+        ///   Looks up a localized string similar to Имя.
         /// </summary>
         public static string AllDepartments_Name {
             get {
@@ -71,7 +72,7 @@ namespace SpaceWeb.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Оклад.
+        ///   Looks up a localized string similar to Оклад.
         /// </summary>
         public static string AllDepartments_Salary {
             get {
@@ -80,7 +81,7 @@ namespace SpaceWeb.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Специальность.
+        ///   Looks up a localized string similar to Специальность.
         /// </summary>
         public static string AllDepartments_Specification {
             get {
@@ -89,7 +90,7 @@ namespace SpaceWeb.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Фамилия.
+        ///   Looks up a localized string similar to Фамилия.
         /// </summary>
         public static string AllDepartments_Surname {
             get {
@@ -98,7 +99,7 @@ namespace SpaceWeb.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Лаборатория.
+        ///   Looks up a localized string similar to Лаборатория.
         /// </summary>
         public static string DepartmentType_Laboratory {
             get {
@@ -107,7 +108,7 @@ namespace SpaceWeb.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Производство.
+        ///   Looks up a localized string similar to Производство.
         /// </summary>
         public static string DepartmentType_Manufactory {
             get {
@@ -116,7 +117,7 @@ namespace SpaceWeb.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Центр управления полетами.
+        ///   Looks up a localized string similar to Центр управления полетами.
         /// </summary>
         public static string DepartmentType_MissionControlCenter {
             get {
@@ -125,7 +126,7 @@ namespace SpaceWeb.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Другое.
+        ///   Looks up a localized string similar to Другое.
         /// </summary>
         public static string DepartmentType_Other {
             get {
@@ -134,7 +135,7 @@ namespace SpaceWeb.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Космонавт.
+        ///   Looks up a localized string similar to Космонавт.
         /// </summary>
         public static string DepartmentType_SpacecraftCrew {
             get {
@@ -143,7 +144,7 @@ namespace SpaceWeb.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Неизвестно.
+        ///   Looks up a localized string similar to Неизвестно.
         /// </summary>
         public static string DepartmentType_Unknown {
             get {
@@ -152,7 +153,7 @@ namespace SpaceWeb.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Работает.
+        ///   Looks up a localized string similar to Работает.
         /// </summary>
         public static string EmployeStatus_Accepted {
             get {
@@ -161,7 +162,7 @@ namespace SpaceWeb.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Не принят.
+        ///   Looks up a localized string similar to Не принят.
         /// </summary>
         public static string EmployeStatus_Denied {
             get {
@@ -170,7 +171,7 @@ namespace SpaceWeb.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Уволен.
+        ///   Looks up a localized string similar to Уволен.
         /// </summary>
         public static string EmployeStatus_Fired {
             get {
@@ -179,7 +180,7 @@ namespace SpaceWeb.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Заявка на работу.
+        ///   Looks up a localized string similar to Заявка на работу.
         /// </summary>
         public static string EmployeStatus_Request {
             get {
@@ -188,7 +189,7 @@ namespace SpaceWeb.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Вопрос ответ.
+        ///   Looks up a localized string similar to Вопрос ответ.
         /// </summary>
         public static string HomeIndex_FAQ {
             get {
@@ -260,7 +261,7 @@ namespace SpaceWeb.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Глава отдела.
+        ///   Looks up a localized string similar to Глава отдела.
         /// </summary>
         public static string Positin_Leader {
             get {
@@ -269,7 +270,7 @@ namespace SpaceWeb.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Заместитель.
+        ///   Looks up a localized string similar to Заместитель.
         /// </summary>
         public static string Position_Deputy {
             get {
@@ -278,7 +279,7 @@ namespace SpaceWeb.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Менеджер.
+        ///   Looks up a localized string similar to Менеджер.
         /// </summary>
         public static string Position_Manager {
             get {
@@ -287,7 +288,7 @@ namespace SpaceWeb.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Профессиональный рабочий.
+        ///   Looks up a localized string similar to Профессиональный рабочий.
         /// </summary>
         public static string Position_ProfessionalWorker {
             get {
@@ -296,7 +297,7 @@ namespace SpaceWeb.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Стажер.
+        ///   Looks up a localized string similar to Стажер.
         /// </summary>
         public static string Position_Trainee {
             get {

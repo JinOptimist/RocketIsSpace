@@ -61,24 +61,37 @@ namespace SpaceWeb.Controllers
             viewModel.DefaultCurrency = user.DefaultCurrency;
             viewModel.MyCurrencies = _bankAccountRepository.GetCurrencies(user.Id);
 
-            decimal allAmountInUsd = 0;
+            decimal amountAllMoneyInDefaultCurrency = 0;
             var accounts = _bankAccountRepository.GetBankAccounts(user.Id);
 
-            foreach (var account in accounts)
+            if (accounts.Count() != 0)
             {
-                var amount = _currencyService.ConvertByAlex(account.Currency, account.Amount, Currency.USD);
-                allAmountInUsd += amount;
+                viewModel.RandomCurrency = accounts.First().Currency;
             }
-
-            decimal amountAllMoneyInDefaultCurrency = 0;
 
             if (user.DefaultCurrency != 0)
             {
-                amountAllMoneyInDefaultCurrency = _currencyService.ConvertByAlex(Currency.USD, allAmountInUsd, user.DefaultCurrency);
+                viewModel.AmountAllMoneyInDefaultCurrency = _currencyService.CountAllMoneyInWishingCurrency(accounts, viewModel.DefaultCurrency);
             }
-            viewModel.AmountAllMoneyInDefaultCurrency = Math.Round(amountAllMoneyInDefaultCurrency, 2);
+            else
+            {
+                viewModel.AmountAllMoneyInDefaultCurrency = _currencyService.CountAllMoneyInWishingCurrency(accounts, viewModel.RandomCurrency);
+            }
 
             return View(viewModel);
+        }
+
+        public IActionResult UpdateAllMoney(Currency currency)
+        {
+            Test t = new Test();
+
+            var user = _userService.GetCurrent();
+            var accounts = _bankAccountRepository.GetBankAccounts(user.Id);
+            t.count = _currencyService.CountAllMoneyInWishingCurrency(accounts, currency);
+            t.currency = currency.ToString();
+            
+
+            return Json(t);
         }
 
         public IActionResult UpdateFavCurrency(Currency currency)
@@ -294,5 +307,11 @@ namespace SpaceWeb.Controllers
             var viewModel = _mapper.Map<EmployeeProfileViewModel>(user);
             return View(viewModel);
         }
+    }
+
+    public class Test
+    {
+        public decimal count { get; set; }
+        public string currency { get; set; }
     }
 }

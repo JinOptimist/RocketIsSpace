@@ -19,7 +19,7 @@ using System.Numerics;
 using System.Threading.Tasks;
 using SpaceWeb.Models.RocketModels;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
-using Profile = SpaceWeb.EfStuff.Model.Profile;
+using Questionary = SpaceWeb.EfStuff.Model.Questionary;
 using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Presentation;
 using SpaceWeb.Models.Human;
@@ -91,8 +91,8 @@ namespace SpaceWeb
             //services.AddScoped<IBankAccountRepository>(diContainer =>
             //    new BankAccountRepository(diContainer.GetService<SpaceDbContext>()));
 
-            services.AddScoped<ProfileRepository>(diContainer =>
-                new ProfileRepository(diContainer.GetService<SpaceDbContext>()));
+            services.AddScoped<QuestionaryRepository>(diContainer =>
+                new QuestionaryRepository(diContainer.GetService<SpaceDbContext>()));
 
             services.AddScoped<AdvImageRepository>(diContainer =>
                 new AdvImageRepository(diContainer.GetService<SpaceDbContext>()));
@@ -127,7 +127,7 @@ namespace SpaceWeb
                     diContainer.GetService<ExchangeRateToUsdCurrentRepository>(),
                     diContainer.GetService<ExchangeAccountHistoryRepository>(),
                     diContainer.GetService<ExchangeRateToUsdHistoryRepository>(),
-                    diContainer.GetService<IMapper>()
+                    diContainer.GetService<Mapper>()
                 ));
 
             services.AddScoped<UserService>(diContainer =>
@@ -218,8 +218,8 @@ namespace SpaceWeb
         {
             var configExpression = new MapperConfigurationExpression();
 
-            //configExpression.CreateMap<User, UserProfileViewModel>()
-            //    .ForMember(nameof(UserProfileViewModel.FullName),
+            //configExpression.CreateMap<User, QuestionaryViewModel>()
+            //    .ForMember(nameof(QuestionaryViewModel.FullName),
             //        config => config
             //            .MapFrom(dbModel => $"{dbModel.Name}, {dbModel.SurName} Mr"));
 
@@ -256,15 +256,15 @@ namespace SpaceWeb
             //configExpression.CreateMap<RelicViewModel, Relic>();
 
             MapBoth<Relic, RelicViewModel>(configExpression);
-            MapBoth<User, UserProfileViewModel>(configExpression);
+            MapBoth<User, QuestionaryViewModel>(configExpression);
             MapBoth<User, BanksCardViewModel>(configExpression);
             
             MapBoth<Transaction, TransactionCardViewModel>(configExpression);
             MapBoth<BanksCard, TransactionCardViewModel>(configExpression);
 
-            MapBoth<Profile, UserProfileViewModel>(configExpression);
+            MapBoth<Questionary, QuestionaryViewModel>(configExpression);
 
-            MapBoth<Profile, ProfileViewModel>(configExpression);
+            MapBoth<Questionary, ProfileViewModel>(configExpression);
 
             MapBoth<AdvImage, AdvImageViewModel>(configExpression);
 
