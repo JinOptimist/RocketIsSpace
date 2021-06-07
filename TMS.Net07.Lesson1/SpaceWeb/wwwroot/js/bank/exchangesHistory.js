@@ -2,7 +2,7 @@
     init();
     function init() {
 
-        var url = '/Home/AccountChartInfo';
+        var url = '/Bank/ExchangesHistoryChartInfo';
         $.get(url)
             .done(function (answer) {
                 drawChart(answer);
@@ -11,12 +11,12 @@
 
     function drawChart(data) {
         const config = {
-            type: 'bar',
+            type: 'line',
             data,
             options: {}
         };
         var myChart = new Chart(
-            document.getElementById('myChart'),
+            document.getElementById('exchangesHistoryChart'),
             config
         );
     }

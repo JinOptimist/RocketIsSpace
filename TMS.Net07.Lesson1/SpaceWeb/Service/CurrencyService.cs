@@ -20,13 +20,13 @@ namespace SpaceWeb.Service
         private ExchangeRateToUsdCurrentRepository _exchangeRateToUsdCurrentRepository;
         private ExchangeAccountHistoryRepository _exchangeAccountHistoryRepository;
         private ExchangeRateToUsdHistoryRepository _exchangeRateToUsdHistoryRepository;
-        private IMapper _mapper;
+        private Mapper _mapper;
 
         public CurrencyService(UserService userService,
             ExchangeRateToUsdCurrentRepository exchangeRateToUsdCurrentRepository,
             ExchangeAccountHistoryRepository exchangeAccountHistoryRepository,
             ExchangeRateToUsdHistoryRepository exchangeRateToUsdHistoryRepository,
-            IMapper mapper)
+            Mapper mapper)
         {
             _userService = userService;
             _exchangeRateToUsdCurrentRepository = exchangeRateToUsdCurrentRepository;
@@ -188,6 +188,7 @@ namespace SpaceWeb.Service
                 TypeOfExch = TypeOfExchange.Buy,
                 ExchRate = Convert.ToDecimal(exchangeRates.USD_in, new CultureInfo("en-US"))
                 / Convert.ToDecimal(exchangeRates.PLN_in, new CultureInfo("en-US"))
+                * 10
             };
             _exchangeRateToUsdCurrentRepository.Save(exchangeRateDb);
 
@@ -197,6 +198,7 @@ namespace SpaceWeb.Service
                 TypeOfExch = TypeOfExchange.Sell,
                 ExchRate = Convert.ToDecimal(exchangeRates.USD_out, new CultureInfo("en-US"))
                 / Convert.ToDecimal(exchangeRates.PLN_out, new CultureInfo("en-US"))
+                * 10
             };
             _exchangeRateToUsdCurrentRepository.Save(exchangeRateDb);
 
@@ -214,34 +216,65 @@ namespace SpaceWeb.Service
         }
 
         public void MoveCurrentExchangesDbToHistoryDb(ExchangeRateToUsdCurrentRepository _exchangeRateToUsdCurrentRepository,
-            ExchangeRateToUsdHistoryRepository _exchangeRateToUsdHistoryRepository)
+            ExchangeRateToUsdHistoryRepository _exchangeRateToUsdHistoryRepository, Mapper _mapper)
         {
             var exchCurrentRates = _exchangeRateToUsdCurrentRepository.GetAll();
-            var exchRateHistory = new ExchangeRateToUsdHistory();
-
+            
             foreach (var exchCurrRate in exchCurrentRates)
             {
-                exchRateHistory = new ExchangeRateToUsdHistory
+                //var exchRateHistory = _mapper.Map<ExchangeRateToUsdHistory>(exchCurrRate);
+                //exchRateHistory.ExchRateDate = DateTime.Now;
+                //_exchangeRateToUsdHistoryRepository.Save(exchRateHistory);
+
+                var exchRateHistory = new ExchangeRateToUsdHistory
                 {
                     Currency = exchCurrRate.Currency,
                     TypeOfExch = exchCurrRate.TypeOfExch,
                     ExchRate = exchCurrRate.ExchRate,
-                    ExchRateDate = DateTime.Now
+                    ExchRateDate = GetDateWithNullSecAndMillisec()
                 };
                 _exchangeRateToUsdHistoryRepository.Save(exchRateHistory);
             }
         }
+
+        /// <summary>
+        /// Method for getting Date with null seconds and milliseconds. Example: 04.06.2021 13:32:00.000
+        /// </summary>
+        /// <returns></returns>
+        public DateTime GetDateWithNullSecAndMillisec()
+        {
+            var time = DateTime.Now;
+            time = time.AddSeconds(-time.Second);
+            time = time.AddMilliseconds(-time.Millisecond);
+
+            return time;
+        }
+
+        public decimal CountAllMoneyInWishingCurrency(List<BankAccount> accounts, Currency currencyTo)
+        {
+            decimal amountAllMoneyInDefaultCurrency = 0;
+
+            foreach (var account in accounts)
+            {
+                var amount = ConvertByAlex(account.Currency, account.Amount, currencyTo);
+                amountAllMoneyInDefaultCurrency += amount;
+            }
+
+            return Math.Round(amountAllMoneyInDefaultCurrency, 2);
+        }
+    }
+
+    public class GottenCurrency
+    {
+        public string USD_in { get; set; }
+        public string USD_out { get; set; }
+        public string EUR_in { get; set; }
+        public string EUR_out { get; set; }
+        public string GBP_in { get; set; }
+        public string GBP_out { get; set; }
+        public string PLN_in { get; set; }
+        public string PLN_out { get; set; }
     }
 }
 
-public class GottenCurrency
-{
-    public string USD_in { get; set; }
-    public string USD_out { get; set; }
-    public string EUR_in { get; set; }
-    public string EUR_out { get; set; }
-    public string GBP_in { get; set; }
-    public string GBP_out { get; set; }
-    public string PLN_in { get; set; }
-    public string PLN_out { get; set; }
-}
+

@@ -218,7 +218,6 @@ namespace SpaceWeb.EfStuff
             userReposirory.Save(user);
         }
 
-
         private static void SetDefaultCient(IServiceProvider service)
         {
             var userReposirory = service.GetService<IUserRepository>();

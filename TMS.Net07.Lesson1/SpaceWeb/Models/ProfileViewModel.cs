@@ -63,6 +63,7 @@ namespace SpaceWeb.Models
         public string Email { get; set; }
 
         public Currency DefaultCurrency { get; set; }
+        public Currency RandomCurrency { get; set; }
         public List<Currency> MyCurrencies { get; set; }
 
         public List<SelectListItem> LangOptions { get; set; }

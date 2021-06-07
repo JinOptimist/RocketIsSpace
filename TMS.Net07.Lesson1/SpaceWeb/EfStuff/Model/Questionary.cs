@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SpaceWeb.EfStuff.Model
 {
-    public class Profile : BaseModel
+    public class Questionary : BaseModel
     {
         public string Name { get; set; }
         public string SurName { get; set; }
