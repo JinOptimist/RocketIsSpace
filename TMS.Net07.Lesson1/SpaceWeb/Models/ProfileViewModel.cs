@@ -14,14 +14,10 @@ namespace SpaceWeb.Models
 {
     public class ProfileViewModel
     {
-        //private CurrencyService _currencyService;
-        //private BankAccountRepository _bankAccountRepository;
-        //private UserService _userService;
+        private Lang _lang;
 
         public ProfileViewModel()
         {
-            //_userService = userService;
-
             var options = Enum.GetValues(typeof(Lang));
             LangOptions = new List<SelectListItem>();
             
@@ -32,10 +28,6 @@ namespace SpaceWeb.Models
                     Text = option.ToString(),
                     Value = option.ToString()
                 };
-                if (Lang.ToString() == option.ToString())
-                {
-                    selectListItem.Selected = true;
-                }
                 LangOptions.Add(selectListItem);
             }
 
@@ -70,7 +62,23 @@ namespace SpaceWeb.Models
         public Currency DefaultCurrency { get; set; }
         public Currency RandomCurrency { get; set; }
         public List<Currency> MyCurrencies { get; set; }
-        public Lang Lang { get; set; }
+        public Lang Lang
+        {
+            get
+            {
+                return _lang;
+            }
+            set
+            {
+                _lang = value;
+                LangOptions.ForEach(x => x.Selected = false);
+                var option = LangOptions.SingleOrDefault(x => x.Value == _lang.ToString());
+                if (option != null)
+                {
+                    option.Selected = true;
+                }
+            }
+        }
         public List<SelectListItem> LangOptions { get; set; }
         public decimal AmountAllMoneyInDefaultCurrency { get; set; }
 
