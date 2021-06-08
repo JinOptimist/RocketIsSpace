@@ -24,6 +24,7 @@ namespace SpaceWeb.Models
 
             var options = Enum.GetValues(typeof(Lang));
             LangOptions = new List<SelectListItem>();
+            
             foreach (var option in options)
             {
                 var selectListItem = new SelectListItem()
@@ -31,6 +32,10 @@ namespace SpaceWeb.Models
                     Text = option.ToString(),
                     Value = option.ToString()
                 };
+                if (Lang.ToString() == option.ToString())
+                {
+                    selectListItem.Selected = true;
+                }
                 LangOptions.Add(selectListItem);
             }
 
@@ -65,7 +70,7 @@ namespace SpaceWeb.Models
         public Currency DefaultCurrency { get; set; }
         public Currency RandomCurrency { get; set; }
         public List<Currency> MyCurrencies { get; set; }
-
+        public Lang Lang { get; set; }
         public List<SelectListItem> LangOptions { get; set; }
         public decimal AmountAllMoneyInDefaultCurrency { get; set; }
 
