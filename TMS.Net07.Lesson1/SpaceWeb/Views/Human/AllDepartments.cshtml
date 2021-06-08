@@ -5,9 +5,8 @@
 @{
     Layout = "_LayoutHuman";
 }
-<link href="~/css/human/FlipFlopStyles.css" rel="stylesheet" />
-<script src="~/js/human/FlipFlopModule.js"></script>
-<script src="~/js/human/departments.js"></script>
+<script src="~/lib/jquery-flip/jquery.flip.min.js"></script>
+<script src="~/js/human/department.js" asp-append-version="true"></script>
 <div style="display:flex; flex-direction:row">
     <div class="department-list">
         <a href="/Human/Graph/" class="link">
@@ -53,20 +52,27 @@
         </div>
     </div>
     <div class="employes-list">
-        <div class="human-department-info clone undisplayable floppa">
-            <div id="name">
-                @Resource.AllDepartments_Name:
+        <div class="human-department-employee clone undisplayable flip-flop">
+            <div class="front">
+                <div id="name">
+                    @Resource.AllDepartments_Name:
+                </div>
+                <div id="surname">
+                    @Resource.AllDepartments_Surname:
+                </div>
+                <div id="specification">
+                    @Resource.AllDepartments_Specification:
+                </div>
+                <div id="salary">
+                    @Resource.AllDepartments_Salary:
+                </div>
             </div>
-            <div id="surname">
-                @Resource.AllDepartments_Surname:
+            <div class="back">
+                <div>
+                    @*To do*@
+                    some img
+                </div>
             </div>
-            <div id="specification">
-                @Resource.AllDepartments_Specification:
-            </div>
-            <div id="salary">
-                @Resource.AllDepartments_Salary:
-            </div>
-
         </div>
     </div>
 </div>
