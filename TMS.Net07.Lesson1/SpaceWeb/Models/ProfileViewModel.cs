@@ -18,20 +18,28 @@ namespace SpaceWeb.Models
 
         public ProfileViewModel()
         {
-            var options = Enum.GetValues(typeof(Lang));
-            LangOptions = new List<SelectListItem>();
-            
-            foreach (var option in options)
-            {
-                var selectListItem = new SelectListItem()
+            LangOptions = Enum
+                .GetValues(typeof(Lang))
+                .Cast<Lang>()
+                .Select(option => new SelectListItem()
                 {
                     Text = option.ToString(),
                     Value = option.ToString()
-                };
-                LangOptions.Add(selectListItem);
-            }
+                }).ToList();
 
-            //AmountOfAllAccounts();
+            // Или так
+            //var options = Enum.GetValues(typeof(Lang));
+            //LangOptions = new List<SelectListItem>();
+
+            //foreach (var option in options)
+            //{
+            //    var selectListItem = new SelectListItem()
+            //    {
+            //        Text = option.ToString(),
+            //        Value = option.ToString()
+            //    };
+            //    LangOptions.Add(selectListItem);
+            //}
         }
 
         [DisplayName("Имя пользователя")]
@@ -81,26 +89,5 @@ namespace SpaceWeb.Models
         }
         public List<SelectListItem> LangOptions { get; set; }
         public decimal AmountAllMoneyInDefaultCurrency { get; set; }
-
-        //public void AmountOfAllAccounts()
-        //{
-        //    decimal allAmountInUsd = 0;
-
-        //    var user = _userService.GetCurrent();
-        //    var accounts = _bankAccountRepository.GetBankAccounts(user.Id);
-
-        //    foreach (var account in accounts)
-        //    {
-        //        var amount = _currencyService.ConvertByAlex(account.Currency, account.Amount, Currency.USD);
-        //        allAmountInUsd += amount;
-        //    }
-
-        //    decimal amountAllMoneyInDefaultCurrency = 0;
-
-        //    if (DefaultCurrency != 0)
-        //    {
-        //        amountAllMoneyInDefaultCurrency = _currencyService.ConvertByAlex(Currency.USD, allAmountInUsd, DefaultCurrency);
-        //    }
-        //}
     }
 }
