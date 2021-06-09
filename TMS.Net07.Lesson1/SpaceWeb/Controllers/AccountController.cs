@@ -140,5 +140,13 @@ namespace SpaceWeb.Controllers
             var fileName = $"{account.Type}.docx";
             return PhysicalFile(path, contentTypeDocx, fileName);
         }
+
+        public IActionResult UpdateAmount(string accoutNumber, int delta)
+        {
+            var account = _bankAccountRepository.Get(accoutNumber);
+            account.Amount += delta;
+            _bankAccountRepository.Save(account);
+            return Json(true);
+        }
     }
 }
