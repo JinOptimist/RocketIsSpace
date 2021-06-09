@@ -123,22 +123,5 @@ namespace SpaceWeb.Controllers
             return RedirectToAction("Index", new { id });
         }
 
-        public IActionResult DownloadLog(long id)
-        {
-            var webPath = _hostEnvironment.WebRootPath;
-            var path = Path.Combine(webPath, "TempFile", $"{id}.docx");
-
-            var account = _bankAccountRepository.Get(id);
-            using (var doc = DocX.Create(path))
-            {
-                doc.InsertParagraph($"Информация по счёту {account.Type}");
-                doc.InsertParagraph($"Остаток на счёту: {account.Amount}");
-                doc.Save();
-            }
-
-            var contentTypeDocx = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-            var fileName = $"{account.Type}.docx";
-            return PhysicalFile(path, contentTypeDocx, fileName);
-        }
     }
 }

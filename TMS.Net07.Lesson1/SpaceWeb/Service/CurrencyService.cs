@@ -85,7 +85,7 @@ namespace SpaceWeb.Service
 
         public bool CheckBalanceToPay(BankAccount account, decimal amount)
         {
-            return false;
+            return (account.Amount >= amount) ? true : false;
         }
 
         public GottenCurrency GetExchangeRates()

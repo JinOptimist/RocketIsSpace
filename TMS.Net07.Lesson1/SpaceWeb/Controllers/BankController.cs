@@ -18,6 +18,9 @@ using SpaceWeb.Presentation;
 using SpaceWeb.Models.Chart;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
+using Novacode;
+using Microsoft.AspNetCore.Hosting;
 
 namespace SpaceWeb.Controllers
 {
@@ -31,6 +34,7 @@ namespace SpaceWeb.Controllers
         private UserService _userService;
         private BankPresentation _bankPresentation;
         private ExchangeRateToUsdHistoryRepository _exchangeRateToUsdHistoryRepository;
+        private IWebHostEnvironment _hostEnvironment;
 
         public BankController(IBankAccountRepository bankAccountRepository,
             QuestionaryRepository questionaryRepository,
@@ -262,6 +266,24 @@ namespace SpaceWeb.Controllers
             chartViewModel.Datasets.Add(datasetViewModel);
 
             return Json(chartViewModel);
+        }
+
+        public IActionResult DownloadLog(long id)
+        {
+            var webPath = _hostEnvironment.WebRootPath;
+            var path = Path.Combine(webPath, "TempFile", $"{id}.docx");
+
+            var account = _bankAccountRepository.Get(id);
+            using (var doc = DocX.Create(path))
+            {
+                doc.InsertParagraph($"Информация по счёту {account.Type}");
+                doc.InsertParagraph($"Остаток на счёту: {account.Amount}");
+                doc.Save();
+            }
+
+            var contentTypeDocx = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+            var fileName = $"{account.Type}.docx";
+            return PhysicalFile(path, contentTypeDocx, fileName);
         }
     }
 }
