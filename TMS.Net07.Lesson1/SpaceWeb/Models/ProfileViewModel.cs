@@ -14,27 +14,32 @@ namespace SpaceWeb.Models
 {
     public class ProfileViewModel
     {
-        //private CurrencyService _currencyService;
-        //private BankAccountRepository _bankAccountRepository;
-        //private UserService _userService;
+        private Lang _lang;
 
         public ProfileViewModel()
         {
-            //_userService = userService;
-
-            var options = Enum.GetValues(typeof(Lang));
-            LangOptions = new List<SelectListItem>();
-            foreach (var option in options)
-            {
-                var selectListItem = new SelectListItem()
+            LangOptions = Enum
+                .GetValues(typeof(Lang))
+                .Cast<Lang>()
+                .Select(option => new SelectListItem()
                 {
                     Text = option.ToString(),
                     Value = option.ToString()
-                };
-                LangOptions.Add(selectListItem);
-            }
+                }).ToList();
 
-            //AmountOfAllAccounts();
+            // Или так
+            //var options = Enum.GetValues(typeof(Lang));
+            //LangOptions = new List<SelectListItem>();
+
+            //foreach (var option in options)
+            //{
+            //    var selectListItem = new SelectListItem()
+            //    {
+            //        Text = option.ToString(),
+            //        Value = option.ToString()
+            //    };
+            //    LangOptions.Add(selectListItem);
+            //}
         }
 
         [DisplayName("Имя пользователя")]
@@ -65,29 +70,24 @@ namespace SpaceWeb.Models
         public Currency DefaultCurrency { get; set; }
         public Currency RandomCurrency { get; set; }
         public List<Currency> MyCurrencies { get; set; }
-
+        public Lang Lang
+        {
+            get
+            {
+                return _lang;
+            }
+            set
+            {
+                _lang = value;
+                LangOptions.ForEach(x => x.Selected = false);
+                var option = LangOptions.SingleOrDefault(x => x.Value == _lang.ToString());
+                if (option != null)
+                {
+                    option.Selected = true;
+                }
+            }
+        }
         public List<SelectListItem> LangOptions { get; set; }
         public decimal AmountAllMoneyInDefaultCurrency { get; set; }
-
-        //public void AmountOfAllAccounts()
-        //{
-        //    decimal allAmountInUsd = 0;
-
-        //    var user = _userService.GetCurrent();
-        //    var accounts = _bankAccountRepository.GetBankAccounts(user.Id);
-
-        //    foreach (var account in accounts)
-        //    {
-        //        var amount = _currencyService.ConvertByAlex(account.Currency, account.Amount, Currency.USD);
-        //        allAmountInUsd += amount;
-        //    }
-
-        //    decimal amountAllMoneyInDefaultCurrency = 0;
-
-        //    if (DefaultCurrency != 0)
-        //    {
-        //        amountAllMoneyInDefaultCurrency = _currencyService.ConvertByAlex(Currency.USD, allAmountInUsd, DefaultCurrency);
-        //    }
-        //}
     }
 }
