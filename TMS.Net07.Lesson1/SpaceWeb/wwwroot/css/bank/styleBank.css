@@ -160,12 +160,12 @@ a {
 .container {
     /*height: 100vh;*/
     width: 100%;
-    margin: 10px auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    flex: 1;
 }
 
 .rocket {
@@ -375,6 +375,9 @@ a {
 }
 
 .layout-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }
 
 .client-text-centre {
@@ -660,7 +663,7 @@ a:visited {
     color: black;
 }
 
-.account-info-container {
+.account-container {
     height: 500px;
     width: 600px;
     margin: 20px;
@@ -675,7 +678,7 @@ a:visited {
     padding: 10px;
 }
 
-.account-info-container .account-info {
+.account-container .account-info {
     height: 175px;
     width: 300px;
     background-color: rgba(0, 185, 229, 0.7);
@@ -688,14 +691,14 @@ a:visited {
     padding: 10px;
 }
 
-.account-info-container .info {
+.account-container .info {
     font-size: 13pt;
     font-weight: 500;
     color: rgba(250, 250, 250, 0.9);
     margin: 5px;
 }
 
-.account-info-container .button-list {
+.account-container .button-list {
     height: 260px;
     width: 500px;
     margin: 10px;
@@ -705,7 +708,7 @@ a:visited {
     align-items: center;
 }
 
-.account-info-container .button {
+.account-container .button {
     height: 100px;
     width: 140px;
     margin: 10px;
@@ -722,7 +725,7 @@ a:visited {
     border: 1px outset;
 }
 
-.account-info-container .button:hover {
+.account-container .button:hover {
     background-color: rgb(210,210,210);
     font-weight: 600;
     cursor: pointer;
@@ -738,6 +741,7 @@ a:visited {
     justify-content: center;
     align-items: center;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    flex: 1;
 }
 
 .menu.left {
@@ -780,4 +784,61 @@ a:visited {
 
 .menu.left .bank-account-list {
     flex-direction: column;
+}
+
+/*--------Стили для карусели--------*/
+
+.account-changer{
+    width: 520px;
+    height: 220px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.prev-btn, .next-btn{
+    width: 100px;
+    height: 220px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(208, 219, 225, 0.8);
+}
+
+.account-info-container.next, 
+.account-info-container.prev{
+
+}
+
+.account-info-container.temp{
+    width: 0px;
+}
+
+.account-info-container{
+    width: 430px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: rgba(255,255,255,0);
+}
+
+.account-view-window {
+    width: 435px;
+    height: 220px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: hidden;
+}
+
+.account-carousel{
+    display: flex;
+}
+
+.changer-buttons{
+    position: absolute;
+    display: flex;
+    width: 550px;
+    justify-content: space-between;
 }

@@ -46,7 +46,7 @@ namespace SpaceWeb.Controllers
                 var user = _userService.GetCurrent();
                 var dbModel = user.BankAccounts.SingleOrDefault(x => x.Id == id);
                 var viewModel = _mapper.Map<BankAccountViewModel>(dbModel);
-                return View("~/Views/Bank/Account/Index.cshtml", viewModel);
+                return View(viewModel);
             }
             return RedirectToAction("Creation");
         }
@@ -69,7 +69,7 @@ namespace SpaceWeb.Controllers
         [HttpGet]
         public IActionResult Creation()
         {
-            return View("~/Views/Bank/Account/Creation.cshtml");
+            return View();
         }
 
         [HttpPost]
