@@ -278,6 +278,8 @@ namespace SpaceWeb.Controllers
             {
                 doc.InsertParagraph($"Информация по счёту {account.Type}");
                 doc.InsertParagraph($"Остаток на счёту: {account.Amount}");
+                doc.AddTable(3, 4);
+
                 doc.Save();
             }
 

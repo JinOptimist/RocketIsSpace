@@ -10,6 +10,7 @@ using SpaceWeb.Models;
 using SpaceWeb.Service;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -123,5 +124,40 @@ namespace SpaceWeb.Controllers
             return RedirectToAction("Index", new { id });
         }
 
+        public IActionResult DownloadLog(long id)
+        {
+            var webPath = _hostEnvironment.WebRootPath;
+            var path = Path.Combine(webPath, "TempFile", $"{id}.docx");
+
+            var account = _bankAccountRepository.Get(id);
+            using (var doc = DocX.Create(path))
+            {
+                doc.InsertParagraph($"Информация по счёту {account.Type}");
+                doc.InsertParagraph($"Остаток на счёту: {account.Amount}");
+                doc.AddTable(3, 4);
+                var t = doc.InsertTable(3, 5);
+                t.Rows[1].Cells[1].Paragraphs[0].Append("hello").Color(Color.Green);
+                t.Rows[0].Cells[2].Width = 150;
+                //t.Rows[1].Cells[2].Width = 150;
+                //t.Rows[2].Cells[2].Width = 150;
+                t.Rows[1].Cells[2].FillColor = Color.Red;
+
+                Border simpleLine = new Border(BorderStyle.Tcbs_single, BorderSize.one, 0, Color.Black);
+                //t.SetBorder(TableBorderType.InsideV, c);
+                t.SetBorder(TableBorderType.InsideH, simpleLine);
+                t.SetBorder(TableBorderType.InsideV, simpleLine);
+                t.SetBorder(TableBorderType.Bottom, simpleLine);
+                t.SetBorder(TableBorderType.Top, simpleLine);
+                t.SetBorder(TableBorderType.Left, simpleLine);
+                t.SetBorder(TableBorderType.Right, simpleLine);
+                //Table ttt;
+                //ttt.InsertRow(2);
+                doc.Save();
+            }
+
+            var contentTypeDocx = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+            var fileName = $"{account.Type}.docx";
+            return PhysicalFile(path, contentTypeDocx, fileName);
+        }
     }
 }
