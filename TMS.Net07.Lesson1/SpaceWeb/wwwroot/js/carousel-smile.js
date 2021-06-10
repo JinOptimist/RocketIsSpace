@@ -8,6 +8,8 @@
     var currentImageIndex = 0;
     var height = 270;
     var width = 500;
+    var imgIndex = 0;
+    var prevImgIndex = 0;
 
     var animationFunctions = [];
 
@@ -183,7 +185,29 @@
                 });
             }, 3000);
         }
-        
+
+        $('.dot').click(function () {
+            prevImgIndex = $('.active').attr('id');
+            $('.dot').removeClass('active');
+            $(this).addClass('active');
+            imgIndex = $(this).attr('id');
+            picChange(imgIndex, prevImgIndex);
+        })                          
+    }
+
+    function picChange(cur, prev) {
+        if (prev < cur) {
+            var steps = cur - prev;
+            for (var i = 1; i <= steps; i++) {
+                nextBtnClick();
+            }
+        }
+        else {
+            var steps = prev - cur;
+            for (var i = 1; i <= steps; i++) {
+                prevBtnClick();
+            }
+        }   
     }
 
     return {
