@@ -19,6 +19,6 @@
         '.animate-block',
         images,
         {
-            time: 4000
+            time: 2000
         });
 });

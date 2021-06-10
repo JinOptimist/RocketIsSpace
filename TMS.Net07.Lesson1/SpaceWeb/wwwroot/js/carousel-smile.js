@@ -69,6 +69,10 @@
         $(`${selector} .current-image`).animate({
             width: 0
         }, time, 'swing', goInitState);
+
+        $('.dot').removeClass('active');
+        var val = document.getElementById(calcIndex(currentImageIndex) + 1);
+        val.className = "dot active";
     }
 
     function goInitState() {
