@@ -472,3 +472,24 @@ a {
     margin: 15px;
     border-radius: 20px 120px;
 }
+
+
+.carousel-smile {
+    background: rgb(33, 33, 33);
+}
+
+.dot {
+    cursor: pointer;
+    height: 13px;
+    width: 13px;
+    margin: 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+    border: none;
+}
+
+    .active, .dot:hover {
+        background-color: #717171;
+    }
