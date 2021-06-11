@@ -340,30 +340,18 @@ namespace SpaceWeb.Controllers
                     }
                 }
 
-                //var dop = doc.InsertParagraph();
-                //dop.InsertPicture
-
-                
-                //t.Rows[1].Cells[1].Paragraphs[0].Append("hello").Color(Color.Green);
-                //t.Rows[1].Cells[2].Width = 150;
-                //t.Rows[2].Cells[2].Width = 150;
-                //t.Rows[1].Cells[2].FillColor = Color.Red;
-
-                
-                //t.SetBorder(TableBorderType.InsideV, c);
                 table.SetBorder(TableBorderType.InsideH, slimLine);
                 table.SetBorder(TableBorderType.InsideV, slimLine);
                 table.SetBorder(TableBorderType.Bottom, boldLine);
                 table.SetBorder(TableBorderType.Top, boldLine);
                 table.SetBorder(TableBorderType.Left, boldLine);
                 table.SetBorder(TableBorderType.Right, boldLine);
-                //Table ttt;
-                //ttt.InsertRow(2);
+                
                 doc.Save();
             }
 
             var contentTypeDocx = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-            var fileName = $"{user.Id}.docx";
+            var fileName = $"History of exchange rates.docx";
             return PhysicalFile(path, contentTypeDocx, fileName);
         }
     }

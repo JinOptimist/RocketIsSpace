@@ -805,3 +805,31 @@ a:visited {
     height: 270px;
     margin: 15px;
 }
+
+.title-exchange {
+    display: flex;
+    flex-direction: row
+}
+
+.download-exchange-btn {
+    background-color: #8c9aff;
+    border-radius: 5px;
+    font-size: 23pt;
+    padding: 6px 10px;
+    margin-left: 20px;
+    display: flex;
+}
+
+.download-accounts-info {
+    display: flex;
+    align-items: center;
+    font-size: 22pt;
+    font-family: monospace;
+    background-color: #8c9aff;
+    border-radius: 15px;
+    padding: 10px;
+}
+
+.download-acc-info-text {
+    margin-left: 10px;
+}
