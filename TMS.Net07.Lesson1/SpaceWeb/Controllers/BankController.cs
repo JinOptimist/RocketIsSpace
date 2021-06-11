@@ -275,11 +275,21 @@ namespace SpaceWeb.Controllers
             var webPath = _hostEnvironment.WebRootPath;
             var user = _userService.GetCurrent();
             var path = Path.Combine(webPath, "TempFile", $"{user.Id}.docx");
+            var pathImage = Path.Combine(webPath, "image/bank/exchanges.jpg");
             var exchanges = _exchangeRateToUsdHistoryRepository.GetAll();
             var countRows = exchanges.Count;
+            var rawNow = 0;
+            var deviderForSeparatingRaw = 10;
+            Border slimLine = new Border(BorderStyle.Tcbs_single, BorderSize.one, 0, Color.Black);
+            Border boldLine = new Border(BorderStyle.Tcbs_single, BorderSize.seven, 0, Color.Black);
 
             using (var doc = DocX.Create(path))
             {
+                var pic = doc.AddImage(pathImage, "image/png").CreatePicture();
+                pic.Width = 600;
+                pic.Height = 150;
+                doc.InsertParagraph().InsertPicture(pic);
+
                 doc.InsertParagraph("История обменных курсов валют")
                     .Font("Comic Sans MS")
                     .Bold()
@@ -287,35 +297,66 @@ namespace SpaceWeb.Controllers
                     .Alignment = Alignment.center;
                 doc.InsertParagraph("");
 
-                var t = doc.InsertTable(++countRows, 4);
-                var rawNow = 0;
-                t.Rows[rawNow].Cells[0].Paragraphs.First().Append("Currency");
-                t.Rows[rawNow].Cells[1].Paragraphs.First().Append("Type of Exchange");
-                t.Rows[rawNow].Cells[2].Paragraphs.First().Append("Exchange Rate");
-                t.Rows[rawNow].Cells[3].Paragraphs.First().Append("Date");
+                var table = doc.InsertTable(++countRows, 4);
+                
+                table.Rows[rawNow].Cells[0].Paragraphs.First().Append("Currency").Bold().FontSize(14).Italic().Alignment = Alignment.center;
+                table.Rows[rawNow].Cells[1].Paragraphs.First().Append("Type of Exchange").Bold().FontSize(14).Italic().Alignment = Alignment.center;
+                table.Rows[rawNow].Cells[2].Paragraphs.First().Append("Exchange Rate").Bold().FontSize(14).Italic().Alignment = Alignment.center;
+                table.Rows[rawNow].Cells[3].Paragraphs.First().Append("Date").Bold().FontSize(14).Italic().Alignment = Alignment.center;
 
-                foreach (var exchange in exchanges)
+                for (int i = 0; i < 4; i++) // Set a bold border for the first raw in the table
+                {
+                    table.Rows[rawNow].Cells[i].FillColor = Color.OrangeRed;
+                    table.Rows[rawNow].Cells[i].SetBorder(TableCellBorderType.Bottom, boldLine);
+                    table.Rows[rawNow].Cells[i].SetBorder(TableCellBorderType.Left, boldLine);
+                    table.Rows[rawNow].Cells[i].SetBorder(TableCellBorderType.Right, boldLine);
+                }
+
+                foreach (var exchange in exchanges) // Filling the table from DB
                 {
                     rawNow++;
-                    t.Rows[rawNow].Cells[0].Paragraphs.First().Append(exchange.Currency.ToString()).Color(Color.Black);
-                    t.Rows[rawNow].Cells[1].Paragraphs.First().Append(exchange.TypeOfExch.ToString()).Color(Color.Black);
-                    t.Rows[rawNow].Cells[2].Paragraphs.First().Append(exchange.ExchRate.ToString()).Color(Color.Black);
-                    t.Rows[rawNow].Cells[3].Paragraphs.First().Append(exchange.ExchRateDate.ToString()).Color(Color.Black);
+                    table.Rows[rawNow].Cells[0].Paragraphs.First().Append(exchange.Currency.ToString()).FontSize(12).Alignment = Alignment.center;
+                    table.Rows[rawNow].Cells[1].Paragraphs.First().Append(exchange.TypeOfExch.ToString()).FontSize(12).Alignment = Alignment.center;
+                    table.Rows[rawNow].Cells[2].Paragraphs.First().Append(exchange.ExchRate.ToString()).FontSize(12).Alignment = Alignment.center;
+                    table.Rows[rawNow].Cells[3].Paragraphs.First().Append(exchange.ExchRateDate.ToString()).FontSize(12).Alignment = Alignment.center;
+
+                    if (exchange.TypeOfExch == TypeOfExchange.Sell) // Change color for TypeOfExchange.Sell
+                    {
+                        for (int i = 0; i < 4; i++)
+                        {
+                            table.Rows[rawNow].Cells[i].FillColor = Color.LightGray;
+                        }
+                    }
+
+                    if (rawNow % deviderForSeparatingRaw == 0) // Add separating raw for each date in the table
+                    {
+                        var separatingRow = table.InsertRow(rawNow + 1);
+                        for (int i = 0; i < 4; i++)
+                        {
+                            separatingRow.Cells[i].FillColor = Color.Black;
+                        }
+                        rawNow++;
+                        deviderForSeparatingRaw += 11;
+                    }
                 }
+
+                //var dop = doc.InsertParagraph();
+                //dop.InsertPicture
+
                 
                 //t.Rows[1].Cells[1].Paragraphs[0].Append("hello").Color(Color.Green);
                 //t.Rows[1].Cells[2].Width = 150;
                 //t.Rows[2].Cells[2].Width = 150;
                 //t.Rows[1].Cells[2].FillColor = Color.Red;
 
-                Border simpleLine = new Border(BorderStyle.Tcbs_single, BorderSize.one, 0, Color.Black);
+                
                 //t.SetBorder(TableBorderType.InsideV, c);
-                t.SetBorder(TableBorderType.InsideH, simpleLine);
-                t.SetBorder(TableBorderType.InsideV, simpleLine);
-                t.SetBorder(TableBorderType.Bottom, simpleLine);
-                t.SetBorder(TableBorderType.Top, simpleLine);
-                t.SetBorder(TableBorderType.Left, simpleLine);
-                t.SetBorder(TableBorderType.Right, simpleLine);
+                table.SetBorder(TableBorderType.InsideH, slimLine);
+                table.SetBorder(TableBorderType.InsideV, slimLine);
+                table.SetBorder(TableBorderType.Bottom, boldLine);
+                table.SetBorder(TableBorderType.Top, boldLine);
+                table.SetBorder(TableBorderType.Left, boldLine);
+                table.SetBorder(TableBorderType.Right, boldLine);
                 //Table ttt;
                 //ttt.InsertRow(2);
                 doc.Save();
