@@ -1,6 +1,6 @@
 ﻿@using SpaceWeb.Models.Human
 @using SpaceWeb.Extensions
-@{ 
+@{
     Layout = "_LayoutHuman";
     var Status = new List<SelectListItem>();
     Status.Add(new SelectListItem() { Value = ((int)EmployeStatus.Request).ToString(), Text = EmployeStatus.Request.GetDisplayableName() });
@@ -22,42 +22,58 @@
 
 }
 
-@model List<RequestViewModel>
+@*@model List<RequestViewModel>*@
+@model PersonnelViewModel
 
-<div class="requests-list">
-    <form action="/Human/PersonnelSubmit" method="post">
-        @for (var i = 0; i < Model.Count; i++)
-        {
-            <div class="request">
-                <div class="request-info">
-                    @Html.HiddenFor(x => x[i].Id)
-                    @Html.HiddenFor(x => x[i].ForeignKeyUser)
-                    <div class="element-request">
-                        @Html.DisplayTextFor(x => x[i].Name)
-                    </div>
-                    <div class="element-request">
-                        @Html.DisplayTextFor(x => x[i].Surname)
-                    </div>
-                    <div class="element-request">
-                        @Html.TextBoxFor(x => x[i].SalaryPerHour)
-                    </div>
-                </div>
-                <div class="request-position">
-                    <div class="element-request">
-                        @Html.DropDownListFor(x => x[i].Position, Positions)
-                    </div>
-                    <div class="element-request">
-                        @Html.DropDownListFor(x => x[i].EmployeStatus, Status)
-                    </div>
-                </div>
+<div>
+    <div>
+        <div>
+            @Html.DisplayTextFor(x => x.Department.DepartmentName)
+        </div>
+        <div>
+            @Html.DisplayTextFor(x => x.Department.DepartmentSpecificationType)
+        </div>
+        <div>
+            @Html.DisplayTextFor(x => x.Department.Employes.Count)
+        </div>
+    </div>
 
-            </div>
-        }
-        @if (Model.Count != 0)
-        {
-            <div class="accept-button">
-                <input type="submit" name="accept" value="accept"/>
-            </div>
-        }
-    </form>
+
+    <div class="requests-list">
+        <form action="/Human/PersonnelSubmit" method="post">
+            @for (var i = 0; i < Model.RequestsToEmploy.Count; i++)
+            {
+                <div class="request">
+                    <div class="request-info">
+                        @Html.HiddenFor(x => x.RequestsToEmploy[i].Id)
+                        @Html.HiddenFor(x => x.RequestsToEmploy[i].ForeignKeyUser)
+                        <div class="element-request">
+                            @Html.DisplayTextFor(x => x.RequestsToEmploy[i].Name)
+                        </div>
+                        <div class="element-request">
+                            @Html.DisplayTextFor(x => x.RequestsToEmploy[i].Surname)
+                        </div>
+                        <div class="element-request">
+                            @Html.TextBoxFor(x => x.RequestsToEmploy[i].SalaryPerHour)
+                        </div>
+                    </div>
+                    <div class="request-position">
+                        <div class="element-request">
+                            @Html.DropDownListFor(x => x.RequestsToEmploy[i].Position, Positions)
+                        </div>
+                        <div class="element-request">
+                            @Html.DropDownListFor(x => x.RequestsToEmploy[i].EmployeStatus, Status)
+                        </div>
+                    </div>
+
+                </div>
+            }
+            @if (Model.RequestsToEmploy.Count != 0)
+            {
+                <div class="accept-button">
+                    <input type="submit" name="accept" value="accept" />
+                </div>
+            }
+        </form>
+    </div>
 </div>

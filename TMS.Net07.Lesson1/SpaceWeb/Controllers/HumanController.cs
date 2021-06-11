@@ -114,9 +114,9 @@ namespace SpaceWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult PersonnelSubmit(List<RequestViewModel> requestViewModels)
+        public IActionResult PersonnelSubmit(PersonnelViewModel personnelViewModel)
         {
-            _humanPresentation.SavePersonnelChanges(requestViewModels);
+            _humanPresentation.SavePersonnelChanges(personnelViewModel.RequestsToEmploy);
             return RedirectToAction("Personnel");
         }
 

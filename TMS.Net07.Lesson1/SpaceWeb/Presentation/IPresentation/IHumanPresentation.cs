@@ -11,7 +11,7 @@ namespace SpaceWeb.Presentation
         List<DepartmentViewModel> GetViewModelForAllDepartments();
         DepartmentViewModel GetViewModelForDepartment(long id);
         void Remove(List<long> userIds);
-        List<RequestViewModel> GetPersonnelViewModel();
+        PersonnelViewModel GetPersonnelViewModel();
         void SavePersonnelChanges(List<RequestViewModel> requestViewModels);
         void SaveRequestEmploye(RequestViewModel requestViewModel);
         void SaveDepartmentsToDocX(string path);

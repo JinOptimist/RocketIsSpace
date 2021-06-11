@@ -60,14 +60,25 @@ namespace SpaceWeb.Presentation
             _userRepository.Remove(userIds);
         }
 
-        public List<RequestViewModel> GetPersonnelViewModel()
+        public PersonnelViewModel GetPersonnelViewModel()
         {
-            List<RequestViewModel> viewModel = new List<RequestViewModel>();
-            viewModel =
-                _employeRepository.GetRequestsToEmploy(_userService.GetCurrent().Employe.Department)
+            PersonnelViewModel personnelViewModel = new PersonnelViewModel();
+            var currentDepartmentId = _userService.GetCurrent().Employe.Department.Id;
+            personnelViewModel.Department = 
+                _mapper.Map<DepartmentViewModel>(
+                    _departmentRepository
+                    .Get(currentDepartmentId));
+
+            personnelViewModel.Department.Employes =
+                _employeRepository.GetEmployesByDepartment(currentDepartmentId)
+                .Select(x => _mapper.Map<ShortEmployeViewModel>(x))
+                .ToList();
+
+            personnelViewModel.RequestsToEmploy =
+                _employeRepository.GetRequestsToEmploy(currentDepartmentId)
                 .Select(x => _mapper.Map<RequestViewModel>(x.User))
                 .ToList();
-            return viewModel;
+            return personnelViewModel;
         }
 
         public void SavePersonnelChanges(List<RequestViewModel> requestViewModels)
