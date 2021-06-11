@@ -42,7 +42,8 @@ namespace SpaceWeb.Controllers
             IMapper mapper, UserService userService,
             BanksCardRepository banksCardRepository,
             BankPresentation bankPresentation,
-            ExchangeRateToUsdHistoryRepository exchangeRateToUsdHistoryRepository)
+            ExchangeRateToUsdHistoryRepository exchangeRateToUsdHistoryRepository,
+            IWebHostEnvironment hostEnvironment)
         {
             _bankAccountRepository = bankAccountRepository;
             _questionaryRepository = questionaryRepository;
@@ -52,6 +53,7 @@ namespace SpaceWeb.Controllers
             _banksCardRepository = banksCardRepository;
             _bankPresentation = bankPresentation;
             _exchangeRateToUsdHistoryRepository = exchangeRateToUsdHistoryRepository;
+            _hostEnvironment = hostEnvironment;
         }
         public IActionResult Index()
         {
@@ -158,7 +160,7 @@ namespace SpaceWeb.Controllers
                 .Select(x => x.ExchRateDate.ToString())
                 .Distinct()
                 .ToList();
-                        
+
             var datasetBynBuy = new DatasetViewModel()
             {
                 Label = "BYN покупка",
@@ -268,23 +270,59 @@ namespace SpaceWeb.Controllers
             return Json(chartViewModel);
         }
 
-        public IActionResult DownloadLog(long id)
+        public IActionResult DownloadExchangesHistory()
         {
             var webPath = _hostEnvironment.WebRootPath;
-            var path = Path.Combine(webPath, "TempFile", $"{id}.docx");
+            var user = _userService.GetCurrent();
+            var path = Path.Combine(webPath, "TempFile", $"{user.Id}.docx");
+            var exchanges = _exchangeRateToUsdHistoryRepository.GetAll();
+            var countRows = exchanges.Count;
 
-            var account = _bankAccountRepository.Get(id);
             using (var doc = DocX.Create(path))
             {
-                doc.InsertParagraph($"Информация по счёту {account.Type}");
-                doc.InsertParagraph($"Остаток на счёту: {account.Amount}");
-                doc.AddTable(3, 4);
+                doc.InsertParagraph("История обменных курсов валют")
+                    .Font("Comic Sans MS")
+                    .Bold()
+                    .FontSize(25)
+                    .Alignment = Alignment.center;
+                doc.InsertParagraph("");
 
+                var t = doc.InsertTable(++countRows, 4);
+                var rawNow = 0;
+                t.Rows[rawNow].Cells[0].Paragraphs.First().Append("Currency");
+                t.Rows[rawNow].Cells[1].Paragraphs.First().Append("Type of Exchange");
+                t.Rows[rawNow].Cells[2].Paragraphs.First().Append("Exchange Rate");
+                t.Rows[rawNow].Cells[3].Paragraphs.First().Append("Date");
+
+                foreach (var exchange in exchanges)
+                {
+                    rawNow++;
+                    t.Rows[rawNow].Cells[0].Paragraphs.First().Append(exchange.Currency.ToString()).Color(Color.Black);
+                    t.Rows[rawNow].Cells[1].Paragraphs.First().Append(exchange.TypeOfExch.ToString()).Color(Color.Black);
+                    t.Rows[rawNow].Cells[2].Paragraphs.First().Append(exchange.ExchRate.ToString()).Color(Color.Black);
+                    t.Rows[rawNow].Cells[3].Paragraphs.First().Append(exchange.ExchRateDate.ToString()).Color(Color.Black);
+                }
+                
+                //t.Rows[1].Cells[1].Paragraphs[0].Append("hello").Color(Color.Green);
+                //t.Rows[1].Cells[2].Width = 150;
+                //t.Rows[2].Cells[2].Width = 150;
+                //t.Rows[1].Cells[2].FillColor = Color.Red;
+
+                Border simpleLine = new Border(BorderStyle.Tcbs_single, BorderSize.one, 0, Color.Black);
+                //t.SetBorder(TableBorderType.InsideV, c);
+                t.SetBorder(TableBorderType.InsideH, simpleLine);
+                t.SetBorder(TableBorderType.InsideV, simpleLine);
+                t.SetBorder(TableBorderType.Bottom, simpleLine);
+                t.SetBorder(TableBorderType.Top, simpleLine);
+                t.SetBorder(TableBorderType.Left, simpleLine);
+                t.SetBorder(TableBorderType.Right, simpleLine);
+                //Table ttt;
+                //ttt.InsertRow(2);
                 doc.Save();
             }
 
             var contentTypeDocx = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-            var fileName = $"{account.Type}.docx";
+            var fileName = $"{user.Id}.docx";
             return PhysicalFile(path, contentTypeDocx, fileName);
         }
     }

@@ -132,12 +132,18 @@ namespace SpaceWeb.Controllers
             var account = _bankAccountRepository.Get(id);
             using (var doc = DocX.Create(path))
             {
-                doc.InsertParagraph($"Информация по счёту {account.Type}");
-                doc.InsertParagraph($"Остаток на счёту: {account.Amount}");
-                doc.AddTable(3, 4);
+                //doc.InsertParagraph($"Информация по счёту {account.Type}");
+                //doc.InsertParagraph($"Остаток на счёту: {account.Amount}");
+
+                doc.InsertParagraph("История обменных курсов валют")
+                    .Font("Comic Sans MS")
+                    .Bold()
+                    .FontSize(25)
+                    .Alignment = Alignment.center;
+                doc.InsertParagraph("");
+
                 var t = doc.InsertTable(3, 5);
                 t.Rows[1].Cells[1].Paragraphs[0].Append("hello").Color(Color.Green);
-                t.Rows[0].Cells[2].Width = 150;
                 //t.Rows[1].Cells[2].Width = 150;
                 //t.Rows[2].Cells[2].Width = 150;
                 t.Rows[1].Cells[2].FillColor = Color.Red;
