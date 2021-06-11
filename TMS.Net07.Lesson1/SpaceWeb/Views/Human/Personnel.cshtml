@@ -25,16 +25,24 @@
 @*@model List<RequestViewModel>*@
 @model PersonnelViewModel
 
-<div>
-    <div>
-        <div>
-            @Html.DisplayTextFor(x => x.Department.DepartmentName)
+<div class="personnel">
+    <div class="salary-block">
+        <div class="human-department-info">
+            <div>
+                @Html.DisplayTextFor(x => x.Department.DepartmentName)
+            </div>
+            <div>
+                @Html.DisplayTextFor(x => x.Department.DepartmentSpecificationType)
+            </div>
+            <div>
+                @Html.DisplayTextFor(x => x.Department.Employes.Count)
+            </div>
         </div>
-        <div>
-            @Html.DisplayTextFor(x => x.Department.DepartmentSpecificationType)
-        </div>
-        <div>
-            @Html.DisplayTextFor(x => x.Department.Employes.Count)
+        <div class="employes-list">
+            @foreach(var employe in Model.Department.Employes)
+            {
+                <partial name="ShortEmploye" model="employe"/>
+            }
         </div>
     </div>
 

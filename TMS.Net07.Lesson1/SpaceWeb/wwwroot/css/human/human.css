@@ -98,6 +98,7 @@
 
 .requests-list {
     display: flex;
+    flex:1;
     justify-content: center;
 }
 
@@ -139,4 +140,13 @@
     background-color: white;
     border-radius: 3px;
     padding: 20px;
+}
+
+.salary-block {
+    flex: 1;
+}
+
+.personnel {
+    display: flex;
+    flex-direction: row;
 }
