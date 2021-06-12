@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using SpaceWeb.Service
+@inject UserService userService
+@using SpaceWeb.Localization
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="windows-1251" />
@@ -39,28 +43,29 @@
             </div>
             <div class="header-empty-space"></div>
             <div class="buttonList">
-                <div class="about button">O нас</div>
-                <a href="/Bank/Contacts" class="contacts button">
-                    <div >Контакты</div>
+                
+            <div class="about button">O нас</div>
+            <a href="/Bank/Contacts" class="contacts button">
+                <div>Контакты</div>
+            </a>
+            <a href="/Bank/Cabinet" class="cabinet button">
+                <div>Личный кабинет</div>
+                <img class="login-icon" src="../image/icon/account_bank.svg" />
+            </a>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a href="/User/Logout" class="login button">
+                    <div>Выход</div>
+                    <img class="login-icon" src="../image/icon/login-24px.svg" />
                 </a>
-                <a href="/Bank/Cabinet" class="cabinet button">
-                    <div>Личный кабинет</div>
-                    <img class="login-icon" src="../image/icon/account_bank.svg" />
+            }
+            else
+            {
+                <a href="/User/Login" class="login button">
+                    <div>Выход</div>
+                    <img class="login-icon" src="../image/icon/login-24px.svg" />
                 </a>
-                @if (User.Identity.IsAuthenticated)
-                 {
-                    <a href="/User/Logout" class="login button">
-                        <div>Выход</div>
-                        <img class="login-icon" src="../image/icon/login-24px.svg" />
-                    </a>
-                 }
-                else
-                {
-                    <a href="/User/Login" class="login button">
-                        <div>Выход</div>
-                        <img class="login-icon" src="../image/icon/login-24px.svg" />
-                    </a>
-                }
+            }
             </div>
         </div>
 

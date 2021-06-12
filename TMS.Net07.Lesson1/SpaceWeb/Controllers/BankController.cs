@@ -17,9 +17,11 @@ using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Models.Chart;
 using System.Collections.Generic;
 using SpaceWeb.Presentation;
+using System.Globalization;
 
 namespace SpaceWeb.Controllers
 {
+    [Localize]
     public class BankController : Controller
     {
         private IBankAccountRepository _bankAccountRepository;
@@ -51,11 +53,16 @@ namespace SpaceWeb.Controllers
             _bankPresentation = bankPresentation;
             _exchangeRateToUsdHistoryRepository = exchangeRateToUsdHistoryRepository;
         }
-        public IActionResult Index()
+        public IActionResult Index(string language)
         {
-            var input = new RegistrationViewModel();
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(language);
+            Thread.CurrentThread.CurrentCulture = new CultureInfo(language);
+            
+            //var culture = CultureInfo.DefaultThreadCurrentCulture;
+            //var fixCulture = new CultureInfo("en-US");
 
-            return View(input);
+            //CultureInfo.DefaultThreadCurrentUICulture = fixCulture;
+            return View();
         }
 
         [HttpGet]

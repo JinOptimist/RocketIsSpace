@@ -61,8 +61,6 @@ namespace SpaceWeb.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Вопрос ответ.
-        ///   Ищет локализованную строку, похожую на Имя.
         ///   Looks up a localized string similar to Имя.
         /// </summary>
         public static string AllDepartments_Name {
@@ -95,6 +93,60 @@ namespace SpaceWeb.Localization {
         public static string AllDepartments_Surname {
             get {
                 return ResourceManager.GetString("AllDepartments_Surname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Карты банков.
+        /// </summary>
+        public static string Banks_Card {
+            get {
+                return ResourceManager.GetString("Banks_Card", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to СОЗДАНИЕ КАРТЫ.
+        /// </summary>
+        public static string Banks_CreatCard {
+            get {
+                return ResourceManager.GetString("Banks_CreatCard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Моцная картаy.
+        /// </summary>
+        public static string Banks_MocCard {
+            get {
+                return ResourceManager.GetString("Banks_MocCard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Карта покупо.
+        /// </summary>
+        public static string Banks_ShoppCard {
+            get {
+                return ResourceManager.GetString("Banks_ShoppCard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Перевод.
+        /// </summary>
+        public static string Banks_Transfer {
+            get {
+                return ResourceManager.GetString("Banks_Transfer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Х карта.
+        /// </summary>
+        public static string Banks_XCard {
+            get {
+                return ResourceManager.GetString("Banks_XCard", resourceCulture);
             }
         }
         
@@ -257,6 +309,24 @@ namespace SpaceWeb.Localization {
         public static string Layout_Registration {
             get {
                 return ResourceManager.GetString("Layout_Registration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Банк.
+        /// </summary>
+        public static string LayoutBank_logoNameBank {
+            get {
+                return ResourceManager.GetString("LayoutBank_logoNameBank", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Рокеты.
+        /// </summary>
+        public static string LayoutBank_logoNameRocket {
+            get {
+                return ResourceManager.GetString("LayoutBank_logoNameRocket", resourceCulture);
             }
         }
         
