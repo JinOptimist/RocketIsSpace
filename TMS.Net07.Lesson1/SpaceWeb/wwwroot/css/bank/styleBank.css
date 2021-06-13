@@ -26,6 +26,7 @@ a {
 
 .header {
     z-index: 10;
+    position: fixed;
     height: 60px;
     width: 100%;
     background-color: rgba(201, 201, 201, 1);

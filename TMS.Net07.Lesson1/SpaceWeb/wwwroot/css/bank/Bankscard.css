@@ -1,19 +1,17 @@
-body {
+/*body {
     background: url(../../image/FactoryImages/spacefactory.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-}
+}*/
 
-.pre-header {
+.wrapper-bank-cards {
     display: flex;
-    justify-content: flex-end;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
 }
 
-
-
-.header {
+.title {
     height: 100px;
     width: 100%;
     display: flex;
@@ -90,4 +88,7 @@ body {
     text-decoration: none;
 }
 
-
+.currency-exchanger {
+    display: flex;
+    flex-direction: column;
+}
