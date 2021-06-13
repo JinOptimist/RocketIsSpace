@@ -55,9 +55,9 @@ namespace SpaceWeb.Controllers
         }
         public IActionResult Index(string language)
         {
-            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(language);
-            Thread.CurrentThread.CurrentCulture = new CultureInfo(language);
-            
+            //Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(language);
+            //Thread.CurrentThread.CurrentCulture = new CultureInfo(language);
+
             //var culture = CultureInfo.DefaultThreadCurrentCulture;
             //var fixCulture = new CultureInfo("en-US");
 
@@ -95,7 +95,7 @@ namespace SpaceWeb.Controllers
             return View(model);
         }
         public IActionResult BanksCard()
-        
+
         {
             var userBanksCard = _userService.GetCurrent();
             var modelNew = userBanksCard.BanksCards.Select(dbModel =>
@@ -111,13 +111,13 @@ namespace SpaceWeb.Controllers
             var allCurrency = new List<Currency>() { Currency.BYN, Currency.USD };
 
             var chartViewModel = new ChartViewModel();
-            chartViewModel.Labels = allCurrency.Select(x=>x.ToString()).ToList();
+            chartViewModel.Labels = allCurrency.Select(x => x.ToString()).ToList();
             var datasetViewModel = new DatasetViewModel()
             {
                 Label = "Валюты"
             };
             datasetViewModel.Data =
-                allCurrency.Select(валютаОдна => 
+                allCurrency.Select(валютаОдна =>
                     _currencyService.ConvertAmount(валютаОдна)
                     )
                 .ToList();
@@ -249,7 +249,7 @@ namespace SpaceWeb.Controllers
         {
             var profileDateOutput = _questionaryRepository
                 .GetAll()
-               // .Select(dbModel => _mapper.Map<UserProfileViewModel>(dbModel))
+                // .Select(dbModel => _mapper.Map<UserProfileViewModel>(dbModel))
                 .Select(dbModel => _mapper.Map<QuestionaryViewModel>(dbModel))
                 .ToList();
 
@@ -273,7 +273,7 @@ namespace SpaceWeb.Controllers
                 .Select(x => x.ExchRateDate.ToString())
                 .Distinct()
                 .ToList();
-                        
+
             var datasetBynBuy = new DatasetViewModel()
             {
                 Label = "BYN покупка",
