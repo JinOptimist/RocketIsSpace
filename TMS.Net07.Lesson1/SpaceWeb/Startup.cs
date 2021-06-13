@@ -29,6 +29,10 @@ using System.Reflection;
 using SpaceWeb.Migrations;
 using Microsoft.Extensions.Logging;
 using AdvImage = SpaceWeb.EfStuff.Model.AdvImage;
+using Microsoft.AspNetCore.Mvc.Razor;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.Extensions.Options;
 
 namespace SpaceWeb
 {
@@ -45,6 +49,23 @@ namespace SpaceWeb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddLocalization(opt => opt.ResourcesPath = "Resurses" );
+            services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix).AddDataAnnotationsLocalization();
+
+            services.Configure<RequestLocalizationOptions>(
+                opt =>
+                {
+                    var supportedCulteres = new List<CultureInfo>
+                    {
+                        new CultureInfo("en"),
+                        new CultureInfo("ru")
+                    };
+                    opt.DefaultRequestCulture = new RequestCulture("en");
+                    opt.SupportedCultures = supportedCulteres;
+                    opt.SupportedUICultures = supportedCulteres;
+                });
+            services.AddControllersWithViews();
+
             var connectionString = Configuration.GetValue<string>("connectionString");
             services.AddDbContext<SpaceDbContext>(x => x.UseSqlServer(connectionString));
 
@@ -350,6 +371,14 @@ namespace SpaceWeb
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            app.UseRequestLocalization(app.ApplicationServices.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
+           /* var suportedCultres = new[] { "en", "ru" };
+            var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(suportedCultres[0])
+                .AddSupportedCultures(suportedCultres)
+                .AddSupportedUICultures(suportedCultres);
+
+            app.UseRequestLocalization(localizationOptions);*/
         }
     }
 }

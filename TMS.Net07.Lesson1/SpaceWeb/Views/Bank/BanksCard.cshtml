@@ -1,4 +1,5 @@
-﻿@model List<BanksCardViewModel>
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@model List<BanksCardViewModel>
 @using SpaceWeb.Models
 @using SpaceWeb.Localization
 
@@ -12,7 +13,7 @@
 }
 }
 <div class="pre-header"></div>
-<div class="header">@Resource.Banks_Card</div>
+<div class="header">@localizer["BankCards"]</div>
 <div class="search">
     <div class="search-field icon-Factory search-icon">
         <input type="search" placeholder="Search">

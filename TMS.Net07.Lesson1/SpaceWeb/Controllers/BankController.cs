@@ -18,10 +18,11 @@ using SpaceWeb.Models.Chart;
 using System.Collections.Generic;
 using SpaceWeb.Presentation;
 using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 namespace SpaceWeb.Controllers
 {
-    [Localize]
+    //[Localize]
     public class BankController : Controller
     {
         private IBankAccountRepository _bankAccountRepository;
@@ -55,8 +56,8 @@ namespace SpaceWeb.Controllers
         }
         public IActionResult Index(string language)
         {
-            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(language);
-            Thread.CurrentThread.CurrentCulture = new CultureInfo(language);
+            //Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(language);
+           // Thread.CurrentThread.CurrentCulture = new CultureInfo(language);
             
             //var culture = CultureInfo.DefaultThreadCurrentCulture;
             //var fixCulture = new CultureInfo("en-US");
@@ -82,6 +83,17 @@ namespace SpaceWeb.Controllers
 
             model.Bio = model.UserName + model.Password;
             return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult CultureManagement(string culture, string returnIUrl)
+        {
+            Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName,
+                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+                new Microsoft.AspNetCore.Http.CookieOptions { Expires = DateTimeOffset.Now.AddDays(30) });
+
+            return LocalRedirect(returnIUrl);
+
         }
 
         public IActionResult Home()
