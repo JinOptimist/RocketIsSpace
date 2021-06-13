@@ -6,7 +6,7 @@
 @using SpaceWeb.Service
 @inject UserService userService
 @section Style{
-    <link rel="stylesheet" href="~/css/bank/banks/Bankscard.css?v=1">
+    <link rel="stylesheet" href="~/css/bank/banks/Bankscard.css?v=4">
 }
 }
 <div class="pre-header"></div>
@@ -19,21 +19,53 @@
 </div>
 
 <div class="center-block">
-    <a href="~/Bank/BanksCard" class="link">
-        <div class="card-mocn">
-            <span class="text">@Resource.Banks_MocCard</span>
-        </div>
-    </a>
-    <a href="~/Bank/AddBanksCard" class="link">
-        <div class="card-shopp">
-            <div class="text">@Resource.Banks_ShoppCard</div>
-        </div>
-    </a>
-    <a href="~/Bank/BanksCard" class="link">
-        <div class="card-x">
-            <div class="text">@Resource.Banks_XCard</div>
-        </div>
-    </a>
+    <div class="cards">
+        </div><ul class="cards_row">
+            <li class="cards_row-cell">
+                <div class="card-mocn">
+                    <div class="card-moc_container">
+                        <a href="~/Bank/BanksCard" class="link">
+                        </a>
+                        <div class="card-moc_container">
+                            <h3 class="card-moc_titel">
+                                <a href="~/Bank/BanksCard">@Resource.Banks_MocCard</a>
+                            </h3>
+                            <p class="card-moc_text">Топ карты, Цифровые, Для шопинга</p>
+                            <div class="card-moc_image">
+                                <div class="card-moc_image_contaner"></div>
+                            </div>
+                            <div class="card-moc_list">
+                                <ul>
+                                    <li>
+                                        ::before
+                                        "5% возврат на покупку в Каталоге "
+                                    </li>
+                                    <li>
+                                        ::before
+                                        "1% возврат на любые покупку вне Каталоге "
+                                    </li>
+                                    <li>
+                                        ::before
+                                        "Мгновенное и бесплатное оформление "
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="card-moc_cta">
+                                <div class="card-moc_cta-item">
+                                    <a href="~/Bank/CardAdd" class="btn">Оформить</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </li>
+
+        </ul>
+
+
+    </div>
+    
 
 </div>
 <div class="account-creation-container">

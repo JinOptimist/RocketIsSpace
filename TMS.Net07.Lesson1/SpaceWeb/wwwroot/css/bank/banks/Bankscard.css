@@ -24,6 +24,7 @@ body {
     font-family: Calibri, serif;
     color: black;
 }
+
 .search {
     height: 60px;
     display: flex;
@@ -44,27 +45,28 @@ body {
         }
 
 
+
+
 .center-block {
+    width:100%;
+    height: 100vh;
+    background:url("'../../../image/Soyuz 1.jpg') center no-repeat;
+    
+}
+.cards {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
     justify-content: space-between;
-    height: 80%;
+}
+.cards_row{
+    width:24%;
+   
 }
 
-    .center-block a div {
-        text-align: center;
-        text-shadow: -1px 0 whitesmoke, 0 1px whitesmoke, 1px 0 whitesmoke, 0 -1px whitesmoke;
-        font-family: Calibri, serif;
-        color: rgb(20, 149, 209);
-        font-size: 60px;
-        height: 200px;
-        width: 350px;
-        border-radius: 9px;
-    }
 
-.card-mocn:hover {
+
+
+
+.card-moc_image:hover {
     transition: all .3s ease;
     background: url("../../../image/bank/card-mocn.jpg");
     opacity: 1;
@@ -88,6 +90,25 @@ body {
 
 .center-block .link {
     text-decoration: none;
+}
+.btn{
+    display:inline-block;
+    vertical-align:top;
+    padding:8px 30px;
+
+    border:3px solid #00ffff;
+    font-size:14px;
+    font-weight:700;
+    color:#fff;
+    text-transform:uppercase;
+    text-decoration:none;
+
+    transition: background .1s linear, color .1s linear;
+     
+}
+.btn:hover{
+    background-color:#fff;
+    color:#333;
 }
 
 
