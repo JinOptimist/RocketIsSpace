@@ -132,7 +132,7 @@ namespace SpaceWeb.Controllers
             var pathIntroImage = Path.Combine(webPath, "image/bank/bank_cards.png");
             var pathLineImage = Path.Combine(webPath, "image/separatingLine.png");
             var countRows = 6;
-            var accounts = _bankAccountRepository.GetAll();
+            var accounts = _bankAccountRepository.GetAll().Where(x => x.Owner.Id == user.Id).ToList();
             var accountsNumber = 1;
             var colorNow = 0;
             Border slimLine = new Border(BorderStyle.Tcbs_single, BorderSize.one, 0, Color.Black);

@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using SpaceWeb.Service
+@inject UserService userService
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="windows-1251" />
@@ -40,14 +43,16 @@
             <div class="header-empty-space"></div>
             <div class="buttonList">
                 <div class="about button">O нас</div>
-                <a href="/Bank/DownloadExchangesHistory" class="contacts button">
-                @*<a href="/Bank/Contacts" class="contacts button">*@
+                <a href="/Bank/Contacts" class="contacts button">
                     <div>Контакты</div>
                 </a>
-                <a href="/Bank/Cabinet" class="cabinet button">
-                    <div>Личный кабинет</div>
-                    <img class="login-icon" src="../image/icon/account_bank.svg" />
-                </a>
+                @if (User.Identity.IsAuthenticated && userService.IsBankClientOrHigher())
+                {
+                    <a href="/Bank/Cabinet" class="cabinet button">
+                        <div>Личный кабинет</div>
+                        <img class="login-icon" src="../image/icon/account_bank.svg" />
+                    </a>
+                }
                 @if (User.Identity.IsAuthenticated)
                 {
                     <a href="/User/Logout" class="login button">
