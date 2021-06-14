@@ -8,6 +8,6 @@ namespace SpaceWeb.EfStuff.Repositories.IRepository
 {
     public interface IOrderRepository:IBaseRepository<Order>
     {
-        
+        Order GetByName(string name);
     }
 }

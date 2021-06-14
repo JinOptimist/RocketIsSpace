@@ -6,10 +6,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+using System.Globalization;
 using System.Net;
 using System.IO;
 using System.Text.Json;
-using System.Globalization;
 using AutoMapper;
 
 namespace SpaceWeb.Service
@@ -20,7 +21,8 @@ namespace SpaceWeb.Service
         private ExchangeRateToUsdCurrentRepository _exchangeRateToUsdCurrentRepository;
         private ExchangeAccountHistoryRepository _exchangeAccountHistoryRepository;
         private ExchangeRateToUsdHistoryRepository _exchangeRateToUsdHistoryRepository;
-        private Mapper _mapper;
+        private IMapper _mapper;
+    
 
         public CurrencyService(UserService userService,
             ExchangeRateToUsdCurrentRepository exchangeRateToUsdCurrentRepository,
@@ -35,6 +37,46 @@ namespace SpaceWeb.Service
             _mapper = mapper;
         }
 
+
+        public const string DolarCode = "145";
+        public decimal ConvertAmount( Currency currency)
+        {
+            WebClient client = new WebClient();
+            string url = "https://www.nbrb.by/services/xmlexrates.aspx";
+            var xml = client.DownloadString(url);
+            XDocument xdoc = XDocument.Parse(xml);
+            var allCurrencyInfo = xdoc.Element("DailyExRates").Elements("Currency");
+
+            switch (currency)
+            {
+                case Currency.USD:
+                    return Convert.ToDecimal(allCurrencyInfo
+                        .Where(x => x.Attribute("Id").Value == DolarCode)
+                        .Select(x => x.Element("Rate").Value)
+                        .FirstOrDefault(), CultureInfo.InvariantCulture);
+                case Currency.EUR:
+                    return Convert.ToDecimal(allCurrencyInfo
+                        .Where(x => x.Attribute("Id").Value == "292")
+                        .Select(x => x.Element("Rate").Value)
+                        .FirstOrDefault(), CultureInfo.InvariantCulture);
+                default:
+                    throw new Exception("Не верная валюта");
+            }
+        }
+       
+        public decimal GetExchangeRate(Currency currencyFrom, decimal amount, Currency currencyTo)
+        {
+            //Convert Euro to Euro
+            if (currencyFrom == currencyTo)
+                return amount;
+            var toRate = ConvertAmount(currencyTo);
+            var fromRate = ConvertAmount(currencyFrom);
+
+            return ((amount * toRate) / fromRate);
+        }
+        
+
+       
         public decimal ConvertByAlex(decimal amount, Currency currencyTo)
         {
             var user = _userService.GetCurrent();
@@ -263,7 +305,8 @@ namespace SpaceWeb.Service
             return Math.Round(amountAllMoneyInDefaultCurrency, 2);
         }
     }
-
+    
+}
     public class GottenCurrency
     {
         public string USD_in { get; set; }
@@ -275,6 +318,4 @@ namespace SpaceWeb.Service
         public string PLN_in { get; set; }
         public string PLN_out { get; set; }
     }
-}
-
 

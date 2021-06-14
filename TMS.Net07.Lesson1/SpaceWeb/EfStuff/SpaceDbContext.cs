@@ -19,6 +19,8 @@ namespace SpaceWeb.EfStuff
         public DbSet<Questionary> Questionaries { get; set; }
         public DbSet<BankAccount> BankAccount { get; set; }
         public DbSet<BanksCard> BanksCard { get; set; }
+        public DbSet<Transaction> Transaction { get; set; }
+
         public DbSet<AdvImage> AdvImages { get; set; }
         public DbSet<FactoryHistory> FactoryHistories { get; set; }
         public DbSet<Comfort> ComfortsExample { get; set; }
@@ -109,7 +111,15 @@ namespace SpaceWeb.EfStuff
             modelBuilder.Entity<Order>()
                 .HasMany(x => x.Rockets)
                 .WithMany(x => x.OrderedBy);
-            
+
+            modelBuilder.Entity<Transaction>()
+                .HasOne(x => x.BanksCardFrom)
+                .WithMany(x => x.TransactionsFrom);
+
+            modelBuilder.Entity<Transaction>()
+                .HasOne(x => x.BanksCardTo)
+                .WithMany(x => x.TransactionsTo);
+
 
             base.OnModelCreating(modelBuilder);
         }

@@ -7,9 +7,10 @@ using Questionary = SpaceWeb.EfStuff.Model.Questionary;
 using SpaceWeb.Service;
 using Microsoft.AspNetCore.Authorization;
 using SpaceWeb.EfStuff.Repositories.IRepository;
-using SpaceWeb.Presentation;
 using SpaceWeb.Models.Chart;
 using System.Collections.Generic;
+using SpaceWeb.Presentation;
+using System.Globalization;
 using System.Drawing;
 using System.IO;
 using Novacode;
@@ -17,6 +18,7 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace SpaceWeb.Controllers
 {
+    [Localize]
     public class BankController : Controller
     {
         private IBankAccountRepository _bankAccountRepository;
@@ -25,6 +27,7 @@ namespace SpaceWeb.Controllers
         private IUserRepository _userRepository;
         private BanksCardRepository _banksCardRepository;
         private UserService _userService;
+        private ICurrencyService _currencyService;
         private BankPresentation _bankPresentation;
         private ExchangeRateToUsdHistoryRepository _exchangeRateToUsdHistoryRepository;
         private IWebHostEnvironment _hostEnvironment;
@@ -32,8 +35,10 @@ namespace SpaceWeb.Controllers
         public BankController(IBankAccountRepository bankAccountRepository,
             QuestionaryRepository questionaryRepository,
             IUserRepository userRepository,
-            IMapper mapper, UserService userService,
+            IMapper mapper,
+            UserService userService,
             BanksCardRepository banksCardRepository,
+            ICurrencyService currencyService,
             BankPresentation bankPresentation,
             ExchangeRateToUsdHistoryRepository exchangeRateToUsdHistoryRepository,
             IWebHostEnvironment hostEnvironment)
@@ -44,15 +49,40 @@ namespace SpaceWeb.Controllers
             _mapper = mapper;
             _userService = userService;
             _banksCardRepository = banksCardRepository;
+            _currencyService = currencyService;
             _bankPresentation = bankPresentation;
             _exchangeRateToUsdHistoryRepository = exchangeRateToUsdHistoryRepository;
             _hostEnvironment = hostEnvironment;
         }
-        public IActionResult Index()
+        public IActionResult Index(string language)
         {
-            var input = new RegistrationViewModel();
+            //Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(language);
+            //Thread.CurrentThread.CurrentCulture = new CultureInfo(language);
 
-            return View(input);
+            //var culture = CultureInfo.DefaultThreadCurrentCulture;
+            //var fixCulture = new CultureInfo("en-US");
+
+            //CultureInfo.DefaultThreadCurrentUICulture = fixCulture;
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            var model = new ProfileViewModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Login(ProfileViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            model.Bio = model.UserName + model.Password;
+            return View(model);
         }
 
         public IActionResult Home()
@@ -66,7 +96,43 @@ namespace SpaceWeb.Controllers
             return View(model);
         }
         public IActionResult BanksCard()
+
         {
+            var userBanksCard = _userService.GetCurrent();
+            var modelNew = userBanksCard.BanksCards.Select(dbModel =>
+                //куда                откуда
+                _mapper.Map<BanksCardViewModel>(dbModel)
+                )
+                .ToList();
+
+            return View(modelNew);
+        }
+        public IActionResult BankCurrensyChartInfo()
+        {
+            var allCurrency = new List<Currency>() { Currency.BYN, Currency.USD };
+
+            var chartViewModel = new ChartViewModel();
+            chartViewModel.Labels = allCurrency.Select(x => x.ToString()).ToList();
+            var datasetViewModel = new DatasetViewModel()
+            {
+                Label = "Валюты"
+            };
+            datasetViewModel.Data =
+                allCurrency.Select(валютаОдна =>
+                    _currencyService.ConvertAmount(валютаОдна)
+                    )
+                .ToList();
+
+            chartViewModel.Datasets.Add(datasetViewModel);
+
+            return Json(chartViewModel);
+        }
+
+        public IActionResult ShowBanksCard(long accountId)
+        {
+            BanksCard banksCard = _banksCardRepository.Get(accountId);
+            return RedirectToAction("Index");
+
             /*var bankscard = new BanksCardViewModel();
              return View(bankscard);*/
             var bankscard = _userService.GetCurrent();
@@ -77,6 +143,57 @@ namespace SpaceWeb.Controllers
                 .ToList();
             return View(modelNew);
         }
+        [HttpPost]
+        public IActionResult AddBanksCard(long accountId, EnumBankCard card)
+        {
+            BankAccount bankAccount = _bankAccountRepository.Get(accountId);
+            if (bankAccount == null)
+            {
+                switch (card)
+                {
+                    case EnumBankCard.PayCard:
+                        bankAccount = new BankAccount()
+                        {
+                            Currency
+                            = Currency.BYN
+                        };
+                        break;
+                    case EnumBankCard.valueCard:
+                        bankAccount = new BankAccount()
+                        {
+                            Currency = Currency.USD
+                        };
+                        break;
+                    case EnumBankCard.XCard:
+                        bankAccount = new BankAccount()
+                        {
+                            Currency = Currency.EUR
+                        };
+                        break;
+                }
+            }
+
+
+            var bankCardNew = new BanksCard();
+            bankCardNew.BankAccount = bankAccount;
+            bankCardNew.CreationDate = DateTime.Now;
+            var pinCard = new Random().Next(1, 9999).ToString(format: "D4");
+            bankCardNew.PinCard = pinCard;
+            _banksCardRepository.Save(bankCardNew);
+
+
+
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult AddTransaction(long transferToId)
+        {
+
+
+            return RedirectToAction("Index");
+        }
+
+
 
         public IActionResult Contacts()
         {
@@ -117,6 +234,10 @@ namespace SpaceWeb.Controllers
             };*/
 
             var user = _userService.GetCurrent();
+            //userprofile.User = user;
+            //userprofile.UserRef = user.Id;
+
+            //_userRepository.Save(userprofile);
             questionary.User = user;
             //questionary.UserRef = user.Id;
 
@@ -129,8 +250,8 @@ namespace SpaceWeb.Controllers
         {
             var profileDateOutput = _questionaryRepository
                 .GetAll()
-                .Select(dbModel => _mapper.Map<QuestionaryViewModel>(dbModel)
-                )
+                // .Select(dbModel => _mapper.Map<UserProfileViewModel>(dbModel))
+                .Select(dbModel => _mapper.Map<QuestionaryViewModel>(dbModel))
                 .ToList();
 
             return View(profileDateOutput);
@@ -348,4 +469,5 @@ namespace SpaceWeb.Controllers
             return PhysicalFile(path, contentTypeDocx, fileName);
         }
     }
+
 }

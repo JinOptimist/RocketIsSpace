@@ -11,6 +11,16 @@ namespace SpaceWeb.Service
 {
     public interface ICurrencyService
     {
+        /// <summary>
+        /// Amount in $ convert to another currency
+        /// </summary>
+        /// <param name="amount"></param>
+        /// <param name="currency"></param>
+        /// <returns></returns>
+        public decimal ConvertAmount( Currency currency);
+
+        public decimal GetExchangeRate(Currency currencyFrom,decimal amount, Currency currencyTo);
+        
         bool CheckBalanceToPay(BankAccount account,decimal amount);
         decimal ConvertByAlex(decimal amount, Currency currency);
         decimal ConvertByAlex(Currency currencyFrom,decimal amount, Currency currencyTo);

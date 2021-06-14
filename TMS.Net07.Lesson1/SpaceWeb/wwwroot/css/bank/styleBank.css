@@ -33,7 +33,7 @@ a {
     display: flex;
     justify-content: space-between;
     align-content: center;
-    border-bottom: 3px solid rgb(190,190,190);
+    border-bottom: 3px solid rgb(190, 190, 190);
     backdrop-filter: blur(3px);
 }
 
@@ -113,7 +113,7 @@ a {
     opacity: 1;
 }
 
-.header-for-start-page .buttonList .button{
+.header-for-start-page .buttonList .button {
     color: rgb(255, 255, 255);
     margin: 0.2em;
     padding: 0.5em;
@@ -123,9 +123,9 @@ a {
     opacity: 0.8;
 }
 
-.header-for-start-page .buttonList .button:hover{
+.header-for-start-page .buttonList .button:hover {
     font-size: calc(25px+2px);
-    background-image: -webkit-linear-gradient(top,rgb(53, 189, 252),rgb(27, 89, 117));
+    background-image: -webkit-linear-gradient(top, rgb(53, 189, 252), rgb(27, 89, 117));
     color: rgb(255, 255, 255);
     border-radius: 1em;
     opacity: 1;
@@ -194,12 +194,10 @@ a {
     align-items: center;
 }
 
-
 .rocket img {
     max-width: 150px;
     max-height: calc(150px - 16px);
 }
-
 
 .intro {
     width: 100%;
@@ -245,6 +243,8 @@ a {
     text-align: center;
     margin-bottom: 25px;
 }
+
+
 /*
 .button-login {
     vertical-align: top;
@@ -365,7 +365,6 @@ a {
     padding: 40px;
 }
 
-
 .client-content {
     position: relative;
     z-index: 15;
@@ -406,11 +405,9 @@ a {
     .client-text-centre {
         padding-top: 120px;
     }
-
     .intro-titel {
         font-size: 35px;
     }
-
     .intro-suptitel {
         font-size: 25px;
     }
@@ -420,11 +417,9 @@ a {
     .client-text-centre {
         padding-top: 90px;
     }
-
     .intro-titel {
         font-size: 35px;
     }
-
     .intro-suptitel {
         font-size: 25px;
     }
@@ -496,7 +491,8 @@ a {
     margin: 10px;
 }
 
-.link.enter:hover, .link.register:hover {
+.link.enter:hover,
+.link.register:hover {
     font-weight: bolder;
 }
 
@@ -528,28 +524,36 @@ a {
     white-space: nowrap;
 }
 
+
 /* width */
+
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
 }
 
+
 /* Track */
+
 ::-webkit-scrollbar-track {
     background: #f1f1f1;
     border-radius: 10px;
 }
 
+
 /* Handle */
+
 ::-webkit-scrollbar-thumb {
     background-color: rgb(210, 210, 210);
     border-radius: 10px;
     transition: 300ms;
 }
 
+
 /* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    background-color: rgb(190,190,190);
+
+ ::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(190, 190, 190);
 }
 
 .menu.top .bank-account {
@@ -633,7 +637,7 @@ a {
 }
 
 .menu.bottom .button:hover {
-    background-color: rgb(210,210,210);
+    background-color: rgb(210, 210, 210);
     font-weight: 600;
     cursor: pointer;
 }
@@ -725,8 +729,8 @@ a:visited {
     border: 1px outset;
 }
 
-.account-container .button:hover {
-    background-color: rgb(210,210,210);
+.account-info-container .button:hover {
+    background-color: rgb(210, 210, 210);
     font-weight: 600;
     cursor: pointer;
     box-shadow: inset 3px 3px 6px 0px rgb(150, 150, 150);
@@ -767,7 +771,7 @@ a:visited {
     min-width: 166px;
     margin: 10px;
     border-radius: 1em;
-    background-color: rgba(0, 185, 229,0.7);
+    background-color: rgba(0, 185, 229, 0.7);
     color: white;
     display: flex;
     flex-direction: column;
