@@ -3,7 +3,15 @@
 @{
     Layout = "_LayoutBank";
 }
+@section Style{
+    <link rel="stylesheet" href="~/css/bank/MyMap.css">
+}
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/bank/mymap.js"></script>
 
-    <div class="contacts">
-      Инфа по услугам
-    </div>
+<script src="https://api-maps.yandex.ru/2.0-stable/?apikey=ваш API-ключ&load=package.standard&lang=ru-RU" type="text/javascript"></script>
+
+<div class="contacts">
+    Инфа по услугам
+</div>
+<div id="map" class="mymap"></div>
