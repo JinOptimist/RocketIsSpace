@@ -1,18 +1,6 @@
 $(document).ready(function () {
 
-    var isAnimationActive = false;
-    var ismouseleave = false;
     var time = 300;
-
-    //$('.circle').hover(function () {
-    //    if (isAnimationActive) {
-    //        return;
-    //    }
-    //    $(this).children()
-    //        .toggleClass('material-icons-outlined')
-    //        .toggleClass('material-icons');
-    //});
-
 
     $('.circle').mouseenter(function () {
         if ($('.isActive').length > 0) {
@@ -32,18 +20,11 @@ $(document).ready(function () {
     });
 
     function exit() {
+        $('.isActive').addClass('not-chosen');
         $('.isActive').removeClass('isActive');
     }
 
     $('.circle').mouseleave(function () {
-        //if (isAnimationActive) {
-        //    return;
-        //}
-        //isAnimationActive = true
-        //if (ismouseleave) {
-        //    return;
-        //}
-        //ismouseleave = true
         if (!$(this).hasClass('isActive')) {
             return;
         }
@@ -56,7 +37,7 @@ $(document).ready(function () {
             width: 130,
             height: 130
         }, time, '', exit);
-        $(this).addClass('not-chosen')
+        
     })
 
 });
