@@ -4,56 +4,59 @@ $(document).ready(function () {
     var ismouseleave = false;
     var time = 300;
 
-    $('.circle').hover(function () {
-        if (isAnimationActive) {
-            return;
-        }
-        $(this).children()
-            .toggleClass('material-icons-outlined')
-            .toggleClass('material-icons');
-    });
+    //$('.circle').hover(function () {
+    //    if (isAnimationActive) {
+    //        return;
+    //    }
+    //    $(this).children()
+    //        .toggleClass('material-icons-outlined')
+    //        .toggleClass('material-icons');
+    //});
 
 
     $('.circle').mouseenter(function () {
-        if (isAnimationActive) {
+        if ($('.isActive').length > 0) {
             return;
         }
-        isAnimationActive = true
+        $(this).addClass('isActive');
 
         $(this).animate({
             width: 130 * 2,
             height: 130 * 2
-        }, time)
-        $(this).removeClass('not-chosen')
+        }, time);
+        $(this).removeClass('not-chosen');
         $('.not-chosen').animate({
             width: 130 / 2,
             height: 130 / 2
-        }, time)
+        }, time);
+    });
 
-        //isAnimationActive = false
-    })
-
+    function exit() {
+        $('.isActive').removeClass('isActive');
+    }
 
     $('.circle').mouseleave(function () {
         //if (isAnimationActive) {
         //    return;
         //}
         //isAnimationActive = true
-        if (ismouseleave) {
+        //if (ismouseleave) {
+        //    return;
+        //}
+        //ismouseleave = true
+        if (!$(this).hasClass('isActive')) {
             return;
         }
-        ismouseleave = true
-        
+
         $(this).animate({
             width: 130,
             height: 130
-        }, time)
+        }, time);
         $('.not-chosen').animate({
             width: 130,
             height: 130
-        }, time, '', function () { isAnimationActive = false, ismouseleave = false})
+        }, time, '', exit);
         $(this).addClass('not-chosen')
-
     })
 
 });
