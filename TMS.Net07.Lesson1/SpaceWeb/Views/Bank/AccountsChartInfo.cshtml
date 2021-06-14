@@ -15,10 +15,16 @@
         Сумма денежных средств на счетах
     </div>
 
-    @if (User.Identity.IsAuthenticated)
-    {
-        <div class="block">
-            <canvas id="myChart"></canvas>
+    <div class="block">
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <a href="/Account/DownloadAccountsInfo">
+        <div class="download-accounts-info">
+            <img src="../image/icon/download_36dp.svg" />
+            <div class="download-acc-info-text">
+                Сохранить информацию о счетах в формате ".docx"
+            </div>
         </div>
-    }
+    </a>
 </div>

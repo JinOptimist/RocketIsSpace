@@ -35,7 +35,8 @@ namespace SpaceWeb.Controllers
             IMapper mapper, UserService userService,
             BanksCardRepository banksCardRepository,
             BankPresentation bankPresentation,
-            ExchangeRateToUsdHistoryRepository exchangeRateToUsdHistoryRepository)
+            ExchangeRateToUsdHistoryRepository exchangeRateToUsdHistoryRepository,
+            IWebHostEnvironment hostEnvironment)
         {
             _bankAccountRepository = bankAccountRepository;
             _questionaryRepository = questionaryRepository;
@@ -45,6 +46,7 @@ namespace SpaceWeb.Controllers
             _banksCardRepository = banksCardRepository;
             _bankPresentation = bankPresentation;
             _exchangeRateToUsdHistoryRepository = exchangeRateToUsdHistoryRepository;
+            _hostEnvironment = hostEnvironment;
         }
         public IActionResult Index()
         {
@@ -151,7 +153,7 @@ namespace SpaceWeb.Controllers
                 .Select(x => x.ExchRateDate.ToString())
                 .Distinct()
                 .ToList();
-                        
+
             var datasetBynBuy = new DatasetViewModel()
             {
                 Label = "BYN покупка",
@@ -261,21 +263,88 @@ namespace SpaceWeb.Controllers
             return Json(chartViewModel);
         }
 
-        public IActionResult DownloadLog(long id)
+        public IActionResult DownloadExchangesHistory()
         {
             var webPath = _hostEnvironment.WebRootPath;
-            var path = Path.Combine(webPath, "TempFile", $"{id}.docx");
+            var user = _userService.GetCurrent();
+            var path = Path.Combine(webPath, "TempFile", $"{user.Id}.docx");
+            var pathImage = Path.Combine(webPath, "image/bank/exchanges.jpg");
+            var exchanges = _exchangeRateToUsdHistoryRepository.GetAll();
+            var countRows = exchanges.Count;
+            var rawNow = 0;
+            var deviderForSeparatingRaw = 10;
+            Border slimLine = new Border(BorderStyle.Tcbs_single, BorderSize.one, 0, Color.Black);
+            Border boldLine = new Border(BorderStyle.Tcbs_single, BorderSize.seven, 0, Color.Black);
 
-            var account = _bankAccountRepository.Get(id);
             using (var doc = DocX.Create(path))
             {
-                doc.InsertParagraph($"Информация по счёту {account.Type}");
-                doc.InsertParagraph($"Остаток на счёту: {account.Amount}");
+                var pic = doc.AddImage(pathImage, "image/png").CreatePicture();
+                pic.Width = 600;
+                pic.Height = 150;
+                doc.InsertParagraph().InsertPicture(pic);
+
+                doc.InsertParagraph("История обменных курсов валют")
+                    .Font("Comic Sans MS")
+                    .Bold()
+                    .FontSize(25)
+                    .Alignment = Alignment.center;
+                doc.InsertParagraph("");
+
+                var table = doc.InsertTable(++countRows, 4);
+                
+                table.Rows[rawNow].Cells[0].Paragraphs.First().Append("Currency").Bold().FontSize(14).Italic().Alignment = Alignment.center;
+                table.Rows[rawNow].Cells[1].Paragraphs.First().Append("Type of Exchange").Bold().FontSize(14).Italic().Alignment = Alignment.center;
+                table.Rows[rawNow].Cells[2].Paragraphs.First().Append("Exchange Rate").Bold().FontSize(14).Italic().Alignment = Alignment.center;
+                table.Rows[rawNow].Cells[3].Paragraphs.First().Append("Date").Bold().FontSize(14).Italic().Alignment = Alignment.center;
+
+                for (int i = 0; i < 4; i++) // Set a bold border for the first raw in the table
+                {
+                    table.Rows[rawNow].Cells[i].FillColor = Color.OrangeRed;
+                    table.Rows[rawNow].Cells[i].SetBorder(TableCellBorderType.Bottom, boldLine);
+                    table.Rows[rawNow].Cells[i].SetBorder(TableCellBorderType.Left, boldLine);
+                    table.Rows[rawNow].Cells[i].SetBorder(TableCellBorderType.Right, boldLine);
+                }
+
+                foreach (var exchange in exchanges) // Filling the table from DB
+                {
+                    rawNow++;
+                    table.Rows[rawNow].Cells[0].Paragraphs.First().Append(exchange.Currency.ToString()).FontSize(12).Alignment = Alignment.center;
+                    table.Rows[rawNow].Cells[1].Paragraphs.First().Append(exchange.TypeOfExch.ToString()).FontSize(12).Alignment = Alignment.center;
+                    table.Rows[rawNow].Cells[2].Paragraphs.First().Append(exchange.ExchRate.ToString()).FontSize(12).Alignment = Alignment.center;
+                    table.Rows[rawNow].Cells[3].Paragraphs.First().Append(exchange.ExchRateDate.ToString()).FontSize(12).Alignment = Alignment.center;
+
+                    if (exchange.TypeOfExch == TypeOfExchange.Sell) // Change color for TypeOfExchange.Sell
+                    {
+                        for (int i = 0; i < 4; i++)
+                        {
+                            table.Rows[rawNow].Cells[i].FillColor = Color.LightGray;
+                        }
+                    }
+
+                    if (rawNow % deviderForSeparatingRaw == 0) // Add separating raw for each date in the table
+                    {
+                        var separatingRow = table.InsertRow(rawNow + 1);
+                        for (int i = 0; i < 4; i++)
+                        {
+                            separatingRow.Cells[i].FillColor = Color.Black;
+                        }
+                        rawNow++;
+                        deviderForSeparatingRaw += 11;
+                    }
+                }
+
+                table.SetBorder(TableBorderType.InsideH, slimLine);
+                table.SetBorder(TableBorderType.InsideV, slimLine);
+                table.SetBorder(TableBorderType.Bottom, boldLine);
+                table.SetBorder(TableBorderType.Top, boldLine);
+                table.SetBorder(TableBorderType.Left, boldLine);
+                table.SetBorder(TableBorderType.Right, boldLine);
+                
                 doc.Save();
             }
 
             var contentTypeDocx = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-            var fileName = $"{account.Type}.docx";
+            var fileName = $"History of exchange rates.docx";
             return PhysicalFile(path, contentTypeDocx, fileName);
         }
     }
