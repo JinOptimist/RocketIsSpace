@@ -136,5 +136,11 @@ namespace SpaceWeb.Controllers
         {
             return View();
         }
+
+        public IActionResult Transfer(long toId, long fromId, decimal amount)
+        {
+            _bankAccountRepository.Transfer(toId, fromId, amount);
+            return RedirectToAction("Cabinet");
+        }
     }
 }
