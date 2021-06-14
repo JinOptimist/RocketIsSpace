@@ -16,7 +16,10 @@ namespace SpaceWeb
         public static void Main(string[] args)
         {
             CreateHostBuilder(args)
-                .Build().SeedData().Run();
+                .Build()
+                .SeedData()
+                .SeedTestData()
+                .Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

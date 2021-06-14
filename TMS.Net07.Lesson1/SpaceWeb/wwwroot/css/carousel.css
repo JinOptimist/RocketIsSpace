@@ -5,6 +5,7 @@
     .carousel-smile .buttons {
         position: absolute;
         display: flex;
+        align-items: center;
     }
 
     .carousel-smile .choose {
@@ -22,14 +23,30 @@
         display: flex;
         align-items: center;
         cursor: pointer;
-        flex: 1;
+        height: 70px;
+        width: 40px;
+        background: url(/image/comfortImage/arrow1.png) no-repeat center;
+    }
+    .carousel-smile .next-btn {
+        background: url(/image/comfortImage/next-arrow.png) no-repeat center;
+    }
+    .carousel-smile .prev-btn {
+        background: url(/image/comfortImage/prev-arrow.png) no-repeat center;
     }
 
-        .carousel-smile .next-btn:hover,
-        .carousel-smile .prev-btn:hover {
-            background: #000;
-            opacity: 0.3;
-        }
+    .carousel-smile .next-btn:hover {
+        background: url(/image/comfortImage/next-arrow1.png) no-repeat center;
+    }
+
+    .carousel-smile .prev-btn:hover {
+        background: url(/image/comfortImage/prev-arrow1.png) no-repeat center;
+    }
+
+    /*.carousel-smile .next-btn:hover,
+    .carousel-smile .prev-btn:hover {
+        background: #000;
+        opacity: 0.3;
+    }*/
 
     .carousel-smile .next-image,
     .carousel-smile .prev-image {
