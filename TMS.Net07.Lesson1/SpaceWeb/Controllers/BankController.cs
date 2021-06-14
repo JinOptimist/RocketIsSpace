@@ -15,10 +15,11 @@ using System.Drawing;
 using System.IO;
 using Novacode;
 using Microsoft.AspNetCore.Hosting;
+using SpaceWeb.EfStuff.Model;
+using System;
 
 namespace SpaceWeb.Controllers
 {
-    [Localize]
     public class BankController : Controller
     {
         private IBankAccountRepository _bankAccountRepository;

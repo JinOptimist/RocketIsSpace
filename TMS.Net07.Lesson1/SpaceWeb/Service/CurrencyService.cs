@@ -28,7 +28,7 @@ namespace SpaceWeb.Service
             ExchangeRateToUsdCurrentRepository exchangeRateToUsdCurrentRepository,
             ExchangeAccountHistoryRepository exchangeAccountHistoryRepository,
             ExchangeRateToUsdHistoryRepository exchangeRateToUsdHistoryRepository,
-            Mapper mapper)
+            IMapper mapper)
         {
             _userService = userService;
             _exchangeRateToUsdCurrentRepository = exchangeRateToUsdCurrentRepository;
