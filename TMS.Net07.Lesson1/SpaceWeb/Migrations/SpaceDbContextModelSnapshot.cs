@@ -256,6 +256,86 @@ namespace SpaceWeb.Migrations
                     b.ToTable("Employes");
                 });
 
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.ExchangeAccountHistory", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("CurrencyFrom")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CurrencyTo")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ExchDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("ExchRate")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<long?>("OwnerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("TypeOfExch")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
+
+                    b.ToTable("ExchangeAccountHistory");
+                });
+
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.ExchangeRateToUsdCurrent", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Currency")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("ExchRate")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("TypeOfExch")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ExchangeRatesToUsdCurrent");
+                });
+
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.ExchangeRateToUsdHistory", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Currency")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("ExchRate")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("ExchRateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("TypeOfExch")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ExchangeRatesToUsdHistory");
+                });
+
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.FactoryHistory", b =>
                 {
                     b.Property<long>("Id")
@@ -638,6 +718,15 @@ namespace SpaceWeb.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.ExchangeAccountHistory", b =>
+                {
+                    b.HasOne("SpaceWeb.EfStuff.Model.User", "Owner")
+                        .WithMany("ExchangeOperationsThatUserDone")
+                        .HasForeignKey("OwnerId");
+
+                    b.Navigation("Owner");
+                });
+
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.Insurance", b =>
                 {
                     b.HasOne("SpaceWeb.EfStuff.Model.InsuranceType", "InsuranceType")
@@ -760,6 +849,8 @@ namespace SpaceWeb.Migrations
                     b.Navigation("Client");
 
                     b.Navigation("Employe");
+
+                    b.Navigation("ExchangeOperationsThatUserDone");
 
                     b.Navigation("MyRockets");
 

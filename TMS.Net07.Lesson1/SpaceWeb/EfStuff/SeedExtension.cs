@@ -4,10 +4,12 @@ using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
 using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Models.Human;
+using SpaceWeb.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SpaceWeb.Service;
 
 namespace SpaceWeb.EfStuff
 {
@@ -27,6 +29,7 @@ namespace SpaceWeb.EfStuff
                 SetDefaultUser(serviceScope.ServiceProvider);
                 SetDefaultDepartment(serviceScope.ServiceProvider);
                 SetDefaultInsuranceType(serviceScope.ServiceProvider);
+                SetDefaultExchangeRateToUsdCurrent(serviceScope.ServiceProvider);
                 SetDefaultEmploye(serviceScope.ServiceProvider);
                 SetDefaultCient(serviceScope.ServiceProvider);
             }
@@ -187,6 +190,17 @@ namespace SpaceWeb.EfStuff
             }
         }
 
+        private static void SetDefaultExchangeRateToUsdCurrent(IServiceProvider services)
+        {
+            var currencyService = services.GetService<ICurrencyService>();
+            var exchRateToUsdCurrentRepository = services.GetService<ExchangeRateToUsdCurrentRepository>();
+
+            currencyService.DeleteCurrentExchRatesFromDb(exchRateToUsdCurrentRepository);
+
+            var gottenCurrencies = currencyService.GetExchangeRates();
+            currencyService.PutCurrentExchangeRatesToDb(exchRateToUsdCurrentRepository, gottenCurrencies);
+        }
+
         private static void SetDefaultEmploye(IServiceProvider service)
         {
             var userReposirory = service.GetService<IUserRepository>();
@@ -203,6 +217,7 @@ namespace SpaceWeb.EfStuff
             }
             userReposirory.Save(user);
         }
+
 
         private static void SetDefaultCient(IServiceProvider service)
         {
