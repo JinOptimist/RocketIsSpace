@@ -16,7 +16,7 @@
                 <input type="file" name="@nameof(ProfileUpdateViewModel.Avatar)" />
             </div>
             <div>
-                email 
+                email
                 <input name="@nameof(ProfileUpdateViewModel.Email)" value="@Model.Email" />
             </div>
             <div>
@@ -42,7 +42,7 @@
             </label>
         }
     </div>
-    
+
 
     <h2>Мои счета</h2>
     @foreach (var bankAccountView in Model.MyAccounts)
@@ -52,5 +52,16 @@
         </div>
     }
 
+    @if (Model.DefaultCurrency != 0)
+    {
+    <h2>Сумма всех средств в основной валюте:</h2>
+    <div>
+        @Model.AmountAllMoneyInDefaultCurrency @Model.DefaultCurrency
+    </div>
+    }
+
     <a href="/User/ChangePassword?id=1">Обновить password</a>
+
+    <div id="avatar-carousel"></div>
 </div>
+
