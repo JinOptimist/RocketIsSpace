@@ -83,15 +83,14 @@ namespace SpaceWeb.Controllers
 
         public IActionResult UpdateAllMoney(Currency currency)
         {
-            Test t = new Test();
+            AllMoney allMoney = new AllMoney();
 
             var user = _userService.GetCurrent();
             var accounts = _bankAccountRepository.GetBankAccounts(user.Id);
-            t.count = _currencyService.CountAllMoneyInWishingCurrency(accounts, currency);
-            t.currency = currency.ToString();
-            
+            allMoney.count = _currencyService.CountAllMoneyInWishingCurrency(accounts, currency);
+            allMoney.currency = currency.ToString();
 
-            return Json(t);
+            return Json(allMoney);
         }
 
         public IActionResult UpdateFavCurrency(Currency currency)
@@ -309,7 +308,7 @@ namespace SpaceWeb.Controllers
         }
     }
 
-    public class Test
+    public class AllMoney
     {
         public decimal count { get; set; }
         public string currency { get; set; }

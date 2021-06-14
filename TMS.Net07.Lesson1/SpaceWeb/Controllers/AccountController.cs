@@ -10,6 +10,7 @@ using SpaceWeb.Models;
 using SpaceWeb.Service;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -46,7 +47,14 @@ namespace SpaceWeb.Controllers
                 var user = _userService.GetCurrent();
                 var dbModel = user.BankAccounts.SingleOrDefault(x => x.Id == id);
                 var viewModel = _mapper.Map<BankAccountViewModel>(dbModel);
-                return View("~/Views/Bank/Account/Index.cshtml", viewModel);
+
+                var array = user.BankAccounts.ToArray();
+                var index = Array.IndexOf(array, dbModel);
+
+                viewModel.AccountIndex = index;
+                //для того, чтобы вставить индекс активного аккаунта при загрузке страницы
+
+                return View(viewModel);
             }
             return RedirectToAction("Creation");
         }
@@ -69,7 +77,7 @@ namespace SpaceWeb.Controllers
         [HttpGet]
         public IActionResult Creation()
         {
-            return View("~/Views/Bank/Account/Creation.cshtml");
+            return View();
         }
 
         [HttpPost]
@@ -120,24 +128,156 @@ namespace SpaceWeb.Controllers
                 SingleOrDefault(x => x.AccountNumber == viewModel.AccountNumber)
                 .Id;
 
-            return RedirectToAction("Index", new { id });
+            //return RedirectToAction("Index", new { id });
+
+            return RedirectToRoute("default", new { controller = "Account", action = "Index", id});
+        }
+
+        public IActionResult DownloadAccountsInfo()
+        {
+            var webPath = _hostEnvironment.WebRootPath;
+            var user = _userService.GetCurrent();
+            var path = Path.Combine(webPath, "TempFile", $"{user.Id}.docx");
+            var pathIntroImage = Path.Combine(webPath, "image/bank/bank_cards.png");
+            var pathLineImage = Path.Combine(webPath, "image/separatingLine.png");
+            var countRows = 6;
+            var accounts = _bankAccountRepository.GetAll().Where(x => x.Owner.Id == user.Id).ToList();
+            var accountsNumber = 1;
+            var colorNow = 0;
+            Border slimLine = new Border(BorderStyle.Tcbs_single, BorderSize.one, 0, Color.Black);
+            Border boldLine = new Border(BorderStyle.Tcbs_single, BorderSize.seven, 0, Color.Black);
+            List<Color> colorList = new List<Color>() { 
+                Color.OrangeRed, 
+                Color.CadetBlue, 
+                Color.LightGreen,
+                Color.PeachPuff,
+                Color.Aqua,
+                Color.RosyBrown
+            };
+
+            using (var doc = DocX.Create(path))
+            {
+                var picIntro = doc.AddImage(pathIntroImage, "image/png").CreatePicture();
+                picIntro.Width = 600;
+                picIntro.Height = 150;
+                doc.InsertParagraph().InsertPicture(picIntro);
+
+                doc.InsertParagraph($"Детали всех счетов (всего: {accounts.Count})")
+                    .Font("Comic Sans MS")
+                    .Bold()
+                    .FontSize(25)
+                    .Alignment = Alignment.center;
+                doc.InsertParagraph("");
+
+                var picLine = doc.AddImage(pathLineImage, "image/png").CreatePicture();
+                picLine.Width = 600;
+                picLine.Height = 50;
+                doc.InsertParagraph().InsertPicture(picLine);
+                doc.InsertParagraph("");
+
+                foreach (var account in accounts)
+                {
+                    doc.InsertParagraph().Append($"Счет №{accountsNumber++} - {account.Type}").Bold().FontSize(16).Italic().Alignment = Alignment.center;
+
+                    var table = doc.InsertTable(countRows, 2);
+
+                    table.Rows[0].Cells[0].Paragraphs.First().Append("Account name").Bold().FontSize(14).Italic();
+                    table.Rows[1].Cells[0].Paragraphs.First().Append("Currency").Bold().FontSize(14).Italic();
+                    table.Rows[2].Cells[0].Paragraphs.First().Append("Amount").Bold().FontSize(14).Italic();
+                    table.Rows[3].Cells[0].Paragraphs.First().Append("Account number").Bold().FontSize(14).Italic();
+                    table.Rows[4].Cells[0].Paragraphs.First().Append("Creation date").Bold().FontSize(14).Italic();
+                    table.Rows[5].Cells[0].Paragraphs.First().Append("Expiry date").Bold().FontSize(14).Italic();
+
+                    
+                    for (int i = 0; i < countRows; i++)
+                    {
+                        table.Rows[i].Cells[0].FillColor = colorList[colorNow];
+                    }
+                    if (++colorNow == colorList.Count())
+                    {
+                        colorNow = 0;
+                    }
+
+                    table.Rows[0].Cells[1].Paragraphs.First().Append(account.Type).FontSize(12).Alignment = Alignment.center;
+                    table.Rows[1].Cells[1].Paragraphs.First().Append(account.Currency.ToString()).FontSize(12).Alignment = Alignment.center;
+                    table.Rows[2].Cells[1].Paragraphs.First().Append(account.Amount.ToString()).FontSize(12).Alignment = Alignment.center;
+                    table.Rows[3].Cells[1].Paragraphs.First().Append(account.AccountNumber).FontSize(12).Alignment = Alignment.center;
+                    table.Rows[4].Cells[1].Paragraphs.First().Append(account.CreationDate.ToString()).FontSize(12).Alignment = Alignment.center;
+                    table.Rows[5].Cells[1].Paragraphs.First().Append(account.ExpireDate.ToString()).FontSize(12).Alignment = Alignment.center;
+
+                    table.SetBorder(TableBorderType.InsideH, slimLine);
+                    table.SetBorder(TableBorderType.InsideV, slimLine);
+                    table.SetBorder(TableBorderType.Bottom, boldLine);
+                    table.SetBorder(TableBorderType.Top, boldLine);
+                    table.SetBorder(TableBorderType.Left, boldLine);
+                    table.SetBorder(TableBorderType.Right, boldLine);
+
+                    table.Alignment = Alignment.center;
+                    doc.InsertParagraph();
+                }
+
+                doc.Save();
+            }
+
+            var contentTypeDocx = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+            var fileName = "Info about accounts.docx";
+            return PhysicalFile(path, contentTypeDocx, fileName);
         }
 
         public IActionResult DownloadLog(long id)
         {
             var webPath = _hostEnvironment.WebRootPath;
-            var path = Path.Combine(webPath, "TempFile", $"{id}.docx");
-
+            var user = _userService.GetCurrent();
+            var path = Path.Combine(webPath, "TempFile", $"{user.Id}.docx");
             var account = _bankAccountRepository.Get(id);
+            var countRows = 6;
+            Border slimLine = new Border(BorderStyle.Tcbs_single, BorderSize.one, 0, Color.Black);
+            Border boldLine = new Border(BorderStyle.Tcbs_single, BorderSize.seven, 0, Color.Black);
+
             using (var doc = DocX.Create(path))
             {
-                doc.InsertParagraph($"Информация по счёту {account.Type}");
-                doc.InsertParagraph($"Остаток на счёту: {account.Amount}");
+                doc.InsertParagraph($"Детали счета \"{account.Type}\":")
+                    .Font("Comic Sans MS")
+                    .Bold()
+                    .FontSize(25)
+                    .Alignment = Alignment.center;
+                doc.InsertParagraph("");
+
+                var table = doc.InsertTable(countRows, 2);
+
+                table.Rows[0].Cells[0].Paragraphs.First().Append("Account name").Bold().FontSize(14).Italic();
+                table.Rows[1].Cells[0].Paragraphs.First().Append("Currency").Bold().FontSize(14).Italic();
+                table.Rows[2].Cells[0].Paragraphs.First().Append("Amount").Bold().FontSize(14).Italic();
+                table.Rows[3].Cells[0].Paragraphs.First().Append("Account number").Bold().FontSize(14).Italic();
+                table.Rows[4].Cells[0].Paragraphs.First().Append("Creation date").Bold().FontSize(14).Italic();
+                table.Rows[5].Cells[0].Paragraphs.First().Append("Expiry date").Bold().FontSize(14).Italic();
+
+                table.Rows[0].Cells[1].Paragraphs.First().Append(account.Type).FontSize(12).Alignment = Alignment.center;
+                table.Rows[1].Cells[1].Paragraphs.First().Append(account.Currency.ToString()).FontSize(12).Alignment = Alignment.center;
+                table.Rows[2].Cells[1].Paragraphs.First().Append(account.Amount.ToString()).FontSize(12).Alignment = Alignment.center;
+                table.Rows[3].Cells[1].Paragraphs.First().Append(account.AccountNumber).FontSize(12).Alignment = Alignment.center;
+                table.Rows[4].Cells[1].Paragraphs.First().Append(account.CreationDate.ToString()).FontSize(12).Alignment = Alignment.center;
+                table.Rows[5].Cells[1].Paragraphs.First().Append(account.ExpireDate.ToString()).FontSize(12).Alignment = Alignment.center;
+
+                for (int i = 0; i < countRows; i++)
+                {
+                    table.Rows[i].Cells[0].FillColor = Color.LightGreen;
+                }
+
+                table.SetBorder(TableBorderType.InsideH, slimLine);
+                table.SetBorder(TableBorderType.InsideV, slimLine);
+                table.SetBorder(TableBorderType.Bottom, boldLine);
+                table.SetBorder(TableBorderType.Top, boldLine);
+                table.SetBorder(TableBorderType.Left, boldLine);
+                table.SetBorder(TableBorderType.Right, boldLine);
+
+                table.Alignment = Alignment.center;
+
                 doc.Save();
             }
 
             var contentTypeDocx = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-            var fileName = $"{account.Type}.docx";
+            var fileName = $"Info about '{account.Type}' account.docx";
             return PhysicalFile(path, contentTypeDocx, fileName);
         }
     }

@@ -3,16 +3,17 @@
 
 @inject UserService userService
 @inject IMapper mapper
+@{
+    var accountIndex = 0;
+    var user = userService.GetCurrent();
+    var accounts = new List<BankAccountViewModel>();
+    foreach (var accountBD in user.BankAccounts)
+    {
+        accounts.Add(mapper.Map<BankAccountViewModel>(accountBD));
+    }
+}
 
 <div class="bank-account-list">
-    @{
-        var user = userService.GetCurrent();
-        var accounts = new List<BankAccountViewModel>();
-        foreach (var accountBD in user.BankAccounts)
-        {
-            accounts.Add(mapper.Map<BankAccountViewModel>(accountBD));
-        }
-    }
     <a href="/Account/Creation">
         <div class="add-new background">
             <div class="add-new content">Добавить счет</div>
@@ -28,8 +29,9 @@
                     <span class="currency">@BankAccount.Currency</span>
                 </div>
                 <div class="account-number">@BankAccount.AccountNumber</div>
+                <div class="account-list-number hide">@(accountIndex++)</div>
             </div>
         </a>
-    }
 
+    }
 </div>

@@ -34,30 +34,33 @@ namespace SpaceWeb.Controllers
 
         public IActionResult AccountChartInfo()
         {
-            var user = _userService.GetCurrent();
-            if (user == null)
+            var user = _userService?.GetCurrent();
+
+            //проект не грузится, если юзер не залогинен
+
+            if (user!=null)
             {
-                return Json(null);
+                var currencies = user.BankAccounts.Select(x => x.Currency).Distinct();
+
+                var chartViewModel = new ChartViewModel();
+                chartViewModel.Labels = currencies.Select(x => x.ToString()).ToList();
+                var datasetViewModel = new DatasetViewModel()
+                {
+                    Label = "Валюты"
+                };
+                datasetViewModel.Data =
+                    currencies.Select(c =>
+                        user.BankAccounts
+                            .Where(b => b.Currency == c)
+                            .Select(b => b.Amount)
+                            .Sum())
+                    .ToList();
+
+                chartViewModel.Datasets.Add(datasetViewModel);
+
+                return Json(chartViewModel);
             }
-            var currencies = user.BankAccounts.Select(x => x.Currency).Distinct();
-
-            var chartViewModel = new ChartViewModel();
-            chartViewModel.Labels = currencies.Select(x => x.ToString()).ToList();
-            var datasetViewModel = new DatasetViewModel()
-            {
-                Label = "Валюты"
-            };
-            datasetViewModel.Data = 
-                currencies.Select(c =>
-                    user.BankAccounts
-                        .Where(b => b.Currency == c)
-                        .Select(b => b.Amount)
-                        .Sum())
-                .ToList();
-
-            chartViewModel.Datasets.Add(datasetViewModel);
-
-            return Json(chartViewModel);
+            return Json("null user");
         }
     }
 }

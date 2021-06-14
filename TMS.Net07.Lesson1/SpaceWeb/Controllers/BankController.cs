@@ -1,23 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
 using SpaceWeb.Models;
-using System;
-using System.Text;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using SpaceWeb.EfStuff;
 using AutoMapper;
 using Questionary = SpaceWeb.EfStuff.Model.Questionary;
 using SpaceWeb.Service;
 using Microsoft.AspNetCore.Authorization;
-using SpaceWeb.Controllers.CustomAttribute;
 using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Models.Chart;
 using System.Collections.Generic;
 using SpaceWeb.Presentation;
 using System.Globalization;
+using System.Drawing;
+using System.IO;
+using Novacode;
+using Microsoft.AspNetCore.Hosting;
 
 namespace SpaceWeb.Controllers
 {
@@ -33,6 +30,8 @@ namespace SpaceWeb.Controllers
         private ICurrencyService _currencyService;
         private BankPresentation _bankPresentation;
         private ExchangeRateToUsdHistoryRepository _exchangeRateToUsdHistoryRepository;
+        private IWebHostEnvironment _hostEnvironment;
+
         public BankController(IBankAccountRepository bankAccountRepository,
             QuestionaryRepository questionaryRepository,
             IUserRepository userRepository,
@@ -41,7 +40,8 @@ namespace SpaceWeb.Controllers
             BanksCardRepository banksCardRepository,
             ICurrencyService currencyService,
             BankPresentation bankPresentation,
-            ExchangeRateToUsdHistoryRepository exchangeRateToUsdHistoryRepository)
+            ExchangeRateToUsdHistoryRepository exchangeRateToUsdHistoryRepository,
+            IWebHostEnvironment hostEnvironment)
         {
             _bankAccountRepository = bankAccountRepository;
             _questionaryRepository = questionaryRepository;
@@ -52,6 +52,7 @@ namespace SpaceWeb.Controllers
             _currencyService = currencyService;
             _bankPresentation = bankPresentation;
             _exchangeRateToUsdHistoryRepository = exchangeRateToUsdHistoryRepository;
+            _hostEnvironment = hostEnvironment;
         }
         public IActionResult Index(string language)
         {
@@ -381,6 +382,91 @@ namespace SpaceWeb.Controllers
             chartViewModel.Datasets.Add(datasetViewModel);
 
             return Json(chartViewModel);
+        }
+
+        public IActionResult DownloadExchangesHistory()
+        {
+            var webPath = _hostEnvironment.WebRootPath;
+            var user = _userService.GetCurrent();
+            var path = Path.Combine(webPath, "TempFile", $"{user.Id}.docx");
+            var pathImage = Path.Combine(webPath, "image/bank/exchanges.jpg");
+            var exchanges = _exchangeRateToUsdHistoryRepository.GetAll();
+            var countRows = exchanges.Count;
+            var rawNow = 0;
+            var deviderForSeparatingRaw = 10;
+            Border slimLine = new Border(BorderStyle.Tcbs_single, BorderSize.one, 0, Color.Black);
+            Border boldLine = new Border(BorderStyle.Tcbs_single, BorderSize.seven, 0, Color.Black);
+
+            using (var doc = DocX.Create(path))
+            {
+                var pic = doc.AddImage(pathImage, "image/png").CreatePicture();
+                pic.Width = 600;
+                pic.Height = 150;
+                doc.InsertParagraph().InsertPicture(pic);
+
+                doc.InsertParagraph("История обменных курсов валют")
+                    .Font("Comic Sans MS")
+                    .Bold()
+                    .FontSize(25)
+                    .Alignment = Alignment.center;
+                doc.InsertParagraph("");
+
+                var table = doc.InsertTable(++countRows, 4);
+                
+                table.Rows[rawNow].Cells[0].Paragraphs.First().Append("Currency").Bold().FontSize(14).Italic().Alignment = Alignment.center;
+                table.Rows[rawNow].Cells[1].Paragraphs.First().Append("Type of Exchange").Bold().FontSize(14).Italic().Alignment = Alignment.center;
+                table.Rows[rawNow].Cells[2].Paragraphs.First().Append("Exchange Rate").Bold().FontSize(14).Italic().Alignment = Alignment.center;
+                table.Rows[rawNow].Cells[3].Paragraphs.First().Append("Date").Bold().FontSize(14).Italic().Alignment = Alignment.center;
+
+                for (int i = 0; i < 4; i++) // Set a bold border for the first raw in the table
+                {
+                    table.Rows[rawNow].Cells[i].FillColor = Color.OrangeRed;
+                    table.Rows[rawNow].Cells[i].SetBorder(TableCellBorderType.Bottom, boldLine);
+                    table.Rows[rawNow].Cells[i].SetBorder(TableCellBorderType.Left, boldLine);
+                    table.Rows[rawNow].Cells[i].SetBorder(TableCellBorderType.Right, boldLine);
+                }
+
+                foreach (var exchange in exchanges) // Filling the table from DB
+                {
+                    rawNow++;
+                    table.Rows[rawNow].Cells[0].Paragraphs.First().Append(exchange.Currency.ToString()).FontSize(12).Alignment = Alignment.center;
+                    table.Rows[rawNow].Cells[1].Paragraphs.First().Append(exchange.TypeOfExch.ToString()).FontSize(12).Alignment = Alignment.center;
+                    table.Rows[rawNow].Cells[2].Paragraphs.First().Append(exchange.ExchRate.ToString()).FontSize(12).Alignment = Alignment.center;
+                    table.Rows[rawNow].Cells[3].Paragraphs.First().Append(exchange.ExchRateDate.ToString()).FontSize(12).Alignment = Alignment.center;
+
+                    if (exchange.TypeOfExch == TypeOfExchange.Sell) // Change color for TypeOfExchange.Sell
+                    {
+                        for (int i = 0; i < 4; i++)
+                        {
+                            table.Rows[rawNow].Cells[i].FillColor = Color.LightGray;
+                        }
+                    }
+
+                    if (rawNow % deviderForSeparatingRaw == 0) // Add separating raw for each date in the table
+                    {
+                        var separatingRow = table.InsertRow(rawNow + 1);
+                        for (int i = 0; i < 4; i++)
+                        {
+                            separatingRow.Cells[i].FillColor = Color.Black;
+                        }
+                        rawNow++;
+                        deviderForSeparatingRaw += 11;
+                    }
+                }
+
+                table.SetBorder(TableBorderType.InsideH, slimLine);
+                table.SetBorder(TableBorderType.InsideV, slimLine);
+                table.SetBorder(TableBorderType.Bottom, boldLine);
+                table.SetBorder(TableBorderType.Top, boldLine);
+                table.SetBorder(TableBorderType.Left, boldLine);
+                table.SetBorder(TableBorderType.Right, boldLine);
+                
+                doc.Save();
+            }
+
+            var contentTypeDocx = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+            var fileName = $"History of exchange rates.docx";
+            return PhysicalFile(path, contentTypeDocx, fileName);
         }
     }
 
