@@ -1,18 +1,17 @@
-.container-accounts {
+/*.container-accounts {
     height: 100%;
     width: 100%;
-    margin: 10px auto;
     background-color: rgba(208, 219, 225, 0.1);
-    display: flex;
+    display: flex;*/
     /*flex-direction: column;*/
-    justify-content: center;
+    /*justify-content: center;
     align-items: center;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
+}*/
 
 .menu.left {
     height: 500px;
-    width: 187px;
+    width: 200px;
     margin: 20px;
     background-color: rgb(230, 230, 230);
     border-radius: 1em;

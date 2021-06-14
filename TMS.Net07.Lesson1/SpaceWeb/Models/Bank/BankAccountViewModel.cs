@@ -17,5 +17,6 @@ namespace SpaceWeb.Models
         public User Owner { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime ExpireDate { get; set; }
+        public int AccountIndex { get; set; }
     }
 }
