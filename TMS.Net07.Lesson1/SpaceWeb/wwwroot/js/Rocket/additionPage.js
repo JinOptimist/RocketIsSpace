@@ -1,9 +1,13 @@
 $(document).ready(function () {
 
     var isAnimationActive = false;
+    var ismouseleave = false;
     var time = 300;
 
     $('.circle').hover(function () {
+        if (isAnimationActive) {
+            return;
+        }
         $(this).children()
             .toggleClass('material-icons-outlined')
             .toggleClass('material-icons');
@@ -25,10 +29,21 @@ $(document).ready(function () {
             width: 130 / 2,
             height: 130 / 2
         }, time)
+
+        //isAnimationActive = false
     })
 
 
     $('.circle').mouseleave(function () {
+        //if (isAnimationActive) {
+        //    return;
+        //}
+        //isAnimationActive = true
+        if (ismouseleave) {
+            return;
+        }
+        ismouseleave = true
+        
         $(this).animate({
             width: 130,
             height: 130
@@ -36,10 +51,9 @@ $(document).ready(function () {
         $('.not-chosen').animate({
             width: 130,
             height: 130
-        }, time)
+        }, time, '', function () { isAnimationActive = false, ismouseleave = false})
         $(this).addClass('not-chosen')
 
-        isAnimationActive = false
     })
 
 });
