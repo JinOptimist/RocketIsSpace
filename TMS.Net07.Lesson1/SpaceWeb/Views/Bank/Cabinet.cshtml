@@ -16,47 +16,46 @@
         currencyOptions.Add(option);
     }
 }
-<body>
-    <div class="client-before-content"></div>
 
-    <div class="container">
-        <div class="menu top">
-            <div class="top-menu-text">СЧЕТА</div>
-            @Html.Partial("_bankAccountsList")
-        </div>
-        <div class="menu bottom">
-            <div class="transactions button">Переводы</div>
+<div class="client-before-content"></div>
+
+<div class="container">
+    <div class="menu top">
+        <div class="top-menu-text">СЧЕТА</div>
+        @Html.Partial("_bankAccountsList")
+    </div>
+    <div class="menu bottom">
+        <div class="transactions button">Переводы</div>
+
+    <a class="personal-info button" href="/Bank/UserProfile">
+        <div>Персональные</div>
+        <div>данные</div>
+    </a>
+    <div class="settings button">Настройки</div>
+    <div class="insurance button">Страхование</div>
+
+    <a class="personal-info button" href="/Bank/BanksCard">
+        <div class="banks button">Banks</div>
+    </a>
+        
+</div>
+</div>
+<div class="hide">
+<div class="bank-account template">
+    <div class="type">Валютный счет</div>
+    <span class="amount"></span><span class="currency">$</span>
+    <div class="account-number"></div>
+        <a class="bank-account button" href="/Account/Creation">
+            <div>Счета</div>
+        </a>
 
         <a class="personal-info button" href="/Bank/UserProfile">
             <div>Персональные</div>
             <div>данные</div>
         </a>
         <div class="settings button">Настройки</div>
-        <div class="insurance button">Страхование</div>
-
-        <a class="personal-info button" href="/Bank/BanksCard">
-            <div class="banks button">Banks</div>
+        <a href="/Insurance/AddInsurance">
+            <div class="insurance button">Страхование</div>
         </a>
-        
     </div>
 </div>
-<div class="hide">
-    <div class="bank-account template">
-        <div class="type">Валютный счет</div>
-        <span class="amount"></span><span class="currency">$</span>
-        <div class="account-number"></div>
-            <a class="bank-account button" href="/Account/Creation">
-                <div>Счета</div>
-            </a>
-
-            <a class="personal-info button" href="/Bank/UserProfile">
-                <div>Персональные</div>
-                <div>данные</div>
-            </a>
-            <div class="settings button">Настройки</div>
-            <a href="/Insurance/AddInsurance">
-                <div class="insurance button">Страхование</div>
-            </a>
-        </div>
-    </div>
-</body>

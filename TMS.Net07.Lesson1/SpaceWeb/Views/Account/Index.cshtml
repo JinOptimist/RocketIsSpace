@@ -19,12 +19,16 @@
     }
 }
 
+@section Scripts{
+<script src="~/js/bank/bankAccountCarousel.js"></script>
+}
+
 <body>
     <div class="client-before-content"></div>
 
     <div class="container-accounts">
         <div class="menu left">
-            <div class="left-menu-text">СЧЕТА</div>
+            <div class="left-menu-text">СЧЕТА: <span class="total-accounts">@accounts.Count()</span></div>
             @Html.Partial("_bankAccountsList")
         </div>
         <div class="account-container">
@@ -41,13 +45,14 @@
 
                         @foreach (var bankAccount in accounts)
                         {
-                            <div class="account-info-container @(accountIndex++)">
+                            <div class="account-info-container @accountIndex">
                                 <div class="account-info">
-                                    <div class="info">@bankAccount.Type</div>
-                                    <div class="info">@bankAccount.Amount @bankAccount.Currency.ToString()</div>
-                                    <div class="info">@bankAccount.AccountNumber</div>
-                                    <div class="info">Создан: @bankAccount.CreationDate.Month/@bankAccount.CreationDate.Year</div>
-                                    <div class="info">Действителен до: @bankAccount.ExpireDate.Month/@bankAccount.ExpireDate.Year</div>
+                                    <div class="info index hide">@(accountIndex++)</div>
+                                    <div class="info type">@bankAccount.Type</div>
+                                    <div class="info amount">@bankAccount.Amount @bankAccount.Currency.ToString()</div>
+                                    <div class="info number">@bankAccount.AccountNumber</div>
+                                    <div class="info creation">Создан: @bankAccount.CreationDate.Month/@bankAccount.CreationDate.Year</div>
+                                    <div class="info expire">Действителен до: @bankAccount.ExpireDate.Month/@bankAccount.ExpireDate.Year</div>
                                 </div>
                             </div>
                         }
@@ -56,6 +61,7 @@
             </div>
 
             <div class="button-list">
+                <input class="active-account hide" type="hidden" value="@Model.AccountIndex">
                 <div class="button">Пополнить счет</div>
                 <div class="button">Снять со счета</div>
                 <div class="button">Заморозить счета</div>

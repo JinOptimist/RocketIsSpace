@@ -46,6 +46,13 @@ namespace SpaceWeb.Controllers
                 var user = _userService.GetCurrent();
                 var dbModel = user.BankAccounts.SingleOrDefault(x => x.Id == id);
                 var viewModel = _mapper.Map<BankAccountViewModel>(dbModel);
+
+                var array = user.BankAccounts.ToArray();
+                var index = Array.IndexOf(array, dbModel);
+
+                viewModel.AccountIndex = index;
+                //для того, чтобы вставить индекс активного аккаунта при загрузке страницы
+
                 return View(viewModel);
             }
             return RedirectToAction("Creation");
