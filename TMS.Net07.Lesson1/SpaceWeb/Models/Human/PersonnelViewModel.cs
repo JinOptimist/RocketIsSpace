@@ -9,5 +9,6 @@ namespace SpaceWeb.Models.Human
     {
         public DepartmentViewModel Department { get; set; }
         public List<RequestViewModel> RequestsToEmploy { get; set; }
+        public DateTime DateTime = new DateTime(2021, 6, 14);
     }
 }
