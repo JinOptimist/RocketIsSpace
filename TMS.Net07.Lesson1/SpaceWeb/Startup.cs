@@ -333,13 +333,15 @@ namespace SpaceWeb
 
             app.UseRouting();
 
-            //��� �?
+            //Who am I?
             app.UseAuthentication();
 
-            //���� ��� �����
+            //Waht can I see?
             app.UseAuthorization();
 
             app.UseMiddleware<ErrorHandlerMiddleware>();
+
+            app.UseMiddleware<LocalizationNiceMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

@@ -8,7 +8,6 @@ using System.Text.Json;
 
 namespace SpaceWeb.Controllers
 {
-    [Localize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
