@@ -48,7 +48,7 @@ $(document).ready(function () {
     });
 
     $('.bank-account-list a').click(function (evt) {
-        var activeAccIndex = $(this).find('.account-index').text() - 0;
+        activeAccIndex = $(this).find('.account-index').text() - 0;
         console.log(activeAccIndex);
         if (isAnimationActive) {
             return;
