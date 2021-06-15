@@ -828,20 +828,27 @@ a:visited {
 }
 
 .account-changer{
-    width: 520px;
+    width: 560px;
     height: 220px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.prev-btn, .next-btn{
-    width: 100px;
-    height: 220px;
+.changer-buttons .button{
+    width: 90px;
+    height: 210px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(208, 219, 225, 0.8);
+    cursor: pointer;
+}
+
+.changer-buttons .button:hover {
+    background-color: rgb(210, 210, 210);
+    cursor: pointer;
+    box-shadow: inset 3px 3px 6px 0px rgb(150, 150, 150);
+    border: 1px inset;
 }
 
 .account-info-container.next, 
@@ -863,7 +870,7 @@ a:visited {
 }
 
 .account-view-window {
-    width: 435px;
+    width: 560px;
     height: 220px;
     display: flex;
     justify-content: flex-start;
@@ -878,7 +885,7 @@ a:visited {
 .changer-buttons{
     position: absolute;
     display: flex;
-    width: 550px;
+    width: 600px;
     justify-content: space-between;
 }
 
