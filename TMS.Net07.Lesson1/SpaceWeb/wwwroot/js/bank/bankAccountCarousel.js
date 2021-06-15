@@ -6,6 +6,10 @@ var windowCapacity = 4;
 
 var easingType = 'swing';
 
+var marginLeft = 65;
+
+var cardWidth = 430;
+
 $(document).ready(function () {
     var isAnimationActive = false;
 
@@ -47,7 +51,7 @@ $(document).ready(function () {
         SetActiveAccount(activeAccIndex);
     });
 
-    $('.bank-account-list a').click(function (evt) {
+    $('.bank-account-list .account-link').click(function (evt) {
         activeAccIndex = $(this).find('.account-index').text() - 0;
         console.log(activeAccIndex);
         if (isAnimationActive) {
@@ -178,6 +182,6 @@ function ScrollLeftMenu(index, time) {
 
 function ChangeActiveAccount(index, time) {
     $('.account-carousel').animate({
-        'margin-left': (-1 * index * 430)
+        'margin-left': (marginLeft + (-1 * index * cardWidth))
     }, { duration: time, easing: easingType, queue: false });
 }

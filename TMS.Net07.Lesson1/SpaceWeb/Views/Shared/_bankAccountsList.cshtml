@@ -21,7 +21,7 @@
     </a>
     @foreach (var BankAccount in accounts)
     {
-        <a href="/Account/Index?id=@BankAccount.Id">
+        <a href="/Account/Index?id=@BankAccount.Id" class="account-link">
             <div class="bank-account @accountIndex">
                 <div class="type">@BankAccount.Type</div>
                 <div>
