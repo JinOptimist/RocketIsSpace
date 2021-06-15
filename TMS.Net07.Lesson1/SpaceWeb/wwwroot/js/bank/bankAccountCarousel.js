@@ -11,7 +11,7 @@ $(document).ready(function () {
 
     var activeAccIndex = GetActiveAccount();
 
-    var totalAccounts = $('.total-accounts').text() - 0;
+    var totalAccounts = GetTotalAccounts();
 
     SetPosition(activeAccIndex, 0);
 
@@ -52,6 +52,10 @@ function GetActiveAccount() {
     return $('.active-account').val() - 0;
 }
 
+function GetTotalAccounts() {
+    return $('.total-accounts').text() - 0;
+}
+
 function SetPosition(index, time) {
     isAnimationActive = true;
 
@@ -83,6 +87,7 @@ function ScrollLeftMenu(index, time) {
     if (IsVisible(index)) {
         return;
     }
+
     else if (blockPosition < windowPosition) {
         nextPosition = blockPosition;
     }
