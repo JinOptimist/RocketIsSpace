@@ -750,7 +750,7 @@ a:visited {
 
 .menu.left {
     height: 500px;
-    width: 187px;
+    width: 210px;
     margin: 20px;
     background-color: rgb(230, 230, 230);
     border-radius: 1em;
@@ -767,18 +767,31 @@ a:visited {
 }
 
 .menu.left .bank-account {
-    height: 96px;
+    /*height: 96px;
     min-width: 166px;
     margin: 10px;
     border-radius: 1em;
-    background-color: rgba(0, 185, 229, 0.7);
+    border: 0px white double;
+    background-color: rgba(0, 185, 229,0.7);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    transition: 300ms;*/
+
+    height: 80px;
+    min-width: 150px;
+    margin: 10px;
+    border-radius: 1em;
+    border: 8px rgba(255, 255, 255, 0) double;
+    background-color: rgba(0, 185, 229,0.7);
     color: white;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
     transition: 300ms;
-    flex-direction: column;
 }
 
 .menu.left .bank-account:hover {

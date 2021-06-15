@@ -34,7 +34,7 @@ namespace SpaceWeb.Service
             _exchangeRateToUsdCurrentRepository = exchangeRateToUsdCurrentRepository;
             _exchangeAccountHistoryRepository = exchangeAccountHistoryRepository;
             _exchangeRateToUsdHistoryRepository = exchangeRateToUsdHistoryRepository;
-            _mapper = mapper;
+            _mapper = (Mapper)mapper;
         }
 
 

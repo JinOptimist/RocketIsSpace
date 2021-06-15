@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using SpaceWeb.EfStuff.Repositories;
 using SpaceWeb.Models;
 using System.Linq;
