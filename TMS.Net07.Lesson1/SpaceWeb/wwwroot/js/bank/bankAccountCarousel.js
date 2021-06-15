@@ -77,7 +77,7 @@ function GetTotalAccounts() {
 function SetPosition(index, time) {
     isAnimationActive = true;
 
-    ChangeActiveAccount(index, time);
+    AnimateActiveAccount(index, time);
 
     ScrollLeftMenu(index, time);
 
@@ -180,7 +180,7 @@ function ScrollLeftMenu(index, time) {
     }
 }
 
-function ChangeActiveAccount(index, time) {
+function AnimateActiveAccount(index, time) {
     $('.account-carousel').animate({
         'margin-left': (marginLeft + (-1 * index * cardWidth))
     }, { duration: time, easing: easingType, queue: false });
