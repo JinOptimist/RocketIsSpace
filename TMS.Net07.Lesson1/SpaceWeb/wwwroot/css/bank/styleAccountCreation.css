@@ -102,7 +102,7 @@
         cursor: pointer;
     }*/
 
-.add-new.content {
+/*.add-new.content {
     height: 80px;
     width: 150px;
     border: 3px rgb(255, 255, 255) dashed;
@@ -114,7 +114,7 @@
     align-self: center;
     color: white;
     font-weight: bolder;
-}
+}*/
 
 .account-creation-container {
     height: 500px;
@@ -206,4 +206,22 @@ input[type=reset]:hover {
 .creation-form {
     text-align: center;
     font-size: 16px;
+}
+
+.account-set-border{
+    height: 80px;
+    width: 150px;
+    border: 3px rgb(255, 255, 255) dashed;
+    border-radius: 0.8em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+}
+
+.menu.left .bank-account.bordered {
+    background-color: rgb(0, 185, 229);
+    box-shadow: 3px 3px 6px 0px rgb(150, 150, 150);
 }
