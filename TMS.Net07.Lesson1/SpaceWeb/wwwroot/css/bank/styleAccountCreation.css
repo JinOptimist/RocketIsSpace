@@ -2,16 +2,16 @@
     height: 100%;
     width: 100%;
     background-color: rgba(208, 219, 225, 0.1);
-    display: flex;*/
-    /*flex-direction: column;*/
-    /*justify-content: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}*/
+}
 
 .menu.left {
     height: 500px;
-    width: 200px;
+    width: 210px;
     margin: 20px;
     background-color: rgb(230, 230, 230);
     border-radius: 1em;
@@ -36,26 +36,26 @@
     white-space: nowrap;
 }
 
-/* width */
+ width 
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
 }
 
-/* Track */
+ Track 
 ::-webkit-scrollbar-track {
     background: #f1f1f1;
     border-radius: 10px;
 }
 
-/* Handle */
+ Handle 
 ::-webkit-scrollbar-thumb {
     background-color: rgb(210, 210, 210);
     border-radius: 10px;
     transition: 300ms;
 }
 
-    /* Handle on hover */
+     Handle on hover 
     ::-webkit-scrollbar-thumb:hover {
         background-color: rgb(190,190,190);
     }
@@ -100,7 +100,7 @@
     .add-new.background:hover {
         background-color: rgb(190, 190, 190);
         cursor: pointer;
-    }
+    }*/
 
 .add-new.content {
     height: 80px;
@@ -149,10 +149,10 @@ input[type = text] {
     transition: 300ms;
 }
 
-    input[type = text]:focus {
-        outline: none;
-        border-bottom: 2px solid rgb(0, 185, 229);
-    }
+input[type = text]:focus {
+    outline: none;
+    border-bottom: 2px solid rgb(0, 185, 229);
+}
 
 select {
     height: 30px;
@@ -164,10 +164,10 @@ select {
     transition: 300ms;
 }
 
-    select:focus {
-        outline: none;
-        border-bottom: 2px solid rgb(0, 185, 229);
-    }
+select:focus {
+    outline: none;
+    border-bottom: 2px solid rgb(0, 185, 229);
+}
 
 input[type=button], input[type=submit], input[type=reset] {
     /*background-color: #4CAF50;*/

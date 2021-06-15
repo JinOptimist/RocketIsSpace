@@ -746,7 +746,7 @@ a:visited {
 
 .menu.left {
     height: 500px;
-    width: 187px;
+    width: 210px;
     margin: 20px;
     background-color: rgb(230, 230, 230);
     border-radius: 1em;
@@ -767,6 +767,7 @@ a:visited {
     min-width: 166px;
     margin: 10px;
     border-radius: 1em;
+    border: 0px white double;
     background-color: rgba(0, 185, 229,0.7);
     color: white;
     display: flex;

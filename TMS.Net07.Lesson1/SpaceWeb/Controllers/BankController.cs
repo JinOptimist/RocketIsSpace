@@ -14,6 +14,7 @@ using System.Drawing;
 using System.IO;
 using Novacode;
 using Microsoft.AspNetCore.Hosting;
+using SpaceWeb.EfStuff.Model;
 
 namespace SpaceWeb.Controllers
 {

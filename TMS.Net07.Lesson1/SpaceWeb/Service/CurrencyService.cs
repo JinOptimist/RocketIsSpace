@@ -26,13 +26,13 @@ namespace SpaceWeb.Service
             ExchangeRateToUsdCurrentRepository exchangeRateToUsdCurrentRepository,
             ExchangeAccountHistoryRepository exchangeAccountHistoryRepository,
             ExchangeRateToUsdHistoryRepository exchangeRateToUsdHistoryRepository,
-            Mapper mapper)
+            IMapper mapper)
         {
             _userService = userService;
             _exchangeRateToUsdCurrentRepository = exchangeRateToUsdCurrentRepository;
             _exchangeAccountHistoryRepository = exchangeAccountHistoryRepository;
             _exchangeRateToUsdHistoryRepository = exchangeRateToUsdHistoryRepository;
-            _mapper = mapper;
+            _mapper = (Mapper)mapper;
         }
 
         public decimal ConvertByAlex(decimal amount, Currency currencyTo)
