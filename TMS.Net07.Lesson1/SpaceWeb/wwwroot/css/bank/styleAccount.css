@@ -1,4 +1,4 @@
-.account-creation-container { /*нужно - в аккаунт криэйшн*/
+.account-creation.content-box { /*нужно - в аккаунт криэйшн*/
     height: 500px;
     width: 600px;
     margin: 20px;
@@ -221,12 +221,12 @@ select:focus {  /*универсально*/
     cursor: pointer;
 }
 
-    .changer-buttons .button:hover {
-        background-color: rgb(210, 210, 210);
-        cursor: pointer;
-        box-shadow: inset 3px 3px 6px 0px rgb(150, 150, 150);
-        border: 1px inset;
-    }
+.changer-buttons .button:hover {
+    background-color: rgb(210, 210, 210);
+    cursor: pointer;
+    box-shadow: inset 3px 3px 6px 0px rgb(150, 150, 150);
+    border: 1px inset;
+}
 
 .account-info-container.temp {
     width: 0px;
