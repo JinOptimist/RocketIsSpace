@@ -270,13 +270,13 @@ namespace SpaceWeb.Controllers
             var account = _bankAccountRepository.Get(id);
             using (var doc = DocX.Create(path))
             {
-                doc.InsertParagraph($"Информация по счёту {account.Type}");
+                doc.InsertParagraph($"Информация по счёту {account.Name}");
                 doc.InsertParagraph($"Остаток на счёту: {account.Amount}");
                 doc.Save();
             }
 
             var contentTypeDocx = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-            var fileName = $"{account.Type}.docx";
+            var fileName = $"{account.Name}.docx";
             return PhysicalFile(path, contentTypeDocx, fileName);
         }
     }

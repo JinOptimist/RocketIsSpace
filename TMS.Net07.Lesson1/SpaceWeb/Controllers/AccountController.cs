@@ -82,19 +82,22 @@ namespace SpaceWeb.Controllers
         public IActionResult Creation(BankAccountViewModel viewModel)
         {
             int accountLifeTime;
+
+            var type = viewModel.Amount.GetType();
+
             if (viewModel.Currency == Currency.BYN) //заменить двойной if
             {
-                if (viewModel.Type == null)
+                if (viewModel.Name == null)
                 {
-                    viewModel.Type = "Счет";
+                    viewModel.Name = "Счет";
                 }
                 accountLifeTime = 5;
             }
             else
             {
-                if (viewModel.Type == null)
+                if (viewModel.Name == null)
                 {
-                    viewModel.Type = "Валютный счет";
+                    viewModel.Name = "Валютный счет";
                 }
                 accountLifeTime = 3;
             }
