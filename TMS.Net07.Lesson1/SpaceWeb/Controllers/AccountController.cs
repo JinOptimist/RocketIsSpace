@@ -48,8 +48,7 @@ namespace SpaceWeb.Controllers
                 var dbModel = user.BankAccounts.SingleOrDefault(x => x.Id == id);
                 var viewModel = _mapper.Map<BankAccountViewModel>(dbModel);
 
-                var array = user.BankAccounts.ToArray();
-                var index = Array.IndexOf(array, dbModel);
+                var index = user.BankAccounts.IndexOf(dbModel);
 
                 viewModel.AccountIndex = index;
                 //для того, чтобы вставить индекс активного аккаунта при загрузке страницы
@@ -84,19 +83,22 @@ namespace SpaceWeb.Controllers
         public IActionResult Creation(BankAccountViewModel viewModel)
         {
             int accountLifeTime;
+
+            var type = viewModel.Amount.GetType();
+
             if (viewModel.Currency == Currency.BYN) //заменить двойной if
             {
-                if (viewModel.Type == null)
+                if (viewModel.Name == null)
                 {
-                    viewModel.Type = "Счет";
+                    viewModel.Name = "Счет";
                 }
                 accountLifeTime = 5;
             }
             else
             {
-                if (viewModel.Type == null)
+                if (viewModel.Name == null)
                 {
-                    viewModel.Type = "Валютный счет";
+                    viewModel.Name = "Валютный счет";
                 }
                 accountLifeTime = 3;
             }
@@ -177,7 +179,7 @@ namespace SpaceWeb.Controllers
 
                 foreach (var account in accounts)
                 {
-                    doc.InsertParagraph().Append($"Счет №{accountsNumber++} - {account.Type}").Bold().FontSize(16).Italic().Alignment = Alignment.center;
+                    doc.InsertParagraph().Append($"Счет №{accountsNumber++} - {account.Name}").Bold().FontSize(16).Italic().Alignment = Alignment.center;
 
                     var table = doc.InsertTable(countRows, 2);
 
@@ -198,7 +200,7 @@ namespace SpaceWeb.Controllers
                         colorNow = 0;
                     }
 
-                    table.Rows[0].Cells[1].Paragraphs.First().Append(account.Type).FontSize(12).Alignment = Alignment.center;
+                    table.Rows[0].Cells[1].Paragraphs.First().Append(account.Name).FontSize(12).Alignment = Alignment.center;
                     table.Rows[1].Cells[1].Paragraphs.First().Append(account.Currency.ToString()).FontSize(12).Alignment = Alignment.center;
                     table.Rows[2].Cells[1].Paragraphs.First().Append(account.Amount.ToString()).FontSize(12).Alignment = Alignment.center;
                     table.Rows[3].Cells[1].Paragraphs.First().Append(account.AccountNumber).FontSize(12).Alignment = Alignment.center;
@@ -236,7 +238,7 @@ namespace SpaceWeb.Controllers
 
             using (var doc = DocX.Create(path))
             {
-                doc.InsertParagraph($"Детали счета \"{account.Type}\":")
+                doc.InsertParagraph($"Детали счета \"{account.Name}\":")
                     .Font("Comic Sans MS")
                     .Bold()
                     .FontSize(25)
@@ -252,7 +254,7 @@ namespace SpaceWeb.Controllers
                 table.Rows[4].Cells[0].Paragraphs.First().Append("Creation date").Bold().FontSize(14).Italic();
                 table.Rows[5].Cells[0].Paragraphs.First().Append("Expiry date").Bold().FontSize(14).Italic();
 
-                table.Rows[0].Cells[1].Paragraphs.First().Append(account.Type).FontSize(12).Alignment = Alignment.center;
+                table.Rows[0].Cells[1].Paragraphs.First().Append(account.Name).FontSize(12).Alignment = Alignment.center;
                 table.Rows[1].Cells[1].Paragraphs.First().Append(account.Currency.ToString()).FontSize(12).Alignment = Alignment.center;
                 table.Rows[2].Cells[1].Paragraphs.First().Append(account.Amount.ToString()).FontSize(12).Alignment = Alignment.center;
                 table.Rows[3].Cells[1].Paragraphs.First().Append(account.AccountNumber).FontSize(12).Alignment = Alignment.center;
@@ -277,8 +279,15 @@ namespace SpaceWeb.Controllers
             }
 
             var contentTypeDocx = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-            var fileName = $"Info about '{account.Type}' account.docx";
+            var fileName = $"Info about '{account.Name}' account.docx";
             return PhysicalFile(path, contentTypeDocx, fileName);
+        }
+        public IActionResult UpdateAmount(string accoutNumber, int delta)
+        {
+            var account = _bankAccountRepository.Get(accoutNumber);
+            account.Amount += delta;
+            _bankAccountRepository.Save(account);
+            return Json(true);
         }
     }
 }

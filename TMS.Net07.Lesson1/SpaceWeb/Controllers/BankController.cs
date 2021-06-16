@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using SpaceWeb.EfStuff.Repositories;
 using SpaceWeb.Models;
 using System.Linq;
@@ -474,6 +474,11 @@ namespace SpaceWeb.Controllers
                 table.SetBorder(TableBorderType.Top, boldLine);
                 table.SetBorder(TableBorderType.Left, boldLine);
                 table.SetBorder(TableBorderType.Right, boldLine);
+                
+                //doc.InsertParagraph($"Информация по счёту {account.Name}");
+                //doc.InsertParagraph($"Остаток на счёту: {account.Amount}");
+
+                //cant find account 
 
                 doc.Save();
             }
@@ -482,6 +487,10 @@ namespace SpaceWeb.Controllers
             var fileName = $"History of exchange rates.docx";
             return PhysicalFile(path, contentTypeDocx, fileName);
         }
+        public IActionResult Transfer(long toId, long fromId, decimal amount)
+        {
+            _bankAccountRepository.Transfer(toId, fromId, amount);
+            return RedirectToAction("Cabinet");
+        }
     }
-
 }

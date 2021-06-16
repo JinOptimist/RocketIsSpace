@@ -151,6 +151,15 @@ namespace SpaceWeb.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Банк.
+        /// </summary>
+        public static string DepartmentType_Bank {
+            get {
+                return ResourceManager.GetString("DepartmentType_Bank", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Лаборатория.
         /// </summary>
         public static string DepartmentType_Laboratory {

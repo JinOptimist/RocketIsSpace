@@ -13,7 +13,7 @@ namespace SpaceWeb.EfStuff.Model
         public Currency Currency { get; set; }
         [Column(TypeName = "decimal(18, 2)")]
         public decimal Amount { get; set; }
-        public string Type { get; set; }
+        public string Name { get; set; }
         public virtual User Owner { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime ExpireDate { get; set; }
