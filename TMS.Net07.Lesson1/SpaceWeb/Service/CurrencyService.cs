@@ -16,16 +16,16 @@ namespace SpaceWeb.Service
 {
     public class CurrencyService : ICurrencyService
     {
-        private UserService _userService;
-        private ExchangeRateToUsdCurrentRepository _exchangeRateToUsdCurrentRepository;
-        private ExchangeAccountHistoryRepository _exchangeAccountHistoryRepository;
-        private ExchangeRateToUsdHistoryRepository _exchangeRateToUsdHistoryRepository;
+        private IUserService _userService;
+        private IExchangeRateToUsdCurrentRepository _exchangeRateToUsdCurrentRepository;
+        private IExchangeAccountHistoryRepository _exchangeAccountHistoryRepository;
+        private IExchangeRateToUsdHistoryRepository _exchangeRateToUsdHistoryRepository;
         private IMapper _mapper;
 
-        public CurrencyService(UserService userService,
-            ExchangeRateToUsdCurrentRepository exchangeRateToUsdCurrentRepository,
-            ExchangeAccountHistoryRepository exchangeAccountHistoryRepository,
-            ExchangeRateToUsdHistoryRepository exchangeRateToUsdHistoryRepository,
+        public CurrencyService(IUserService userService,
+            IExchangeRateToUsdCurrentRepository exchangeRateToUsdCurrentRepository,
+            IExchangeAccountHistoryRepository exchangeAccountHistoryRepository,
+            IExchangeRateToUsdHistoryRepository exchangeRateToUsdHistoryRepository,
             IMapper mapper)
         {
             _userService = userService;
@@ -40,7 +40,8 @@ namespace SpaceWeb.Service
             var user = _userService.GetCurrent();
             var currencyFrom = Currency.USD;
             var typeOfExchange = TypeOfExchange.Sell;
-            var exchangeRate = _exchangeRateToUsdCurrentRepository.GetExchangeRate(currencyTo, typeOfExchange).ExchRate;
+            var exchangeRate = _exchangeRateToUsdCurrentRepository
+                .GetExchangeRate(currencyTo, typeOfExchange).ExchRate;
 
             var convertedAmount = amount * exchangeRate;
 
