@@ -30,13 +30,13 @@ namespace SpaceWeb.Test.Presentation
         [TestCase(1)]
         public void GetProfileViewModel_1(long id)
         {
-            var userprofile = new SpaceWeb.EfStuff.Model.Profile()
+            var userprofile = new SpaceWeb.EfStuff.Model.Questionary()
             {
                 Id = id,
                 Name = "A",
                 SurName = "B"
             };
-            var prof = new UserProfileViewModel()
+            var prof = new QuestionaryViewModel()
             {
                 Id = id,
                 Name = "A",
@@ -44,11 +44,11 @@ namespace SpaceWeb.Test.Presentation
             };
 
             _mockRepository.Setup(x => x.Get(id)).Returns(userprofile);
-            _mockMapper.Setup(x => x.Map<UserProfileViewModel>(userprofile)).Returns(prof);
+            _mockMapper.Setup(x => x.Map<QuestionaryViewModel>(userprofile)).Returns(prof);
 
             var profile = _bankPresentation.GetProfileViewModel(id);
 
-            _mockMapper.Verify(x => x.Map<UserProfileViewModel>(userprofile), Times.AtLeastOnce);
+            _mockMapper.Verify(x => x.Map<QuestionaryViewModel>(userprofile), Times.AtLeastOnce);
 
             Assert.AreEqual(profile.Name, prof.Name);
         }
@@ -57,23 +57,23 @@ namespace SpaceWeb.Test.Presentation
         [TestCase(0)]
         public void GetProfileViewModel_0(long id)
         {
-            var userprofile = new SpaceWeb.EfStuff.Model.Profile()
+            var userprofile = new SpaceWeb.EfStuff.Model.Questionary()
             {
                 Id = id,
                 Name = "A",
                 SurName = "B"
             };
-            var prof = new UserProfileViewModel()
+            var prof = new QuestionaryViewModel()
             {
                 Id = id
             };
 
             _mockRepository.Setup(x => x.Get(id)).Returns(userprofile);
-            _mockMapper.Setup(x => x.Map<UserProfileViewModel>(userprofile)).Returns(prof);
+            _mockMapper.Setup(x => x.Map<QuestionaryViewModel>(userprofile)).Returns(prof);
 
             var profile = _bankPresentation.GetProfileViewModel(id);
 
-            _mockMapper.Verify(x => x.Map<UserProfileViewModel>(userprofile), Times.AtLeastOnce);
+            _mockMapper.Verify(x => x.Map<QuestionaryViewModel>(userprofile), Times.AtLeastOnce);
 
             Assert.AreEqual(profile.Name, null);
         }

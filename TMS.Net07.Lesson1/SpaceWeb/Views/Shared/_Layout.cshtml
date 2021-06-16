@@ -32,12 +32,12 @@
                 <form action="/User/Login" method="post" id="login-or-registration" class="loginformstyle">
                     <div>
                         <input name="@nameof(RegistrationViewModel.Login)"
-                               class="inputFields" type="text" 
+                               class="inputFields" type="text"
                                placeholder="@Resource.Layout_Login" />
                     </div>
                     <div>
                         <input name="@nameof(RegistrationViewModel.Password)"
-                               class="inputFields" type="password" 
+                               class="inputFields" type="password"
                                placeholder="@Resource.Layout_Password" />
                     </div>
                     <div class="login-but">
@@ -47,9 +47,15 @@
 
                     <div class="or">or</div>
                     <div class="registration-but">
-                        <input class="pglogbut" type="submit" 
+                        <input class="pglogbut" type="submit"
                                value="@Resource.Layout_Registration" />
                     </div>
+                    <ul>
+                        <li>
+                            @Html.ActionLink("English", ViewContext.RouteData.Values["action"]
+                   .ToString(), ViewContext.RouteData.Values["acction"])
+                    </li>
+                </ul>
                 </form>
             </div>
         </div>

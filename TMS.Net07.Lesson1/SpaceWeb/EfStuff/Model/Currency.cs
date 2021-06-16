@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SpaceWeb.Models
+namespace SpaceWeb.EfStuff.Model
 {
     public enum Currency
     {
