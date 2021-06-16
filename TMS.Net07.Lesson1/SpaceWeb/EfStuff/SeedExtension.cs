@@ -16,22 +16,13 @@ namespace SpaceWeb.EfStuff
     public static class SeedExtension
     {
         public const string AdminName = "admin";
-        public const string DepartmentName = "Administration";
-        public const string EmployeName = "Test";
-        public const string EmployeSurname = "Employe";
-        public const string ClientName = "Client";
-        public const string ClientSurname = "Example";
-        public const string DefaultPassword = "123";
         public static IHost SeedData(this IHost server)
         {
             using (var serviceScope = server.Services.CreateScope())
             {
                 SetDefaultUser(serviceScope.ServiceProvider);
-                SetDefaultDepartment(serviceScope.ServiceProvider);
                 SetDefaultInsuranceType(serviceScope.ServiceProvider);
                 SetDefaultExchangeRateToUsdCurrent(serviceScope.ServiceProvider);
-                SetDefaultEmploye(serviceScope.ServiceProvider);
-                SetDefaultCient(serviceScope.ServiceProvider);
             }
 
             return server;
@@ -67,25 +58,6 @@ namespace SpaceWeb.EfStuff
                     JobType = JobType.ChiefBankEmployee
                 };
                 userRepository.Save(chiefBankEmployee);
-            }
-        }
-
-        private static void SetDefaultDepartment(IServiceProvider services)
-        {
-            var departmentRepository = services.GetService<IDepartmentRepository>();
-            string defaultDepartmentName = DepartmentName;
-            var department = departmentRepository.Get(defaultDepartmentName);
-            if (department == null)
-            {
-                department = new Department
-                {
-                    DepartmentName = defaultDepartmentName,
-                    DepartmentSpecificationType = DepartmentType.Other,
-                    MaximumCountEmployes = 1,
-                    HourStartWorking = 8,
-                    HourEndWorking = 17
-                };
-                departmentRepository.Save(department);
             }
         }
 

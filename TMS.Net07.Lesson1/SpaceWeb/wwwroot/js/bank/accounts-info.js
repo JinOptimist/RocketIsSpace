@@ -5,7 +5,9 @@
         var url = '/Bank/AccountsChartInfoDraw';
         $.get(url)
             .done(function (answer) {
-                drawChart(answer);
+                if (answer) {
+                    drawChart(answer);
+                }
             });
     }
 

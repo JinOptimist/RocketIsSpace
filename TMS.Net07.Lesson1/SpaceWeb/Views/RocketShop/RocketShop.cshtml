@@ -9,6 +9,7 @@
 {
     <script src="~/js/chart.min.js"></script>
     <script src="~/js/Rocket/RocketShopChart.js"></script>
+    <script src="~/js/Rocket/add-nice-basket.js"></script>
 }
 
 @{
@@ -50,8 +51,11 @@
                 }
             </div>
             <div class="input-for-shop">
+                <a class="btn-shop add-nice">Add nice</a>
                 <input type="submit" class="btn-shop" value="Add to basket">
-                <a href="Basket" class="btn-shop">BASKET</a>
+                <a href="Basket" class="btn-shop basket">BASKET
+                    (<span class="basket-count">0</span>)
+                </a>
             </div>
         </form>
         <div style="height: 100px"></div>

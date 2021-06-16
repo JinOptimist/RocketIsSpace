@@ -129,6 +129,9 @@
   <data name="AllDepartments_Surname" xml:space="preserve">
     <value>Фамилия</value>
   </data>
+  <data name="DepartmentType_Bank" xml:space="preserve">
+    <value>Банк</value>
+  </data>
   <data name="DepartmentType_Laboratory" xml:space="preserve">
     <value>Лаборатория</value>
   </data>

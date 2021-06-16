@@ -16,6 +16,8 @@ namespace SpaceWeb.Models.Human
         [Display(ResourceType = typeof(Resource), Name = "DepartmentType_SpacecraftCrew")]
         SpacecraftCrew = 4,
         [Display(ResourceType = typeof(Resource), Name = "DepartmentType_Other")]
-        Other = 5
+        Other = 5,
+        [Display(ResourceType = typeof(Resource), Name = "DepartmentType_Bank")]
+        Bank = 6
     };
 }

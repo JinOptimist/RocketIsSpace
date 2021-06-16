@@ -134,5 +134,12 @@ namespace SpaceWeb.Controllers
             return RedirectToRoute("default", new { controller = "Account", action = "Index", id});
         }
 
+        public IActionResult UpdateAmount(string accoutNumber, int delta)
+        {
+            var account = _bankAccountRepository.Get(accoutNumber);
+            account.Amount += delta;
+            _bankAccountRepository.Save(account);
+            return Json(true);
+        }
     }
 }

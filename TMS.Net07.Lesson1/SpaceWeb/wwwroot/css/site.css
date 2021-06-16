@@ -510,32 +510,24 @@ a {
             opacity: 0.3;
         }
 
-.block .next-image,
-.block .prev-image {
-    /*background: green;*/
-    height: 270px;
-    width: 0;
+.carousel-smile {
+    background: rgb(33, 33, 33);
 }
 
-.block .current-image {
-    /*background: red;*/
-    height: 270px;
-    width: 500px;
+.dot {
+    cursor: pointer;
+    height: 13px;
+    width: 13px;
+    margin: 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+    border: none;
 }
 
-.block .next-image,
-.block .prev-image,
-.block .current-image {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-    .block .next-image img,
-    .block .prev-image img,
-    .block .current-image img {
-        max-width: 100%;
-        max-height: 100%;
+    .active, .dot:hover {
+        background-color: #717171;
     }
 
 .all-money-block {

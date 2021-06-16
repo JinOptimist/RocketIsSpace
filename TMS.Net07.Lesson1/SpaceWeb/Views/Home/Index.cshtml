@@ -7,7 +7,7 @@
 
 @section Style
 {
-    <link rel="stylesheet" href="~/css/rocket.css?v=1">
+    <link rel="stylesheet" href="~/css/rocket.css?v=2">
 }
 
 @section Scripts{
@@ -44,22 +44,22 @@
 <div class="block">
 
     <div class="animate-block">
-        <div class="buttons">
-            <div class="prev-btn"></div>
-            <div class="choose"></div>
-            <div class="next-btn"></div>
-        </div>
-        
-        <div class="next-image">
-            <img src="~/image/bank/card-mocn.jpg" />
-        </div>
-        <div class="current-image">
-            <img src="~/image/bank/card-shopp.jpg" />
-        </div>
-        <div class="prev-image">
-            <img src="~/image/bank/card-x.jpg" />
-        </div>
-       
+
+    </div>
+    <div style="text-align:center">
+        <span class="dot active" id="1"></span>
+        <span class="dot" id="2"></span>
+        <span class="dot" id="3"></span>
+        <span class="dot" id="4"></span>
+        <span class="dot" id="5"></span>
+        <span class="dot" id="6"></span>
     </div>
     
 </div>
+
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="block">
+        <canvas id="myChart"></canvas>
+    </div>
+}

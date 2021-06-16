@@ -8,7 +8,6 @@ using System.Text.Json;
 
 namespace SpaceWeb.Controllers
 {
-    [Localize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -35,6 +34,11 @@ namespace SpaceWeb.Controllers
         public IActionResult AccountChartInfo()
         {
             var user = _userService?.GetCurrent();
+            if (user == null)
+            {
+                return Json(null);
+            }
+            var currencies = user.BankAccounts.Select(x => x.Currency).Distinct();
 
             //проект не грузится, если юзер не залогинен
 

@@ -278,6 +278,10 @@ namespace SpaceWeb.Controllers
             var contentTypeDocx = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
             var fileName = $"{account.Name}.docx";
             return PhysicalFile(path, contentTypeDocx, fileName);
+        public IActionResult Transfer(long toId, long fromId, decimal amount)
+        {
+            _bankAccountRepository.Transfer(toId, fromId, amount);
+            return RedirectToAction("Cabinet");
         }
     }
 }
