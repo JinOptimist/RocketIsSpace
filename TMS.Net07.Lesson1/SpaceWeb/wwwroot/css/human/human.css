@@ -168,3 +168,9 @@
     border: double;
 }
 
+.employee-card-buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 10px;
+}
