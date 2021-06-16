@@ -3,15 +3,7 @@
     color: white;
     font-size: 50px;
     font-family: Hairline;
-    width: 500px;
-    border: none!important;
     background-position: center;
-}
-
-.rocket-link {
-    text-decoration: none;
-    margin: 15px;
-    height: 270px;
 }
 
 @font-face {

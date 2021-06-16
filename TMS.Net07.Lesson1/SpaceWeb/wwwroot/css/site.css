@@ -39,37 +39,51 @@
     margin: 15px;
 }
 
-.block-human {
-    border: 5px #151563 solid !important;
-    box-shadow: 0 0 15px 10px #070746;
+.department {
+    margin: 15px;
     border-radius: 20px 120px;
-    background: url(/image/human/button-background.jpg) center;
-    background-size: cover;
 }
 
-    .block-human:hover {
-        border-color: white !important;
+    .department > div {
+        border-radius: 20px 120px;
+        background-size: cover;
+        border: 5px black solid;
+        box-shadow: 0 0 15px 10px black;
     }
 
-.block-bank {
-    width: 500px;
-    height: 270px;
-    border: 5px black solid;
-    box-shadow: 0 0 15px 10px black;
-    /*margin: 25px;*/
-    color: white;
-    font-size: 45pt;
-    font-weight: bold;
-    background: url("../../image/bank/wwwBank.jpeg") center;
-    background-size: cover;
-    align-content: center;
-    text-align: center;
-    vertical-align: middle;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 20px 120px
-}
+    .department .block-human {
+        border-color: #151563;
+        box-shadow: 0 0 15px 10px #070746;
+        background-image: url(/image/human/button-background.jpg);
+        background-position: center;
+    }
+
+        .department .block-human:hover {
+            border-color: white;
+        }
+
+    .department .block-bank {
+        border-color: rgba(0, 196, 249, .5);
+        box-shadow: 0 0 15px 10px rgba(253, 100, 0, .5);
+        color: white;
+        font-size: 45pt;
+        font-weight: bold;
+        background-image: url("../../image/bank/wwwBank.jpeg");
+        background-position: center;
+        align-content: center;
+        text-align: center;
+        vertical-align: middle;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .department .rocketfield {
+        border: 5px #152131 solid;
+        box-shadow: 0 0 15px 10px #1e2538;
+    }
+
+
 
 .cover-text-block-bank {
     background: #e6ebf1;
