@@ -173,38 +173,38 @@ namespace SpaceWeb.EfStuff
             currencyService.PutCurrentExchangeRatesToDb(exchRateToUsdCurrentRepository, gottenCurrencies);
         }
 
-        private static void SetDefaultEmploye(IServiceProvider service)
-        {
-            var userReposirory = service.GetService<IUserRepository>();
-            var departmentRepository = service.GetService<IDepartmentRepository>();
-            var user = userReposirory.Get(string.Concat(EmployeName, EmployeSurname));
-            if (user == null)
-            {
-                user = CreateUser(string.Concat(EmployeName, EmployeSurname), EmployeName, EmployeSurname, DefaultPassword);
-                user.Employe = CreateEmploye(Position.Leader, EmployeStatus.Accepted, 200, departmentRepository.Get(DepartmentName));
-            }
-            else if (user.Employe == null)
-            {
-                user.Employe = CreateEmploye(Position.Leader, EmployeStatus.Accepted, 200, departmentRepository.Get(DepartmentName));
-            }
-            userReposirory.Save(user);
-        }
+        //private static void SetDefaultEmploye(IServiceProvider service)
+        //{
+        //    var userReposirory = service.GetService<IUserRepository>();
+        //    var departmentRepository = service.GetService<IDepartmentRepository>();
+        //    var user = userReposirory.Get(string.Concat(EmployeName, EmployeSurname));
+        //    if (user == null)
+        //    {
+        //        user = CreateUser(string.Concat(EmployeName, EmployeSurname), EmployeName, EmployeSurname, DefaultPassword);
+        //        user.Employe = CreateEmploye(Position.Leader, EmployeStatus.Accepted, 200, departmentRepository.Get(DepartmentName));
+        //    }
+        //    else if (user.Employe == null)
+        //    {
+        //        user.Employe = CreateEmploye(Position.Leader, EmployeStatus.Accepted, 200, departmentRepository.Get(DepartmentName));
+        //    }
+        //    userReposirory.Save(user);
+        //}
 
-        private static void SetDefaultCient(IServiceProvider service)
-        {
-            var userReposirory = service.GetService<IUserRepository>();
-            var user = userReposirory.Get(string.Concat(ClientName, ClientSurname));
-            if (user == null)
-            {
-                user = CreateUser(string.Concat(ClientName, ClientSurname), ClientName, ClientSurname, DefaultPassword);
-                user.Client = CreateClient();
-            }
-            else if (user.Client == null)
-            {
-                user.Client = CreateClient();
-            }
-            userReposirory.Save(user);
-        }
+        //private static void SetDefaultCient(IServiceProvider service)
+        //{
+        //    var userReposirory = service.GetService<IUserRepository>();
+        //    var user = userReposirory.Get(string.Concat(ClientName, ClientSurname));
+        //    if (user == null)
+        //    {
+        //        user = CreateUser(string.Concat(ClientName, ClientSurname), ClientName, ClientSurname, DefaultPassword);
+        //        user.Client = CreateClient();
+        //    }
+        //    else if (user.Client == null)
+        //    {
+        //        user.Client = CreateClient();
+        //    }
+        //    userReposirory.Save(user);
+        //}
 
         private static User CreateUser(string Login, string Name, string SurName, string Password, string Email = "", int Age = 0) =>
             new User
