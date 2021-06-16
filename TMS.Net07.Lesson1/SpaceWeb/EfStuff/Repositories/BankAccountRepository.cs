@@ -33,5 +33,32 @@ namespace SpaceWeb.EfStuff.Repositories
                 .Distinct()
                 .ToList();
         }
+
+        public bool Transfer(long bankAccountFromId, long bankAccountToId, decimal amount)
+        {
+            var accountFrom = Get(bankAccountFromId);
+            var accountTo = Get(bankAccountToId);
+
+            accountFrom.Amount -= amount;
+            accountTo.Amount += amount;
+
+            using (var transaction = _spaceDbContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    Save(accountFrom);
+                    Save(accountTo);
+
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 }

@@ -83,19 +83,22 @@ namespace SpaceWeb.Controllers
         public IActionResult Creation(BankAccountViewModel viewModel)
         {
             int accountLifeTime;
+
+            var type = viewModel.Amount.GetType();
+
             if (viewModel.Currency == Currency.BYN) //заменить двойной if
             {
-                if (viewModel.Type == null)
+                if (viewModel.Name == null)
                 {
-                    viewModel.Type = "Счет";
+                    viewModel.Name = "Счет";
                 }
                 accountLifeTime = 5;
             }
             else
             {
-                if (viewModel.Type == null)
+                if (viewModel.Name == null)
                 {
-                    viewModel.Type = "Валютный счет";
+                    viewModel.Name = "Валютный счет";
                 }
                 accountLifeTime = 3;
             }
@@ -278,6 +281,12 @@ namespace SpaceWeb.Controllers
             var contentTypeDocx = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
             var fileName = $"Info about '{account.Type}' account.docx";
             return PhysicalFile(path, contentTypeDocx, fileName);
+        public IActionResult UpdateAmount(string accoutNumber, int delta)
+        {
+            var account = _bankAccountRepository.Get(accoutNumber);
+            account.Amount += delta;
+            _bankAccountRepository.Save(account);
+            return Json(true);
         }
     }
 }

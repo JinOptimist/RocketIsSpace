@@ -56,12 +56,20 @@
 }
 
 .human-department-info {
-    display: block;
+    display: flex;
+    flex-direction:column;
     width: 350px;
     background-color: white;
     border-radius: 3px;
     margin: 20px;
     padding: 20px;
+}
+
+.human-department-employee {
+    display: flex;
+    min-height: 135px;
+    min-width: 400px;
+    margin:20px;
 }
 
 .field-validation-error {
@@ -123,4 +131,12 @@
 
 .link {
     text-decoration: none;
+}
+
+.front, .back {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 3px;
+    padding: 20px;
 }

@@ -462,12 +462,19 @@ namespace SpaceWeb.Controllers
                 table.SetBorder(TableBorderType.Left, boldLine);
                 table.SetBorder(TableBorderType.Right, boldLine);
                 
+                doc.InsertParagraph($"Информация по счёту {account.Name}");
+                doc.InsertParagraph($"Остаток на счёту: {account.Amount}");
                 doc.Save();
             }
 
             var contentTypeDocx = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
             var fileName = $"History of exchange rates.docx";
             return PhysicalFile(path, contentTypeDocx, fileName);
+        }
+        public IActionResult Transfer(long toId, long fromId, decimal amount)
+        {
+            _bankAccountRepository.Transfer(toId, fromId, amount);
+            return RedirectToAction("Cabinet");
         }
     }
 

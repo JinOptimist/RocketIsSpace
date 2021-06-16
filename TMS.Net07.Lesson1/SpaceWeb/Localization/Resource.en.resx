@@ -146,6 +146,8 @@
   </data>
   <data name="Banks_XCard" xml:space="preserve">
     <value>X card</value>
+  <data name="DepartmentType_Bank" xml:space="preserve">
+    <value>Bank</value>
   </data>
   <data name="DepartmentType_Laboratory" xml:space="preserve">
     <value>Laboratory</value>
