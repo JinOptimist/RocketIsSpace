@@ -1,5 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SpaceWeb.EfStuff.Model;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using SpaceWeb.Migrations;
+using AdvImage = SpaceWeb.EfStuff.Model.AdvImage;
+
 
 namespace SpaceWeb.EfStuff
 {
@@ -17,8 +24,6 @@ namespace SpaceWeb.EfStuff
         public DbSet<Comfort> ComfortsExample { get; set; }
         public DbSet<RocketStage> RocketStages { get; set; }
 
-        //public DbSet<AddShopRocket> ShopRocket { get; set; }
-
         public DbSet<Relic> Relics { get; set; }
         public DbSet<Order> Orders { get; set; }
 
@@ -32,6 +37,10 @@ namespace SpaceWeb.EfStuff
 
         public DbSet<InsuranceType> InsuranceTypes { get; set; }
         public DbSet<Insurance> Insurances { get; set; }
+
+        public DbSet<ExchangeRateToUsdCurrent> ExchangeRatesToUsdCurrent { get; set; }
+        public DbSet<ExchangeRateToUsdHistory> ExchangeRatesToUsdHistory { get; set; }
+        public DbSet<ExchangeAccountHistory> ExchangeAccountHistory { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -40,5 +40,6 @@ namespace SpaceWeb.EfStuff.Model
 
         public virtual Client Client { get; set; }
         public virtual Employe Employe { get; set; }
+        public virtual List<ExchangeAccountHistory> ExchangeOperationsThatUserDone{ get; set; }
     }
 }

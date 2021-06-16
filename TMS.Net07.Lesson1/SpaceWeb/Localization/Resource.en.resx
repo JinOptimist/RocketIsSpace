@@ -129,6 +129,9 @@
   <data name="AllDepartments_Surname" xml:space="preserve">
     <value>Surname</value>
   </data>
+  <data name="DepartmentType_Bank" xml:space="preserve">
+    <value>Bank</value>
+  </data>
   <data name="DepartmentType_Laboratory" xml:space="preserve">
     <value>Laboratory</value>
   </data>
@@ -167,26 +170,5 @@
   </data>
   <data name="Layout_Registration" xml:space="preserve">
     <value>Reg</value>
-  </data>
-  <data name="Specification_Leader" xml:space="preserve">
-    <value>Leader</value>
-  </data>
-  <data name="Specification_Other" xml:space="preserve">
-    <value>Other</value>
-  </data>
-  <data name="Specification_Scientist" xml:space="preserve">
-    <value>Scientist</value>
-  </data>
-  <data name="Specification_Spacemen" xml:space="preserve">
-    <value>Spacemen</value>
-  </data>
-  <data name="Specification_Technicist" xml:space="preserve">
-    <value>Technicist</value>
-  </data>
-  <data name="Specification_Unknow" xml:space="preserve">
-    <value>Unknow</value>
-  </data>
-  <data name="Specification_Еngineer" xml:space="preserve">
-    <value>Engineer</value>
   </data>
 </root>

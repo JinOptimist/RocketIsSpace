@@ -26,18 +26,20 @@ namespace SpaceWeb.Controllers
         private IBankAccountRepository _bankAccountRepository;
         private IMapper _mapper;
         private UserService _userService;
+        private ICurrencyService _currencyService;
         private IWebHostEnvironment _hostEnvironment;
         private ILogger<UserController> _logger;
 
         public static int Counter = 0;
 
         public UserController(IUserRepository userRepository, IMapper mapper,
-            UserService userService, IWebHostEnvironment hostEnvironment,
+            UserService userService, ICurrencyService currencyService, IWebHostEnvironment hostEnvironment,
             IBankAccountRepository bankAccountRepository, ILogger<UserController> logger)
         {
             _userRepository = userRepository;
             _mapper = mapper;
             _userService = userService;
+            _currencyService = currencyService;
             _hostEnvironment = hostEnvironment;
             _bankAccountRepository = bankAccountRepository;
             _logger = logger;
@@ -56,6 +58,23 @@ namespace SpaceWeb.Controllers
             viewModel.MyAccounts = bankViewModels;
             viewModel.DefaultCurrency = user.DefaultCurrency;
             viewModel.MyCurrencies = _bankAccountRepository.GetCurrencies(user.Id);
+
+            decimal allAmountInUsd = 0;
+            var accounts = _bankAccountRepository.GetBankAccounts(user.Id);
+
+            foreach (var account in accounts)
+            {
+                var amount = _currencyService.ConvertByAlex(account.Currency, account.Amount, Currency.USD);
+                allAmountInUsd += amount;
+            }
+
+            decimal amountAllMoneyInDefaultCurrency = 0;
+
+            if (user.DefaultCurrency != 0)
+            {
+                amountAllMoneyInDefaultCurrency = _currencyService.ConvertByAlex(Currency.USD, allAmountInUsd, user.DefaultCurrency);
+            }
+            viewModel.AmountAllMoneyInDefaultCurrency = Math.Round(amountAllMoneyInDefaultCurrency, 2);
 
             return View(viewModel);
         }

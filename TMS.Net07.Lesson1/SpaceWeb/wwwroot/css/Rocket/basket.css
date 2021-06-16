@@ -1,19 +1,106 @@
 .bg {
     background: #f3dfff;
-    height: 100vh;
     display: flex;
     justify-content: center;
+    min-height: calc(100vh - 100px);
 }
 
-.block {
+.bg-block {
     width: 50%;
     padding: 20px;
+    border: 15px solid #fcf7ff;
+    margin: 10px;
+    background: #ffe0fd;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .title {
     font-size: 100px;
+    font-family: Hairline;
+    font-weight: bold;
+    color: #ff5471;
 }
 
 .yorder {
     font-size: 40px;
+    font-family: Hairline;
+    font-weight: bold;
+    color: #ff6f88;
+    margin: 20px 0px;
+}
+
+.dropdown {
+    height: 25px;
+    width: 150px;
+    color: #ff3c5e;
+    border-color: #ff99ab;
+    outline: none;
+    background: #fcf7ff;
+    font-family: Hairline;
+}
+
+.order {
+    margin-top: 10px;
+    font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
+    color: #ff3c5e;
+}
+
+@font-face {
+    font-family: Hairline;
+    src: url("../../image/comfortImage/font/19554.ttf");
+}
+
+.button-buy {
+    width: 200px;
+    height: 50px;
+    margin-top: 70px;
+    color: #ff3c5e;
+    border-color: #ff99ab;
+    outline: none;
+    background: #fcf7ff;
+    font-family: Hairline;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+.cat {
+    width: 235px;
+    position: absolute;
+    height: 102px;
+    margin-left: -110px;
+    margin-top: -87px;
+}
+
+.ani-end {
+    display: flex;
+    justify-content: space-between;
+    margin: -20px;
+    align-items: flex-end;
+}
+
+.ani-top {
+    display: flex;
+    justify-content: space-between;
+    margin: -20px;
+    align-items: flex-start;
+}
+
+.content-basket{
+    display: flex;
+    justify-content:center;
+}
+
+.can-pay{
+    background:green;
+}
+.cant-pay{
+    background:black;
+
+}
+
+.hide1{
+    display: none;
 }

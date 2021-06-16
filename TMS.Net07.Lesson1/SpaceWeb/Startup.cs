@@ -56,27 +56,34 @@ namespace SpaceWeb
                     config.AccessDeniedPath = "/User/AccessDenied";
                 });
 
-            services.AddScoped<IRelicPresentation>(container =>
-                new RelicPresentation(
-                    container.GetService<IRelicRepository>(),
-                    container.GetService<IMapper>()));
+            //services.AddScoped<IRelicPresentation>(container =>
+            //    new RelicPresentation(
+            //        container.GetService<IRelicRepository>(),
+            //        container.GetService<IMapper>()));
 
-            services.AddScoped<IHumanPresentation>(container =>
-                new HumanPresentation(
-                    container.GetService<IUserRepository>(),
-                    container.GetService<IDepartmentRepository>(),
-                    container.GetService<IMapper>()));
+            //services.AddScoped<IHumanPresentation>(container =>
+            //    new HumanPresentation(
+            //        container.GetService<IUserRepository>(),
+            //        container.GetService<IDepartmentRepository>(),
+            //        container.GetService<IMapper>(),
+            //        container.GetService<IEmployeRepository>(),
+            //        container.GetService<UserService>()));
 
-            services.AddScoped<IRocketMechanicPresentation>(container =>
-               new RocketMechanicPresentation(
-                   container.GetService<IRocketStageRepository>(),
-                   container.GetService<IMapper>()));
+            //services.AddScoped<IUserRepository>(diContainer =>
+            //    new UserRepository(
+            //        diContainer.GetService<SpaceDbContext>(),
+            //        diContainer.GetService<IBankAccountRepository>()
+            //        ));
 
-            services.AddScoped<IUserRepository>(diContainer =>
-                new UserRepository(
-                    diContainer.GetService<SpaceDbContext>(),
-                    diContainer.GetService<IBankAccountRepository>()
-                    ));
+            //services.AddScoped<IRocketShopPresentation>(container =>
+            //    new RocketShopPresentation(
+            //        container.GetService<IMapper>(),
+            //        container.GetService<IOrderRepository>(),
+            //        container.GetService<IShopRocketRepository>(),
+            //        container.GetService<UserService>()));
+
+            RegistrationPresentations(services);
+
 
             //services.AddScoped<IRelicRepository>(diContainer =>
             //    new RelicRepository(diContainer.GetService<SpaceDbContext>()));
@@ -108,6 +115,24 @@ namespace SpaceWeb
             services.AddScoped<InsuranceRepository>(diContainer =>
                 new InsuranceRepository(diContainer.GetService<SpaceDbContext>()));
 
+            services.AddScoped<ExchangeRateToUsdCurrentRepository>(diContainer =>
+                new ExchangeRateToUsdCurrentRepository(diContainer.GetService<SpaceDbContext>()));
+
+            services.AddScoped<ExchangeRateToUsdHistoryRepository>(diContainer =>
+                new ExchangeRateToUsdHistoryRepository(diContainer.GetService<SpaceDbContext>()));
+
+            services.AddScoped<ExchangeAccountHistoryRepository>(diContainer =>
+                new ExchangeAccountHistoryRepository(diContainer.GetService<SpaceDbContext>()));
+
+            services.AddScoped<ICurrencyService>(diContainer =>
+                new CurrencyService(
+                    diContainer.GetService<UserService>(),
+                    diContainer.GetService<ExchangeRateToUsdCurrentRepository>(),
+                    diContainer.GetService<ExchangeAccountHistoryRepository>(),
+                    diContainer.GetService<ExchangeRateToUsdHistoryRepository>(),
+                    diContainer.GetService<IMapper>()
+                ));
+
             services.AddScoped<UserService>(diContainer =>
                 new UserService(
                     diContainer.GetService<IUserRepository>(),
@@ -117,7 +142,7 @@ namespace SpaceWeb
             services.AddControllersWithViews();
 
             services.AddHttpContextAccessor();
- 
+
             services.AddScoped<OrderRepository>(diContainer =>
                 new OrderRepository(diContainer.GetService<SpaceDbContext>()));
             services.AddControllersWithViews();
@@ -128,6 +153,16 @@ namespace SpaceWeb
             services.AddScoped<ShopRocketRepository>(diContainer =>
                 new ShopRocketRepository(diContainer.GetService<SpaceDbContext>()));
 
+            //services.AddScoped<ICurrencyService>(diContainer =>
+            //    new CurrencyService(diContainer.GetService<UserService>(),
+            //        diContainer.GetService<ExchangeRateToUsdCurrentRepository>(),
+            //        diContainer.GetService<ExchangeAccountHistoryRepository>()));
+
+            services.AddScoped<IBankPresentation>(diContainer =>
+                new BankPresentation(diContainer.GetService<IProfileRepository>(), diContainer.GetService<IMapper>()));
+
+            services.AddScoped<BankPresentation>(diContainer =>
+                new BankPresentation(diContainer.GetService<IProfileRepository>(), diContainer.GetService<IMapper>()));
 
             //services.AddScoped<IEmployeRepository>(diContainer =>
             //    new EmployeRepository(diContainer.GetService<SpaceDbContext>()));
@@ -143,7 +178,23 @@ namespace SpaceWeb
 
             services.AddHttpContextAccessor();
 
+
             RegistrationRepositories(services);
+        }
+
+        private void RegistrationPresentations(IServiceCollection services)
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            var types = assembly.GetTypes();
+            var humanPresentationTypes = types.Where(t => t.FullName.Contains("Presentation") && t.IsInterface).ToArray();
+
+            foreach(var iPresentation in humanPresentationTypes)
+            {
+                var realization = types.Single(x => x.GetInterfaces().Contains(iPresentation));
+                services.AddScoped(
+                    iPresentation,
+                    diContainer => ConstructorExecutor(realization, diContainer));
+            }
         }
 
         private void RegistrationRepositories(IServiceCollection services)
@@ -163,23 +214,25 @@ namespace SpaceWeb
                 var realization = types.Single(x => x.GetInterfaces().Contains(iRepo));
                 services.AddScoped(
                     iRepo,
-                    diContainer =>
-                    {
-                        var constructor = realization.GetConstructors()[0];
-                        var paramInfoes = constructor.GetParameters();
-
-                        var paramValues = new object[paramInfoes.Length];
-                        for (int i = 0; i < paramInfoes.Length; i++)
-                        {
-                            var paramInfo = paramInfoes[i];
-                            var paramValue = diContainer.GetService(paramInfo.ParameterType);
-                            paramValues[i] = paramValue;
-                        }
-
-                        var answer = constructor.Invoke(paramValues);
-                        return answer;
-                    });
+                    diContainer => ConstructorExecutor(realization, diContainer));
             }
+        }
+
+        private object ConstructorExecutor(Type realization, IServiceProvider diContainer)
+        {
+            var constructor = realization.GetConstructors()[0];
+            var paramInfoes = constructor.GetParameters();
+
+            var paramValues = new object[paramInfoes.Length];
+            for (int i = 0; i < paramInfoes.Length; i++)
+            {
+                var paramInfo = paramInfoes[i];
+                var paramValue = diContainer.GetService(paramInfo.ParameterType);
+                paramValues[i] = paramValue;
+            }
+
+            var answer = constructor.Invoke(paramValues);
+            return answer;
         }
 
         private void RegisterMapper(IServiceCollection services)
@@ -191,11 +244,22 @@ namespace SpaceWeb
             //        config => config
             //            .MapFrom(dbModel => $"{dbModel.Name}, {dbModel.SurName} Mr"));
 
-            configExpression.CreateMap<Employe, ShortEmployeViewModel>().
-                ForMember(nameof(ShortEmployeViewModel.Name), config => config.MapFrom(x => x.User.Name)).
-                ForMember(nameof(ShortEmployeViewModel.Surname), config => config.MapFrom(x => x.User.SurName)).
-                ForMember(nameof(ShortEmployeViewModel.SalaryPerHour), config => config.MapFrom(x => x.SalaryPerHour)).
-                ForMember(nameof(ShortEmployeViewModel.Specification), config => config.MapFrom(x => x.Specification.GetDisplayableName()));
+            configExpression.CreateMap<Employe, ShortEmployeViewModel>()
+                .ForMember(nameof(ShortEmployeViewModel.Name), config => config.MapFrom(x => x.User.Name))
+                .ForMember(nameof(ShortEmployeViewModel.Surname), config => config.MapFrom(x => x.User.SurName))
+                .ForMember(nameof(ShortEmployeViewModel.SalaryPerHour), config => config.MapFrom(x => x.SalaryPerHour))
+                .ForMember(nameof(ShortEmployeViewModel.Position), config => config.MapFrom(x => x.Position.GetDisplayableName()))
+                .ForMember(nameof(ShortEmployeViewModel.AvatarUrl), config => config.MapFrom(x => x.User.AvatarUrl));
+
+            configExpression.CreateMap<User, RequestViewModel>()
+                .ForMember(nameof(RequestViewModel.Id), config => config.MapFrom(x => x.Employe.Id))
+                .ForMember(nameof(RequestViewModel.ForeignKeyUser), config => config.MapFrom(x => x.Employe.ForeignKeyUser))
+                .ForMember(nameof(RequestViewModel.Position), config => config.MapFrom(x => x.Employe.Position))
+                .ForMember(nameof(RequestViewModel.SalaryPerHour), config => config.MapFrom(x => x.Employe.SalaryPerHour))
+                .ForMember(nameof(RequestViewModel.EmployeStatus), config => config.MapFrom(x => x.Employe.EmployeStatus));
+
+            configExpression.CreateMap<RequestViewModel, Employe>();
+
 
             configExpression.CreateMap<User, ProfileViewModel>();
 
@@ -208,7 +272,7 @@ namespace SpaceWeb
                 .ForMember(nameof(EmployeeProfileViewModel.Salary),
                     config => config.MapFrom(user =>
                         user.Employe.SalaryPerHour));
-            
+
 
             //configExpression.CreateMap<Relic, RelicViewModel>();
             //configExpression.CreateMap<RelicViewModel, Relic>();
@@ -236,9 +300,9 @@ namespace SpaceWeb
             MapBoth<AddShopRocket, ShopRocketViewModel>(configExpression);
 
             MapBoth<ShopRocketViewModel, AddShopRocket>(configExpression);
-            
+
             MapBoth<Rocket, ShopRocketViewModel>(configExpression);
-            
+
             MapBoth<ShortUserViewModel, User>(configExpression);
 
             MapBoth<RocketStageAddViewModel, RocketStage>(configExpression);
@@ -255,6 +319,10 @@ namespace SpaceWeb
 
             MapBoth<ComplexRocketShopViewModel, Order>(configExpression);
 
+            MapBoth<Department, DepartmentViewModel>(configExpression);
+
+            MapBoth<ExchangeRateToUsdCurrent, ExchangeRateToUsdHistory>(configExpression);
+
             var mapperConfiguration = new MapperConfiguration(configExpression);
             var mapper = new Mapper(mapperConfiguration);
             services.AddScoped<IMapper>(c => mapper);
@@ -267,7 +335,7 @@ namespace SpaceWeb
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, 
+        public void Configure(IApplicationBuilder app,
             IWebHostEnvironment env,
             ILoggerFactory loggerFactory)
         {
@@ -288,12 +356,16 @@ namespace SpaceWeb
             app.UseStaticFiles();
 
             app.UseRouting();
-      
+
+            //Who am I?
             app.UseAuthentication();
 
+            //Waht can I see?
             app.UseAuthorization();
 
             app.UseMiddleware<ErrorHandlerMiddleware>();
+
+            app.UseMiddleware<LocalizationNiceMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

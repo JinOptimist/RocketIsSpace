@@ -1,13 +1,19 @@
 ﻿@using SpaceWeb.Localization
+@using SpaceWeb.Models.Human
+
 @model List<DepartmentViewModel>
 @{
     Layout = "_LayoutHuman";
 }
+<script src="~/lib/jquery-flip/jquery.flip.min.js"></script>
+<script src="~/js/human/department.js" asp-append-version="true"></script>
 <div style="display:flex; flex-direction:row">
     <div class="department-list">
-        <div class="human-department-info">
-            <h3>All departments:</h3>
-        </div>
+        <a href="/Human/Graph/" class="link">
+            <div class="human-department-info">
+                <h3>All departments:</h3>
+            </div>
+        </a>
 
         @foreach (var department in Model)
         {
@@ -15,16 +21,18 @@
                 <input class="undisplayable" type="radio" name="current" value="@department.Id" />
                 <div class="department-info-block">
                     <div><b>Department name: </b>@department.DepartmentName</div>
-                    <div><b>Department type: </b>@department.DepartmentType</div>
-                    <div><b>Maximum employes: </b>@department.MaximumCountEmployes</div>
+                    <div><b>Department type: </b>@department.DepartmentSpecificationType</div>
+                    <div><b>Employes (count/max): </b>@department.Employes.Count/@department.MaximumCountEmployes</div>
                     <div><b>Working hours: </b>@department.HourStartWorking - @department.HourEndWorking</div>
                     <button onclick="window.location.href='/human/DeleteDepartment?id=@department.Id'" class="btn btn-danger" style="margin: 10px 10px 0px 0px">Delete</button>
                     <button onclick="editDepartment(@department.Id)" class="btn btn-info" style="margin: 10px 10px 0px 0px">Edit</button>
                 </div>
             </label>
         }
-        <button class="btn btn-primary" data-toggle="modal" data-target="#modal-department">Add department</button>
-
+        <div style="margin: 20px">
+            <button class="btn btn-primary" data-toggle="modal" data-target="#modal-department">Add department</button>
+            <button onclick="window.location.href='/human/DownloadDepartments'" class="btn btn-primary">Save to file</button>
+        </div>
         <div class="modal" id="modal-department" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -44,20 +52,26 @@
         </div>
     </div>
     <div class="employes-list">
-        <div class="human-department-info clone undisplayable">
-            <div id="name">
-                @Resource.AllDepartments_Name:
+        <div class="human-department-employee clone undisplayable flip-flop">
+            <div class="front">
+                <div id="name">
+                    @Resource.AllDepartments_Name:
+                </div>
+                <div id="surname">
+                    @Resource.AllDepartments_Surname:
+                </div>
+                <div id="specification">
+                    @Resource.AllDepartments_Specification:
+                </div>
+                <div id="salary">
+                    @Resource.AllDepartments_Salary:
+                </div>
             </div>
-            <div id="surname">
-                @Resource.AllDepartments_Surname:
+            <div class="back">
+                <div>
+                    <img id="image" src="/image/avatars/1.jpg" />
+                </div>
             </div>
-            <div id="specification">
-                @Resource.AllDepartments_Specification:
-            </div>
-            <div id="salary">
-                @Resource.AllDepartments_Salary:
-            </div>
-
         </div>
     </div>
 </div>
