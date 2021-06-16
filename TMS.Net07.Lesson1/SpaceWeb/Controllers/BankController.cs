@@ -462,8 +462,11 @@ namespace SpaceWeb.Controllers
                 table.SetBorder(TableBorderType.Left, boldLine);
                 table.SetBorder(TableBorderType.Right, boldLine);
                 
-                doc.InsertParagraph($"Информация по счёту {account.Name}");
-                doc.InsertParagraph($"Остаток на счёту: {account.Amount}");
+                //doc.InsertParagraph($"Информация по счёту {account.Name}");
+                //doc.InsertParagraph($"Остаток на счёту: {account.Amount}");
+
+                //cant find account 
+
                 doc.Save();
             }
 
@@ -477,5 +480,4 @@ namespace SpaceWeb.Controllers
             return RedirectToAction("Cabinet");
         }
     }
-
 }

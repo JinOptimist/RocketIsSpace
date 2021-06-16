@@ -151,8 +151,7 @@ namespace SpaceWeb.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Лаборатория.
-        ///   Ищет локализованную строку, похожую на Банк.
+        ///   Looks up a localized string similar to Банк.
         /// </summary>
         public static string DepartmentType_Bank {
             get {
@@ -161,7 +160,7 @@ namespace SpaceWeb.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Лаборатория.
+        ///   Looks up a localized string similar to Лаборатория.
         /// </summary>
         public static string DepartmentType_Laboratory {
             get {

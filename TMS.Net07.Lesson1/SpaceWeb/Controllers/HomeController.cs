@@ -39,7 +39,7 @@ namespace SpaceWeb.Controllers
 
             if (user!=null)
             {
-                currencies = user.BankAccounts.Select(x => x.Currency).Distinct();
+                var currencies = user.BankAccounts.Select(x => x.Currency).Distinct();
 
                 var chartViewModel = new ChartViewModel();
                 chartViewModel.Labels = currencies.Select(x => x.ToString()).ToList();
