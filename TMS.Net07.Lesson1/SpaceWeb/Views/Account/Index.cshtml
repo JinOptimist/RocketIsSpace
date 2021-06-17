@@ -20,13 +20,18 @@
 }
 
 @section Scripts{
-<script src="~/js/bank/bankAccountCarousel.js"></script>
+    <script src="~/js/bank/bankAccountCarousel.js"></script>
+    <script src="~/js/bank/bankAccountIndex.js"></script>
+}
+
+@section Style{
+    <link rel="stylesheet" href="~/css/bank/styleAccount.css?v=0" />
 }
 
 <body>
     <div class="client-before-content"></div>
 
-    <div class="container-accounts">
+    <div class="account-index-central-block">
         <div class="menu left">
             <div class="left-menu-text">СЧЕТА: <span class="total-accounts">@accounts.Count()</span></div>
             @Html.Partial("_bankAccountsList")
@@ -47,7 +52,7 @@
                             <div class="account-info-container @accountIndex">
                                 <div class="account-info">
                                     <div class="info index hide">@(accountIndex++)</div>
-                                    <div class="info type">@bankAccount.Type</div>
+                                    <div class="info type">@bankAccount.Name</div>
                                     <div class="info amount">@bankAccount.Amount @bankAccount.Currency.ToString()</div>
                                     <div class="info number">@bankAccount.AccountNumber</div>
                                     <div class="info creation">Создан: @bankAccount.CreationDate.Month/@bankAccount.CreationDate.Year</div>
@@ -58,19 +63,36 @@
                     </div>
                 </div>
             </div>
+            <div class="content-box">
+                <div class="button-list">
+                    <input class="active-account hide" type="hidden" value="@Model.AccountIndex">
 
-            <div class="button-list">
-                <input class="active-account hide" type="hidden" value="@Model.AccountIndex">
-                <div class="button">Пополнить счет</div>
-                <div class="button">Снять со счета</div>
-                <div class="button">Заморозить счета</div>
-                <a href="/Account/DownloadLog?id=@Model.Id">
-                    <div class="button">История операций</div>
-                </a>
-                <div class="button">Перевод со счета</div>
-                <a href="/Account/Remove?id=@Model.Id">
-                    <div class="button">Удалить счет</div>
-                </a>
+                    <div class="button deposit">Пополнить счет</div>
+
+                    <div class="button">Снять со счета</div>
+
+                    <div class="button">Заморозить счет</div>
+
+                    <a href="/Account/DownloadLog?id=@Model.Id">
+                        <div class="button">История операций</div>
+                    </a>                            <div class="button">Перевод со счета</div>
+
+                    <a href="/Account/Remove?id=@Model.Id">
+                        <div class="button">Удалить счет</div>
+                    </a>
+                </div>
+
+                <div class="deposit-form container hide">
+                    <div class="head-text">ПОПОЛНЕНИЕ СЧЕТА</div>
+                    <form class="deposit form" method="POST">
+                        <div>Сумма для пополнения</div>
+                        <input type="text" autocomplete="off">
+                        <p class="buttons">
+                            <input class="make-deposit button" type="submit" value="Пополнить">
+                            <input class="cancel-deposit button" type="reset" value="Отмена">
+                        </p>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

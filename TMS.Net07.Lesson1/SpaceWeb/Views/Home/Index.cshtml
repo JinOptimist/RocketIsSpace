@@ -7,7 +7,7 @@
 
 @section Style
 {
-    <link rel="stylesheet" href="~/css/rocket.css?v=1">
+    <link rel="stylesheet" href="~/css/rocket.css?v=2">
 }
 
 @section Scripts{
@@ -18,7 +18,7 @@
 }
 
 
-<a href="/Rocket/MainPage" class="rocket-link">
+<a href="/Rocket/MainPage" class="department">
     <div class="block rocketfield">
         <div class="rocketword">
             @Resource.HomeIndex_Rocket
@@ -26,27 +26,38 @@
     </div>
 </a>
 
-<a class="bank-link" href="/Bank">
-    <div class="block-bank">
+<a href="/Bank" class="department">
+    <div class="block block-bank">
         <div class="cover-text-block-bank">.</div>
         <div class="text-block-bank">
             @Resource.HomeIndex_RocketBank
-
         </div>
     </div>
 </a>
 
-<a href="/Human/Index">
+<a href="/Human/Index" class="department">
     <div class="block block-human">
     </div>
 </a>
 
 <div class="block">
-
     <div class="animate-block">
-       
+
     </div>
+    <div style="text-align:center">
+        <span class="dot active" id="1"></span>
+        <span class="dot" id="2"></span>
+        <span class="dot" id="3"></span>
+        <span class="dot" id="4"></span>
+        <span class="dot" id="5"></span>
+        <span class="dot" id="6"></span>
+    </div>
+    
 </div>
 
-    
-
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="block">
+        <canvas id="myChart"></canvas>
+    </div>
+}

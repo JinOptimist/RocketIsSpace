@@ -49,6 +49,8 @@ namespace SpaceWeb.Service
 
             switch (currency)
             {
+                case Currency.BYN:
+                    return 1;
                 case Currency.USD:
                     return Convert.ToDecimal(allCurrencyInfo
                         .Where(x => x.Attribute("Id").Value == DolarCode)

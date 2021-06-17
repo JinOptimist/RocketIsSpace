@@ -108,23 +108,36 @@ namespace SpaceWeb.Controllers
 
             return View(modelNew);
         }
+
+        [HttpGet]
+        public IActionResult BankCardChartInfo()
+        {
+            return View();
+        }
         public IActionResult BankCurrensyChartInfo()
         {
-            var allCurrency = new List<Currency>() { Currency.BYN, Currency.USD };
+            var allCurrency = new List<Currency>() { Currency.EUR, Currency.USD };
 
             var chartViewModel = new ChartViewModel();
             chartViewModel.Labels = allCurrency.Select(x => x.ToString()).ToList();
-            var datasetViewModel = new DatasetViewModel()
+
+            var datasetEURViewModel = new DatasetViewModel()
             {
-                Label = "Валюты"
+                Label = "Rates"
             };
-            datasetViewModel.Data =
-                allCurrency.Select(валютаОдна =>
-                    _currencyService.ConvertAmount(валютаОдна)
-                    )
+
+            datasetEURViewModel.Data = allCurrency
+                .Select(cur => _currencyService.ConvertAmount(cur))
                 .ToList();
 
-            chartViewModel.Datasets.Add(datasetViewModel);
+                //allCurrency.Select(x =>
+                //    _currencyService.ConvertAmount(Currency.EUR)
+                //    )
+                //.ToList();
+
+            chartViewModel.Datasets.Add(datasetEURViewModel);
+
+           
 
             return Json(chartViewModel);
         }
@@ -413,7 +426,7 @@ namespace SpaceWeb.Controllers
                 doc.InsertParagraph("");
 
                 var table = doc.InsertTable(++countRows, 4);
-                
+
                 table.Rows[rawNow].Cells[0].Paragraphs.First().Append("Currency").Bold().FontSize(14).Italic().Alignment = Alignment.center;
                 table.Rows[rawNow].Cells[1].Paragraphs.First().Append("Type of Exchange").Bold().FontSize(14).Italic().Alignment = Alignment.center;
                 table.Rows[rawNow].Cells[2].Paragraphs.First().Append("Exchange Rate").Bold().FontSize(14).Italic().Alignment = Alignment.center;
@@ -462,6 +475,11 @@ namespace SpaceWeb.Controllers
                 table.SetBorder(TableBorderType.Left, boldLine);
                 table.SetBorder(TableBorderType.Right, boldLine);
                 
+                //doc.InsertParagraph($"Информация по счёту {account.Name}");
+                //doc.InsertParagraph($"Остаток на счёту: {account.Amount}");
+
+                //cant find account 
+
                 doc.Save();
             }
 
@@ -469,6 +487,10 @@ namespace SpaceWeb.Controllers
             var fileName = $"History of exchange rates.docx";
             return PhysicalFile(path, contentTypeDocx, fileName);
         }
+        public IActionResult Transfer(long toId, long fromId, decimal amount)
+        {
+            _bankAccountRepository.Transfer(toId, fromId, amount);
+            return RedirectToAction("Cabinet");
+        }
     }
-
 }
