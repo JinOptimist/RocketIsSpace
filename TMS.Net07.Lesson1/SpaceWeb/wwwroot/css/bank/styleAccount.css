@@ -1,3 +1,7 @@
+.hide{
+    display: none !important;
+}
+
 .account-creation.content-box { /*нужно - в аккаунт криэйшн*/
     height: 500px;
     width: 600px;
