@@ -21,56 +21,52 @@ $(document).ready(function () {
         $('.button-list').toggleClass('hide');
     })
 
+    $('.container .form .buttons .make').click(function (env) {
 
-    //$('.button.deposit').click(function () {
+        var amount = $(this).parent().siblings('.amount').val().replace(',', '.') - 0;
 
-    //    $('.button-list').toggleClass('hide');
+        var currentContainer = $(this).closest('.container');
 
-    //    $('.deposit-form.container').toggleClass('hide');
-    //})
+        var activeAccountIndex = GetActiveAccountIndex();
 
-    //$('.cancel-deposit.button').click(function (env) {
+        var activeAccountID = GetActiveAccountId();
 
-    //    $('.deposit-form.container').toggleClass('hide');
+        var url = `/Account/UpdateAmount?id=${activeAccountID}&amount=${amount}`;
 
-    //    $('.button-list').toggleClass('hide');
+        $.get(url).done(function (answer) {
+            if (answer) {
+                console.log('amount updated');
 
-    //    env.preventDefault();
-    //})
+                currentContainer.toggleClass('hide');
 
-    //$('.make-deposit.button').click(function (env) {
+                UpdateAmount(activeAccountIndex, amount);
 
-    //    $('.deposit-form.container').toggleClass('hide');
+                $('.button-list').toggleClass('hide');
+            }
+            else {
+                console.log('something went wrong');
+            }
+        })
 
-    //    $('.button-list').toggleClass('hide');
+        env.preventDefault();
 
-    //    env.preventDefault();
-    //})
+    })
 
+    function GetActiveAccountId() {
+        return $('.button-list .active-account.id').val() - 0;
+    }
 
-    //$('.button.withdrawal').click(function () {
+    function GetActiveAccountIndex() {
+        return $('.button-list .active-account.index').val() - 0;
+    }
 
-    //    $('.button-list').toggleClass('hide');
+    function UpdateAmount(activeAccountIndex, amount) {
+        var oldAmount = $(`.account-info-container.${activeAccountIndex} .info.amount`).text();
+        var newAmount = oldAmount + amount;
 
-    //    $('.withdrawal-form.container').toggleClass('hide');
-    //})
+        $(`.account-info-container.${activeAccountIndex} .info.amount`).text(newAmount);
 
-    //$('.cancel-withdrawal.button').click(function (env) {
-
-    //    $('.withdrawal-form.container').toggleClass('hide');
-
-    //    $('.button-list').toggleClass('hide');
-
-    //    env.preventDefault();
-    //})
-
-    //$('.make-withdrawal.button').click(function (env) {
-
-    //    $('.withdrawal-form.container').toggleClass('hide');
-
-    //    $('.button-list').toggleClass('hide');
-
-    //    env.preventDefault();
-    //})
+        $(`.bank-account-list .bank-account.${activeAccountIndex} .amount`).text(newAmount);
+    }
 
 });

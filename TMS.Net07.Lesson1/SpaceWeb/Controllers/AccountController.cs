@@ -282,10 +282,19 @@ namespace SpaceWeb.Controllers
             var fileName = $"Info about '{account.Name}' account.docx";
             return PhysicalFile(path, contentTypeDocx, fileName);
         }
-        public IActionResult UpdateAmount(string accoutNumber, int delta)
+
+        //public IActionResult UpdateAmount(string accoutNumber, int delta)
+        //{
+        //    var account = _bankAccountRepository.Get(accoutNumber);
+        //    account.Amount += delta;
+        //    _bankAccountRepository.Save(account);
+        //    return Json(true);
+        //}
+
+        public IActionResult UpdateAmount(long id, decimal amount)
         {
-            var account = _bankAccountRepository.Get(accoutNumber);
-            account.Amount += delta;
+            var account = _bankAccountRepository.Get(id);
+            account.Amount += amount;
             _bankAccountRepository.Save(account);
             return Json(true);
         }

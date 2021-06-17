@@ -67,7 +67,7 @@ $(document).ready(function () {
 });
 
 function GetActiveAccount() {
-    return $('.active-account').val() - 0;
+    return $('.active-account.index').val() - 0;
 }
 
 function GetTotalAccounts() {
@@ -85,7 +85,10 @@ function SetPosition(index, time) {
 }
 
 function SetActiveAccount(index) {
-    $('.active-account').val(index);
+    var accountID = $(`.account-info-container ${index}`).children('.info.id').val();
+
+    $('.active-account.index').val(index);
+    $('.active-account.id').val(accountID);
 }
 
 function ScrollLeftMenu(index, time) {
