@@ -304,6 +304,24 @@ namespace SpaceWeb.Service
 
             return Math.Round(amountAllMoneyInDefaultCurrency, 2);
         }
+
+        public bool CheckInternetConnection()
+        {
+            WebClient client = new WebClient();
+            try
+            {
+                using (client.OpenRead("http://www.google.com"))
+                {
+                }
+                return true;
+            }
+            catch (WebException)
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
     
 }
