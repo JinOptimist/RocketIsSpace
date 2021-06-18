@@ -2,8 +2,8 @@
 
 namespace SpaceWeb.EfStuff.Repositories
 {
-    public interface IProfileRepository : IBaseRepository<Profile>
+    public interface IProfileRepository : IBaseRepository<Questionary>
     {
-        void ChangeProfile(Profile model, string userID);
+        void ChangeProfile(Questionary model, string userID);
     }
 }

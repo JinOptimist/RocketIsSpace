@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SpaceWeb.EfStuff.Repositories;
+using AutoMapper;
 
 namespace SpaceWeb.Service
 {
@@ -16,7 +17,10 @@ namespace SpaceWeb.Service
         /// <param name="amount"></param>
         /// <param name="currency"></param>
         /// <returns></returns>
+        public decimal ConvertAmount( Currency currency);
 
+        public decimal GetExchangeRate(Currency currencyFrom,decimal amount, Currency currencyTo);
+        
         bool CheckBalanceToPay(BankAccount account,decimal amount);
         decimal ConvertByAlex(decimal amount, Currency currency);
         decimal ConvertByAlex(Currency currencyFrom,decimal amount, Currency currencyTo);
@@ -26,6 +30,7 @@ namespace SpaceWeb.Service
         public void PutCurrentExchangeRatesToDb(ExchangeRateToUsdCurrentRepository _exchangeRateToUsdCurrentRepository, GottenCurrency exchangeRates);
         public void DeleteCurrentExchRatesFromDb(ExchangeRateToUsdCurrentRepository _exchangeRateToUsdCurrentRepository);
         public void MoveCurrentExchangesDbToHistoryDb(ExchangeRateToUsdCurrentRepository _exchangeRateToUsdCurrentRepository,
-            ExchangeRateToUsdHistoryRepository _exchangeRateToUsdHistoryRepository);
+            ExchangeRateToUsdHistoryRepository _exchangeRateToUsdHistoryRepository, Mapper _mapper);
+        public decimal CountAllMoneyInWishingCurrency(List<BankAccount> accounts, Currency currencyTo);
     }
 }

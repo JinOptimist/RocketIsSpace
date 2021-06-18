@@ -1,0 +1,26 @@
+﻿@{
+    Layout = "_LayoutBank";
+}
+
+@section Scripts{
+    <script src="~/js/bank/bankAccountCreation.js"></script>
+}
+
+@section Style{ 
+    <link rel="stylesheet" href="~/css/bank/styleAccount.css?v=0" />
+}
+
+<body>
+    <div class="client-before-content"></div>
+
+    <div class="account-index-central-block">
+        <div class="menu left">
+            <div class="left-menu-text">СЧЕТА</div>
+            @Html.Partial("_bankAccountsList")
+        </div>
+        <div class="account-creation content-box">
+            <div class="creation-container-text">СОЗДАНИЕ СЧЕТА</div>
+            @Html.Partial("_bankAccountCreationForm")
+        </div>
+    </div>
+</body>

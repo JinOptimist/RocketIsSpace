@@ -129,6 +129,27 @@
   <data name="AllDepartments_Surname" xml:space="preserve">
     <value>Фамилия</value>
   </data>
+  <data name="Banks_Card" xml:space="preserve">
+    <value>Карты банков</value>
+  </data>
+  <data name="Banks_CreatCard" xml:space="preserve">
+    <value>СОЗДАНИЕ КАРТЫ</value>
+  </data>
+  <data name="Banks_MocCard" xml:space="preserve">
+    <value>Моцная картаy</value>
+  </data>
+  <data name="Banks_ShoppCard" xml:space="preserve">
+    <value>Карта покупо</value>
+  </data>
+  <data name="Banks_Transfer" xml:space="preserve">
+    <value>Перевод</value>
+  </data>
+    <data name="Banks_XCard" xml:space="preserve">
+    <value>Х карта</value>
+    </data>
+  <data name="DepartmentType_Bank" xml:space="preserve">
+    <value>Банк</value>
+  </data>
   <data name="DepartmentType_Laboratory" xml:space="preserve">
     <value>Лаборатория</value>
   </data>
@@ -170,6 +191,12 @@
   </data>
   <data name="HomeIndex_RocketBank" xml:space="preserve">
     <value>Банкиры</value>
+  </data>
+  <data name="LayoutBank_logoNameBank" xml:space="preserve">
+    <value>Банк</value>
+  </data>
+  <data name="LayoutBank_logoNameRocket" xml:space="preserve">
+    <value>Рокеты</value>
   </data>
   <data name="Layout_Exit" xml:space="preserve">
     <value>Выйти</value>

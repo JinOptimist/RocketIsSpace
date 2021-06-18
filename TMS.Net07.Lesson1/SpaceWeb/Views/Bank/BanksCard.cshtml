@@ -1,36 +1,66 @@
-﻿@model List<BanksCardViewModel>
-
-@{
+﻿@{ 
     Layout = "_LayoutBank";
 }
+
+@model List<BanksCardViewModel>
+@using SpaceWeb.Models
+@using SpaceWeb.Localization
+
+
 @using SpaceWeb.Service
 @inject UserService userService
 @section Style{
-    <link rel="stylesheet" href="~/css/bank/banks/Bankscard.css">
+    <link rel="stylesheet" href="~/css/bank/Bankscard.css?v=1">
 }
-<div class="pre-header"></div>
-    <div class="header">Карты банков</div>
+
+<div class="wrapper-bank-cards">
+    <div class="client-before-content"></div>
+    <div class="title">@Resource.Banks_Card</div>
     <div class="search">
-        <div class="search-field icon-Factory search-icon">
+        <div class="sear
+         ch-field icon-Factory search-icon">
             <input type="search" placeholder="Search">
         </div>
     </div>
 
     <div class="center-block">
+        <div class="front">
         <a href="~/Bank/BanksCard" class="link">
             <div class="card-mocn">
-                <span class="text">Моцная картаy</span>
+                <span class="text">@Resource.Banks_MocCard</span>
             </div>
         </a>
-        <a href="~/Bank/BanksCard" class="link">
+        </div>
+        <div class="back">
+            <div class="back-content">
+                <h1 class="name-card">Моцная карта</h1>
+                <p class="text-card">Топ-карта, Для шопинга</p>
+                <div class="back_list">
+                    <ul>
+                        <li>"5% на покупки в каталоге" </li>
+                        <li>"Мгновенное и бесплатное оформление" </li>
+                    </ul>
+                </div>
+                <div class="back-batn">
+                    <a href="~/Bank/BankCardChartInfo" class="btn">Оформить</a>
+                </div>
+            </div>
+        </div>
+        <a href="~/Bank/AddBanksCard" class="link">
             <div class="card-shopp">
-                <div class="text">Карта покупок</div>
+                <div class="text">@Resource.Banks_ShoppCard</div>
             </div>
         </a>
         <a href="~/Bank/BanksCard" class="link">
             <div class="card-x">
-                <div class="text">Х карта</div>
+                <div class="text">@Resource.Banks_XCard</div>
             </div>
         </a>
 
     </div>
+    <div class="account-creation-container">
+        <div class="creation-container-text">@Resource.Banks_CreatCard</div>
+        @{ Html.RenderPartial("_bankCards", new BanksCardViewModel()); }
+        <div class="button plus-money">@Resource.Banks_Transfer</div>
+    </div>
+</div>

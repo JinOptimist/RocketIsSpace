@@ -22,9 +22,7 @@ namespace SpaceWeb.Controllers.CustomAttribute
             if (user == null)
             {
                 // TODO
-                // var cookie = context.HttpContext.Request.Cookies["Lang"] as string;
-
-                return;
+               
             }
 
             switch (user.Lang)

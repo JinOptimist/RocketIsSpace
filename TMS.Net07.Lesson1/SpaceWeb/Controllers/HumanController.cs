@@ -18,7 +18,6 @@ using SpaceWeb.Models.Chart;
 
 namespace SpaceWeb.Controllers
 {
-    [Localize]
     public class HumanController : Controller
     {
         private IHumanPresentation _humanPresentation;

@@ -80,4 +80,10 @@
         var isVisible = val == '1';
         $('.icon.close').toggle(isVisible);
     });
+
+    $('.language span').click(function () {
+        var lang = $(this).data('lang');
+        document.cookie = 'guestLang=' + lang;
+        document.location.reload();
+    });
 });
