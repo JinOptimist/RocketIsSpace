@@ -54,8 +54,8 @@
                                     <input class="info id hide" type="hidden" value="@Model.Id" />
                                     <div class="info index hide">@(accountIndex++)</div>
                                     <div class="info type">@bankAccount.Name</div>
-                                    <div class="info amount">
-                                    @bankAccount.Amount 
+                                    <div class="info">
+                                        <span class="amount">@bankAccount.Amount</span>
                                         <span class="currency">@bankAccount.Currency.ToString()</span>
                                         <span class="changing hide"></span>
                                     </div>
