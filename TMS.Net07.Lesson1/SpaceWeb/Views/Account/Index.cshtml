@@ -51,9 +51,14 @@
                         {
                             <div class="account-info-container @accountIndex">
                                 <div class="account-info">
+                                    <input class="info id hide" type="hidden" value="@Model.Id" />
                                     <div class="info index hide">@(accountIndex++)</div>
                                     <div class="info type">@bankAccount.Name</div>
-                                    <div class="info amount">@bankAccount.Amount @bankAccount.Currency.ToString()</div>
+                                    <div class="info">
+                                        <span class="amount">@bankAccount.Amount</span>
+                                        <span class="currency">@bankAccount.Currency.ToString()</span>
+                                        <span class="changing hide"></span>
+                                    </div>
                                     <div class="info number">@bankAccount.AccountNumber</div>
                                     <div class="info creation">Создан: @bankAccount.CreationDate.Month/@bankAccount.CreationDate.Year</div>
                                     <div class="info expire">Действителен до: @bankAccount.ExpireDate.Month/@bankAccount.ExpireDate.Year</div>
@@ -65,17 +70,21 @@
             </div>
             <div class="content-box">
                 <div class="button-list">
-                    <input class="active-account hide" type="hidden" value="@Model.AccountIndex">
+                    <input class="active-account index hide" type="hidden" value="@Model.AccountIndex">
 
-                    <div class="button deposit">Пополнить счет</div>
+                    <input class="active-account id hide" type="hidden" value="@Model.Id">
 
-                    <div class="button">Снять со счета</div>
+                    <div class="button deposit show-menu">Пополнить счет</div>
+
+                    <div class="button withdrawal show-menu">Снять со счета</div>
 
                     <div class="button">Заморозить счет</div>
 
                     <a href="/Account/DownloadLog?id=@Model.Id">
                         <div class="button">История операций</div>
-                    </a>                            <div class="button">Перевод со счета</div>
+                    </a>
+
+                    <div class="button transfer show-menu">Перевод со счета</div>
 
                     <a href="/Account/Remove?id=@Model.Id">
                         <div class="button">Удалить счет</div>
@@ -86,13 +95,40 @@
                     <div class="head-text">ПОПОЛНЕНИЕ СЧЕТА</div>
                     <form class="deposit form" method="POST">
                         <div>Сумма для пополнения</div>
-                        <input type="text" autocomplete="off">
+                        <input class="deposit amount" type="text" autocomplete="off">
                         <p class="buttons">
-                            <input class="make-deposit button" type="submit" value="Пополнить">
-                            <input class="cancel-deposit button" type="reset" value="Отмена">
+                            <input class="make deposit button" type="submit" value="Пополнить">
+                            <input class="cancel deposit button" type="reset" value="Отмена">
                         </p>
                     </form>
                 </div>
+
+                <div class="withdrawal-form container hide">
+                    <div class="head-text">СНЯТИЕ СО СЧЕТА</div>
+                    <form class="withdrawal form" method="POST">
+                        <div>Сумма для снятия</div>
+                        <input class="withdrawal amount" type="text" autocomplete="off">
+                        <p class="buttons">
+                            <input class="make withdrawal button" type="submit" value="Снять">
+                            <input class="cancel withdrawal button" type="reset" value="Отмена">
+                        </p>
+                    </form>
+                </div>
+
+                <div class="transfer-form container hide">
+                    <div class="head-text">ПЕРЕВОД СО СЧЕТА</div>
+                    <form class="transfer form" method="POST">
+                        <div>Номер счета получателя</div>
+                        <input type="text" autocomplete="off">
+                        <div>Сумма перевода</div>
+                        <input class="transfer amount" type="text" autocomplete="off">
+                        <p class="buttons">
+                            <input class="make transfer button" type="submit" value="Перевести">
+                            <input class="cancel transfer button" type="reset" value="Отмена">
+                        </p>
+                    </form>
+                </div>
+
             </div>
         </div>
     </div>

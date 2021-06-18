@@ -136,7 +136,7 @@ namespace SpaceWeb.Service
         {
             HttpWebRequest request = (HttpWebRequest)
             WebRequest.Create("https://belarusbank.by/api/kursExchange?city=Минск");
-            WebResponse response = request.GetResponse();
+            WebResponse response = request?.GetResponse();
 
             List<GottenCurrency> fin = null;
 
