@@ -2,11 +2,11 @@
 {
     public interface ISalaryService
     {
-        void CalculateSalary();
-        void PaySalary();
-        void GetCalculatedSalaryInAMonth();
-        void GetPayedSalaryInAMonth();
-        void GetAllCalculatedSalary();
-        void GetAllPayedSalary();
+        void CalculateAccrual();
+        void PayAccrual();
+        void GetAccrualInAMonth();
+        void GetPayedAccrualInAMonth();
+        void GetAllAccruals();
+        void GetAllPayedAccruals();
     }
 }

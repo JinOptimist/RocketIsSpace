@@ -15,6 +15,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using SpaceWeb.Models.Chart;
+using SpaceWeb.Extensions;
+using System;
 
 namespace SpaceWeb.Controllers
 {
@@ -152,6 +154,33 @@ namespace SpaceWeb.Controllers
         public IActionResult Graph()
         {
             return View();
+        }
+
+        public IActionResult GetEmloyeAccrualsInfo(long id)
+        {
+            return Json(_humanPresentation.GetEmloyeAccrualsInfo(id));
+        }
+        
+        [HttpPost]
+        public IActionResult AccrualSalary(AccrualViewModel accrualViewModel)
+        {
+            //to do save in accrual table, return page with openned moadal
+
+            var employe = _employeRepository.Get(accrualViewModel.IdEmploye);
+            //accrualViewModel.InviteDate = employe.InviteDate;
+            var startWorkingTime = employe.Department.HourStartWorking;
+            var endWorkingTime = employe.Department.HourEndWorking;
+            var workingHoursPerDay = endWorkingTime - startWorkingTime;
+            var workingDays = accrualViewModel
+                .Date
+                .GetWorkingDaysInPeriod
+                    (new DateTime(accrualViewModel
+                        .Date.Year, 
+                        accrualViewModel.Date.AddMonths(1).Month, 
+                        1));
+            var workingHours = workingHoursPerDay * workingDays;
+
+            return Json(true);
         }
     }
 }

@@ -20,5 +20,6 @@ namespace SpaceWeb.Presentation
         ShortUserViewModel ClientPage();
         List<ShortEmployeViewModel> UpdateEmployes(long idDepartment);
         MyChartViewModel<int> GetChartForWorkersInDepartment();
+        AccrualViewModel GetEmloyeAccrualsInfo(long id);
     }
 }

@@ -5,6 +5,7 @@ using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Models.Chart;
 using SpaceWeb.Models.Human;
 using SpaceWeb.Service;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -170,6 +171,15 @@ namespace SpaceWeb.Presentation
                     .ToList()
             });
             return chartViewModel;
+        }
+
+        public AccrualViewModel GetEmloyeAccrualsInfo(long id)
+        {
+            var accrualViewModel = new AccrualViewModel();
+            var employe = _employeRepository.Get(id);
+            //accrualViewModel.InviteDate = employe.InviteDate;
+            //accrualViewModel.LimitDate
+            return accrualViewModel;
         }
     }
 }

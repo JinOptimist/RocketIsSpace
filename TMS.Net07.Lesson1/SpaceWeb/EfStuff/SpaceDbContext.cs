@@ -38,6 +38,9 @@ namespace SpaceWeb.EfStuff
         public DbSet<InsuranceType> InsuranceTypes { get; set; }
         public DbSet<Insurance> Insurances { get; set; }
 
+        public DbSet<Accrual> Accrual { get; set; }
+        public DbSet<Payment> Payment { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()
@@ -105,7 +108,14 @@ namespace SpaceWeb.EfStuff
             modelBuilder.Entity<Order>()
                 .HasMany(x => x.Rockets)
                 .WithMany(x => x.OrderedBy);
-            
+
+            modelBuilder.Entity<Accrual>()
+                .HasOne(x => x.Employe)
+                .WithMany(x => x.Accruals);
+
+            modelBuilder.Entity<Payment>()
+                .HasOne(x => x.Employe)
+                .WithMany(x => x.Payments);
 
             base.OnModelCreating(modelBuilder);
         }

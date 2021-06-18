@@ -14,5 +14,7 @@ namespace SpaceWeb.EfStuff.Model
         [Column(TypeName ="money")]
         public decimal SalaryPerHour { get; set; }
         public EmployeStatus EmployeStatus { get; set; }
+        public virtual List<Accrual> Accruals { get; set; }
+        public virtual List<Payment> Payments { get; set; }
     }
 }

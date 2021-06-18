@@ -7,32 +7,32 @@ namespace SpaceWeb.Service
 {
     public class SalaryService : ISalaryService
     {
-        public void CalculateSalary()
+        public void CalculateAccrual()
         {
             throw new NotImplementedException();
         }
 
-        public void GetAllCalculatedSalary()
+        public void GetAccrualInAMonth()
         {
             throw new NotImplementedException();
         }
 
-        public void GetAllPayedSalary()
+        public void GetAllAccruals()
         {
             throw new NotImplementedException();
         }
 
-        public void GetCalculatedSalaryInAMonth()
+        public void GetAllPayedAccruals()
         {
             throw new NotImplementedException();
         }
 
-        public void GetPayedSalaryInAMonth()
+        public void GetPayedAccrualInAMonth()
         {
             throw new NotImplementedException();
         }
 
-        public void PaySalary()
+        public void PayAccrual()
         {
             throw new NotImplementedException();
         }
