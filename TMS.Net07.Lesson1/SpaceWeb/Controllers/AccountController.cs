@@ -67,7 +67,6 @@ namespace SpaceWeb.Controllers
             var newId = user.BankAccounts?.FirstOrDefault()?.Id;
             if (newId != null)
             {
-                //return RedirectToAction("Index",  new { id = (long)newId });
                 return Redirect($"/Account/Index?id={newId}");
             }
             return RedirectToAction("Creation");

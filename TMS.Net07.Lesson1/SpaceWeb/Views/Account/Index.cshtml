@@ -20,12 +20,12 @@
 }
 
 @section Scripts{
-    <script src="~/js/bank/bankAccountCarousel.js?"></script>
-    <script src="~/js/bank/bankAccountIndex.js"></script>
+    <script src="~/js/bank/bankAccountCarousel.js?v=2"></script>
+    <script src="~/js/bank/bankAccountIndex.js?v=0"></script>
 }
 
 @section Style{
-    <link rel="stylesheet" href="~/css/bank/styleAccount.css?v=0" />
+    <link rel="stylesheet" href="~/css/bank/styleAccount.css?v=1" />
 }
 
 <body>
@@ -85,10 +85,13 @@
                     </a>
 
                     <div class="button transfer show-menu">Перевод со счета</div>
+                    
+                    <div class="button remove show-menu">Удалить счет</div>
 
-                    <a href="/Account/Remove?id=@Model.Id">
-                        <div class="button">Удалить счет</div>
-                    </a>
+
+                    @*<a href="/Account/Remove?id=@Model.Id">
+
+                    </a>*@
                 </div>
 
                 <div class="deposit-form container hide">
@@ -125,6 +128,18 @@
                         <p class="buttons">
                             <input class="make transfer button" type="submit" value="Перевести">
                             <input class="cancel transfer button" type="reset" value="Отмена">
+                        </p>
+                    </form>
+                </div>
+
+                <div class="remove-form container hide">
+                    <div class="head-text">УДАЛЕНИЕ СЧЕТА</div>
+                    <form class="remove form" method="POST">
+                        <div>Подтвердите пароль</div>
+                        <input class="remove amount" type="password" autocomplete="off">
+                        <p class="buttons">
+                            <input class="make remove button" type="submit" value="Удалить">
+                            <input class="cancel remove button" type="reset" value="Отмена">
                         </p>
                     </form>
                 </div>

@@ -32,11 +32,9 @@ $(document).ready(function () {
             amount = 0;
         }
 
-        var activeAccountIndex = GetActiveAccountIndex();
+        var activeAccount = GetActiveAccount();
 
-        var activeAccountID = GetActiveAccountId();
-
-        var url = `/Account/UpdateAmount?id=${activeAccountID}&amount=${amount}`;
+        var url = `/Account/UpdateAmount?id=${activeAccount.id}&amount=${amount}`;
 
         $.get(url).done(function (answer) {
             if (answer) {
@@ -44,7 +42,7 @@ $(document).ready(function () {
 
                 currentContainer.toggleClass('hide');
 
-                UpdateAmount(activeAccountIndex, amount);
+                UpdateAmount(activeAccount, amount);
 
                 $('.button-list').toggleClass('hide');
             }
@@ -57,20 +55,47 @@ $(document).ready(function () {
 
     })
 
-    function GetActiveAccountId() {
-        return $('.button-list .active-account.id').val() - 0;
+    $('.container .form .buttons .remove.make').click(function (env) {
+
+        var activeAccount = GetActiveAccount();
+
+        var url = `/Account/Remove?id=${activeAccount.id}`
+
+        var currentContainer = $(this).closest('.container');
+
+        $.get(url);
+
+            //.done(function (answer) {
+            //if (answer) {
+            //    console.log('account deleted');
+
+            //    currentContainer.toggleClass('hide');
+
+            //    //AnimateAccountRemoving(activeAccount);
+
+            //    $('.button-list').toggleClass('hide');
+            //}
+            //else {
+            //    console.log('something went wrong');
+            //}
+    })
+
+    function GetActiveAccount() {
+
+        var obj = {
+            index: $('.button-list .active-account.index').val() - 0,
+            id: $('.button-list .active-account.id').val() - 0
+        }
+
+        return obj;
     }
 
-    function GetActiveAccountIndex() {
-        return $('.button-list .active-account.index').val() - 0;
-    }
+    function UpdateAmount(activeAccount, amount) {
+        var oldAmount = $(`.account-info-container.${activeAccount.index} .info .amount`).text().replace(',', '.') - 0;
 
-    function UpdateAmount(activeAccountIndex, amount) {
-        var oldAmount = $(`.account-info-container.${activeAccountIndex} .info .amount`).text().replace(',','.') - 0;
+        ShowAmount(activeAccount, oldAmount, amount);
 
-        ShowAmount(activeAccountIndex, oldAmount, amount);
-
-        function AnimateAmount(activeAccountIndex, oldAmount, amount) {
+        function AnimateAmount(activeAccount, oldAmount, amount) {
 
             $('.account-carousel .account-info-container').animate(
                 {
@@ -84,25 +109,25 @@ $(document).ready(function () {
 
                         var stepChanging = amount - amount / 100 * progress;
 
-                        $(`.account-info-container.${activeAccountIndex} .info .amount`)
+                        $(`.account-info-container.${activeAccount.index} .info .amount`)
                             .text(stepNewAmount.toFixed(2).replace('.', ','));
 
-                        $(`.bank-account-list .bank-account.${activeAccountIndex} .amount`)
+                        $(`.bank-account-list .bank-account.${activeAccount.index} .amount`)
                             .text(stepNewAmount.toFixed(2).replace('.', ','));
 
-                        $(`.account-info-container.${activeAccountIndex} .info .changing`)
+                        $(`.account-info-container.${activeAccount.index} .info .changing`)
                             .text(stepChanging.toFixed(2).replace('.', ','))
                     },
                     complete: function () {
                         $('.account-carousel .account-info-container').css('progress', 0);
-                        HideAmount(activeAccountIndex);
+                        HideAmount(activeAccount);
                     },
                     queue: true
                 })
         }
 
-        function ShowAmount(activeAccountIndex, oldAmount, amount) {
-            $(`.account-info-container.${activeAccountIndex} .info .changing`)
+        function ShowAmount(activeAccount, oldAmount, amount) {
+            $(`.account-info-container.${activeAccount.index} .info .changing`)
                 .text(amount)
                 .css('opacity', 0)
                 .toggleClass('hide')
@@ -114,13 +139,13 @@ $(document).ready(function () {
                         duration: time / 2,
                         queue: true,
                         complete: function () {
-                            AnimateAmount(activeAccountIndex, oldAmount, amount)
+                            AnimateAmount(activeAccount, oldAmount, amount)
                         }
                     });
         }
 
-        function HideAmount(activeAccountIndex) {
-            $(`.account-info-container.${activeAccountIndex} .info .changing`)
+        function HideAmount(activeAccount) {
+            $(`.account-info-container.${activeAccount.index} .info .changing`)
                 .animate(
                     {
                         'opacity': 0
