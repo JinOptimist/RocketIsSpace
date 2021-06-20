@@ -60,7 +60,7 @@ namespace SpaceWeb.Test.Service
     
         [Test]
         [TestCase(2.7, 3, 270, Currency.USD, Currency.EUR, 90)]
-        [TestCase(3, 2.5, 150, Currency.USD, Currency.EUR, 120)]
+        [TestCase(3, 2.5, 150, Currency.USD, Currency.EUR, 180)]
         public void ConvertByAlex_FromTo(decimal rateBy, decimal rateSell, decimal amount, Currency currencyFrom, Currency currencyTo, decimal expectedResult)
         {
             var exchangeRateToUsdCurrentTo = new ExchangeRateToUsdCurrent()
@@ -68,7 +68,7 @@ namespace SpaceWeb.Test.Service
                 ExchRate = rateBy
             };
             _exchangeRateToUsdCurrentRepositoryMock
-                .Setup(x => x.GetExchangeRate(currencyFrom, TypeOfExchange.Buy))
+                .Setup(x => x.GetExchangeRate(currencyFrom, TypeOfExchange.Sell))
                 .Returns(exchangeRateToUsdCurrentTo);
 
             var exchangeRateToUsdCurrentFrom = new ExchangeRateToUsdCurrent()
@@ -76,7 +76,7 @@ namespace SpaceWeb.Test.Service
                 ExchRate = rateSell
             };
             _exchangeRateToUsdCurrentRepositoryMock
-                .Setup(x => x.GetExchangeRate(currencyTo, TypeOfExchange.Sell))
+                .Setup(x => x.GetExchangeRate(currencyTo, TypeOfExchange.Buy))
                 .Returns(exchangeRateToUsdCurrentFrom);
 
             var actualResult = _currencyService.ConvertByAlex(currencyTo, amount, currencyFrom);
