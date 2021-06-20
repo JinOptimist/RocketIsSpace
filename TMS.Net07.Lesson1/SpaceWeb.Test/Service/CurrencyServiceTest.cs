@@ -59,9 +59,29 @@ namespace SpaceWeb.Test.Service
         }
     
         [Test]
-        public void ConvertByAlex_FromTo()
+        [TestCase(2.7, 3, 270, Currency.USD, Currency.EUR, 90)]
+        [TestCase(3, 2.5, 150, Currency.USD, Currency.EUR, 120)]
+        public void ConvertByAlex_FromTo(decimal rateBy, decimal rateSell, decimal amount, Currency currencyFrom, Currency currencyTo, decimal expectedResult)
         {
+            var exchangeRateToUsdCurrentTo = new ExchangeRateToUsdCurrent()
+            {
+                ExchRate = rateBy
+            };
+            _exchangeRateToUsdCurrentRepositoryMock
+                .Setup(x => x.GetExchangeRate(currencyFrom, TypeOfExchange.Buy))
+                .Returns(exchangeRateToUsdCurrentTo);
 
+            var exchangeRateToUsdCurrentFrom = new ExchangeRateToUsdCurrent()
+            {
+                ExchRate = rateSell
+            };
+            _exchangeRateToUsdCurrentRepositoryMock
+                .Setup(x => x.GetExchangeRate(currencyTo, TypeOfExchange.Sell))
+                .Returns(exchangeRateToUsdCurrentFrom);
+
+            var actualResult = _currencyService.ConvertByAlex(currencyTo, amount, currencyFrom);
+
+            Assert.AreEqual(expectedResult, actualResult);
         }
     }
 }
