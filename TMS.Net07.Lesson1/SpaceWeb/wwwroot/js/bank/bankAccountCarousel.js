@@ -13,87 +13,94 @@ var cardWidth = 430;
 $(document).ready(function () {
     var isAnimationActive = false;
 
-    var activeAccIndex = GetActiveAccount();
+    var activeAccount = GetActiveAccount();
 
     var totalAccounts = GetTotalAccounts();
 
-    SetPosition(activeAccIndex, 0);
+    SetPosition(activeAccount, 0);
 
     $('.next-btn').click(function () {
         if (isAnimationActive) {
             return;
         }
-        if (activeAccIndex == (totalAccounts-1)) {
-            activeAccIndex = 0;
+        if (activeAccount.index == (totalAccounts - 1)) {
+            activeAccount.index = 0;
         }
         else {
-            activeAccIndex++;
+            activeAccount.index++;
         }
 
-        SetPosition(activeAccIndex, time);
+        SetPosition(activeAccount, time);
 
-        SetActiveAccount(activeAccIndex);
+        SetActiveAccount(activeAccount);
     });
 
     $('.prev-btn').click(function () {
         if (isAnimationActive) {
             return;
         }
-        if (activeAccIndex == 0) {
-            activeAccIndex = (totalAccounts - 1);
+        if (activeAccount.index == 0) {
+            activeAccount.index = (totalAccounts - 1);
         }
         else {
-            activeAccIndex--;
+            activeAccount.index--;
         }
 
-        SetPosition(activeAccIndex, time);
+        SetPosition(activeAccount, time);
 
-        SetActiveAccount(activeAccIndex);
+        SetActiveAccount(activeAccount);
     });
 
     $('.bank-account-list .account-link').click(function (evt) {
-        activeAccIndex = $(this).find('.account-index').text() - 0;
-        console.log(activeAccIndex);
+        activeAccount.index = $(this).find('.account-index').text() - 0;
+        console.log(activeAccount.index);
         if (isAnimationActive) {
             return;
         }
 
-        SetPosition(activeAccIndex, time);
+        SetPosition(activeAccount, time);
 
-        SetActiveAccount(activeAccIndex);
+        SetActiveAccount(activeAccount);
 
         evt.preventDefault();
     })
 });
 
 function GetActiveAccount() {
-    return $('.active-account.index').val() - 0;
+
+    var obj = {
+        index : $('.active-account.index').val() - 0,
+        id : $('.active-account.id').val() - 0
+    }
+
+    return obj;
 }
 
 function GetTotalAccounts() {
     return $('.total-accounts').text() - 0;
 }
 
-function SetPosition(index, time) {
+function SetPosition(activeAccount, time) {
+
     isAnimationActive = true;
 
-    AnimateActiveAccount(index, time);
+    AnimateActiveAccount(activeAccount, time);
 
-    ScrollLeftMenu(index, time);
+    ScrollLeftMenu(activeAccount, time);
 
     isAnimationActive = false;
 }
 
-function SetActiveAccount(index) {
-    var accountID = $(`.account-info-container ${index}`).children('.info.id').val();
+function SetActiveAccount(activeAccount) {
+    //var accountID = $(`.account-info-container.${index} .info.id`).val();
 
-    $('.active-account.index').val(index);
-    $('.active-account.id').val(accountID);
+    $('.active-account.index').val(activeAccount.index);
+    $('.active-account.id').val(activeAccount.id);
 }
 
-function ScrollLeftMenu(index, time) {
+function ScrollLeftMenu(activeAccount, time) {
 
-    var blockPosition = blockHeight + index * blockHeight;
+    var blockPosition = blockHeight + activeAccount.index * blockHeight;
 
     var windowPosition = $('.bank-account-list').scrollTop();
 
@@ -103,9 +110,9 @@ function ScrollLeftMenu(index, time) {
 
     var delta = {};
 
-    SetAccountListVisualChange(index);
+    SetAccountListVisualChange(activeAccount);
 
-    if (IsVisible(index)) {
+    if (IsVisible()) {
         return;
     }
 
@@ -120,7 +127,7 @@ function ScrollLeftMenu(index, time) {
 
     AnimateAccountList(windowPosition, delta);
 
-    function IsVisible(index) {
+    function IsVisible() {
 
         if (blockPosition >= windowPosition && blockPosition <= visibleZone) {
             console.log('visible');
@@ -153,7 +160,7 @@ function ScrollLeftMenu(index, time) {
         );
     }
 
-    function SetAccountListVisualChange(index) {
+    function SetAccountListVisualChange(activeAccount) {
         $('.menu.left .bank-account').animate(
             {
                 'progress': 100
@@ -165,14 +172,14 @@ function ScrollLeftMenu(index, time) {
                     $('.menu.left .bank-account.bordered')
                         .css('border', `8px rgba(255, 255, 255, ${1 - s}) double`);
                         
-                    $(`.menu.left .bank-account.${index}`).css('border', `8px rgba(255, 255, 255, ${s}) double`);
+                    $(`.menu.left .bank-account.${activeAccount.index}`).css('border', `8px rgba(255, 255, 255, ${s}) double`);
                 },
                 queue: false,
                 easing: easingType,
                 complete: function () {
                     $('.menu.left .bank-account').css('progress', 0);
                     $('.menu.left .bank-account.bordered').toggleClass('bordered');
-                    $(`.menu.left .bank-account.${index}`).toggleClass('bordered');
+                    $(`.menu.left .bank-account.${activeAccount.index}`).toggleClass('bordered');
                 }
             }
         );
@@ -183,8 +190,8 @@ function ScrollLeftMenu(index, time) {
     }
 }
 
-function AnimateActiveAccount(index, time) {
+function AnimateActiveAccount(activeAccount, time) {
     $('.account-carousel').animate({
-        'margin-left': (marginLeft + (-1 * index * cardWidth))
+        'margin-left': (marginLeft + (-1 * activeAccount.index * cardWidth))
     }, { duration: time, easing: easingType, queue: false });
 }
