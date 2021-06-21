@@ -158,29 +158,14 @@ namespace SpaceWeb.Controllers
 
         public IActionResult GetEmloyeAccrualsInfo(long id)
         {
-            return Json(_humanPresentation.GetEmloyeAccrualsInfo(id));
+            return Json(_humanPresentation.GetAccrualViewModel(id));
         }
         
         [HttpPost]
-        public IActionResult AccrualSalary(AccrualViewModel accrualViewModel)
+        public IActionResult SaveAccrual(AccrualViewModel accrualViewModel)
         {
-            //to do save in accrual table, return page with openned moadal
-
-            var employe = _employeRepository.Get(accrualViewModel.IdEmploye);
-            //accrualViewModel.InviteDate = employe.InviteDate;
-            var startWorkingTime = employe.Department.HourStartWorking;
-            var endWorkingTime = employe.Department.HourEndWorking;
-            var workingHoursPerDay = endWorkingTime - startWorkingTime;
-            var workingDays = accrualViewModel
-                .Date
-                .GetWorkingDaysInPeriod
-                    (new DateTime(accrualViewModel
-                        .Date.Year, 
-                        accrualViewModel.Date.AddMonths(1).Month, 
-                        1));
-            var workingHours = workingHoursPerDay * workingDays;
-
-            return Json(true);
+            _humanPresentation.SaveAccrual(accrualViewModel);
+            return RedirectToAction("Personnel");
         }
     }
 }

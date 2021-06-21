@@ -1,4 +1,5 @@
 ﻿using SpaceWeb.Models.Human;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -16,5 +17,6 @@ namespace SpaceWeb.EfStuff.Model
         public EmployeStatus EmployeStatus { get; set; }
         public virtual List<Accrual> Accruals { get; set; }
         public virtual List<Payment> Payments { get; set; }
+        public DateTime StatusDate { get; set; }
     }
 }

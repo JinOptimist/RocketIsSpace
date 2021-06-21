@@ -18,6 +18,7 @@ namespace SpaceWeb.Presentation
         private IDepartmentRepository _departmentRepository;
         private IMapper _mapper;
         private IEmployeRepository _employeRepository;
+        private IAccrualRepository _accrualRepository;
         private UserService _userService;
 
         public HumanPresentation(
@@ -25,14 +26,15 @@ namespace SpaceWeb.Presentation
             IDepartmentRepository departmentRepository,
             IMapper mapper,
             IEmployeRepository employeRepository,
-            UserService userService
-            )
+            UserService userService,
+            IAccrualRepository accrualRepository)
         {
             _userRepository = userRepository;
             _departmentRepository = departmentRepository;
             _mapper = mapper;
             _employeRepository = employeRepository;
             _userService = userService;
+            _accrualRepository = accrualRepository;
         }
 
         public List<ShortUserViewModel> GetViewModelForAllUsers()
@@ -173,13 +175,44 @@ namespace SpaceWeb.Presentation
             return chartViewModel;
         }
 
-        public AccrualViewModel GetEmloyeAccrualsInfo(long id)
+        public AccrualViewModel GetAccrualViewModel(long id)
         {
             var accrualViewModel = new AccrualViewModel();
             var employe = _employeRepository.Get(id);
-            //accrualViewModel.InviteDate = employe.InviteDate;
-            //accrualViewModel.LimitDate
+            var accruals = _accrualRepository.GetEmployeAccruals(id);
+
+            accrualViewModel.IdEmploye = id;
+            accrualViewModel.InviteDate = employe.StatusDate;
+            accrualViewModel.LimitDate = DateTime.Today;
+            accrualViewModel.NoAccrualsDates = GetMonthNotAccrualed(
+                new DateTime(accrualViewModel.InviteDate.Year, accrualViewModel.InviteDate.Month, 1),
+                new DateTime(accrualViewModel.LimitDate.Year, accrualViewModel.LimitDate.Month, 1),
+                accruals);
             return accrualViewModel;
+        }
+
+        public List<DateTime> GetMonthNotAccrualed(DateTime start, DateTime end, List<DateTime> accruals)
+        {
+            List<DateTime> workPeriodMonths = new List<DateTime>();
+            while (start <= end)
+            {
+                workPeriodMonths.Add(start);
+                start = start.AddMonths(1);
+            }
+            return workPeriodMonths.Except(accruals).ToList();
+        }
+
+        public void SaveAccrual(AccrualViewModel accrualViewModel)
+        {
+            var accrualId = _accrualRepository.GetExistId(accrualViewModel.IdEmploye, accrualViewModel.Date);
+            var accrual = new Accrual()
+            {
+                Id = accrualId,
+                Date = accrualViewModel.Date,
+                Amount = accrualViewModel.Amount,
+                Employe = _employeRepository.Get(accrualViewModel.IdEmploye)
+            };
+            _accrualRepository.Save(accrual);
         }
     }
 }

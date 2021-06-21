@@ -9,6 +9,7 @@ namespace SpaceWeb.Models.Human
         public DateTime Date { get; set; }
         public decimal Amount { get; set; }
         public DateTime InviteDate { get; set; }
+        public DateTime LimitDate { get; set; }
         public List<DateTime> NoAccrualsDates { get; set; }
     }
 }

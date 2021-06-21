@@ -1,6 +1,7 @@
 using SpaceWeb.Models;
 using SpaceWeb.Models.Chart;
 using SpaceWeb.Models.Human;
+using System;
 using System.Collections.Generic;
 
 namespace SpaceWeb.Presentation
@@ -20,6 +21,8 @@ namespace SpaceWeb.Presentation
         ShortUserViewModel ClientPage();
         List<ShortEmployeViewModel> UpdateEmployes(long idDepartment);
         MyChartViewModel<int> GetChartForWorkersInDepartment();
-        AccrualViewModel GetEmloyeAccrualsInfo(long id);
+        AccrualViewModel GetAccrualViewModel(long id);
+        List<DateTime> GetMonthNotAccrualed(DateTime start, DateTime end, List<DateTime> accruals);
+        void SaveAccrual(AccrualViewModel accrualViewModel);
     }
 }

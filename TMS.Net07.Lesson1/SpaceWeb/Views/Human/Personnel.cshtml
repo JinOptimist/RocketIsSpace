@@ -25,6 +25,8 @@
 @*@model List<RequestViewModel>*@
 @model PersonnelViewModel
 
+<script src="~/js/human/personnel.js"></script>
+
 <div class="personnel">
     <div class="salary-block">
         <div class="human-department-info">
@@ -45,7 +47,7 @@
                     <partial name="ShortEmploye" model="employe" />
                     <div class="employee-card-buttons">
                         <div class="employee-card-button">
-                            <input type="button" value="Начисление" onclick="test(1)"/>
+                            <input id="@employe.Id" type="button" value="Начисление"/>
                         </div>
                         <div class="employee-card-button">
                             <input type="button" value="Выплата" />
@@ -113,19 +115,3 @@
         </form>
     </div>
 </div>
-
-<script>
-    function test(id) {
-        //$.get('/human/EditDepartment', { id: id })
-        //    .done(function (data) {
-        //        $('#partial').html(data);
-        $('#modal-salary-count').modal('show');
-            //})
-            //.then(function () {
-            //    $.validator.unobtrusive.parse('form');
-            //})
-            //.fail(function () {
-            //    alert('Error action edit department.');
-            //});
-    }
-</script>

@@ -1,13 +1,17 @@
 ﻿@using SpaceWeb.Models.Human
 @model AccrualViewModel
 
-<form action="/Human/AccrualSalary" method="post">
+<form action="/Human/SaveAccrual" method="post">
     @Html.HiddenFor(x => x.IdEmploye)
-    <div class="form-group">
-        @Html.TextBoxFor(x => x.Date, new { @type="month" })
+    <div id="input-date" class="form-group">
+        @Html.TextBoxFor(x => x.Date, new { @type = "month", @list = "noAccrualsMonths" })
     </div>
-    <div class="form-group">
+    <div id="input-amount" class="form-group">
         @Html.TextBoxFor(x => x.Amount)
     </div>
-    <input type="submit"/>
+    <input type="submit" />
 </form>
+
+<datalist id="noAccrualsMonths">
+
+</datalist>
