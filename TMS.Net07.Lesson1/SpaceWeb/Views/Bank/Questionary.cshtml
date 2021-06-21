@@ -1,4 +1,4 @@
-﻿@model UserProfileViewModel
+﻿@model QuestionaryViewModel
 
 @{
     Layout = "_LayoutBank";
@@ -10,7 +10,7 @@
 <body>
     <div class="client-before-content"></div>
     <div class="profile">
-        <form action="/Bank/UserProfile" method="post">
+        <form action="/Bank/Questionary" method="post">
             @Html.HiddenFor(x => x.Id)
             <h1>Анкета</h1>
 

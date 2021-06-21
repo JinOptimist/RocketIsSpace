@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
+using SpaceWeb.EfStuff.Model;
 using SpaceWeb.Models;
 
 namespace SpaceWeb.Migrations

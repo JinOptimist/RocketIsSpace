@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SpaceWeb.Models
 {
-    public class UserProfileViewModel
+    public class QuestionaryViewModel
     {
         public long Id { get; set; }
         [Required(ErrorMessage = "Не указано имя пользователя")]

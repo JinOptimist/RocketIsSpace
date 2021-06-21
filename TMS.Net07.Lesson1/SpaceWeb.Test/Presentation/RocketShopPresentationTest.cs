@@ -77,7 +77,9 @@ namespace SpaceWeb.Test.Presentation
                 Count = count,
                 Cost = cost
             };
+
             _presentation.SaveRocket(rocketViewModel);
+
             int countInvocation = _mockShopRocketRepository.Invocations.Count;
             int countExpected = isValid ? 1 : 0;
             Assert.AreEqual(countExpected, countInvocation);

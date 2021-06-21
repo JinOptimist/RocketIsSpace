@@ -20,11 +20,11 @@ namespace SpaceWeb.Presentation
             _mapper = mapper;
         }
 
-        public UserProfileViewModel GetProfileViewModel(long id)
+        public QuestionaryViewModel GetProfileViewModel(long id)
         {
             var userprofile = _profileRepository.Get(id);
-            var profile = _mapper.Map<UserProfileViewModel>(userprofile)
-                ?? new UserProfileViewModel();
+            var profile = _mapper.Map<QuestionaryViewModel>(userprofile)
+                ?? new QuestionaryViewModel();
             return profile;
         }
     }
