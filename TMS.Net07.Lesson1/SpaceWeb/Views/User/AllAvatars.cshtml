@@ -1,0 +1,20 @@
+﻿@model List<AvatarsAdminViewModel>
+<div>
+    Real users
+    @foreach (var avatar in Model.Where(x => x.UserId > 0))
+    {
+        <div data-id="@avatar.UserId">
+            <img class="avatar" src="@avatar.Url" />
+        </div>
+    }
+</div>
+
+<div>
+    Dead avatars
+    @foreach (var avatar in Model.Where(x => x.UserId <= 0))
+    {
+        <div data-id="@avatar.UserId">
+            <img class="avatar" src="@avatar.Url" />
+        </div>
+    }
+</div>
