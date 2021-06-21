@@ -1,8 +1,15 @@
 ﻿$(document).ready(function () {
-    var element = $('.flip-flop');
-    element.on('click', () => {
-        flip(element);
+
+    $('#flip-flop').each(function (element) {        
+        console.log(element);
+        element.on('click', () => flip(element));        
     });
+
+
+    //var element = $('.flip-flop');
+    //element.on('click', () => {
+    //    flip(element);
+    //});
 })
 
 
@@ -27,6 +34,7 @@ function flip(element) {
     });
 
     function getScaleX(element) {
+        console.log(element);
         return element.css('transform').replace(/\(|\)|matrix/g, '').split(',')[0];
     }
 }

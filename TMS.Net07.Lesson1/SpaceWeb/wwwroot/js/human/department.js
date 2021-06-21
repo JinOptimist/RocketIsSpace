@@ -9,8 +9,9 @@
 
     var tag = '.employes-list .human-department-employee';
 
-    $('.human-department-clickable .department-info-block').click(function () {
-        var departmentId = $(this).parent('label').find('input').val();
+    $('.human-department-info').click(function () {
+        //var departmentId = $(this).parent('label').find('input').val();
+        var departmentId = $(this).find('#department_Id').val();
         var url = '/Human/UpdateEmployes?idDepartment=' + departmentId;
         $('.employes-list .human-department-employee:not(.clone)').remove();
         $.getJSON(url)
@@ -23,7 +24,7 @@
                     InsertText(block, '#specification', employes[i].position);
                     InsertText(block, '#salary', employes[i].salaryPerHour);
                     InsertImage(block, '#image', employes[i].avatarUrl);
-                    block.flip(setter());
+                    //block.flip(setter());
                     block.removeClass('clone undisplayable');
                 }
             });
@@ -37,6 +38,6 @@
         block.find(divToFind).attr('src', avatarUrl);
     };
 
-    $('.flip-flop').flip(setter());
+   // $('.flip-flop').flip(setter());
 
 });

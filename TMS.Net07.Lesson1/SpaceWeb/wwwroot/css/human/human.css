@@ -37,7 +37,6 @@
     margin-left: auto;
 }
 
-
 .human-footer {
     display: flex;
     margin-top: auto;
@@ -63,6 +62,12 @@
     border-radius: 3px;
     margin: 20px;
     padding: 20px;
+}
+.human-department-info .block-buttons {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: flex-start;
 }
 
 .human-department-employee {
@@ -139,4 +144,10 @@
     background-color: white;
     border-radius: 3px;
     padding: 20px;
+}
+
+.department-list {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
 }
