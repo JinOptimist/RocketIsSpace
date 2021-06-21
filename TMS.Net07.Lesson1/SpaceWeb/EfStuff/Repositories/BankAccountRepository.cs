@@ -1,4 +1,5 @@
-﻿using SpaceWeb.EfStuff.Model;
+﻿using SpaceWeb.EfStuff.CustomException;
+using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Models;
 using System;
@@ -41,6 +42,11 @@ namespace SpaceWeb.EfStuff.Repositories
 
             accountFrom.Amount -= amount;
             accountTo.Amount += amount;
+
+            if (accountFrom.Amount < 0)
+            {
+                throw new BankException();
+            }
 
             using (var transaction = _spaceDbContext.Database.BeginTransaction())
             {
