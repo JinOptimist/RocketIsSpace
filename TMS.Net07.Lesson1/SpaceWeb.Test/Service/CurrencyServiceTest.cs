@@ -62,6 +62,8 @@ namespace SpaceWeb.Test.Service
         [TestCase(2.5, 3, 108, Currency.EUR, Currency.USD, 90)]
         [TestCase(3, 2.5, 150, Currency.USD, Currency.EUR, 180)]
         [TestCase(2.7, 3, 100, Currency.USD, Currency.EUR, 90)]
+        [TestCase(3, 2, 100, Currency.EUR, Currency.USD, 150)]
+        [TestCase(2, 3, 100, Currency.EUR, Currency.USD, 150)]
         public void ConvertByAlex_FromTo(decimal rateBy, decimal rateSell, decimal amount, Currency currencyFrom, Currency currencyTo, decimal expectedResult)
         {
             var exchangeRateToUsdCurrentTo = new ExchangeRateToUsdCurrent()
