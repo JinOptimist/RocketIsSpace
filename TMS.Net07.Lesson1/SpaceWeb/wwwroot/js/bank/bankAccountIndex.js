@@ -12,6 +12,9 @@ $(document).ready(function () {
         $('.button-list').toggleClass('hide');
 
         $(`.${operation}-form.container`).toggleClass('hide');
+        //$(`.${operation}-form.container input[type = text]`).focus();
+
+        $(`.${operation}-form.container`).find('input:first').focus();
     })
 
     $('.container .form .buttons .cancel').click(function () {
@@ -21,11 +24,13 @@ $(document).ready(function () {
 
     $('.container .form .buttons .make').click(function (env) {
 
-        var amount = $(this).parent().siblings('.amount').val().replace(',', '.') - 0;
+        var amountTextForm = $(this).parent().siblings('.amount');
+
+        var amount = amountTextForm.val().replace(',', '.') - 0;
 
         var currentContainer = $(this).closest('.container');
 
-        if (currentContainer.attr('class').indexOf('withdrawal')>=0) {
+        if (currentContainer.attr('class').indexOf('withdrawal') >= 0) {
             amount = amount * (-1);
         }
         else if (currentContainer.attr('class').indexOf('transfer') >= 0) {
@@ -45,6 +50,8 @@ $(document).ready(function () {
                 UpdateAmount(activeAccount, amount);
 
                 $('.button-list').toggleClass('hide');
+
+                amountTextForm.val('');
             }
             else {
                 console.log('something went wrong');
@@ -52,32 +59,31 @@ $(document).ready(function () {
         })
 
         env.preventDefault();
-
     })
 
-    $('.container .form .buttons .remove.make').click(function (env) {
+    $('.container .form .buttons .remove.make').click(function () {
 
-        var activeAccount = GetActiveAccount();
+        //var activeAccount = GetActiveAccount();
 
-        var url = `/Account/Remove?id=${activeAccount.id}`
+        //var url = `/Account/Remove?id=${activeAccount.id}`
 
-        var currentContainer = $(this).closest('.container');
+        //var currentContainer = $(this).closest('.container');
 
-        $.get(url);
+        //$.get(url);
 
-            //.done(function (answer) {
-            //if (answer) {
-            //    console.log('account deleted');
+        //.done(function (answer) {
+        //if (answer) {
+        //    console.log('account deleted');
 
-            //    currentContainer.toggleClass('hide');
+        //    currentContainer.toggleClass('hide');
 
-            //    //AnimateAccountRemoving(activeAccount);
+        //    //AnimateAccountRemoving(activeAccount);
 
-            //    $('.button-list').toggleClass('hide');
-            //}
-            //else {
-            //    console.log('something went wrong');
-            //}
+        //    $('.button-list').toggleClass('hide');
+        //}
+        //else {
+        //    console.log('something went wrong');
+        //}
     })
 
     function GetActiveAccount() {
@@ -91,74 +97,82 @@ $(document).ready(function () {
     }
 
     function UpdateAmount(activeAccount, amount) {
-        var oldAmount = $(`.account-info-container.${activeAccount.index} .info .amount`).text().replace(',', '.') - 0;
+        var oldAmount = $(`.account-info-container.${activeAccount.index} .info .amount`)
+            .text().replace(',', '.') - 0;
+        console.log("UpdateAmount");
+        FullAmountAnimation(activeAccount, oldAmount, amount);
+    }
 
-        ShowAmount(activeAccount, oldAmount, amount);
-
-        function AnimateAmount(activeAccount, oldAmount, amount) {
-
-            $('.account-carousel .account-info-container').animate(
+    function FullAmountAnimation(activeAccount, oldAmount, amount) {
+        console.log("FullAmountAnimation");
+        $(`.account-info-container.${activeAccount.index} .info .changing`)
+            .text(amount)
+            .css('opacity', 0)
+            .toggleClass('hide')
+            .animate(
                 {
-                'progress':100
+                    'opacity': 1
                 },
                 {
-                    duration: time*2,
-                    step: function (progress) {
-
-                        var stepNewAmount = oldAmount + amount / 100 * progress;
-
-                        var stepChanging = amount - amount / 100 * progress;
-
-                        $(`.account-info-container.${activeAccount.index} .info .amount`)
-                            .text(stepNewAmount.toFixed(2).replace('.', ','));
-
-                        $(`.bank-account-list .bank-account.${activeAccount.index} .amount`)
-                            .text(stepNewAmount.toFixed(2).replace('.', ','));
-
-                        $(`.account-info-container.${activeAccount.index} .info .changing`)
-                            .text(stepChanging.toFixed(2).replace('.', ','))
-                    },
+                    duration: time / 2,
+                    //queue: true,
                     complete: function () {
-                        $('.account-carousel .account-info-container').css('progress', 0);
-                        HideAmount(activeAccount);
-                    },
-                    queue: true
-                })
-        }
-
-        function ShowAmount(activeAccount, oldAmount, amount) {
-            $(`.account-info-container.${activeAccount.index} .info .changing`)
-                .text(amount)
-                .css('opacity', 0)
-                .toggleClass('hide')
-                .animate(
-                    {
-                        'opacity': 1
-                    },
-                    {
-                        duration: time / 2,
-                        queue: true,
-                        complete: function () {
-                            AnimateAmount(activeAccount, oldAmount, amount)
-                        }
-                    });
-        }
-
-        function HideAmount(activeAccount) {
-            $(`.account-info-container.${activeAccount.index} .info .changing`)
-                .animate(
-                    {
-                        'opacity': 0
-                    },
-                    {
-                        duration: time / 2,
-                        queue: true,
-                        complete: function () {
-                            $(this).toggleClass('hide');
-                        }
-                    });
-        }
+                        AnimateAmount(activeAccount, oldAmount, amount)
+                    }
+                });
     }
+
+    function AnimateAmount(activeAccount, oldAmount, amount) {
+        console.log("AnimateAmount");
+        var obj = $('.account-carousel');
+
+        obj.animate(
+            {
+                'progress': 100
+            },
+            {
+                duration: time * 2,
+                step: function (progress) {
+
+                    var stepNewAmount = oldAmount + amount / 100 * progress;
+
+                    var stepChanging = amount - amount / 100 * progress;
+
+                    $(`.account-info-container.${activeAccount.index} .info .amount`)
+                        .text(stepNewAmount.toFixed(2).replace('.', ','));
+
+                    $(`.bank-account-list .bank-account.${activeAccount.index} .amount`)
+                        .text(stepNewAmount.toFixed(2).replace('.', ','));
+
+                    $(`.account-info-container.${activeAccount.index} .info .changing`)
+                        .text(stepChanging.toFixed(2).replace('.', ','))
+                },
+                complete: function () {
+                    $('.account-carousel').css('progress', 0);
+                    console.log("AnimateAmount complete");
+                    HideAmount(activeAccount);
+                },
+                //queue: true
+            })
+    }
+
+    function HideAmount(activeAccount) {
+        console.log("HideAmount");
+        var obj = $(`.account-info-container.${activeAccount.index} .info .changing`);
+
+            obj.animate(
+                {
+                    'opacity': 0
+                },
+                {
+                    duration: time / 2,
+                    //queue: true,
+                    complete: function () {
+                        $(this).toggleClass('hide');
+                    }
+                });
+    }
+
     function Transfer() {
 
     }

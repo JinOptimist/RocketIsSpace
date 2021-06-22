@@ -92,10 +92,11 @@ function SetPosition(activeAccount, time) {
 }
 
 function SetActiveAccount(activeAccount) {
-    //var accountID = $(`.account-info-container.${index} .info.id`).val();
 
     $('.active-account.index').val(activeAccount.index);
     $('.active-account.id').val(activeAccount.id);
+
+    $('.account-to-remove').val(activeAccount.id);
 }
 
 function ScrollLeftMenu(activeAccount, time) {

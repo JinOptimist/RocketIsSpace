@@ -25,7 +25,7 @@
 }
 
 @section Style{
-    <link rel="stylesheet" href="~/css/bank/styleAccount.css?v=1" />
+    <link rel="stylesheet" href="~/css/bank/styleAccount.css?v=2" />
 }
 
 <body>
@@ -87,11 +87,6 @@
                     <div class="button transfer show-menu">Перевод со счета</div>
                     
                     <div class="button remove show-menu">Удалить счет</div>
-
-
-                    @*<a href="/Account/Remove?id=@Model.Id">
-
-                    </a>*@
                 </div>
 
                 <div class="deposit-form container hide">
@@ -134,9 +129,10 @@
 
                 <div class="remove-form container hide">
                     <div class="head-text">УДАЛЕНИЕ СЧЕТА</div>
-                    <form class="remove form" method="POST">
+                    <form class="remove form" action="/Account/Remove" method="POST">
                         <div>Подтвердите пароль</div>
-                        <input class="remove amount" type="password" autocomplete="off">
+                        <input class="remove password-confirm" type="password" autocomplete="off" name="password">
+                        <input class="account-to-remove hide" type="hidden" value="@Model.Id" name="id">
                         <p class="buttons">
                             <input class="make remove button" type="submit" value="Удалить">
                             <input class="cancel remove button" type="reset" value="Отмена">

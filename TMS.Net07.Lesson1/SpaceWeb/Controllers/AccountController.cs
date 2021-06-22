@@ -58,7 +58,24 @@ namespace SpaceWeb.Controllers
             return RedirectToAction("Creation");
         }
 
+
+        [HttpGet]
         public IActionResult Remove(long id)
+        {
+            _bankAccountRepository.Remove(id);
+
+            var user = _userService.GetCurrent();
+
+            var newId = user.BankAccounts?.FirstOrDefault()?.Id;
+            if (newId != null)
+            {
+                return Redirect($"/Account/Index?id={newId}");
+            }
+            return RedirectToAction("Creation");
+        }
+
+        [HttpPost]
+        public IActionResult Remove(long id, string password)
         {
             _bankAccountRepository.Remove(id);
 
