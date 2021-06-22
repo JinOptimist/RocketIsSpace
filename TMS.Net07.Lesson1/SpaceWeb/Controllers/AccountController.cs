@@ -45,7 +45,13 @@ namespace SpaceWeb.Controllers
             if (id > 0)
             {
                 var user = _userService.GetCurrent();
-                var dbModel = user.BankAccounts.SingleOrDefault(x => x.Id == id);
+                var dbModel = user.BankAccounts?.SingleOrDefault(x => x.Id == id);
+
+                if(dbModel == null)
+                {
+                    return View();
+                }
+
                 var viewModel = _mapper.Map<BankAccountViewModel>(dbModel);
 
                 var index = user.BankAccounts.IndexOf(dbModel);
