@@ -56,7 +56,7 @@ namespace SpaceWeb.Controllers
             _exchangeRateToUsdHistoryRepository = exchangeRateToUsdHistoryRepository;
             _hostEnvironment = hostEnvironment;
         }
-        public IActionResult Index(string language)
+        public IActionResult Index(/*string language*/)
         {
             //Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(language);
             //Thread.CurrentThread.CurrentCulture = new CultureInfo(language);
