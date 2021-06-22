@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SpaceWeb.EfStuff.Repositories
 {
-    public class ExchangeAccountHistoryRepository : BaseRepository<ExchangeAccountHistory>
+    public class ExchangeAccountHistoryRepository : BaseRepository<ExchangeAccountHistory>, IExchangeAccountHistoryRepository
     {
         public ExchangeAccountHistoryRepository(SpaceDbContext spaceDbContext) : base(spaceDbContext)
         {

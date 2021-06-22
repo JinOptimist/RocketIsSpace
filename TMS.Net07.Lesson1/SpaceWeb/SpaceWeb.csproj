@@ -5,14 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\NewFolder\**" />
     <Compile Remove="wwwroot\js\NewFolder\**" />
+    <Content Remove="Controllers\NewFolder\**" />
     <Content Remove="wwwroot\js\NewFolder\**" />
+    <EmbeddedResource Remove="Controllers\NewFolder\**" />
     <EmbeddedResource Remove="wwwroot\js\NewFolder\**" />
+    <None Remove="Controllers\NewFolder\**" />
     <None Remove="wwwroot\js\NewFolder\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\NewFolder\" />
     <Folder Include="Models\Bank\Insurance\" />
     <Folder Include="wwwroot\image\human\" />
     <Folder Include="wwwroot\image\avatars\" />
