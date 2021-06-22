@@ -30,7 +30,7 @@ namespace SpaceWeb.Controllers
         private BanksCardRepository _banksCardRepository;
         private UserService _userService;
         private ICurrencyService _currencyService;
-        private BankPresentation _bankPresentation;
+        private IBankPresentation _bankPresentation;
         private ExchangeRateToUsdHistoryRepository _exchangeRateToUsdHistoryRepository;
         private IWebHostEnvironment _hostEnvironment;
 
@@ -41,7 +41,7 @@ namespace SpaceWeb.Controllers
             UserService userService,
             BanksCardRepository banksCardRepository,
             ICurrencyService currencyService,
-            BankPresentation bankPresentation,
+            IBankPresentation bankPresentation,
             ExchangeRateToUsdHistoryRepository exchangeRateToUsdHistoryRepository,
             IWebHostEnvironment hostEnvironment)
         {
@@ -137,8 +137,6 @@ namespace SpaceWeb.Controllers
             //.ToList();
 
             chartViewModel.Datasets.Add(datasetEURViewModel);
-
-
 
             return Json(chartViewModel);
         }
@@ -488,18 +486,18 @@ namespace SpaceWeb.Controllers
             var fileName = $"History of exchange rates.docx";
             return PhysicalFile(path, contentTypeDocx, fileName);
         }
-        public IActionResult Transfer(long toId, long fromId, decimal amount)
-        {
-            try
-            {
-                _bankAccountRepository.Transfer(toId, fromId, amount);
-            }
-            catch (BankException)
-            {
-                return Json(false);
-            }
+        //public IActionResult Transfer(long toId, long fromId, decimal amount)
+        //{
+        //    try
+        //    {
+        //        _bankAccountRepository.Transfer(toId, fromId, amount);
+        //    }
+        //    catch (BankException)
+        //    {
+        //        return Json(false);
+        //    }
 
-            return Json(true);
-        }
+        //    return Json(true);
+        //}
     }
 }
