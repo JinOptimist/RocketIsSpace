@@ -7,6 +7,7 @@ namespace SpaceWeb.EfStuff.Repositories.IRepository
     public interface IAccrualRepository : IBaseRepository<Accrual>
     {
         List<DateTime> GetEmployeAccruals(long EmployeId);
-        long GetExistId(long employeId, DateTime date);
+        Accrual GetExist(long employeId, DateTime date);
+        List<Accrual> GetAllAccruals(long EmployeId);
     }
 }

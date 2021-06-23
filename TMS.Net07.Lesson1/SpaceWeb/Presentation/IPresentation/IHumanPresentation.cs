@@ -22,7 +22,7 @@ namespace SpaceWeb.Presentation
         List<ShortEmployeViewModel> UpdateEmployes(long idDepartment);
         MyChartViewModel<int> GetChartForWorkersInDepartment();
         AccrualViewModel GetAccrualViewModel(long id);
-        List<DateTime> GetMonthNotAccrualed(DateTime start, DateTime end, List<DateTime> accruals);
         void SaveAccrual(AccrualViewModel accrualViewModel);
+        decimal CalculateAccrual(DateTime date, long IdEmploye);
     }
 }

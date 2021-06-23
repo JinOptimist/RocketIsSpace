@@ -2,7 +2,9 @@
 @model AccrualViewModel
 
 <form action="/Human/SaveAccrual" method="post">
-    @Html.HiddenFor(x => x.IdEmploye)
+    <div id="hidden-id">
+        @Html.HiddenFor(x => x.IdEmploye)
+    </div>
     <div id="input-date" class="form-group">
         @Html.TextBoxFor(x => x.Date, new { @type = "month", @list = "noAccrualsMonths" })
     </div>

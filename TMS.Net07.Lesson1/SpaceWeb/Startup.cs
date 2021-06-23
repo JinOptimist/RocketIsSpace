@@ -155,6 +155,11 @@ namespace SpaceWeb
 
 
             RegistrationRepositories(services);
+
+            services.AddScoped<ISalaryService>(diContainer =>
+                new SalaryService(
+                    diContainer.GetService<IAccrualRepository>()
+                    ));
         }
 
         private void RegistrationPresentations(IServiceCollection services)

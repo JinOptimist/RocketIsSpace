@@ -20,6 +20,7 @@ namespace SpaceWeb.Presentation
         private IEmployeRepository _employeRepository;
         private IAccrualRepository _accrualRepository;
         private UserService _userService;
+        private ISalaryService _salaryService;
 
         public HumanPresentation(
             IUserRepository userRepository,
@@ -27,7 +28,8 @@ namespace SpaceWeb.Presentation
             IMapper mapper,
             IEmployeRepository employeRepository,
             UserService userService,
-            IAccrualRepository accrualRepository)
+            IAccrualRepository accrualRepository, 
+            ISalaryService salaryService)
         {
             _userRepository = userRepository;
             _departmentRepository = departmentRepository;
@@ -35,6 +37,7 @@ namespace SpaceWeb.Presentation
             _employeRepository = employeRepository;
             _userService = userService;
             _accrualRepository = accrualRepository;
+            _salaryService = salaryService;
         }
 
         public List<ShortUserViewModel> GetViewModelForAllUsers()
@@ -184,35 +187,36 @@ namespace SpaceWeb.Presentation
             accrualViewModel.IdEmploye = id;
             accrualViewModel.InviteDate = employe.StatusDate;
             accrualViewModel.LimitDate = DateTime.Today;
-            accrualViewModel.NoAccrualsDates = GetMonthNotAccrualed(
+            accrualViewModel.NoAccrualsDates = _salaryService.PickUpMonths(
                 new DateTime(accrualViewModel.InviteDate.Year, accrualViewModel.InviteDate.Month, 1),
                 new DateTime(accrualViewModel.LimitDate.Year, accrualViewModel.LimitDate.Month, 1),
                 accruals);
             return accrualViewModel;
         }
 
-        public List<DateTime> GetMonthNotAccrualed(DateTime start, DateTime end, List<DateTime> accruals)
-        {
-            List<DateTime> workPeriodMonths = new List<DateTime>();
-            while (start <= end)
-            {
-                workPeriodMonths.Add(start);
-                start = start.AddMonths(1);
-            }
-            return workPeriodMonths.Except(accruals).ToList();
-        }
-
         public void SaveAccrual(AccrualViewModel accrualViewModel)
         {
-            var accrualId = _accrualRepository.GetExistId(accrualViewModel.IdEmploye, accrualViewModel.Date);
-            var accrual = new Accrual()
+            var accrual = _accrualRepository.GetExist(accrualViewModel.IdEmploye, accrualViewModel.Date);
+
+            if (accrual != null)
             {
-                Id = accrualId,
-                Date = accrualViewModel.Date,
-                Amount = accrualViewModel.Amount,
-                Employe = _employeRepository.Get(accrualViewModel.IdEmploye)
-            };
+                accrual.Amount = accrualViewModel.Amount;
+            }
+            else
+            {
+                accrual = new Accrual()
+                {
+                    Date = accrualViewModel.Date,
+                    Amount = accrualViewModel.Amount,
+                    Employe = _employeRepository.Get(accrualViewModel.IdEmploye)
+                };
+            }
             _accrualRepository.Save(accrual);
+        }
+
+        public decimal CalculateAccrual(DateTime date, long IdEmploye)
+        {
+            return _salaryService.CalculateAccrual(date, _employeRepository.Get(IdEmploye));
         }
     }
 }

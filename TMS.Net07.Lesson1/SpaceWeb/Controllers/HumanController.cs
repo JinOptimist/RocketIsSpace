@@ -156,6 +156,7 @@ namespace SpaceWeb.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult GetEmloyeAccrualsInfo(long id)
         {
             return Json(_humanPresentation.GetAccrualViewModel(id));
@@ -166,6 +167,11 @@ namespace SpaceWeb.Controllers
         {
             _humanPresentation.SaveAccrual(accrualViewModel);
             return RedirectToAction("Personnel");
+        }
+
+        public IActionResult ChangeDate(DateTime date, long IdEmploye)
+        {
+            return Json(_humanPresentation.CalculateAccrual(date, IdEmploye));
         }
     }
 }

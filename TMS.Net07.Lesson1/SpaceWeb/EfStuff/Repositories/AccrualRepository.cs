@@ -18,10 +18,16 @@ namespace SpaceWeb.EfStuff.Repositories
                 .ToList();
         }
 
-        public long GetExistId(long employeId, DateTime date)
+        public List<Accrual> GetAllAccruals(long EmployeId)
         {
-            var result = _dbSet.SingleOrDefault(x => x.Employe.Id == employeId && x.Date == date);
-            return result == null ? 0 : result.Id;
+            return _dbSet
+                .Where(x => x.Employe.Id == EmployeId)
+                .ToList();
+        }
+
+        public Accrual GetExist(long employeId, DateTime date)
+        {
+            return _dbSet.SingleOrDefault(x => x.Employe.Id == employeId && x.Date == date);
         }
     }
 }
