@@ -21,6 +21,7 @@ namespace SpaceWeb.Presentation
         private IAccrualRepository _accrualRepository;
         private UserService _userService;
         private ISalaryService _salaryService;
+        private IPaymentRepository _paymentRepository;
 
         public HumanPresentation(
             IUserRepository userRepository,
@@ -28,8 +29,9 @@ namespace SpaceWeb.Presentation
             IMapper mapper,
             IEmployeRepository employeRepository,
             UserService userService,
-            IAccrualRepository accrualRepository, 
-            ISalaryService salaryService)
+            IAccrualRepository accrualRepository,
+            ISalaryService salaryService, 
+            IPaymentRepository paymentRepository)
         {
             _userRepository = userRepository;
             _departmentRepository = departmentRepository;
@@ -38,6 +40,7 @@ namespace SpaceWeb.Presentation
             _userService = userService;
             _accrualRepository = accrualRepository;
             _salaryService = salaryService;
+            _paymentRepository = paymentRepository;
         }
 
         public List<ShortUserViewModel> GetViewModelForAllUsers()
@@ -96,6 +99,7 @@ namespace SpaceWeb.Presentation
                 employeTemp.Position = x.Position;
                 employeTemp.SalaryPerHour = x.SalaryPerHour;
                 employeTemp.EmployeStatus = x.EmployeStatus;
+                employeTemp.StatusDate = x.StatusDate;
                 _employeRepository.Save(employeTemp);
             }
         }
@@ -217,6 +221,11 @@ namespace SpaceWeb.Presentation
         public decimal CalculateAccrual(DateTime date, long IdEmploye)
         {
             return _salaryService.CalculateAccrual(date, _employeRepository.Get(IdEmploye));
+        }
+
+        public PaymentViewModel GetPaymentViewModel(long id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

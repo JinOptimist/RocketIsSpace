@@ -24,5 +24,6 @@ namespace SpaceWeb.Presentation
         AccrualViewModel GetAccrualViewModel(long id);
         void SaveAccrual(AccrualViewModel accrualViewModel);
         decimal CalculateAccrual(DateTime date, long IdEmploye);
+        PaymentViewModel GetPaymentViewModel(long id);
     }
 }

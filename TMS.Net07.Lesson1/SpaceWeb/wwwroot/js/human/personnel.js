@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
     var regex = /\d+-\d+/;
 
-    $('[value="Начисление"]').click(function () {
+    $('[name="btn-accrual"]').click(function () {
         var Id = $(this).attr('id');
         var url = '/Human/GetEmloyeAccrualsInfo?id=' + Id;
         $.get(url)
@@ -20,6 +20,13 @@
                     $("#noAccrualsMonths").append($("<option>").attr('value', result[0]));
                 });
             });
+    });
+
+    $('[name="btn-payment"]').click(function () {
+        var Id = $(this).attr('id');
+        var url = '/Human/GetEmployePaymentInfo?id=' + Id;
+        $.get(url)
+        $('#modal-payment').modal('show');
     });
 
     $('#input-date input').change(function () {

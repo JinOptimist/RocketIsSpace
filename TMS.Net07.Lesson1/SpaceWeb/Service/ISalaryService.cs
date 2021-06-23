@@ -7,11 +7,12 @@ namespace SpaceWeb.Service
     public interface ISalaryService
     {
         decimal CalculateAccrual(DateTime date, Employe employe);
-        void PayAccrual();
+        void Payment();
         Accrual GetAccrualInAMonth(long employeId, DateTime date);
-        void GetPayedAccrualInAMonth();
-        List<Accrual> GetAllAccruals(long EmployeId);
-        void GetAllPayedAccruals();
+        void GetPayedPaymentsBeforeDate(long employeId, DateTime date);
+        List<Accrual> GetAllAccruals(long employeId);
+        void GetAllPayments(long employeId);
         List<DateTime> PickUpMonths(DateTime start, DateTime end, List<DateTime> accruals);
+        decimal GetIndebtedness(long employeId);
     }
 }

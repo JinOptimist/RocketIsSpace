@@ -2,7 +2,7 @@
 
 namespace SpaceWeb.EfStuff.Repositories.IRepository
 {
-    interface IPaymentRepository : IBaseRepository<Payment>
+    public interface IPaymentRepository : IBaseRepository<Payment>
     {
     }
 }

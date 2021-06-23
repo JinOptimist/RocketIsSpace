@@ -71,17 +71,17 @@ namespace SpaceWeb.Service
             return _employeRepository.GetAllAccruals(EmployeId);
         }
 
-        public void GetAllPayedAccruals()
+        public void GetAllPayments(long employeId)
         {
             throw new NotImplementedException();
         }
 
-        public void GetPayedAccrualInAMonth()
+        public void GetPayedPaymentsBeforeDate(long employeId, DateTime date)
         {
             throw new NotImplementedException();
         }
 
-        public void PayAccrual()
+        public void Payment()
         {
             throw new NotImplementedException();
         }
@@ -97,5 +97,9 @@ namespace SpaceWeb.Service
             return workPeriodMonths.Except(accruals).ToList();
         }
 
+        public decimal GetIndebtedness(long employeId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
