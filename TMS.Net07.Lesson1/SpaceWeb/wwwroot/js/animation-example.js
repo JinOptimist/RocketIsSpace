@@ -1,12 +1,17 @@
 ﻿$(document).ready(function () {
-    var images = [
-        '/image/carousel/ph1.jpg',
-        '/image/carousel/ph2.jpg',
-        '/image/carousel/ph3.jpg',
-        '/image/carousel/ph4.jpg',
-        '/image/carousel/ph5.jpg',
-        '/image/carousel/ph6.jpg'
-    ];
+    $.get('/Home/ImageForCarousel')
+        .done(function (answer) {
+            var images = [];
+            for (i = 0; i < answer.length; i++) {
+                var startIndex = answer[i].indexOf('\\image\\carousel\\');
+                images[i] = answer[i].slice(startIndex).replace(/\\/g, '/');
+            }
+        })
+        .fail(function () {
+
+        });
+
+    
 
     carouselModule.initialize(
         '.animate-block',
