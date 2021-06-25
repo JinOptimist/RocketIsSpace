@@ -11,8 +11,9 @@ namespace SpaceWeb.Service
         Accrual GetAccrualInAMonth(long employeId, DateTime date);
         void GetPayedPaymentsBeforeDate(long employeId, DateTime date);
         List<Accrual> GetAllAccruals(long employeId);
-        void GetAllPayments(long employeId);
+        List<Payment> GetAllPayments(long employeId);
         List<DateTime> PickUpMonths(DateTime start, DateTime end, List<DateTime> accruals);
         decimal GetIndebtedness(long employeId);
+        decimal GetPayedSalary(long employeId);
     }
 }

@@ -176,7 +176,13 @@ namespace SpaceWeb.Controllers
 
         public IActionResult GetEmployePaymentInfo(long id)
         {
-            return Json(true);
+            return Json(_humanPresentation.GetPaymentViewModel(id));
+        }
+
+        public IActionResult SavePayment(PaymentViewModel paymentViewModel)
+        {
+            _humanPresentation.SavePayment(paymentViewModel);
+            return RedirectToAction("Personnel");
         }
     }
 }

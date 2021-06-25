@@ -12,7 +12,7 @@
         @Html.TextBoxFor(x => x.Amount)
     </div>
     <div id="input-payment-not-payed" class="form-group">
-        @Html.DisplayFor(x => x.NotPayed)
+        @Html.TextBoxFor(x => x.NotPayed, new { @readonly = "readonly" })
     </div>
     <input type="submit" />
 </form>

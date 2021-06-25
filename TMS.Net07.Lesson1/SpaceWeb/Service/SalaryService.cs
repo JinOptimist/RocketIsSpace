@@ -10,15 +10,17 @@ namespace SpaceWeb.Service
 {
     public class SalaryService : ISalaryService
     {
-        private IAccrualRepository _employeRepository;
+        private IAccrualRepository _accrualRepository;
+        private IPaymentRepository _paymentRepository;
         private const long TICKS_IN_ONE_SECOND = 10000000;
         private const long TICKS_IN_ONE_MINUTE = TICKS_IN_ONE_SECOND * 60;
         private const long TICKS_IN_ONE_HOUR = TICKS_IN_ONE_MINUTE * 60;
 
 
-        public SalaryService(IAccrualRepository employeRepository)
+        public SalaryService(IAccrualRepository accrualRepository, IPaymentRepository paymentRepository)
         {
-            _employeRepository = employeRepository;
+            _accrualRepository = accrualRepository;
+            _paymentRepository = paymentRepository;
         }
 
         private int CalculateHours(int hourStartWorking, int hourEndWorking)
@@ -39,14 +41,14 @@ namespace SpaceWeb.Service
         public decimal CalculateAccrual(DateTime date, Employe employe)
         {
             int days;
-            if (employe.EmployeStatus == EmployeStatus.Accepted 
-                && 
-                date.Month == employe.StatusDate.Month 
-                && 
+            if (employe.EmployeStatus == EmployeStatus.Accepted
+                &&
+                date.Month == employe.StatusDate.Month
+                &&
                 date.Year == employe.StatusDate.Year)
             {
                 var endPeriod = new DateTime(employe.StatusDate.AddMonths(1).Year, employe.StatusDate.AddMonths(1).Month, 1);
-                days = employe.StatusDate.GetWorkingDaysInPeriod(endPeriod);             
+                days = employe.StatusDate.GetWorkingDaysInPeriod(endPeriod);
             }
             else
             {
@@ -61,20 +63,17 @@ namespace SpaceWeb.Service
             return salary;
         }
 
-        public Accrual GetAccrualInAMonth(long employeId, DateTime date)
-        {
-            return _employeRepository.GetExist(employeId, date);
-        }
+        public Accrual GetAccrualInAMonth(long employeId, DateTime date) =>
+            _accrualRepository
+                .GetExist(employeId, date);
 
-        public List<Accrual> GetAllAccruals(long EmployeId)
-        {
-            return _employeRepository.GetAllAccruals(EmployeId);
-        }
+        public List<Accrual> GetAllAccruals(long employeId) =>
+            _accrualRepository
+                .GetAllAccruals(employeId);
 
-        public void GetAllPayments(long employeId)
-        {
-            throw new NotImplementedException();
-        }
+        public List<Payment> GetAllPayments(long employeId) =>
+            _paymentRepository
+                .GetAllPayments(employeId);
 
         public void GetPayedPaymentsBeforeDate(long employeId, DateTime date)
         {
@@ -97,9 +96,17 @@ namespace SpaceWeb.Service
             return workPeriodMonths.Except(accruals).ToList();
         }
 
-        public decimal GetIndebtedness(long employeId)
-        {
-            throw new NotImplementedException();
-        }
+        public decimal GetIndebtedness(long employeId) =>
+            GetAllAccruals(employeId)
+                .Select(x => x.Amount)
+                .Sum()
+            - GetAllPayments(employeId)
+                .Select(x => x.Amount)
+                .Sum();
+
+        public decimal GetPayedSalary(long employeId) =>
+            GetAllPayments(employeId)
+                .Select(x => x.Amount)
+                .Sum();
     }
 }

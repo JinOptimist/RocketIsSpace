@@ -15,13 +15,12 @@
         $('.employes-list .human-department-employee:not(.clone)').remove();
         $.getJSON(url)
             .done(function (employes) {
-                console.log(employes);
                 for (var i = 0; i < employes.length; i++) {
                     var block = $('.clone').clone().appendTo('.employes-list');
                     InsertText(block, '#name', employes[i].name);
                     InsertText(block, '#surname', employes[i].surname);
                     InsertText(block, '#specification', employes[i].position);
-                    InsertText(block, '#salary', employes[i].salaryPerHour);
+                    InsertText(block, '#salary', employes[i].salaryPerHour.toFixed(2));
                     InsertImage(block, '#image', employes[i].avatarUrl);
                     block.flip(setter());
                     block.removeClass('clone undisplayable');

@@ -186,7 +186,7 @@ namespace SpaceWeb.Presentation
         {
             var accrualViewModel = new AccrualViewModel();
             var employe = _employeRepository.Get(id);
-            var accruals = _accrualRepository.GetEmployeAccruals(id);
+            var accruals = _accrualRepository.GetEmployeAccrualsDate(id);
 
             accrualViewModel.IdEmploye = id;
             accrualViewModel.InviteDate = employe.StatusDate;
@@ -225,7 +225,23 @@ namespace SpaceWeb.Presentation
 
         public PaymentViewModel GetPaymentViewModel(long id)
         {
-            throw new NotImplementedException();
+            var paymentViewModel = new PaymentViewModel();
+            paymentViewModel.IdEmploye = id;
+            paymentViewModel.Date = DateTime.Today;
+            paymentViewModel.Payed = _salaryService.GetPayedSalary(id);
+            paymentViewModel.NotPayed = _salaryService.GetIndebtedness(id);
+            return paymentViewModel;
+        }
+
+        public void SavePayment(PaymentViewModel paymentViewModel)
+        {
+            var payment = new Payment()
+            {
+                Employe = _employeRepository.Get(paymentViewModel.IdEmploye),
+                Date = paymentViewModel.Date,
+                Amount= paymentViewModel.Amount
+            };
+            _paymentRepository.Save(payment);
         }
     }
 }

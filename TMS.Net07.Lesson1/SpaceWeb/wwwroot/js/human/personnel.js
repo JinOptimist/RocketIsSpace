@@ -1,5 +1,15 @@
 ﻿$(document).ready(function () {
-    var regex = /\d+-\d+/;
+    var dateMonthRegex = /\d+-\d+/;
+    var dateRegex = /\d+-\d+-\d+/;
+
+    function RegexResult(regex, data) {
+        var result = regex.exec(data);
+        return result[0];
+    };
+
+    function ToLocaleWithDecimals(number) {
+        return parseFloat(number.toFixed(2)).toLocaleString();
+    };
 
     $('[name="btn-accrual"]').click(function () {
         var Id = $(this).attr('id');
@@ -7,17 +17,14 @@
         $.get(url)
             .done(function (data) {
                 $('#modal-salary-count').modal('show');
-                var minMonth = regex.exec(data.inviteDate);
-                var maxMonth = regex.exec(data.limitDate);
-                $('#input-date').find('input').attr('min', minMonth[0]);
-                $('#input-date').find('input').attr('max', maxMonth[0]);
-                $('#IdEmploye').attr('value', data.idEmploye);
+                $('#hidden-id input').attr('value', data.idEmploye);
+                $('#input-date input').attr('min', RegexResult(dateMonthRegex, data.inviteDate));
+                $('#input-date input').attr('max', RegexResult(dateMonthRegex, data.limitDate));
 
                 $("#noAccrualsMonths option").remove();
 
                 $.each(data.noAccrualsDates, function (i, item) {
-                    var result = regex.exec(item);
-                    $("#noAccrualsMonths").append($("<option>").attr('value', result[0]));
+                    $("#noAccrualsMonths").append($("<option>").attr('value', RegexResult(dateMonthRegex, item)));
                 });
             });
     });
@@ -26,18 +33,22 @@
         var Id = $(this).attr('id');
         var url = '/Human/GetEmployePaymentInfo?id=' + Id;
         $.get(url)
-        $('#modal-payment').modal('show');
+            .done(function (data) {
+                $('#hidden-payment-id input').attr('value', data.idEmploye);
+                $('#input-payment-date input').attr('value', RegexResult(dateRegex, data.date));
+                $('#input-payment-not-payed input').attr('value', ToLocaleWithDecimals(data.notPayed));
+                $('#modal-payment').modal('show');
+                console.log(data);
+            });
     });
 
     $('#input-date input').change(function () {
         var date = $('#input-date input').val();
         var id = $('#hidden-id input').val();
         url = `/Human/ChangeDate?date=${date}&IdEmploye=${id}`;
-        console.log(date);
         $.get(url)
             .done(function (data) {
-                var input = $('#input-amount').find('input');
-                input.attr('value', data);
+                $('#input-amount input').attr('value', ToLocaleWithDecimals(data));
             });
     });
 });

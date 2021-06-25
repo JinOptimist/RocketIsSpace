@@ -10,24 +10,19 @@ namespace SpaceWeb.EfStuff.Repositories
     {
         public AccrualRepository(SpaceDbContext spaceDbContext) : base(spaceDbContext) { }
 
-        public List<DateTime> GetEmployeAccruals(long EmployeId)
-        {
-            return _dbSet
-                .Where(x => x.Employe.Id == EmployeId)
+        public List<DateTime> GetEmployeAccrualsDate(long employeId) =>
+            _dbSet
+                .Where(x => x.Employe.Id == employeId)
                 .Select(x => x.Date)
                 .ToList();
-        }
 
-        public List<Accrual> GetAllAccruals(long EmployeId)
-        {
-            return _dbSet
-                .Where(x => x.Employe.Id == EmployeId)
+        public List<Accrual> GetAllAccruals(long employeId) =>
+            _dbSet
+                .Where(x => x.Employe.Id == employeId)
                 .ToList();
-        }
 
-        public Accrual GetExist(long employeId, DateTime date)
-        {
-            return _dbSet.SingleOrDefault(x => x.Employe.Id == employeId && x.Date == date);
-        }
+        public Accrual GetExist(long employeId, DateTime date) =>
+            _dbSet
+                .SingleOrDefault(x => x.Employe.Id == employeId && x.Date == date);
     }
 }
