@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 
@@ -17,14 +18,67 @@ namespace ReflectionLessone
             }
         }
     }
+    
     class Program
     {
+        delegate void Message();
+
+        event Message Notify;
+
         static void Main(string[] args)
+        {
+
+        }
+
+        public static void MessageEmail()
+        {
+            Console.WriteLine("Email");
+        }
+
+        public static void MessagePhone()
+        {
+            Console.WriteLine("Phone");
+        }
+
+        public static int Sum(string name, int a, int b)
+        {
+            return 0;
+        }
+
+        public static int Sum(string name, params int[] numbers)
+        {
+            return 0;
+        }
+
+        public static void ExampleIndexer()
+        {
+            var invoice = new Invoice();
+
+            //var firstDish = invoice.InvoiceRecords[0].Name;
+            var firstDish = invoice[0].Name;
+            var invoices = new Invoice[10];
+
+            foreach (var record in invoice)
+            {
+
+            }
+        }
+
+
+        public static IEnumerable<MyNumber> GetNumbers()
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                yield return new MyNumber();
+            }
+        }
+
+        public static void ExampleLinq()
         {
             var myNumbers = GetNumbers();
             var numbers = myNumbers
                 .Select(x => x.Number);
-            
+
             var sum = numbers.Sum();
             Console.WriteLine($"sum {sum}");
 
@@ -33,14 +87,6 @@ namespace ReflectionLessone
 
             var sum2 = numbers.Sum();
             Console.WriteLine($"sum2 {sum2}");
-        }
-
-        public static IEnumerable<MyNumber> GetNumbers()
-        {
-            for (int i = 0; i < 3; i++)
-            {
-                yield return new MyNumber();
-            }
         }
 
         public static void TryCatchExnple()
@@ -150,10 +196,25 @@ namespace ReflectionLessone
         }
     }
 
-    
-
     public class MyDiveByZeroException : DivideByZeroException
     {
 
+    }
+
+    public class A
+    {
+        public virtual void Do() { }
+    }
+
+    public class B : A
+    {
+        public override void Do()
+        {
+        }
+
+        public string Af()
+        {
+            return "Af";
+        }
     }
 }

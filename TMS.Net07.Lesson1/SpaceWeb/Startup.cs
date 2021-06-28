@@ -62,6 +62,8 @@ namespace SpaceWeb
             RegistrationRepositories(services);
             RegisterService(services);
 
+            
+
             services.AddControllersWithViews();
             services.AddHttpContextAccessor();
         }
@@ -75,6 +77,15 @@ namespace SpaceWeb
                     diContainer.GetService<ExchangeAccountHistoryRepository>(),
                     diContainer.GetService<ExchangeRateToUsdHistoryRepository>(),
                     diContainer.GetService<IMapper>()));
+
+            //services.AddMyScoped<IUserService, UserService>();
+            services.AddScoped<IUserService>(diContainer =>
+              new UserService(
+                  diContainer.GetService<IUserRepository>(),
+                  diContainer.GetService<IHttpContextAccessor>()
+              ));
+
+
             services.AddScoped<UserService>(diContainer =>
                new UserService(
                    diContainer.GetService<IUserRepository>(),
