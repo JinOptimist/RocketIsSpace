@@ -12,15 +12,20 @@ namespace SpaceWeb.Service
     {
         private IAccrualRepository _accrualRepository;
         private IPaymentRepository _paymentRepository;
+        private IBankAccountRepository _bankAccountRepository;
         private const long TICKS_IN_ONE_SECOND = 10000000;
         private const long TICKS_IN_ONE_MINUTE = TICKS_IN_ONE_SECOND * 60;
         private const long TICKS_IN_ONE_HOUR = TICKS_IN_ONE_MINUTE * 60;
 
 
-        public SalaryService(IAccrualRepository accrualRepository, IPaymentRepository paymentRepository)
+        public SalaryService(
+            IAccrualRepository accrualRepository, 
+            IPaymentRepository paymentRepository, 
+            IBankAccountRepository bankAccountRepository)
         {
             _accrualRepository = accrualRepository;
             _paymentRepository = paymentRepository;
+            _bankAccountRepository = bankAccountRepository;
         }
 
         private int CalculateHours(int hourStartWorking, int hourEndWorking)
@@ -80,9 +85,10 @@ namespace SpaceWeb.Service
             throw new NotImplementedException();
         }
 
-        public void Payment()
+        public bool Payment(long bankAccountFromId, long bankAccountToId, decimal amount)
         {
-            throw new NotImplementedException();
+            //return _bankAccountRepository.Transfer(bankAccountFromId, bankAccountToId, amount);
+            return false;
         }
 
         public List<DateTime> PickUpMonths(DateTime start, DateTime end, List<DateTime> accruals)

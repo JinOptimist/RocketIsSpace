@@ -9,6 +9,7 @@ namespace SpaceWeb.Models.Human
         public decimal Amount { get; set; }
         public decimal Payed { get; set; }
         public decimal NotPayed { get; set; }
-        //public BankAccountViewModel PayedFrom { get; set; }
+        public string AccountNumber { get; set; }
+        public string DepartmentAccountNumber { get; set; }
     }
 }

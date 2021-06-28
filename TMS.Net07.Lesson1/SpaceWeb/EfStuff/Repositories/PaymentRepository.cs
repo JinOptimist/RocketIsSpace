@@ -11,7 +11,7 @@ namespace SpaceWeb.EfStuff.Repositories
 
         public List<Payment> GetAllPayments(long employeId) => 
             _dbSet
-                .Where(x => x.Employe.Id == employeId)
+                ?.Where(x => x.Employe.Id == employeId)
                 .ToList();
     }
 }

@@ -159,7 +159,8 @@ namespace SpaceWeb
             services.AddScoped<ISalaryService>(diContainer =>
                 new SalaryService(
                     diContainer.GetService<IAccrualRepository>(),
-                    diContainer.GetService<IPaymentRepository>()
+                    diContainer.GetService<IPaymentRepository>(),
+                    diContainer.GetService<IBankAccountRepository>()
                     ));
         }
 

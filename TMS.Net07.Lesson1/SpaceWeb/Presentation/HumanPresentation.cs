@@ -22,6 +22,7 @@ namespace SpaceWeb.Presentation
         private UserService _userService;
         private ISalaryService _salaryService;
         private IPaymentRepository _paymentRepository;
+        private IBankAccountRepository _bankAccountRepository;
 
         public HumanPresentation(
             IUserRepository userRepository,
@@ -30,8 +31,8 @@ namespace SpaceWeb.Presentation
             IEmployeRepository employeRepository,
             UserService userService,
             IAccrualRepository accrualRepository,
-            ISalaryService salaryService, 
-            IPaymentRepository paymentRepository)
+            ISalaryService salaryService,
+            IPaymentRepository paymentRepository, IBankAccountRepository bankAccountRepository)
         {
             _userRepository = userRepository;
             _departmentRepository = departmentRepository;
@@ -41,6 +42,7 @@ namespace SpaceWeb.Presentation
             _accrualRepository = accrualRepository;
             _salaryService = salaryService;
             _paymentRepository = paymentRepository;
+            _bankAccountRepository = bankAccountRepository;
         }
 
         public List<ShortUserViewModel> GetViewModelForAllUsers()
@@ -230,16 +232,37 @@ namespace SpaceWeb.Presentation
             paymentViewModel.Date = DateTime.Today;
             paymentViewModel.Payed = _salaryService.GetPayedSalary(id);
             paymentViewModel.NotPayed = _salaryService.GetIndebtedness(id);
+            paymentViewModel.AccountNumber = 
+                _employeRepository
+                .Get(id)
+                .User
+                .BankAccounts
+                .FirstOrDefault(x => x.Type.Contains("salary"))
+                ?.AccountNumber;
+            paymentViewModel.DepartmentAccountNumber = 
+                _userService
+                .GetCurrent()
+                .BankAccounts
+                .FirstOrDefault(x => x.Type.Contains("department account"))
+                ?.AccountNumber;
             return paymentViewModel;
         }
 
         public void SavePayment(PaymentViewModel paymentViewModel)
         {
+            //from
+            var accountFrom = _bankAccountRepository.Get(paymentViewModel.DepartmentAccountNumber);
+
+            //to
+            var accountTo = _bankAccountRepository.Get(paymentViewModel.AccountNumber);
+
+            _salaryService.Payment(accountFrom.Id, accountTo.Id, paymentViewModel.Amount);
             var payment = new Payment()
             {
                 Employe = _employeRepository.Get(paymentViewModel.IdEmploye),
                 Date = paymentViewModel.Date,
-                Amount= paymentViewModel.Amount
+                Amount= paymentViewModel.Amount,
+                AccountNumber = paymentViewModel.AccountNumber
             };
             _paymentRepository.Save(payment);
         }

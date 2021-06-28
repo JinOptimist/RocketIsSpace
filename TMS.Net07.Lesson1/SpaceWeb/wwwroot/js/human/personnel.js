@@ -36,7 +36,10 @@
             .done(function (data) {
                 $('#hidden-payment-id input').attr('value', data.idEmploye);
                 $('#input-payment-date input').attr('value', RegexResult(dateRegex, data.date));
-                $('#input-payment-not-payed input').attr('value', ToLocaleWithDecimals(data.notPayed));
+                $('#input-payment-not-payed').text(ToLocaleWithDecimals(data.notPayed));
+                $('#hidden-payment-account-from input').attr('value', data.departmentAccountNumber);
+                $('#hidden-payment-account-to input').attr('value', data.accountNumber);
+
                 $('#modal-payment').modal('show');
                 console.log(data);
             });
