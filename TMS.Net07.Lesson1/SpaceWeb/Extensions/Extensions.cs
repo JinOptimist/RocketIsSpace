@@ -20,5 +20,15 @@ namespace SpaceWeb.Extensions
                 GetCustomAttribute<DisplayAttribute>()?.
                 GetName();
         }
+
+        public static int GetWorkingDaysInPeriod(this DateTime start, DateTime due)
+        {
+            return Enumerable.Range(0, (due - start).Days)
+                            .Select(a => start.AddDays(a))
+                            .Where(a => a.DayOfWeek != DayOfWeek.Sunday)
+                            .Where(a => a.DayOfWeek != DayOfWeek.Saturday)
+                            .Count();
+
+        }
     }
 }

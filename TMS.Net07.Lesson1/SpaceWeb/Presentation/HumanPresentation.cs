@@ -5,6 +5,7 @@ using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Models.Chart;
 using SpaceWeb.Models.Human;
 using SpaceWeb.Service;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -17,21 +18,31 @@ namespace SpaceWeb.Presentation
         private IDepartmentRepository _departmentRepository;
         private IMapper _mapper;
         private IEmployeRepository _employeRepository;
+        private IAccrualRepository _accrualRepository;
         private UserService _userService;
+        private ISalaryService _salaryService;
+        private IPaymentRepository _paymentRepository;
+        private IBankAccountRepository _bankAccountRepository;
 
         public HumanPresentation(
             IUserRepository userRepository,
             IDepartmentRepository departmentRepository,
             IMapper mapper,
             IEmployeRepository employeRepository,
-            UserService userService
-            )
+            UserService userService,
+            IAccrualRepository accrualRepository,
+            ISalaryService salaryService,
+            IPaymentRepository paymentRepository, IBankAccountRepository bankAccountRepository)
         {
             _userRepository = userRepository;
             _departmentRepository = departmentRepository;
             _mapper = mapper;
             _employeRepository = employeRepository;
             _userService = userService;
+            _accrualRepository = accrualRepository;
+            _salaryService = salaryService;
+            _paymentRepository = paymentRepository;
+            _bankAccountRepository = bankAccountRepository;
         }
 
         public List<ShortUserViewModel> GetViewModelForAllUsers()
@@ -60,14 +71,25 @@ namespace SpaceWeb.Presentation
             _userRepository.Remove(userIds);
         }
 
-        public List<RequestViewModel> GetPersonnelViewModel()
+        public PersonnelViewModel GetPersonnelViewModel()
         {
-            List<RequestViewModel> viewModel = new List<RequestViewModel>();
-            viewModel =
-                _employeRepository.GetRequestsToEmploy(_userService.GetCurrent().Employe.Department)
+            PersonnelViewModel personnelViewModel = new PersonnelViewModel();
+            var currentDepartmentId = _userService.GetCurrent().Employe.Department.Id;
+            personnelViewModel.Department = 
+                _mapper.Map<DepartmentViewModel>(
+                    _departmentRepository
+                    .Get(currentDepartmentId));
+
+            personnelViewModel.Department.Employes =
+                _employeRepository.GetEmployesByDepartment(currentDepartmentId)
+                .Select(x => _mapper.Map<ShortEmployeViewModel>(x))
+                .ToList();
+
+            personnelViewModel.RequestsToEmploy =
+                _employeRepository.GetRequestsToEmploy(currentDepartmentId)
                 .Select(x => _mapper.Map<RequestViewModel>(x.User))
                 .ToList();
-            return viewModel;
+            return personnelViewModel;
         }
 
         public void SavePersonnelChanges(List<RequestViewModel> requestViewModels)
@@ -79,6 +101,7 @@ namespace SpaceWeb.Presentation
                 employeTemp.Position = x.Position;
                 employeTemp.SalaryPerHour = x.SalaryPerHour;
                 employeTemp.EmployeStatus = x.EmployeStatus;
+                employeTemp.StatusDate = x.StatusDate;
                 _employeRepository.Save(employeTemp);
             }
         }
@@ -159,6 +182,89 @@ namespace SpaceWeb.Presentation
                     .ToList()
             });
             return chartViewModel;
+        }
+
+        public AccrualViewModel GetAccrualViewModel(long id)
+        {
+            var accrualViewModel = new AccrualViewModel();
+            var employe = _employeRepository.Get(id);
+            var accruals = _accrualRepository.GetEmployeAccrualsDate(id);
+
+            accrualViewModel.IdEmploye = id;
+            accrualViewModel.InviteDate = employe.StatusDate;
+            accrualViewModel.LimitDate = DateTime.Today;
+            accrualViewModel.NoAccrualsDates = _salaryService.PickUpMonths(
+                new DateTime(accrualViewModel.InviteDate.Year, accrualViewModel.InviteDate.Month, 1),
+                new DateTime(accrualViewModel.LimitDate.Year, accrualViewModel.LimitDate.Month, 1),
+                accruals);
+            return accrualViewModel;
+        }
+
+        public void SaveAccrual(AccrualViewModel accrualViewModel)
+        {
+            var accrual = _accrualRepository.GetExist(accrualViewModel.IdEmploye, accrualViewModel.Date);
+
+            if (accrual != null)
+            {
+                accrual.Amount = accrualViewModel.Amount;
+            }
+            else
+            {
+                accrual = new Accrual()
+                {
+                    Date = accrualViewModel.Date,
+                    Amount = accrualViewModel.Amount,
+                    Employe = _employeRepository.Get(accrualViewModel.IdEmploye)
+                };
+            }
+            _accrualRepository.Save(accrual);
+        }
+
+        public decimal CalculateAccrual(DateTime date, long IdEmploye)
+        {
+            return _salaryService.CalculateAccrual(date, _employeRepository.Get(IdEmploye));
+        }
+
+        public PaymentViewModel GetPaymentViewModel(long id)
+        {
+            var paymentViewModel = new PaymentViewModel();
+            paymentViewModel.IdEmploye = id;
+            paymentViewModel.Date = DateTime.Today;
+            paymentViewModel.Payed = _salaryService.GetPayedSalary(id);
+            paymentViewModel.NotPayed = _salaryService.GetIndebtedness(id);
+            paymentViewModel.AccountNumber = 
+                _employeRepository
+                .Get(id)
+                .User
+                .BankAccounts
+                .FirstOrDefault(x => x.Type.Contains("salary"))
+                ?.AccountNumber;
+            paymentViewModel.DepartmentAccountNumber = 
+                _userService
+                .GetCurrent()
+                .BankAccounts
+                .FirstOrDefault(x => x.Type.Contains("department account"))
+                ?.AccountNumber;
+            return paymentViewModel;
+        }
+
+        public void SavePayment(PaymentViewModel paymentViewModel)
+        {
+            //from
+            var accountFrom = _bankAccountRepository.Get(paymentViewModel.DepartmentAccountNumber);
+
+            //to
+            var accountTo = _bankAccountRepository.Get(paymentViewModel.AccountNumber);
+
+            _salaryService.Payment(accountFrom.Id, accountTo.Id, paymentViewModel.Amount);
+            var payment = new Payment()
+            {
+                Employe = _employeRepository.Get(paymentViewModel.IdEmploye),
+                Date = paymentViewModel.Date,
+                Amount= paymentViewModel.Amount,
+                AccountNumber = paymentViewModel.AccountNumber
+            };
+            _paymentRepository.Save(payment);
         }
     }
 }

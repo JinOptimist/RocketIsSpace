@@ -15,6 +15,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using SpaceWeb.Models.Chart;
+using SpaceWeb.Extensions;
+using System;
 
 namespace SpaceWeb.Controllers
 {
@@ -113,9 +115,9 @@ namespace SpaceWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult PersonnelSubmit(List<RequestViewModel> requestViewModels)
+        public IActionResult PersonnelSubmit(PersonnelViewModel personnelViewModel)
         {
-            _humanPresentation.SavePersonnelChanges(requestViewModels);
+            _humanPresentation.SavePersonnelChanges(personnelViewModel.RequestsToEmploy);
             return RedirectToAction("Personnel");
         }
 
@@ -151,6 +153,35 @@ namespace SpaceWeb.Controllers
         public IActionResult Graph()
         {
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult GetEmloyeAccrualsInfo(long id)
+        {
+            return Json(_humanPresentation.GetAccrualViewModel(id));
+        }
+        
+        [HttpPost]
+        public IActionResult SaveAccrual(AccrualViewModel accrualViewModel)
+        {
+            _humanPresentation.SaveAccrual(accrualViewModel);
+            return RedirectToAction("Personnel");
+        }
+
+        public IActionResult ChangeDate(DateTime date, long IdEmploye)
+        {
+            return Json(_humanPresentation.CalculateAccrual(date, IdEmploye));
+        }
+
+        public IActionResult GetEmployePaymentInfo(long id)
+        {
+            return Json(_humanPresentation.GetPaymentViewModel(id));
+        }
+
+        public IActionResult SavePayment(PaymentViewModel paymentViewModel)
+        {
+            _humanPresentation.SavePayment(paymentViewModel);
+            return RedirectToAction("Personnel");
         }
     }
 }
