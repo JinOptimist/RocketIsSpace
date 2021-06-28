@@ -237,13 +237,13 @@ namespace SpaceWeb.Presentation
                 .Get(id)
                 .User
                 .BankAccounts
-                .FirstOrDefault(x => x.Type.Contains("salary"))
+                .FirstOrDefault(x => x.Name.Contains("salary"))
                 ?.AccountNumber;
             paymentViewModel.DepartmentAccountNumber = 
                 _userService
                 .GetCurrent()
                 .BankAccounts
-                .FirstOrDefault(x => x.Type.Contains("department account"))
+                .FirstOrDefault(x => x.Name.Contains("department account"))
                 ?.AccountNumber;
             return paymentViewModel;
         }
