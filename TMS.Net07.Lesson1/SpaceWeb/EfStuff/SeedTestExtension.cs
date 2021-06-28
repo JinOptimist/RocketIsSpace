@@ -19,6 +19,7 @@ namespace SpaceWeb.EfStuff
             {
                 AddTestDepartments(serviceScope.ServiceProvider);
                 AddTestCLients(serviceScope.ServiceProvider);
+                AddTestAccounts(serviceScope.ServiceProvider);
             }
             return server;
         }
@@ -142,7 +143,29 @@ namespace SpaceWeb.EfStuff
             return null;
         }
 
-        private static T GetRandomFromArray<T>(List<T> list)
+        private static void AddTestAccounts(IServiceProvider service)
+        {
+            var userReposirory = service.GetService<IUserRepository>();
+            var accountRepository = service.GetService<IBankAccountRepository>();
+
+            List<Currency> currencies = new List<Currency>
+                { Currency.BYN, Currency.EUR, Currency.GBP, Currency.PLN, Currency.USD};
+
+            List<string> accountNames = new List<string> {};
+            for (int i = 0; i < 30; i++)
+            {
+                accountNames.Add($"{GetRandomFromArray(currencies)},{_random.Next(1, 100)}");
+            }
+
+            var account = new BankAccount()
+            {
+                AccountNumber = _random.Next(1000000000, 2147483647).ToString(),
+                Amount = _random.Next(0, 5000),
+                Name = GetRandomFromArray(accountNames)
+            };
+        }
+
+            private static T GetRandomFromArray<T>(List<T> list)
         {
             var index = _random.Next(0, list.Count());
             return list[index];
