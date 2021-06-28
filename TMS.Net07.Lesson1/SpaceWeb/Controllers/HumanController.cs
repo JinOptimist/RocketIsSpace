@@ -20,7 +20,6 @@ using System;
 
 namespace SpaceWeb.Controllers
 {
-    [Localize]
     public class HumanController : Controller
     {
         private IHumanPresentation _humanPresentation;

@@ -28,18 +28,20 @@ namespace SpaceWeb.Controllers
         private IBankAccountRepository _bankAccountRepository;
         private IMapper _mapper;
         private UserService _userService;
+        private ICurrencyService _currencyService;
         private IWebHostEnvironment _hostEnvironment;
         private ILogger<UserController> _logger;
 
         public static int Counter = 0;
 
         public UserController(IUserRepository userRepository, IMapper mapper,
-            UserService userService, IWebHostEnvironment hostEnvironment,
+            UserService userService, ICurrencyService currencyService, IWebHostEnvironment hostEnvironment,
             IBankAccountRepository bankAccountRepository, ILogger<UserController> logger)
         {
             _userRepository = userRepository;
             _mapper = mapper;
             _userService = userService;
+            _currencyService = currencyService;
             _hostEnvironment = hostEnvironment;
             _bankAccountRepository = bankAccountRepository;
             _logger = logger;
@@ -59,7 +61,36 @@ namespace SpaceWeb.Controllers
             viewModel.DefaultCurrency = user.DefaultCurrency;
             viewModel.MyCurrencies = _bankAccountRepository.GetCurrencies(user.Id);
 
+            decimal amountAllMoneyInDefaultCurrency = 0;
+            var accounts = _bankAccountRepository.GetBankAccounts(user.Id);
+
+            if (accounts.Count() != 0)
+            {
+                viewModel.RandomCurrency = accounts.First().Currency;
+            }
+
+            if (user.DefaultCurrency != 0)
+            {
+                viewModel.AmountAllMoneyInDefaultCurrency = _currencyService.CountAllMoneyInWishingCurrency(accounts, viewModel.DefaultCurrency);
+            }
+            else
+            {
+                viewModel.AmountAllMoneyInDefaultCurrency = _currencyService.CountAllMoneyInWishingCurrency(accounts, viewModel.RandomCurrency);
+            }
+
             return View(viewModel);
+        }
+
+        public IActionResult UpdateAllMoney(Currency currency)
+        {
+            AllMoney allMoney = new AllMoney();
+
+            var user = _userService.GetCurrent();
+            var accounts = _bankAccountRepository.GetBankAccounts(user.Id);
+            allMoney.count = _currencyService.CountAllMoneyInWishingCurrency(accounts, currency);
+            allMoney.currency = currency.ToString();
+
+            return Json(allMoney);
         }
 
         public IActionResult UpdateFavCurrency(Currency currency)
@@ -275,5 +306,11 @@ namespace SpaceWeb.Controllers
             var viewModel = _mapper.Map<EmployeeProfileViewModel>(user);
             return View(viewModel);
         }
+    }
+
+    public class AllMoney
+    {
+        public decimal count { get; set; }
+        public string currency { get; set; }
     }
 }

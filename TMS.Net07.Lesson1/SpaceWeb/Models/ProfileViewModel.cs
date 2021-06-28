@@ -7,24 +7,39 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using SpaceWeb.Service;
+using SpaceWeb.EfStuff.Repositories;
 
 namespace SpaceWeb.Models
 {
     public class ProfileViewModel
     {
+        private Lang _lang;
+
         public ProfileViewModel()
         {
-            var options = Enum.GetValues(typeof(Lang));
-            LangOptions = new List<SelectListItem>();
-            foreach (var option in options)
-            {
-                var selectListItem = new SelectListItem()
+            LangOptions = Enum
+                .GetValues(typeof(Lang))
+                .Cast<Lang>()
+                .Select(option => new SelectListItem()
                 {
                     Text = option.ToString(),
                     Value = option.ToString()
-                };
-                LangOptions.Add(selectListItem);
-            }
+                }).ToList();
+
+            // Или так
+            //var options = Enum.GetValues(typeof(Lang));
+            //LangOptions = new List<SelectListItem>();
+
+            //foreach (var option in options)
+            //{
+            //    var selectListItem = new SelectListItem()
+            //    {
+            //        Text = option.ToString(),
+            //        Value = option.ToString()
+            //    };
+            //    LangOptions.Add(selectListItem);
+            //}
         }
 
         [DisplayName("Имя пользователя")]
@@ -53,8 +68,26 @@ namespace SpaceWeb.Models
         public string Email { get; set; }
 
         public Currency DefaultCurrency { get; set; }
+        public Currency RandomCurrency { get; set; }
         public List<Currency> MyCurrencies { get; set; }
-
+        public Lang Lang
+        {
+            get
+            {
+                return _lang;
+            }
+            set
+            {
+                _lang = value;
+                LangOptions.ForEach(x => x.Selected = false);
+                var option = LangOptions.SingleOrDefault(x => x.Value == _lang.ToString());
+                if (option != null)
+                {
+                    option.Selected = true;
+                }
+            }
+        }
         public List<SelectListItem> LangOptions { get; set; }
+        public decimal AmountAllMoneyInDefaultCurrency { get; set; }
     }
 }

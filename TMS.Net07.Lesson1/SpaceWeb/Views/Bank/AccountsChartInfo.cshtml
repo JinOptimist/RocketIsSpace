@@ -1,0 +1,30 @@
+﻿@model int
+
+@{
+    Layout = "_LayoutBank";
+}
+
+@section Scripts{
+    <script src="~/js/chart.min.js"></script>
+    <script src="~/js/bank/accounts-info.js"></script>
+}
+<div class="content-exchange-chart">
+    <div class="client-before-content"></div>
+
+    <div class="title-exchange-chart">
+        Сумма денежных средств на счетах
+    </div>
+
+    <div class="block">
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <a href="/Account/DownloadAccountsInfo">
+        <div class="download-accounts-info">
+            <img src="../image/icon/download_36dp.svg" />
+            <div class="download-acc-info-text">
+                Сохранить информацию о счетах в формате ".docx"
+            </div>
+        </div>
+    </a>
+</div>

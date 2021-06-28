@@ -8,7 +8,6 @@ using System.Text.Json;
 
 namespace SpaceWeb.Controllers
 {
-    [Localize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -34,26 +33,33 @@ namespace SpaceWeb.Controllers
 
         public IActionResult AccountChartInfo()
         {
-            var user = _userService.GetCurrent();
-            var currencies = user.BankAccounts.Select(x => x.Currency).Distinct();
+            var user = _userService?.GetCurrent();
 
-            var chartViewModel = new ChartViewModel();
-            chartViewModel.Labels = currencies.Select(x => x.ToString()).ToList();
-            var datasetViewModel = new DatasetViewModel()
+            //проект не грузится, если юзер не залогинен
+
+            if (user!=null)
             {
-                Label = "Валюты"
-            };
-            datasetViewModel.Data = 
-                currencies.Select(c =>
-                    user.BankAccounts
-                        .Where(b => b.Currency == c)
-                        .Select(b => b.Amount)
-                        .Sum())
-                .ToList();
+                var currencies = user.BankAccounts.Select(x => x.Currency).Distinct();
 
-            chartViewModel.Datasets.Add(datasetViewModel);
+                var chartViewModel = new ChartViewModel();
+                chartViewModel.Labels = currencies.Select(x => x.ToString()).ToList();
+                var datasetViewModel = new DatasetViewModel()
+                {
+                    Label = "Валюты"
+                };
+                datasetViewModel.Data =
+                    currencies.Select(c =>
+                        user.BankAccounts
+                            .Where(b => b.Currency == c)
+                            .Select(b => b.Amount)
+                            .Sum())
+                    .ToList();
 
-            return Json(chartViewModel);
+                chartViewModel.Datasets.Add(datasetViewModel);
+
+                return Json(chartViewModel);
+            }
+            return Json("null user");
         }
     }
 }

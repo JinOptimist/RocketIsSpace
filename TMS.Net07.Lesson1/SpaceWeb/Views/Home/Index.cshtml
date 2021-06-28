@@ -7,14 +7,18 @@
 
 @section Style
 {
-    <link rel="stylesheet" href="~/css/rocket.css?v=1">
+    <link rel="stylesheet" href="~/css/rocket.css?v=2">
 }
-@section Scripts{ 
+
+@section Scripts{
     <script src="~/js/chart.min.js"></script>
     <script src="~/js/index.js"></script>
-} 
 
-<a href="/Rocket/MainPage" class="rocket-link">
+    <script src="~/js/animation-example.js"></script>
+}
+
+
+<a href="/Rocket/MainPage" class="department">
     <div class="block rocketfield">
         <div class="rocketword">
             @Resource.HomeIndex_Rocket
@@ -22,30 +26,38 @@
     </div>
 </a>
 
-<a class="bank-link" href="/Bank">
-    <div class="block-bank">
+<a href="/Bank" class="department">
+    <div class="block block-bank">
         <div class="cover-text-block-bank">.</div>
         <div class="text-block-bank">
             @Resource.HomeIndex_RocketBank
-            
         </div>
     </div>
 </a>
 
-<div class="block">
-    <canvas id="secondChart"></canvas>
-</div>
-
-<a href="/Human/Index">
-    <div class="block block-human">        
+<a href="/Human/Index" class="department">
+    <div class="block block-human">
     </div>
 </a>
 
-
 <div class="block">
-    @Resource.HomeIndex_FAQ
+    <div class="animate-block">
+
+    </div>
+    <div style="text-align:center">
+        <span class="dot active" id="1"></span>
+        <span class="dot" id="2"></span>
+        <span class="dot" id="3"></span>
+        <span class="dot" id="4"></span>
+        <span class="dot" id="5"></span>
+        <span class="dot" id="6"></span>
+    </div>
+    
 </div>
 
-<div class="block">
-    <canvas id="myChart"></canvas>
-</div>
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="block">
+        <canvas id="myChart"></canvas>
+    </div>
+}
