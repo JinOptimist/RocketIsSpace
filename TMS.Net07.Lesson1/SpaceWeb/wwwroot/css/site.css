@@ -539,6 +539,10 @@ a {
         background-color: #717171;
     }
 
+.dot-animate-block-style {
+    text-align: center
+}
+
 .all-money-block {
     display: flex;
     font-weight: bold;
