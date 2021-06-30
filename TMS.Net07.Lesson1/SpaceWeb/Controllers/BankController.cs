@@ -57,13 +57,7 @@ namespace SpaceWeb.Controllers
         }
         public IActionResult Index(string language)
         {
-            //Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(language);
-            //Thread.CurrentThread.CurrentCulture = new CultureInfo(language);
-
-            //var culture = CultureInfo.DefaultThreadCurrentCulture;
-            //var fixCulture = new CultureInfo("en-US");
-
-            //CultureInfo.DefaultThreadCurrentUICulture = fixCulture;
+           
             return View();
         }
 
@@ -130,14 +124,14 @@ namespace SpaceWeb.Controllers
                 .Select(cur => _currencyService.ConvertAmount(cur))
                 .ToList();
 
-                //allCurrency.Select(x =>
-                //    _currencyService.ConvertAmount(Currency.EUR)
-                //    )
-                //.ToList();
+            //allCurrency.Select(x =>
+            //    _currencyService.ConvertAmount(Currency.EUR)
+            //    )
+            //.ToList();
 
             chartViewModel.Datasets.Add(datasetEURViewModel);
 
-           
+
 
             return Json(chartViewModel);
         }
@@ -157,6 +151,53 @@ namespace SpaceWeb.Controllers
                 .ToList();
             return View(modelNew);
         }
+
+        [HttpGet]
+        public IActionResult AddCard()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddCard(BanksCardViewModel viewModel)
+        {
+            var user = _userService.GetCurrent();
+            var bankCardNew = new BanksCard();
+
+            switch (viewModel.Card)
+            {
+                case EnumBankCard.PayCard:
+                    bankCardNew = new BanksCard()
+                    {
+                        BankAccount = new BankAccount() { Amount = 2000, Currency = Currency.BYN }
+
+                    };
+                    break;
+
+                case EnumBankCard.valueCard:
+
+                    bankCardNew = new BanksCard()
+                    {
+                        BankAccount = new BankAccount() { Amount = 0, Currency = Currency.USD }
+
+                    };
+                    break;
+                case EnumBankCard.XCard:
+                    bankCardNew = new BanksCard()
+                    {
+                        BankAccount = new BankAccount() { Amount = 0, Currency = Currency.EUR }
+
+                    };
+                    break;
+            }
+         
+            bankCardNew.CreationDate = DateTime.Now;
+            var pinCard = new Random().Next(1, 9999).ToString(format: "D4");
+            bankCardNew.PinCard = pinCard;
+            _banksCardRepository.Save(bankCardNew);
+
+
+            return RedirectToRoute("Index");
+        }
         [HttpPost]
         public IActionResult AddBanksCard(long accountId, EnumBankCard card)
         {
@@ -166,10 +207,11 @@ namespace SpaceWeb.Controllers
                 switch (card)
                 {
                     case EnumBankCard.PayCard:
+                       
                         bankAccount = new BankAccount()
                         {
-                            Currency
-                            = Currency.BYN
+                            Currency = Currency.BYN
+                          
                         };
                         break;
                     case EnumBankCard.valueCard:
@@ -474,7 +516,7 @@ namespace SpaceWeb.Controllers
                 table.SetBorder(TableBorderType.Top, boldLine);
                 table.SetBorder(TableBorderType.Left, boldLine);
                 table.SetBorder(TableBorderType.Right, boldLine);
-                
+
                 //doc.InsertParagraph($"Информация по счёту {account.Name}");
                 //doc.InsertParagraph($"Остаток на счёту: {account.Amount}");
 
