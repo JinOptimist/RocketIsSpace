@@ -27,7 +27,10 @@ namespace ReflectionLessone
 
         static void Main(string[] args)
         {
+            var olga = new Human(2000);
+            var ivan = new Human(1998);
 
+            var a = 50 + olga;
         }
 
         public static void MessageEmail()
