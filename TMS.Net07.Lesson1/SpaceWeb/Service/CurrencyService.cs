@@ -137,7 +137,7 @@ namespace SpaceWeb.Service
         {
             HttpWebRequest request = (HttpWebRequest)
             WebRequest.Create("https://belarusbank.by/api/kursExchange?city=Минск");
-            WebResponse response = request.GetResponse();
+            WebResponse response = request?.GetResponse();
 
             List<GottenCurrency> fin = null;
 
@@ -306,6 +306,24 @@ namespace SpaceWeb.Service
             }
 
             return Math.Round(amountAllMoneyInDefaultCurrency, 2);
+        }
+
+        public bool CheckInternetConnection()
+        {
+            WebClient client = new WebClient();
+            try
+            {
+                using (client.OpenRead("http://www.google.com"))
+                {
+                }
+                return true;
+            }
+            catch (WebException)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
     
