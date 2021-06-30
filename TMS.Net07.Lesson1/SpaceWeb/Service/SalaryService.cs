@@ -87,8 +87,7 @@ namespace SpaceWeb.Service
 
         public bool Payment(long bankAccountFromId, long bankAccountToId, decimal amount)
         {
-            //return _bankAccountRepository.Transfer(bankAccountFromId, bankAccountToId, amount);
-            return false;
+            return _bankAccountRepository.Transfer(bankAccountFromId, bankAccountToId, amount);
         }
 
         public List<DateTime> PickUpMonths(DateTime start, DateTime end, List<DateTime> accruals)

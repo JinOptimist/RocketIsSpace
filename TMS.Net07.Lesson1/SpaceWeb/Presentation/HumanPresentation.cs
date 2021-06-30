@@ -255,8 +255,9 @@ namespace SpaceWeb.Presentation
 
             //to
             var accountTo = _bankAccountRepository.Get(paymentViewModel.AccountNumber);
+            
 
-            _salaryService.Payment(accountFrom.Id, accountTo.Id, paymentViewModel.Amount);
+            var response = _salaryService.Payment(accountFrom.Id, accountTo.Id, paymentViewModel.Amount);
             var payment = new Payment()
             {
                 Employe = _employeRepository.Get(paymentViewModel.IdEmploye),
