@@ -56,43 +56,50 @@ namespace SpaceWeb
                     config.AccessDeniedPath = "/User/AccessDenied";
                 });
 
-            //services.AddScoped<IRelicPresentation>(container =>
-            //    new RelicPresentation(
-            //        container.GetService<IRelicRepository>(),
-            //        container.GetService<IMapper>()));
-
-            //services.AddScoped<IHumanPresentation>(container =>
-            //    new HumanPresentation(
-            //        container.GetService<IUserRepository>(),
-            //        container.GetService<IDepartmentRepository>(),
-            //        container.GetService<IMapper>(),
-            //        container.GetService<IEmployeRepository>(),
-            //        container.GetService<UserService>()));
-
-            //services.AddScoped<IUserRepository>(diContainer =>
-            //    new UserRepository(
-            //        diContainer.GetService<SpaceDbContext>(),
-            //        diContainer.GetService<IBankAccountRepository>()
-            //        ));
-
-            //services.AddScoped<IRocketShopPresentation>(container =>
-            //    new RocketShopPresentation(
-            //        container.GetService<IMapper>(),
-            //        container.GetService<IOrderRepository>(),
-            //        container.GetService<IShopRocketRepository>(),
-            //        container.GetService<UserService>()));
-
             RegistrationPresentations(services);
+            RegisterMapper(services);
+            RegisterOldRepository(services);
+            RegistrationRepositories(services);
+            RegisterService(services);
+
+            
+
+            services.AddControllersWithViews();
+            services.AddHttpContextAccessor();
+        }
+
+        private void RegisterService(IServiceCollection services)
+        {
+            services.AddScoped<ICurrencyService>(diContainer =>
+                new CurrencyService(
+                    diContainer.GetService<UserService>(),
+                    diContainer.GetService<ExchangeRateToUsdCurrentRepository>(),
+                    diContainer.GetService<ExchangeAccountHistoryRepository>(),
+                    diContainer.GetService<ExchangeRateToUsdHistoryRepository>(),
+                    diContainer.GetService<IMapper>()));
+
+            //services.AddMyScoped<IUserService, UserService>();
+            services.AddScoped<IUserService>(diContainer =>
+              new UserService(
+                  diContainer.GetService<IUserRepository>(),
+                  diContainer.GetService<IHttpContextAccessor>()
+              ));
 
 
-            //services.AddScoped<IRelicRepository>(diContainer =>
-            //    new RelicRepository(diContainer.GetService<SpaceDbContext>()));
+            services.AddScoped<UserService>(diContainer =>
+               new UserService(
+                   diContainer.GetService<IUserRepository>(),
+                   diContainer.GetService<IHttpContextAccessor>()
+               ));
 
-            //services.AddScoped<IDepartmentRepository>(diContainer =>
-            //    new DepartmentRepository(diContainer.GetService<SpaceDbContext>()));
+            services.AddScoped<IPathHelper>(diContainer =>
+               new PathHelper(
+                   diContainer.GetService<IWebHostEnvironment>()
+               ));
+        }
 
-            //services.AddScoped<IBankAccountRepository>(diContainer =>
-            //    new BankAccountRepository(diContainer.GetService<SpaceDbContext>()));
+        private void RegisterOldRepository(IServiceCollection services)
+        {
 
             services.AddScoped<QuestionaryRepository>(diContainer =>
                 new QuestionaryRepository(diContainer.GetService<SpaceDbContext>()));
@@ -124,25 +131,6 @@ namespace SpaceWeb
             services.AddScoped<ExchangeAccountHistoryRepository>(diContainer =>
                 new ExchangeAccountHistoryRepository(diContainer.GetService<SpaceDbContext>()));
 
-            services.AddScoped<ICurrencyService>(diContainer =>
-                new CurrencyService(
-                    diContainer.GetService<UserService>(),
-                    diContainer.GetService<ExchangeRateToUsdCurrentRepository>(),
-                    diContainer.GetService<ExchangeAccountHistoryRepository>(),
-                    diContainer.GetService<ExchangeRateToUsdHistoryRepository>(),
-                    diContainer.GetService<Mapper>()
-                ));
-
-            services.AddScoped<UserService>(diContainer =>
-                new UserService(
-                    diContainer.GetService<IUserRepository>(),
-                    diContainer.GetService<IHttpContextAccessor>()
-                ));
-
-            services.AddControllersWithViews();
-
-            services.AddHttpContextAccessor();
-
             services.AddScoped<OrderRepository>(diContainer =>
                 new OrderRepository(diContainer.GetService<SpaceDbContext>()));
             services.AddControllersWithViews();
@@ -152,49 +140,6 @@ namespace SpaceWeb
 
             services.AddScoped<ShopRocketRepository>(diContainer =>
                 new ShopRocketRepository(diContainer.GetService<SpaceDbContext>()));
-
-            //services.AddScoped<ICurrencyService>(diContainer =>
-            //    new CurrencyService(diContainer.GetService<UserService>(),
-            //        diContainer.GetService<ExchangeRateToUsdCurrentRepository>(),
-            //        diContainer.GetService<ExchangeAccountHistoryRepository>()));
-
-            services.AddScoped<IBankPresentation>(diContainer =>
-                new BankPresentation(diContainer.GetService<IProfileRepository>(), diContainer.GetService<IMapper>()));
-
-            services.AddScoped<BankPresentation>(diContainer =>
-                new BankPresentation(diContainer.GetService<IProfileRepository>(), diContainer.GetService<IMapper>()));
-
-            //services.AddScoped<IEmployeRepository>(diContainer =>
-            //    new EmployeRepository(diContainer.GetService<SpaceDbContext>()));
-
-            services.AddScoped<ICurrencyService>(diContainer =>
-                new CurrencyService(
-                    diContainer.GetService<UserService>(),
-                    diContainer.GetService<ExchangeRateToUsdCurrentRepository>(),
-                    diContainer.GetService<ExchangeAccountHistoryRepository>(),
-                    diContainer.GetService<ExchangeRateToUsdHistoryRepository>(),
-                    diContainer.GetService<IMapper>()));
-            
-            RegisterMapper(services);
-            services.AddScoped<UserService>(diContainer =>
-               new UserService(
-                   diContainer.GetService<IUserRepository>(),
-                   diContainer.GetService<IHttpContextAccessor>()
-               ));
-
-            services.AddControllersWithViews();
-
-            services.AddHttpContextAccessor();
-
-
-            RegistrationRepositories(services);
-
-            services.AddScoped<ISalaryService>(diContainer =>
-                new SalaryService(
-                    diContainer.GetService<IAccrualRepository>(),
-                    diContainer.GetService<IPaymentRepository>(),
-                    diContainer.GetService<IBankAccountRepository>()
-                    ));
         }
 
         private void RegistrationPresentations(IServiceCollection services)
