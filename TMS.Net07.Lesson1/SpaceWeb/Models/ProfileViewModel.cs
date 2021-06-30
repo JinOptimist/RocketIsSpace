@@ -89,5 +89,6 @@ namespace SpaceWeb.Models
         }
         public List<SelectListItem> LangOptions { get; set; }
         public decimal AmountAllMoneyInDefaultCurrency { get; set; }
+        
     }
 }

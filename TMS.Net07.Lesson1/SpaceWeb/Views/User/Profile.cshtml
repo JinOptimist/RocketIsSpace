@@ -48,7 +48,7 @@
     @foreach (var bankAccountView in Model.MyAccounts)
     {
         <div>
-            @bankAccountView.Amount @bankAccountView.Currency
+            @bankAccountView.Amount (@bankAccountView.AmountString) @bankAccountView.Currency
         </div>
     }
 

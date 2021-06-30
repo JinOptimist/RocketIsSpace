@@ -57,9 +57,17 @@ namespace SpaceWeb.Controllers
             var bankViewModels = user
                 .BankAccounts
                 .Select(x => _mapper.Map<BankAccountViewModel>(x)).ToList();
+            foreach (var bankAccount in bankViewModels)
+            {
+                bankAccount.AmountString = _currencyService.IntToStringAmount((int)bankAccount.Amount);
+
+            }
+
             viewModel.MyAccounts = bankViewModels;
             viewModel.DefaultCurrency = user.DefaultCurrency;
             viewModel.MyCurrencies = _bankAccountRepository.GetCurrencies(user.Id);
+            
+
 
             decimal amountAllMoneyInDefaultCurrency = 0;
             var accounts = _bankAccountRepository.GetBankAccounts(user.Id);
@@ -130,6 +138,7 @@ namespace SpaceWeb.Controllers
             }
 
             user.Email = viewModel.Email;
+
             _userRepository.Save(user);
 
             return RedirectToAction("Profile");
