@@ -18,5 +18,7 @@ namespace SpaceWeb.EfStuff.Repositories.IRepository
         bool Transfer(long bankAccountFromId, long bankAccountToId, decimal amount);
 
         List<BankAccount> GetByName(long userId, string name);
+
+        BankAccount GetSpecifiedAccountByEmploye(long employeId);
     }
 }

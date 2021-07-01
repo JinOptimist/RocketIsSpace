@@ -3,7 +3,7 @@
 
 <form action="/Human/SaveAccrual" method="post">
     <div id="hidden-id">
-        @Html.HiddenFor(x => x.IdEmploye)
+        @Html.HiddenFor(x => x.EmployeId)
     </div>
     <div id="input-date" class="form-group">
         @Html.TextBoxFor(x => x.Date, new { @type = "month", @list = "noAccrualsMonths" })

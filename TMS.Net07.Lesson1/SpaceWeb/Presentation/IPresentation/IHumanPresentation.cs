@@ -10,21 +10,21 @@ namespace SpaceWeb.Presentation
     {
         List<ShortUserViewModel> GetViewModelForAllUsers();
         List<DepartmentViewModel> GetViewModelForAllDepartments();
-        DepartmentViewModel GetViewModelForDepartment(long id);
+        DepartmentViewModel GetViewModelForDepartment(long departmentId);
         void Remove(List<long> userIds);
         PersonnelViewModel GetPersonnelViewModel();
         void SavePersonnelChanges(List<RequestViewModel> requestViewModels);
         void SaveRequestEmploye(RequestViewModel requestViewModel);
         void SaveDepartmentsToDocX(string path);
         void SaveDepartment(DepartmentViewModel model);
-        void DeleteDepartment(long id);
+        void DeleteDepartment(long departmentId);
         ShortUserViewModel ClientPage();
-        List<ShortEmployeViewModel> UpdateEmployes(long idDepartment);
+        List<ShortEmployeViewModel> UpdateEmployes(long departmentId);
         MyChartViewModel<int> GetChartForWorkersInDepartment();
-        AccrualViewModel GetAccrualViewModel(long id);
+        AccrualViewModel GetAccrualViewModel(long employeId);
         void SaveAccrual(AccrualViewModel accrualViewModel);
-        decimal CalculateAccrual(DateTime date, long IdEmploye);
-        PaymentViewModel GetPaymentViewModel(long id);
+        decimal CalculateAccrual(DateTime date, long employeId);
+        PaymentViewModel GetPaymentViewModel(long employeId);
         void SavePayment(PaymentViewModel paymentViewModel);
     }
 }

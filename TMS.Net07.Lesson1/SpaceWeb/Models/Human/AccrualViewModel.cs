@@ -5,11 +5,11 @@ namespace SpaceWeb.Models.Human
 {
     public class AccrualViewModel
     {
-        public long IdEmploye { get; set; }
+        public long EmployeId { get; set; }
         public DateTime Date { get; set; }
         public decimal Amount { get; set; }
-        public DateTime InviteDate { get; set; }
-        public DateTime LimitDate { get; set; }
+        public DateTime DateFrom { get; set; }
+        public DateTime DateTo { get; set; }
         public List<DateTime> NoAccrualsDates { get; set; }
     }
 }

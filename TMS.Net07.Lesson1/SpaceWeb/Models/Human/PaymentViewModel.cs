@@ -4,7 +4,7 @@ namespace SpaceWeb.Models.Human
 {
     public class PaymentViewModel
     {
-        public long IdEmploye { get; set; }
+        public long EmployeId { get; set; }
         public DateTime Date { get; set; }
         public decimal Amount { get; set; }
         public decimal Payed { get; set; }
