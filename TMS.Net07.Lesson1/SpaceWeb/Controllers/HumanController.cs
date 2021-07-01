@@ -83,16 +83,16 @@ namespace SpaceWeb.Controllers
         }
 
         [HttpGet]
-        public IActionResult DeleteDepartment(long id)
+        public IActionResult DeleteDepartment(long departmentId)
         {
-            _humanPresentation.DeleteDepartment(id);
+            _humanPresentation.DeleteDepartment(departmentId);
             return RedirectToAction("AllDepartments");
         }
 
         [HttpGet]
-        public IActionResult EditDepartment(long id)
+        public IActionResult EditDepartment(long departmentId)
         {
-            return PartialView("Department", _humanPresentation.GetViewModelForDepartment(id));
+            return PartialView("Department", _humanPresentation.GetViewModelForDepartment(departmentId));
         }
 
         [HttpGet]
@@ -102,9 +102,9 @@ namespace SpaceWeb.Controllers
             return View(_humanPresentation.ClientPage());
         }
 
-        public IActionResult UpdateEmployes(long idDepartment)
+        public IActionResult UpdateEmployes(long departmentId)
         {
-            return Json(_humanPresentation.UpdateEmployes(idDepartment));
+            return Json(_humanPresentation.UpdateEmployes(departmentId));
         }
 
         [HttpGet]
@@ -156,9 +156,9 @@ namespace SpaceWeb.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetEmloyeAccrualsInfo(long id)
+        public IActionResult GetEmloyeAccrualsInfo(long employeId)
         {
-            return Json(_humanPresentation.GetAccrualViewModel(id));
+            return Json(_humanPresentation.GetAccrualViewModel(employeId));
         }
         
         [HttpPost]
@@ -168,14 +168,14 @@ namespace SpaceWeb.Controllers
             return RedirectToAction("Personnel");
         }
 
-        public IActionResult ChangeDate(DateTime date, long IdEmploye)
+        public IActionResult ChangeDate(DateTime date, long employeId)
         {
-            return Json(_humanPresentation.CalculateAccrual(date, IdEmploye));
+            return Json(_humanPresentation.CalculateAccrual(date, employeId));
         }
 
-        public IActionResult GetEmployePaymentInfo(long id)
+        public IActionResult GetEmployePaymentInfo(long employeId)
         {
-            return Json(_humanPresentation.GetPaymentViewModel(id));
+            return Json(_humanPresentation.GetPaymentViewModel(employeId));
         }
 
         public IActionResult SavePayment(PaymentViewModel paymentViewModel)

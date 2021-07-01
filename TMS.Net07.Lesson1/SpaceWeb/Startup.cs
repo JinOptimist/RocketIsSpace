@@ -96,6 +96,14 @@ namespace SpaceWeb
                new PathHelper(
                    diContainer.GetService<IWebHostEnvironment>()
                ));
+
+            services.AddScoped<ISalaryService>(diContainer =>
+                new SalaryService(
+                    diContainer.GetService<IAccrualRepository>(),
+                    diContainer.GetService<IPaymentRepository>(),
+                    diContainer.GetService<IBankAccountRepository>(),
+                    diContainer.GetService<IEmployeRepository>()
+               ));
         }
 
         private void RegisterOldRepository(IServiceCollection services)

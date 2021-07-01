@@ -13,44 +13,35 @@ namespace SpaceWeb.Service
         private IAccrualRepository _accrualRepository;
         private IPaymentRepository _paymentRepository;
         private IBankAccountRepository _bankAccountRepository;
-        private const long TICKS_IN_ONE_SECOND = 10000000;
-        private const long TICKS_IN_ONE_MINUTE = TICKS_IN_ONE_SECOND * 60;
-        private const long TICKS_IN_ONE_HOUR = TICKS_IN_ONE_MINUTE * 60;
+        private IEmployeRepository _employeRepository;
+        private const int HOURS_IN_DAY = 24;
 
 
         public SalaryService(
-            IAccrualRepository accrualRepository, 
-            IPaymentRepository paymentRepository, 
-            IBankAccountRepository bankAccountRepository)
+            IAccrualRepository accrualRepository,
+            IPaymentRepository paymentRepository,
+            IBankAccountRepository bankAccountRepository, 
+            IEmployeRepository employeRepository)
         {
             _accrualRepository = accrualRepository;
             _paymentRepository = paymentRepository;
             _bankAccountRepository = bankAccountRepository;
+            _employeRepository = employeRepository;
         }
 
         private int CalculateHours(int hourStartWorking, int hourEndWorking)
         {
-            var start = new DateTime(TICKS_IN_ONE_HOUR * hourStartWorking);
-            var end = new DateTime(TICKS_IN_ONE_HOUR * hourEndWorking);
-            var result = new DateTime();
-            if (end < start)
-                end = end.AddDays(1);
-            while (start < end)
-            {
-                start = start.AddHours(1);
-                result = result.AddHours(1);
-            }
-            return result.Hour;
+
+            var result = hourEndWorking - hourStartWorking;
+            return result < 0 ? HOURS_IN_DAY + result : result;
         }
 
         public decimal CalculateAccrual(DateTime date, Employe employe)
         {
             int days;
             if (employe.EmployeStatus == EmployeStatus.Accepted
-                &&
-                date.Month == employe.StatusDate.Month
-                &&
-                date.Year == employe.StatusDate.Year)
+                && date.Month == employe.StatusDate.Month
+                && date.Year == employe.StatusDate.Year)
             {
                 var endPeriod = new DateTime(employe.StatusDate.AddMonths(1).Year, employe.StatusDate.AddMonths(1).Month, 1);
                 days = employe.StatusDate.GetWorkingDaysInPeriod(endPeriod);
@@ -80,14 +71,26 @@ namespace SpaceWeb.Service
             _paymentRepository
                 .GetAllPayments(employeId);
 
-        public void GetPayedPaymentsBeforeDate(long employeId, DateTime date)
+        public bool Pay(PaymentViewModel paymentViewModel)
         {
-            throw new NotImplementedException();
-        }
+            //from
+            var accountFrom = _bankAccountRepository.Get(paymentViewModel.DepartmentAccountNumber);
 
-        public bool Payment(long bankAccountFromId, long bankAccountToId, decimal amount)
-        {
-            return _bankAccountRepository.Transfer(bankAccountFromId, bankAccountToId, amount);
+            //to
+            var accountTo = _bankAccountRepository.Get(paymentViewModel.AccountNumber);
+
+            var transferResponse = _bankAccountRepository.Transfer(accountFrom.Id, accountTo.Id, paymentViewModel.Amount);
+
+            var payment = new Payment()
+            {
+                Employe = _employeRepository.Get(paymentViewModel.EmployeId),
+                Date = paymentViewModel.Date,
+                Amount = paymentViewModel.Amount,
+                BankAccount = accountTo
+            };
+            _paymentRepository.Save(payment);
+
+            return transferResponse;
         }
 
         public List<DateTime> PickUpMonths(DateTime start, DateTime end, List<DateTime> accruals)

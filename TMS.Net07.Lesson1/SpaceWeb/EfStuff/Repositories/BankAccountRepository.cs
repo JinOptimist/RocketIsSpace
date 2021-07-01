@@ -73,5 +73,11 @@ namespace SpaceWeb.EfStuff.Repositories
             var sql = "SELECT * FROM BankAccount WHERE OwnerId = {0} AND[Name] = '{1}'";
             return _spaceDbContext.BankAccount.FromSqlRaw(sql, userId, name).ToList();
         }
+
+        public BankAccount GetSpecifiedAccountByEmploye(long employeId)
+        {
+            return _dbSet
+                .FirstOrDefault(x => x.Owner.Employe.Id == employeId && x.Name=="");
+        }
     }
 }
