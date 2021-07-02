@@ -39,12 +39,11 @@ namespace SpaceWeb.Service
         public decimal CalculateAccrual(DateTime date, Employe employe)
         {
             int days;
-            if (employe.EmployeStatus == EmployeStatus.Accepted
-                && date.Month == employe.StatusDate.Month
-                && date.Year == employe.StatusDate.Year)
+            if (date.Month == employe.InviteDate.Month
+                && date.Year == employe.InviteDate.Year)
             {
-                var endPeriod = new DateTime(employe.StatusDate.AddMonths(1).Year, employe.StatusDate.AddMonths(1).Month, 1);
-                days = employe.StatusDate.GetWorkingDaysInPeriod(endPeriod);
+                var endPeriod = new DateTime(employe.InviteDate.AddMonths(1).Year, employe.InviteDate.AddMonths(1).Month, 1);
+                days = employe.InviteDate.GetWorkingDaysInPeriod(endPeriod);
             }
             else
             {

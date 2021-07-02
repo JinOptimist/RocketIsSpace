@@ -92,16 +92,14 @@ namespace SpaceWeb.Presentation
 
         public void SavePersonnelChanges(List<RequestViewModel> requestViewModels)
         {
-            var employes = requestViewModels.Select(x => _mapper.Map<Employe>(x)).ToList();
-            foreach (var x in employes)
+            var employes = requestViewModels.Select(x => _mapper.Map<Employe>(x));
+            var acceptedEmployes = employes.Where(x => x.EmployeStatus == EmployeStatus.Accepted).ToList();
+            foreach (var x in acceptedEmployes)
             {
-                var employeTemp = _employeRepository.Get(x.Id);
-                employeTemp.Position = x.Position;
-                employeTemp.SalaryPerHour = x.SalaryPerHour;
-                employeTemp.EmployeStatus = x.EmployeStatus;
-                employeTemp.StatusDate = x.StatusDate;
-                _employeRepository.Save(employeTemp);
+                x.InviteDate = DateTime.Today;
+                _employeRepository.Save(x);
             }
+            employes.Where(x => x.EmployeStatus == EmployeStatus.Accepted).Select(x => x.InviteDate = DateTime.Today);
         }
 
         public void SaveRequestEmploye(RequestViewModel requestViewModel)
@@ -189,7 +187,7 @@ namespace SpaceWeb.Presentation
             var accruals = _accrualRepository.GetEmployeAccrualsDate(employeId);
 
             accrualViewModel.EmployeId = employeId;
-            accrualViewModel.DateFrom = employe.StatusDate;
+            accrualViewModel.DateFrom = employe.InviteDate;
             accrualViewModel.DateTo = DateTime.Today;
             accrualViewModel.NoAccrualsDates = _salaryService.PickUpMonths(
                 new DateTime(accrualViewModel.DateFrom.Year, accrualViewModel.DateFrom.Month, 1),
