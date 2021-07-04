@@ -57,7 +57,7 @@ namespace SpaceWeb.Controllers
         }
         public IActionResult Index(string language)
         {
-           
+
             return View();
         }
 
@@ -168,7 +168,12 @@ namespace SpaceWeb.Controllers
                 case EnumBankCard.PayCard:
                     bankCardNew = new BanksCard()
                     {
-                        BankAccount = new BankAccount() { Amount = 2000, Currency = Currency.BYN }
+                        BankAccount = new BankAccount() { 
+                            Amount = 2000, 
+                            Currency = Currency.BYN 
+                        },
+                        Currency = Currency.BYN,
+                        Card = EnumBankCard.PayCard
 
                     };
                     break;
@@ -177,19 +182,27 @@ namespace SpaceWeb.Controllers
 
                     bankCardNew = new BanksCard()
                     {
-                        BankAccount = new BankAccount() { Amount = 0, Currency = Currency.USD }
+                        BankAccount = new BankAccount() { 
+                            Amount = 1000, 
+                            Currency = Currency.USD },
+                        Currency = Currency.USD,
+                        Card = EnumBankCard.valueCard
 
                     };
                     break;
                 case EnumBankCard.XCard:
                     bankCardNew = new BanksCard()
                     {
-                        BankAccount = new BankAccount() { Amount = 0, Currency = Currency.EUR }
+                        BankAccount = new BankAccount() { 
+                            Amount = 0,
+                            Currency = Currency.EUR },
+                        Currency = Currency.EUR,
+                        Card = EnumBankCard.XCard
 
                     };
                     break;
             }
-         
+
             bankCardNew.CreationDate = DateTime.Now;
             var pinCard = new Random().Next(1, 9999).ToString(format: "D4");
             bankCardNew.PinCard = pinCard;
@@ -207,11 +220,11 @@ namespace SpaceWeb.Controllers
                 switch (card)
                 {
                     case EnumBankCard.PayCard:
-                       
+
                         bankAccount = new BankAccount()
                         {
                             Currency = Currency.BYN
-                          
+
                         };
                         break;
                     case EnumBankCard.valueCard:

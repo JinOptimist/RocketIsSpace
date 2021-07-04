@@ -17,7 +17,7 @@
 <form class="creation form" method="POST">
     <div>Название карты</div>
     <p>
-        @Html.DropDownList("curd", cardOptions)
+        @Html.DropDownList(nameof(BanksCardViewModel.Card), cardOptions)
     </p>
 
 
