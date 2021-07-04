@@ -128,36 +128,19 @@ namespace SpaceWeb.Service
                                 result += "девятьсот";
                                 break;
                         }
-                    if (((array_int[i] % 100) - ((array_int[i] % 100)) / 10) != 1)
+                    if (((array_int[i] % 100) - ((array_int[i] % 100) % 10)) / 10 != 1)
                     {
-                        switch (((array_int[i] % 100) - ((array_int[i] % 10)) / 10))
+                        switch (((array_int[i] % 100) - ((array_int[i] % 100) % 10)) / 10)
                         {
-                            case 2:
-                                result += "двадцать";
-                                break;
-                            case 3:
-                                result += "тридцать";
-                                break;
-                            case 4:
-                                result += "сорок";
-                                break;
-                            case 5:
-                                result += "пятьдесят";
-                                break;
-                            case 6:
-                                result += "шестьдесят";
-                                break;
-                            case 7:
-                                result += "семьдесят";
-                                break;
-                            case 8:
-                                result += "восемьдесят";
-                                break;
-                            case 9:
-                                result += "девяносто";
-                                break;
+                            case 2: result += " двадцать"; break;
+                            case 3: result += " тридцать"; break;
+                            case 4: result += " сорок"; break;
+                            case 5: result += " пятьдесят"; break;
+                            case 6: result += " шестьдесят"; break;
+                            case 7: result += " семьдесят"; break;
+                            case 8: result += " восемьдесят"; break;
+                            case 9: result += " девяносто"; break;
                         }
-
                     }
                     switch (array_int[i] % 10)
                     {
@@ -200,13 +183,8 @@ namespace SpaceWeb.Service
                         case 9: result += " " + array_string[i, 2] + " "; break;
                     }
             }
-
-
             return result;
         }
-
-
-
         public decimal ConvertByAlex(decimal amount, Currency currencyTo)
         {
             var user = _userService.GetCurrent();

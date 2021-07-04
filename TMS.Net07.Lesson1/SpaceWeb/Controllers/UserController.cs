@@ -63,12 +63,11 @@ namespace SpaceWeb.Controllers
 
             }
 
+
             viewModel.MyAccounts = bankViewModels;
             viewModel.DefaultCurrency = user.DefaultCurrency;
             viewModel.MyCurrencies = _bankAccountRepository.GetCurrencies(user.Id);
             
-
-
             decimal amountAllMoneyInDefaultCurrency = 0;
             var accounts = _bankAccountRepository.GetBankAccounts(user.Id);
 
@@ -84,6 +83,11 @@ namespace SpaceWeb.Controllers
             else
             {
                 viewModel.AmountAllMoneyInDefaultCurrency = _currencyService.CountAllMoneyInWishingCurrency(accounts, viewModel.RandomCurrency);
+            }
+            foreach (var bancAccount in accounts)
+            {
+                viewModel.AmountString = _currencyService.IntToStringAmount((int)viewModel.AmountAllMoneyInDefaultCurrency);
+
             }
 
             return View(viewModel);
