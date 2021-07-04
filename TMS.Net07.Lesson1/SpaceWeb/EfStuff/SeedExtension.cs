@@ -165,6 +165,11 @@ namespace SpaceWeb.EfStuff
         private static void SetDefaultExchangeRateToUsdCurrent(IServiceProvider services)
         {
             var currencyService = services.GetService<ICurrencyService>();
+
+            if (!currencyService.CheckInternetConnection())
+            {
+                return;
+            }
             var exchRateToUsdCurrentRepository = services.GetService<ExchangeRateToUsdCurrentRepository>();
 
             currencyService.DeleteCurrentExchRatesFromDb(exchRateToUsdCurrentRepository);

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SpaceWeb.Controllers.CustomAttribute;
 using SpaceWeb.EfStuff;
 using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
@@ -29,22 +30,25 @@ namespace SpaceWeb.Controllers
         private IMapper _mapper;
         private UserService _userService;
         private ICurrencyService _currencyService;
-        private IWebHostEnvironment _hostEnvironment;
+        private IPathHelper _pathHelper;
+
         private ILogger<UserController> _logger;
 
         public static int Counter = 0;
 
         public UserController(IUserRepository userRepository, IMapper mapper,
-            UserService userService, ICurrencyService currencyService, IWebHostEnvironment hostEnvironment,
-            IBankAccountRepository bankAccountRepository, ILogger<UserController> logger)
+            UserService userService, ICurrencyService currencyService,
+            IBankAccountRepository bankAccountRepository,
+            ILogger<UserController> logger,
+            IPathHelper pathHelper)
         {
             _userRepository = userRepository;
             _mapper = mapper;
             _userService = userService;
             _currencyService = currencyService;
-            _hostEnvironment = hostEnvironment;
             _bankAccountRepository = bankAccountRepository;
             _logger = logger;
+            _pathHelper = pathHelper;
         }
 
         [Authorize]
@@ -130,13 +134,12 @@ namespace SpaceWeb.Controllers
 
             if (viewModel.Avatar != null)
             {
-                var webPath = _hostEnvironment.WebRootPath;
-                var path = Path.Combine(webPath, "image", "avatars", $"{user.Id}.jpg");
+                var path = _pathHelper.GetPathToAvatarByUser(user.Id);
                 using (var fileStream = new FileStream(path, FileMode.OpenOrCreate))
                 {
                     await viewModel.Avatar.CopyToAsync(fileStream);
                 }
-                user.AvatarUrl = $"/image/avatars/{user.Id}.jpg";
+                user.AvatarUrl = _pathHelper.GetAvatarUrlByUser(user.Id);
 
                 _logger.LogInformation($"User {user.Id} change avatar");
             }
@@ -318,6 +321,29 @@ namespace SpaceWeb.Controllers
             var user = _userService.GetCurrent();
             var viewModel = _mapper.Map<EmployeeProfileViewModel>(user);
             return View(viewModel);
+        }
+
+        [IsAdmin]
+        public IActionResult AllAvatars()
+        {
+            var avatarsFolrdPath = _pathHelper.GetPathToAvatarFolder();
+            var filesPath = Directory.GetFiles(avatarsFolrdPath);
+            var models = filesPath
+                .Where(filePath => Path.GetExtension(filePath) == ".jpg")
+                .Select(filePath => Path.GetFileName(filePath))
+                .Select(fileName => new AvatarsAdminViewModel()
+                {
+                    Url = _pathHelper.GetAvatarUrlByFileName(fileName)
+                }).ToList();
+
+            var users = _userRepository.GetAll();
+
+            foreach (var model in models)
+            {
+                var user = users.SingleOrDefault(x => x.AvatarUrl == model.Url);
+                model.UserId = user?.Id ?? -1;
+            }
+            return View(models);
         }
     }
 

@@ -1,14 +1,101 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace ReflectionLessone
 {
+    public class MyNumber
+    {
+        public static int StaticNumber = 0;
+        public int Number
+        {
+            get
+            {
+                Console.WriteLine($"read number {++StaticNumber}");
+                return StaticNumber;
+            }
+        }
+    }
     class Program
     {
         static async void Main(string[] args)
+        {
+            var myNumbers = GetNumbers();
+            var numbers = myNumbers
+                .Select(x => x.Number);
+            
+            var sum = numbers.Sum();
+            Console.WriteLine($"sum {sum}");
+
+            var count = numbers.Count();
+            Console.WriteLine($"count {count}");
+
+            var sum2 = numbers.Sum();
+            Console.WriteLine($"sum2 {sum2}");
+        }
+
+        public static IEnumerable<MyNumber> GetNumbers()
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                yield return new MyNumber();
+            }
+        }
+
+        public static void TryCatchExnple()
+        {
+            try
+            {
+                Dived();
+            }
+            catch (MyDiveByZeroException e)
+            {
+                Console.WriteLine("MyDiveByZeroException");
+            }
+            catch (DivideByZeroException e)
+            {
+                Console.WriteLine("DivideByZeroException");
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Exception");
+            }
+        }
+
+        public static int Dived()
+        {
+            var result = 0;
+            try
+            {
+                BasicDive();//DivideByZeroException
+            }
+            catch (MyDiveByZeroException e)
+            {
+                Console.WriteLine("MyDiveByZeroException");
+            }
+            catch (DivideByZeroException e)
+            {
+                //!
+                Console.WriteLine("DivideByZeroException");
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Exception");
+            }
+
+            return result;
+        }
+
+        public static int BasicDive()
+        {
+            var b = 0;
+            return 1 / b;
+        }
+
+        public static void HashSetExmple()
         {
             var dictionary = new HashSet<Human>();
 
@@ -73,4 +160,8 @@ namespace ReflectionLessone
         }
     }
 
+    public class MyDiveByZeroException : DivideByZeroException
+    {
+
+    }
 }

@@ -85,9 +85,9 @@
   <data name="Banks_Transfer" xml:space="preserve">
     <value>Transfer</value>
   </data>
-	<data name="Banks_XCard" xml:space="preserve">
+  <data name="Banks_XCard" xml:space="preserve">
     <value>X card</value>
-	  </data>
+  </data>
   <data name="DepartmentType_Bank" xml:space="preserve">
     <value>Bank</value>
   </data>
@@ -126,6 +126,9 @@
   </data>
   <data name="LayoutBank_logoNameRocket" xml:space="preserve">
     <value>ROCKET</value>
+  </data>
+  <data name="Layout_AllAvatars" xml:space="preserve">
+    <value>All avatars</value>
   </data>
   <data name="Layout_Exit" xml:space="preserve">
     <value>Exit</value>

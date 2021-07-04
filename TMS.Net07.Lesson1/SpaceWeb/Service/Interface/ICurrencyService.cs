@@ -34,5 +34,6 @@ namespace SpaceWeb.Service
         public decimal CountAllMoneyInWishingCurrency(List<BankAccount> accounts, Currency currencyTo);
 
         public string IntToStringAmount(int amount);
+        public bool CheckInternetConnection();
     }
 }
