@@ -154,7 +154,7 @@ namespace ReflectionLessone
 
             dictionary.Add(new Human(203));
 
-            var age = await Fun();
+            var age = Fun();
         }
 
         public static Task<int> Fun()
