@@ -168,9 +168,9 @@
     border: double;
 }
 
-.employee-card-buttons{
+.employee-card-buttons {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
-    margin-top: 10px;
+    justify-content: space-between;
+    margin: 5px 30px;
 }

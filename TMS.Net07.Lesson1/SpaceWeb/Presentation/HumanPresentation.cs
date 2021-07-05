@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Novacode;
 using SpaceWeb.EfStuff.Model;
+using SpaceWeb.EfStuff.Model.Enum;
 using SpaceWeb.EfStuff.Repositories.IRepository;
+using SpaceWeb.Models;
 using SpaceWeb.Models.Chart;
 using SpaceWeb.Models.Human;
 using SpaceWeb.Service;
@@ -82,6 +84,12 @@ namespace SpaceWeb.Presentation
                 _employeRepository.GetEmployesByDepartment(currentDepartmentId)
                 .Select(x => _mapper.Map<ShortEmployeViewModel>(x))
                 .ToList();
+
+            foreach(var x in personnelViewModel.Department.Employes)
+            {
+                if (_bankAccountRepository.GetSpecifiedAccountByEmploye(x.Id, BankAccountType.Salary) != null)
+                    x.HasSalaryAccount = true;
+            }
 
             personnelViewModel.RequestsToEmploy =
                 _employeRepository.GetRequestsToEmploy(currentDepartmentId)
@@ -228,20 +236,9 @@ namespace SpaceWeb.Presentation
             paymentViewModel.Date = DateTime.Today;
             paymentViewModel.Payed = _salaryService.GetPayedSalary(employeId);
             paymentViewModel.NotPayed = _salaryService.GetIndebtedness(employeId);
-            //paymentViewModel.AccountNumber = _bankAccountRepository.GetSpecifiedAccountByEmploye(employeId);
-            paymentViewModel.AccountNumber = 
-                _employeRepository
-                .Get(employeId)
-                .User
-                .BankAccounts
-                .FirstOrDefault(x => x.Name.Contains("salary"))
-                ?.AccountNumber;
-            paymentViewModel.DepartmentAccountNumber = 
-                _userService
-                .GetCurrent()
-                .BankAccounts
-                .FirstOrDefault(x => x.Name.Contains("department account"))
-                ?.AccountNumber;
+
+
+
             return paymentViewModel;
         }
 

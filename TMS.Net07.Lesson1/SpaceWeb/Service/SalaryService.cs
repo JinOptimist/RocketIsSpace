@@ -1,4 +1,6 @@
-﻿using SpaceWeb.EfStuff.Model;
+﻿using SpaceWeb.EfStuff.CustomException;
+using SpaceWeb.EfStuff.Model;
+using SpaceWeb.EfStuff.Model.Enum;
 using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Extensions;
 using SpaceWeb.Models.Human;
@@ -73,10 +75,14 @@ namespace SpaceWeb.Service
         public bool Pay(PaymentViewModel paymentViewModel)
         {
             //from
-            var accountFrom = _bankAccountRepository.Get(paymentViewModel.DepartmentAccountNumber);
+            var departmentId = _employeRepository.Get(paymentViewModel.EmployeId).Department.Id;
+            var accountFrom = _bankAccountRepository.GetDepartmentAccounts(departmentId).FirstOrDefault();
+
+            if (accountFrom == null)
+                throw new BankAccountException();
 
             //to
-            var accountTo = _bankAccountRepository.Get(paymentViewModel.AccountNumber);
+            var accountTo = _bankAccountRepository.GetSpecifiedAccountByEmploye(paymentViewModel.EmployeId, BankAccountType.Salary);
 
             var transferResponse = _bankAccountRepository.Transfer(accountFrom.Id, accountTo.Id, paymentViewModel.Amount);
 

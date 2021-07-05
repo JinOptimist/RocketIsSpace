@@ -17,6 +17,7 @@ using System.IO;
 using SpaceWeb.Models.Chart;
 using SpaceWeb.Extensions;
 using System;
+using SpaceWeb.EfStuff.CustomException;
 
 namespace SpaceWeb.Controllers
 {
@@ -173,14 +174,18 @@ namespace SpaceWeb.Controllers
             return Json(_humanPresentation.CalculateAccrual(date, employeId));
         }
 
-        public IActionResult GetEmployePaymentInfo(long employeId)
+        public IActionResult GetEmployePaymentInfo(long Id)
         {
-            return Json(_humanPresentation.GetPaymentViewModel(employeId));
+            return Json(_humanPresentation.GetPaymentViewModel(Id));
         }
 
         public IActionResult SavePayment(PaymentViewModel paymentViewModel)
         {
-            _humanPresentation.SavePayment(paymentViewModel);
+            try
+            {
+                _humanPresentation.SavePayment(paymentViewModel);   
+            }
+            catch (BankAccountException) { return RedirectToAction("Index", "Bank"); }
             return RedirectToAction("Personnel");
         }
     }

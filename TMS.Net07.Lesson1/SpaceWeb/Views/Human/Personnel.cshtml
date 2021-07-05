@@ -47,9 +47,12 @@
                         <div class="employee-card-button">
                             <input id="@employe.Id" type="button" value="Начисление" name="btn-accrual" />
                         </div>
-                        <div class="employee-card-button">
-                            <input id="@employe.Id" type="button" value="Выплата" name="btn-payment"/>
-                        </div>
+                        @if(employe.HasSalaryAccount)
+                        {
+                            <div class="employee-card-button">
+                                <input id="@employe.Id" type="button" value="Выплата" name="btn-payment"/>
+                            </div>
+                        }
                     </div>
                 </div>
             }
