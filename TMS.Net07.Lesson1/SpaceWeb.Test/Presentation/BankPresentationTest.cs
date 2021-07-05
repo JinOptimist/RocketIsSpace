@@ -12,7 +12,7 @@ namespace SpaceWeb.Test.Presentation
 {
     class BankPresentationTest
     {
-        private IBankPresentation _bankPresentation;
+        private BankPresentation _bankPresentation;
         private Mock<IProfileRepository> _mockRepository;
         private Mock<IMapper> _mockMapper;
 
@@ -21,7 +21,7 @@ namespace SpaceWeb.Test.Presentation
         {
             _mockRepository = new Mock<IProfileRepository>();
             _mockMapper = new Mock<IMapper>();
-            _bankPresentation = new IBankPresentation(
+            _bankPresentation = new BankPresentation(
                 _mockRepository.Object,
                 _mockMapper.Object);
         }
