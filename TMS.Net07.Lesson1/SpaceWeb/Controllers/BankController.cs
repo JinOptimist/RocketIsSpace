@@ -135,20 +135,13 @@ namespace SpaceWeb.Controllers
             return Json(chartViewModel);
         }
 
-        public IActionResult ShowBanksCard(long accountId)
+        public IActionResult ShowBanksCard(long userId)
         {
-            BanksCard banksCard = _banksCardRepository.Get(accountId);
-            return RedirectToAction("Index");
-
-            /*var bankscard = new BanksCardViewModel();
-             return View(bankscard);*/
-            var bankscard = _userService.GetCurrent();
-            var modelNew = bankscard.BanksCards.Select(dbModel =>
-                //куда                откуда
-                _mapper.Map<BanksCardViewModel>(dbModel)
-                )
-                .ToList();
-            return View(modelNew);
+            var allcard = _userService.GetCurrent().BankAccounts.SelectMany(x => x.BanksCards)
+                                      .Select(x => _mapper.Map<BanksCardViewModel>(x))
+                                      .ToList();
+           
+            return View(allcard);
         }
 
         [HttpGet]
@@ -167,9 +160,10 @@ namespace SpaceWeb.Controllers
                 case EnumBankCard.PayCard:
                     bankCardNew = new BanksCard()
                     {
-                        BankAccount = new BankAccount() { 
-                            Amount = 2000, 
-                            Currency = Currency.BYN 
+                        BankAccount = new BankAccount()
+                        {
+                            Amount = 2000,
+                            Currency = Currency.BYN
                         },
                         Currency = Currency.BYN,
                         Card = EnumBankCard.PayCard
@@ -181,9 +175,11 @@ namespace SpaceWeb.Controllers
 
                     bankCardNew = new BanksCard()
                     {
-                        BankAccount = new BankAccount() { 
-                            Amount = 1000, 
-                            Currency = Currency.USD },
+                        BankAccount = new BankAccount()
+                        {
+                            Amount = 1000,
+                            Currency = Currency.USD
+                        },
                         Currency = Currency.USD,
                         Card = EnumBankCard.valueCard
 
@@ -192,9 +188,11 @@ namespace SpaceWeb.Controllers
                 case EnumBankCard.XCard:
                     bankCardNew = new BanksCard()
                     {
-                        BankAccount = new BankAccount() { 
+                        BankAccount = new BankAccount()
+                        {
                             Amount = 0,
-                            Currency = Currency.EUR },
+                            Currency = Currency.EUR
+                        },
                         Currency = Currency.EUR,
                         Card = EnumBankCard.XCard
 
@@ -209,49 +207,6 @@ namespace SpaceWeb.Controllers
 
 
             return RedirectToRoute("Index");
-        }
-        [HttpPost]
-        public IActionResult AddBanksCard(long accountId, EnumBankCard card)
-        {
-            BankAccount bankAccount = _bankAccountRepository.Get(accountId);
-            if (bankAccount == null)
-            {
-                switch (card)
-                {
-                    case EnumBankCard.PayCard:
-
-                        bankAccount = new BankAccount()
-                        {
-                            Currency = Currency.BYN
-
-                        };
-                        break;
-                    case EnumBankCard.valueCard:
-                        bankAccount = new BankAccount()
-                        {
-                            Currency = Currency.USD
-                        };
-                        break;
-                    case EnumBankCard.XCard:
-                        bankAccount = new BankAccount()
-                        {
-                            Currency = Currency.EUR
-                        };
-                        break;
-                }
-            }
-
-
-            var bankCardNew = new BanksCard();
-            bankCardNew.BankAccount = bankAccount;
-            bankCardNew.CreationDate = DateTime.Now;
-            var pinCard = new Random().Next(1, 9999).ToString(format: "D4");
-            bankCardNew.PinCard = pinCard;
-            _banksCardRepository.Save(bankCardNew);
-
-
-
-            return RedirectToAction("Index");
         }
 
         public IActionResult AddTransaction(long transferToId)

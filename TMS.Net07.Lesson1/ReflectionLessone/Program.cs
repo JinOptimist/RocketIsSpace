@@ -79,6 +79,7 @@ namespace ReflectionLessone
         }
 
         public static void ExampleLinq()
+        static void Main(string[] args)
         {
             var myNumbers = GetNumbers();
             var numbers = myNumbers
@@ -154,7 +155,7 @@ namespace ReflectionLessone
 
             dictionary.Add(new Human(203));
 
-            var age = Fun();
+            var age =  Fun();
         }
 
         public static Task<int> Fun()

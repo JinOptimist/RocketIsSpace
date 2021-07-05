@@ -1,4 +1,4 @@
-ymaps.ready(init);
+п»їymaps.ready(init);
 var myMap;
 
 function init() {
@@ -19,10 +19,16 @@ function init() {
     ]);
 
     myPlacemark = new ymaps.Placemark([53.925269, 27.508175], {
-        balloonContentHeader: 'Офис',
-        balloonContentBody: 'Нашей команды',
-        balloonContentFooter: 'Этого прекрасного сайта',
-        hintContent: 'Тут мы обитаем'
-    });
+        balloonContentHeader: 'РћС„РёСЃ',
+        balloonContentBody: 'РќР°С€РµР№ РєРѕРјР°РЅРґС‹',
+        balloonContentFooter: 'Р­С‚РѕРіРѕ РїСЂРµРєСЂР°СЃРЅРѕРіРѕ СЃР°Р№С‚Р°',
+        hintContent: 'РўСѓС‚ РјС‹ РѕР±РёС‚Р°РµРј'
+    },
+        {
+            iconLayout: 'default#image',
+            iconImageHref: '/image/bank/point.jpg',
+            iconImageSize: [30, 42]
+
+        }    );
     myMap.geoObjects.add(myPlacemark);
 }
