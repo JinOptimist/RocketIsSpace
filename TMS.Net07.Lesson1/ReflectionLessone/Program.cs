@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace ReflectionLessone
 {
@@ -19,7 +21,7 @@ namespace ReflectionLessone
     }
     class Program
     {
-        static void Main(string[] args)
+        static async void Main(string[] args)
         {
             var myNumbers = GetNumbers();
             var numbers = myNumbers
@@ -102,6 +104,14 @@ namespace ReflectionLessone
             dictionary.Add(new Human(202));
 
             dictionary.Add(new Human(203));
+
+            var age = await Fun();
+        }
+
+        public static Task<int> Fun()
+        {
+            Thread.Sleep(10 * 1000);
+            return new Task<int>(() => 8);
         }
 
         public static void Refl()
@@ -149,8 +159,6 @@ namespace ReflectionLessone
             return answer;
         }
     }
-
-    
 
     public class MyDiveByZeroException : DivideByZeroException
     {

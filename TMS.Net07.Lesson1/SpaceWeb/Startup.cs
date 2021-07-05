@@ -244,6 +244,7 @@ namespace SpaceWeb
             MapBoth<Order, OrderViewModel>(configExpression);
 
             MapBoth<BankAccount, BankAccountViewModel>(configExpression);
+            MapBoth<BanksCard, BanksCardViewModel>(configExpression);
 
             MapBoth<User, RocketProfileViewModel>(configExpression);
 

@@ -18,5 +18,6 @@ namespace SpaceWeb.Models
         public DateTime CreationDate { get; set; }
         public DateTime ExpireDate { get; set; }
         public int AccountIndex { get; set; }
+        public string AmountString { get; set; }
     }
 }
