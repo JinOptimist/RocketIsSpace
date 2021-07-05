@@ -23,14 +23,13 @@ namespace SpaceWeb.Controllers
     {
         private IBankAccountRepository _bankAccountRepository;
         private IMapper _mapper;
-        private IUserRepository _userRepository; //удалить?
         private IWebHostEnvironment _hostEnvironment;
         private UserService _userService;
 
         public AccountController(IBankAccountRepository bankAccountRepository,
             QuestionaryRepository profileRepository,
             IUserRepository userRepository,
-            IMapper mapper, UserService userService, 
+            IMapper mapper, UserService userService,
             IWebHostEnvironment hostEnvironment)
         {
             _bankAccountRepository = bankAccountRepository;
@@ -154,7 +153,7 @@ namespace SpaceWeb.Controllers
 
             //return RedirectToAction("Index", new { id });
 
-            return RedirectToRoute("default", new { controller = "Account", action = "Index", id});
+            return RedirectToRoute("default", new { controller = "Account", action = "Index", id });
         }
 
         public IActionResult DownloadAccountsInfo()
@@ -170,9 +169,9 @@ namespace SpaceWeb.Controllers
             var colorNow = 0;
             Border slimLine = new Border(BorderStyle.Tcbs_single, BorderSize.one, 0, Color.Black);
             Border boldLine = new Border(BorderStyle.Tcbs_single, BorderSize.seven, 0, Color.Black);
-            List<Color> colorList = new List<Color>() { 
-                Color.OrangeRed, 
-                Color.CadetBlue, 
+            List<Color> colorList = new List<Color>() {
+                Color.OrangeRed,
+                Color.CadetBlue,
                 Color.LightGreen,
                 Color.PeachPuff,
                 Color.Aqua,
@@ -212,7 +211,7 @@ namespace SpaceWeb.Controllers
                     table.Rows[4].Cells[0].Paragraphs.First().Append("Creation date").Bold().FontSize(14).Italic();
                     table.Rows[5].Cells[0].Paragraphs.First().Append("Expiry date").Bold().FontSize(14).Italic();
 
-                    
+
                     for (int i = 0; i < countRows; i++)
                     {
                         table.Rows[i].Cells[0].FillColor = colorList[colorNow];
@@ -317,6 +316,13 @@ namespace SpaceWeb.Controllers
             }
 
             return Json(false);
+        }
+
+        public IActionResult GetByName(string name)
+        {
+            var userId = _userService.GetCurrent().Id;
+            var answer = _bankAccountRepository.GetByName(userId, name).Select(x => x.Id);
+            return Json(answer);
         }
     }
 }
