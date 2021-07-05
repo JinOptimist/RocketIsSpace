@@ -144,7 +144,7 @@ namespace ReflectionLessone
             return 1 / b;
         }
 
-        public static void HashSetExmple()
+        public static async Task HashSetExmpleAsync()
         {
             var dictionary = new HashSet<Human>();
 
