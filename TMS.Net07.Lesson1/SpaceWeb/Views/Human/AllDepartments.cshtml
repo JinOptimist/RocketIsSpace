@@ -61,7 +61,7 @@
 
    function getEmployes(idDepartment) {
         $('.employes-list .human-department-employee').remove();
-        var url = `/Human/UpdateEmployes?idDepartment=${idDepartment}`;
+        var url = `/Human/UpdateEmployes?departmentId=${idDepartment}`;
         $.getJSON(url)
             .done(function (employes) {
                 if (employes.length == 0) {
