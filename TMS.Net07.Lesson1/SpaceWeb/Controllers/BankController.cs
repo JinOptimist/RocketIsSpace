@@ -17,6 +17,7 @@ using Novacode;
 using Microsoft.AspNetCore.Hosting;
 using SpaceWeb.EfStuff.Model;
 using System;
+using SpaceWeb.EfStuff.CustomException;
 
 namespace SpaceWeb.Controllers
 {
@@ -130,14 +131,14 @@ namespace SpaceWeb.Controllers
                 .Select(cur => _currencyService.ConvertAmount(cur))
                 .ToList();
 
-                //allCurrency.Select(x =>
-                //    _currencyService.ConvertAmount(Currency.EUR)
-                //    )
-                //.ToList();
+            //allCurrency.Select(x =>
+            //    _currencyService.ConvertAmount(Currency.EUR)
+            //    )
+            //.ToList();
 
             chartViewModel.Datasets.Add(datasetEURViewModel);
 
-           
+
 
             return Json(chartViewModel);
         }
@@ -474,7 +475,7 @@ namespace SpaceWeb.Controllers
                 table.SetBorder(TableBorderType.Top, boldLine);
                 table.SetBorder(TableBorderType.Left, boldLine);
                 table.SetBorder(TableBorderType.Right, boldLine);
-                
+
                 //doc.InsertParagraph($"Информация по счёту {account.Name}");
                 //doc.InsertParagraph($"Остаток на счёту: {account.Amount}");
 
@@ -489,8 +490,16 @@ namespace SpaceWeb.Controllers
         }
         public IActionResult Transfer(long toId, long fromId, decimal amount)
         {
-            _bankAccountRepository.Transfer(toId, fromId, amount);
-            return RedirectToAction("Cabinet");
+            try
+            {
+                _bankAccountRepository.Transfer(toId, fromId, amount);
+            }
+            catch (BankException)
+            {
+                return Json(false);
+            }
+
+            return Json(true);
         }
     }
 }

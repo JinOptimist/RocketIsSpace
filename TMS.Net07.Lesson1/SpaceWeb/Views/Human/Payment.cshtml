@@ -1,0 +1,24 @@
+﻿@using SpaceWeb.Models.Human
+@model PaymentViewModel
+
+<form action="/Human/SavePayment" method="post">
+    <div id="hidden-payment-id">
+        @Html.HiddenFor(x => x.EmployeId)
+    </div>
+    <div id="hidden-payment-account-from">
+        @Html.HiddenFor(x => x.DepartmentAccountNumber)
+    </div>
+    <div id="hidden-payment-account-to">
+        @Html.HiddenFor(x => x.AccountNumber)
+    </div>
+    <div id="input-payment-date" class="form-group">
+        @Html.TextBoxFor(x => x.Date, new { @type = "date" })
+    </div>
+    <div id="input-payment-amount" class="form-group">
+        @Html.TextBoxFor(x => x.Amount)
+    </div>
+    <div id="input-payment-not-payed" class="form-group">
+        @Html.DisplayFor(x => x.NotPayed)
+    </div>
+    <input type="submit" />
+</form>

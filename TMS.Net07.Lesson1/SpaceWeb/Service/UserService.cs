@@ -95,7 +95,7 @@ namespace SpaceWeb.Service
         public bool IsAdmin()
         {
             var user = GetCurrent();
-            return user.JobType == JobType.Admin;
+            return user?.JobType == JobType.Admin;
         }
 
         public ClaimsPrincipal GetPrincipal(User user)

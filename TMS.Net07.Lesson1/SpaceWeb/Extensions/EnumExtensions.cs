@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace SpaceWeb.Extensions
 {
-    public static class Extensions
+    public static class EnumExtensions
     {
         /// <summary>
         /// Получает строковое представление для поля перечисления
@@ -14,11 +14,11 @@ namespace SpaceWeb.Extensions
         /// <returns>Возвращает поле Name атрибуа Display, или пустую строку в случае если атрибута нету</returns>
         public static string GetDisplayableName(this Enum value)
         {
-            return value.GetType().
-                GetMember(value.ToString()).
-                SingleOrDefault().
-                GetCustomAttribute<DisplayAttribute>()?.
-                GetName();
+            return value.GetType()
+                .GetMember(value.ToString())
+                .SingleOrDefault()
+                .GetCustomAttribute<DisplayAttribute>()
+                ?.GetName();
         }
     }
 }
