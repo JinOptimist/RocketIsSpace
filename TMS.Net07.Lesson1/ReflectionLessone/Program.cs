@@ -21,7 +21,7 @@ namespace ReflectionLessone
     }
     class Program
     {
-        static async void Main(string[] args)
+        static void Main(string[] args)
         {
             var myNumbers = GetNumbers();
             var numbers = myNumbers
@@ -105,7 +105,7 @@ namespace ReflectionLessone
 
             dictionary.Add(new Human(203));
 
-            var age = await Fun();
+            var age =  Fun();
         }
 
         public static Task<int> Fun()
