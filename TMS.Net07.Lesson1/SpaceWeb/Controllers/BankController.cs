@@ -203,6 +203,7 @@ namespace SpaceWeb.Controllers
             bankCardNew.CreationDate = DateTime.Now;
             var pinCard = new Random().Next(1, 9999).ToString(format: "D4");
             bankCardNew.PinCard = pinCard;
+            bankCardNew.Owner = user;
             _banksCardRepository.Save(bankCardNew);
 
 

@@ -27,13 +27,7 @@ namespace ReflectionLessone
 
         event Message Notify;
 
-        static void Main(string[] args)
-        {
-            var olga = new Human(2000);
-            var ivan = new Human(1998);
-
-            var a = 50 + olga;
-        }
+        
 
         public static void MessageEmail()
         {
@@ -78,8 +72,8 @@ namespace ReflectionLessone
             }
         }
 
-        public static void ExampleLinq()
-        static void Main(string[] args)
+
+        public static void Main()
         {
             var myNumbers = GetNumbers();
             var numbers = myNumbers
