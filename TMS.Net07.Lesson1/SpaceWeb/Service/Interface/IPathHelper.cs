@@ -6,5 +6,6 @@
         string GetPathToAvatarByUser(long userId);
         string GetPathToAvatarFolder();
         string GetAvatarUrlByFileName(string file);
+        public string GetPathToCarouselFolder();
     }
 }

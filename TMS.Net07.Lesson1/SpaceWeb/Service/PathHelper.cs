@@ -40,5 +40,18 @@ namespace SpaceWeb.Service
         {
             return $"{UrlFolder}{file}";
         }
+
+        public string GetPathToCarouselFolder()
+        {
+            var webPath = _hostEnvironment.WebRootPath;
+            var path = Path.Combine(webPath, "image", "carousel");
+            if (Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            return path;
+        }
+
     }
 }

@@ -5,6 +5,7 @@
     var defaultTime = 2000;
     var images = [];
     var selector;
+    var dotselector;
     var currentImageIndex = 0;
     var height = 270;
     var width = 500;
@@ -153,9 +154,10 @@
         $(`${selector}`).append(buttons);
     }
 
-    function initialize(_selector, _images, _options) {
+    function initialize(_selector, _dotselector, _images, _options) {
         images = _images;
         selector = _selector;
+        dotselector = _dotselector;
         if (_options.width) {
             width = _options.width;
         }
@@ -170,6 +172,17 @@
         $(`${selector}`).addClass('carousel-smile');
         createTags();
 
+        $(`${dotselector}`).addClass('dot-animate-block-style');
+        for (var i = 1; i <= images.length; i++) {
+            var dot = $('<span>');
+            //var dot = document.getElementById("span");
+            dot.addClass('dot');
+            dot.attr('id', i);
+            //dot.id = i;
+            $(`${dotselector}`).append(dot);
+        }
+        $('.dot[id=1]').addClass('active');
+
         $(`${selector} .next-btn`).click(nextBtnClick);
         $(`${selector} .prev-btn`).click(prevBtnClick);
         $(`${selector} .choose`).hover(chooseHoverIn, chooseHoverOut);
@@ -181,7 +194,7 @@
         if (_options.isAutoMove) {
             setInterval(function () {
                 animationFunctions.push(function () {
-                    runAnimation(true);
+                    runAnimation(true); 
                 });
             }, 3000);
         }
