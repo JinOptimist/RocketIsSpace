@@ -25,7 +25,7 @@
                 <div><b>Employes (count/max): </b>@department.Employes.Count/@department.MaximumCountEmployes</div>
                 <div><b>Working hours: </b>@department.HourStartWorking - @department.HourEndWorking</div>
                 <div>
-                    <button onclick="window.location.href='/human/DeleteDepartment?id=@department.Id'" class="btn btn-danger">Delete</button>
+                    <button onclick="window.location.href='/human/DeleteDepartment?departmentId=@department.Id'" class="btn btn-danger">Delete</button>
                     <button onclick="editDepartment(@department.Id)" class="btn btn-info">Edit</button>
                     <button onclick="getEmployes(@department.Id)" class="btn btn-info">Employes</button>
                 </div>
@@ -59,9 +59,9 @@
 
 <script>
 
-   function getEmployes(idDepartment) {
+    function getEmployes(departmentId) {
         $('.employes-list .human-department-employee').remove();
-        var url = `/Human/UpdateEmployes?departmentId=${idDepartment}`;
+        var url = `/Human/UpdateEmployes?departmentId=${departmentId}`;
         $.getJSON(url)
             .done(function (employes) {
                 if (employes.length == 0) {
@@ -88,8 +88,8 @@
             });
     }
 
-    function editDepartment(id) {
-        $.get('/human/EditDepartment', { id: id })
+    function editDepartment(departmentId) {
+        $.get('/human/EditDepartment', { departmentId: departmentId })
             .done(function (data) {
                 $('#partial').html(data);
                 $('#modal-department').modal('show');
