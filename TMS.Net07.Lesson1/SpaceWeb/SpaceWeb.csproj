@@ -22,6 +22,7 @@
     <Folder Include="Logs\" />
     <Folder Include="wwwroot\image\maze\" />
     <Folder Include="wwwroot\TempFile\" />
+    <Folder Include="RawSql\" />
   </ItemGroup>
 
   <ItemGroup>

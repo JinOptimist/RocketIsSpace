@@ -52,14 +52,14 @@
     @foreach (var bankAccountView in Model.MyAccounts)
     {
         <div>
-            @bankAccountView.Amount @bankAccountView.Currency
+            @bankAccountView.Amount (@bankAccountView.AmountString) @bankAccountView.Currency
         </div>
     }
 
     <h2>Сумма всех средств в основной валюте:</h2>
     <div class="all-money-block">
         <div class="money-count">
-            @Model.AmountAllMoneyInDefaultCurrency
+            @Model.AmountAllMoneyInDefaultCurrency (@Model.AmountString)
         </div>
         <div class="default-currency">
             @if (Model.DefaultCurrency != 0)
