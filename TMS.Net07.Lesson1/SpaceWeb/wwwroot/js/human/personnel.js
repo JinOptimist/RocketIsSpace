@@ -12,8 +12,8 @@
     };
 
     $('[name="btn-accrual"]').click(function () {
-        var Id = $(this).attr('id');
-        var url = '/Human/GetEmloyeAccrualsInfo?id=' + Id;
+        var employeId = $(this).attr('id');
+        var url = '/Human/GetEmloyeAccrualsInfo?employeId=' + employeId;
         $.get(url)
             .done(function (data) {
                 $('#modal-salary-count').modal('show');
@@ -30,8 +30,8 @@
     });
 
     $('[name="btn-payment"]').click(function () {
-        var Id = $(this).attr('id');
-        var url = '/Human/GetEmployePaymentInfo?id=' + Id;
+        var employeId = $(this).attr('id');
+        var url = '/Human/GetEmployePaymentInfo?employeId=' + employeId;
         $.get(url)
             .done(function (data) {
                 $('#hidden-payment-id input').attr('value', data.employeId);

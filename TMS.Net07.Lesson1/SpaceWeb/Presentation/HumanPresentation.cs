@@ -195,7 +195,7 @@ namespace SpaceWeb.Presentation
             var accruals = _accrualRepository.GetEmployeAccrualsDate(employeId);
 
             accrualViewModel.EmployeId = employeId;
-            accrualViewModel.DateFrom = employe.InviteDate;
+            accrualViewModel.DateFrom = (DateTime)employe.InviteDate;
             accrualViewModel.DateTo = DateTime.Today;
             accrualViewModel.NoAccrualsDates = _salaryService.PickUpMonths(
                 new DateTime(accrualViewModel.DateFrom.Year, accrualViewModel.DateFrom.Month, 1),

@@ -10,15 +10,15 @@ namespace SpaceWeb.EfStuff.Repositories
     {
         public EmployeRepository(SpaceDbContext spaceDbContext) : base(spaceDbContext) { }
 
-        public List<Employe> GetEmployesByDepartment(long departmentId)=>
+        public List<Employe> GetEmployesByDepartment(long departmentId) =>
             _dbSet.Select(x => x)
                 .Where(x => x.Department.Id == departmentId && x.EmployeStatus == EmployeStatus.Accepted)
                 .ToList();
 
-        public List<Employe> GetEmployesByDepartment(Department department) => 
+        public List<Employe> GetEmployesByDepartment(Department department) =>
             GetEmployesByDepartment(department.Id);
 
-        public List<Employe> GetRequestsToEmploy(long departmentId)=>
+        public List<Employe> GetRequestsToEmploy(long departmentId) =>
             _dbSet.Select(x => x)
                 .Where(x => x.Department.Id == departmentId && x.EmployeStatus == EmployeStatus.Request)
                 .ToList();

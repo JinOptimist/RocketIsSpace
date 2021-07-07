@@ -174,9 +174,9 @@ namespace SpaceWeb.Controllers
             return Json(_humanPresentation.CalculateAccrual(date, employeId));
         }
 
-        public IActionResult GetEmployePaymentInfo(long Id)
+        public IActionResult GetEmployePaymentInfo(long employeId)
         {
-            return Json(_humanPresentation.GetPaymentViewModel(Id));
+            return Json(_humanPresentation.GetPaymentViewModel(employeId));
         }
 
         public IActionResult SavePayment(PaymentViewModel paymentViewModel)

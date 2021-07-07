@@ -17,6 +17,8 @@ namespace SpaceWeb.EfStuff.Model
         public EmployeStatus EmployeStatus { get; set; }
         public virtual List<Accrual> Accruals { get; set; }
         public virtual List<Payment> Payments { get; set; }
-        public DateTime InviteDate { get; set; }
+        public DateTime? InviteDate { get; set; }
+        public DateTime? FiredDate { get; set; }
+
     }
 }

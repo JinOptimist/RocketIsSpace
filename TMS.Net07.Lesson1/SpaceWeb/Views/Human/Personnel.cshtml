@@ -34,9 +34,6 @@
             <div>
                 @Html.DisplayTextFor(x => x.Department.DepartmentSpecificationType)
             </div>
-            <div>
-                @Html.DisplayTextFor(x => x.Department.Employes.Count)
-            </div>
         </div>
         <div class="employes-list">
             @foreach (var employe in Model.Department.Employes)

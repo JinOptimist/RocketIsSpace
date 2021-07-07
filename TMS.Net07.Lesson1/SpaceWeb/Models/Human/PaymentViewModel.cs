@@ -10,7 +10,5 @@ namespace SpaceWeb.Models.Human
         public decimal Amount { get; set; }
         public decimal Payed { get; set; }
         public decimal NotPayed { get; set; }
-        public BankAccountViewModel Account { get; set; }
-        public List<BankAccountViewModel> DepartmentAccounts { get; set; }
     }
 }
