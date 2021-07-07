@@ -1,31 +1,35 @@
-﻿@using SpaceWeb.Localization
+@using SpaceWeb.Localization
 @using SpaceWeb.Models.Human
 
 @model List<DepartmentViewModel>
 @{
     Layout = "_LayoutHuman";
 }
-<div style="display:flex; flex-direction:row">
-    <div class="department-list">
-        <a href="/Human/Graph/" class="link">
-            <div class="human-department-info">
-                <h3>All departments:</h3>
-            </div>
-        </a>
+
+<link rel="stylesheet" href="~/css/human/flip-flop.css" asp-append-version="true" />
+<script src="~/js/human/flip-flop.js" asp-append-version="true"></script>
+
+<div class="human-all-departments">
+    <div class="departments-list">
+
+        <div class="human-department-info">
+            <a href="/Human/Graph/" class="link"><h3>All departments:</h3></a>
+        </div>
 
         @foreach (var department in Model)
         {
-            <label class="human-department-info human-department-clickable">
-                <input class="undisplayable" type="radio" name="current" value="@department.Id" />
-                <div class="department-info-block">
-                    <div><b>Department name: </b>@department.DepartmentName</div>
-                    <div><b>Department type: </b>@department.DepartmentSpecificationType</div>
-                    <div><b>Employes (count/max): </b>@department.Employes.Count/@department.MaximumCountEmployes</div>
-                    <div><b>Working hours: </b>@department.HourStartWorking - @department.HourEndWorking</div>
-                    <button onclick="window.location.href='/human/DeleteDepartment?id=@department.Id'" class="btn btn-danger" style="margin: 10px 10px 0px 0px">Delete</button>
-                    <button onclick="editDepartment(@department.Id)" class="btn btn-info" style="margin: 10px 10px 0px 0px">Edit</button>
+            <div class="human-department-info">
+                @Html.HiddenFor(id => department.Id)
+                <div><b>Department name: </b>@department.DepartmentName</div>
+                <div><b>Department type: </b>@department.DepartmentSpecificationType</div>
+                <div><b>Employes (count/max): </b>@department.Employes.Count/@department.MaximumCountEmployes</div>
+                <div><b>Working hours: </b>@department.HourStartWorking - @department.HourEndWorking</div>
+                <div>
+                    <button onclick="window.location.href='/human/DeleteDepartment?id=@department.Id'" class="btn btn-danger">Delete</button>
+                    <button onclick="editDepartment(@department.Id)" class="btn btn-info">Edit</button>
+                    <button onclick="getEmployes(@department.Id)" class="btn btn-info">Employes</button>
                 </div>
-            </label>
+            </div>
         }
         <div style="margin: 20px">
             <button class="btn btn-primary" data-toggle="modal" data-target="#modal-department">Add department</button>
@@ -50,20 +54,40 @@
         </div>
     </div>
     <div class="employes-list">
-        <div class="human-department-employee clone undisplayable flip-flop">
-            <div class="front">
-                <partial name="ShortEmploye" model="new ShortEmployeViewModel()" />
-            </div>
-            <div class="back">
-                <div>
-                    <img id="image" src="/image/avatars/1.jpg" />
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 
 <script>
+
+   function getEmployes(idDepartment) {
+        $('.employes-list .human-department-employee').remove();
+        var url = `/Human/UpdateEmployes?departmentId=${idDepartment}`;
+        $.getJSON(url)
+            .done(function (employes) {
+                if (employes.length == 0) {
+                    $('.employes-list').append(
+                        `<div class="human-department-employee message">No accepted employes!</div>`
+                    );
+                }
+                for (var i = 0; i < employes.length; i++) {
+                    $('.employes-list').append(
+                        `<div class="human-department-employee flip-flop">` +
+                        `<div class="foreground">` +
+                        `<div>@Resource.AllDepartments_Name: ${employes[i].name}</div>` +
+                        `<div>@Resource.AllDepartments_Surname: ${employes[i].surname}</div>` +
+                        `<div>@Resource.AllDepartments_Specification: ${employes[i].position}</div>` +
+                        `<div>@Resource.AllDepartments_Salary: ${employes[i].salaryPerHour}</div>` +
+                        `</div>` +
+                        `<div class="background">` +
+                        `<img src=${(employes[i].avatarUrl) ? employes[i].avatarUrl : "/image/avatars/1.jpg"} />` +
+                        `</div>` +
+                        `</div>`
+                    );
+                }
+                $('.employes-list .human-department-employee').click((e) => flip($(e.currentTarget)));
+            });
+    }
+
     function editDepartment(id) {
         $.get('/human/EditDepartment', { id: id })
             .done(function (data) {
@@ -77,5 +101,6 @@
                 alert('Error action edit department.');
             });
     }
-</script>
 
+</script>
+  
