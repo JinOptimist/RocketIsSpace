@@ -28,6 +28,14 @@ namespace ReflectionLessone
         event Message Notify;
 
         
+        static void Main(string[] args)
+        {
+            
+        }
+
+        delegate void Message();
+
+        event Message Notify;
 
         public static void MessageEmail()
         {

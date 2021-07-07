@@ -29,6 +29,9 @@ using System.Reflection;
 using SpaceWeb.Migrations;
 using Microsoft.Extensions.Logging;
 using AdvImage = SpaceWeb.EfStuff.Model.AdvImage;
+using MazeCore;
+using SpaceWeb.Models.Maze;
+using MazeCore.Cells;
 
 namespace SpaceWeb
 {
@@ -62,7 +65,7 @@ namespace SpaceWeb
             RegistrationRepositories(services);
             RegisterService(services);
 
-            
+
 
             services.AddControllersWithViews();
             services.AddHttpContextAccessor();
@@ -96,6 +99,8 @@ namespace SpaceWeb
                new PathHelper(
                    diContainer.GetService<IWebHostEnvironment>()
                ));
+
+            services.AddSingleton<MazeBuilder>(x => new MazeBuilder());
         }
 
         private void RegisterOldRepository(IServiceCollection services)
@@ -148,7 +153,7 @@ namespace SpaceWeb
             var types = assembly.GetTypes();
             var humanPresentationTypes = types.Where(t => t.FullName.Contains("Presentation") && t.IsInterface).ToArray();
 
-            foreach(var iPresentation in humanPresentationTypes)
+            foreach (var iPresentation in humanPresentationTypes)
             {
                 var realization = types.Single(x => x.GetInterfaces().Contains(iPresentation));
                 services.AddScoped(
@@ -220,7 +225,6 @@ namespace SpaceWeb
 
             configExpression.CreateMap<RequestViewModel, Employe>();
 
-
             configExpression.CreateMap<User, ProfileViewModel>();
 
             configExpression.CreateMap<User, EmployeeProfileViewModel>()
@@ -240,7 +244,7 @@ namespace SpaceWeb
             MapBoth<Relic, RelicViewModel>(configExpression);
             MapBoth<User, QuestionaryViewModel>(configExpression);
             MapBoth<User, BanksCardViewModel>(configExpression);
-            
+
             MapBoth<Transaction, TransactionCardViewModel>(configExpression);
             MapBoth<BanksCard, TransactionCardViewModel>(configExpression);
 
@@ -285,9 +289,27 @@ namespace SpaceWeb
 
             MapBoth<ExchangeRateToUsdCurrent, ExchangeRateToUsdHistory>(configExpression);
 
+            configExpression.CreateMap<MazeLevel, MazeViewModel>()
+                .ForMember(nameof(MazeLevel.Cells), x => x.Ignore())
+                .AfterMap(MazeLevelToViewModel);
+
             var mapperConfiguration = new MapperConfiguration(configExpression);
             var mapper = new Mapper(mapperConfiguration);
             services.AddScoped<IMapper>(c => mapper);
+        }
+
+        private void MazeLevelToViewModel(MazeLevel mazeLevel, MazeViewModel viewModel)
+        {
+            viewModel.Cells = new CellType[mazeLevel.Height, mazeLevel.Width];
+
+            foreach (var cell in mazeLevel.Cells
+                .OrderBy(x => x.Y)
+                .ThenBy(x => x.X))
+            {
+                viewModel.Cells[cell.Y, cell.X] = cell is Wall
+                    ? CellType.Wall
+                    : CellType.Road;
+            }
         }
 
         public void MapBoth<Type1, Type2>(MapperConfigurationExpression configExpression)
