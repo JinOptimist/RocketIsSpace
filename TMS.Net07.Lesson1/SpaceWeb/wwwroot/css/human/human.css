@@ -170,3 +170,41 @@
 .link {
     text-decoration: none;
 }
+
+.front, .back {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 3px;
+    padding: 20px;
+    border-radius: 30px;
+    border: solid;
+}
+
+.salary-block {
+    flex: 1;
+    padding-right: 20px;
+}
+
+.personnel {
+    display: flex;
+    flex-direction: row;
+}
+
+.employee-card {
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    margin: 20px;
+    background-color: white;
+    border-radius: 30px;
+    padding: 20px;
+    border: double;
+}
+
+.employee-card-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 5px 30px;
+}

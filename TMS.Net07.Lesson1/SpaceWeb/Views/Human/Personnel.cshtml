@@ -34,9 +34,6 @@
             <div>
                 @Html.DisplayTextFor(x => x.Department.DepartmentSpecificationType)
             </div>
-            <div>
-                @Html.DisplayTextFor(x => x.Department.Employes.Count)
-            </div>
         </div>
         <div class="employes-list">
             @foreach (var employe in Model.Department.Employes)
@@ -47,9 +44,12 @@
                         <div class="employee-card-button">
                             <input id="@employe.Id" type="button" value="Начисление" name="btn-accrual" />
                         </div>
-                        <div class="employee-card-button">
-                            <input id="@employe.Id" type="button" value="Выплата" name="btn-payment"/>
-                        </div>
+                        @if(employe.HasSalaryAccount)
+                        {
+                            <div class="employee-card-button">
+                                <input id="@employe.Id" type="button" value="Выплата" name="btn-payment"/>
+                            </div>
+                        }
                     </div>
                 </div>
             }

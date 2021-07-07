@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SpaceWeb.EfStuff;
 
 namespace SpaceWeb.Migrations
 {
     [DbContext(typeof(SpaceDbContext))]
-    partial class SpaceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210702133823_ChangedTypesAndRenamedColumn")]
+    partial class ChangedTypesAndRenamedColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -107,9 +109,6 @@ namespace SpaceWeb.Migrations
 
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("BankAccountType")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
@@ -269,13 +268,10 @@ namespace SpaceWeb.Migrations
                     b.Property<int>("EmployeStatus")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("FiredDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<long>("ForeignKeyUser")
                         .HasColumnType("bigint");
 
-                    b.Property<DateTime?>("InviteDate")
+                    b.Property<DateTime>("InviteDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("Position")

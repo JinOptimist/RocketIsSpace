@@ -1,4 +1,5 @@
-﻿using SpaceWeb.Models;
+﻿using SpaceWeb.EfStuff.Model.Enum;
+using SpaceWeb.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -19,5 +20,6 @@ namespace SpaceWeb.EfStuff.Model
         public DateTime ExpireDate { get; set; }
         public virtual List<BanksCard> BanksCards { get; set; }
         public virtual List<Payment> Payments { get; set; }
+        public BankAccountType BankAccountType { get; set; }
     }
 }

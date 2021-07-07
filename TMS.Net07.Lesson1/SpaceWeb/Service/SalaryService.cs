@@ -1,4 +1,6 @@
-﻿using SpaceWeb.EfStuff.Model;
+﻿using SpaceWeb.EfStuff.CustomException;
+using SpaceWeb.EfStuff.Model;
+using SpaceWeb.EfStuff.Model.Enum;
 using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Extensions;
 using SpaceWeb.Models.Human;
@@ -39,12 +41,11 @@ namespace SpaceWeb.Service
         public decimal CalculateAccrual(DateTime date, Employe employe)
         {
             int days;
-            if (employe.EmployeStatus == EmployeStatus.Accepted
-                && date.Month == employe.StatusDate.Month
-                && date.Year == employe.StatusDate.Year)
+            if (date.Month == employe.InviteDate.Value.Month
+                && date.Year == employe.InviteDate.Value.Year)
             {
-                var endPeriod = new DateTime(employe.StatusDate.AddMonths(1).Year, employe.StatusDate.AddMonths(1).Month, 1);
-                days = employe.StatusDate.GetWorkingDaysInPeriod(endPeriod);
+                var endPeriod = new DateTime(employe.InviteDate.Value.AddMonths(1).Year, employe.InviteDate.Value.AddMonths(1).Month, 1);
+                days = employe.InviteDate.Value.GetWorkingDaysInPeriod(endPeriod);
             }
             else
             {
@@ -74,10 +75,14 @@ namespace SpaceWeb.Service
         public bool Pay(PaymentViewModel paymentViewModel)
         {
             //from
-            var accountFrom = _bankAccountRepository.Get(paymentViewModel.DepartmentAccountNumber);
+            var departmentId = _employeRepository.Get(paymentViewModel.EmployeId).Department.Id;
+            var accountFrom = _bankAccountRepository.GetDepartmentAccounts(departmentId).FirstOrDefault();
+
+            if (accountFrom == null)
+                throw new BankAccountException();
 
             //to
-            var accountTo = _bankAccountRepository.Get(paymentViewModel.AccountNumber);
+            var accountTo = _bankAccountRepository.GetSpecifiedAccountByEmploye(paymentViewModel.EmployeId, BankAccountType.Salary);
 
             var transferResponse = _bankAccountRepository.Transfer(accountFrom.Id, accountTo.Id, paymentViewModel.Amount);
 

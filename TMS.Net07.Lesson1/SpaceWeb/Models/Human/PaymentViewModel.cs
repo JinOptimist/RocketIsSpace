@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace SpaceWeb.Models.Human
 {
@@ -9,7 +10,5 @@ namespace SpaceWeb.Models.Human
         public decimal Amount { get; set; }
         public decimal Payed { get; set; }
         public decimal NotPayed { get; set; }
-        public string AccountNumber { get; set; }
-        public string DepartmentAccountNumber { get; set; }
     }
 }

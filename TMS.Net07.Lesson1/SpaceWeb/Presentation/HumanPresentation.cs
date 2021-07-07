@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Novacode;
 using SpaceWeb.EfStuff.Model;
+using SpaceWeb.EfStuff.Model.Enum;
 using SpaceWeb.EfStuff.Repositories.IRepository;
+using SpaceWeb.Models;
 using SpaceWeb.Models.Chart;
 using SpaceWeb.Models.Human;
 using SpaceWeb.Service;
@@ -83,6 +85,12 @@ namespace SpaceWeb.Presentation
                 .Select(x => _mapper.Map<ShortEmployeViewModel>(x))
                 .ToList();
 
+            foreach(var x in personnelViewModel.Department.Employes)
+            {
+                if (_bankAccountRepository.GetSpecifiedAccountByEmploye(x.Id, BankAccountType.Salary) != null)
+                    x.HasSalaryAccount = true;
+            }
+
             personnelViewModel.RequestsToEmploy =
                 _employeRepository.GetRequestsToEmploy(currentDepartmentId)
                 .Select(x => _mapper.Map<RequestViewModel>(x.User))
@@ -92,16 +100,14 @@ namespace SpaceWeb.Presentation
 
         public void SavePersonnelChanges(List<RequestViewModel> requestViewModels)
         {
-            var employes = requestViewModels.Select(x => _mapper.Map<Employe>(x)).ToList();
-            foreach (var x in employes)
+            var employes = requestViewModels.Select(x => _mapper.Map<Employe>(x));
+            var acceptedEmployes = employes.Where(x => x.EmployeStatus == EmployeStatus.Accepted).ToList();
+            foreach (var x in acceptedEmployes)
             {
-                var employeTemp = _employeRepository.Get(x.Id);
-                employeTemp.Position = x.Position;
-                employeTemp.SalaryPerHour = x.SalaryPerHour;
-                employeTemp.EmployeStatus = x.EmployeStatus;
-                employeTemp.StatusDate = x.StatusDate;
-                _employeRepository.Save(employeTemp);
+                x.InviteDate = DateTime.Today;
+                _employeRepository.Save(x);
             }
+            employes.Where(x => x.EmployeStatus == EmployeStatus.Accepted).Select(x => x.InviteDate = DateTime.Today);
         }
 
         public void SaveRequestEmploye(RequestViewModel requestViewModel)
@@ -189,7 +195,7 @@ namespace SpaceWeb.Presentation
             var accruals = _accrualRepository.GetEmployeAccrualsDate(employeId);
 
             accrualViewModel.EmployeId = employeId;
-            accrualViewModel.DateFrom = employe.StatusDate;
+            accrualViewModel.DateFrom = (DateTime)employe.InviteDate;
             accrualViewModel.DateTo = DateTime.Today;
             accrualViewModel.NoAccrualsDates = _salaryService.PickUpMonths(
                 new DateTime(accrualViewModel.DateFrom.Year, accrualViewModel.DateFrom.Month, 1),
@@ -230,20 +236,9 @@ namespace SpaceWeb.Presentation
             paymentViewModel.Date = DateTime.Today;
             paymentViewModel.Payed = _salaryService.GetPayedSalary(employeId);
             paymentViewModel.NotPayed = _salaryService.GetIndebtedness(employeId);
-            //paymentViewModel.AccountNumber = _bankAccountRepository.GetSpecifiedAccountByEmploye(employeId);
-            paymentViewModel.AccountNumber = 
-                _employeRepository
-                .Get(employeId)
-                .User
-                .BankAccounts
-                .FirstOrDefault(x => x.Name.Contains("salary"))
-                ?.AccountNumber;
-            paymentViewModel.DepartmentAccountNumber = 
-                _userService
-                .GetCurrent()
-                .BankAccounts
-                .FirstOrDefault(x => x.Name.Contains("department account"))
-                ?.AccountNumber;
+
+
+
             return paymentViewModel;
         }
 

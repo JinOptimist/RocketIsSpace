@@ -17,6 +17,7 @@ using System.IO;
 using SpaceWeb.Models.Chart;
 using SpaceWeb.Extensions;
 using System;
+using SpaceWeb.EfStuff.CustomException;
 
 namespace SpaceWeb.Controllers
 {
@@ -180,7 +181,11 @@ namespace SpaceWeb.Controllers
 
         public IActionResult SavePayment(PaymentViewModel paymentViewModel)
         {
-            _humanPresentation.SavePayment(paymentViewModel);
+            try
+            {
+                _humanPresentation.SavePayment(paymentViewModel);   
+            }
+            catch (BankAccountException) { return RedirectToAction("Index", "Bank"); }
             return RedirectToAction("Personnel");
         }
     }

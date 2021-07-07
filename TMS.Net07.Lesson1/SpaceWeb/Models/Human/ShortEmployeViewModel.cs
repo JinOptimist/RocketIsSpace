@@ -9,5 +9,6 @@ namespace SpaceWeb.Models.Human
         public string Position { get; set; }
         public decimal? SalaryPerHour { get; set; }
         public string AvatarUrl { get; set; }
+        public bool HasSalaryAccount { get; set; }
     }
 }
