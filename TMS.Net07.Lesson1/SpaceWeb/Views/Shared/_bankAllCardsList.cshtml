@@ -1,0 +1,31 @@
+﻿@using SpaceWeb.Service
+@using AutoMapper
+
+@inject UserService userService
+@inject IMapper mapper
+@{
+    var user = userService.GetCurrent();
+    var allBankCards = new List<BanksCardViewModel>();
+    foreach (var allBankCardsDB in user.BanksCards)
+    {
+        allBankCards.Add(mapper.Map<BanksCardViewModel>(allBankCardsDB));
+    }
+}
+
+<div class="account-view-window">
+    <div class="bank-account-list">
+
+        @foreach (var BankCard in allBankCards)
+        {
+            <a href="/Bank/ShowBanksCard?id=@BankCard.Id" class="account-link">
+
+                <div class="type">@BankCard.Card</div>
+
+                <span class="amount">@BankCard.CreationDate </span>
+
+
+            </a>
+
+        }
+    </div>
+    </div>

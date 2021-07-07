@@ -134,14 +134,32 @@ namespace SpaceWeb.Controllers
 
             return Json(chartViewModel);
         }
-
+        
+        
+        [HttpGet]
         public IActionResult ShowBanksCard(long userId)
         {
-            var allcard = _userService.GetCurrent().BankAccounts.SelectMany(x => x.BanksCards)
+            if (userId > 0)
+            { 
+                var allcardDB = _userService.GetCurrent().BankAccounts.SelectMany(x => x.BanksCards)
                                       .Select(x => _mapper.Map<BanksCardViewModel>(x))
                                       .ToList();
-           
-            return View(allcard);
+            var viewModel = _mapper.Map<BanksCardViewModel>(allcardDB);
+            return View(viewModel);
+            }
+            return RedirectToAction("AddCard");
+        }
+        [HttpPost]
+        public IActionResult ShowBanksCard(BanksCardViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+
+            var bankCard = _mapper.Map<BanksCard>(viewModel);
+            _banksCardRepository.Save(bankCard);
+            return RedirectToAction("AddCard");
         }
 
         [HttpGet]
@@ -154,6 +172,7 @@ namespace SpaceWeb.Controllers
         {
             var user = _userService.GetCurrent();
             var bankCardNew = new BanksCard();
+
 
             switch (viewModel.Card)
             {
@@ -207,7 +226,7 @@ namespace SpaceWeb.Controllers
             _banksCardRepository.Save(bankCardNew);
 
 
-            return RedirectToRoute("Index");
+            return RedirectToAction("AddCard");
         }
 
         public IActionResult AddTransaction(long transferToId)
