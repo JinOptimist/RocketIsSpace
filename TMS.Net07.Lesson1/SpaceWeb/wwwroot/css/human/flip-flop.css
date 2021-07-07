@@ -1,0 +1,20 @@
+﻿.flip-flop {
+    transform: scaleX(1);
+}
+
+    .flip-flop .foreground {
+        display: block;
+    }
+
+    .flip-flop .background {
+        transform: scaleX(-1);
+        display: none;
+    }
+
+    .flip-flop .hide {
+        display: none;
+    }
+
+    .flip-flop .show {
+        display: block;
+    }
