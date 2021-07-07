@@ -548,3 +548,8 @@ a {
     margin-right: 10px;
     color: red;
 }
+
+
+.maze .line{
+    display: flex;
+}

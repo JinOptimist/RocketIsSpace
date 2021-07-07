@@ -8,7 +8,7 @@ namespace Maze
     {
         static void Main(string[] args)
         {
-            var maze = new MazeBuilder().Build();
+            var maze = new MazeBuilder().Build(seed: 50);
 
             new MazeDrawer().Draw(maze);
 

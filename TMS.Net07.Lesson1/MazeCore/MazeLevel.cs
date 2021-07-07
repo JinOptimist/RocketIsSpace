@@ -14,10 +14,13 @@ namespace MazeCore
 
         public readonly int Height;
 
-        public MazeLevel(int width, int height)
+        public readonly int Seed;
+
+        public MazeLevel(int width, int height, int seed)
         {
             Width = width;
             Height = height;
+            Seed = seed;
         }
 
         public void ReplaceCell(BaseCell newCell)

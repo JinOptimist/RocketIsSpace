@@ -11,11 +11,13 @@ namespace MazeCore
     public class MazeBuilder
     {
         private MazeLevel _mazeLevel;
-        private Random _random = new Random();
+        private Random _random;
 
-        public MazeLevel Build(int width = 20, int height = 10)
+        public MazeLevel Build(int width = 20, int height = 10, int? seed = null)
         {
-            _mazeLevel = new MazeLevel(width, height);
+            seed = seed ?? DateTime.Now.Millisecond;
+            _random = new Random(seed.Value);
+            _mazeLevel = new MazeLevel(width, height, seed.Value);
 
             GenerateWalls();
 
@@ -78,7 +80,7 @@ namespace MazeCore
                 || Math.Abs(c.X - cell.X) == 1 && Math.Abs(c.Y - cell.Y) == 0
             );
         }
-   
+
         private T GetRandom<T>(List<T> list)
         {
             var index = _random.Next(list.Count);
