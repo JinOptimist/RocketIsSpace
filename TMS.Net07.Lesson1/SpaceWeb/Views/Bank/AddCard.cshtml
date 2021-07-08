@@ -23,32 +23,19 @@
         allBankCards.Add(mapper.Map<BanksCardViewModel>(allBankCardsDB));
     }
 }
-
 <body>
     <div class="center-block">
         <div class="account-changer">
             <div class="account-changer">
-
-                <div class="changer-buttons">
-                    <div class="prev-btn button"> Назад </div>
-                    <div class="next-btn button"> Вперде </div>
-                </div>
-
                 <div class="front">КАРТЫ: <span class="card-mocn">@allBankCards.Count()</span></div>
                 @Html.Partial("_bankAllCardsList")
             </div>
         </div>
     </div>
-
     <div class="account-creation content-box">
         <div class="account-creation-container">
             <div class="creation-container-text">СОЗДАНИЕ карты</div>
-            @Html.Partial("_bankCardCreationForm")
+            @{ Html.RenderPartial("_bankCards", new BanksCardViewModel()); }
         </div>
-        @{ Html.RenderPartial("_bankCards", new BanksCardViewModel()); }
-        
     </div>
-        
-    
-
 </body>

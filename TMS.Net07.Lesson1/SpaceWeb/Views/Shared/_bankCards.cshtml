@@ -20,16 +20,18 @@
     <script src="~/js/index.js"></script>
 }
 
-
-<form class="creation-form" method="POST">
+<form class="creation form" method="POST">
     <div>Название карты</div>
     <p>
-        @Html.DropDownList("enumBankCard", cardOptions)
+        @Html.DropDownList(nameof(BanksCardViewModel.Card), cardOptions)
     </p>
-    <div>Начальная сумма</div>
-    <input type="text" autocomplete="off" name="BankAccount">
+
+
     <p class="buttons">
-        <input class="create-account button" type="submit" value="Создать">
+
+        <input href="~/Bank/ShowBanksCard" class="create-account button" type="submit" value="Создать">
+
+
         <input class="cancel-creation button" type="reset" value="Сброс">
     </p>
 </form>
