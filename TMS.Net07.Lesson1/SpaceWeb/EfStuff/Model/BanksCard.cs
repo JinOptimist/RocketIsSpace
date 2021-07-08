@@ -13,6 +13,8 @@ namespace SpaceWeb.EfStuff.Model
         public EnumBankCard Card { get; set; }
         public string PinCard { get; set; }
         public virtual User Owner { get; set; }
+
+        public string CardUrl { get; set; }
         public virtual BankAccount BankAccount { get; set; }
         public DateTime CreationDate { get; set; }
         public virtual List<Transaction> TransactionsFrom { get; set; }

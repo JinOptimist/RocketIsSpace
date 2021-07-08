@@ -185,7 +185,8 @@ namespace SpaceWeb.Controllers
                             Currency = Currency.BYN
                         },
                         Currency = Currency.BYN,
-                        Card = EnumBankCard.PayCard
+                        Card = EnumBankCard.PayCard,
+                        CardUrl = "../../../image/bank/card-shopp.jpg"
 
                     };
                     break;
@@ -200,7 +201,8 @@ namespace SpaceWeb.Controllers
                             Currency = Currency.USD
                         },
                         Currency = Currency.USD,
-                        Card = EnumBankCard.valueCard
+                        Card = EnumBankCard.valueCard,
+                        CardUrl = "../../../image/bank/card-mocn.jpg"
 
                     };
                     break;
@@ -213,8 +215,8 @@ namespace SpaceWeb.Controllers
                             Currency = Currency.EUR
                         },
                         Currency = Currency.EUR,
-                        Card = EnumBankCard.XCard
-
+                        Card = EnumBankCard.XCard,
+                        CardUrl = "../../../image/bank/card-x.jpg"
                     };
                     break;
             }
