@@ -188,7 +188,10 @@ namespace SpaceWeb.Controllers
                             BankAccount = new BankAccount()
                             {
                                 Amount = 2000,
-                                Currency = Currency.BYN
+                                Currency = Currency.BYN,
+                                Name = "Счет",
+                                Owner = user,
+                                CreationDate = DateTime.Now
                             },
                             Currency = Currency.BYN,
                             Card = EnumBankCard.PayCard,
@@ -204,7 +207,10 @@ namespace SpaceWeb.Controllers
                             BankAccount = new BankAccount()
                             {
                                 Amount = 1000,
-                                Currency = Currency.USD
+                                Currency = Currency.USD,
+                                Name = "Валютный счет",
+                                Owner = user,
+                                CreationDate = DateTime.Now
                             },
                             Currency = Currency.USD,
                             Card = EnumBankCard.valueCard,
@@ -218,7 +224,10 @@ namespace SpaceWeb.Controllers
                             BankAccount = new BankAccount()
                             {
                                 Amount = 0,
-                                Currency = Currency.EUR
+                                Currency = Currency.EUR,
+                                Name = "Валютный счет",
+                                Owner = user,
+                                CreationDate = DateTime.Now
                             },
                             Currency = Currency.EUR,
                             Card = EnumBankCard.XCard,
