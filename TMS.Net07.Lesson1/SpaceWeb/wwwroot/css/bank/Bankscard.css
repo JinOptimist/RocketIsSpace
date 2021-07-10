@@ -156,3 +156,25 @@
     margin-top: 22px;
     padding-bottom: 27px;
 }
+.account-view-window {
+    width: 560px;
+    height: 220px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: hidden;
+}
+.account-container { /*для index.cshtml*/
+    height: 500px;
+    width: 600px;
+    margin: 20px;
+    border-radius: 1em;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgb(230, 230, 230);
+    border-radius: 1em;
+    flex-direction: column;
+    padding: 10px;
+}

@@ -76,7 +76,23 @@ namespace SpaceWeb.Service
 
             return ((amount * toRate) / fromRate);
         }
+        public bool IsCardAvailability( EnumBankCard Card)
+        {
+            var allcardDB = _userService.GetCurrent().BankAccounts.SelectMany(x => x.BanksCards).ToList();
 
+            var allpayCard = allcardDB.Where(x => x.Card == EnumBankCard.PayCard).ToList();
+            var allvalueCard = allcardDB.Where(x => x.Card == EnumBankCard.valueCard).ToList();
+            var allxCard = allcardDB.Where(x => x.Card == EnumBankCard.XCard).ToList();
+
+            if(allpayCard == null)
+            {
+                return true;
+            }
+            else if(allpayCard.Count == 1)
+            {
+                return false;
+            } else { return false; }
+        }
         public string IntToStringAmount(int amount)
         {
             int[] array_int = new int[4];
@@ -101,7 +117,8 @@ namespace SpaceWeb.Service
                     if (((array_int[i] - (array_int[i] % 100)) / 100) != 0)
                         switch (((array_int[i] - (array_int[i] % 100)) / 100))
                         {
-                            case 1: result += "сто";
+                            case 1:
+                                result += "сто";
                                 break;
                             case 2:
                                 result += "двести";
