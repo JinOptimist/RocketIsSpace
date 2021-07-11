@@ -2,10 +2,9 @@
 
 @section Style{
     <link rel="stylesheet" href="~/css/reset.css">
-    <link rel="stylesheet" href="~/css/RocketMechanic/RocketStageAdd.css">
+    <link rel="stylesheet" href="~/css/RocketMechanic/RocketStageAdd11.css">
     <link rel="stylesheet" href="~/css/RocketMechanic/RocketMechanicIcon.css">
 }
-
 @section Script{
     <script src="~/js/RocketMechanic/jquery-3.6.0.min.js"></script>
 }
@@ -16,23 +15,38 @@
 
 <section class="Section">
     <div class="Container">
-        @foreach (var rocketStage in Model)
-        {
-            <div class="ProductCard">
-                <div class="ProductImage">
-                    <div><img src="@rocketStage.ImageUrl"></div>
-                </div>
-                <div class="ProductDescription">
-                    <div class="ProductModel">@rocketStage.RocketStageModel</div>
-                    <div>
-                        <div class="ProductWeight">@rocketStage.Weight</div>
-                        <div class="ProductEngines">@rocketStage.EnginesModel</div>
-                        <div class="ProductFuelTanks">@rocketStage.FuelTanksModel</div>
+        <form action="RocketMechanic/RocketStageRemove" , method="post">
+            @foreach (var rocketStage in Model)
+            {
+                <div class="ProductCard">
+                    <div class="ProductImage">
+                        <a href=""><img src="@rocketStage.ImageUrl"></a>
+                        <div class="Shadow"></div>
+                        <div class="Actions">
+                            <div class="ActionsButton">
+                                <div class="Remove">
+                                    <a class="RemoveButton" href="/RocketMechanic/RocketStageRemove?id=@rocketStage.Id" title="Remove"></a>
+                                </div>
+                                <div class="Edit">
+                                    <a class="ChangeButton" href="/RocketMechanic/RocketStageAdd?id=@rocketStage.Id" title="Edit"></a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="Description">@rocketStage.RocketStageDescription</div>
+                    <div class="ProductDescription">
+                        <div class="ProductModel">Rocket model: @rocketStage.RocketStageModel</div>
+                        <div>
+                            <div class="ProductWeight">Weight, kg: @rocketStage.Weight</div>
+                            <div class="ProductEngines">Engine model: @rocketStage.EnginesModel</div>
+                            <div class="ProductFuelTanks">Fuel capacity: @rocketStage.FuelTanksModel</div>
+                        </div>
+                    </div>
                 </div>
-                <a href="/RocketMechanic/RocketStageRemove&id=@rocketStage.Id" class="icon delete"></a>
-            </div>
-        }
+                <div>
+                    <input type="checkbox" name="rocketStagesId" value="@rocketStage.Id" />
+                </div>
+            }
+            <input type="submit" value="remove">
+        </form>
     </div>
 </section>

@@ -1,19 +1,26 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using SpaceWeb.EfStuff.Model;
-using SpaceWeb.EfStuff.Repositories;
-using SpaceWeb.Models;
-using System.Linq;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using SpaceWeb.EfStuff.Model;
+using SpaceWeb.EfStuff.Repositories.IRepository;
+using SpaceWeb.Models;
+using SpaceWeb.Presentation;
 
 namespace SpaceWeb.Controllers
 {
     public class RocketMechanicController : Controller
     {
-        private RocketStageRepository _rocketStageRepository;
-        public RocketMechanicController(RocketStageRepository rocketStageRepository)
+        private IRocketStageRepository _rocketStageRepository;
+        private IMapper _mapper;
+        private IRocketMechanicPresentation _rocketMechanicPresentation;
+
+        public RocketMechanicController(IRocketStageRepository rocketStageRepository, IMapper mapper, IRocketMechanicPresentation rocketMechanicPresentation)
         {
             _rocketStageRepository = rocketStageRepository;
+            _mapper = mapper;
+            _rocketMechanicPresentation = rocketMechanicPresentation;
         }
+
         [HttpGet]
         [Authorize]
         public IActionResult Main()
@@ -28,38 +35,30 @@ namespace SpaceWeb.Controllers
         {
             return View(mainViewModel);
         }
+
         [Authorize]
         public IActionResult RocketStageIndex()
         {
-            var models = _rocketStageRepository
-                .GetAll()
-                .Select(x => new RocketStageAddViewModel()
-                {
-                    Id = x.Id,
-                    RocketStageModel = x.RocketStageModel,
-                    ImageUrl = x.ImageUrl,
-                    Weight = x.Weight,
-                    EnginesModel = x.EnginesModel,
-                    FuelTanksModel = x.FuelTanksModel,
-                    RocketStageDescription = x.RocketStageDescription
-                })
-                .ToList();
+            var models = _rocketMechanicPresentation.GetIndexViewModel();
 
             return View(models);
         }
+
         [Authorize]
         public IActionResult RocketStageRemove(long id) 
         {
             _rocketStageRepository.Remove(id);
             return RedirectToAction("RocketStageIndex");
         }
+
         [Authorize]
         [HttpGet]
-        public IActionResult RocketStageAdd()
+        public IActionResult RocketStageAdd(long id = 0)
         {
-            var rocketStageAddViewModel = new RocketStageAddViewModel();
-            return View(rocketStageAddViewModel);
+            var viewModel = _rocketMechanicPresentation.GetRocketStageAddViewModel(id);
+            return View(viewModel);
         }
+
         [Authorize]
         [HttpPost]
         public IActionResult RocketStageAdd(RocketStageAddViewModel rocketStageAddViewModel)
@@ -68,17 +67,10 @@ namespace SpaceWeb.Controllers
             {
                 return View(rocketStageAddViewModel);
             }
-            var rocketStage = new RocketStage()
-            {
-                RocketStageModel = rocketStageAddViewModel.RocketStageModel,
-                ImageUrl = rocketStageAddViewModel.ImageUrl,
-                Weight = rocketStageAddViewModel.Weight,
-                EnginesModel = rocketStageAddViewModel.EnginesModel,
-                FuelTanksModel = rocketStageAddViewModel.FuelTanksModel,
-                RocketStageDescription = rocketStageAddViewModel.RocketStageDescription
-            };
+
+            var rocketStage = _mapper.Map<RocketStage>(rocketStageAddViewModel);
             _rocketStageRepository.Save(rocketStage);
-            return View(rocketStageAddViewModel);
+            return RedirectToAction("RocketStageIndex");
         }
     }
 }
