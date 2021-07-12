@@ -20,6 +20,7 @@ $(document).ready(function () {
     $('.container .form .buttons .cancel').click(function () {
         $(this).closest('.container').toggleClass('hide');
         $('.button-list').toggleClass('hide');
+        $('.container .form input[type = text], input[type = password]').val('');
     })
 
     $('.container .form .buttons .make').click(function (env) {
@@ -84,6 +85,56 @@ $(document).ready(function () {
         //else {
         //    console.log('something went wrong');
         //}
+    })
+
+
+    $('.container .form input.amount').keydown(function (e) {
+
+        var pressedKey = e.which;
+
+        console.log(pressedKey);
+
+        var input = $(this).val();
+
+        if (pressedKey < '97' || pressedKey > '105') {
+
+            if (pressedKey == '8' || pressedKey == '46') {
+                return;
+            }
+            if (pressedKey == '110' || pressedKey == '188') {
+                //var symbol = pressedKey == '110' ? '.' : ',';
+                if (input == '') {
+                    $(this).val(0);
+                }
+                if (input.indexOf(',') < 0 && input.indexOf('.') < 0) {
+                    return;
+                }
+            }
+            if (pressedKey == '96') {
+                if (input != '') {
+                    return;
+                }
+            }
+            e.preventDefault();
+        }
+    })
+
+    $('.container .form input.amount').keyup(function (e) {
+
+        var input = $(this).val();
+
+        
+        if (input.startsWith('0.' || '0,')) {
+            return;
+        }
+        else if (input.startsWith('0')) {
+            var newInput = input.substring(1);
+            $(this).val(newInput);
+        }
+    })
+
+    $('.container .form input.amount').click(function (e) {
+        e.preventDefault();
     })
 
     function GetActiveAccount() {
