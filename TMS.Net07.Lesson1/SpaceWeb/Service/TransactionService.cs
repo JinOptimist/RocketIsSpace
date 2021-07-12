@@ -11,20 +11,16 @@ namespace SpaceWeb.Service
 {
     public class TransactionService : ITransactionService
     {
-        private IHttpContextAccessor _contextAccessor;
         private IBanksCardRepository _banksCardRepository;
         private ITransactionRepository _transactionRepository;
-        private IBankAccountRepository _bankAccountRepository;
         private UserService _userService;
 
         public TransactionService(IBanksCardRepository banksCardRepository, ITransactionRepository transactionRepository,
-            IHttpContextAccessor contextAccessor, UserService userService, IBankAccountRepository bankAccountRepository)
+             UserService userService)
         {
             _transactionRepository = transactionRepository;
             _banksCardRepository = banksCardRepository;
-            _contextAccessor = contextAccessor;
             _userService = userService;
-            _bankAccountRepository = bankAccountRepository;
         }
 
         private BanksCard GetCardUser(long userId)
