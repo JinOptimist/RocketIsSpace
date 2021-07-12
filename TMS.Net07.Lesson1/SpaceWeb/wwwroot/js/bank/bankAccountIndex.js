@@ -2,6 +2,7 @@ $(document).ready(function () {
 
     var time = 1 * 1000;
 
+    var maxMoneyDigit = 6;
 
     $('.content-box .button-list .button.show-menu').click(function () {
 
@@ -90,52 +91,90 @@ $(document).ready(function () {
 
     $('.container .form input.amount').keydown(function (e) {
 
-        var pressedKey = e.which;
+        //$(this).caret(-1); //не видит метод
+
+        var pressedKey = e.key;
 
         console.log(pressedKey);
 
         var input = $(this).val();
 
-        if (pressedKey < '97' || pressedKey > '105') {
+        var isAbleToFill = InputFillabilityCheck(input);
 
-            if (pressedKey == '8' || pressedKey == '46') {
+        if (isAbleToFill) {
+            if (pressedKey < '1' || pressedKey > '9') {
+                if (pressedKey == 'Backspace' || pressedKey == 'Delete') {
+                    return;
+                }
+                else if (pressedKey == '.' || pressedKey == ',') {
+                    if (input == '') {
+                        $(this).val(0);
+                    }
+                    if (!input.includes(pressedKey)) {
+                        return;
+                    }
+                }
+                else if (pressedKey == '0') {
+
+                    if (input == '') {
+                        $(this).val(0 + '.');
+                    }
+                    else {
+                        return;
+                    }
+                }
+                else {
+                    e.preventDefault();
+                }
+            }
+            else {
                 return;
             }
-            if (pressedKey == '110' || pressedKey == '188') {
-                //var symbol = pressedKey == '110' ? '.' : ',';
-                if (input == '') {
-                    $(this).val(0);
-                }
-                if (input.indexOf(',') < 0 && input.indexOf('.') < 0) {
-                    return;
-                }
+        }
+        else if (pressedKey == 'Backspace' || pressedKey == 'Delete') {
+            return;
+        }
+        else if (pressedKey == '.' || pressedKey == ',') {
+            if (input == '') {
+                $(this).val(0);
             }
-            if (pressedKey == '96') {
-                if (input != '') {
-                    return;
-                }
+            if (input.includes(pressedKey)) {
+                e.preventDefault();
             }
+        }
+        else {
             e.preventDefault();
         }
     })
 
-    $('.container .form input.amount').keyup(function (e) {
+    function InputFillabilityCheck(input) {
 
-        var input = $(this).val();
+        var myReg = /[^\d]/g;
 
-        
-        if (input.startsWith('0.' || '0,')) {
-            return;
+        var check = myReg.test(input);
+
+        if (check) {
+            var splitedInput = input.split(myReg);
+
+            if (splitedInput[0].length > maxMoneyDigit+1) {
+                return false;
+            }
+            else if (splitedInput[1].length > 1) {
+                return false;
+            }
+            else {
+                return true;
+            }
         }
-        else if (input.startsWith('0')) {
-            var newInput = input.substring(1);
-            $(this).val(newInput);
-        }
-    })
 
-    $('.container .form input.amount').click(function (e) {
-        e.preventDefault();
-    })
+        else if (input.length > maxMoneyDigit) {
+            return false;
+        }
+
+        else {
+            return true;
+        }
+    }
 
     function GetActiveAccount() {
 
