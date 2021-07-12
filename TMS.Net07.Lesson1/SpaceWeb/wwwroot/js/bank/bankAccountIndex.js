@@ -2,6 +2,7 @@ $(document).ready(function () {
 
     var time = 1 * 1000;
 
+    var maxMoneyDigit = 6;
 
     $('.content-box .button-list .button.show-menu').click(function () {
 
@@ -20,6 +21,7 @@ $(document).ready(function () {
     $('.container .form .buttons .cancel').click(function () {
         $(this).closest('.container').toggleClass('hide');
         $('.button-list').toggleClass('hide');
+        $('.container .form input[type = text], input[type = password]').val('');
     })
 
     $('.container .form .buttons .make').click(function (env) {
@@ -85,6 +87,122 @@ $(document).ready(function () {
         //    console.log('something went wrong');
         //}
     })
+
+    $('.container .form input.amount').keydown(function (e) {
+
+        //$(this).caret(-1); //не видит метод
+
+        var pressedKey = e.key;
+
+        console.log(pressedKey);
+
+        var input = $(this).val();
+
+        var isAbleToFill = InputFillabilityCheck(input);
+
+        if (pressedKey == 'Backspace'
+            || pressedKey == 'Delete'
+            || pressedKey == 'Enter') {
+            return;
+        }
+        else if (pressedKey == '.' || pressedKey == ',') {
+            if (input == '') {
+                $(this).val(0);
+            }
+            if (input.includes(pressedKey)) {
+                e.preventDefault();
+            }
+            else {
+                return;
+            }
+        }
+        if (isAbleToFill) {
+            if (pressedKey >= 1 || pressedKey <= 9) {
+                return;
+            }
+            else if (pressedKey == 0) {
+                if (input == '') {
+                    $(this).val(0 + '.');
+                }
+                else {
+                    return;
+                }
+            }
+        }
+        e.preventDefault();
+
+        AnimateWrongInput($(this));
+
+        function InputFillabilityCheck(input) {
+
+            var myReg = /[^\d]/g;
+
+            var check = myReg.test(input);
+
+            if (check) {
+                var splitedInput = input.split(myReg);
+
+                if (splitedInput[0].length > maxMoneyDigit + 1) {
+                    return false;
+                }
+                else if (splitedInput[1].length > 1) {
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            }
+
+            else if (input.length > maxMoneyDigit) {
+                return false;
+            }
+
+            else {
+                return true;
+            }
+        }
+    })
+
+    $('.container .form input.amount').keyup(function (e) {
+        AnimateBackToDefault($(this));
+    })
+
+    function AnimateWrongInput(obj) {
+        obj.animate(
+            {
+                'progress': 100
+            },
+            {
+                duration: time / 2,
+                step: function (progress) {
+                    obj.css('border-bottom', '2px solid red')
+                },
+                //complete: function () {
+                //    obj.css('progress', 0);
+                //    AnimateBackToDefault(obj);
+                //},
+                queue: false
+            }
+        )
+    }
+
+    function AnimateBackToDefault(obj) {
+        obj.animate(
+            {
+                'progress': 100
+            },
+            {
+                duration: time / 2,
+                step: function (progress) {
+                    obj.css('border-bottom', '')
+                },
+                complete: function () {
+                    obj.css('progress', 0);
+                },
+                queue: true
+            }
+        )
+    }
 
     function GetActiveAccount() {
 
