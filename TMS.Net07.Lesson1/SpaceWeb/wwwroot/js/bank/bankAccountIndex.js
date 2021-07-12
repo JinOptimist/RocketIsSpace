@@ -101,37 +101,9 @@ $(document).ready(function () {
 
         var isAbleToFill = InputFillabilityCheck(input);
 
-        if (isAbleToFill) {
-            if (pressedKey < '1' || pressedKey > '9') {
-                if (pressedKey == 'Backspace' || pressedKey == 'Delete') {
-                    return;
-                }
-                else if (pressedKey == '.' || pressedKey == ',') {
-                    if (input == '') {
-                        $(this).val(0);
-                    }
-                    if (!input.includes(pressedKey)) {
-                        return;
-                    }
-                }
-                else if (pressedKey == '0') {
-
-                    if (input == '') {
-                        $(this).val(0 + '.');
-                    }
-                    else {
-                        return;
-                    }
-                }
-                else {
-                    e.preventDefault();
-                }
-            }
-            else {
-                return;
-            }
-        }
-        else if (pressedKey == 'Backspace' || pressedKey == 'Delete') {
+        if (pressedKey == 'Backspace'
+            || pressedKey == 'Delete'
+            || pressedKey == 'Enter') {
             return;
         }
         else if (pressedKey == '.' || pressedKey == ',') {
@@ -141,10 +113,24 @@ $(document).ready(function () {
             if (input.includes(pressedKey)) {
                 e.preventDefault();
             }
+            else {
+                return;
+            }
         }
-        else {
-            e.preventDefault();
+        if (isAbleToFill) {
+            if (pressedKey >= '1' || pressedKey <= '9') {
+                return;
+            }
+            else if (pressedKey == 0) {
+                if (input == '') {
+                    $(this).val(0 + '.');
+                }
+                else {
+                    return;
+                }
+            }
         }
+        e.preventDefault();
     })
 
     function InputFillabilityCheck(input) {
