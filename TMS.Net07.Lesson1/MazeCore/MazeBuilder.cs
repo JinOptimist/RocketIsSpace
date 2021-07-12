@@ -1,4 +1,5 @@
 ﻿using MazeCore.Cells;
+using MazeCore.GraphStuff;
 using MazeCore.Maze;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,33 @@ namespace MazeCore
         private MazeLevel _mazeLevel;
         private Random _random;
 
+        public Graph BuildGraph(MazeLevel maze)
+        {
+            _mazeLevel = maze;
+
+            var graph = new Graph();
+            var notWall = maze.Cells.NotWall();
+            foreach (var cell in notWall)
+            {
+                var vertex = new Vertex();
+                vertex.BaseCell = cell;
+                graph.Vertices.Add(vertex);
+            }
+
+            foreach (var cell in notWall)
+            {
+                var currentVertext = graph.Vertices.Single(x => x.BaseCell == cell);
+                var nears = GetNearCells(cell).NotWall();
+                foreach (var near in nears)
+                {
+                    var neighbor = graph.Vertices.Single(x => x.BaseCell == near);
+                    currentVertext.Neighbors.Add(neighbor);
+                }
+            }
+
+            return graph;
+        }
+
         public MazeLevel Build(int width = 20, int height = 10, int? seed = null)
         {
             seed = seed ?? DateTime.Now.Millisecond;
@@ -23,7 +51,23 @@ namespace MazeCore
 
             GenerateGrounds();
 
+            GenerateGold();
+
             return _mazeLevel;
+        }
+
+        private void GenerateGold(int countGoldHeap = 5, int goldCountMax = 10)
+        {
+            var grounds = _mazeLevel.Cells.OfType<Ground>().ToList();
+
+            for (int i = 0; i < countGoldHeap; i++)
+            {
+                var goldCount = _random.Next(1, goldCountMax);
+                var ground = GetRandom(grounds);
+                var gold = new Gold(ground.X, ground.Y, _mazeLevel, goldCount);
+                _mazeLevel.ReplaceCell(gold);
+                grounds.Remove(ground);
+            }
         }
 
         private void GenerateWalls()
