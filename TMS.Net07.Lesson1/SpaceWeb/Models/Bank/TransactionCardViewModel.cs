@@ -13,5 +13,8 @@ namespace SpaceWeb.Models
         public long CardFromId { get; set; }
         public long CardToId { get; set; }
         public virtual List<BanksCard> BanksCard { get; set; }
+        public virtual User Owner { get; set; }
+
+        public decimal TransferAmount { get; set; }
     }
 }

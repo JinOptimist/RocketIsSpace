@@ -67,6 +67,10 @@ namespace SpaceWeb.EfStuff
                 .HasMany(x => x.BanksCards)
                 .WithOne(x => x.Owner);
 
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.Transactions)
+                .WithOne(x => x.Owner);
+
             modelBuilder.Entity<BankAccount>()
                 .HasMany(x => x.BanksCards)
                 .WithOne(x => x.BankAccount);

@@ -26,21 +26,24 @@ namespace SpaceWeb.Controllers
         private IBankAccountRepository _bankAccountRepository;
         private QuestionaryRepository _questionaryRepository;
         private IMapper _mapper;
-        private IUserRepository _userRepository;
-        private BanksCardRepository _banksCardRepository;
         private UserService _userService;
+        private IUserRepository _userRepository;
+        private IBanksCardRepository _banksCardRepository;
+        private TransactionService _transactionService;
         private ICurrencyService _currencyService;
         private IBankPresentation _bankPresentation;
         private IBankCardPresentation _bankCardPresentation;
         private ExchangeRateToUsdHistoryRepository _exchangeRateToUsdHistoryRepository;
         private IWebHostEnvironment _hostEnvironment;
 
+
         public BankController(IBankAccountRepository bankAccountRepository,
             QuestionaryRepository questionaryRepository,
             IUserRepository userRepository,
             IMapper mapper,
             UserService userService,
-            BanksCardRepository banksCardRepository,
+            IBanksCardRepository banksCardRepository,
+            TransactionService transactionService,
             ICurrencyService currencyService,
             IBankPresentation bankPresentation,
             IBankCardPresentation bankCardPresentation,
@@ -53,6 +56,7 @@ namespace SpaceWeb.Controllers
             _mapper = mapper;
             _userService = userService;
             _banksCardRepository = banksCardRepository;
+            _transactionService = transactionService;
             _currencyService = currencyService;
             _bankPresentation = bankPresentation;
             _exchangeRateToUsdHistoryRepository = exchangeRateToUsdHistoryRepository;
@@ -253,6 +257,11 @@ namespace SpaceWeb.Controllers
         public IActionResult Remove(long id)
         {
             _banksCardRepository.Remove(id);
+            return RedirectToAction("AddCard");
+        }
+        public IActionResult Transfer(long userId)
+        {
+            _transactionService.TransferFunds()
             return RedirectToAction("AddCard");
         }
         public IActionResult AddTransaction(long transferToId)
