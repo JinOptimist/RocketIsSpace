@@ -26,6 +26,14 @@ $(document).ready(function () {
 
     $('.container .form .buttons .make').click(function (env) {
 
+        var input = $(this).val();
+
+        if (input == '') {
+            AnimateWrongInput($(this));
+            AnimateBackToDefault($(this));
+            return;
+        }
+
         var amountTextForm = $(this).parent().siblings('.amount');
 
         var amount = amountTextForm.val().replace(',', '.') - 0;
@@ -90,8 +98,6 @@ $(document).ready(function () {
 
     $('.container .form input.amount').keydown(function (e) {
 
-        //$(this).caret(-1); //не видит метод
-
         var pressedKey = e.key;
 
         console.log(pressedKey);
@@ -109,7 +115,7 @@ $(document).ready(function () {
             if (input == '') {
                 $(this).val(0);
             }
-            if (input.includes(pressedKey)) {
+            if (input.includes('.') || input.includes(',')) {
                 e.preventDefault();
             }
             else {
