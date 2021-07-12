@@ -88,7 +88,6 @@ $(document).ready(function () {
         //}
     })
 
-
     $('.container .form input.amount').keydown(function (e) {
 
         //$(this).caret(-1); //не видит метод
@@ -132,6 +131,8 @@ $(document).ready(function () {
         }
         e.preventDefault();
 
+        AnimateWrongInput($(this));
+
         function InputFillabilityCheck(input) {
 
             var myReg = /[^\d]/g;
@@ -161,6 +162,47 @@ $(document).ready(function () {
             }
         }
     })
+
+    $('.container .form input.amount').keyup(function (e) {
+        AnimateBackToDefault($(this));
+    })
+
+    function AnimateWrongInput(obj) {
+        obj.animate(
+            {
+                'progress': 100
+            },
+            {
+                duration: time / 2,
+                step: function (progress) {
+                    obj.css('border-bottom', '2px solid red')
+                },
+                //complete: function () {
+                //    obj.css('progress', 0);
+                //    AnimateBackToDefault(obj);
+                //},
+                queue: false
+            }
+        )
+    }
+
+    function AnimateBackToDefault(obj) {
+        obj.animate(
+            {
+                'progress': 100
+            },
+            {
+                duration: time / 2,
+                step: function (progress) {
+                    obj.css('border-bottom', '')
+                },
+                complete: function () {
+                    obj.css('progress', 0);
+                },
+                queue: true
+            }
+        )
+    }
 
     function GetActiveAccount() {
 
