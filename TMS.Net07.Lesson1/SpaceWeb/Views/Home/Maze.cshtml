@@ -6,21 +6,25 @@
     <div>
         Legend
         <div>
-            wall <span class="icon wall"></span>
+            <span class="icon wall">Wall</span>
         </div>
         <div>
-            road <span class="icon road"></span>
+            <span class="icon road">Road</span>
+        </div>
+        <div>
+            <span class="icon gold">Gold</span>
         </div>
     </div>
-   <div>
-       @for (int y = 0; y < Model.Height; y++)
-       {
-           <div class="line">
-               @for (int x = 0; x < Model.Width; x++)
-               {
-                    <span class="icon @(Model.Cells[y, x] == CellType.Wall ? "wall" : "road" )"></span>
-               }
-           </div>
-       }
-   </div>
+    <div>
+        @for (int y = 0; y < Model.Height; y++)
+        {
+            <div class="line">
+                @for (int x = 0; x < Model.Width; x++)
+                {
+                    var className = Model.Cells[y, x].ToString().ToLower();
+                    <span class="icon @className"></span>
+                }
+            </div>
+        }
+    </div>
 </div>
