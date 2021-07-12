@@ -68,3 +68,11 @@
 .rocket-icon:hover::before {
     background-image: url('../image/comfortImage/r2icon.png')
 }
+
+.wall::before {
+    background-image: url('../image/maze/wall.png')
+}
+
+.road::before {
+    background-image: url('../image/maze/road.jpg')
+}
