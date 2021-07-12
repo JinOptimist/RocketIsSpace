@@ -86,14 +86,17 @@ namespace SpaceWeb.Service
 
             var transferResponse = _bankAccountRepository.Transfer(accountFrom.Id, accountTo.Id, paymentViewModel.Amount);
 
-            var payment = new Payment()
+            if(transferResponse)
             {
-                Employe = _employeRepository.Get(paymentViewModel.EmployeId),
-                Date = paymentViewModel.Date,
-                Amount = paymentViewModel.Amount,
-                BankAccount = accountTo
-            };
-            _paymentRepository.Save(payment);
+                var payment = new Payment()
+                {
+                    Employe = _employeRepository.Get(paymentViewModel.EmployeId),
+                    Date = paymentViewModel.Date,
+                    Amount = paymentViewModel.Amount,
+                    BankAccount = accountTo
+                };
+                _paymentRepository.Save(payment);
+            }
 
             return transferResponse;
         }

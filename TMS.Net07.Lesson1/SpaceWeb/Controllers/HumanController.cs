@@ -18,6 +18,7 @@ using SpaceWeb.Models.Chart;
 using SpaceWeb.Extensions;
 using System;
 using SpaceWeb.EfStuff.CustomException;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace SpaceWeb.Controllers
 {
@@ -166,6 +167,8 @@ namespace SpaceWeb.Controllers
         public IActionResult SaveAccrual(AccrualViewModel accrualViewModel)
         {
             _humanPresentation.SaveAccrual(accrualViewModel);
+            var c = ModelState.Where(x => x.Value.ValidationState == ModelValidationState.Invalid).ToList();
+            //return Json(true);
             return RedirectToAction("Personnel");
         }
 
@@ -185,7 +188,7 @@ namespace SpaceWeb.Controllers
             {
                 _humanPresentation.SavePayment(paymentViewModel);   
             }
-            catch (BankAccountException) { return RedirectToAction("Index", "Bank"); }
+            catch (BankException) { return RedirectToAction("Index", "Bank"); }
             return RedirectToAction("Personnel");
         }
     }

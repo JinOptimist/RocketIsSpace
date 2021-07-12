@@ -22,13 +22,8 @@ namespace SpaceWeb.Models.CustomValidationAttribute
 
         public override bool IsValid(object value)
         {
-            var number = value as int?;
-            if (number == null)
-            {
-                return false;
-            }
-
-            return number > MinValue;
+            var result = Int32.TryParse(value.ToString(), out int number);
+            return result == false ? result : number > MinValue;
         }
     }
 }
