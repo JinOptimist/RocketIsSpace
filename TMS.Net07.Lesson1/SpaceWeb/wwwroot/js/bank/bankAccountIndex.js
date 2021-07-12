@@ -118,7 +118,7 @@ $(document).ready(function () {
             }
         }
         if (isAbleToFill) {
-            if (pressedKey >= '1' || pressedKey <= '9') {
+            if (pressedKey >= 1 || pressedKey <= 9) {
                 return;
             }
             else if (pressedKey == 0) {
@@ -131,36 +131,36 @@ $(document).ready(function () {
             }
         }
         e.preventDefault();
-    })
 
-    function InputFillabilityCheck(input) {
+        function InputFillabilityCheck(input) {
 
-        var myReg = /[^\d]/g;
+            var myReg = /[^\d]/g;
 
-        var check = myReg.test(input);
+            var check = myReg.test(input);
 
-        if (check) {
-            var splitedInput = input.split(myReg);
+            if (check) {
+                var splitedInput = input.split(myReg);
 
-            if (splitedInput[0].length > maxMoneyDigit+1) {
+                if (splitedInput[0].length > maxMoneyDigit + 1) {
+                    return false;
+                }
+                else if (splitedInput[1].length > 1) {
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            }
+
+            else if (input.length > maxMoneyDigit) {
                 return false;
             }
-            else if (splitedInput[1].length > 1) {
-                return false;
-            }
+
             else {
                 return true;
             }
         }
-
-        else if (input.length > maxMoneyDigit) {
-            return false;
-        }
-
-        else {
-            return true;
-        }
-    }
+    })
 
     function GetActiveAccount() {
 
