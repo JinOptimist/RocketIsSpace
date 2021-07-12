@@ -8,6 +8,7 @@ using System.Text.Json;
 using MazeCore;
 using AutoMapper;
 using SpaceWeb.Models.Maze;
+using MazeCore.GraphStuff;
 
 namespace SpaceWeb.Controllers
 {
@@ -20,7 +21,7 @@ namespace SpaceWeb.Controllers
 
         public HomeController(ILogger<HomeController> logger,
             UserService userService,
-            MazeBuilder mazeBuilder, 
+            MazeBuilder mazeBuilder,
             IMapper mapper)
         {
             _logger = logger;
@@ -47,7 +48,7 @@ namespace SpaceWeb.Controllers
 
             //проект не грузится, если юзер не залогинен
 
-            if (user!=null)
+            if (user != null)
             {
                 var currencies = user.BankAccounts.Select(x => x.Currency).Distinct();
 
@@ -74,9 +75,37 @@ namespace SpaceWeb.Controllers
 
         public IActionResult Maze()
         {
-            var mazeLevel = _mazeBuilder.Build(seed: 50);
+            var mazeLevel = _mazeBuilder.Build(4, 4, seed: 50);
             var viewModel = _mapper.Map<MazeViewModel>(mazeLevel);
             return View(viewModel);
+        }
+
+        public IActionResult TheLongestWay(int x, int y)
+        {
+            var mazeLevel = _mazeBuilder.Build(4, 4, seed: 50);
+
+            var graph = _mazeBuilder.BuildGraph(mazeLevel);
+
+            var ver = graph.Vertices
+                .Single(ver => ver.BaseCell.X == x && ver.BaseCell.Y == y);
+            ver.DistanceFromRoot = 0;
+            SetDistance(ver);
+
+            var max = graph.Vertices.Max(x => x.DistanceFromRoot);
+
+            return Json(max);
+        }
+
+        private void SetDistance(Vertex currentVertex)
+        {
+            foreach (var neighbor in currentVertex
+                .Neighbors
+                .Where(x => x.DistanceFromRoot < 0))
+            {
+                neighbor.DistanceFromRoot =
+                    currentVertex.DistanceFromRoot + 1;
+                SetDistance(neighbor);
+            }
         }
     }
 }

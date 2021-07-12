@@ -306,9 +306,22 @@ namespace SpaceWeb
                 .OrderBy(x => x.Y)
                 .ThenBy(x => x.X))
             {
-                viewModel.Cells[cell.Y, cell.X] = cell is Wall
-                    ? CellType.Wall
-                    : CellType.Road;
+                if (cell is Wall)
+                {
+                    viewModel.Cells[cell.Y, cell.X] = CellType.Wall;
+                }
+                else if (cell is Ground)
+                {
+                    viewModel.Cells[cell.Y, cell.X] = CellType.Road;
+                }
+                else if (cell is Gold)
+                {
+                    viewModel.Cells[cell.Y, cell.X] = CellType.Gold;
+                }
+                else
+                {
+                    throw new Exception("Uknown type of cell");
+                }
             }
         }
 

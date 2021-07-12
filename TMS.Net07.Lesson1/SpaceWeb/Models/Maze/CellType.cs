@@ -8,6 +8,7 @@ namespace SpaceWeb.Models.Maze
     public enum CellType
     {
         Wall,
-        Road
+        Road,
+        Gold
     }
 }
