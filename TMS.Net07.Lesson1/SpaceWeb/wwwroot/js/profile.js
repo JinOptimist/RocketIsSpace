@@ -1,6 +1,13 @@
 ﻿$(document).ready(function () {
+    var images = ['/image/avatars/1.jpg', '/image/avatars/10002.jpg', '/image/avatars/2.jpg'];
+    carouselModule.initialize('#avatar-carousel', images, {
+        width: 1000,
+        height: 500,
+    });
+
     $('.currency-option .text').click(function () {
-        var currencyInput = $(this).parent('label').find('input');
+        var self = this;
+        var currencyInput = $(self).parent('label').find('input');
         var currency = currencyInput.val();
         var url = '/User/UpdateFavCurrency?currency=' + currency;
 
@@ -14,6 +21,16 @@
             .fail(function () {
 
             });
+
+        var urlChangingAllMoney = '/User/UpdateAllMoney?currency=' + currency;
+
+        $.get(urlChangingAllMoney)
+            .done(function (answerFromUpdatingAllMoney) {
+                if (answerFromUpdatingAllMoney) {
+                    $('.money-count').text(answerFromUpdatingAllMoney.count);
+                    $('.default-currency').text(answerFromUpdatingAllMoney.currency);
+                }
+            })
     });
 
     $('[name=CurrentLang]').change(function () {

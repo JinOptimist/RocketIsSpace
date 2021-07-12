@@ -1,150 +1,92 @@
-body{
-    margin: 0;
-    padding: 0;
-    background: url(../../image/RocketImages/space_shop2.jpg) no-repeat center/ cover;
-    background-attachment: fixed; 
-}
-
-.vraper{
-    width: 100%;
-    padding-top: 75px;
-}
-.items-shop{
+.header-shop {
     display: flex;
-    flex-wrap: wrap;
-}
-
-.shop{
-    border-radius: 20px;
-    padding: 5px;
-    margin: 2px;
-    color: rgb(224, 219, 219);
-    background: transparent;
-    box-shadow: 0 5px 40px 10px #0d2d46;
-    text-shadow: 1px 1px 2px black, 0 0 1em red;
-}
-.text-header{
-    text-align: center;
-    font-size: 80pt;
-}
-.center-block{
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.link {
-    text-decoration: none;
-}
-
-.center-block a div {
-    text-align: center;
-    text-shadow: -1px 0 whitesmoke, 0 1px whitesmoke, 1px 0 whitesmoke, 0 -1px whitesmoke;
-    font-family: Calibri; color: rgb(252, 252, 252);
-    font-size: 60px;
-    height: 200px;
-    width: 350px;
-    padding: 20px;
-    margin: 10px;
-    color: rgb(224, 219, 219);
-    transition: .7s;
-    text-shadow: 1px 1px 2px black, 0 0 1em red;
-}
-
-.center-block a:hover
-{
-    position:relative;
-    border-radius: 70px;
-    transition: 0.5s;
-    box-shadow: 0 5px 40px 10px #0d2d46;
-}
-
-.description{
-    text-align: center;
-    font-size: 20px;
-}
-
-.block{
-    display:none;
-    text-align: center;
-}
-
-.rocket-text:hover .block{
-    display: block;
-}
-
-.rocket-text:hover .text-rocket{
-    display: none;
-}
-
-.fuel-text:hover .block{
-    display: block;
-}
-.fuel-text:hover .text-fuel{
-    display: none;
-}
-
-.restroom-text:hover .block{
-    display: block;
-}
-.restroom-text:hover .text-restroom{
-    display: none;
-}
-
-.kitchen-text:hover .block{
-    display: block;
-}
-.kitchen-text:hover .text-kitchen{
-    display: none;
-}
-
-.command-text:hover .block{
-    display: block;
-}
-.command-text:hover .text-command{
-    display: none;
-}
-
-.engine-text:hover .block{
-    display: block;
-}
-.engine-text:hover .text-engine{
-    display: none;
-}
-
-
-.rocket-shop{
-    display: flex;
-}
-.rocket{
-    font-family: Calibri; color: rgb(252, 252, 252);
-    width: 170px;
-    
-    margin: 5px;
-    padding: 10px;
-
-    border-radius: 20px;
-    background: transparent;
-    box-shadow: 0 5px 40px 10px #0d2d46;
-    text-shadow: 1px 1px 2px black, 0 0 1em red;
-}
-
-.content .rocket .image-container{
-    display: flex;
+    height: 700px;
+    background: url(../../image/comfortImage/spaceShopBG.jpg) center/cover;
+    color: white;
     justify-content: center;
     align-items: center;
-    height: calc(150px - 16px);
+    font-family: "Century Gothic";
+    font-size: 120px;
+}
+
+.rockets {
+    font-size: 70px;
+    font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
+    margin-left: 20%;
+    color: #463b2e;
+}
+
+.current-name {
+    font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
+    font-size: 20px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+    color: #463b2e;
+}
+
+.rocket {
+    width: 400px;
+    height: 400px;
+    margin: 70px 10px;
+    padding: 10px;
+    background: #d8d8d8;
+}
+
+.view {
+    height: 370px;
 }
 
 .rocket img {
-    max-width: 150px;
-    max-height: calc(150px - 16px);
+    max-width: 100%;
+    max-height: 100%;
 }
 
+.add {
+    display: flex;
+    justify-content: space-between;
+}
 
+.cost {
+    font-size: 18px;
+}
 
+.items-shop {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0px 10%;
+    background: #36364ccf;
+    justify-content: space-around;
+}
 
+.form-shop{
+    display: flex;
+}
 
+.input-for-shop {
+    display: flex;
+    margin-right: 15%;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-top: 25px;
+}
 
+.btn-shop {
+    font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
+    color: #ffffff;
+    font-size: 20px;
+    background: #598ba8;
+    padding: 15px 60px 16px 60px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
 
+    .btn-shop:hover {
+        background: #93bfd9;
+        text-decoration: none;
+    }
+
+.rocket.fly{
+    position: absolute;
+}

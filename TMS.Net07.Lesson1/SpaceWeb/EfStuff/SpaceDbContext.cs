@@ -13,21 +13,20 @@ namespace SpaceWeb.EfStuff
     public class SpaceDbContext : DbContext
     {
         public SpaceDbContext(DbContextOptions options) : base(options) { }
+
         public DbSet<User> Users { get; set; }
         public DbSet<Rocket> Rockets { get; set; }
-        public DbSet<Profile> UserProfile { get; set; }
+        public DbSet<Questionary> Questionaries { get; set; }
         public DbSet<BankAccount> BankAccount { get; set; }
         public DbSet<BanksCard> BanksCard { get; set; }
+        public DbSet<Transaction> Transaction { get; set; }
+
         public DbSet<AdvImage> AdvImages { get; set; }
         public DbSet<FactoryHistory> FactoryHistories { get; set; }
         public DbSet<Comfort> ComfortsExample { get; set; }
         public DbSet<RocketStage> RocketStages { get; set; }
 
-        public DbSet<AddShopRocket> ShopRocket { get; set; }
-        
         public DbSet<Relic> Relics { get; set; }
-
-
         public DbSet<Order> Orders { get; set; }
 
         public DbSet<Client> Clients { get; set; }
@@ -37,6 +36,13 @@ namespace SpaceWeb.EfStuff
 
         public DbSet<ComfortStructure> Comforts { get; set; }
         public DbSet<AdditionStructure> Additions { get; set; }
+
+        public DbSet<InsuranceType> InsuranceTypes { get; set; }
+        public DbSet<Insurance> Insurances { get; set; }
+
+        public DbSet<ExchangeRateToUsdCurrent> ExchangeRatesToUsdCurrent { get; set; }
+        public DbSet<ExchangeRateToUsdHistory> ExchangeRatesToUsdHistory { get; set; }
+        public DbSet<ExchangeAccountHistory> ExchangeAccountHistory { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -61,20 +67,22 @@ namespace SpaceWeb.EfStuff
                 .HasMany(x => x.BanksCards)
                 .WithOne(x => x.BankAccount);
 
-            modelBuilder.Entity<User>()
-                .HasOne(x => x.Profile)
-                .WithOne(x => x.User)
-                .HasForeignKey<Profile>(x => x.UserRef);
+            
 
-            modelBuilder.Entity<Order>()
-                .HasMany(x => x.Rockets)
-                .WithMany(x => x.OrderedBy);
+            modelBuilder.Entity<User>()
+                .HasOne(x => x.Questionaries)
+                .WithOne(x => x.User)
+                .HasForeignKey<Questionary>(x => x.UserRef);
+
+
             modelBuilder.Entity<Order>()
                 .HasMany(order => order.AdditionsList)
                 .WithOne(addition => addition.Order);
+
             modelBuilder.Entity<Order>()
                 .HasMany(order => order.ComfortsList)
                 .WithOne(comforts => comforts.Order);
+
 
             modelBuilder.Entity<Client>()
                 .HasOne(x => x.User)
@@ -102,6 +110,17 @@ namespace SpaceWeb.EfStuff
                 .HasOne(order => order.Client)
                 .WithMany(client => client.Orders);
 
+            modelBuilder.Entity<Order>()
+                .HasMany(x => x.Rockets)
+                .WithMany(x => x.OrderedBy);
+
+            modelBuilder.Entity<Transaction>()
+                .HasOne(x => x.BanksCardFrom)
+                .WithMany(x => x.TransactionsFrom);
+
+            modelBuilder.Entity<Transaction>()
+                .HasOne(x => x.BanksCardTo)
+                .WithMany(x => x.TransactionsTo);
 
 
             base.OnModelCreating(modelBuilder);

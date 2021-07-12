@@ -8,6 +8,10 @@
 <html>
 <head>
     <meta charset="utf-8" />
+    <title>
+        @RenderSection("Title", required: false)
+    </title>
+    <link rel="stylesheet" href="~/css/carousel.css?v=2" />
     <link rel="stylesheet" href="~/css/reset.css?v=4" />
     <link rel="stylesheet" href="~/css/icon.css?v=1" />
     <link rel="stylesheet" href="~/css/Rocket/iconsMenu.css">
@@ -15,9 +19,11 @@
     <link rel="stylesheet" href="~/css/Rocket/topStyle.css?v=2" />
     <link rel="stylesheet" href="~/css/footer.css" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/carousel-smile.js"></script>
     <script src="~/js/site.js"></script>
     <script src="~/js/layout.js"></script>
     <script src="~/js/butLG.js"></script>
+    <script src="~/js/breadcrumbs.js"></script>
 
     @RenderSection("Scripts", required: false)
     @RenderSection("Style", required: false)
@@ -30,12 +36,12 @@
                 <form action="/User/Login" method="post" id="login-or-registration" class="loginformstyle">
                     <div>
                         <input name="@nameof(RegistrationViewModel.Login)"
-                               class="inputFields" type="text" 
+                               class="inputFields" type="text"
                                placeholder="@Resource.Layout_Login" />
                     </div>
                     <div>
                         <input name="@nameof(RegistrationViewModel.Password)"
-                               class="inputFields" type="password" 
+                               class="inputFields" type="password"
                                placeholder="@Resource.Layout_Password" />
                     </div>
                     <div class="login-but">
@@ -45,9 +51,15 @@
 
                     <div class="or">or</div>
                     <div class="registration-but">
-                        <input class="pglogbut" type="submit" 
+                        <input class="pglogbut" type="submit"
                                value="@Resource.Layout_Registration" />
                     </div>
+                    <ul>
+                        <li>
+                            @Html.ActionLink("English", ViewContext.RouteData.Values["action"]
+                   .ToString(), ViewContext.RouteData.Values["acction"])
+                        </li>
+                    </ul>
                 </form>
             </div>
         </div>
@@ -65,7 +77,7 @@
                 <div>
                     <input type="hidden"
                            name="@nameof(SocialsPasswordViewModel.Link)"
-                           value="@SocialsPassword.TgAllGroup" />
+                           value="@nameof(GlobalConst.TELEGRAMGROUPLINK)" />
                 </div>
                 <div>
                     Ключ доступа:
@@ -88,7 +100,7 @@
                     <div>
                         <input type="hidden"
                                name="@nameof(SocialsPasswordViewModel.Link)"
-                               value="@SocialsPassword.YoutubeTeacher" />
+                               value="@nameof(GlobalConst.YOUTUBETEACHERLINK)" />
                     </div>
                     <div>
                         Ключ доступа:
@@ -104,7 +116,7 @@
         </div>
     </div>
 
-    <div class="top">
+    <div class="top no-print">
         <div class="info">
             <a href="/">
                 <div class="home">
@@ -115,7 +127,14 @@
 
             @if (User.Identity.IsAuthenticated)
             {
+
                 <div class="user-info">
+                    @if (userService.IsAdmin())
+                    {
+                        <a href="/User/AllAvatars">
+                            @Resource.Layout_AllAvatars
+                        </a>
+                    }
                     <a href="/User/Profile">
                         @{
                             var user = userService.GetCurrent();
@@ -138,13 +157,17 @@
             }
         </div>
     </div>
-
+    <div class="breadcrumb-container"></div>
     <div class="content">
         @RenderBody()
     </div>
 
     <div class="footer">
         <div class="rights">©All rights reserved</div>
+        <div class="language">
+            <span data-lang="Ru">Русский</span>
+            <span data-lang="En">English</span>
+        </div>
         <div class="developed-by">Developed by TMS .Net07</div>
         <div class="contacts">
             <div class="social-media">

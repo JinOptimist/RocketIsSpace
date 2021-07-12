@@ -1,4 +1,6 @@
-﻿using SpaceWeb.EfStuff.Model;
+﻿using Microsoft.EntityFrameworkCore;
+using SpaceWeb.EfStuff.CustomException;
+using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Models;
 using System;
@@ -19,7 +21,7 @@ namespace SpaceWeb.EfStuff.Repositories
         {
             return _dbSet.SingleOrDefault(x => x.AccountNumber == AccountNumber);
         }
-
+       
         public List<BankAccount> GetBankAccounts(long userId)
         {
             return _dbSet.Where(x => x.Owner.Id == userId).ToList();
@@ -32,6 +34,44 @@ namespace SpaceWeb.EfStuff.Repositories
                 .Select(x => x.Currency)
                 .Distinct()
                 .ToList();
+        }
+
+        public bool Transfer(long bankAccountFromId, long bankAccountToId, decimal amount)
+        {
+            var accountFrom = Get(bankAccountFromId);
+            var accountTo = Get(bankAccountToId);
+
+            accountFrom.Amount -= amount;
+            accountTo.Amount += amount;
+
+            if (accountFrom.Amount < 0)
+            {
+                throw new BankException();
+            }
+
+            using (var transaction = _spaceDbContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    Save(accountFrom);
+                    Save(accountTo);
+
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    return false;
+                }
+            }
+
+            return true;
+        }
+    
+        public List<BankAccount> GetByName(long userId, string name)
+        {
+            var sql = "SELECT * FROM BankAccount WHERE OwnerId = {0} AND[Name] = '{1}'";
+            return _spaceDbContext.BankAccount.FromSqlRaw(sql, userId, name).ToList();
         }
     }
 }

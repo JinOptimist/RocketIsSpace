@@ -5,11 +5,11 @@ namespace SpaceWeb.EfStuff.Repositories
 {
     public interface IBaseRepository<ModelType> where ModelType : BaseModel
     {
-        ModelType Get(long id);
-        List<ModelType> GetAll();
-        void Remove(long id);
-        void Remove(IEnumerable<long> id);
-        void Remove(ModelType model);
-        void Save(ModelType model);
+        public ModelType Get(long id);
+        public List<ModelType> GetAll();
+        public void Remove(long id);
+        public void Remove(IEnumerable<long> id);
+        public void Remove(ModelType model);
+        public void Save(ModelType model);
     }
 }

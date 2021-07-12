@@ -117,6 +117,69 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AllDepartments_Name" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="AllDepartments_Salary" xml:space="preserve">
+    <value>Оклад</value>
+  </data>
+  <data name="AllDepartments_Specification" xml:space="preserve">
+    <value>Специальность</value>
+  </data>
+  <data name="AllDepartments_Surname" xml:space="preserve">
+    <value>Фамилия</value>
+  </data>
+  <data name="Banks_Card" xml:space="preserve">
+    <value>Карты банков</value>
+  </data>
+  <data name="Banks_CreatCard" xml:space="preserve">
+    <value>СОЗДАНИЕ КАРТЫ</value>
+  </data>
+  <data name="Banks_MocCard" xml:space="preserve">
+    <value>Моцная картаy</value>
+  </data>
+  <data name="Banks_ShoppCard" xml:space="preserve">
+    <value>Карта покупо</value>
+  </data>
+  <data name="Banks_Transfer" xml:space="preserve">
+    <value>Перевод</value>
+  </data>
+  <data name="Banks_XCard" xml:space="preserve">
+    <value>Х карта</value>
+  </data>
+  <data name="DepartmentType_Bank" xml:space="preserve">
+    <value>Банк</value>
+  </data>
+  <data name="DepartmentType_Laboratory" xml:space="preserve">
+    <value>Лаборатория</value>
+  </data>
+  <data name="DepartmentType_Manufactory" xml:space="preserve">
+    <value>Производство</value>
+  </data>
+  <data name="DepartmentType_MissionControlCenter" xml:space="preserve">
+    <value>Центр управления полетами</value>
+  </data>
+  <data name="DepartmentType_Other" xml:space="preserve">
+    <value>Другое</value>
+  </data>
+  <data name="DepartmentType_SpacecraftCrew" xml:space="preserve">
+    <value>Космонавт</value>
+  </data>
+  <data name="DepartmentType_Unknown" xml:space="preserve">
+    <value>Неизвестно</value>
+  </data>
+  <data name="EmployeStatus_Accepted" xml:space="preserve">
+    <value>Работает</value>
+  </data>
+  <data name="EmployeStatus_Denied" xml:space="preserve">
+    <value>Не принят</value>
+  </data>
+  <data name="EmployeStatus_Fired" xml:space="preserve">
+    <value>Уволен</value>
+  </data>
+  <data name="EmployeStatus_Request" xml:space="preserve">
+    <value>Заявка на работу</value>
+  </data>
   <data name="HomeIndex_FAQ" xml:space="preserve">
     <value>Вопрос ответ</value>
   </data>
@@ -129,6 +192,15 @@
   <data name="HomeIndex_RocketBank" xml:space="preserve">
     <value>Банкиры</value>
   </data>
+  <data name="LayoutBank_logoNameBank" xml:space="preserve">
+    <value>Банк</value>
+  </data>
+  <data name="LayoutBank_logoNameRocket" xml:space="preserve">
+    <value>Рокеты</value>
+  </data>
+  <data name="Layout_AllAvatars" xml:space="preserve">
+    <value>Все аватарки</value>
+  </data>
   <data name="Layout_Exit" xml:space="preserve">
     <value>Выйти</value>
   </data>
@@ -140,5 +212,20 @@
   </data>
   <data name="Layout_Registration" xml:space="preserve">
     <value>Регистрация</value>
+  </data>
+  <data name="Positin_Leader" xml:space="preserve">
+    <value>Глава отдела</value>
+  </data>
+  <data name="Position_Deputy" xml:space="preserve">
+    <value>Заместитель</value>
+  </data>
+  <data name="Position_Manager" xml:space="preserve">
+    <value>Менеджер</value>
+  </data>
+  <data name="Position_ProfessionalWorker" xml:space="preserve">
+    <value>Профессиональный рабочий</value>
+  </data>
+  <data name="Position_Trainee" xml:space="preserve">
+    <value>Стажер</value>
   </data>
 </root>

@@ -10,6 +10,11 @@ using System.Linq;
 using SpaceWeb.Service;
 using SpaceWeb.Models.Human;
 using System.Collections.Generic;
+using SpaceWeb.Controllers.CustomAttribute;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
+using SpaceWeb.Models.Chart;
 
 namespace SpaceWeb.Controllers
 {
@@ -19,15 +24,28 @@ namespace SpaceWeb.Controllers
         private IUserRepository _userRepository;
         private IMapper _mapper;
         private IDepartmentRepository _departmentRepository;
+        private IEmployeRepository _employeRepository;
+        private IWebHostEnvironment _hostEnvironment;
         private UserService _userService;
 
-        public HumanController(IUserRepository userRepository, IMapper mapper, IDepartmentRepository departmentRepository, IHumanPresentation humanPresentation, UserService userService = null)
+
+        public HumanController(
+            IUserRepository userRepository,
+            IMapper mapper,
+            IDepartmentRepository departmentRepository,
+            IHumanPresentation humanPresentation,
+            IEmployeRepository employeRepository,
+            IWebHostEnvironment hostEnvironment,
+            UserService userService 
+            )
         {
             _userRepository = userRepository;
             _mapper = mapper;
             _departmentRepository = departmentRepository;
             _humanPresentation = humanPresentation;
-            _userService = userService;
+            _employeRepository = employeRepository;
+            _hostEnvironment = hostEnvironment;
+            _userService = userService; 
         }
 
         [HttpGet]
@@ -58,14 +76,14 @@ namespace SpaceWeb.Controllers
         [HttpPost]
         public IActionResult SaveDepartment(DepartmentViewModel model)
         {
-            _departmentRepository.Save(_mapper.Map<Department>(model));
+            _humanPresentation.SaveDepartment(model);
             return RedirectToAction("AllDepartments");
         }
 
         [HttpGet]
         public IActionResult DeleteDepartment(long id)
         {
-            _departmentRepository.Remove(id);
+            _humanPresentation.DeleteDepartment(id);
             return RedirectToAction("AllDepartments");
         }
 
@@ -76,12 +94,63 @@ namespace SpaceWeb.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [IsClient]
         public IActionResult ClientPage()
         {
-            var user = _userService.GetCurrent();
-            var userViewModel = _mapper.Map<ShortUserViewModel>(user);
-            return View(userViewModel);
+            return View(_humanPresentation.ClientPage());
+        }
+
+        public IActionResult UpdateEmployes(long idDepartment)
+        {
+            return Json(_humanPresentation.UpdateEmployes(idDepartment));
+        }
+
+        [HttpGet]
+        [IsLeaderOfDepartment]
+        public IActionResult Personnel()
+        {
+            return View(_humanPresentation.GetPersonnelViewModel());
+        }
+
+        [HttpPost]
+        public IActionResult PersonnelSubmit(List<RequestViewModel> requestViewModels)
+        {
+            _humanPresentation.SavePersonnelChanges(requestViewModels);
+            return RedirectToAction("Personnel");
+        }
+
+        [HttpGet]
+        public IActionResult RequestEmploye()
+        {
+            return View(new RequestViewModel());
+        }
+
+        [HttpPost]
+        public IActionResult RequestEmploye(RequestViewModel requestViewModel)
+        {
+            _humanPresentation.SaveRequestEmploye(requestViewModel);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult DownloadDepartments()
+        {
+            var webPath = _hostEnvironment.WebRootPath;
+            var path = Path.Combine(webPath, "TempFile", "temp-departments.docx");
+            var contentTypeDocx = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+            var fileName = "departments.docx";            
+             _humanPresentation.SaveDepartmentsToDocX(path);
+            return PhysicalFile(path, contentTypeDocx, fileName);
+        }
+
+        public IActionResult GetGraph()
+        {
+            return Json(_humanPresentation.GetChartForWorkersInDepartment());
+        }
+
+        public IActionResult Graph()
+        {
+            return View();
         }
     }
 }

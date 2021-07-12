@@ -3,11 +3,14 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using SpaceWeb.Controllers.CustomAttribute;
 using SpaceWeb.EfStuff;
 using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories;
 using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Models;
+using SpaceWeb.Models.Human;
 using SpaceWeb.Models.RocketModels;
 using SpaceWeb.Service;
 using System;
@@ -26,19 +29,26 @@ namespace SpaceWeb.Controllers
         private IBankAccountRepository _bankAccountRepository;
         private IMapper _mapper;
         private UserService _userService;
-        private IWebHostEnvironment _hostEnvironment;
+        private ICurrencyService _currencyService;
+        private IPathHelper _pathHelper;
+
+        private ILogger<UserController> _logger;
 
         public static int Counter = 0;
 
         public UserController(IUserRepository userRepository, IMapper mapper,
-            UserService userService, IWebHostEnvironment hostEnvironment,
-            IBankAccountRepository bankAccountRepository)
+            UserService userService, ICurrencyService currencyService,
+            IBankAccountRepository bankAccountRepository,
+            ILogger<UserController> logger,
+            IPathHelper pathHelper)
         {
             _userRepository = userRepository;
             _mapper = mapper;
             _userService = userService;
-            _hostEnvironment = hostEnvironment;
+            _currencyService = currencyService;
             _bankAccountRepository = bankAccountRepository;
+            _logger = logger;
+            _pathHelper = pathHelper;
         }
 
         [Authorize]
@@ -51,11 +61,52 @@ namespace SpaceWeb.Controllers
             var bankViewModels = user
                 .BankAccounts
                 .Select(x => _mapper.Map<BankAccountViewModel>(x)).ToList();
+            foreach (var bankAccount in bankViewModels)
+            {
+                bankAccount.AmountString = _currencyService.IntToStringAmount((int)bankAccount.Amount);
+
+            }
+
+
             viewModel.MyAccounts = bankViewModels;
             viewModel.DefaultCurrency = user.DefaultCurrency;
             viewModel.MyCurrencies = _bankAccountRepository.GetCurrencies(user.Id);
+            
+            decimal amountAllMoneyInDefaultCurrency = 0;
+            var accounts = _bankAccountRepository.GetBankAccounts(user.Id);
+
+            if (accounts.Count() != 0)
+            {
+                viewModel.RandomCurrency = accounts.First().Currency;
+            }
+
+            if (user.DefaultCurrency != 0)
+            {
+                viewModel.AmountAllMoneyInDefaultCurrency = _currencyService.CountAllMoneyInWishingCurrency(accounts, viewModel.DefaultCurrency);
+            }
+            else
+            {
+                viewModel.AmountAllMoneyInDefaultCurrency = _currencyService.CountAllMoneyInWishingCurrency(accounts, viewModel.RandomCurrency);
+            }
+            foreach (var bancAccount in accounts)
+            {
+                viewModel.AmountString = _currencyService.IntToStringAmount((int)viewModel.AmountAllMoneyInDefaultCurrency);
+
+            }
 
             return View(viewModel);
+        }
+
+        public IActionResult UpdateAllMoney(Currency currency)
+        {
+            AllMoney allMoney = new AllMoney();
+
+            var user = _userService.GetCurrent();
+            var accounts = _bankAccountRepository.GetBankAccounts(user.Id);
+            allMoney.count = _currencyService.CountAllMoneyInWishingCurrency(accounts, currency);
+            allMoney.currency = currency.ToString();
+
+            return Json(allMoney);
         }
 
         public IActionResult UpdateFavCurrency(Currency currency)
@@ -75,7 +126,7 @@ namespace SpaceWeb.Controllers
 
             return Json(true);
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> Profile(ProfileUpdateViewModel viewModel)
         {
@@ -83,16 +134,18 @@ namespace SpaceWeb.Controllers
 
             if (viewModel.Avatar != null)
             {
-                var webPath = _hostEnvironment.WebRootPath;
-                var path = Path.Combine(webPath, "image", "avatars", $"{user.Id}.jpg");
+                var path = _pathHelper.GetPathToAvatarByUser(user.Id);
                 using (var fileStream = new FileStream(path, FileMode.OpenOrCreate))
                 {
                     await viewModel.Avatar.CopyToAsync(fileStream);
                 }
-                user.AvatarUrl = $"/image/avatars/{user.Id}.jpg";
+                user.AvatarUrl = _pathHelper.GetAvatarUrlByUser(user.Id);
+
+                _logger.LogInformation($"User {user.Id} change avatar");
             }
 
             user.Email = viewModel.Email;
+
             _userRepository.Save(user);
 
             return RedirectToAction("Profile");
@@ -241,20 +294,62 @@ namespace SpaceWeb.Controllers
                 return View(model);
             }
 
-            if ((model.Password == ((int)SocialsPassword.TgAllGroup).ToString()) 
-                && (model.Link == nameof(SocialsPassword.TgAllGroup)))
+            if ((model.Password == GlobalConst.TELEGRAMGROUPPASS)
+                && (model.Link.ToLower() == nameof(GlobalConst.TELEGRAMGROUPLINK).ToLower()))
             {
-                return Redirect("https://t.me/joinchat/Tv44VQeM8nXUusnV");
+                return Redirect(GlobalConst.TELEGRAMGROUPLINK);
             }
-            else if ((model.Password == ((int)SocialsPassword.YoutubeTeacher).ToString())
-                && (model.Link == nameof(SocialsPassword.YoutubeTeacher)))
+            else if ((model.Password == GlobalConst.YOUTUBETEACHERPASS)
+                && (model.Link.ToLower() == nameof(GlobalConst.YOUTUBETEACHERLINK).ToLower()))
             {
-                return Redirect("https://www.youtube.com/c/ПашаЛьвов/featured");
+                return Redirect(GlobalConst.YOUTUBETEACHERLINK);
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("SocialsWrongPass", "User");
             }
         }
+
+        [HttpGet]
+        public IActionResult SocialsWrongPass()
+        {
+            return View();
+        }
+
+        public IActionResult EmployeeProfile()
+        {
+            var user = _userService.GetCurrent();
+            var viewModel = _mapper.Map<EmployeeProfileViewModel>(user);
+            return View(viewModel);
+        }
+
+        [IsAdmin]
+        public IActionResult AllAvatars()
+        {
+            var avatarsFolrdPath = _pathHelper.GetPathToAvatarFolder();
+            var filesPath = Directory.GetFiles(avatarsFolrdPath);
+            var models = filesPath
+                .Where(filePath => Path.GetExtension(filePath) == ".jpg")
+                .Select(filePath => Path.GetFileName(filePath))
+                .Select(fileName => new AvatarsAdminViewModel()
+                {
+                    Url = _pathHelper.GetAvatarUrlByFileName(fileName)
+                }).ToList();
+
+            var users = _userRepository.GetAll();
+
+            foreach (var model in models)
+            {
+                var user = users.SingleOrDefault(x => x.AvatarUrl == model.Url);
+                model.UserId = user?.Id ?? -1;
+            }
+            return View(models);
+        }
+    }
+
+    public class AllMoney
+    {
+        public decimal count { get; set; }
+        public string currency { get; set; }
     }
 }

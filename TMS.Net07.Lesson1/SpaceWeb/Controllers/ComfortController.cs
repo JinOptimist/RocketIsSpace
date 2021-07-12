@@ -9,14 +9,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SpaceWeb.EfStuff.Repositories.IRepository;
+using System.IO;
 
 namespace SpaceWeb.Controllers
 {
     public class ComfortController : Controller
     {
         private IMapper _mapper;
-        private ComfortRepository _comfortRepository;
-        public ComfortController(IMapper mapper, ComfortRepository comfortRepository)
+        private IComfortRepository _comfortRepository;
+        public ComfortController(IMapper mapper, IComfortRepository comfortRepository)
         {
             _mapper = mapper;
             _comfortRepository = comfortRepository;

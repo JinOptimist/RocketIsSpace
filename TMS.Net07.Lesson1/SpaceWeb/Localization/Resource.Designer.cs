@@ -61,6 +61,195 @@ namespace SpaceWeb.Localization {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Имя.
+        /// </summary>
+        public static string AllDepartments_Name {
+            get {
+                return ResourceManager.GetString("AllDepartments_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Оклад.
+        /// </summary>
+        public static string AllDepartments_Salary {
+            get {
+                return ResourceManager.GetString("AllDepartments_Salary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Специальность.
+        /// </summary>
+        public static string AllDepartments_Specification {
+            get {
+                return ResourceManager.GetString("AllDepartments_Specification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Фамилия.
+        /// </summary>
+        public static string AllDepartments_Surname {
+            get {
+                return ResourceManager.GetString("AllDepartments_Surname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Карты банков.
+        /// </summary>
+        public static string Banks_Card {
+            get {
+                return ResourceManager.GetString("Banks_Card", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на СОЗДАНИЕ КАРТЫ.
+        /// </summary>
+        public static string Banks_CreatCard {
+            get {
+                return ResourceManager.GetString("Banks_CreatCard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Моцная картаy.
+        /// </summary>
+        public static string Banks_MocCard {
+            get {
+                return ResourceManager.GetString("Banks_MocCard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Карта покупо.
+        /// </summary>
+        public static string Banks_ShoppCard {
+            get {
+                return ResourceManager.GetString("Banks_ShoppCard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Перевод.
+        /// </summary>
+        public static string Banks_Transfer {
+            get {
+                return ResourceManager.GetString("Banks_Transfer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Х карта.
+        /// </summary>
+        public static string Banks_XCard {
+            get {
+                return ResourceManager.GetString("Banks_XCard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Банк.
+        /// </summary>
+        public static string DepartmentType_Bank {
+            get {
+                return ResourceManager.GetString("DepartmentType_Bank", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Лаборатория.
+        /// </summary>
+        public static string DepartmentType_Laboratory {
+            get {
+                return ResourceManager.GetString("DepartmentType_Laboratory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Производство.
+        /// </summary>
+        public static string DepartmentType_Manufactory {
+            get {
+                return ResourceManager.GetString("DepartmentType_Manufactory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Центр управления полетами.
+        /// </summary>
+        public static string DepartmentType_MissionControlCenter {
+            get {
+                return ResourceManager.GetString("DepartmentType_MissionControlCenter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Другое.
+        /// </summary>
+        public static string DepartmentType_Other {
+            get {
+                return ResourceManager.GetString("DepartmentType_Other", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Космонавт.
+        /// </summary>
+        public static string DepartmentType_SpacecraftCrew {
+            get {
+                return ResourceManager.GetString("DepartmentType_SpacecraftCrew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Неизвестно.
+        /// </summary>
+        public static string DepartmentType_Unknown {
+            get {
+                return ResourceManager.GetString("DepartmentType_Unknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Работает.
+        /// </summary>
+        public static string EmployeStatus_Accepted {
+            get {
+                return ResourceManager.GetString("EmployeStatus_Accepted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Не принят.
+        /// </summary>
+        public static string EmployeStatus_Denied {
+            get {
+                return ResourceManager.GetString("EmployeStatus_Denied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Уволен.
+        /// </summary>
+        public static string EmployeStatus_Fired {
+            get {
+                return ResourceManager.GetString("EmployeStatus_Fired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Заявка на работу.
+        /// </summary>
+        public static string EmployeStatus_Request {
+            get {
+                return ResourceManager.GetString("EmployeStatus_Request", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Вопрос ответ.
         /// </summary>
         public static string HomeIndex_FAQ {
@@ -97,6 +286,15 @@ namespace SpaceWeb.Localization {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Все аватарки.
+        /// </summary>
+        public static string Layout_AllAvatars {
+            get {
+                return ResourceManager.GetString("Layout_AllAvatars", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Выйти.
         /// </summary>
         public static string Layout_Exit {
@@ -129,6 +327,69 @@ namespace SpaceWeb.Localization {
         public static string Layout_Registration {
             get {
                 return ResourceManager.GetString("Layout_Registration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Банк.
+        /// </summary>
+        public static string LayoutBank_logoNameBank {
+            get {
+                return ResourceManager.GetString("LayoutBank_logoNameBank", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Рокеты.
+        /// </summary>
+        public static string LayoutBank_logoNameRocket {
+            get {
+                return ResourceManager.GetString("LayoutBank_logoNameRocket", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Глава отдела.
+        /// </summary>
+        public static string Positin_Leader {
+            get {
+                return ResourceManager.GetString("Positin_Leader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Заместитель.
+        /// </summary>
+        public static string Position_Deputy {
+            get {
+                return ResourceManager.GetString("Position_Deputy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Менеджер.
+        /// </summary>
+        public static string Position_Manager {
+            get {
+                return ResourceManager.GetString("Position_Manager", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Профессиональный рабочий.
+        /// </summary>
+        public static string Position_ProfessionalWorker {
+            get {
+                return ResourceManager.GetString("Position_ProfessionalWorker", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Стажер.
+        /// </summary>
+        public static string Position_Trainee {
+            get {
+                return ResourceManager.GetString("Position_Trainee", resourceCulture);
             }
         }
     }
