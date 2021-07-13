@@ -26,47 +26,49 @@ $(document).ready(function () {
 
     $('.container .form .buttons .make').click(function (env) {
 
-        var input = $(this).val();
-
-        if (input == '') {
-            AnimateWrongInput($(this));
-            AnimateBackToDefault($(this));
-            return;
-        }
-
         var amountTextForm = $(this).parent().siblings('.amount');
 
-        var amount = amountTextForm.val().replace(',', '.') - 0;
+        var submitButton = $(this);
 
-        var currentContainer = $(this).closest('.container');
+        var input = amountTextForm.val();
 
-        if (currentContainer.attr('class').indexOf('withdrawal') >= 0) {
-            amount = amount * (-1);
+        if (input == '') {
+            console.log('empty form');
+            AnimateWrongButton(submitButton);
         }
-        else if (currentContainer.attr('class').indexOf('transfer') >= 0) {
-            amount = 0;
+        else {
+            var amount = input.replace(',', '.') - 0;
+
+            var currentContainer = $(this).closest('.container');
+
+            if (currentContainer.attr('class').includes('withdrawal')) {
+                amount = amount * (-1);
+            }
+            else if (currentContainer.attr('class').includes('transfer')) {
+                amount = 0;
+            }
+
+            var activeAccount = GetActiveAccount();
+
+            var url = `/Account/UpdateAmount?id=${activeAccount.id}&amount=${amount}`;
+
+            $.get(url).done(function (answer) {
+                if (answer) {
+                    console.log('amount updated');
+
+                    currentContainer.toggleClass('hide');
+
+                    UpdateAmount(activeAccount, amount);
+
+                    $('.button-list').toggleClass('hide');
+
+                    amountTextForm.val('');
+                }
+                else {
+                    console.log('something went wrong');
+                }
+            })
         }
-
-        var activeAccount = GetActiveAccount();
-
-        var url = `/Account/UpdateAmount?id=${activeAccount.id}&amount=${amount}`;
-
-        $.get(url).done(function (answer) {
-            if (answer) {
-                console.log('amount updated');
-
-                currentContainer.toggleClass('hide');
-
-                UpdateAmount(activeAccount, amount);
-
-                $('.button-list').toggleClass('hide');
-
-                amountTextForm.val('');
-            }
-            else {
-                console.log('something went wrong');
-            }
-        })
 
         env.preventDefault();
     })
@@ -170,7 +172,7 @@ $(document).ready(function () {
     })
 
     $('.container .form input.amount').keyup(function (e) {
-        AnimateBackToDefault($(this));
+        AnimateInputBackToDefault($(this));
     })
 
     function AnimateWrongInput(obj) {
@@ -192,7 +194,7 @@ $(document).ready(function () {
         )
     }
 
-    function AnimateBackToDefault(obj) {
+    function AnimateInputBackToDefault(obj) {
         obj.animate(
             {
                 'progress': 100
@@ -201,6 +203,44 @@ $(document).ready(function () {
                 duration: time / 2,
                 step: function (progress) {
                     obj.css('border-bottom', '')
+                },
+                complete: function () {
+                    obj.css('progress', 0);
+                },
+                queue: true
+            }
+        )
+    }
+
+    function AnimateWrongButton(obj) {
+        obj.animate(
+            {
+                'progress': 100
+            },
+            {
+                duration: time / 4,
+                step: function (progress) {
+                    obj.css('background-color', 'red')
+
+                },
+                complete: function () {
+                    obj.css('progress', 0);
+                    AnimateButtonBackToDefault(obj);
+                },
+                queue: false
+            }
+        )
+    }
+
+    function AnimateButtonBackToDefault(obj) {
+        obj.animate(
+            {
+                'progress': 100
+            },
+            {
+                duration: time / 4,
+                step: function (progress) {
+                    obj.css('background-color', '')
                 },
                 complete: function () {
                     obj.css('progress', 0);
