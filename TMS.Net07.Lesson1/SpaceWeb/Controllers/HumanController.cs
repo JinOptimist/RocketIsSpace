@@ -166,10 +166,20 @@ namespace SpaceWeb.Controllers
         [HttpPost]
         public IActionResult SaveAccrual(AccrualViewModel accrualViewModel)
         {
-            _humanPresentation.SaveAccrual(accrualViewModel);
-            var c = ModelState.Where(x => x.Value.ValidationState == ModelValidationState.Invalid).ToList();
+            if(ModelState.Where(x => x.Value.ValidationState == ModelValidationState.Invalid).Any())
+            {
+                return Json(
+                    ModelState
+                    .Where(x=>x.Value.ValidationState == ModelValidationState.Invalid)
+                    .Select(x => x.Value.Errors.Select(x => x.ErrorMessage)));
+            }
+            else
+            {
+                _humanPresentation.SaveAccrual(accrualViewModel);
+                return RedirectToAction("Personnel");
+
+            }
             //return Json(true);
-            return RedirectToAction("Personnel");
         }
 
         public IActionResult ChangeDate(DateTime date, long employeId)

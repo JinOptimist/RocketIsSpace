@@ -65,7 +65,10 @@
                 Date: $('#input-accrual-date input').val()
             },
             success: function (result) {
-                console.log(result);
+                $('.accrual-message').contents().filter(function () {
+                    return (this.nodeType == 3);
+                }).remove();
+                $('.accrual-message').append(result);
             }
         });
     });
