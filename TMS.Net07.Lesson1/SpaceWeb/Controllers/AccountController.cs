@@ -14,6 +14,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace SpaceWeb.Controllers
@@ -306,6 +307,16 @@ namespace SpaceWeb.Controllers
 
         public IActionResult UpdateAmount(long id, decimal amount)
         {
+
+            var myReg = new Regex(@"[\d]*[.,][\d]{1,2}|[\d]*"); //излишне?
+
+            var isMatch = myReg.IsMatch(amount.ToString());
+
+            if (!isMatch)
+            {
+                return Json(false);
+            }
+
             var account = _bankAccountRepository?.Get(id);
 
             if(account != null)

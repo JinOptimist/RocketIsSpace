@@ -95,7 +95,5 @@ namespace SpaceWeb.Controllers
 
             return Json(max);
         }
-
-        
     }
 }

@@ -2,6 +2,7 @@ $(document).ready(function () {
 
     var time = 1 * 1000;
 
+    var maxMoneyDigit = 6;
 
     $('.content-box .button-list .button.show-menu').click(function () {
 
@@ -20,43 +21,54 @@ $(document).ready(function () {
     $('.container .form .buttons .cancel').click(function () {
         $(this).closest('.container').toggleClass('hide');
         $('.button-list').toggleClass('hide');
+        $('.container .form input[type = text], input[type = password]').val('');
     })
 
     $('.container .form .buttons .make').click(function (env) {
 
         var amountTextForm = $(this).parent().siblings('.amount');
 
-        var amount = amountTextForm.val().replace(',', '.') - 0;
+        var submitButton = $(this);
 
-        var currentContainer = $(this).closest('.container');
+        var input = amountTextForm.val();
 
-        if (currentContainer.attr('class').indexOf('withdrawal') >= 0) {
-            amount = amount * (-1);
+        if (input == '') {
+            console.log('empty form');
+            AnimateWrongButton(submitButton);
         }
-        else if (currentContainer.attr('class').indexOf('transfer') >= 0) {
-            amount = 0;
+        else {
+            var amount = input.replace(',', '.') - 0;
+
+            var currentContainer = $(this).closest('.container');
+
+            if (currentContainer.attr('class').includes('withdrawal')) {
+                amount = amount * (-1);
+            }
+            else if (currentContainer.attr('class').includes('transfer')) {
+                amount = 0;
+            }
+
+            var activeAccount = GetActiveAccount();
+
+            var url = `/Account/UpdateAmount?id=${activeAccount.id}&amount=${amount}`;
+
+            $.get(url).done(function (answer) {
+                if (answer) {
+                    console.log('amount updated');
+
+                    currentContainer.toggleClass('hide');
+
+                    UpdateAmount(activeAccount, amount);
+
+                    $('.button-list').toggleClass('hide');
+
+                    amountTextForm.val('');
+                }
+                else {
+                    console.log('something went wrong');
+                }
+            })
         }
-
-        var activeAccount = GetActiveAccount();
-
-        var url = `/Account/UpdateAmount?id=${activeAccount.id}&amount=${amount}`;
-
-        $.get(url).done(function (answer) {
-            if (answer) {
-                console.log('amount updated');
-
-                currentContainer.toggleClass('hide');
-
-                UpdateAmount(activeAccount, amount);
-
-                $('.button-list').toggleClass('hide');
-
-                amountTextForm.val('');
-            }
-            else {
-                console.log('something went wrong');
-            }
-        })
 
         env.preventDefault();
     })
@@ -85,6 +97,158 @@ $(document).ready(function () {
         //    console.log('something went wrong');
         //}
     })
+
+    $('.container .form input.amount').keydown(function (e) {
+
+        var pressedKey = e.key;
+
+        console.log(pressedKey);
+
+        var input = $(this).val();
+
+        var isAbleToFill = InputFillabilityCheck(input);
+
+        if (pressedKey == 'Backspace'
+            || pressedKey == 'Delete'
+            || pressedKey == 'Enter') {
+            return;
+        }
+        else if (pressedKey == '.' || pressedKey == ',') {
+            if (input == '') {
+                $(this).val(0);
+            }
+            if (input.includes('.') || input.includes(',')) {
+                e.preventDefault();
+            }
+            else {
+                return;
+            }
+        }
+        if (isAbleToFill) {
+            if (pressedKey >= 1 || pressedKey <= 9) {
+                return;
+            }
+            else if (pressedKey == 0) {
+                if (input == '') {
+                    $(this).val(0 + '.');
+                }
+                else {
+                    return;
+                }
+            }
+        }
+        e.preventDefault();
+
+        AnimateWrongInput($(this));
+
+        function InputFillabilityCheck(input) {
+
+            var myReg = /[^\d]/g;
+
+            var check = myReg.test(input);
+
+            if (check) {
+                var splitedInput = input.split(myReg);
+
+                if (splitedInput[0].length > maxMoneyDigit + 1) {
+                    return false;
+                }
+                else if (splitedInput[1].length > 1) {
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            }
+
+            else if (input.length > maxMoneyDigit) {
+                return false;
+            }
+
+            else {
+                return true;
+            }
+        }
+    })
+
+    $('.container .form input.amount').keyup(function (e) {
+        AnimateInputBackToDefault($(this));
+    })
+
+    function AnimateWrongInput(obj) {
+        obj.animate(
+            {
+                'progress': 100
+            },
+            {
+                duration: time / 2,
+                step: function (progress) {
+                    obj.css('border-bottom', '2px solid red')
+                },
+                //complete: function () {
+                //    obj.css('progress', 0);
+                //    AnimateBackToDefault(obj);
+                //},
+                queue: false
+            }
+        )
+    }
+
+    function AnimateInputBackToDefault(obj) {
+        obj.animate(
+            {
+                'progress': 100
+            },
+            {
+                duration: time / 2,
+                step: function (progress) {
+                    obj.css('border-bottom', '')
+                },
+                complete: function () {
+                    obj.css('progress', 0);
+                },
+                queue: true
+            }
+        )
+    }
+
+    function AnimateWrongButton(obj) {
+        obj.animate(
+            {
+                'progress': 100
+            },
+            {
+                duration: time / 4,
+                step: function (progress) {
+                    obj.css('background-color', 'red')
+
+                },
+                complete: function () {
+                    obj.css('progress', 0);
+                    AnimateButtonBackToDefault(obj);
+                },
+                queue: false
+            }
+        )
+    }
+
+    function AnimateButtonBackToDefault(obj) {
+        obj.animate(
+            {
+                'progress': 100
+            },
+            {
+                duration: time / 4,
+                step: function (progress) {
+                    obj.css('background-color', '')
+                },
+                complete: function () {
+                    obj.css('progress', 0);
+                },
+                queue: true
+            }
+        )
+    }
 
     function GetActiveAccount() {
 
