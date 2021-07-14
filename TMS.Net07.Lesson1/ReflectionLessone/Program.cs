@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace ReflectionLessone
 {
@@ -21,14 +23,15 @@ namespace ReflectionLessone
     
     class Program
     {
+        
+        static void Main(string[] args)
+        {
+            
+        }
+
         delegate void Message();
 
         event Message Notify;
-
-        static void Main(string[] args)
-        {
-
-        }
 
         public static void MessageEmail()
         {
@@ -139,7 +142,7 @@ namespace ReflectionLessone
             return 1 / b;
         }
 
-        public static void HashSetExmple()
+        public static async Task HashSetExmpleAsync()
         {
             var dictionary = new HashSet<Human>();
 
@@ -148,6 +151,14 @@ namespace ReflectionLessone
             dictionary.Add(new Human(202));
 
             dictionary.Add(new Human(203));
+
+            var age = Fun();
+        }
+
+        public static Task<int> Fun()
+        {
+            Thread.Sleep(10 * 1000);
+            return new Task<int>(() => 8);
         }
 
         public static void Refl()

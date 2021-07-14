@@ -30,7 +30,7 @@ namespace SpaceWeb.Controllers
         private BanksCardRepository _banksCardRepository;
         private UserService _userService;
         private ICurrencyService _currencyService;
-        private BankPresentation _bankPresentation;
+        private IBankPresentation _bankPresentation;
         private ExchangeRateToUsdHistoryRepository _exchangeRateToUsdHistoryRepository;
         private IWebHostEnvironment _hostEnvironment;
 
@@ -41,7 +41,7 @@ namespace SpaceWeb.Controllers
             UserService userService,
             BanksCardRepository banksCardRepository,
             ICurrencyService currencyService,
-            BankPresentation bankPresentation,
+            IBankPresentation bankPresentation,
             ExchangeRateToUsdHistoryRepository exchangeRateToUsdHistoryRepository,
             IWebHostEnvironment hostEnvironment)
         {
@@ -56,15 +56,9 @@ namespace SpaceWeb.Controllers
             _exchangeRateToUsdHistoryRepository = exchangeRateToUsdHistoryRepository;
             _hostEnvironment = hostEnvironment;
         }
-        public IActionResult Index(string language)
+        public IActionResult Index(/*string language*/)
         {
-            //Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(language);
-            //Thread.CurrentThread.CurrentCulture = new CultureInfo(language);
 
-            //var culture = CultureInfo.DefaultThreadCurrentCulture;
-            //var fixCulture = new CultureInfo("en-US");
-
-            //CultureInfo.DefaultThreadCurrentUICulture = fixCulture;
             return View();
         }
 
@@ -138,8 +132,6 @@ namespace SpaceWeb.Controllers
 
             chartViewModel.Datasets.Add(datasetEURViewModel);
 
-
-
             return Json(chartViewModel);
         }
 
@@ -158,6 +150,66 @@ namespace SpaceWeb.Controllers
                 .ToList();
             return View(modelNew);
         }
+
+        [HttpGet]
+        public IActionResult AddCard()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddCard(BanksCardViewModel viewModel)
+        {
+            var user = _userService.GetCurrent();
+            var bankCardNew = new BanksCard();
+
+            switch (viewModel.Card)
+            {
+                case EnumBankCard.PayCard:
+                    bankCardNew = new BanksCard()
+                    {
+                        BankAccount = new BankAccount() { 
+                            Amount = 2000, 
+                            Currency = Currency.BYN 
+                        },
+                        Currency = Currency.BYN,
+                        Card = EnumBankCard.PayCard
+
+                    };
+                    break;
+
+                case EnumBankCard.valueCard:
+
+                    bankCardNew = new BanksCard()
+                    {
+                        BankAccount = new BankAccount() { 
+                            Amount = 1000, 
+                            Currency = Currency.USD },
+                        Currency = Currency.USD,
+                        Card = EnumBankCard.valueCard
+
+                    };
+                    break;
+                case EnumBankCard.XCard:
+                    bankCardNew = new BanksCard()
+                    {
+                        BankAccount = new BankAccount() { 
+                            Amount = 0,
+                            Currency = Currency.EUR },
+                        Currency = Currency.EUR,
+                        Card = EnumBankCard.XCard
+
+                    };
+                    break;
+            }
+
+            bankCardNew.CreationDate = DateTime.Now;
+            var pinCard = new Random().Next(1, 9999).ToString(format: "D4");
+            bankCardNew.PinCard = pinCard;
+            _banksCardRepository.Save(bankCardNew);
+
+
+            return RedirectToRoute("Index");
+        }
         [HttpPost]
         public IActionResult AddBanksCard(long accountId, EnumBankCard card)
         {
@@ -167,10 +219,11 @@ namespace SpaceWeb.Controllers
                 switch (card)
                 {
                     case EnumBankCard.PayCard:
+
                         bankAccount = new BankAccount()
                         {
-                            Currency
-                            = Currency.BYN
+                            Currency = Currency.BYN
+
                         };
                         break;
                     case EnumBankCard.valueCard:
@@ -488,18 +541,18 @@ namespace SpaceWeb.Controllers
             var fileName = $"History of exchange rates.docx";
             return PhysicalFile(path, contentTypeDocx, fileName);
         }
-        public IActionResult Transfer(long toId, long fromId, decimal amount)
-        {
-            try
-            {
-                _bankAccountRepository.Transfer(toId, fromId, amount);
-            }
-            catch (BankException)
-            {
-                return Json(false);
-            }
+        //public IActionResult Transfer(long toId, long fromId, decimal amount)
+        //{
+        //    try
+        //    {
+        //        _bankAccountRepository.Transfer(toId, fromId, amount);
+        //    }
+        //    catch (BankException)
+        //    {
+        //        return Json(false);
+        //    }
 
-            return Json(true);
-        }
+        //    return Json(true);
+        //}
     }
 }

@@ -1,0 +1,28 @@
+﻿@using SpaceWeb.EfStuff.Model
+@{
+    var cardOptions = new List<SelectListItem>();
+
+    var cars = Enum.GetValues(typeof(EnumBankCard));
+
+    for (int i = 0; i < cars.Length; i++)
+    {
+        var option = new SelectListItem();
+        option.Value = ((int)cars.GetValue(i)).ToString();
+        option.Text = cars.GetValue(i).ToString();
+        cardOptions.Add(option);
+    }
+}
+
+
+<form class="creation form" method="POST">
+    <div>Название карты</div>
+    <p>
+        @Html.DropDownList(nameof(BanksCardViewModel.Card), cardOptions)
+    </p>
+
+
+    <p class="buttons">
+        <input class="create-account button" type="submit" value="Создать">
+        <input class="cancel-creation button" type="reset" value="Сброс">
+    </p>
+</form>
