@@ -101,6 +101,8 @@ namespace SpaceWeb
                ));
 
             services.AddSingleton<MazeBuilder>(x => new MazeBuilder());
+
+            services.AddSingleton<BreadCrumbsService>(x => new BreadCrumbsService());
         }
 
         private void RegisterOldRepository(IServiceCollection services)
