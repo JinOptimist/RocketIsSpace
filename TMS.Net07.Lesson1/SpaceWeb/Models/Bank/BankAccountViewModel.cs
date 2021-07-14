@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SpaceWeb.EfStuff.Model;
+using SpaceWeb.EfStuff.Model.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace SpaceWeb.Models
         public DateTime CreationDate { get; set; }
         public DateTime ExpireDate { get; set; }
         public int AccountIndex { get; set; }
+        public BankAccountType BankAccountType { get; set; }
         public string AmountString { get; set; }
     }
 }

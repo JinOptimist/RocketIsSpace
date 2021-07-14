@@ -100,6 +100,15 @@ namespace SpaceWeb
                    diContainer.GetService<IWebHostEnvironment>()
                ));
 
+
+           services.AddScoped<ISalaryService>(diContainer =>
+                new SalaryService(
+                    diContainer.GetService<IAccrualRepository>(),
+                    diContainer.GetService<IPaymentRepository>(),
+                    diContainer.GetService<IBankAccountRepository>(),
+                    diContainer.GetService<IEmployeRepository>()
+               ));
+          
             services.AddSingleton<MazeBuilder>(x => new MazeBuilder());
 
             services.AddSingleton<BreadCrumbsService>(x => new BreadCrumbsService());
@@ -212,6 +221,7 @@ namespace SpaceWeb
             //            .MapFrom(dbModel => $"{dbModel.Name}, {dbModel.SurName} Mr"));
 
             configExpression.CreateMap<Employe, ShortEmployeViewModel>()
+                .ForMember(nameof(ShortEmployeViewModel.Id), config => config.MapFrom(x => x.Id))
                 .ForMember(nameof(ShortEmployeViewModel.Name), config => config.MapFrom(x => x.User.Name))
                 .ForMember(nameof(ShortEmployeViewModel.Surname), config => config.MapFrom(x => x.User.SurName))
                 .ForMember(nameof(ShortEmployeViewModel.SalaryPerHour), config => config.MapFrom(x => x.SalaryPerHour))
