@@ -107,8 +107,8 @@ namespace SpaceWeb
             services.AddScoped<AdvImageRepository>(diContainer =>
                 new AdvImageRepository(diContainer.GetService<SpaceDbContext>()));
 
-            services.AddScoped<TrasactionRepository>(diContainer =>
-                new BanksCardRepository(diContainer.GetService<SpaceDbContext>()));
+            services.AddScoped<TransactionRepository>(diContainer =>
+                new TransactionRepository(diContainer.GetService<SpaceDbContext>()));
 
             services.AddScoped<ComfortRepository>(diContainer =>
                 new ComfortRepository(diContainer.GetService<SpaceDbContext>()));

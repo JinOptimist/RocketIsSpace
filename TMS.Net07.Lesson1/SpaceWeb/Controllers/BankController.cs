@@ -261,7 +261,7 @@ namespace SpaceWeb.Controllers
         }
         public IActionResult Transfer(long userId)
         {
-            _transactionService.TransferFunds()
+           // _transactionService.TransferFunds();
             return RedirectToAction("AddCard");
         }
         public IActionResult AddTransaction(long transferToId)

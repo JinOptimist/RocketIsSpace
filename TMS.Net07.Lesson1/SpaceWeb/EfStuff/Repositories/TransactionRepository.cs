@@ -15,7 +15,7 @@ namespace SpaceWeb.EfStuff.Repositories
         }
 
        
-        public List<Transaction> GetTransactionUser(long userId)
+        public List<Transaction> GetTransactionByUser(long userId)
         {
             return _dbSet
                 .Where(x => x.Owner.Id == userId)

@@ -35,11 +35,11 @@ namespace SpaceWeb.Service
         }
 
 
-        public void Transfer(decimal transferAmount, long transferToId)
-        {
-            var balance = _banksCardRepository.GetAmount(transferToId.ToString());
-            balance += transferAmount;
-        }
+        //public void Transfer(decimal transferAmount, long transferToId)
+        //{
+        //    var balance = _banksCardRepository.GetAmount(transferToId.ToString());
+        //    balance += transferAmount;
+        //}
         public bool TransferFunds(int fromAccountId, int toAccountId, decimal transferAmount)
         {
             if (transferAmount <= 0)
