@@ -159,12 +159,12 @@
         </div>
     </div>
     <div class="breadcrumb-container"></div>
-    <div class="breadcrumb-container server">
+    <div class="breadcrumb-container-server">
         @{ 
             var breadCrumbsViewModel = breadCrumbsService.GetBreadCrumbs(Context);
         }
         @foreach (var bread in breadCrumbsViewModel) { 
-            <div class="bread">
+            <div class="breadcrumb">
                 <a href="@bread.Url">
                     @bread.Title
                 </a>
