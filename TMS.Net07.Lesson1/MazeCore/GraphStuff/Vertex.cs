@@ -9,6 +9,8 @@ namespace MazeCore.GraphStuff
 
         public BaseCell BaseCell { get; set; }
 
-        public int DistanceFromRoot { get; set; } = -1;
+        public int DistanceFromRoot { get; set; }
+
+        public List<int> Ways { get; set; }
     }
 }
