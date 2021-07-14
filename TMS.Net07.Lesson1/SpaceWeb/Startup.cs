@@ -100,15 +100,18 @@ namespace SpaceWeb
                    diContainer.GetService<IWebHostEnvironment>()
                ));
 
-            services.AddScoped<ISalaryService>(diContainer =>
+
+           services.AddScoped<ISalaryService>(diContainer =>
                 new SalaryService(
                     diContainer.GetService<IAccrualRepository>(),
                     diContainer.GetService<IPaymentRepository>(),
                     diContainer.GetService<IBankAccountRepository>(),
                     diContainer.GetService<IEmployeRepository>()
                ));
+          
+            services.AddSingleton<MazeBuilder>(x => new MazeBuilder());
 
-          services.AddSingleton<MazeBuilder>(x => new MazeBuilder());
+            services.AddSingleton<BreadCrumbsService>(x => new BreadCrumbsService());
         }
 
         private void RegisterOldRepository(IServiceCollection services)
