@@ -1,0 +1,16 @@
+﻿@using SpaceWeb.Localization
+@using SpaceWeb.Models.Human
+@model ShortEmployeViewModel
+
+<div id="name">
+    @Resource.AllDepartments_Name: @Model.Name
+</div>
+<div id="surname">
+    @Resource.AllDepartments_Surname: @Model.Surname
+</div>
+<div id="specification">
+    @Resource.AllDepartments_Specification: @Model.Position
+</div>
+<div id="salary">
+    @Resource.AllDepartments_Salary: @Model.SalaryPerHour
+</div>
