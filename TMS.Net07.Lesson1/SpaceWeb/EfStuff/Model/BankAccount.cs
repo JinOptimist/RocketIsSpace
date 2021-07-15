@@ -18,6 +18,7 @@ namespace SpaceWeb.EfStuff.Model
         public DateTime CreationDate { get; set; }
         public DateTime ExpireDate { get; set; }
         public virtual List<BanksCard> BanksCards { get; set; }
-        
+        public virtual List<Transaction> IncomingTransactions { get; set; }
+        public virtual List<Transaction> OutcomingTransactions { get; set; }
     }
 }

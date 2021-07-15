@@ -908,7 +908,7 @@ namespace SpaceWeb.Migrations
 
                                     b.Navigation("MyRockets");
 
-                                    b.Navigation("Profile");
+                                    //b.Navigation("Profile");
 
                                     b.Navigation("TestedRockets");
                                 });
