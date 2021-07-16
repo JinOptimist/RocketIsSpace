@@ -116,13 +116,13 @@ a {
     align-items: center;
 }
 
-.header input[type=text] {
-    width: 68px;
-    border-radius: 5px;
-    background: antiquewhite;
-    border: 0;
-    margin-top: 2px;
-}
+    .header input[type=text] {
+        width: 68px;
+        border-radius: 5px;
+        background: antiquewhite;
+        border: 0;
+        margin-top: 2px;
+    }
 
 .left-menu {
     /* background: yellow; */
@@ -134,9 +134,9 @@ a {
     /* background: green; */
 }
 
-.left-menu-absolute:hover {
-    width: 150px;
-}
+    .left-menu-absolute:hover {
+        width: 150px;
+    }
 
 .left-menu .link {
     color: blue;
@@ -148,9 +148,9 @@ a {
     cursor: pointer;
 }
 
-.left-menu .link:hover {
-    background: orange;
-}
+    .left-menu .link:hover {
+        background: orange;
+    }
 
 .left-menu-absolute .link .text {
     display: none;
@@ -255,9 +255,9 @@ a {
     display: inline;
 }
 
-#registration-block .icon.hide {
-    display: none;
-}
+    #registration-block .icon.hide {
+        display: none;
+    }
 
 .relics {
     display: flex;
@@ -271,19 +271,19 @@ a {
     border-radius: 10px;
 }
 
-.relic .name {
-    display: flex;
-    justify-content: space-between;
-}
+    .relic .name {
+        display: flex;
+        justify-content: space-between;
+    }
 
-.relic .name .icon.close {
-    cursor: pointer;
-}
+        .relic .name .icon.close {
+            cursor: pointer;
+        }
 
-.relic img {
-    max-width: 100px;
-    max-height: 100px;
-}
+    .relic img {
+        max-width: 100px;
+        max-height: 100px;
+    }
 
 .avatar {
     max-width: 200px;
@@ -364,13 +364,13 @@ a {
     color: white;
 }
 
-.socials-form-telegram .socials-passcode-telegram {
-    background: rgb(255 255 255 / 60%);
-    border-radius: 10px;
-    color: black;
-    text-align: center;
-    margin: 10px 0;
-}
+    .socials-form-telegram .socials-passcode-telegram {
+        background: rgb(255 255 255 / 60%);
+        border-radius: 10px;
+        color: black;
+        text-align: center;
+        margin: 10px 0;
+    }
 
 .socials-submit-telegram {
     border-radius: 10px;
@@ -432,10 +432,10 @@ a {
     margin-bottom: 25px;
 }
 
-.error-socials-image img {
-    width: 100%;
-    height: 100%;
-}
+    .error-socials-image img {
+        width: 100%;
+        height: 100%;
+    }
 
 .socials-content {
     display: flex;
@@ -487,37 +487,37 @@ a {
     display: flex;
 }
 
-.animate-block .buttons {
-    position: absolute;
-    width: 500px;
-    height: 270px;
-    display: flex;
-}
+    .animate-block .buttons {
+        position: absolute;
+        width: 500px;
+        height: 270px;
+        display: flex;
+    }
 
-.animate-block .choose {
-    flex: 2;
-    cursor: pointer;
-}
+    .animate-block .choose {
+        flex: 2;
+        cursor: pointer;
+    }
 
-.animate-block .choose:hover {
-    background: red;
-    opacity: 0.3;
-}
+        .animate-block .choose:hover {
+            background: red;
+            opacity: 0.3;
+        }
 
-.animate-block .next-btn,
-.animate-block .prev-btn {
-    /*background: #ccc;*/
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    flex: 1;
-}
+    .animate-block .next-btn,
+    .animate-block .prev-btn {
+        /*background: #ccc;*/
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        flex: 1;
+    }
 
-.animate-block .next-btn:hover,
-.animate-block .prev-btn:hover {
-    background: #000;
-    opacity: 0.3;
-}
+        .animate-block .next-btn:hover,
+        .animate-block .prev-btn:hover {
+            background: #000;
+            opacity: 0.3;
+        }
 
 .carousel-smile {
     background: rgb(33, 33, 33);
@@ -548,3 +548,23 @@ a {
     margin-right: 10px;
     color: red;
 }
+
+
+.maze .line {
+    display: flex;
+}
+
+.breadcrumb-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.breadcrumb {
+    padding: 0px;
+    flex: 1;
+    text-align: center;
+    background: rgba(0,0,0,0.1);
+}
+    .breadcrumb:hover {
+        background: rgba(0,0,0,0.3);
+    }

@@ -44,7 +44,13 @@ namespace SpaceWeb.Controllers
             if (id > 0)
             {
                 var user = _userService.GetCurrent();
-                var dbModel = user.BankAccounts.SingleOrDefault(x => x.Id == id);
+                var dbModel = user.BankAccounts?.SingleOrDefault(x => x.Id == id);
+
+                if(dbModel == null)
+                {
+                    return View();
+                }
+
                 var viewModel = _mapper.Map<BankAccountViewModel>(dbModel);
 
                 var index = user.BankAccounts.IndexOf(dbModel);
@@ -57,6 +63,8 @@ namespace SpaceWeb.Controllers
             return RedirectToAction("Creation");
         }
 
+
+        [HttpGet]
         public IActionResult Remove(long id)
         {
             _bankAccountRepository.Remove(id);
@@ -66,7 +74,21 @@ namespace SpaceWeb.Controllers
             var newId = user.BankAccounts?.FirstOrDefault()?.Id;
             if (newId != null)
             {
-                //return RedirectToAction("Index",  new { id = (long)newId });
+                return Redirect($"/Account/Index?id={newId}");
+            }
+            return RedirectToAction("Creation");
+        }
+
+        [HttpPost]
+        public IActionResult Remove(long id, string password)
+        {
+            _bankAccountRepository.Remove(id);
+
+            var user = _userService.GetCurrent();
+
+            var newId = user.BankAccounts?.FirstOrDefault()?.Id;
+            if (newId != null)
+            {
                 return Redirect($"/Account/Index?id={newId}");
             }
             return RedirectToAction("Creation");
@@ -281,12 +303,19 @@ namespace SpaceWeb.Controllers
             var fileName = $"Info about '{account.Name}' account.docx";
             return PhysicalFile(path, contentTypeDocx, fileName);
         }
-        public IActionResult UpdateAmount(string accoutNumber, int delta)
+
+        public IActionResult UpdateAmount(long id, decimal amount)
         {
-            var account = _bankAccountRepository.Get(accoutNumber);
-            account.Amount += delta;
-            _bankAccountRepository.Save(account);
-            return Json(true);
+            var account = _bankAccountRepository?.Get(id);
+
+            if(account != null)
+            {
+                account.Amount += amount;
+                _bankAccountRepository.Save(account);
+                return Json(true);
+            }
+
+            return Json(false);
         }
 
         public IActionResult GetByName(string name)

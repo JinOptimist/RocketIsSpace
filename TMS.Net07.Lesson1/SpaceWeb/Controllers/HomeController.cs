@@ -5,6 +5,10 @@ using SpaceWeb.Models.Chart;
 using SpaceWeb.Service;
 using System.Linq;
 using System.Text.Json;
+using MazeCore;
+using AutoMapper;
+using SpaceWeb.Models.Maze;
+using MazeCore.GraphStuff;
 
 namespace SpaceWeb.Controllers
 {
@@ -12,11 +16,18 @@ namespace SpaceWeb.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private UserService _userService;
+        private MazeBuilder _mazeBuilder;
+        private IMapper _mapper;
 
-        public HomeController(ILogger<HomeController> logger, UserService userService)
+        public HomeController(ILogger<HomeController> logger,
+            UserService userService,
+            MazeBuilder mazeBuilder,
+            IMapper mapper)
         {
             _logger = logger;
             _userService = userService;
+            _mazeBuilder = mazeBuilder;
+            _mapper = mapper;
         }
 
         public IActionResult Index()
@@ -37,7 +48,7 @@ namespace SpaceWeb.Controllers
 
             //проект не грузится, если юзер не залогинен
 
-            if (user!=null)
+            if (user != null)
             {
                 var currencies = user.BankAccounts.Select(x => x.Currency).Distinct();
 
@@ -61,5 +72,30 @@ namespace SpaceWeb.Controllers
             }
             return Json("null user");
         }
+
+        public IActionResult Maze()
+        {
+            var mazeLevel = _mazeBuilder.Build(4, 4, seed: 50);
+            var viewModel = _mapper.Map<MazeViewModel>(mazeLevel);
+            return View(viewModel);
+        }
+
+        public IActionResult TheLongestWay(int x, int y)
+        {
+            var mazeLevel = _mazeBuilder.Build(4, 4, seed: 50);
+
+            var graph = _mazeBuilder.BuildGraph(mazeLevel);
+
+            var ver = graph.Vertices
+                .Single(ver => ver.BaseCell.X == x && ver.BaseCell.Y == y);
+            ver.DistanceFromRoot = 0;
+            graph.SetDistanceFromRoot(ver);
+
+            var max = graph.Vertices.Max(x => x.DistanceFromRoot);
+
+            return Json(max);
+        }
+
+        
     }
 }
