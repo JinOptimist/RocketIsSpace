@@ -29,6 +29,10 @@ namespace ReflectionLessone
 
         
 
+        //private delegate void Message();
+
+        //private event Message Notify;
+
         public static void MessageEmail()
         {
             Console.WriteLine("Email");

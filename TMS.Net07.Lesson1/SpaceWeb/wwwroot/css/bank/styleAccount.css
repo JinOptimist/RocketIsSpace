@@ -34,12 +34,18 @@ input[type = password] { /*универсально*/
     border: none;
     border-bottom: 2px solid rgb(190,190,190);
     transition: 300ms;
+    text-align:center;
 }
 
 input[type = text]:focus, 
 input[type = password]:focus{ /*универсально*/
     outline: none;
     border-bottom: 2px solid rgb(0, 185, 229);
+}
+
+input.amount:invalid {
+    outline: none;
+    border-bottom: 2px solid rgb(229,0, 0);
 }
 
 select {    /*универсально*/
