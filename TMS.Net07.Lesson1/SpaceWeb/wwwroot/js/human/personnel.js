@@ -16,10 +16,11 @@
         var url = '/Human/GetEmloyeAccrualsInfo?employeId=' + employeId;
         $.get(url)
             .done(function (data) {
+                console.log(data);
                 $('#modal-salary-count').modal('show');
-                $('#hidden-id input').attr('value', data.employeId);
-                $('#input-date input').attr('min', RegexResult(dateMonthRegex, data.dateFrom));
-                $('#input-date input').attr('max', RegexResult(dateMonthRegex, data.dateTo));
+                $('#hidden-accrual-id input').attr('value', data.employeId);
+                $('#input-accrual-date input').attr('min', RegexResult(dateMonthRegex, data.dateFrom));
+                $('#input-accrual-date input').attr('max', RegexResult(dateMonthRegex, data.dateTo));
 
                 $("#noAccrualsMonths option").remove();
 
@@ -44,13 +45,31 @@
             });
     });
 
-    $('#input-date input').change(function () {
-        var date = $('#input-date input').val();
-        var id = $('#hidden-id input').val();
+    $('#input-accrual-date input').change(function () {
+        var date = $('#input-accrual-date input').val();
+        var id = $('#hidden-accrual-id input').val();
         url = `/Human/ChangeDate?date=${date}&employeId=${id}`;
         $.get(url)
             .done(function (data) {
-                $('#input-amount input').attr('value', ToLocaleWithDecimals(data));
+                $('#input-accrual-amount input').attr('value', ToLocaleWithDecimals(data));
             });
+    });
+
+    $('#submit-accrual').click(function () {
+        $.ajax({
+            url: '/Human/SaveAccrual',
+            type: 'post',
+            data: {
+                EmployeId: $('#hidden-accrual-id input').val(),
+                Amount: $('#input-accrual-amount input').val(),
+                Date: $('#input-accrual-date input').val()
+            },
+            success: function (result) {
+                $('.accrual-message').contents().filter(function () {
+                    return (this.nodeType == 3);
+                }).remove();
+                $('.accrual-message').append(result);
+            }
+        });
     });
 });
