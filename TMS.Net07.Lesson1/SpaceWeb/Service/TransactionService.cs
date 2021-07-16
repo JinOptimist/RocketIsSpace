@@ -9,21 +9,16 @@ using System;
 
 namespace SpaceWeb.Service
 {
-    public class TransactionService
+    public class TransactionService : ITransactionService
     {
-        private IHttpContextAccessor _contextAccessor;
         private IBanksCardRepository _banksCardRepository;
-        private IBankAccountRepository _bankAccountRepository;
-
         private UserService _userService;
 
-        public TransactionService(IBanksCardRepository banksCardRepository,
-            IHttpContextAccessor contextAccessor, UserService userService, IBankAccountRepository bankAccountRepository)
+        public TransactionService(IBanksCardRepository banksCardRepository, 
+             UserService userService)
         {
             _banksCardRepository = banksCardRepository;
-            _contextAccessor = contextAccessor;
             _userService = userService;
-            _bankAccountRepository = bankAccountRepository;
         }
 
         private BanksCard GetCardUser(long userId)
@@ -36,13 +31,13 @@ namespace SpaceWeb.Service
             }
             return cards;
         }
-        public  void  Transfer(decimal transferAmount, long transferToId)
-        {
-            var balance = _banksCardRepository.GetAmount(transferToId.ToString());
-            balance += transferAmount;
-            //Transaction newTransaction = new Transaction(transferAmount, transferToId);
-           // transactions.Add(newTransaction);
-        }
+
+
+        //public void Transfer(decimal transferAmount, long transferToId)
+        //{
+        //    var balance = _banksCardRepository.GetAmount(transferToId.ToString());
+        //    balance += transferAmount;
+        //}
         public bool TransferFunds(int fromAccountId, int toAccountId, decimal transferAmount)
         {
             if (transferAmount <= 0)
@@ -57,16 +52,17 @@ namespace SpaceWeb.Service
             BanksCard fromAccount = GetCardUser(fromAccountId);
             BanksCard toAccount = GetCardUser(toAccountId);
 
+            fromAccount.BankAccount.Amount -= transferAmount;
+            toAccount.BankAccount.Amount += transferAmount;
+
             if (fromAccount.BankAccount.Amount < transferAmount)
             {
                 throw new ApplicationException("insufficient funds");
             }
-
-           // fromAccount.Transfer(-1 * transferAmount, toAccountId);
-            //toAccount.Transfer(transferAmount, fromAccountId);
-
+            
             return true;
         }
+
 
 
     }
