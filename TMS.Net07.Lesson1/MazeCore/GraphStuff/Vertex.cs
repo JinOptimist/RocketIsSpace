@@ -11,6 +11,6 @@ namespace MazeCore.GraphStuff
 
         public int DistanceFromRoot { get; set; }
 
-        public List<int> Ways { get; set; }
+        public List<int> Ways { get; set; } = new List<int>();
     }
 }

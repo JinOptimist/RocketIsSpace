@@ -10,7 +10,7 @@ namespace MazeCore.GraphStuff
     {
         public List<Vertex> Vertices { get; set; } = new List<Vertex>();
 
-        public int StartWayNumber { get; set; }
+        public int StartWayNumber { get; set; } = 1;
 
 
         public void SetDistanceFromRoot(Vertex rootVertex)
@@ -32,11 +32,16 @@ namespace MazeCore.GraphStuff
             }
         }
 
-        public Graph GetRichestWay(Vertex rootVertex)
+        public int GetRichestWay(Vertex rootVertex)
         {
             var graphs = GetAllWays(rootVertex);
-            //graphs.Single(x => x.Vertices.Select(x => x.BaseCell);
-            return null;
+            return 
+                graphs
+                .Select(
+                    x => x.Vertices
+                    .Select(x => x.BaseCell as Gold)
+                    .Sum(x => x?.GoldCount))
+                .Max(x => x.Value);
         }
 
         public List<Graph> GetAllWays(Vertex rootVertex)
