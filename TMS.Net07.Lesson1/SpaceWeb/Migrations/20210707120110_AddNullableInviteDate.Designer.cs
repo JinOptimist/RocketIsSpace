@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SpaceWeb.EfStuff;
 
 namespace SpaceWeb.Migrations
 {
     [DbContext(typeof(SpaceDbContext))]
-    partial class SpaceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210707120110_AddNullableInviteDate")]
+    partial class AddNullableInviteDate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -146,29 +148,23 @@ namespace SpaceWeb.Migrations
                     b.Property<int>("Card")
                         .HasColumnType("int");
 
-                    b.Property<string>("CardUrl")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Count")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("Currency")
                         .HasColumnType("int");
 
-                    b.Property<long?>("OwnerId")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("PinCard")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("UserId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
                     b.HasIndex("BankAccountId");
 
-                    b.HasIndex("OwnerId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("BanksCard");
                 });
@@ -780,13 +776,11 @@ namespace SpaceWeb.Migrations
                         .WithMany("BanksCards")
                         .HasForeignKey("BankAccountId");
 
-                    b.HasOne("SpaceWeb.EfStuff.Model.User", "Owner")
+                    b.HasOne("SpaceWeb.EfStuff.Model.User", null)
                         .WithMany("BanksCards")
-                        .HasForeignKey("OwnerId");
+                        .HasForeignKey("UserId");
 
                     b.Navigation("BankAccount");
-
-                    b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.Client", b =>
@@ -944,13 +938,6 @@ namespace SpaceWeb.Migrations
                     b.Navigation("BanksCards");
 
                     b.Navigation("Payments");
-                });
-
-            modelBuilder.Entity("SpaceWeb.EfStuff.Model.BanksCard", b =>
-                {
-                    b.Navigation("TransactionsFrom");
-
-                    b.Navigation("TransactionsTo");
                 });
 
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.BanksCard", b =>

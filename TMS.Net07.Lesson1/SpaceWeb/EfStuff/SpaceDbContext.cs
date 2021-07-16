@@ -40,9 +40,14 @@ namespace SpaceWeb.EfStuff
         public DbSet<InsuranceType> InsuranceTypes { get; set; }
         public DbSet<Insurance> Insurances { get; set; }
 
+
+        public DbSet<Accrual> Accrual { get; set; }
+        public DbSet<Payment> Payment { get; set; }
+
         public DbSet<ExchangeRateToUsdCurrent> ExchangeRatesToUsdCurrent { get; set; }
         public DbSet<ExchangeRateToUsdHistory> ExchangeRatesToUsdHistory { get; set; }
         public DbSet<ExchangeAccountHistory> ExchangeAccountHistory { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -118,6 +123,15 @@ namespace SpaceWeb.EfStuff
                 .HasMany(x => x.Rockets)
                 .WithMany(x => x.OrderedBy);
 
+
+            modelBuilder.Entity<Accrual>()
+                .HasOne(x => x.Employe)
+                .WithMany(x => x.Accruals);
+
+            modelBuilder.Entity<Payment>()
+                .HasOne(x => x.Employe)
+                .WithMany(x => x.Payments);
+
             modelBuilder.Entity<Transaction>()
                 .HasOne(x => x.BanksCardFrom)
                 .WithMany(x => x.TransactionsFrom);
@@ -126,6 +140,9 @@ namespace SpaceWeb.EfStuff
                 .HasOne(x => x.BanksCardTo)
                 .WithMany(x => x.TransactionsTo);
 
+            modelBuilder.Entity<Payment>()
+                .HasOne(x => x.BankAccount)
+                .WithMany(x => x.Payments);
 
             base.OnModelCreating(modelBuilder);
         }

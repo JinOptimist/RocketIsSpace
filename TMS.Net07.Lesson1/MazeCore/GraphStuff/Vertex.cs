@@ -10,5 +10,7 @@ namespace MazeCore.GraphStuff
         public BaseCell BaseCell { get; set; }
 
         public int DistanceFromRoot { get; set; } = -1;
+
+        public List<Vertex> PathFromRoot { get; set; } = new List<Vertex>();
     }
 }

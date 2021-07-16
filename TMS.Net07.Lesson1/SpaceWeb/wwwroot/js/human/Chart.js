@@ -7,7 +7,6 @@
         var url = '/Human/GetGraph';
         $.get(url)
             .done(function (answer) {
-                console.log(answer);
                 drawChart(answer);
             });
     };
