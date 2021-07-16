@@ -89,23 +89,11 @@ namespace SpaceWeb.Controllers
             var ver = graph.Vertices
                 .Single(ver => ver.BaseCell.X == x && ver.BaseCell.Y == y);
             ver.DistanceFromRoot = 0;
-            SetDistance(ver);
+            graph.SetDistanceFromRoot(ver);
 
             var max = graph.Vertices.Max(x => x.DistanceFromRoot);
 
             return Json(max);
-        }
-
-        private void SetDistance(Vertex currentVertex)
-        {
-            foreach (var neighbor in currentVertex
-                .Neighbors
-                .Where(x => x.DistanceFromRoot < 0))
-            {
-                neighbor.DistanceFromRoot =
-                    currentVertex.DistanceFromRoot + 1;
-                SetDistance(neighbor);
-            }
         }
     }
 }
