@@ -31,6 +31,7 @@ namespace SpaceWeb.Controllers
         private UserService _userService;
         private ICurrencyService _currencyService;
         private IBankPresentation _bankPresentation;
+        private IBankCardPresentation _bankCardPresentation;
         private ExchangeRateToUsdHistoryRepository _exchangeRateToUsdHistoryRepository;
         private IWebHostEnvironment _hostEnvironment;
 
@@ -42,6 +43,7 @@ namespace SpaceWeb.Controllers
             BanksCardRepository banksCardRepository,
             ICurrencyService currencyService,
             IBankPresentation bankPresentation,
+            IBankCardPresentation bankCardPresentation,
             ExchangeRateToUsdHistoryRepository exchangeRateToUsdHistoryRepository,
             IWebHostEnvironment hostEnvironment)
         {
@@ -56,9 +58,9 @@ namespace SpaceWeb.Controllers
             _exchangeRateToUsdHistoryRepository = exchangeRateToUsdHistoryRepository;
             _hostEnvironment = hostEnvironment;
         }
-        public IActionResult Index(/*string language*/)
+        public IActionResult Index()
         {
-
+            //var models = _bankCardPresentation.GetIndexViewModels();
             return View();
         }
 
@@ -135,13 +137,31 @@ namespace SpaceWeb.Controllers
             return Json(chartViewModel);
         }
 
+
+        [HttpGet]
         public IActionResult ShowBanksCard(long userId)
         {
-            var allcard = _userService.GetCurrent().BankAccounts.SelectMany(x => x.BanksCards)
+            if (userId > 0)
+            {
+                var allcardDB = _userService.GetCurrent().BankAccounts.SelectMany(x => x.BanksCards)
                                       .Select(x => _mapper.Map<BanksCardViewModel>(x))
                                       .ToList();
-           
-            return View(allcard);
+                var viewModel = _mapper.Map<BanksCardViewModel>(allcardDB);
+                return View(viewModel);
+            }
+            return RedirectToAction("AddCard");
+        }
+        [HttpPost]
+        public IActionResult ShowBanksCard(BanksCardViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+
+            var bankCard = _mapper.Map<BanksCard>(viewModel);
+            _banksCardRepository.Save(bankCard);
+            return RedirectToAction("AddCard");
         }
 
         [HttpGet]
@@ -152,64 +172,89 @@ namespace SpaceWeb.Controllers
         [HttpPost]
         public IActionResult AddCard(BanksCardViewModel viewModel)
         {
-            var user = _userService.GetCurrent();
-            var bankCardNew = new BanksCard();
+            
 
-            switch (viewModel.Card)
+            if (!_currencyService.IsCardAvailability(viewModel.Card))
+
             {
-                case EnumBankCard.PayCard:
-                    bankCardNew = new BanksCard()
-                    {
-                        BankAccount = new BankAccount()
+                var user = _userService.GetCurrent();
+                var bankCardNew = new BanksCard();
+
+                switch (viewModel.Card)
+                {
+                    case EnumBankCard.PayCard:
+                        bankCardNew = new BanksCard()
                         {
-                            Amount = 2000,
-                            Currency = Currency.BYN
-                        },
-                        Currency = Currency.BYN,
-                        Card = EnumBankCard.PayCard
+                            BankAccount = new BankAccount()
+                            {
+                                Amount = 2000,
+                                Currency = Currency.BYN,
+                                Name = "Счет",
+                                Owner = user,
+                                CreationDate = DateTime.Now
+                            },
+                            Currency = Currency.BYN,
+                            Card = EnumBankCard.PayCard,
+                            CardUrl = "../../../image/bank/card-shopp.jpg"
 
-                    };
-                    break;
+                        };
+                        break;
 
-                case EnumBankCard.valueCard:
+                    case EnumBankCard.valueCard:
 
-                    bankCardNew = new BanksCard()
-                    {
-                        BankAccount = new BankAccount()
+                        bankCardNew = new BanksCard()
                         {
-                            Amount = 1000,
-                            Currency = Currency.USD
-                        },
-                        Currency = Currency.USD,
-                        Card = EnumBankCard.valueCard
+                            BankAccount = new BankAccount()
+                            {
+                                Amount = 1000,
+                                Currency = Currency.USD,
+                                Name = "Валютный счет",
+                                Owner = user,
+                                CreationDate = DateTime.Now
+                            },
+                            Currency = Currency.USD,
+                            Card = EnumBankCard.valueCard,
+                            CardUrl = "../../../image/bank/card-mocn.jpg"
 
-                    };
-                    break;
-                case EnumBankCard.XCard:
-                    bankCardNew = new BanksCard()
-                    {
-                        BankAccount = new BankAccount()
+                        };
+                        break;
+                    case EnumBankCard.XCard:
+                        bankCardNew = new BanksCard()
                         {
-                            Amount = 0,
-                            Currency = Currency.EUR
-                        },
-                        Currency = Currency.EUR,
-                        Card = EnumBankCard.XCard
+                            BankAccount = new BankAccount()
+                            {
+                                Amount = 0,
+                                Currency = Currency.EUR,
+                                Name = "Валютный счет",
+                                Owner = user,
+                                CreationDate = DateTime.Now
+                            },
+                            Currency = Currency.EUR,
+                            Card = EnumBankCard.XCard,
+                            CardUrl = "../../../image/bank/card-x.jpg"
+                        };
+                        break;
+                }
 
-                    };
-                    break;
+                bankCardNew.CreationDate = DateTime.Now;
+                var pinCard = new Random().Next(1, 9999).ToString(format: "D4");
+                bankCardNew.PinCard = pinCard;
+                bankCardNew.Owner = user;
+                _banksCardRepository.Save(bankCardNew);
+
+                return RedirectToAction("AddCard");
             }
-
-            bankCardNew.CreationDate = DateTime.Now;
-            var pinCard = new Random().Next(1, 9999).ToString(format: "D4");
-            bankCardNew.PinCard = pinCard;
-            bankCardNew.Owner = user;
-            _banksCardRepository.Save(bankCardNew);
-
-
-            return RedirectToRoute("Index");
+            else
+            {
+                throw new ApplicationException("you have card");
+            }
         }
 
+        public IActionResult Remove(long id)
+        {
+            _banksCardRepository.Remove(id);
+            return RedirectToAction("AddCard");
+        }
         public IActionResult AddTransaction(long transferToId)
         {
 

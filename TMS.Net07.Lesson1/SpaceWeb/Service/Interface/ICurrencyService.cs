@@ -35,5 +35,6 @@ namespace SpaceWeb.Service
 
         public string IntToStringAmount(int amount);
         public bool CheckInternetConnection();
+        public bool IsCardAvailability(EnumBankCard Card);
     }
 }
