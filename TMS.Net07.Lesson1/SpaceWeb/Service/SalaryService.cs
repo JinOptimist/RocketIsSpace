@@ -79,7 +79,7 @@ namespace SpaceWeb.Service
             var accountFrom = _bankAccountRepository.GetDepartmentAccounts(departmentId).FirstOrDefault();
 
             if (accountFrom == null)
-                throw new BankAccountException();
+                return false;
 
             //to
             var accountTo = _bankAccountRepository.GetSpecifiedAccountByEmploye(paymentViewModel.EmployeId, BankAccountType.Salary);

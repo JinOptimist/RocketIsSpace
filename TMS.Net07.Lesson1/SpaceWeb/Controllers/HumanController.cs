@@ -177,9 +177,7 @@ namespace SpaceWeb.Controllers
             {
                 _humanPresentation.SaveAccrual(accrualViewModel);
                 return RedirectToAction("Personnel");
-
             }
-            //return Json(true);
         }
 
         public IActionResult ChangeDate(DateTime date, long employeId)
