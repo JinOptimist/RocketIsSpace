@@ -16,6 +16,7 @@ namespace SpaceWeb.Service
         private UserService _userService;
 
         public TransactionService(IBanksCardRepository banksCardRepository, ITransactionRepository transactionRepository,
+
              UserService userService)
         {
             _transactionRepository = transactionRepository;
@@ -62,6 +63,7 @@ namespace SpaceWeb.Service
                 throw new ApplicationException("insufficient funds");
             }
 
+            
             return true;
         }
 
