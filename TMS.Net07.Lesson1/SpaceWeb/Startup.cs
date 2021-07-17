@@ -87,7 +87,12 @@ namespace SpaceWeb
                   diContainer.GetService<IUserRepository>(),
                   diContainer.GetService<IHttpContextAccessor>()
               ));
-
+            services.AddScoped<ITransactionService>(diContainer =>
+               new TransactionService(
+                   diContainer.GetService<IBanksCardRepository>(),
+                   diContainer.GetService<UserService>()
+               ));
+         
 
             services.AddScoped<UserService>(diContainer =>
                new UserService(
@@ -156,6 +161,11 @@ namespace SpaceWeb
 
             services.AddScoped<ShopRocketRepository>(diContainer =>
                 new ShopRocketRepository(diContainer.GetService<SpaceDbContext>()));
+
+            services.AddScoped<ITransactionBankRepository>(diContainer =>
+                new TransactionBankRepository(diContainer.GetService<SpaceDbContext>()));
+            services.AddScoped<TransactionBankRepository>(diContainer =>
+               new TransactionBankRepository(diContainer.GetService<SpaceDbContext>()));
         }
 
         private void RegistrationPresentations(IServiceCollection services)
@@ -257,8 +267,8 @@ namespace SpaceWeb
             MapBoth<User, QuestionaryViewModel>(configExpression);
             MapBoth<User, BanksCardViewModel>(configExpression);
 
-            MapBoth<Transaction, TransactionCardViewModel>(configExpression);
-            MapBoth<BanksCard, TransactionCardViewModel>(configExpression);
+            MapBoth<TransactionBank, TransactionBankViewModel>(configExpression);
+            // MapBoth<BanksCard, TransactionBankViewModel>(configExpression);
 
             MapBoth<Questionary, QuestionaryViewModel>(configExpression);
 

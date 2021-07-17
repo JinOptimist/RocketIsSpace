@@ -18,45 +18,44 @@ using Microsoft.AspNetCore.Hosting;
 using SpaceWeb.EfStuff.Model;
 using System;
 using SpaceWeb.EfStuff.CustomException;
+using System.Text;
 
 namespace SpaceWeb.Controllers
 {
     public class BankController : Controller
     {
-        private IBankAccountRepository _bankAccountRepository;
+        private ITransactionBankRepository _transactionBankRepository;
         private QuestionaryRepository _questionaryRepository;
         private IMapper _mapper;
-        private IUserRepository _userRepository;
         private BanksCardRepository _banksCardRepository;
         private UserService _userService;
-        private ICurrencyService _currencyService;
-        private IBankPresentation _bankPresentation;
-        private IBankCardPresentation _bankCardPresentation;
         private ExchangeRateToUsdHistoryRepository _exchangeRateToUsdHistoryRepository;
+        private TransactionService _transactionService;
+        private ICurrencyService _currencyService;
         private IWebHostEnvironment _hostEnvironment;
+        private BankPresentation _bankPresentation;
 
-        public BankController(IBankAccountRepository bankAccountRepository,
+        public BankController(ITransactionBankRepository transactionBankRepository,
             QuestionaryRepository questionaryRepository,
-            IUserRepository userRepository,
             IMapper mapper,
             UserService userService,
             BanksCardRepository banksCardRepository,
             ICurrencyService currencyService,
-            IBankPresentation bankPresentation,
-            IBankCardPresentation bankCardPresentation,
             ExchangeRateToUsdHistoryRepository exchangeRateToUsdHistoryRepository,
-            IWebHostEnvironment hostEnvironment)
+            IWebHostEnvironment hostEnvironment,
+            TransactionService transactionService,
+            BankPresentation bankPresentation)
         {
-            _bankAccountRepository = bankAccountRepository;
+            _transactionBankRepository = transactionBankRepository;
             _questionaryRepository = questionaryRepository;
-            _userRepository = userRepository;
             _mapper = mapper;
-            _userService = userService;
             _banksCardRepository = banksCardRepository;
+            _userService = userService;
             _currencyService = currencyService;
-            _bankPresentation = bankPresentation;
             _exchangeRateToUsdHistoryRepository = exchangeRateToUsdHistoryRepository;
             _hostEnvironment = hostEnvironment;
+            _transactionService = transactionService;
+            _bankPresentation = bankPresentation;
         }
         public IActionResult Index()
         {
@@ -172,14 +171,14 @@ namespace SpaceWeb.Controllers
         [HttpPost]
         public IActionResult AddCard(BanksCardViewModel viewModel)
         {
-            
+
 
             if (!_currencyService.IsCardAvailability(viewModel.Card))
 
             {
                 var user = _userService.GetCurrent();
                 var bankCardNew = new BanksCard();
-
+                StringBuilder sb = new StringBuilder();
                 switch (viewModel.Card)
                 {
                     case EnumBankCard.PayCard:
@@ -191,6 +190,7 @@ namespace SpaceWeb.Controllers
                                 Currency = Currency.BYN,
                                 Name = "Счет",
                                 Owner = user,
+                                AccountNumber = sb.ToString(),
                                 CreationDate = DateTime.Now
                             },
                             Currency = Currency.BYN,
@@ -198,7 +198,7 @@ namespace SpaceWeb.Controllers
                             CardUrl = "../../../image/bank/card-shopp.jpg"
 
                         };
-                        break;
+            break;
 
                     case EnumBankCard.valueCard:
 
@@ -210,6 +210,7 @@ namespace SpaceWeb.Controllers
                                 Currency = Currency.USD,
                                 Name = "Валютный счет",
                                 Owner = user,
+                                AccountNumber = sb.ToString(),
                                 CreationDate = DateTime.Now
                             },
                             Currency = Currency.USD,
@@ -217,7 +218,7 @@ namespace SpaceWeb.Controllers
                             CardUrl = "../../../image/bank/card-mocn.jpg"
 
                         };
-                        break;
+            break;
                     case EnumBankCard.XCard:
                         bankCardNew = new BanksCard()
                         {
@@ -227,321 +228,334 @@ namespace SpaceWeb.Controllers
                                 Currency = Currency.EUR,
                                 Name = "Валютный счет",
                                 Owner = user,
+                                AccountNumber = sb.ToString(),
                                 CreationDate = DateTime.Now
                             },
                             Currency = Currency.EUR,
                             Card = EnumBankCard.XCard,
                             CardUrl = "../../../image/bank/card-x.jpg"
                         };
-                        break;
-                }
+            break;
+        }
 
-                bankCardNew.CreationDate = DateTime.Now;
+        bankCardNew.CreationDate = DateTime.Now;
                 var pinCard = new Random().Next(1, 9999).ToString(format: "D4");
-                bankCardNew.PinCard = pinCard;
+        bankCardNew.PinCard = pinCard;
                 bankCardNew.Owner = user;
                 _banksCardRepository.Save(bankCardNew);
 
                 return RedirectToAction("AddCard");
-            }
+    }
             else
             {
                 throw new ApplicationException("you have card");
-            }
+}
         }
 
         public IActionResult Remove(long id)
+{
+    _banksCardRepository.Remove(id);
+    return RedirectToAction("AddCard");
+}
+public IActionResult AddTransaction(string fromAccountId, string toAccountId, decimal transferAmount)
+{
+    var userTransaction = _userService.GetCurrent();
+    var fromCard = _transactionBankRepository.GetBankCardFrom(fromAccountId);
+    var toCard = _transactionBankRepository.GetBankCardTo(toAccountId);
+
+    var transaction = _transactionService.TransferFunds((int)fromCard, (int)toCard, transferAmount);
+    var viewModel = _mapper.Map<TransactionBankViewModel>(transaction);
+
+    return View(viewModel);
+}
+public IActionResult AddTransaction(TransactionBankViewModel viewModel)
+{
+    var transaction = _mapper.Map<TransactionBank>(viewModel);
+    _transactionBankRepository.Save(transaction);
+    return RedirectToAction("AddCard");
+
+}
+
+
+
+public IActionResult Contacts()
+{
+    var input = new ContactsViewModel()
+    {
+        PhoneNumber = "+375291191293",
+        Email = "alesya.lis.1@mail.ru",
+        PostAddress = "Belarus, Minsk, Timeriazeva 67"
+    };
+    return View(input);
+}
+
+[HttpGet]
+public IActionResult Questionary(long id = 0)
+{
+    var profile = _bankPresentation.GetProfileViewModel(id);
+    return View(profile);
+}
+
+[HttpPost]
+public IActionResult Questionary(QuestionaryViewModel model)
+{
+    if (!ModelState.IsValid)
+    {
+        return View(model);
+    }
+    //var user = _userRepository.Get(model.Id);
+    var questionary = _mapper.Map<Questionary>(model);
+    /*= new Profile()
+    {
+        Name = model.Name,
+        SurName = model.SurName,
+        BirthDate = model.BirthDate,
+        Sex = model.Sex,
+        PhoneNumber = model.PhoneNumber,
+        PostAddress = model.PostAddress,
+        IdentificationPassport = model.IdentificationPassport
+    };*/
+
+    var user = _userService.GetCurrent();
+    //userprofile.User = user;
+    //userprofile.UserRef = user.Id;
+
+    //_userRepository.Save(userprofile);
+    questionary.User = user;
+    //questionary.UserRef = user.Id;
+
+    _questionaryRepository.Save(questionary);
+
+    return RedirectToAction("QuestionaryDataOutput");
+}
+
+public IActionResult QuestionaryDataOutput()
+{
+    var profileDateOutput = _questionaryRepository
+        .GetAll()
+        // .Select(dbModel => _mapper.Map<UserProfileViewModel>(dbModel))
+        .Select(dbModel => _mapper.Map<QuestionaryViewModel>(dbModel))
+        .ToList();
+
+    return View(profileDateOutput);
+}
+
+[Authorize]
+//[IsBankClientOrHigher]
+[HttpGet]
+public IActionResult Cabinet()
+{
+    return View();
+}
+
+public IActionResult ExchangesHistoryChartInfo()
+{
+    var chartViewModel = new ChartViewModel();
+
+    chartViewModel.Labels = _exchangeRateToUsdHistoryRepository
+        .GetAll()
+        .Select(x => x.ExchRateDate.ToString())
+        .Distinct()
+        .ToList();
+
+    var datasetBynBuy = new DatasetViewModel()
+    {
+        Label = "BYN покупка",
+        Data = _exchangeRateToUsdHistoryRepository.GetExchangeRateForChart(Currency.BYN, TypeOfExchange.Buy),
+        BackgroundColor = "rgb(173, 255, 47)",
+        BorderColor = "rgb(173, 255, 47)"
+    };
+    chartViewModel.Datasets.Add(datasetBynBuy);
+
+    var datasetBynSell = new DatasetViewModel()
+    {
+        Label = "BYN продажа",
+        Data = _exchangeRateToUsdHistoryRepository.GetExchangeRateForChart(Currency.BYN, TypeOfExchange.Sell),
+        BackgroundColor = "rgb(0, 100, 0)",
+        BorderColor = "rgb(0, 100, 0)"
+    };
+    chartViewModel.Datasets.Add(datasetBynSell);
+
+    var datasetEurBuy = new DatasetViewModel()
+    {
+        Label = "EUR продажа",
+        Data = _exchangeRateToUsdHistoryRepository.GetExchangeRateForChart(Currency.EUR, TypeOfExchange.Buy),
+        BackgroundColor = "rgb(102, 205, 170)",
+        BorderColor = "rgb(102, 205, 170)"
+    };
+    chartViewModel.Datasets.Add(datasetEurBuy);
+
+    var datasetEurSell = new DatasetViewModel()
+    {
+        Label = "EUR продажа",
+        Data = _exchangeRateToUsdHistoryRepository.GetExchangeRateForChart(Currency.EUR, TypeOfExchange.Sell),
+        BackgroundColor = "rgb(0, 128, 128)",
+        BorderColor = "rgb(0, 128, 128)"
+    };
+    chartViewModel.Datasets.Add(datasetEurSell);
+
+    var datasetPlnBuy = new DatasetViewModel()
+    {
+        Label = "PLN продажа",
+        Data = _exchangeRateToUsdHistoryRepository.GetExchangeRateForChart(Currency.PLN, TypeOfExchange.Buy),
+        BackgroundColor = "rgb(205, 92, 92)",
+        BorderColor = "rgb(205, 92, 92)"
+    };
+    chartViewModel.Datasets.Add(datasetPlnBuy);
+
+    var datasetPlnSell = new DatasetViewModel()
+    {
+        Label = "PLN продажа",
+        Data = _exchangeRateToUsdHistoryRepository.GetExchangeRateForChart(Currency.PLN, TypeOfExchange.Sell),
+        BackgroundColor = "rgb(139, 0, 0)",
+        BorderColor = "rgb(139, 0, 0)"
+    };
+    chartViewModel.Datasets.Add(datasetPlnSell);
+
+    var datasetGbpBuy = new DatasetViewModel()
+    {
+        Label = "GBP продажа",
+        Data = _exchangeRateToUsdHistoryRepository.GetExchangeRateForChart(Currency.GBP, TypeOfExchange.Buy),
+        BackgroundColor = "rgb(238, 130, 238)",
+        BorderColor = "rgb(238, 130, 238)"
+    };
+    chartViewModel.Datasets.Add(datasetGbpBuy);
+
+    var datasetGbpSell = new DatasetViewModel()
+    {
+        Label = "GBP продажа",
+        Data = _exchangeRateToUsdHistoryRepository.GetExchangeRateForChart(Currency.GBP, TypeOfExchange.Sell),
+        BackgroundColor = "rgb(153, 50, 204)",
+        BorderColor = "rgb(153, 50, 204)"
+    };
+    chartViewModel.Datasets.Add(datasetGbpSell);
+
+    return Json(chartViewModel);
+}
+
+public IActionResult ExchangesHistory()
+{
+    return View();
+}
+
+public IActionResult AccountsChartInfo()
+{
+    return View();
+}
+
+public IActionResult AccountsChartInfoDraw()
+{
+    var user = _userService.GetCurrent();
+    var currencies = user.BankAccounts.Select(x => x.Currency).Distinct();
+
+    var chartViewModel = new ChartViewModel();
+    chartViewModel.Labels = currencies.Select(x => x.ToString()).ToList();
+    var datasetViewModel = new DatasetViewModel()
+    {
+        Label = "Валюты"
+    };
+    datasetViewModel.Data =
+        currencies.Select(c =>
+            user.BankAccounts
+                .Where(b => b.Currency == c)
+                .Select(b => b.Amount)
+                .Sum())
+        .ToList();
+
+    chartViewModel.Datasets.Add(datasetViewModel);
+
+    return Json(chartViewModel);
+}
+
+public IActionResult DownloadExchangesHistory()
+{
+    var webPath = _hostEnvironment.WebRootPath;
+    var user = _userService.GetCurrent();
+    var path = Path.Combine(webPath, "TempFile", $"{user.Id}.docx");
+    var pathImage = Path.Combine(webPath, "image/bank/exchanges.jpg");
+    var exchanges = _exchangeRateToUsdHistoryRepository.GetAll();
+    var countRows = exchanges.Count;
+    var rawNow = 0;
+    var deviderForSeparatingRaw = 10;
+    Border slimLine = new Border(BorderStyle.Tcbs_single, BorderSize.one, 0, Color.Black);
+    Border boldLine = new Border(BorderStyle.Tcbs_single, BorderSize.seven, 0, Color.Black);
+
+    using (var doc = DocX.Create(path))
+    {
+        var pic = doc.AddImage(pathImage, "image/png").CreatePicture();
+        pic.Width = 600;
+        pic.Height = 150;
+        doc.InsertParagraph().InsertPicture(pic);
+
+        doc.InsertParagraph("История обменных курсов валют")
+            .Font("Comic Sans MS")
+            .Bold()
+            .FontSize(25)
+            .Alignment = Alignment.center;
+        doc.InsertParagraph("");
+
+        var table = doc.InsertTable(++countRows, 4);
+
+        table.Rows[rawNow].Cells[0].Paragraphs.First().Append("Currency").Bold().FontSize(14).Italic().Alignment = Alignment.center;
+        table.Rows[rawNow].Cells[1].Paragraphs.First().Append("Type of Exchange").Bold().FontSize(14).Italic().Alignment = Alignment.center;
+        table.Rows[rawNow].Cells[2].Paragraphs.First().Append("Exchange Rate").Bold().FontSize(14).Italic().Alignment = Alignment.center;
+        table.Rows[rawNow].Cells[3].Paragraphs.First().Append("Date").Bold().FontSize(14).Italic().Alignment = Alignment.center;
+
+        for (int i = 0; i < 4; i++) // Set a bold border for the first raw in the table
         {
-            _banksCardRepository.Remove(id);
-            return RedirectToAction("AddCard");
+            table.Rows[rawNow].Cells[i].FillColor = Color.OrangeRed;
+            table.Rows[rawNow].Cells[i].SetBorder(TableCellBorderType.Bottom, boldLine);
+            table.Rows[rawNow].Cells[i].SetBorder(TableCellBorderType.Left, boldLine);
+            table.Rows[rawNow].Cells[i].SetBorder(TableCellBorderType.Right, boldLine);
         }
-        public IActionResult AddTransaction(long transferToId)
+
+        foreach (var exchange in exchanges) // Filling the table from DB
         {
+            rawNow++;
+            table.Rows[rawNow].Cells[0].Paragraphs.First().Append(exchange.Currency.ToString()).FontSize(12).Alignment = Alignment.center;
+            table.Rows[rawNow].Cells[1].Paragraphs.First().Append(exchange.TypeOfExch.ToString()).FontSize(12).Alignment = Alignment.center;
+            table.Rows[rawNow].Cells[2].Paragraphs.First().Append(exchange.ExchRate.ToString()).FontSize(12).Alignment = Alignment.center;
+            table.Rows[rawNow].Cells[3].Paragraphs.First().Append(exchange.ExchRateDate.ToString()).FontSize(12).Alignment = Alignment.center;
 
-
-            return RedirectToAction("Index");
-        }
-
-
-
-        public IActionResult Contacts()
-        {
-            var input = new ContactsViewModel()
+            if (exchange.TypeOfExch == TypeOfExchange.Sell) // Change color for TypeOfExchange.Sell
             {
-                PhoneNumber = "+375291191293",
-                Email = "alesya.lis.1@mail.ru",
-                PostAddress = "Belarus, Minsk, Timeriazeva 67"
-            };
-            return View(input);
-        }
-
-        [HttpGet]
-        public IActionResult Questionary(long id = 0)
-        {
-            var profile = _bankPresentation.GetProfileViewModel(id);
-            return View(profile);
-        }
-
-        [HttpPost]
-        public IActionResult Questionary(QuestionaryViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-            //var user = _userRepository.Get(model.Id);
-            var questionary = _mapper.Map<Questionary>(model);
-            /*= new Profile()
-            {
-                Name = model.Name,
-                SurName = model.SurName,
-                BirthDate = model.BirthDate,
-                Sex = model.Sex,
-                PhoneNumber = model.PhoneNumber,
-                PostAddress = model.PostAddress,
-                IdentificationPassport = model.IdentificationPassport
-            };*/
-
-            var user = _userService.GetCurrent();
-            //userprofile.User = user;
-            //userprofile.UserRef = user.Id;
-
-            //_userRepository.Save(userprofile);
-            questionary.User = user;
-            //questionary.UserRef = user.Id;
-
-            _questionaryRepository.Save(questionary);
-
-            return RedirectToAction("QuestionaryDataOutput");
-        }
-
-        public IActionResult QuestionaryDataOutput()
-        {
-            var profileDateOutput = _questionaryRepository
-                .GetAll()
-                // .Select(dbModel => _mapper.Map<UserProfileViewModel>(dbModel))
-                .Select(dbModel => _mapper.Map<QuestionaryViewModel>(dbModel))
-                .ToList();
-
-            return View(profileDateOutput);
-        }
-
-        [Authorize]
-        //[IsBankClientOrHigher]
-        [HttpGet]
-        public IActionResult Cabinet()
-        {
-            return View();
-        }
-
-        public IActionResult ExchangesHistoryChartInfo()
-        {
-            var chartViewModel = new ChartViewModel();
-
-            chartViewModel.Labels = _exchangeRateToUsdHistoryRepository
-                .GetAll()
-                .Select(x => x.ExchRateDate.ToString())
-                .Distinct()
-                .ToList();
-
-            var datasetBynBuy = new DatasetViewModel()
-            {
-                Label = "BYN покупка",
-                Data = _exchangeRateToUsdHistoryRepository.GetExchangeRateForChart(Currency.BYN, TypeOfExchange.Buy),
-                BackgroundColor = "rgb(173, 255, 47)",
-                BorderColor = "rgb(173, 255, 47)"
-            };
-            chartViewModel.Datasets.Add(datasetBynBuy);
-
-            var datasetBynSell = new DatasetViewModel()
-            {
-                Label = "BYN продажа",
-                Data = _exchangeRateToUsdHistoryRepository.GetExchangeRateForChart(Currency.BYN, TypeOfExchange.Sell),
-                BackgroundColor = "rgb(0, 100, 0)",
-                BorderColor = "rgb(0, 100, 0)"
-            };
-            chartViewModel.Datasets.Add(datasetBynSell);
-
-            var datasetEurBuy = new DatasetViewModel()
-            {
-                Label = "EUR продажа",
-                Data = _exchangeRateToUsdHistoryRepository.GetExchangeRateForChart(Currency.EUR, TypeOfExchange.Buy),
-                BackgroundColor = "rgb(102, 205, 170)",
-                BorderColor = "rgb(102, 205, 170)"
-            };
-            chartViewModel.Datasets.Add(datasetEurBuy);
-
-            var datasetEurSell = new DatasetViewModel()
-            {
-                Label = "EUR продажа",
-                Data = _exchangeRateToUsdHistoryRepository.GetExchangeRateForChart(Currency.EUR, TypeOfExchange.Sell),
-                BackgroundColor = "rgb(0, 128, 128)",
-                BorderColor = "rgb(0, 128, 128)"
-            };
-            chartViewModel.Datasets.Add(datasetEurSell);
-
-            var datasetPlnBuy = new DatasetViewModel()
-            {
-                Label = "PLN продажа",
-                Data = _exchangeRateToUsdHistoryRepository.GetExchangeRateForChart(Currency.PLN, TypeOfExchange.Buy),
-                BackgroundColor = "rgb(205, 92, 92)",
-                BorderColor = "rgb(205, 92, 92)"
-            };
-            chartViewModel.Datasets.Add(datasetPlnBuy);
-
-            var datasetPlnSell = new DatasetViewModel()
-            {
-                Label = "PLN продажа",
-                Data = _exchangeRateToUsdHistoryRepository.GetExchangeRateForChart(Currency.PLN, TypeOfExchange.Sell),
-                BackgroundColor = "rgb(139, 0, 0)",
-                BorderColor = "rgb(139, 0, 0)"
-            };
-            chartViewModel.Datasets.Add(datasetPlnSell);
-
-            var datasetGbpBuy = new DatasetViewModel()
-            {
-                Label = "GBP продажа",
-                Data = _exchangeRateToUsdHistoryRepository.GetExchangeRateForChart(Currency.GBP, TypeOfExchange.Buy),
-                BackgroundColor = "rgb(238, 130, 238)",
-                BorderColor = "rgb(238, 130, 238)"
-            };
-            chartViewModel.Datasets.Add(datasetGbpBuy);
-
-            var datasetGbpSell = new DatasetViewModel()
-            {
-                Label = "GBP продажа",
-                Data = _exchangeRateToUsdHistoryRepository.GetExchangeRateForChart(Currency.GBP, TypeOfExchange.Sell),
-                BackgroundColor = "rgb(153, 50, 204)",
-                BorderColor = "rgb(153, 50, 204)"
-            };
-            chartViewModel.Datasets.Add(datasetGbpSell);
-
-            return Json(chartViewModel);
-        }
-
-        public IActionResult ExchangesHistory()
-        {
-            return View();
-        }
-
-        public IActionResult AccountsChartInfo()
-        {
-            return View();
-        }
-
-        public IActionResult AccountsChartInfoDraw()
-        {
-            var user = _userService.GetCurrent();
-            var currencies = user.BankAccounts.Select(x => x.Currency).Distinct();
-
-            var chartViewModel = new ChartViewModel();
-            chartViewModel.Labels = currencies.Select(x => x.ToString()).ToList();
-            var datasetViewModel = new DatasetViewModel()
-            {
-                Label = "Валюты"
-            };
-            datasetViewModel.Data =
-                currencies.Select(c =>
-                    user.BankAccounts
-                        .Where(b => b.Currency == c)
-                        .Select(b => b.Amount)
-                        .Sum())
-                .ToList();
-
-            chartViewModel.Datasets.Add(datasetViewModel);
-
-            return Json(chartViewModel);
-        }
-
-        public IActionResult DownloadExchangesHistory()
-        {
-            var webPath = _hostEnvironment.WebRootPath;
-            var user = _userService.GetCurrent();
-            var path = Path.Combine(webPath, "TempFile", $"{user.Id}.docx");
-            var pathImage = Path.Combine(webPath, "image/bank/exchanges.jpg");
-            var exchanges = _exchangeRateToUsdHistoryRepository.GetAll();
-            var countRows = exchanges.Count;
-            var rawNow = 0;
-            var deviderForSeparatingRaw = 10;
-            Border slimLine = new Border(BorderStyle.Tcbs_single, BorderSize.one, 0, Color.Black);
-            Border boldLine = new Border(BorderStyle.Tcbs_single, BorderSize.seven, 0, Color.Black);
-
-            using (var doc = DocX.Create(path))
-            {
-                var pic = doc.AddImage(pathImage, "image/png").CreatePicture();
-                pic.Width = 600;
-                pic.Height = 150;
-                doc.InsertParagraph().InsertPicture(pic);
-
-                doc.InsertParagraph("История обменных курсов валют")
-                    .Font("Comic Sans MS")
-                    .Bold()
-                    .FontSize(25)
-                    .Alignment = Alignment.center;
-                doc.InsertParagraph("");
-
-                var table = doc.InsertTable(++countRows, 4);
-
-                table.Rows[rawNow].Cells[0].Paragraphs.First().Append("Currency").Bold().FontSize(14).Italic().Alignment = Alignment.center;
-                table.Rows[rawNow].Cells[1].Paragraphs.First().Append("Type of Exchange").Bold().FontSize(14).Italic().Alignment = Alignment.center;
-                table.Rows[rawNow].Cells[2].Paragraphs.First().Append("Exchange Rate").Bold().FontSize(14).Italic().Alignment = Alignment.center;
-                table.Rows[rawNow].Cells[3].Paragraphs.First().Append("Date").Bold().FontSize(14).Italic().Alignment = Alignment.center;
-
-                for (int i = 0; i < 4; i++) // Set a bold border for the first raw in the table
+                for (int i = 0; i < 4; i++)
                 {
-                    table.Rows[rawNow].Cells[i].FillColor = Color.OrangeRed;
-                    table.Rows[rawNow].Cells[i].SetBorder(TableCellBorderType.Bottom, boldLine);
-                    table.Rows[rawNow].Cells[i].SetBorder(TableCellBorderType.Left, boldLine);
-                    table.Rows[rawNow].Cells[i].SetBorder(TableCellBorderType.Right, boldLine);
+                    table.Rows[rawNow].Cells[i].FillColor = Color.LightGray;
                 }
-
-                foreach (var exchange in exchanges) // Filling the table from DB
-                {
-                    rawNow++;
-                    table.Rows[rawNow].Cells[0].Paragraphs.First().Append(exchange.Currency.ToString()).FontSize(12).Alignment = Alignment.center;
-                    table.Rows[rawNow].Cells[1].Paragraphs.First().Append(exchange.TypeOfExch.ToString()).FontSize(12).Alignment = Alignment.center;
-                    table.Rows[rawNow].Cells[2].Paragraphs.First().Append(exchange.ExchRate.ToString()).FontSize(12).Alignment = Alignment.center;
-                    table.Rows[rawNow].Cells[3].Paragraphs.First().Append(exchange.ExchRateDate.ToString()).FontSize(12).Alignment = Alignment.center;
-
-                    if (exchange.TypeOfExch == TypeOfExchange.Sell) // Change color for TypeOfExchange.Sell
-                    {
-                        for (int i = 0; i < 4; i++)
-                        {
-                            table.Rows[rawNow].Cells[i].FillColor = Color.LightGray;
-                        }
-                    }
-
-                    if (rawNow % deviderForSeparatingRaw == 0) // Add separating raw for each date in the table
-                    {
-                        var separatingRow = table.InsertRow(rawNow + 1);
-                        for (int i = 0; i < 4; i++)
-                        {
-                            separatingRow.Cells[i].FillColor = Color.Black;
-                        }
-                        rawNow++;
-                        deviderForSeparatingRaw += 11;
-                    }
-                }
-
-                table.SetBorder(TableBorderType.InsideH, slimLine);
-                table.SetBorder(TableBorderType.InsideV, slimLine);
-                table.SetBorder(TableBorderType.Bottom, boldLine);
-                table.SetBorder(TableBorderType.Top, boldLine);
-                table.SetBorder(TableBorderType.Left, boldLine);
-                table.SetBorder(TableBorderType.Right, boldLine);
-
-                //doc.InsertParagraph($"Информация по счёту {account.Name}");
-                //doc.InsertParagraph($"Остаток на счёту: {account.Amount}");
-
-                //cant find account 
-
-                doc.Save();
             }
 
-            var contentTypeDocx = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-            var fileName = $"History of exchange rates.docx";
-            return PhysicalFile(path, contentTypeDocx, fileName);
+            if (rawNow % deviderForSeparatingRaw == 0) // Add separating raw for each date in the table
+            {
+                var separatingRow = table.InsertRow(rawNow + 1);
+                for (int i = 0; i < 4; i++)
+                {
+                    separatingRow.Cells[i].FillColor = Color.Black;
+                }
+                rawNow++;
+                deviderForSeparatingRaw += 11;
+            }
         }
+
+        table.SetBorder(TableBorderType.InsideH, slimLine);
+        table.SetBorder(TableBorderType.InsideV, slimLine);
+        table.SetBorder(TableBorderType.Bottom, boldLine);
+        table.SetBorder(TableBorderType.Top, boldLine);
+        table.SetBorder(TableBorderType.Left, boldLine);
+        table.SetBorder(TableBorderType.Right, boldLine);
+
+        //doc.InsertParagraph($"Информация по счёту {account.Name}");
+        //doc.InsertParagraph($"Остаток на счёту: {account.Amount}");
+
+        //cant find account 
+
+        doc.Save();
+    }
+
+    var contentTypeDocx = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+    var fileName = $"History of exchange rates.docx";
+    return PhysicalFile(path, contentTypeDocx, fileName);
+}
         //public IActionResult Transfer(long toId, long fromId, decimal amount)
         //{
         //    try
