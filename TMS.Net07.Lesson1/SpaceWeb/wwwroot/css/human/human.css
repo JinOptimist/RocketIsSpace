@@ -209,7 +209,8 @@
     margin: 5px 30px;
 }
 
-.accrual-message {
+.accrual-message 
+.payment-message {
     display: flex;
     flex: 1;
     flex-direction: column;
@@ -217,6 +218,7 @@
     color: #FF0000;
 }
 
-.accrual-modal-content {
+.accrual-modal-content
+.payment-modal-content {
     display: flex;
 }

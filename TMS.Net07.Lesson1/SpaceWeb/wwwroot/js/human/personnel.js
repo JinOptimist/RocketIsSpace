@@ -13,10 +13,9 @@
 
     $('[name="btn-accrual"]').click(function () {
         var employeId = $(this).attr('id');
-        var url = '/Human/GetEmloyeAccrualsInfo?employeId=' + employeId;
+        var url = '/api/HumanApi/GetEmloyeAccrualsInfo?employeId=' + employeId;
         $.get(url)
             .done(function (data) {
-                console.log(data);
                 $('#modal-salary-count').modal('show');
                 $('#hidden-accrual-id input').attr('value', data.employeId);
                 $('#input-accrual-date input').attr('min', RegexResult(dateMonthRegex, data.dateFrom));
@@ -32,7 +31,7 @@
 
     $('[name="btn-payment"]').click(function () {
         var employeId = $(this).attr('id');
-        var url = '/Human/GetEmployePaymentInfo?employeId=' + employeId;
+        var url = '/api/HumanApi/GetEmployePaymentInfo?employeId=' + employeId;
         $.get(url)
             .done(function (data) {
                 $('#hidden-payment-id input').attr('value', data.employeId);
@@ -48,28 +47,32 @@
     $('#input-accrual-date input').change(function () {
         var date = $('#input-accrual-date input').val();
         var id = $('#hidden-accrual-id input').val();
-        url = `/Human/ChangeDate?date=${date}&employeId=${id}`;
+        url = `/api/HumanApi/ChangeDate?date=${date}&employeId=${id}`;
         $.get(url)
             .done(function (data) {
                 $('#input-accrual-amount input').attr('value', ToLocaleWithDecimals(data));
             });
     });
 
-    $('#submit-accrual').click(function () {
+    function SetAjaxForSubmit(action, tag) {
         $.ajax({
-            url: '/Human/SaveAccrual',
+            url: `/Human/${action}`,
             type: 'post',
             data: {
-                EmployeId: $('#hidden-accrual-id input').val(),
-                Amount: $('#input-accrual-amount input').val(),
-                Date: $('#input-accrual-date input').val()
+                EmployeId: $(`#hidden-${tag}-id input`).val(),
+                Amount: $(`#input-${tag}-amount input`).val(),
+                Date: $(`#input-${tag}-date input`).val()
             },
             success: function (result) {
-                $('.accrual-message').contents().filter(function () {
+                $(`.${tag}-message`).contents().filter(function () {
                     return (this.nodeType == 3);
                 }).remove();
-                $('.accrual-message').append(result);
+                $(`.${tag}-message`).append(result);
             }
         });
-    });
+    }
+
+    $('#submit-payment').click(SetAjaxForSubmit('SavePayment', 'payment'));
+    $('#submit-accrual').click(SetAjaxForSubmit('SaveAccrual', 'accrual'));
+
 });
