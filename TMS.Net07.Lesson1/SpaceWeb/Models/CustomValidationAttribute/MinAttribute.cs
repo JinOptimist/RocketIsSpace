@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SpaceWeb.Localization;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -17,18 +18,13 @@ namespace SpaceWeb.Models.CustomValidationAttribute
 
         public override string FormatErrorMessage(string name)
         {
-            return ErrorMessage ?? $"Больше {MinValue}" ;
+            return ErrorMessage ?? $"{name} {Resource.Error_Message_Min_Attr} {MinValue}" ;
         }
 
         public override bool IsValid(object value)
         {
-            var number = value as int?;
-            if (number == null)
-            {
-                return false;
-            }
-
-            return number > MinValue;
+            var result = Int32.TryParse(value.ToString(), out int number);
+            return result == false ? result : number > MinValue;
         }
     }
 }

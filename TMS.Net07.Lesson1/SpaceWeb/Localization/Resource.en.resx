@@ -109,6 +109,9 @@
   <data name="DepartmentType_Unknown" xml:space="preserve">
     <value>Unknow</value>
   </data>
+  <data name="Error_Message_Min_Attr" xml:space="preserve">
+    <value>can not be smaller then</value>
+  </data>
   <data name="HomeIndex_FAQ" xml:space="preserve">
     <value>FAQ</value>
   </data>

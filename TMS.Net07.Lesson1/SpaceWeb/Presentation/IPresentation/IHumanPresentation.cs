@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using SpaceWeb.Models;
 using SpaceWeb.Models.Chart;
 using SpaceWeb.Models.Human;
@@ -25,6 +26,7 @@ namespace SpaceWeb.Presentation
         void SaveAccrual(AccrualViewModel accrualViewModel);
         decimal CalculateAccrual(DateTime date, long employeId);
         PaymentViewModel GetPaymentViewModel(long employeId);
-        void SavePayment(PaymentViewModel paymentViewModel);
+        bool SavePayment(PaymentViewModel paymentViewModel, out string message);
+        List<string> GetErrorsStringFromModelState(ModelStateDictionary modelState);
     }
 }

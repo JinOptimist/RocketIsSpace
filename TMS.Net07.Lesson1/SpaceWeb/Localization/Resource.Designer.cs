@@ -250,6 +250,15 @@ namespace SpaceWeb.Localization {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на не может быть меньше.
+        /// </summary>
+        public static string Error_Message_Min_Attr {
+            get {
+                return ResourceManager.GetString("Error_Message_Min_Attr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Вопрос ответ.
         /// </summary>
         public static string HomeIndex_FAQ {

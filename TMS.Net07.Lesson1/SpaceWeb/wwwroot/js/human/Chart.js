@@ -4,7 +4,7 @@
 
     function init() {
 
-        var url = '/Human/GetGraph';
+        var url = '/api/HumanApi/GetGraph';
         $.get(url)
             .done(function (answer) {
                 drawChart(answer);

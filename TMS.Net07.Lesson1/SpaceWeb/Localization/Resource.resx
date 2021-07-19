@@ -180,6 +180,9 @@
   <data name="EmployeStatus_Request" xml:space="preserve">
     <value>Заявка на работу</value>
   </data>
+  <data name="Error_Message_Min_Attr" xml:space="preserve">
+    <value>не может быть меньше</value>
+  </data>
   <data name="HomeIndex_FAQ" xml:space="preserve">
     <value>Вопрос ответ</value>
   </data>
