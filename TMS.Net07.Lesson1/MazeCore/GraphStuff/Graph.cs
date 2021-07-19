@@ -20,6 +20,11 @@ namespace MazeCore.GraphStuff
             SetDistance(rootVertex);
         }
 
+        public void SetPathFromRoot(Vertex rootVertext)
+        {
+            SetPath(rootVertext);
+        }
+
         private void SetDistance(Vertex vertext)
         {
             foreach (var neighbor in vertext
@@ -79,6 +84,16 @@ namespace MazeCore.GraphStuff
             foreach (var smallNeighbor in Current.Neighbors.Where(x => x.DistanceFromRoot < Current.DistanceFromRoot))
             {
                 SetChildrensWay(smallNeighbor);
+
+        private void SetPath(Vertex vertext)
+        {
+            vertext.PathFromRoot.Add(vertext);
+            foreach (var neighbor in vertext
+                .Neighbors
+                .Where(x => !x.PathFromRoot.Any()))
+            {
+                neighbor.PathFromRoot = vertext.PathFromRoot.ToList();
+                SetPath(neighbor);
             }
         }
     }
