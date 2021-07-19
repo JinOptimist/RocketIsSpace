@@ -13,7 +13,10 @@ namespace SpaceWeb.EfStuff.Repositories
             base(spaceDbContext)
         {
         }
-
+        public BanksCard GetCard(string AccountNumber)
+        {
+            return _dbSet.SingleOrDefault(x => x.BankAccount.AccountNumber == AccountNumber);
+        }
         public List<BanksCard> Get(string bankAccount)
         {
             return _dbSet

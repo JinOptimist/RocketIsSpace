@@ -24,21 +24,22 @@ namespace SpaceWeb.Controllers
 {
     public class BankController : Controller
     {
-        private ITransactionBankRepository _transactionBankRepository;
+        private TransactionBankRepository _transactionBankRepository;
         private QuestionaryRepository _questionaryRepository;
         private IMapper _mapper;
         private BanksCardRepository _banksCardRepository;
-        private UserService _userService;
         private ExchangeRateToUsdHistoryRepository _exchangeRateToUsdHistoryRepository;
         private TransactionService _transactionService;
         private ICurrencyService _currencyService;
         private IWebHostEnvironment _hostEnvironment;
         private BankPresentation _bankPresentation;
+        private IUserService _userService;
+        
 
-        public BankController(ITransactionBankRepository transactionBankRepository,
+        public BankController(TransactionBankRepository transactionBankRepository,
             QuestionaryRepository questionaryRepository,
             IMapper mapper,
-            UserService userService,
+            IUserService userService,
             BanksCardRepository banksCardRepository,
             ICurrencyService currencyService,
             ExchangeRateToUsdHistoryRepository exchangeRateToUsdHistoryRepository,
@@ -270,9 +271,8 @@ namespace SpaceWeb.Controllers
             {
                 TransactionNumber = sb.ToString(),
                 CreationDate = DateTime.Now,
-                BanksCardFrom = fromCard,
-                BanksCardTo = _transactionBankRepository.GetBankCardTo(toAccountId)
-                
+                BanksCardFrom = _banksCardRepository.GetCard(fromAccountId),
+                BanksCardTo = _banksCardRepository.GetCard(toAccountId)
             };
             _transactionBankRepository.Save(transaction);
             return View();

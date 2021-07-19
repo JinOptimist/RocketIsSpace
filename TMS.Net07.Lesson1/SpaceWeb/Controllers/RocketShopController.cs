@@ -25,7 +25,7 @@ namespace SpaceWeb.Controllers
         private IMapper _mapper;
         private IOrderRepository _orderRepository;
         private IShopRocketRepository _shopRocketRepository;
-        private UserService _userService;
+        private IUserService _userService;
         private IClientRepository _clientRepository;
         private ICurrencyService _currencyService;
         private IBankAccountRepository _accountRepository;
@@ -37,7 +37,7 @@ namespace SpaceWeb.Controllers
             IMapper mapper,
             IOrderRepository orderRepository, 
             IShopRocketRepository shopRocketRepository, 
-            UserService userService, 
+            IUserService userService, 
             IClientRepository clientRepository, 
             ICurrencyService currencyService, 
             IBankAccountRepository accountRepository,

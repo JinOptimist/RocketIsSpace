@@ -25,12 +25,12 @@ namespace SpaceWeb.Controllers
         private IBankAccountRepository _bankAccountRepository;
         private IMapper _mapper;
         private IWebHostEnvironment _hostEnvironment;
-        private UserService _userService;
+        private IUserService _userService;
 
         public AccountController(IBankAccountRepository bankAccountRepository,
             QuestionaryRepository profileRepository,
             IUserRepository userRepository,
-            IMapper mapper, UserService userService,
+            IMapper mapper, IUserService userService,
             IWebHostEnvironment hostEnvironment)
         {
             _bankAccountRepository = bankAccountRepository;

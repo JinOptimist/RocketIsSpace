@@ -75,31 +75,32 @@ namespace SpaceWeb
         {
             services.AddScoped<ICurrencyService>(diContainer =>
                 new CurrencyService(
-                    diContainer.GetService<UserService>(),
+                    diContainer.GetService<IUserService>(),
                     diContainer.GetService<ExchangeRateToUsdCurrentRepository>(),
                     diContainer.GetService<ExchangeAccountHistoryRepository>(),
                     diContainer.GetService<ExchangeRateToUsdHistoryRepository>(),
                     diContainer.GetService<IMapper>()));
 
             //services.AddMyScoped<IUserService, UserService>();
-            services.AddScoped<IUserService>(diContainer =>
-              new UserService(
-                  diContainer.GetService<IUserRepository>(),
-                  diContainer.GetService<IHttpContextAccessor>()
-              ));
+           
             services.AddScoped<ITransactionService>(diContainer =>
                new TransactionService(
                    diContainer.GetService<IBanksCardRepository>(),
-                   diContainer.GetService<UserService>()
+                   diContainer.GetService<IUserService>(),
+                   diContainer.GetService<IBankAccountRepository>()
                ));
          
 
+            services.AddScoped<IUserService>(diContainer =>
+               new UserService(
+                   diContainer.GetService<IUserRepository>(),
+                   diContainer.GetService<IHttpContextAccessor>()
+               ));
             services.AddScoped<UserService>(diContainer =>
                new UserService(
                    diContainer.GetService<IUserRepository>(),
                    diContainer.GetService<IHttpContextAccessor>()
                ));
-
             services.AddScoped<IPathHelper>(diContainer =>
                new PathHelper(
                    diContainer.GetService<IWebHostEnvironment>()
@@ -162,10 +163,10 @@ namespace SpaceWeb
             services.AddScoped<ShopRocketRepository>(diContainer =>
                 new ShopRocketRepository(diContainer.GetService<SpaceDbContext>()));
 
-            services.AddScoped<ITransactionBankRepository>(diContainer =>
-                new TransactionBankRepository(diContainer.GetService<SpaceDbContext>()));
             services.AddScoped<TransactionBankRepository>(diContainer =>
-               new TransactionBankRepository(diContainer.GetService<SpaceDbContext>()));
+                new TransactionBankRepository(diContainer.GetService<SpaceDbContext>()));
+           /* services.AddScoped<TransactionBankRepository>(diContainer =>
+               new TransactionBankRepository(diContainer.GetService<SpaceDbContext>()));*/
         }
 
         private void RegistrationPresentations(IServiceCollection services)

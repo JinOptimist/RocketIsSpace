@@ -30,7 +30,7 @@ namespace SpaceWeb.Presentation
             IDepartmentRepository departmentRepository,
             IMapper mapper,
             IEmployeRepository employeRepository,
-            UserService userService,
+            IUserService userService,
             IAccrualRepository accrualRepository,
             ISalaryService salaryService, 
             IBankAccountRepository bankAccountRepository)

@@ -22,8 +22,8 @@ namespace SpaceWeb.Service
         public async Task Invoke(HttpContext context)
         {
             var userService =
-                (UserService)context.RequestServices
-                .GetService(typeof(UserService));
+                (IUserService)context.RequestServices
+                .GetService(typeof(IUserService));
 
             var user = userService.GetCurrent();
             if (user == null)

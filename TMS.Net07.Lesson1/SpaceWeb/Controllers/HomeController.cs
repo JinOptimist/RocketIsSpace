@@ -15,12 +15,12 @@ namespace SpaceWeb.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private UserService _userService;
+        private IUserService _userService;
         private MazeBuilder _mazeBuilder;
         private IMapper _mapper;
 
         public HomeController(ILogger<HomeController> logger,
-            UserService userService,
+            IUserService userService,
             MazeBuilder mazeBuilder,
             IMapper mapper)
         {

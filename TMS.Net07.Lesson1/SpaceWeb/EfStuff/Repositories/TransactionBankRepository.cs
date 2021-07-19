@@ -17,7 +17,7 @@ namespace SpaceWeb.EfStuff.Repositories
       
         public decimal GetBankCardFrom(string AccountNumber)
         {
-            return _dbSet.SingleOrDefault(x => x.BanksCardFrom.BankAccount.AccountNumber == AccountNumber).BanksCardFrom.BankAccount.Amount;
+           return _dbSet.SingleOrDefault(x => x.BanksCardFrom.BankAccount.AccountNumber == AccountNumber).BanksCardFrom.BankAccount.Amount;
         }
         public decimal GetBankCardTo(string AccountNumber)
         {

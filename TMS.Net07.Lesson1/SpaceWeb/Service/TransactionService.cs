@@ -12,13 +12,15 @@ namespace SpaceWeb.Service
     public class TransactionService : ITransactionService
     {
         private IBanksCardRepository _banksCardRepository;
-        private UserService _userService;
+        private IUserService _userService;
+        private IBankAccountRepository _bankAccountRepository;
 
-        public TransactionService(IBanksCardRepository banksCardRepository, 
-             UserService userService)
+        public TransactionService(IBanksCardRepository banksCardRepository,
+             IUserService userService, IBankAccountRepository bankAccountRepository)
         {
             _banksCardRepository = banksCardRepository;
             _userService = userService;
+            _bankAccountRepository = bankAccountRepository;
         }
 
         private BanksCard GetCardUser(long userId)
@@ -38,7 +40,7 @@ namespace SpaceWeb.Service
         //    var balance = _banksCardRepository.GetAmount(transferToId.ToString());
         //    balance += transferAmount;
         //}
-        public bool TransferFunds(int fromAccountId, int toAccountId, decimal transferAmount)
+        public void TransferFunds(int fromAccountId, int toAccountId, decimal transferAmount)
         {
             if (transferAmount <= 0)
             {
@@ -59,8 +61,9 @@ namespace SpaceWeb.Service
             {
                 throw new ApplicationException("insufficient funds");
             }
-            
-            return true;
+
+            _bankAccountRepository.Save(fromAccount.BankAccount);
+            _bankAccountRepository.Save(toAccount.BankAccount);
         }
 
 

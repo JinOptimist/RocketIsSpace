@@ -29,7 +29,7 @@ namespace SpaceWeb.Controllers
         private IDepartmentRepository _departmentRepository;
         private IEmployeRepository _employeRepository;
         private IWebHostEnvironment _hostEnvironment;
-        private UserService _userService;
+        private IUserService _userService;
 
 
         public HumanController(
@@ -39,7 +39,7 @@ namespace SpaceWeb.Controllers
             IHumanPresentation humanPresentation,
             IEmployeRepository employeRepository,
             IWebHostEnvironment hostEnvironment,
-            UserService userService 
+            IUserService userService 
             )
         {
             _userRepository = userRepository;

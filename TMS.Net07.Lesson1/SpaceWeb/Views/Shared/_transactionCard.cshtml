@@ -1,4 +1,4 @@
-﻿@model BanksCardViewModel
+﻿@model TransactionBankViewModel
 @using SpaceWeb.Models
 @using Microsoft.AspNetCore.Mvc.Rendering
 @using SpaceWeb.Service
@@ -28,32 +28,27 @@
 }
 
 
-@section Scripts{
-    <script src="~/js/chart.min.js"></script>
-    <script src="~/js/index.js"></script>
-}
+
 
 <form class="creation form" method="POST">
-    <div>Название карты</div>
+    <div>From КАРТА </div>
     <p>
-        @Html.DropDownList(nameof(BanksCardViewModel.Card), cardOptions)
+        @Html.DropDownList(nameof(TransactionBankViewModel.CardFromId), cardOptions)
     </p>
-
+    <div>TO КАРТА </div>
+    <p>
+        
+        @Html.DropDownList(nameof(TransactionBankViewModel.CardToId), cardOptions)
+    </p>
 
     <p class="buttons">
 
-        <input href="~/Bank/ShowBanksCard" class="create-account button" type="submit" value="Создать">
+        <input href="~/Bank/AddTransaction" class="create-account button" type="submit" value="Создать">
 
 
         <input class="cancel-creation button" type="reset" value="Сброс">
+        <button type="submit">Сумма перевода</button>
     </p>
 </form>
 
-<div class="block">
-    <canvas id="myChart"></canvas>
-</div>
 
-<div class="currency-exchanger">
-    @Html.DropDownList("test", Model.CurrencyExchengerViewModel.CurrencyFromDrop)
-    @Html.DropDownList("test", Model.CurrencyExchengerViewModel.CurrencyToDrop)
-</div>
