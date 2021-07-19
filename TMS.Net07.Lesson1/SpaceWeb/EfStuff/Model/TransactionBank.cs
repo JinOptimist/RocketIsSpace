@@ -7,7 +7,7 @@ namespace SpaceWeb.EfStuff.Model
 {
     public class TransactionBank : BaseModel
     {
-        public long TransactionNumber { get; set; }
+        public string TransactionNumber { get; set; }
 
         public DateTime CreationDate { get; set; }
         public virtual BanksCard BanksCardFrom { get; set; }
