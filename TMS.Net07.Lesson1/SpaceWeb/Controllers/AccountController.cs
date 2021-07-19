@@ -16,6 +16,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using SpaceWeb.Presentation;
 
 namespace SpaceWeb.Controllers
 {
@@ -26,17 +27,19 @@ namespace SpaceWeb.Controllers
         private IMapper _mapper;
         private IWebHostEnvironment _hostEnvironment;
         private UserService _userService;
+        private IAccountPresentation _accountPresentation;
 
-        public AccountController(IBankAccountRepository bankAccountRepository,
-            QuestionaryRepository profileRepository,
-            IUserRepository userRepository,
-            IMapper mapper, UserService userService,
-            IWebHostEnvironment hostEnvironment)
+        public AccountController(IBankAccountRepository bankAccountRepository, 
+            IMapper mapper, 
+            IWebHostEnvironment hostEnvironment, 
+            UserService userService, 
+            IAccountPresentation accountPresentation)
         {
             _bankAccountRepository = bankAccountRepository;
             _mapper = mapper;
-            _userService = userService;
             _hostEnvironment = hostEnvironment;
+            _userService = userService;
+            _accountPresentation = accountPresentation;
         }
 
         [HttpGet]
@@ -53,23 +56,11 @@ namespace SpaceWeb.Controllers
             {
                 return RedirectToAction("Creation");
             }
-            var index = 0;
-            var allAccountsForViewModel = user.BankAccounts
-                .Select(x =>
-                {
-                    var viewModel = _mapper.Map<BankAccountViewModel>(x);
-                    viewModel.AccountIndex = index++;
-                    return viewModel;
-                })
-                .ToList();
 
-            var viewModel = allAccountsForViewModel.Single(x => x.Id == id);
-
-            viewModel.UserAccounts = allAccountsForViewModel;
+            var viewModel = _accountPresentation.GetViewModelForIndex(id);
 
             return View(viewModel);
         }
-
 
         [HttpGet]
         public IActionResult Remove(long id)
@@ -104,17 +95,8 @@ namespace SpaceWeb.Controllers
         [HttpGet]
         public IActionResult Creation()
         {
-            var user = _userService.GetCurrent();
-            var index = 0;
-            var allAccountsViewModels = user.BankAccounts
-                ?.Select(x =>
-                {
-                    var viewModel = _mapper.Map<BankAccountViewModel>(x);
-                    viewModel.AccountIndex = index++;
-                    return viewModel;
-                }).ToList() ?? new List<BankAccountViewModel>();
-
-            return View(allAccountsViewModels);
+            var viewModel = _accountPresentation.GetAllViewModelsForCreation();
+            return View(viewModel);
         }
 
         [HttpPost]
