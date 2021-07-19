@@ -25,31 +25,14 @@ namespace SpaceWeb.Controllers
     public class HumanController : Controller
     {
         private IHumanPresentation _humanPresentation;
-        private IUserRepository _userRepository;
-        private IMapper _mapper;
-        private IDepartmentRepository _departmentRepository;
-        private IEmployeRepository _employeRepository;
         private IWebHostEnvironment _hostEnvironment;
-        private UserService _userService;
-
 
         public HumanController(
-            IUserRepository userRepository,
-            IMapper mapper,
-            IDepartmentRepository departmentRepository,
             IHumanPresentation humanPresentation,
-            IEmployeRepository employeRepository,
-            IWebHostEnvironment hostEnvironment,
-            UserService userService 
-            )
+            IWebHostEnvironment hostEnvironment)
         {
-            _userRepository = userRepository;
-            _mapper = mapper;
-            _departmentRepository = departmentRepository;
             _humanPresentation = humanPresentation;
-            _employeRepository = employeRepository;
             _hostEnvironment = hostEnvironment;
-            _userService = userService; 
         }
 
         [HttpGet]
@@ -104,10 +87,6 @@ namespace SpaceWeb.Controllers
             return View(_humanPresentation.ClientPage());
         }
 
-        public IActionResult UpdateEmployes(long departmentId)
-        {
-            return Json(_humanPresentation.UpdateEmployes(departmentId));
-        }
 
         [HttpGet]
         [IsLeaderOfDepartment]
@@ -142,14 +121,9 @@ namespace SpaceWeb.Controllers
             var webPath = _hostEnvironment.WebRootPath;
             var path = Path.Combine(webPath, "TempFile", "temp-departments.docx");
             var contentTypeDocx = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-            var fileName = "departments.docx";            
-             _humanPresentation.SaveDepartmentsToDocX(path);
+            var fileName = "departments.docx";
+            _humanPresentation.SaveDepartmentsToDocX(path);
             return PhysicalFile(path, contentTypeDocx, fileName);
-        }
-
-        public IActionResult GetGraph()
-        {
-            return Json(_humanPresentation.GetChartForWorkersInDepartment());
         }
 
         public IActionResult Graph()
@@ -157,46 +131,28 @@ namespace SpaceWeb.Controllers
             return View();
         }
 
-        [HttpGet]
-        public IActionResult GetEmloyeAccrualsInfo(long employeId)
-        {
-            return Json(_humanPresentation.GetAccrualViewModel(employeId));
-        }
-        
         [HttpPost]
         public IActionResult SaveAccrual(AccrualViewModel accrualViewModel)
         {
-            if(ModelState.Where(x => x.Value.ValidationState == ModelValidationState.Invalid).Any())
+            var validationResult = _humanPresentation.GetErrorsStringFromModelState(ModelState);
+            if (validationResult != null)
             {
-                return Json(
-                    ModelState
-                    .Where(x=>x.Value.ValidationState == ModelValidationState.Invalid)
-                    .Select(x => x.Value.Errors.Select(x => x.ErrorMessage)));
+                return Json(validationResult);
             }
-            else
-            {
-                _humanPresentation.SaveAccrual(accrualViewModel);
-                return RedirectToAction("Personnel");
-            }
+            _humanPresentation.SaveAccrual(accrualViewModel);
+            return RedirectToAction("Personnel");
         }
 
-        public IActionResult ChangeDate(DateTime date, long employeId)
-        {
-            return Json(_humanPresentation.CalculateAccrual(date, employeId));
-        }
-
-        public IActionResult GetEmployePaymentInfo(long employeId)
-        {
-            return Json(_humanPresentation.GetPaymentViewModel(employeId));
-        }
-
+        [HttpPost]
         public IActionResult SavePayment(PaymentViewModel paymentViewModel)
         {
-            try
+            var validationResult = _humanPresentation.GetErrorsStringFromModelState(ModelState);
+            if (validationResult != null)
             {
-                _humanPresentation.SavePayment(paymentViewModel);   
+                return Json(validationResult);
             }
-            catch (BankException) { return RedirectToAction("Index", "Bank"); }
+            if (!_humanPresentation.SavePayment(paymentViewModel, out string message))
+                return Json(message);
             return RedirectToAction("Personnel");
         }
     }
