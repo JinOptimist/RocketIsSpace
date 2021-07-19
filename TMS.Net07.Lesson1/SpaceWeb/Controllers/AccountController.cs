@@ -42,26 +42,32 @@ namespace SpaceWeb.Controllers
         [HttpGet]
         public IActionResult Index(long id)
         {
-            if (id > 0)
+            if (id <= 0)
             {
-                var user = _userService.GetCurrent();
-                var dbModel = user.BankAccounts?.SingleOrDefault(x => x.Id == id);
-
-                if(dbModel == null)
-                {
-                    return View();
-                }
-
-                var viewModel = _mapper.Map<BankAccountViewModel>(dbModel);
-
-                var index = user.BankAccounts.IndexOf(dbModel);
-
-                viewModel.AccountIndex = index;
-                //для того, чтобы вставить индекс активного аккаунта при загрузке страницы
-
-                return View(viewModel);
+                return RedirectToAction("Creation");
             }
-            return RedirectToAction("Creation");
+
+            var user = _userService.GetCurrent();
+
+            if (!user.BankAccounts.Any(x => x.Id == id))
+            {
+                return RedirectToAction("Creation");
+            }
+            var index = 0;
+            var allAccountsForViewModel = user.BankAccounts
+                .Select(x =>
+                {
+                    var viewModel = _mapper.Map<BankAccountViewModel>(x);
+                    viewModel.AccountIndex = index++;
+                    return viewModel;
+                })
+                .ToList();
+
+            var viewModel = allAccountsForViewModel.Single(x => x.Id == id);
+
+            viewModel.UserAccounts = allAccountsForViewModel;
+
+            return View(viewModel);
         }
 
 
@@ -98,7 +104,17 @@ namespace SpaceWeb.Controllers
         [HttpGet]
         public IActionResult Creation()
         {
-            return View();
+            var user = _userService.GetCurrent();
+            var index = 0;
+            var allAccountsViewModels = user.BankAccounts
+                ?.Select(x =>
+                {
+                    var viewModel = _mapper.Map<BankAccountViewModel>(x);
+                    viewModel.AccountIndex = index++;
+                    return viewModel;
+                }).ToList() ?? new List<BankAccountViewModel>();
+
+            return View(allAccountsViewModels);
         }
 
         [HttpPost]
@@ -319,7 +335,7 @@ namespace SpaceWeb.Controllers
 
             var account = _bankAccountRepository?.Get(id);
 
-            if(account != null)
+            if (account != null)
             {
                 account.Amount += amount;
                 _bankAccountRepository.Save(account);

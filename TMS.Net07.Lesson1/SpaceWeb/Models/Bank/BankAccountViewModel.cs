@@ -19,5 +19,6 @@ namespace SpaceWeb.Models
         public DateTime ExpireDate { get; set; }
         public int AccountIndex { get; set; }
         public string AmountString { get; set; }
+        public List<BankAccountViewModel> UserAccounts { get; set; }
     }
 }
