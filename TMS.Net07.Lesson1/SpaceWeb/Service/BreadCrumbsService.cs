@@ -20,31 +20,24 @@ namespace SpaceWeb.Service
             AddController(typeof(RocketController), typeof(HomeController));
             AddController(typeof(RocketShopController), typeof(RocketController));
             AddController(typeof(UserController), typeof(HomeController));
-            AddController(typeof(UserController), typeof(RocketShopController), "AllAvatars","RocketShop");
-            AddController(typeof(RocketShopController), typeof(RocketController), "RocketShop","Profile");
-            
+            AddController(typeof(UserController), typeof(RocketShopController), "AllAvatars", "RocketShop");
+            AddController(typeof(RocketShopController), typeof(RocketController), "RocketShop", "Profile");
         }
-
-        // private void AddController(Type controller, Type parent)
-        // {
-        //     var controllerName = controller.Name.Replace("Controller", "");
-        //     var parentName = parent?.Name.Replace("Controller", "");
-        //     AllControllers.Add(new ControllerAndParrent()
-        //     {
-        //         CurrentControllerTypeName = controllerName,
-        //         ParentControllerTypeName = parentName
-        //     });
-        // }
-        private void AddController(Type controller, Type parent, string actionCurrent = "Index",string actionParent="Index")
+        private void AddController(Type controller, Type parent, string actionCurrent = "Index",
+            string actionParent = "Index")
         {
             var controllerName = controller.Name.Replace("Controller", "");
             var parentName = parent?.Name.Replace("Controller", "");
+            if (parent == null)
+            {
+                actionParent = null;
+            }
             AllControllers.Add(new ControllerAndParrent()
             {
                 CurrentControllerTypeName = controllerName,
                 CurrentAction = actionCurrent,
                 ParentControllerTypeName = parentName,
-                ParentAction=actionParent
+                ParentAction = actionParent
             });
         }
 
@@ -62,7 +55,7 @@ namespace SpaceWeb.Service
                 .SingleOrDefault(x => x.CurrentControllerTypeName == controller && x.CurrentAction == action);
             if (oneStep == null)
             {
-                oneStep=AllControllers
+                oneStep = AllControllers
                     .Single(x => x.CurrentControllerTypeName == controller && x.CurrentAction == "Index");
             }
 
@@ -89,8 +82,7 @@ namespace SpaceWeb.Service
     {
         public string CurrentControllerTypeName { get; set; }
         public string CurrentAction { get; set; }
-
-        public string ParentAction { get; set; }
         public string ParentControllerTypeName { get; set; }
+        public string ParentAction { get; set; }
     }
 }
