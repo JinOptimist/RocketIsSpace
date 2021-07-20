@@ -8,9 +8,14 @@ namespace MazeCore.GraphStuff
 {
     public class Graph
     {
+        public Graph()
+        {
+            _startWayNumber = 1;
+        }
+
         public List<Vertex> Vertices { get; set; } = new List<Vertex>();
 
-        public int StartWayNumber { get; set; } = 1;
+        private int _startWayNumber;
 
 
         public void SetDistanceFromRoot(Vertex rootVertex)
@@ -69,21 +74,23 @@ namespace MazeCore.GraphStuff
             {
                 GetWays(neighbor);
             }
-            if (Current.Neighbors.Where(x => x.DistanceFromRoot > Current.DistanceFromRoot).Count() == 0)
+            if (!Current.Neighbors.Any(x => x.DistanceFromRoot > Current.DistanceFromRoot))
             {
-                StartWayNumber++;
+                _startWayNumber++;
             }
         }
 
-        private void SetChildrensWay(Vertex Current)
+        private void SetChildrensWay(Vertex current)
         {
-            if (!Current.Ways.Contains(StartWayNumber))
+            if (!current.Ways.Contains(_startWayNumber))
             {
-                Current.Ways.Add(StartWayNumber);
+                current.Ways.Add(_startWayNumber);
             }
-            foreach (var smallNeighbor in Current.Neighbors.Where(x => x.DistanceFromRoot < Current.DistanceFromRoot))
+            foreach (var smallNeighbor in current.Neighbors.Where(x => x.DistanceFromRoot < current.DistanceFromRoot))
             {
                 SetChildrensWay(smallNeighbor);
+            }
+        }
 
         private void SetPath(Vertex vertext)
         {

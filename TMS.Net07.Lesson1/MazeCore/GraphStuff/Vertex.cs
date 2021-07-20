@@ -13,8 +13,6 @@ namespace MazeCore.GraphStuff
 
         public List<int> Ways { get; set; } = new List<int>();
       
-        public int DistanceFromRoot { get; set; } = -1;
-
         public List<Vertex> PathFromRoot { get; set; } = new List<Vertex>();
     }
 }

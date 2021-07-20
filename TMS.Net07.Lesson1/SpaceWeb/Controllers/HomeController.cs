@@ -104,10 +104,24 @@ namespace SpaceWeb.Controllers
 
             var ver = graph.Vertices
                 .Single(ver => ver.BaseCell.X == x && ver.BaseCell.Y == y);
-            graph.StartWayNumber = 1;
             var s = graph.GetRichestWay(ver);
 
             return Json(s);
+        }
+
+        public IActionResult PossibleWays(int x, int y)
+        {
+            var mazeLevel = _mazeBuilder.Build(4, 4, seed: 50);
+
+            var graph = _mazeBuilder.BuildGraph(mazeLevel);
+
+            var root = graph.Vertices.Single(ver => ver.BaseCell.X == x && ver.BaseCell.Y == y);
+
+            var ways = graph.GetAllWays(root);
+
+            var viewModels = ways.Select(x => _mapper.Map<WayViewModel>(x)).ToList();
+
+            return Json(viewModels);
         }
     }
 }
