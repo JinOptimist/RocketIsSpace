@@ -572,3 +572,7 @@ a {
 .undisplayable {
     display: none;
 }
+
+.maze-way {
+    padding: 3px;
+}

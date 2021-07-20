@@ -23,8 +23,7 @@
                 {
                 var className = Model.Cells[y, x].ToString().ToLower();
                     <span class="icon @className maze-way">
-                        <div id="y" class="undisplayable">@y</div>
-                        <div id="x" class="undisplayable">@x</div>
+                        <div class="undisplayable cell" y="@y" x="@x"></div>
                     </span>
                 }
             </div>
