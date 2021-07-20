@@ -32,6 +32,8 @@ using AdvImage = SpaceWeb.EfStuff.Model.AdvImage;
 using MazeCore;
 using SpaceWeb.Models.Maze;
 using MazeCore.Cells;
+using SpaceWeb.EfStuff.Model.Enum;
+using MazeLevel = SpaceWeb.EfStuff.Model.MazeLevel;
 
 namespace SpaceWeb
 {
@@ -108,7 +110,7 @@ namespace SpaceWeb
                     diContainer.GetService<IBankAccountRepository>(),
                     diContainer.GetService<IEmployeRepository>()
                ));
-          
+
             services.AddSingleton<MazeBuilder>(x => new MazeBuilder());
 
             services.AddSingleton<BreadCrumbsService>(x => new BreadCrumbsService());
@@ -301,16 +303,24 @@ namespace SpaceWeb
 
             MapBoth<ExchangeRateToUsdCurrent, ExchangeRateToUsdHistory>(configExpression);
 
-            configExpression.CreateMap<MazeLevel, MazeViewModel>()
-                .ForMember(nameof(MazeLevel.Cells), x => x.Ignore())
+            configExpression.CreateMap<MazeCore.MazeLevel, MazeViewModel>()
+                .ForMember(nameof(MazeCore.MazeLevel.Cells), x => x.Ignore())
                 .AfterMap(MazeLevelToViewModel);
+
+            configExpression.CreateMap<MazeLevel, MazeViewModel>()
+                .ForMember(nameof(MazeCore.MazeLevel.Cells), x => x.Ignore())
+                .AfterMap(MazeLevelFromDatabaseToViewModel);
+
+            configExpression.CreateMap<MazeCore.MazeLevel, MazeLevel>()
+                .ForMember(nameof(MazeCore.MazeLevel.Cells), x => x.Ignore())
+                .AfterMap(MazeLevelToDbModel);
 
             var mapperConfiguration = new MapperConfiguration(configExpression);
             var mapper = new Mapper(mapperConfiguration);
             services.AddScoped<IMapper>(c => mapper);
         }
 
-        private void MazeLevelToViewModel(MazeLevel mazeLevel, MazeViewModel viewModel)
+        private void MazeLevelToViewModel(MazeCore.MazeLevel mazeLevel, MazeViewModel viewModel)
         {
             viewModel.Cells = new CellType[mazeLevel.Height, mazeLevel.Width];
 
@@ -332,7 +342,74 @@ namespace SpaceWeb
                 }
                 else
                 {
-                    throw new Exception("Uknown type of cell");
+                    throw new Exception("Unknown type of cell");
+                }
+            }
+        }
+
+        private void MazeLevelFromDatabaseToViewModel(MazeLevel dbModel, MazeViewModel viewModel)
+        {
+            viewModel.Cells = new CellType[dbModel.Height, dbModel.Width];
+
+            foreach (var cell in dbModel.Cells
+                .OrderBy(x => x.Y)
+                .ThenBy(x => x.X))
+            {
+                if (cell.CellType == CellType.Wall)
+                {
+                    viewModel.Cells[cell.Y, cell.X] = CellType.Wall;
+                }
+                else if (cell.CellType == CellType.Road)
+                {
+                    viewModel.Cells[cell.Y, cell.X] = CellType.Road;
+                }
+                else if (cell.CellType == CellType.Gold)
+                {
+                    viewModel.Cells[cell.Y, cell.X] = CellType.Gold;
+                }
+                else
+                {
+                    throw new Exception("Unknown type of cell");
+                }
+            }
+        }
+
+        private void MazeLevelToDbModel(MazeCore.MazeLevel maze, MazeLevel dbModel)
+        {
+            foreach (var cell in maze.Cells
+                .OrderBy(x => x.Y)
+                .ThenBy(x => x.X))
+            {
+                if (cell is Wall)
+                {
+                    dbModel.Cells.Add(new Cell()
+                    {
+                        X = cell.X,
+                        Y = cell.Y,
+                        CellType = CellType.Wall
+                    });
+                }
+                else if (cell is Ground)
+                {
+                    dbModel.Cells.Add(new Cell()
+                    {
+                        X = cell.X,
+                        Y = cell.Y,
+                        CellType = CellType.Road
+                    });
+                }
+                else if (cell is Gold)
+                {
+                    dbModel.Cells.Add(new Cell()
+                    {
+                        X = cell.X,
+                        Y = cell.Y,
+                        CellType = CellType.Gold
+                    });
+                }
+                else
+                {
+                    throw new Exception("Unknown type of cell");
                 }
             }
         }

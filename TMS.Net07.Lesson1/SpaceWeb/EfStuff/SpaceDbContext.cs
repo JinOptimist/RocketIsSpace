@@ -40,13 +40,15 @@ namespace SpaceWeb.EfStuff
         public DbSet<InsuranceType> InsuranceTypes { get; set; }
         public DbSet<Insurance> Insurances { get; set; }
 
-
         public DbSet<Accrual> Accrual { get; set; }
         public DbSet<Payment> Payment { get; set; }
 
         public DbSet<ExchangeRateToUsdCurrent> ExchangeRatesToUsdCurrent { get; set; }
         public DbSet<ExchangeRateToUsdHistory> ExchangeRatesToUsdHistory { get; set; }
         public DbSet<ExchangeAccountHistory> ExchangeAccountHistory { get; set; }
+
+        public DbSet<MazeLevel> MazeLevels { get; set; }
+        public DbSet<Cell> Cells { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -72,13 +74,10 @@ namespace SpaceWeb.EfStuff
                 .HasMany(x => x.BanksCards)
                 .WithOne(x => x.BankAccount);
 
-            
-
             modelBuilder.Entity<User>()
                 .HasOne(x => x.Questionaries)
                 .WithOne(x => x.User)
                 .HasForeignKey<Questionary>(x => x.UserRef);
-
 
             modelBuilder.Entity<Order>()
                 .HasMany(order => order.AdditionsList)
@@ -87,7 +86,6 @@ namespace SpaceWeb.EfStuff
             modelBuilder.Entity<Order>()
                 .HasMany(order => order.ComfortsList)
                 .WithOne(comforts => comforts.Order);
-
 
             modelBuilder.Entity<Client>()
                 .HasOne(x => x.User)
@@ -119,7 +117,6 @@ namespace SpaceWeb.EfStuff
                 .HasMany(x => x.Rockets)
                 .WithMany(x => x.OrderedBy);
 
-
             modelBuilder.Entity<Accrual>()
                 .HasOne(x => x.Employe)
                 .WithMany(x => x.Accruals);
@@ -139,6 +136,14 @@ namespace SpaceWeb.EfStuff
             modelBuilder.Entity<Payment>()
                 .HasOne(x => x.BankAccount)
                 .WithMany(x => x.Payments);
+
+            modelBuilder.Entity<MazeLevel>()
+                .HasMany(x => x.Cells)
+                .WithOne(x => x.MazeLevel);
+
+            modelBuilder.Entity<MazeLevel>()
+                .HasOne(x => x.User)
+                .WithMany(x => x.Mazes);
 
             base.OnModelCreating(modelBuilder);
         }

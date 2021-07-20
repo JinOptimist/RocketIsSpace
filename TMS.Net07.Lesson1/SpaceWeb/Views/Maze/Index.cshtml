@@ -1,0 +1,37 @@
+﻿@{
+    Layout = "_LayoutRocket";
+}
+
+@model List<SpaceWeb.Models.Maze.MazeViewModel>
+
+<div class="maze">
+    <div>
+        Legend
+        <div>
+            <span class="icon wall">Wall</span>
+        </div>
+        <div>
+            <span class="icon road">Road</span>
+        </div>
+        <div>
+            <span class="icon gold">Gold</span>
+        </div>
+    </div>
+    <a href="/Maze/CreateNewMaze">Создать новый лабиринт</a>
+    @foreach (var model in Model)
+    {
+        <hr/>
+        <div>
+            @for (int y = 0; y < model.Height; y++)
+            {
+                <div class="line">
+                    @for (int x = 0; x < model.Width; x++)
+                    {
+                        var className = model.Cells[y, x].ToString().ToLower();
+                        <span class="icon @className"></span>
+                    }
+                </div>
+            }
+        </div>
+    }
+</div>

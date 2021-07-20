@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SpaceWeb.EfStuff;
 
 namespace SpaceWeb.Migrations
 {
     [DbContext(typeof(SpaceDbContext))]
-    partial class SpaceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210719163955_AddMaze")]
+    partial class AddMaze
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -477,15 +479,10 @@ namespace SpaceWeb.Migrations
                     b.Property<int>("Height")
                         .HasColumnType("int");
 
-                    b.Property<long?>("UserId")
-                        .HasColumnType("bigint");
-
                     b.Property<int>("Width")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("MazeLevels");
                 });
@@ -900,15 +897,6 @@ namespace SpaceWeb.Migrations
                     b.Navigation("Owner");
                 });
 
-            modelBuilder.Entity("SpaceWeb.EfStuff.Model.MazeLevel", b =>
-                {
-                    b.HasOne("SpaceWeb.EfStuff.Model.User", "User")
-                        .WithMany("Mazes")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.Order", b =>
                 {
                     b.HasOne("SpaceWeb.EfStuff.Model.Client", "Client")
@@ -1066,8 +1054,6 @@ namespace SpaceWeb.Migrations
                     b.Navigation("Employe");
 
                     b.Navigation("ExchangeOperationsThatUserDone");
-
-                    b.Navigation("Mazes");
 
                     b.Navigation("MyRockets");
 
