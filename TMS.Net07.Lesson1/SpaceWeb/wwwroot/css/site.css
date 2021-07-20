@@ -568,3 +568,7 @@ a {
     .breadcrumb:hover {
         background: rgba(0,0,0,0.3);
     }
+
+.undisplayable {
+    display: none;
+}
