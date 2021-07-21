@@ -219,11 +219,8 @@ namespace SpaceWeb.Controllers
                     };
                     break;
             }
-
+            if (!_currencyService.IsCardAvailability(viewModel.Card))
             {
-                var user = _userService.GetCurrent();
-                var bankCardNew = new BanksCard();
-
                 switch (viewModel.Card)
                 {
                     case EnumBankCard.PayCard:
