@@ -24,79 +24,111 @@ $(document).ready(function () {
         $('.container .form input[type = text], input[type = password]').val('');
     })
 
+    //$('.container .form .buttons .make.remove.button').click(function (env) {
+
+    //    var activeAccount = GetActiveAccount();
+
+    //    var password = $(this).parent().siblings('input[type = password]').val();
+
+    //    console.log(password);
+
+    //    env.preventDefault();
+
+    //    return false;
+
+    //    var url = `/Account/Remove?id=${activeAccount.id}`
+
+    //    var currentContainer = $(this).closest('.container');
+
+    //    $.get(url);
+
+    //    .done(function (answer) {
+    //    if (answer) {
+    //        console.log('account deleted');
+
+    //        currentContainer.toggleClass('hide');
+
+    //        //AnimateAccountRemoving(activeAccount);
+
+    //        $('.button-list').toggleClass('hide');
+    //    }
+    //    else {
+    //        console.log('something went wrong');
+    //    }
+    //})
+
     $('.container .form .buttons .make').click(function (env) {
 
-        var amountTextForm = $(this).parent().siblings('.amount');
+        var currentContainer = $(this).closest('.container');
 
-        var submitButton = $(this);
+        var activeAccount = GetActiveAccount();
 
-        var input = amountTextForm.val();
+        if (currentContainer.attr('class').includes('remove')) {
+            var password = $(this).parent().siblings('input[type = password]').val();
 
-        if (input == '') {
-            console.log('empty form');
-            AnimateWrongButton(submitButton);
-        }
-        else {
-            var amount = input.replace(',', '.') - 0;
+            console.log(password);
 
-            var currentContainer = $(this).closest('.container');
-
-            if (currentContainer.attr('class').includes('withdrawal')) {
-                amount = amount * (-1);
-            }
-            else if (currentContainer.attr('class').includes('transfer')) {
-                amount = 0;
-            }
-
-            var activeAccount = GetActiveAccount();
-
-            var url = `/Account/UpdateAmount?id=${activeAccount.id}&amount=${amount}`;
+            var url = `/Account/Remove?id=${activeAccount.id}&password=${password}`
 
             $.get(url).done(function (answer) {
-                if (answer) {
-                    console.log('amount updated');
-
-                    currentContainer.toggleClass('hide');
-
-                    UpdateAmount(activeAccount, amount);
-
-                    $('.button-list').toggleClass('hide');
-
-                    amountTextForm.val('');
+                if (!answer) {
+                    console.log('incorrect password');
+                    return false;
                 }
                 else {
-                    console.log('something went wrong');
+                    console.log(answer);
+                    window.location = answer;
+                    return true;
                 }
             })
+
+            env.preventDefault();
         }
+        else {
+            var amountTextForm = $(this).parent().siblings('.amount');
 
-        env.preventDefault();
+            var submitButton = $(this);
+
+            var input = amountTextForm.val();
+
+            if (input == '') {
+                console.log('empty form');
+                AnimateWrongButton(submitButton);
+            }
+            else {
+                var amount = input.replace(',', '.') - 0;
+
+                if (currentContainer.attr('class').includes('withdrawal')) {
+                    amount = amount * (-1);
+                }
+                else if (currentContainer.attr('class').includes('transfer')) {
+                    amount = 0;
+                }
+
+                var url = `/Account/UpdateAmount?id=${activeAccount.id}&amount=${amount}`;
+
+                $.get(url).done(function (answer) {
+                    if (answer) {
+                        console.log('amount updated');
+
+                        currentContainer.toggleClass('hide');
+
+                        UpdateAmount(activeAccount, amount);
+
+                        $('.button-list').toggleClass('hide');
+
+                        amountTextForm.val('');
+                    }
+                    else {
+                        console.log('something went wrong');
+                    }
+                })
+            }
+            env.preventDefault();
+        }
     })
 
-    $('.container .form .buttons .remove.make').click(function () {
-
-        //var activeAccount = GetActiveAccount();
-
-        //var url = `/Account/Remove?id=${activeAccount.id}`
-
-        //var currentContainer = $(this).closest('.container');
-
-        //$.get(url);
-
-        //.done(function (answer) {
-        //if (answer) {
-        //    console.log('account deleted');
-
-        //    currentContainer.toggleClass('hide');
-
-        //    //AnimateAccountRemoving(activeAccount);
-
-        //    $('.button-list').toggleClass('hide');
-        //}
-        //else {
-        //    console.log('something went wrong');
-        //}
-    })
+    
 
     $('.container .form input.amount').keydown(function (e) {
 
