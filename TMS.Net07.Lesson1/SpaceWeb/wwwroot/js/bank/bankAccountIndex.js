@@ -24,38 +24,6 @@ $(document).ready(function () {
         $('.container .form input[type = text], input[type = password]').val('');
     })
 
-    //$('.container .form .buttons .make.remove.button').click(function (env) {
-
-    //    var activeAccount = GetActiveAccount();
-
-    //    var password = $(this).parent().siblings('input[type = password]').val();
-
-    //    console.log(password);
-
-    //    env.preventDefault();
-
-    //    return false;
-
-    //    var url = `/Account/Remove?id=${activeAccount.id}`
-
-    //    var currentContainer = $(this).closest('.container');
-
-    //    $.get(url);
-
-    //    .done(function (answer) {
-    //    if (answer) {
-    //        console.log('account deleted');
-
-    //        currentContainer.toggleClass('hide');
-
-    //        //AnimateAccountRemoving(activeAccount);
-
-    //        $('.button-list').toggleClass('hide');
-    //    }
-    //    else {
-    //        console.log('something went wrong');
-    //    }
-    //})
 
     $('.container .form .buttons .make').click(function (env) {
 
@@ -64,7 +32,9 @@ $(document).ready(function () {
         var activeAccount = GetActiveAccount();
 
         if (currentContainer.attr('class').includes('remove')) {
-            var password = $(this).parent().siblings('input[type = password]').val();
+            var passwordInput = $(this).parent().siblings('input[type = password]');
+
+            var password = passwordInput.val();
 
             console.log(password);
 
@@ -72,13 +42,12 @@ $(document).ready(function () {
 
             $.get(url).done(function (answer) {
                 if (!answer) {
-                    console.log('incorrect password');
-                    return false;
+                    AnimateWrongInput(passwordInput);
+                    //return false;
                 }
                 else {
-                    console.log(answer);
                     window.location = answer;
-                    return true;
+                    //return true;
                 }
             })
 
@@ -128,13 +97,10 @@ $(document).ready(function () {
         }
     })
 
-    
 
     $('.container .form input.amount').keydown(function (e) {
 
         var pressedKey = e.key;
-
-        console.log(pressedKey);
 
         var input = $(this).val();
 
@@ -217,10 +183,10 @@ $(document).ready(function () {
                 step: function (progress) {
                     obj.css('border-bottom', '2px solid red')
                 },
-                //complete: function () {
-                //    obj.css('progress', 0);
-                //    AnimateBackToDefault(obj);
-                //},
+                complete: function () {
+                    obj.css('progress', 0);
+                    AnimateInputBackToDefault(obj);
+                },
                 queue: false
             }
         )
