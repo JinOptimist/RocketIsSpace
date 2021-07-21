@@ -1,6 +1,7 @@
 ﻿@using SpaceWeb.Service
 @using SpaceWeb.Models.Human
 @inject UserService userService
+@inject BreadCrumbsService breadCrumbsService
 
 <!DOCTYPE html>
 <html>
@@ -78,6 +79,18 @@
                             <div class="link icon log-in">Log in</div>
                         }
         </div>
+    </div>
+<div class="breadcrumb-container server">
+        @{ 
+            var breadCrumbsViewModel = breadCrumbsService.GetBreadCrumbs(Context);
+        }
+        @foreach (var bread in breadCrumbsViewModel) { 
+            <div class="bread">
+                <a href="@bread.Url">
+                    @bread.Title
+                </a>
+            </div>
+        }
     </div>
     <div class="content">
         @RenderBody()

@@ -32,6 +32,8 @@ using AdvImage = SpaceWeb.EfStuff.Model.AdvImage;
 using MazeCore;
 using SpaceWeb.Models.Maze;
 using MazeCore.Cells;
+using MazeCore.GraphStuff;
+using MazeCore.Maze;
 
 namespace SpaceWeb
 {
@@ -249,6 +251,13 @@ namespace SpaceWeb
                     config => config.MapFrom(user =>
                         user.Employe.SalaryPerHour));
 
+            configExpression.CreateMap<Vertex, CellViewModel>()
+                .ForMember(nameof(CellViewModel.X), config => config.MapFrom(vertex => vertex.BaseCell.X))
+                .ForMember(nameof(CellViewModel.Y), config => config.MapFrom(vertex => vertex.BaseCell.Y));
+
+            configExpression.CreateMap<Graph, WayViewModel>()
+                .ForMember(nameof(WayViewModel.Cells), config => config.MapFrom(graph => graph.Vertices));
+
 
             //configExpression.CreateMap<Relic, RelicViewModel>();
             //configExpression.CreateMap<RelicViewModel, Relic>();
@@ -318,22 +327,31 @@ namespace SpaceWeb
                 .OrderBy(x => x.Y)
                 .ThenBy(x => x.X))
             {
-                if (cell is Wall)
-                {
-                    viewModel.Cells[cell.Y, cell.X] = CellType.Wall;
-                }
-                else if (cell is Ground)
-                {
-                    viewModel.Cells[cell.Y, cell.X] = CellType.Road;
-                }
-                else if (cell is Gold)
-                {
-                    viewModel.Cells[cell.Y, cell.X] = CellType.Gold;
-                }
-                else
-                {
-                    throw new Exception("Uknown type of cell");
-                }
+                viewModel.Cells[cell.Y, cell.X] = CellTypeMapper(cell);
+                //viewModel.Cells[cell.Y, cell.X].X = cell.X;
+                //viewModel.Cells[cell.Y, cell.X].Y = cell.Y;
+            }
+        }
+
+
+
+        private CellType CellTypeMapper(BaseCell cell)
+        {
+            if (cell is Wall)
+            {
+                return CellType.Wall;
+            }
+            else if (cell is Ground)
+            {
+                return CellType.Road;
+            }
+            else if (cell is Gold)
+            {
+                return CellType.Gold;
+            }
+            else
+            {
+                throw new Exception("Uknown type of cell");
             }
         }
 

@@ -95,5 +95,32 @@ namespace SpaceWeb.Controllers
 
             return Json(max);
         }
+        public IActionResult TheRichestWay(int x, int y)
+        {
+            var mazeLevel = _mazeBuilder.Build(4, 4, seed: 50);
+
+            var graph = _mazeBuilder.BuildGraph(mazeLevel);
+
+            var ver = graph.Vertices
+                .Single(ver => ver.BaseCell.X == x && ver.BaseCell.Y == y);
+            var s = graph.GetRichestWay(ver);
+
+            return Json(s);
+        }
+
+        public IActionResult PossibleWays(int x, int y)
+        {
+            var mazeLevel = _mazeBuilder.Build(4, 4, seed: 50);
+
+            var graph = _mazeBuilder.BuildGraph(mazeLevel);
+
+            var root = graph.Vertices.Single(ver => ver.BaseCell.X == x && ver.BaseCell.Y == y);
+
+            var ways = graph.GetAllWays(root);
+
+            var viewModels = ways.Select(x => _mapper.Map<WayViewModel>(x)).ToList();
+
+            return Json(viewModels);
+        }
     }
 }
