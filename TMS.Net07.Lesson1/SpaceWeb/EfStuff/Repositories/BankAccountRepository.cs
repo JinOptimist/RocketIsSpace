@@ -47,7 +47,7 @@ namespace SpaceWeb.EfStuff.Repositories
 
             if (accountFrom.Amount < 0)
             {
-                throw new BankAccountException();
+                throw new BankException();
             }
 
             using (var transaction = _spaceDbContext.Database.BeginTransaction())
