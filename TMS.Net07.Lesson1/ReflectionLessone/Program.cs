@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace ReflectionLessone
 {
@@ -17,14 +20,69 @@ namespace ReflectionLessone
             }
         }
     }
+    
     class Program
     {
-        static void Main(string[] args)
+        delegate void Message();
+
+        event Message Notify;
+
+        
+
+        //private delegate void Message();
+
+        //private event Message Notify;
+
+        public static void MessageEmail()
+        {
+            Console.WriteLine("Email");
+        }
+
+        public static void MessagePhone()
+        {
+            Console.WriteLine("Phone");
+        }
+
+        public static int Sum(string name, int a, int b)
+        {
+            return 0;
+        }
+
+        public static int Sum(string name, params int[] numbers)
+        {
+            return 0;
+        }
+
+        public static void ExampleIndexer()
+        {
+            var invoice = new Invoice();
+
+            //var firstDish = invoice.InvoiceRecords[0].Name;
+            var firstDish = invoice[0].Name;
+            var invoices = new Invoice[10];
+
+            foreach (var record in invoice)
+            {
+
+            }
+        }
+
+
+        public static IEnumerable<MyNumber> GetNumbers()
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                yield return new MyNumber();
+            }
+        }
+
+
+        public static void Main()
         {
             var myNumbers = GetNumbers();
             var numbers = myNumbers
                 .Select(x => x.Number);
-            
+
             var sum = numbers.Sum();
             Console.WriteLine($"sum {sum}");
 
@@ -33,14 +91,6 @@ namespace ReflectionLessone
 
             var sum2 = numbers.Sum();
             Console.WriteLine($"sum2 {sum2}");
-        }
-
-        public static IEnumerable<MyNumber> GetNumbers()
-        {
-            for (int i = 0; i < 3; i++)
-            {
-                yield return new MyNumber();
-            }
         }
 
         public static void TryCatchExnple()
@@ -93,7 +143,7 @@ namespace ReflectionLessone
             return 1 / b;
         }
 
-        public static void HashSetExmple()
+        public static async Task HashSetExmpleAsync()
         {
             var dictionary = new HashSet<Human>();
 
@@ -102,6 +152,14 @@ namespace ReflectionLessone
             dictionary.Add(new Human(202));
 
             dictionary.Add(new Human(203));
+
+            var age =  Fun();
+        }
+
+        public static Task<int> Fun()
+        {
+            Thread.Sleep(10 * 1000);
+            return new Task<int>(() => 8);
         }
 
         public static void Refl()
@@ -150,10 +208,25 @@ namespace ReflectionLessone
         }
     }
 
-    
-
     public class MyDiveByZeroException : DivideByZeroException
     {
 
+    }
+
+    public class A
+    {
+        public virtual void Do() { }
+    }
+
+    public class B : A
+    {
+        public override void Do()
+        {
+        }
+
+        public string Af()
+        {
+            return "Af";
+        }
     }
 }

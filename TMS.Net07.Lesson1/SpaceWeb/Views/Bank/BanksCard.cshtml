@@ -42,7 +42,8 @@
                     </ul>
                 </div>
                 <div class="back-batn">
-                    <a href="~/Bank/BankCardChartInfo" class="btn">Оформить</a>
+                    <a href="~/Bank/BankCardChartInfo" class="btn">Курс</a>
+                    <a href="~/Bank/AddCard" class="btn">Оформить</a>
                 </div>
             </div>
         </div>
@@ -58,9 +59,5 @@
         </a>
 
     </div>
-    <div class="account-creation-container">
-        <div class="creation-container-text">@Resource.Banks_CreatCard</div>
-        @{ Html.RenderPartial("_bankCards", new BanksCardViewModel()); }
-        <div class="button plus-money">@Resource.Banks_Transfer</div>
-    </div>
+    
 </div>

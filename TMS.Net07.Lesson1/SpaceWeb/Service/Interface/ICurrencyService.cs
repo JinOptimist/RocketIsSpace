@@ -32,5 +32,9 @@ namespace SpaceWeb.Service
         public void MoveCurrentExchangesDbToHistoryDb(ExchangeRateToUsdCurrentRepository _exchangeRateToUsdCurrentRepository,
             ExchangeRateToUsdHistoryRepository _exchangeRateToUsdHistoryRepository, Mapper _mapper);
         public decimal CountAllMoneyInWishingCurrency(List<BankAccount> accounts, Currency currencyTo);
+
+        public string IntToStringAmount(int amount);
+        public bool CheckInternetConnection();
+        public bool IsCardAvailability(EnumBankCard Card);
     }
 }

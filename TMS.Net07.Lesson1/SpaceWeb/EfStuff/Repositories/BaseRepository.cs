@@ -42,16 +42,15 @@ namespace SpaceWeb.EfStuff.Repositories
             _spaceDbContext.SaveChanges();
         }
 
-        public virtual void Remove(long id)
-        {
-            var model = Get(id);
-            Remove(model);
-        }
-
         public virtual void Remove(ModelType model)
         {
             _spaceDbContext.Remove(model);
             _spaceDbContext.SaveChanges();
+        }
+        public virtual void Remove(long id)
+        {
+            var model = Get(id);
+            Remove(model);
         }
 
         public virtual void Remove(IEnumerable<long> ids)

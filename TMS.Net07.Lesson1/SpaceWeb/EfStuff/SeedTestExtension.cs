@@ -12,7 +12,7 @@ namespace SpaceWeb.EfStuff
     public static class SeedTestExtension
     {
         private static Random _random = new Random();
-
+        private static DateTime defaultInviteDate = new DateTime(2020, 1, 1);
         public static IHost SeedTestData(this IHost server)
         {
             using (var serviceScope = server.Services.CreateScope())
@@ -64,7 +64,8 @@ namespace SpaceWeb.EfStuff
                     Position = Position.Leader,
                     SalaryPerHour = _random.Next(100, 500),
                     EmployeStatus = EmployeStatus.Accepted,
-                    Department = department
+                    Department = department,
+                    InviteDate = defaultInviteDate
                 };
                 userReposirory.Save(user);
             }
@@ -78,7 +79,8 @@ namespace SpaceWeb.EfStuff
                     Position = (Position)_random.Next(2, 5),
                     SalaryPerHour = _random.Next(50, 250),
                     EmployeStatus = EmployeStatus.Accepted,
-                    Department = department
+                    Department = department,
+                    InviteDate = defaultInviteDate
                 };
                 userReposirory.Save(user);
             }

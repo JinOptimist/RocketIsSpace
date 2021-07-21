@@ -33,10 +33,17 @@ namespace SpaceWeb.Controllers
         private IUserRepository _userRepository;
         private IWebHostEnvironment _hostEnvironment;
 
-        public RocketShopController(IMapper mapper, IOrderRepository orderRepository, 
-            IShopRocketRepository shopRocketRepository, UserService userService, 
-            IClientRepository clientRepository, ICurrencyService currencyService, IBankAccountRepository accountRepository,
-            IRocketShopPresentation rocketShopPresentation, IUserRepository userRepository,IWebHostEnvironment hostEnvironment)
+        public RocketShopController(
+            IMapper mapper,
+            IOrderRepository orderRepository, 
+            IShopRocketRepository shopRocketRepository, 
+            UserService userService, 
+            IClientRepository clientRepository, 
+            ICurrencyService currencyService, 
+            IBankAccountRepository accountRepository,
+            IRocketShopPresentation rocketShopPresentation, 
+            IUserRepository userRepository,
+            IWebHostEnvironment hostEnvironment)
         {
             _mapper = mapper;
             _orderRepository = orderRepository;

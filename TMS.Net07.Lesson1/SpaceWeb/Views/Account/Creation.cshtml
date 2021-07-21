@@ -2,12 +2,14 @@
     Layout = "_LayoutBank";
 }
 
+@model List<BankAccountViewModel>
+
 @section Scripts{
-    <script src="~/js/bank/bankAccountCreation.js"></script>
+    <script src="~/js/bank/bankAccountCreation.js?v=1"></script>
 }
 
 @section Style{ 
-    <link rel="stylesheet" href="~/css/bank/styleAccount.css?v=0" />
+    <link rel="stylesheet" href="~/css/bank/styleAccount.css?v=3" />
 }
 
 <body>
@@ -16,9 +18,9 @@
     <div class="account-index-central-block">
         <div class="menu left">
             <div class="left-menu-text">СЧЕТА</div>
-            @Html.Partial("_bankAccountsList")
+            @Html.Partial("_bankAccountsList", Model)
         </div>
-        <div class="account-creation content-box">
+        <div class="account-creation container content-box">
             <div class="creation-container-text">СОЗДАНИЕ СЧЕТА</div>
             @Html.Partial("_bankAccountCreationForm")
         </div>

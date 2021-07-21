@@ -7,7 +7,7 @@
         width: 20px;
         height: 20px;
         display: inline-block;
-        content: ' ';
+        content: '*';
         background-size: contain;
     }
 
@@ -67,4 +67,20 @@
 
 .rocket-icon:hover::before {
     background-image: url('../image/comfortImage/r2icon.png')
+}
+
+.wall::before {
+    background-image: url('../image/maze/wall.png')
+}
+
+.road::before {
+    background-image: url('../image/maze/road.jpg')
+}
+
+.gold::before {
+    background-image: url('../image/maze/gold.png')
+}
+
+.gold:hover::before {
+    background-image: url('../image/maze/gold_hover.jpg')
 }
