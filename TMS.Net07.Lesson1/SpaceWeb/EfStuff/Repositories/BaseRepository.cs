@@ -26,17 +26,29 @@ namespace SpaceWeb.EfStuff.Repositories
         {
             return _dbSet.SingleOrDefault(x => x.Id == id);
         }
-
-        public void Remove(long id)
+        
+        public virtual void Save(ModelType model)
         {
-            var model = Get(id);
-            Remove(model);
+            if (model.Id > 0)
+            {
+                _dbSet.Update(model);
+            }
+            else
+            {
+                _dbSet.Add(model);
+            }
+            _spaceDbContext.SaveChanges();
         }
 
         public virtual void Remove(ModelType model)
         {
             _spaceDbContext.Remove(model);
             _spaceDbContext.SaveChanges();
+        }
+        public virtual void Remove(long id)
+        {
+            var model = Get(id);
+            Remove(model);
         }
 
         public virtual void Remove(IEnumerable<long> ids)

@@ -19,7 +19,7 @@ using System.Numerics;
 using System.Threading.Tasks;
 using SpaceWeb.Models.RocketModels;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
-using Profile = SpaceWeb.EfStuff.Model.Profile;
+using Questionary = SpaceWeb.EfStuff.Model.Questionary;
 using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Presentation;
 using SpaceWeb.Models.Human;
@@ -29,6 +29,11 @@ using System.Reflection;
 using SpaceWeb.Migrations;
 using Microsoft.Extensions.Logging;
 using AdvImage = SpaceWeb.EfStuff.Model.AdvImage;
+using MazeCore;
+using SpaceWeb.Models.Maze;
+using MazeCore.Cells;
+using MazeCore.GraphStuff;
+using MazeCore.Maze;
 
 namespace SpaceWeb
 {
@@ -56,46 +61,66 @@ namespace SpaceWeb
                     config.AccessDeniedPath = "/User/AccessDenied";
                 });
 
-            //services.AddScoped<IRelicPresentation>(container =>
-            //    new RelicPresentation(
-            //        container.GetService<IRelicRepository>(),
-            //        container.GetService<IMapper>()));
-
-            //services.AddScoped<IHumanPresentation>(container =>
-            //    new HumanPresentation(
-            //        container.GetService<IUserRepository>(),
-            //        container.GetService<IDepartmentRepository>(),
-            //        container.GetService<IMapper>(),
-            //        container.GetService<IEmployeRepository>(),
-            //        container.GetService<UserService>()));
-
-            //services.AddScoped<IUserRepository>(diContainer =>
-            //    new UserRepository(
-            //        diContainer.GetService<SpaceDbContext>(),
-            //        diContainer.GetService<IBankAccountRepository>()
-            //        ));
-
-            //services.AddScoped<IRocketShopPresentation>(container =>
-            //    new RocketShopPresentation(
-            //        container.GetService<IMapper>(),
-            //        container.GetService<IOrderRepository>(),
-            //        container.GetService<IShopRocketRepository>(),
-            //        container.GetService<UserService>()));
-
             RegistrationPresentations(services);
+            RegisterMapper(services);
+            RegisterOldRepository(services);
+            RegistrationRepositories(services);
+            RegisterService(services);
 
 
-            //services.AddScoped<IRelicRepository>(diContainer =>
-            //    new RelicRepository(diContainer.GetService<SpaceDbContext>()));
 
-            //services.AddScoped<IDepartmentRepository>(diContainer =>
-            //    new DepartmentRepository(diContainer.GetService<SpaceDbContext>()));
+            services.AddControllersWithViews();
+            services.AddHttpContextAccessor();
+        }
 
-            //services.AddScoped<IBankAccountRepository>(diContainer =>
-            //    new BankAccountRepository(diContainer.GetService<SpaceDbContext>()));
+        private void RegisterService(IServiceCollection services)
+        {
+            services.AddScoped<ICurrencyService>(diContainer =>
+                new CurrencyService(
+                    diContainer.GetService<UserService>(),
+                    diContainer.GetService<ExchangeRateToUsdCurrentRepository>(),
+                    diContainer.GetService<ExchangeAccountHistoryRepository>(),
+                    diContainer.GetService<ExchangeRateToUsdHistoryRepository>(),
+                    diContainer.GetService<IMapper>()));
 
-            services.AddScoped<ProfileRepository>(diContainer =>
-                new ProfileRepository(diContainer.GetService<SpaceDbContext>()));
+            //services.AddMyScoped<IUserService, UserService>();
+            services.AddScoped<IUserService>(diContainer =>
+              new UserService(
+                  diContainer.GetService<IUserRepository>(),
+                  diContainer.GetService<IHttpContextAccessor>()
+              ));
+
+
+            services.AddScoped<UserService>(diContainer =>
+               new UserService(
+                   diContainer.GetService<IUserRepository>(),
+                   diContainer.GetService<IHttpContextAccessor>()
+               ));
+
+            services.AddScoped<IPathHelper>(diContainer =>
+               new PathHelper(
+                   diContainer.GetService<IWebHostEnvironment>()
+               ));
+
+
+           services.AddScoped<ISalaryService>(diContainer =>
+                new SalaryService(
+                    diContainer.GetService<IAccrualRepository>(),
+                    diContainer.GetService<IPaymentRepository>(),
+                    diContainer.GetService<IBankAccountRepository>(),
+                    diContainer.GetService<IEmployeRepository>()
+               ));
+          
+            services.AddSingleton<MazeBuilder>(x => new MazeBuilder());
+
+            services.AddSingleton<BreadCrumbsService>(x => new BreadCrumbsService());
+        }
+
+        private void RegisterOldRepository(IServiceCollection services)
+        {
+
+            services.AddScoped<QuestionaryRepository>(diContainer =>
+                new QuestionaryRepository(diContainer.GetService<SpaceDbContext>()));
 
             services.AddScoped<AdvImageRepository>(diContainer =>
                 new AdvImageRepository(diContainer.GetService<SpaceDbContext>()));
@@ -124,25 +149,6 @@ namespace SpaceWeb
             services.AddScoped<ExchangeAccountHistoryRepository>(diContainer =>
                 new ExchangeAccountHistoryRepository(diContainer.GetService<SpaceDbContext>()));
 
-            services.AddScoped<ICurrencyService>(diContainer =>
-                new CurrencyService(
-                    diContainer.GetService<UserService>(),
-                    diContainer.GetService<ExchangeRateToUsdCurrentRepository>(),
-                    diContainer.GetService<ExchangeAccountHistoryRepository>(),
-                    diContainer.GetService<ExchangeRateToUsdHistoryRepository>(),
-                    diContainer.GetService<IMapper>()
-                ));
-
-            services.AddScoped<UserService>(diContainer =>
-                new UserService(
-                    diContainer.GetService<IUserRepository>(),
-                    diContainer.GetService<IHttpContextAccessor>()
-                ));
-
-            services.AddControllersWithViews();
-
-            services.AddHttpContextAccessor();
-
             services.AddScoped<OrderRepository>(diContainer =>
                 new OrderRepository(diContainer.GetService<SpaceDbContext>()));
             services.AddControllersWithViews();
@@ -152,34 +158,6 @@ namespace SpaceWeb
 
             services.AddScoped<ShopRocketRepository>(diContainer =>
                 new ShopRocketRepository(diContainer.GetService<SpaceDbContext>()));
-
-            //services.AddScoped<ICurrencyService>(diContainer =>
-            //    new CurrencyService(diContainer.GetService<UserService>(),
-            //        diContainer.GetService<ExchangeRateToUsdCurrentRepository>(),
-            //        diContainer.GetService<ExchangeAccountHistoryRepository>()));
-
-            services.AddScoped<IBankPresentation>(diContainer =>
-                new BankPresentation(diContainer.GetService<IProfileRepository>(), diContainer.GetService<IMapper>()));
-
-            services.AddScoped<BankPresentation>(diContainer =>
-                new BankPresentation(diContainer.GetService<IProfileRepository>(), diContainer.GetService<IMapper>()));
-
-            //services.AddScoped<IEmployeRepository>(diContainer =>
-            //    new EmployeRepository(diContainer.GetService<SpaceDbContext>()));
-
-            RegisterMapper(services);
-            services.AddScoped<UserService>(diContainer =>
-               new UserService(
-                   diContainer.GetService<IUserRepository>(),
-                   diContainer.GetService<IHttpContextAccessor>()
-               ));
-
-            services.AddControllersWithViews();
-
-            services.AddHttpContextAccessor();
-
-
-            RegistrationRepositories(services);
         }
 
         private void RegistrationPresentations(IServiceCollection services)
@@ -188,7 +166,7 @@ namespace SpaceWeb
             var types = assembly.GetTypes();
             var humanPresentationTypes = types.Where(t => t.FullName.Contains("Presentation") && t.IsInterface).ToArray();
 
-            foreach(var iPresentation in humanPresentationTypes)
+            foreach (var iPresentation in humanPresentationTypes)
             {
                 var realization = types.Single(x => x.GetInterfaces().Contains(iPresentation));
                 services.AddScoped(
@@ -239,12 +217,13 @@ namespace SpaceWeb
         {
             var configExpression = new MapperConfigurationExpression();
 
-            //configExpression.CreateMap<User, UserProfileViewModel>()
-            //    .ForMember(nameof(UserProfileViewModel.FullName),
+            //configExpression.CreateMap<User, QuestionaryViewModel>()
+            //    .ForMember(nameof(QuestionaryViewModel.FullName),
             //        config => config
             //            .MapFrom(dbModel => $"{dbModel.Name}, {dbModel.SurName} Mr"));
 
             configExpression.CreateMap<Employe, ShortEmployeViewModel>()
+                .ForMember(nameof(ShortEmployeViewModel.Id), config => config.MapFrom(x => x.Id))
                 .ForMember(nameof(ShortEmployeViewModel.Name), config => config.MapFrom(x => x.User.Name))
                 .ForMember(nameof(ShortEmployeViewModel.Surname), config => config.MapFrom(x => x.User.SurName))
                 .ForMember(nameof(ShortEmployeViewModel.SalaryPerHour), config => config.MapFrom(x => x.SalaryPerHour))
@@ -260,7 +239,6 @@ namespace SpaceWeb
 
             configExpression.CreateMap<RequestViewModel, Employe>();
 
-
             configExpression.CreateMap<User, ProfileViewModel>();
 
             configExpression.CreateMap<User, EmployeeProfileViewModel>()
@@ -273,17 +251,27 @@ namespace SpaceWeb
                     config => config.MapFrom(user =>
                         user.Employe.SalaryPerHour));
 
+            configExpression.CreateMap<Vertex, CellViewModel>()
+                .ForMember(nameof(CellViewModel.X), config => config.MapFrom(vertex => vertex.BaseCell.X))
+                .ForMember(nameof(CellViewModel.Y), config => config.MapFrom(vertex => vertex.BaseCell.Y));
+
+            configExpression.CreateMap<Graph, WayViewModel>()
+                .ForMember(nameof(WayViewModel.Cells), config => config.MapFrom(graph => graph.Vertices));
+
 
             //configExpression.CreateMap<Relic, RelicViewModel>();
             //configExpression.CreateMap<RelicViewModel, Relic>();
 
             MapBoth<Relic, RelicViewModel>(configExpression);
-            MapBoth<User, UserProfileViewModel>(configExpression);
+            MapBoth<User, QuestionaryViewModel>(configExpression);
             MapBoth<User, BanksCardViewModel>(configExpression);
 
-            MapBoth<Profile, UserProfileViewModel>(configExpression);
+            MapBoth<Transaction, TransactionCardViewModel>(configExpression);
+            MapBoth<BanksCard, TransactionCardViewModel>(configExpression);
 
-            MapBoth<Profile, ProfileViewModel>(configExpression);
+            MapBoth<Questionary, QuestionaryViewModel>(configExpression);
+
+            MapBoth<Questionary, ProfileViewModel>(configExpression);
 
             MapBoth<AdvImage, AdvImageViewModel>(configExpression);
 
@@ -292,6 +280,7 @@ namespace SpaceWeb
             MapBoth<Order, OrderViewModel>(configExpression);
 
             MapBoth<BankAccount, BankAccountViewModel>(configExpression);
+            MapBoth<BanksCard, BanksCardViewModel>(configExpression);
 
             MapBoth<User, RocketProfileViewModel>(configExpression);
 
@@ -323,9 +312,49 @@ namespace SpaceWeb
 
             MapBoth<ExchangeRateToUsdCurrent, ExchangeRateToUsdHistory>(configExpression);
 
+            configExpression.CreateMap<MazeLevel, MazeViewModel>()
+                .ForMember(nameof(MazeLevel.Cells), x => x.Ignore())
+                .AfterMap(MazeLevelToViewModel);
+
             var mapperConfiguration = new MapperConfiguration(configExpression);
             var mapper = new Mapper(mapperConfiguration);
             services.AddScoped<IMapper>(c => mapper);
+        }
+
+        private void MazeLevelToViewModel(MazeLevel mazeLevel, MazeViewModel viewModel)
+        {
+            viewModel.Cells = new CellType[mazeLevel.Height, mazeLevel.Width];
+
+            foreach (var cell in mazeLevel.Cells
+                .OrderBy(x => x.Y)
+                .ThenBy(x => x.X))
+            {
+                viewModel.Cells[cell.Y, cell.X] = CellTypeMapper(cell);
+                //viewModel.Cells[cell.Y, cell.X].X = cell.X;
+                //viewModel.Cells[cell.Y, cell.X].Y = cell.Y;
+            }
+        }
+
+
+
+        private CellType CellTypeMapper(BaseCell cell)
+        {
+            if (cell is Wall)
+            {
+                return CellType.Wall;
+            }
+            else if (cell is Ground)
+            {
+                return CellType.Road;
+            }
+            else if (cell is Gold)
+            {
+                return CellType.Gold;
+            }
+            else
+            {
+                throw new Exception("Uknown type of cell");
+            }
         }
 
         public void MapBoth<Type1, Type2>(MapperConfigurationExpression configExpression)

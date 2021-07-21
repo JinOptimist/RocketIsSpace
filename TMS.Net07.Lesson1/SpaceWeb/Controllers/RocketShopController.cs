@@ -33,10 +33,17 @@ namespace SpaceWeb.Controllers
         private IUserRepository _userRepository;
         private IWebHostEnvironment _hostEnvironment;
 
-        public RocketShopController(IMapper mapper, IOrderRepository orderRepository, 
-            IShopRocketRepository shopRocketRepository, UserService userService, 
-            IClientRepository clientRepository, ICurrencyService currencyService, IBankAccountRepository accountRepository,
-            IRocketShopPresentation rocketShopPresentation, IUserRepository userRepository,IWebHostEnvironment hostEnvironment)
+        public RocketShopController(
+            IMapper mapper,
+            IOrderRepository orderRepository, 
+            IShopRocketRepository shopRocketRepository, 
+            UserService userService, 
+            IClientRepository clientRepository, 
+            ICurrencyService currencyService, 
+            IBankAccountRepository accountRepository,
+            IRocketShopPresentation rocketShopPresentation, 
+            IUserRepository userRepository,
+            IWebHostEnvironment hostEnvironment)
         {
             _mapper = mapper;
             _orderRepository = orderRepository;
@@ -191,9 +198,9 @@ namespace SpaceWeb.Controllers
         public IActionResult ChangeCurrency(string accountNumber, string amount, string currency)
         {
             var account = _accountRepository.Get(accountNumber);
-
             var currencyFrom = (Currency) Enum.Parse(typeof(Currency), currency);
-            var money = _currencyService.ConvertByAlex(currencyFrom,
+            //var money = _currencyService.ConvertByAlex(currencyFrom,
+            var money = _currencyService.ConvertByAlex((Currency)Enum.Parse(typeof(Currency), currency),
                 Convert.ToDecimal(amount), account.Currency);
             return Json(new
             {

@@ -3,11 +3,15 @@
 @using SpaceWeb.Localization
 
 @inject UserService userService
+@inject BreadCrumbsService breadCrumbsService
 
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
+    <title>
+        @RenderSection("Title", required: false)
+    </title>
     <link rel="stylesheet" href="~/css/carousel.css?v=2" />
     <link rel="stylesheet" href="~/css/reset.css?v=4" />
     <link rel="stylesheet" href="~/css/icon.css?v=1" />
@@ -20,6 +24,9 @@
     <script src="~/js/site.js"></script>
     <script src="~/js/layout.js"></script>
     <script src="~/js/butLG.js"></script>
+    <script src="~/js/breadcrumbs.js"></script>
+    <script src="~/js/maze-way.js"></script>
+    <script src="~/js/maze.js"></script>
 
     @RenderSection("Scripts", required: false)
     @RenderSection("Style", required: false)
@@ -32,12 +39,12 @@
                 <form action="/User/Login" method="post" id="login-or-registration" class="loginformstyle">
                     <div>
                         <input name="@nameof(RegistrationViewModel.Login)"
-                               class="inputFields" type="text" 
+                               class="inputFields" type="text"
                                placeholder="@Resource.Layout_Login" />
                     </div>
                     <div>
                         <input name="@nameof(RegistrationViewModel.Password)"
-                               class="inputFields" type="password" 
+                               class="inputFields" type="password"
                                placeholder="@Resource.Layout_Password" />
                     </div>
                     <div class="login-but">
@@ -47,9 +54,15 @@
 
                     <div class="or">or</div>
                     <div class="registration-but">
-                        <input class="pglogbut" type="submit" 
+                        <input class="pglogbut" type="submit"
                                value="@Resource.Layout_Registration" />
                     </div>
+                    <ul>
+                        <li>
+                            @Html.ActionLink("English", ViewContext.RouteData.Values["action"]
+.ToString(), ViewContext.RouteData.Values["acction"])
+                        </li>
+                    </ul>
                 </form>
             </div>
         </div>
@@ -117,30 +130,49 @@
 
             @if (User.Identity.IsAuthenticated)
             {
-                <div class="user-info">
-                    <a href="/User/Profile">
-                        @{
-                            var user = userService.GetCurrent();
-                            var userBlockViewModel = new UserBlockViewModel()
-                            {
-                                Name = user.Login,
-                                AvatarUrl = userService.GetAvatarUrl()
-                            };
+
+            <div class="user-info">
+                @if (userService.IsAdmin())
+                {
+                <a href="/User/AllAvatars">
+                    @Resource.Layout_AllAvatars
+                </a>
+                }
+                <a href="/User/Profile">
+                    @{
+                        var user = userService.GetCurrent();
+                        var userBlockViewModel = new UserBlockViewModel()
+                        {
+                            Name = user.Login,
+                            AvatarUrl = userService.GetAvatarUrl()
+                        };
+                    }
+                    @Html.Partial("_userBlock", userBlockViewModel)
+                </a>
+                <a href="/User/Logout" class="profile-exit">
+                    @Resource.Layout_Exit
+                </a>
+            </div>
                         }
-                        @Html.Partial("_userBlock", userBlockViewModel)
-                    </a>
-                    <a href="/User/Logout" class="profile-exit">
-                        @Resource.Layout_Exit
-                    </a>
-                </div>
-            }
-            else
-            {
-                <div class="link icon log-in">@Resource.Layout_Login</div>
-            }
+                        else
+                        {
+            <div class="link icon log-in">@Resource.Layout_Login</div>
+                        }
         </div>
     </div>
-
+    <div class="breadcrumb-container"></div>
+    <div class="breadcrumb-container server">
+        @{ 
+            var breadCrumbsViewModel = breadCrumbsService.GetBreadCrumbs(Context);
+        }
+        @foreach (var bread in breadCrumbsViewModel) { 
+            <div class="bread">
+                <a href="@bread.Url">
+                    @bread.Title
+                </a>
+            </div>
+        }
+    </div>
     <div class="content">
         @RenderBody()
     </div>

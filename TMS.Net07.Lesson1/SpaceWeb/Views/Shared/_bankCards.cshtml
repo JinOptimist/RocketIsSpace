@@ -1,0 +1,47 @@
+﻿@model BanksCardViewModel
+@using SpaceWeb.Models
+@using Microsoft.AspNetCore.Mvc.Rendering
+@{
+    var cardOptions = new List<SelectListItem>();
+
+    var cars = Enum.GetValues(typeof(EnumBankCard));
+
+    for (int i = 0; i < cars.Length; i++)
+    {
+        var option = new SelectListItem();
+        option.Value = ((int)cars.GetValue(i)).ToString();
+        option.Text = cars.GetValue(i).ToString();
+        cardOptions.Add(option);
+    }
+}
+
+@section Scripts{
+    <script src="~/js/chart.min.js"></script>
+    <script src="~/js/index.js"></script>
+}
+
+<form class="creation form" method="POST">
+    <div>Название карты</div>
+    <p>
+        @Html.DropDownList(nameof(BanksCardViewModel.Card), cardOptions)
+    </p>
+
+
+    <p class="buttons">
+
+        <input href="~/Bank/ShowBanksCard" class="create-account button" type="submit" value="Создать">
+
+
+        <input class="cancel-creation button" type="reset" value="Сброс">
+    </p>
+</form>
+
+<div class="block">
+    <canvas id="myChart"></canvas>
+</div>
+
+<div class="currency-exchanger">
+    @Html.DropDownList("test", Model.CurrencyExchengerViewModel.CurrencyFromDrop)
+    @Html.DropDownList("test", Model.CurrencyExchengerViewModel.CurrencyToDrop)
+</div>
+

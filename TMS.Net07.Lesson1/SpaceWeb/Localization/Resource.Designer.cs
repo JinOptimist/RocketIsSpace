@@ -97,6 +97,60 @@ namespace SpaceWeb.Localization {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Карты банков.
+        /// </summary>
+        public static string Banks_Card {
+            get {
+                return ResourceManager.GetString("Banks_Card", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на СОЗДАНИЕ КАРТЫ.
+        /// </summary>
+        public static string Banks_CreatCard {
+            get {
+                return ResourceManager.GetString("Banks_CreatCard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Моцная картаy.
+        /// </summary>
+        public static string Banks_MocCard {
+            get {
+                return ResourceManager.GetString("Banks_MocCard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Карта покупо.
+        /// </summary>
+        public static string Banks_ShoppCard {
+            get {
+                return ResourceManager.GetString("Banks_ShoppCard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Перевод.
+        /// </summary>
+        public static string Banks_Transfer {
+            get {
+                return ResourceManager.GetString("Banks_Transfer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Х карта.
+        /// </summary>
+        public static string Banks_XCard {
+            get {
+                return ResourceManager.GetString("Banks_XCard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Банк.
         /// </summary>
         public static string DepartmentType_Bank {
@@ -232,6 +286,15 @@ namespace SpaceWeb.Localization {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Все аватарки.
+        /// </summary>
+        public static string Layout_AllAvatars {
+            get {
+                return ResourceManager.GetString("Layout_AllAvatars", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Выйти.
         /// </summary>
         public static string Layout_Exit {
@@ -264,6 +327,24 @@ namespace SpaceWeb.Localization {
         public static string Layout_Registration {
             get {
                 return ResourceManager.GetString("Layout_Registration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Банк.
+        /// </summary>
+        public static string LayoutBank_logoNameBank {
+            get {
+                return ResourceManager.GetString("LayoutBank_logoNameBank", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Рокеты.
+        /// </summary>
+        public static string LayoutBank_logoNameRocket {
+            get {
+                return ResourceManager.GetString("LayoutBank_logoNameRocket", resourceCulture);
             }
         }
         

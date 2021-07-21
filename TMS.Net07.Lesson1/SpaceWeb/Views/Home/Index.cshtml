@@ -1,13 +1,14 @@
 ﻿@using SpaceWeb.Localization
 @model int
 
-@{
-    ViewData["Title"] = "Home Page";
-}
 
 @section Style
 {
     <link rel="stylesheet" href="~/css/rocket.css?v=2">
+}
+
+@section Title{
+    Главная
 }
 
 @section Scripts{
@@ -18,7 +19,7 @@
 }
 
 
-<a href="/Rocket/MainPage" class="department">
+<a href="/Rocket/Index" class="department">
     <div class="block rocketfield">
         <div class="rocketword">
             @Resource.HomeIndex_Rocket
@@ -44,16 +45,16 @@
     <div class="animate-block">
 
     </div>
-    <div style="text-align:center">
-        <span class="dot active" id="1"></span>
+    <div class="animate-block-dots" @*style="text-align:center"*@>
+        @*<span class="dot active" id="1"></span>
         <span class="dot" id="2"></span>
         <span class="dot" id="3"></span>
         <span class="dot" id="4"></span>
         <span class="dot" id="5"></span>
-        <span class="dot" id="6"></span>
+        <span class="dot" id="6"></span>*@
     </div>
-</div>
 
+</div>
 
 @if (User.Identity.IsAuthenticated)
 {

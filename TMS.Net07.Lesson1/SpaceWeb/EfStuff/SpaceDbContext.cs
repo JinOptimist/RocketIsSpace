@@ -16,9 +16,11 @@ namespace SpaceWeb.EfStuff
 
         public DbSet<User> Users { get; set; }
         public DbSet<Rocket> Rockets { get; set; }
-        public DbSet<Profile> UserProfile { get; set; }
+        public DbSet<Questionary> Questionaries { get; set; }
         public DbSet<BankAccount> BankAccount { get; set; }
         public DbSet<BanksCard> BanksCard { get; set; }
+        public DbSet<Transaction> Transaction { get; set; }
+
         public DbSet<AdvImage> AdvImages { get; set; }
         public DbSet<FactoryHistory> FactoryHistories { get; set; }
         public DbSet<Comfort> ComfortsExample { get; set; }
@@ -38,9 +40,14 @@ namespace SpaceWeb.EfStuff
         public DbSet<InsuranceType> InsuranceTypes { get; set; }
         public DbSet<Insurance> Insurances { get; set; }
 
+
+        public DbSet<Accrual> Accrual { get; set; }
+        public DbSet<Payment> Payment { get; set; }
+
         public DbSet<ExchangeRateToUsdCurrent> ExchangeRatesToUsdCurrent { get; set; }
         public DbSet<ExchangeRateToUsdHistory> ExchangeRatesToUsdHistory { get; set; }
         public DbSet<ExchangeAccountHistory> ExchangeAccountHistory { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -61,14 +68,18 @@ namespace SpaceWeb.EfStuff
                 .WithOne(x => x.Owner)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.BanksCards)
+                .WithOne(x => x.Owner);
+
             modelBuilder.Entity<BankAccount>()
                 .HasMany(x => x.BanksCards)
                 .WithOne(x => x.BankAccount);
 
             modelBuilder.Entity<User>()
-                .HasOne(x => x.Profile)
+                .HasOne(x => x.Questionaries)
                 .WithOne(x => x.User)
-                .HasForeignKey<Profile>(x => x.UserRef);
+                .HasForeignKey<Questionary>(x => x.UserRef);
 
 
             modelBuilder.Entity<Order>()
@@ -109,7 +120,34 @@ namespace SpaceWeb.EfStuff
             modelBuilder.Entity<Order>()
                 .HasMany(x => x.Rockets)
                 .WithMany(x => x.OrderedBy);
-            
+
+
+            modelBuilder.Entity<Accrual>()
+                .HasOne(x => x.Employe)
+                .WithMany(x => x.Accruals);
+
+            modelBuilder.Entity<Payment>()
+                .HasOne(x => x.Employe)
+                .WithMany(x => x.Payments);
+
+            modelBuilder.Entity<Transaction>()
+                .HasOne(x => x.BanksCardFrom)
+                .WithMany(x => x.TransactionsFrom);
+
+            modelBuilder.Entity<Transaction>()
+                .HasOne(x => x.BanksCardTo)
+                .WithMany(x => x.TransactionsTo);
+
+            modelBuilder.Entity<Payment>()
+                .HasOne(x => x.BankAccount)
+                .WithMany(x => x.Payments);
+            modelBuilder.Entity<Transaction>()
+                .HasOne(transaction => transaction.ReceiverAccount)
+                .WithMany(a => a.IncomingTransactions);
+
+            modelBuilder.Entity<Transaction>()
+                .HasOne(transaction => transaction.SenderAccount)
+                .WithMany(account => account.OutcomingTransactions);
 
             base.OnModelCreating(modelBuilder);
         }

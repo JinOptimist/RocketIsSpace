@@ -44,5 +44,16 @@ namespace SpaceWeb.EfStuff.Repositories
 
             base.Remove(user);
         }
+
+        public void RemoveDuplicate()
+        {
+            var names = _dbSet.Select(x => x.Name).Distinct();
+            var ids = names.Select(name => _dbSet.First(u => u.Name == name).Id);
+            var duplicate = 
+                _dbSet
+                .Where(x => !ids.Contains(x.Id))
+                .Select(x => x.Id);
+            Remove(duplicate);
+        }
     }
 }

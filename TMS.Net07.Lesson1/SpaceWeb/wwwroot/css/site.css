@@ -11,7 +11,6 @@
     }
 }
 
-
 .obertka {
     height: 100vh;
     display: flex;
@@ -36,6 +35,7 @@
     width: 500px;
     height: 270px;
     border: 1px red solid;
+    margin: 15px;
 }
 
 .department {
@@ -104,10 +104,10 @@ a {
     text-decoration: none;
 }
 
-.home, .top-right-profile-exit a:visited {
+.home,
+.top-right-profile-exit a:visited {
     color: white;
 }
-
 
 .header {
     /* background: hotpink; */
@@ -160,7 +160,6 @@ a {
     display: flex;
 }
 
-
 .rocket {
     border: 1px green solid;
     width: 150px;
@@ -187,9 +186,6 @@ a {
     max-width: 150px;
     max-height: calc(150px - 16px);
 }
-
-
-
 
 .popup {
     width: 100%;
@@ -487,6 +483,41 @@ a {
     border-radius: 20px 120px;
 }
 
+.animate-block {
+    display: flex;
+}
+
+    .animate-block .buttons {
+        position: absolute;
+        width: 500px;
+        height: 270px;
+        display: flex;
+    }
+
+    .animate-block .choose {
+        flex: 2;
+        cursor: pointer;
+    }
+
+        .animate-block .choose:hover {
+            background: red;
+            opacity: 0.3;
+        }
+
+    .animate-block .next-btn,
+    .animate-block .prev-btn {
+        /*background: #ccc;*/
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        flex: 1;
+    }
+
+        .animate-block .next-btn:hover,
+        .animate-block .prev-btn:hover {
+            background: #000;
+            opacity: 0.3;
+        }
 
 .carousel-smile {
     background: rgb(33, 33, 33);
@@ -507,3 +538,45 @@ a {
     .active, .dot:hover {
         background-color: #717171;
     }
+
+.dot-animate-block-style {
+    text-align: center
+}
+
+.all-money-block {
+    display: flex;
+    font-weight: bold;
+}
+
+.money-count {
+    margin-right: 10px;
+    color: red;
+}
+
+
+.maze .line {
+    display: flex;
+}
+
+.breadcrumb-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.breadcrumb {
+    padding: 0px;
+    flex: 1;
+    text-align: center;
+    background: rgba(0,0,0,0.1);
+}
+    .breadcrumb:hover {
+        background: rgba(0,0,0,0.3);
+    }
+
+.undisplayable {
+    display: none;
+}
+
+.maze-way {
+    padding: 3px;
+}

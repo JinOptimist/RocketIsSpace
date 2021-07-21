@@ -1,4 +1,5 @@
 ﻿using SpaceWeb.EfStuff.Model;
+using SpaceWeb.EfStuff.Model.Enum;
 using SpaceWeb.Models;
 using System;
 using System.Collections.Generic;
@@ -16,5 +17,10 @@ namespace SpaceWeb.EfStuff.Repositories.IRepository
         List<Currency> GetCurrencies(long userId);
 
         bool Transfer(long bankAccountFromId, long bankAccountToId, decimal amount);
+
+        List<BankAccount> GetByName(long userId, string name);
+
+        BankAccount GetSpecifiedAccountByEmploye(long employeId, BankAccountType bankAccountType);
+        List<BankAccount> GetDepartmentAccounts(long departmentId);
     }
 }
