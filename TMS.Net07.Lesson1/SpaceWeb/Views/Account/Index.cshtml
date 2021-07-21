@@ -4,9 +4,24 @@
     Layout = "_LayoutBank";
 }
 
+@using SpaceWeb.Service
+@using AutoMapper
+
+@inject UserService userService
+@inject IMapper mapper
+@{
+    var accountIndex = 0;
+    var user = userService.GetCurrent();
+    var accounts = new List<BankAccountViewModel>();
+    foreach (var accountBD in user.BankAccounts)
+    {
+        accounts.Add(mapper.Map<BankAccountViewModel>(accountBD));
+    }
+}
+
 @section Scripts{
-    <script src="~/js/bank/bankAccountCarousel.js?v=3"></script>
-    <script src="~/js/bank/bankAccountIndex.js?v=5"></script>
+    <script src="~/js/bank/bankAccountCarousel.js?v=2"></script>
+    <script src="~/js/bank/bankAccountIndex.js?v=3"></script>
 }
 
 @section Style{
@@ -18,8 +33,8 @@
 
     <div class="account-index-central-block">
         <div class="menu left">
-            <div class="left-menu-text">СЧЕТА: <span class="total-accounts">@Model.UserAccounts.Count()</span></div>
-            @Html.Partial("_bankAccountsList", Model.UserAccounts)
+            <div class="left-menu-text">СЧЕТА: <span class="total-accounts">@accounts.Count()</span></div>
+            @Html.Partial("_bankAccountsList")
         </div>
         <div class="account-container">
 
@@ -32,12 +47,12 @@
 
                 <div class="account-view-window">
                     <div class="account-carousel">
-                        @foreach (var bankAccount in Model.UserAccounts)
+                        @foreach (var bankAccount in accounts)
                         {
-                            <div class="account-info-container @bankAccount.AccountIndex">
+                            <div class="account-info-container @accountIndex">
                                 <div class="account-info">
-                                    <input class="info id hide" type="hidden" value="@bankAccount.Id" />
-                                    <div class="info index hide">@bankAccount.AccountIndex</div>
+                                    <input class="info id hide" type="hidden" value="@Model.Id" />
+                                    <div class="info index hide">@(accountIndex++)</div>
                                     <div class="info type">@bankAccount.Name</div>
                                     <div class="info">
                                         <span class="amount">@bankAccount.Amount</span>

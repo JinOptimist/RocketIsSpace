@@ -24,83 +24,85 @@ $(document).ready(function () {
         $('.container .form input[type = text], input[type = password]').val('');
     })
 
-
     $('.container .form .buttons .make').click(function (env) {
 
-        var currentContainer = $(this).closest('.container');
+        var amountTextForm = $(this).parent().siblings('.amount');
 
-        var activeAccount = GetActiveAccount();
+        var submitButton = $(this);
 
-        if (currentContainer.attr('class').includes('remove')) {
-            var passwordInput = $(this).parent().siblings('input[type = password]');
+        var input = amountTextForm.val();
 
-            var password = passwordInput.val();
-
-            console.log(password);
-
-            var url = `/Account/Remove?id=${activeAccount.id}&password=${password}`
-
-            $.get(url).done(function (answer) {
-                if (!answer) {
-                    AnimateWrongInput(passwordInput);
-                    //return false;
-                }
-                else {
-                    window.location = answer;
-                    //return true;
-                }
-            })
-
-            env.preventDefault();
+        if (input == '') {
+            console.log('empty form');
+            AnimateWrongButton(submitButton);
         }
         else {
-            var amountTextForm = $(this).parent().siblings('.amount');
+            var amount = input.replace(',', '.') - 0;
 
-            var submitButton = $(this);
+            var currentContainer = $(this).closest('.container');
 
-            var input = amountTextForm.val();
-
-            if (input == '') {
-                console.log('empty form');
-                AnimateWrongButton(submitButton);
+            if (currentContainer.attr('class').includes('withdrawal')) {
+                amount = amount * (-1);
             }
-            else {
-                var amount = input.replace(',', '.') - 0;
-
-                if (currentContainer.attr('class').includes('withdrawal')) {
-                    amount = amount * (-1);
-                }
-                else if (currentContainer.attr('class').includes('transfer')) {
-                    amount = 0;
-                }
-
-                var url = `/Account/UpdateAmount?id=${activeAccount.id}&amount=${amount}`;
-
-                $.get(url).done(function (answer) {
-                    if (answer) {
-                        console.log('amount updated');
-
-                        currentContainer.toggleClass('hide');
-
-                        UpdateAmount(activeAccount, amount);
-
-                        $('.button-list').toggleClass('hide');
-
-                        amountTextForm.val('');
-                    }
-                    else {
-                        console.log('something went wrong');
-                    }
-                })
+            else if (currentContainer.attr('class').includes('transfer')) {
+                amount = 0;
             }
-            env.preventDefault();
+
+            var activeAccount = GetActiveAccount();
+
+            var url = `/Account/UpdateAmount?id=${activeAccount.id}&amount=${amount}`;
+
+            $.get(url).done(function (answer) {
+                if (answer) {
+                    console.log('amount updated');
+
+                    currentContainer.toggleClass('hide');
+
+                    UpdateAmount(activeAccount, amount);
+
+                    $('.button-list').toggleClass('hide');
+
+                    amountTextForm.val('');
+                }
+                else {
+                    console.log('something went wrong');
+                }
+            })
         }
+
+        env.preventDefault();
     })
 
+    $('.container .form .buttons .remove.make').click(function () {
+
+        //var activeAccount = GetActiveAccount();
+
+        //var url = `/Account/Remove?id=${activeAccount.id}`
+
+        //var currentContainer = $(this).closest('.container');
+
+        //$.get(url);
+
+        //.done(function (answer) {
+        //if (answer) {
+        //    console.log('account deleted');
+
+        //    currentContainer.toggleClass('hide');
+
+        //    //AnimateAccountRemoving(activeAccount);
+
+        //    $('.button-list').toggleClass('hide');
+        //}
+        //else {
+        //    console.log('something went wrong');
+        //}
+    })
 
     $('.container .form input.amount').keydown(function (e) {
 
         var pressedKey = e.key;
+
+        console.log(pressedKey);
 
         var input = $(this).val();
 
@@ -183,10 +185,10 @@ $(document).ready(function () {
                 step: function (progress) {
                     obj.css('border-bottom', '2px solid red')
                 },
-                complete: function () {
-                    obj.css('progress', 0);
-                    AnimateInputBackToDefault(obj);
-                },
+                //complete: function () {
+                //    obj.css('progress', 0);
+                //    AnimateBackToDefault(obj);
+                //},
                 queue: false
             }
         )

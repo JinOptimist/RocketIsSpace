@@ -16,13 +16,13 @@
 
 <form class="creation form" method="POST">
     <div>Название счета</div>
-    <input type="text" autocomplete="off" class ="name" name = "@nameof(BankAccountViewModel.Name)">
+    <input type="text" autocomplete="off" name = "@nameof(BankAccountViewModel.Name)">
     <div>Валюта счета</div>
     <p>
         @Html.DropDownList("currency", currencyOptions)
     </p>
     <div>Начальная сумма</div>
-    <input type="text" autocomplete="off" class ="amount" name ="@nameof(BankAccountViewModel.Amount)">
+    <input type="text" autocomplete="off" name ="@nameof(BankAccountViewModel.Amount)">
     <p class="buttons">
         <input class="create-account button" type="submit" value="Создать">
         <input class="cancel-creation button" type="reset" value="Сброс">

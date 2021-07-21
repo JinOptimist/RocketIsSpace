@@ -1,6 +1,7 @@
-﻿@using SpaceWeb.EfStuff.Model
+﻿@using SpaceWeb.Service
+@using SpaceWeb.EfStuff.Model
 
-@model List<BankAccountViewModel>
+@inject UserService userService
 
 @{
     Layout = "_LayoutBank";
@@ -22,7 +23,7 @@
 <div class="cabinet-central-block">
     <div class="menu top">
         <div class="top-menu-text">СЧЕТА</div>
-        @Html.Partial("_bankAccountsList", Model)
+        @Html.Partial("_bankAccountsList")
     </div>
     <div class="menu bottom">
         <div class="transactions button">Переводы</div>
@@ -98,4 +99,5 @@
             <div class="insurance button">Страхование</div>
         </a>
     </div>
+</div>
 </div>

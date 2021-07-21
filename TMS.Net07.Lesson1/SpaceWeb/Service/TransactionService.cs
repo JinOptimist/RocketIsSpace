@@ -14,10 +14,8 @@ namespace SpaceWeb.Service
         private IBanksCardRepository _banksCardRepository;
         private UserService _userService;
 
-        public TransactionService(IBanksCardRepository banksCardRepository,
-            IHttpContextAccessor contextAccessor, 
-            UserService userService, 
-            IBankAccountRepository bankAccountRepository)
+        public TransactionService(IBanksCardRepository banksCardRepository, 
+             UserService userService)
         {
             _banksCardRepository = banksCardRepository;
             _userService = userService;
