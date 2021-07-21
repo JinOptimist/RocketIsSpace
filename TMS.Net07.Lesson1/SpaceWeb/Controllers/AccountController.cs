@@ -16,6 +16,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using SpaceWeb.Presentation;
 
 namespace SpaceWeb.Controllers
 {
@@ -26,79 +27,69 @@ namespace SpaceWeb.Controllers
         private IMapper _mapper;
         private IWebHostEnvironment _hostEnvironment;
         private UserService _userService;
+        private IAccountPresentation _accountPresentation;
 
-        public AccountController(IBankAccountRepository bankAccountRepository,
-            QuestionaryRepository profileRepository,
-            IUserRepository userRepository,
-            IMapper mapper, UserService userService,
-            IWebHostEnvironment hostEnvironment)
+        public AccountController(IBankAccountRepository bankAccountRepository, 
+            IMapper mapper, 
+            IWebHostEnvironment hostEnvironment, 
+            UserService userService, 
+            IAccountPresentation accountPresentation)
         {
             _bankAccountRepository = bankAccountRepository;
             _mapper = mapper;
-            _userService = userService;
             _hostEnvironment = hostEnvironment;
+            _userService = userService;
+            _accountPresentation = accountPresentation;
         }
 
         [HttpGet]
         public IActionResult Index(long id)
         {
-            if (id > 0)
+            if (id <= 0)
             {
-                var user = _userService.GetCurrent();
-                var dbModel = user.BankAccounts?.SingleOrDefault(x => x.Id == id);
-
-                if(dbModel == null)
-                {
-                    return View();
-                }
-
-                var viewModel = _mapper.Map<BankAccountViewModel>(dbModel);
-
-                var index = user.BankAccounts.IndexOf(dbModel);
-
-                viewModel.AccountIndex = index;
-                //для того, чтобы вставить индекс активного аккаунта при загрузке страницы
-
-                return View(viewModel);
+                return RedirectToAction("Creation");
             }
-            return RedirectToAction("Creation");
-        }
 
+            var user = _userService.GetCurrent();
+
+            if (!user.BankAccounts.Any(x => x.Id == id))
+            {
+                return RedirectToAction("Creation");
+            }
+
+            var viewModel = _accountPresentation.GetViewModelForIndex(id);
+
+            return View(viewModel);
+        }
 
         [HttpGet]
-        public IActionResult Remove(long id)
-        {
-            _bankAccountRepository.Remove(id);
-
-            var user = _userService.GetCurrent();
-
-            var newId = user.BankAccounts?.FirstOrDefault()?.Id;
-            if (newId != null)
-            {
-                return Redirect($"/Account/Index?id={newId}");
-            }
-            return RedirectToAction("Creation");
-        }
-
-        [HttpPost]
         public IActionResult Remove(long id, string password)
         {
-            _bankAccountRepository.Remove(id);
-
             var user = _userService.GetCurrent();
 
-            var newId = user.BankAccounts?.FirstOrDefault()?.Id;
-            if (newId != null)
+            if (user.Password != password)
             {
-                return Redirect($"/Account/Index?id={newId}");
+                return Json(false);
             }
-            return RedirectToAction("Creation");
+            else
+            {
+                _bankAccountRepository.Remove(id);
+                var newUrl = ("/Account/Creation");
+                var newId = user.BankAccounts?.FirstOrDefault()?.Id;
+                if (newId != null)
+                {
+                    newUrl = $"/Account/Index?id={newId}";
+                    return Json(newUrl);
+                }
+                return Json(newUrl);
+            }
         }
 
         [HttpGet]
         public IActionResult Creation()
         {
-            return View();
+            var viewModel = _accountPresentation.GetAllViewModelsForCreation();
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -319,7 +310,7 @@ namespace SpaceWeb.Controllers
 
             var account = _bankAccountRepository?.Get(id);
 
-            if(account != null)
+            if (account != null)
             {
                 account.Amount += amount;
                 _bankAccountRepository.Save(account);

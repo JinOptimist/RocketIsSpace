@@ -172,9 +172,53 @@ namespace SpaceWeb.Controllers
         [HttpPost]
         public IActionResult AddCard(BanksCardViewModel viewModel)
         {
-            
+            var user = _userService.GetCurrent();
+            var bankCardNew = new BanksCard();
 
-            if (!_currencyService.IsCardAvailability(viewModel.Card))
+            switch (viewModel.Card)
+            {
+                case EnumBankCard.PayCard:
+                    bankCardNew = new BanksCard()
+                    {
+                        BankAccount = new BankAccount()
+                        {
+                            Amount = 2000,
+                            Currency = Currency.BYN
+                        },
+                        Currency = Currency.BYN,
+                        Card = EnumBankCard.PayCard
+
+                    };
+                    break;
+
+                case EnumBankCard.valueCard:
+
+                    bankCardNew = new BanksCard()
+                    {
+                        BankAccount = new BankAccount()
+                        {
+                            Amount = 1000,
+                            Currency = Currency.USD
+                        },
+                        Currency = Currency.USD,
+                        Card = EnumBankCard.valueCard
+
+                    };
+                    break;
+                case EnumBankCard.XCard:
+                    bankCardNew = new BanksCard()
+                    {
+                        BankAccount = new BankAccount()
+                        {
+                            Amount = 0,
+                            Currency = Currency.EUR
+                        },
+                        Currency = Currency.EUR,
+                        Card = EnumBankCard.XCard
+
+                    };
+                    break;
+            }
 
             {
                 var user = _userService.GetCurrent();
@@ -331,7 +375,16 @@ namespace SpaceWeb.Controllers
         [HttpGet]
         public IActionResult Cabinet()
         {
-            return View();
+            var user = _userService.GetCurrent();
+            var index = 0;
+            var allAccountsViewModels = user.BankAccounts
+                ?.Select(x =>
+                {
+                    var viewModel = _mapper.Map<BankAccountViewModel>(x);
+                    viewModel.AccountIndex = index++;
+                    return viewModel;
+                }).ToList() ?? new List<BankAccountViewModel>();
+            return View(allAccountsViewModels);
         }
 
         public IActionResult ExchangesHistoryChartInfo()

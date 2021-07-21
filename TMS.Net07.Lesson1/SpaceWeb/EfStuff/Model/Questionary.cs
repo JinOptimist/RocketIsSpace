@@ -13,9 +13,7 @@ namespace SpaceWeb.EfStuff.Model
         public string Sex { get; set; }
         public string IdentificationPassport { get; set; }
         public string PhoneNumber { get; set; }
-
         public string PostAddress { get; set; }
-
         public virtual User User { get; set; }
         public virtual long UserRef { get; set; }
 
