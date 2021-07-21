@@ -21,8 +21,10 @@
             <div class="line">
                 @for (int x = 0; x < Model.Width; x++)
                 {
-                    var className = Model.Cells[y, x].ToString().ToLower();
-                    <span class="icon @className"></span>
+                var className = Model.Cells[y, x].ToString().ToLower();
+                    <span class="icon @className maze-way">
+                        <div class="undisplayable cell" y="@y" x="@x"></div>
+                    </span>
                 }
             </div>
         }
