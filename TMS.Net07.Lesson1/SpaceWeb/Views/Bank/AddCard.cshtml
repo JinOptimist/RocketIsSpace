@@ -1,23 +1,41 @@
 ﻿@{
     Layout = "_LayoutBank";
 }
+@using SpaceWeb.Service
+@using AutoMapper
 
 @section Scripts{
-    <script src="~/js/bank/bankAccountCreation.js"></script>
+    <script src="~/js/bank/bankAccountCr.js"></script>
+    <script src="~/js/animation-example.js"></script>
 }
 
-@section Style{ 
+@section Style{
     <link rel="stylesheet" href="~/css/bank/styleAccount.css?v=0" />
+    <link rel="stylesheet" href="~/css/bank/Bankscard.css?v=1">
 }
-
+@inject UserService userService
+@inject IMapper mapper
+@{
+    var user = userService.GetCurrent();
+    var allBankCards = new List<BanksCardViewModel>();
+    foreach (var allBankCardsDB in user.BanksCards)
+    {
+        allBankCards.Add(mapper.Map<BanksCardViewModel>(allBankCardsDB));
+    }
+}
 <body>
-    <div class="client-before-content"></div>
-
-    <div class="account-index-central-block">
-      
-        <div class="account-creation content-box">
-            <div class="creation-container-text">СОЗДАНИЕ КАрты</div>
-            @Html.Partial("_bankCardCreationForm")
+    <div class="center-block">
+        <div class="account-changer">
+            <div class="account-changer">
+                <div class="front">КАРТЫ: <span class="card-mocn">@allBankCards.Count()</span></div>
+                @Html.Partial("_bankAllCardsList")
+            </div>
+        </div>
+    </div>
+    <div class="account-creation content-box">
+        <div class="account-creation-container">
+            <div class="creation-container-text">СОЗДАНИЕ карты</div>
+            @{ Html.RenderPartial("_bankCards", new BanksCardViewModel()); }
         </div>
     </div>
 </body>

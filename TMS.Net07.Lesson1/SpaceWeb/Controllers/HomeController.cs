@@ -95,7 +95,6 @@ namespace SpaceWeb.Controllers
 
             return Json(max);
         }
-
         public IActionResult TheRichestWay(int x, int y)
         {
             var mazeLevel = _mazeBuilder.Build(4, 4, seed: 50);

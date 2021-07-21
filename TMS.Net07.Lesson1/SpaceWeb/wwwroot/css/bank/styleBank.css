@@ -674,3 +674,10 @@ a:visited {
 .download-acc-info-text {
     margin-left: 10px;
 }
+.account-changer {
+    width: 560px;
+    height: 220px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
