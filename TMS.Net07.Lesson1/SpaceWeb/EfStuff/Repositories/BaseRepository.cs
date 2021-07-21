@@ -1,9 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using SpaceWeb.EfStuff.Model;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace SpaceWeb.EfStuff.Repositories
 {
@@ -24,11 +22,11 @@ namespace SpaceWeb.EfStuff.Repositories
             return _dbSet.ToList();
         }
 
-        public virtual ModelType Get(long id)
+        public ModelType Get(long id)
         {
             return _dbSet.SingleOrDefault(x => x.Id == id);
         }
-
+        
         public virtual void Save(ModelType model)
         {
             if (model.Id > 0)
@@ -59,6 +57,19 @@ namespace SpaceWeb.EfStuff.Repositories
             {
                 Remove(userid);
             }
+        }
+
+        public virtual void Save(ModelType model)
+        {
+            if (model.Id > 0)
+            {
+                _dbSet.Update(model);
+            }
+            else
+            {
+                _dbSet.Add(model);
+            }
+            _spaceDbContext.SaveChanges();
         }
     }
 }

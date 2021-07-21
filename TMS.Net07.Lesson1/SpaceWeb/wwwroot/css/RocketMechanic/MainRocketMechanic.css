@@ -133,85 +133,30 @@ p {
     justify-content: space-around;
 }
 
-.Section .Container .SectionStoreTitle{
-    margin: 0 auto;
-    width: 100%;
-    max-width: 600px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.Section .Container .RocketStageSectionCoverImage {
+    background: url("'../../image/RocketMechanic/rocket-companies-getty-pic (1).jpg'") center no-repeat;
+    background-size: cover;
 }
+
+    .Section .Container .SectionStoreTitle {
+        margin: 0 auto;
+        width: 100%;
+        max-width: 600px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 
 .Section .Container .SectionStoreTitle .SectionDescriptionText{
     margin-top: 25px;
     margin-bottom: 100px;
 }
-
-
-
-.Section .Container .StoreContainer{
-    display: flex;
-}
-
-.Section .Container .StoreContainer .ProductCard:hover{
-    display: flex;
-    border-width: 3px;
-    border-radius: 5px;
-    border-style: outset;
-    border-color: cornflowerblue;
-}
-
-.Section .Container .StoreContainer .ProductCard{
-
-    width: 570px;
-    height: 300px;
-    margin: 15px;
-
-    border-width: 1px;
-    border-radius: 5px;
-    border-style: solid;
-    border-color: cornflowerblue;
-
-    display:flex;
-    justify-content: center;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.Section .Container .StoreContainer .ProductCard .ProductImage{
-    display: flex;
-    flex-direction: column;
-}
-
-
-.Section .Container .StoreContainer .ProductCard .ProductImage img{
-    max-height: 270px;
-    max-width: 300px;
-    margin: 15px;
-}
-
-.Section .Container .StoreContainer .ProductCard .ProductDescription {
-    margin: 15px;
-    font-size: 15px;
-    font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
-
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-}
-
-.Section .Container .StoreContainer .ProductCard .ProductDescription .ProductModel{
-    font-size: 25px;
-    font-weight: bold;
-}
-
-.CoverImage{
+    
+.CoverImage {
     background: url(../../image/RocketMechanic/FirstScreen.jpg) center no-repeat;
     background-size: cover;
     height: 100%;
- }
+}
 
 .Feedback {
     position: relative;
@@ -261,3 +206,20 @@ p {
  .Feedback .FormInner input:hover {
     background: linear-gradient(to right bottom, rgba(161, 137, 57, 0.5), rgba(255, 169, 71, 0.5));
 }
+
+.ButtonWhite {
+    display: inline-block;
+    padding: 20px 90px;
+    font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    border-radius: 15px;
+    border: 4px solid #A9A9A9;
+    cursor: pointer;
+}
+
+    .ButtonWhite:hover {
+        background: #A9A9A9;
+        color: #FFFAFA;
+        border: 4px solid #FFFAFA;
+    }

@@ -7,7 +7,6 @@ using Microsoft.Extensions.Logging;
 using SpaceWeb.Controllers.CustomAttribute;
 using SpaceWeb.EfStuff;
 using SpaceWeb.EfStuff.Model;
-using SpaceWeb.EfStuff.Repositories;
 using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Models;
 using SpaceWeb.Models.Human;

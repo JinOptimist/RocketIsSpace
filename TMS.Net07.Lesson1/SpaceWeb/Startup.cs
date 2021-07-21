@@ -131,7 +131,7 @@ namespace SpaceWeb
             services.AddScoped<ComfortRepository>(diContainer =>
                 new ComfortRepository(diContainer.GetService<SpaceDbContext>()));
 
-            services.AddScoped<RocketStageRepository>(diContainer =>
+            services.AddScoped<IRocketStageRepository>(diContainer =>
                 new RocketStageRepository(diContainer.GetService<SpaceDbContext>()));
 
             services.AddScoped<InsuranceTypeRepository>(diContainer =>
@@ -293,6 +293,8 @@ namespace SpaceWeb
             MapBoth<Rocket, ShopRocketViewModel>(configExpression);
 
             MapBoth<ShortUserViewModel, User>(configExpression);
+
+            MapBoth<RocketStageAddViewModel, RocketStage>(configExpression);
 
             MapBoth<ClientViewModel, Client>(configExpression);
 

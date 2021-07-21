@@ -19,6 +19,7 @@ namespace SpaceWeb.EfStuff
             {
                 AddTestDepartments(serviceScope.ServiceProvider);
                 AddTestCLients(serviceScope.ServiceProvider);
+                AddTestRocket(serviceScope.ServiceProvider);
             }
             return server;
         }
@@ -148,6 +149,48 @@ namespace SpaceWeb.EfStuff
         {
             var index = _random.Next(0, list.Count());
             return list[index];
+        }
+
+        private static Rocket GetRandomRocket(IServiceProvider service) 
+        {
+            List<string> RocketNames = new List<string> { "Dragon", "Smile", "FlyDubai", "SpaceY", "Eagle", "Alfa", "Charlie" };
+            List<string> RocketUrls = new List<string> { "https://i.insider.com/608d79c734af8d001859a6db?width=700", "https://e3.365dm.com/18/07/2048x1152/skynews-nasa-challenger_4373911.jpg" };
+
+            string rocketName = GetRandomFromArray(RocketNames);
+            decimal rocketCost = _random.Next(100000, 10000000);
+            string rocketUrl = GetRandomFromArray(RocketUrls);
+            bool rocketIsReady = _random.Next(2) < 2 ? true : false;
+            int rocketCount = _random.Next(1, 50);
+            User rocketAuthor = GetRandomUser(service);
+            User rocketQa = GetRandomUser(service);
+
+            var rocket = new Rocket()
+            {
+                Name = rocketName,
+                Cost = rocketCost,
+                Url = rocketUrl,
+                IsReady = rocketIsReady,
+                Count = rocketCount,
+                Author = rocketAuthor,
+                Qa = rocketQa,
+            };
+
+            return rocket;
+        }
+
+        private static void AddTestRocket(IServiceProvider service) 
+        {
+            var shopRocketRepository = service.GetService<IShopRocketRepository>();
+
+            int iteration = 0;
+            int maxIterations = 100;
+
+            while (shopRocketRepository.GetAll().Where(rocket => rocket != null).Count() < 5 && iteration < maxIterations) 
+            {
+                var rocket = GetRandomRocket(service);
+                shopRocketRepository.Save(rocket);
+                iteration++;
+            }
         }
     }
 }
