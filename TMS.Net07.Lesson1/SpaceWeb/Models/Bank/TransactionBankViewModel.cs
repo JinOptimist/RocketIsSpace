@@ -13,6 +13,7 @@ namespace SpaceWeb.Models
         public DateTime CreationDate { get; set; }
         public long CardFromId { get; set; }
         public long CardToId { get; set; }
-       
+        public decimal TransferAmount { get; set; }
+
     }
 }

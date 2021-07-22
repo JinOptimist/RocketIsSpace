@@ -29,10 +29,10 @@ namespace SpaceWeb.Controllers
         private IMapper _mapper;
         private BanksCardRepository _banksCardRepository;
         private ExchangeRateToUsdHistoryRepository _exchangeRateToUsdHistoryRepository;
-        private TransactionService _transactionService;
+        private ITransactionService _transactionService;
         private ICurrencyService _currencyService;
         private IWebHostEnvironment _hostEnvironment;
-        private BankPresentation _bankPresentation;
+        private IBankPresentation _bankPresentation;
         private IUserService _userService;
         
 
@@ -44,8 +44,8 @@ namespace SpaceWeb.Controllers
             ICurrencyService currencyService,
             ExchangeRateToUsdHistoryRepository exchangeRateToUsdHistoryRepository,
             IWebHostEnvironment hostEnvironment,
-            TransactionService transactionService,
-            BankPresentation bankPresentation)
+            ITransactionService transactionService,
+            IBankPresentation bankPresentation)
         {
             _transactionBankRepository = transactionBankRepository;
             _questionaryRepository = questionaryRepository;
@@ -165,9 +165,14 @@ namespace SpaceWeb.Controllers
         }
 
         [HttpGet]
-        public IActionResult AddCard()
+        public IActionResult TransactionCard()
         {
-            return View();
+            var user = _userService.GetCurrent();
+            var addCardViewNodel = new AddBankCardViewModel();
+            addCardViewNodel.CardFromDropFill(_banksCardRepository.GetCardUser(user.Id).ToList());
+            addCardViewNodel.CardToDropFill(_banksCardRepository.GetCardUser(user.Id).ToList());
+
+            return View(addCardViewNodel);
         }
         [HttpPost]
         public IActionResult AddCard(BanksCardViewModel viewModel)
@@ -183,6 +188,7 @@ namespace SpaceWeb.Controllers
                 switch (viewModel.Card)
                 {
                     case EnumBankCard.PayCard:
+                            
                         bankCardNew = new BanksCard()
                         {
                             BankAccount = new BankAccount()

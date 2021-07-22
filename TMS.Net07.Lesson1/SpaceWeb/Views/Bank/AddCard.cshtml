@@ -1,6 +1,7 @@
 ﻿@{
     Layout = "_LayoutBank";
 }
+@model AddBankCardViewModel
 @using SpaceWeb.Service
 @using AutoMapper
 
@@ -38,8 +39,8 @@
             @{ Html.RenderPartial("_bankCards", new BanksCardViewModel()); }
         </div>
         <div>
-            @{ Html.RenderPartial("_transactionCard", new TransactionBankViewModel()); }
-            
+            @{ Html.RenderPartial("_transactionCard", new AddBankCardViewModel()); }
+
         </div>
     </div>
 </body>

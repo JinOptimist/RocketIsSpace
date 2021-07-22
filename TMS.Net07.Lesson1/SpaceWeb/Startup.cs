@@ -165,8 +165,7 @@ namespace SpaceWeb
 
             services.AddScoped<TransactionBankRepository>(diContainer =>
                 new TransactionBankRepository(diContainer.GetService<SpaceDbContext>()));
-           /* services.AddScoped<TransactionBankRepository>(diContainer =>
-               new TransactionBankRepository(diContainer.GetService<SpaceDbContext>()));*/
+           
         }
 
         private void RegistrationPresentations(IServiceCollection services)
