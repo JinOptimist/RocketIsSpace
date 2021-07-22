@@ -11,6 +11,6 @@ namespace SpaceWeb.Service
 {
     public interface ITransactionService
     {
-        public void TransferFunds(int fromAccountId, int toAccountId, decimal transferAmount);
+        public void TransferFunds(long fromAccountId, long toAccountId, decimal transferAmount);
     }
 }

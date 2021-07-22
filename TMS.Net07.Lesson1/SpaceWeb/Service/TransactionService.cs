@@ -40,7 +40,7 @@ namespace SpaceWeb.Service
         //    var balance = _banksCardRepository.GetAmount(transferToId.ToString());
         //    balance += transferAmount;
         //}
-        public void TransferFunds(int fromAccountId, int toAccountId, decimal transferAmount)
+        public void TransferFunds(long fromAccountId, long toAccountId, decimal transferAmount)
         {
             if (transferAmount <= 0)
             {
