@@ -174,6 +174,12 @@ namespace SpaceWeb.Controllers
 
             return View(addCardViewNodel);
         }
+        public IActionResult AddCard()
+        {
+
+            return View();
+        }
+
         [HttpPost]
         public IActionResult AddCard(BanksCardViewModel viewModel)
         {
