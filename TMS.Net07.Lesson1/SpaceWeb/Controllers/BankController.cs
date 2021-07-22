@@ -264,7 +264,7 @@ namespace SpaceWeb.Controllers
             _banksCardRepository.Remove(id);
             return RedirectToAction("AddCard");
         }
-        public IActionResult AddTransaction(string fromAccountId, string toAccountId, decimal transferAmount)
+       /* public IActionResult AddTransaction(string fromAccountId, string toAccountId, decimal transferAmount)
         {
             var userTransaction = _userService.GetCurrent();
             var fromCard = _transactionBankRepository.GetBankCardFrom(fromAccountId);
@@ -282,11 +282,25 @@ namespace SpaceWeb.Controllers
             };
             _transactionBankRepository.Save(transaction);
             return View();
-        }
+        }*/
         public IActionResult AddTransaction(TransactionBankViewModel viewModel)
         {
-            var transaction = _mapper.Map<TransactionBank>(viewModel);
+            var fromCard = _transactionBankRepository.GetBankCardFrom(viewModel.CardFromId.ToString());
+            var toCard = _transactionBankRepository.GetBankCardTo(viewModel.CardToId.ToString());
+            _transactionService.TransferFunds((int)fromCard, (int)toCard, viewModel.TransferAmount);
+
+            StringBuilder sb = new StringBuilder();
+            var transaction = new TransactionBank()
+            {
+                TransactionNumber = sb.ToString(),
+                CreationDate = DateTime.Now,
+                BanksCardFrom = _banksCardRepository.GetCard(viewModel.CardFromId.ToString()),
+                BanksCardTo = _banksCardRepository.GetCard(viewModel.CardToId.ToString())
+            };
             _transactionBankRepository.Save(transaction);
+
+           // var transaction = _mapper.Map<TransactionBank>(viewModel);
+           // _transactionBankRepository.Save(transaction);
             return RedirectToAction("AddCard");
 
         }
