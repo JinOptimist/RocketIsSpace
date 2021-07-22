@@ -8,8 +8,8 @@
     var selector;
 
     function onClick() {
-        var x = $(this).find('.cell').attr('x');
-        var y = $(this).find('.cell').attr('y');
+        var x = $(this).find('.cell').attr('data-x');
+        var y = $(this).find('.cell').attr('data-y');
         $.get(`/Home/PossibleWays?x=${x}&y=${y}`)
             .done(function (data) {
 
@@ -28,7 +28,7 @@
         for (var j = 0; j < data[wayIndexer].cells.length; j++) {
             var pointX = data[wayIndexer].cells[j].x;
             var pointY = data[wayIndexer].cells[j].y;
-            var vertex = $(`.cell[x=${pointX}][y=${pointY}]`)
+            var vertex = $(`.cell[data-x=${pointX}][data-y=${pointY}]`)
             vertex.parent().css('background', color);
             drawedVertexes.push(vertex);
         }
