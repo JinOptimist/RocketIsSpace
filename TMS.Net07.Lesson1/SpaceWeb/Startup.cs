@@ -328,8 +328,6 @@ namespace SpaceWeb
                 .ThenBy(x => x.X))
             {
                 viewModel.Cells[cell.Y, cell.X] = CellTypeMapper(cell);
-                //viewModel.Cells[cell.Y, cell.X].X = cell.X;
-                //viewModel.Cells[cell.Y, cell.X].Y = cell.Y;
             }
         }
 
