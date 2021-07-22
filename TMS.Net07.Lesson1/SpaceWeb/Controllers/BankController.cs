@@ -174,6 +174,7 @@ namespace SpaceWeb.Controllers
 
             return View(addCardViewNodel);
         }
+        [HttpGet]
         public IActionResult AddCard()
         {
 
