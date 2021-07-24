@@ -15,13 +15,13 @@ namespace SpaceWeb.EfStuff.Repositories
         }
 
       
-        public decimal GetBankCardFrom(string AccountNumber)
+        public TransactionBank GetCardFrom(long id)
         {
-           return _dbSet.SingleOrDefault(x => x.BanksCardFrom.BankAccount.AccountNumber == AccountNumber).BanksCardFrom.BankAccount.Amount;
+           return _dbSet.SingleOrDefault(x => x.BanksCardFrom.BankAccount.Id == id);
         }
-        public decimal GetBankCardTo(string AccountNumber)
+        public TransactionBank GetAmountCardTo(long id)
         {
-            return _dbSet.SingleOrDefault(x => x.BanksCardTo.BankAccount.AccountNumber == AccountNumber).BanksCardTo.BankAccount.Amount;
+            return _dbSet.SingleOrDefault(x => x.BanksCardTo.BankAccount.Id == id);
         }
     }
 }

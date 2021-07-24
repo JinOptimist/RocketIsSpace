@@ -24,7 +24,7 @@ namespace SpaceWeb.Models
             {
                 var option = new SelectListItem();
                 option.Value = card.Id.ToString();
-                option.Text = card.Card.ToString();
+                option.Text = card.Id.ToString();
                 CardFromDrop.Add(option);
             }
         }
@@ -36,7 +36,7 @@ namespace SpaceWeb.Models
             {
                 var option = new SelectListItem();
                 option.Value = card.Id.ToString();
-                option.Text = card.Card.ToString();
+                option.Text = card.Id.ToString();
                 CardToDrop.Add(option);
             }
         }

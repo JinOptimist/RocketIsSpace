@@ -10,8 +10,8 @@ namespace SpaceWeb.EfStuff.Repositories.IRepository
 {
     public interface ITransactionBankRepository : IBaseRepository<TransactionBank>
     {
-        public decimal GetBankCardFrom(string AccountNumber);
-        public decimal GetBankCardTo(string AccountNumber);
+        public TransactionBank GetCardFrom(long id);
+        public TransactionBank GetAmountCardTo(long id);
 
     }
 }

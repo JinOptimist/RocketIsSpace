@@ -23,16 +23,7 @@ namespace SpaceWeb.Service
             _bankAccountRepository = bankAccountRepository;
         }
 
-        private BanksCard GetCardUser(long userId)
-        {
-            var user = _userService.GetCurrent();
-            var cards = _banksCardRepository.GetCardUser(userId).FirstOrDefault();
-            if (cards == null)
-            {
-                throw new ApplicationException("no account exists with that id");
-            }
-            return cards;
-        }
+      
 
 
         //public void Transfer(decimal transferAmount, long transferToId)
@@ -51,8 +42,8 @@ namespace SpaceWeb.Service
                 throw new ApplicationException("invalid transfer amount");
             }
 
-            BanksCard fromAccount = GetCardUser(fromAccountId);
-            BanksCard toAccount = GetCardUser(toAccountId);
+            BanksCard fromAccount = _banksCardRepository.GetCardById(fromAccountId);
+            BanksCard toAccount = _banksCardRepository.GetCardById(toAccountId);
 
             fromAccount.BankAccount.Amount -= transferAmount;
             toAccount.BankAccount.Amount += transferAmount;

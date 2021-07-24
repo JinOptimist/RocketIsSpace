@@ -292,9 +292,9 @@ namespace SpaceWeb.Controllers
         }*/
         public IActionResult AddTransaction(TransactionBankViewModel viewModel)
         {
-            var fromCard = _transactionBankRepository.GetBankCardFrom(viewModel.CardFromId.ToString());
-            var toCard = _transactionBankRepository.GetBankCardTo(viewModel.CardToId.ToString());
-            _transactionService.TransferFunds((int)fromCard, (int)toCard, viewModel.TransferAmount);
+            var fromCard =_banksCardRepository.GetCardById(viewModel.CardFromId);
+            var toCard = _banksCardRepository.GetCardById(viewModel.CardToId);
+            _transactionService.TransferFunds(fromCard.Id, toCard.Id, viewModel.TransferAmount);
 
             StringBuilder sb = new StringBuilder();
             var transaction = new TransactionBank()
