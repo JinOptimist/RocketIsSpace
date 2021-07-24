@@ -271,25 +271,7 @@ namespace SpaceWeb.Controllers
             _banksCardRepository.Remove(id);
             return RedirectToAction("AddCard");
         }
-       /* public IActionResult AddTransaction(string fromAccountId, string toAccountId, decimal transferAmount)
-        {
-            var userTransaction = _userService.GetCurrent();
-            var fromCard = _transactionBankRepository.GetBankCardFrom(fromAccountId);
-            var toCard = _transactionBankRepository.GetBankCardTo(toAccountId);
-
-            _transactionService.TransferFunds((int)fromCard, (int)toCard, transferAmount);
-            //var viewModel = _mapper.Map<TransactionBankViewModel>(transaction);
-            StringBuilder sb = new StringBuilder();
-            var transaction = new TransactionBank()
-            {
-                TransactionNumber = sb.ToString(),
-                CreationDate = DateTime.Now,
-                BanksCardFrom = _banksCardRepository.GetCard(fromAccountId),
-                BanksCardTo = _banksCardRepository.GetCard(toAccountId)
-            };
-            _transactionBankRepository.Save(transaction);
-            return View();
-        }*/
+      
         public IActionResult AddTransaction(TransactionBankViewModel viewModel)
         {
             var fromCard =_banksCardRepository.GetCardById(viewModel.CardFromId);
@@ -301,9 +283,10 @@ namespace SpaceWeb.Controllers
             {
                 TransactionNumber = sb.ToString(),
                 CreationDate = DateTime.Now,
-                BanksCardFrom = _banksCardRepository.GetCard(viewModel.CardFromId.ToString()),
-                BanksCardTo = _banksCardRepository.GetCard(viewModel.CardToId.ToString())
-            };
+                BanksCardFrom = _banksCardRepository.GetCardById(viewModel.CardFromId),
+                BanksCardTo = _banksCardRepository.GetCardById(viewModel.CardToId),
+                TransferAmount = viewModel.TransferAmount
+        };
             _transactionBankRepository.Save(transaction);
 
            // var transaction = _mapper.Map<TransactionBank>(viewModel);
