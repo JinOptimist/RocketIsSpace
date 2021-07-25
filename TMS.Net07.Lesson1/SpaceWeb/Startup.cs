@@ -29,6 +29,11 @@ using System.Reflection;
 using SpaceWeb.Migrations;
 using Microsoft.Extensions.Logging;
 using AdvImage = SpaceWeb.EfStuff.Model.AdvImage;
+using MazeCore;
+using SpaceWeb.Models.Maze;
+using MazeCore.Cells;
+using MazeCore.GraphStuff;
+using MazeCore.Maze;
 
 namespace SpaceWeb
 {
@@ -62,6 +67,8 @@ namespace SpaceWeb
             RegistrationRepositories(services);
             RegisterService(services);
 
+
+
             services.AddControllersWithViews();
             services.AddHttpContextAccessor();
         }
@@ -75,6 +82,15 @@ namespace SpaceWeb
                     diContainer.GetService<ExchangeAccountHistoryRepository>(),
                     diContainer.GetService<ExchangeRateToUsdHistoryRepository>(),
                     diContainer.GetService<IMapper>()));
+
+            //services.AddMyScoped<IUserService, UserService>();
+            services.AddScoped<IUserService>(diContainer =>
+              new UserService(
+                  diContainer.GetService<IUserRepository>(),
+                  diContainer.GetService<IHttpContextAccessor>()
+              ));
+
+
             services.AddScoped<UserService>(diContainer =>
                new UserService(
                    diContainer.GetService<IUserRepository>(),
@@ -85,6 +101,19 @@ namespace SpaceWeb
                new PathHelper(
                    diContainer.GetService<IWebHostEnvironment>()
                ));
+
+
+           services.AddScoped<ISalaryService>(diContainer =>
+                new SalaryService(
+                    diContainer.GetService<IAccrualRepository>(),
+                    diContainer.GetService<IPaymentRepository>(),
+                    diContainer.GetService<IBankAccountRepository>(),
+                    diContainer.GetService<IEmployeRepository>()
+               ));
+          
+            services.AddSingleton<MazeBuilder>(x => new MazeBuilder());
+
+            services.AddSingleton<BreadCrumbsService>(x => new BreadCrumbsService());
         }
 
         private void RegisterOldRepository(IServiceCollection services)
@@ -137,7 +166,7 @@ namespace SpaceWeb
             var types = assembly.GetTypes();
             var humanPresentationTypes = types.Where(t => t.FullName.Contains("Presentation") && t.IsInterface).ToArray();
 
-            foreach(var iPresentation in humanPresentationTypes)
+            foreach (var iPresentation in humanPresentationTypes)
             {
                 var realization = types.Single(x => x.GetInterfaces().Contains(iPresentation));
                 services.AddScoped(
@@ -194,6 +223,7 @@ namespace SpaceWeb
             //            .MapFrom(dbModel => $"{dbModel.Name}, {dbModel.SurName} Mr"));
 
             configExpression.CreateMap<Employe, ShortEmployeViewModel>()
+                .ForMember(nameof(ShortEmployeViewModel.Id), config => config.MapFrom(x => x.Id))
                 .ForMember(nameof(ShortEmployeViewModel.Name), config => config.MapFrom(x => x.User.Name))
                 .ForMember(nameof(ShortEmployeViewModel.Surname), config => config.MapFrom(x => x.User.SurName))
                 .ForMember(nameof(ShortEmployeViewModel.SalaryPerHour), config => config.MapFrom(x => x.SalaryPerHour))
@@ -209,7 +239,6 @@ namespace SpaceWeb
 
             configExpression.CreateMap<RequestViewModel, Employe>();
 
-
             configExpression.CreateMap<User, ProfileViewModel>();
 
             configExpression.CreateMap<User, EmployeeProfileViewModel>()
@@ -222,6 +251,13 @@ namespace SpaceWeb
                     config => config.MapFrom(user =>
                         user.Employe.SalaryPerHour));
 
+            configExpression.CreateMap<Vertex, CellViewModel>()
+                .ForMember(nameof(CellViewModel.X), config => config.MapFrom(vertex => vertex.BaseCell.X))
+                .ForMember(nameof(CellViewModel.Y), config => config.MapFrom(vertex => vertex.BaseCell.Y));
+
+            configExpression.CreateMap<Graph, WayViewModel>()
+                .ForMember(nameof(WayViewModel.Cells), config => config.MapFrom(graph => graph.Vertices));
+
 
             //configExpression.CreateMap<Relic, RelicViewModel>();
             //configExpression.CreateMap<RelicViewModel, Relic>();
@@ -229,7 +265,7 @@ namespace SpaceWeb
             MapBoth<Relic, RelicViewModel>(configExpression);
             MapBoth<User, QuestionaryViewModel>(configExpression);
             MapBoth<User, BanksCardViewModel>(configExpression);
-            
+
             MapBoth<Transaction, TransactionCardViewModel>(configExpression);
             MapBoth<BanksCard, TransactionCardViewModel>(configExpression);
 
@@ -244,6 +280,7 @@ namespace SpaceWeb
             MapBoth<Order, OrderViewModel>(configExpression);
 
             MapBoth<BankAccount, BankAccountViewModel>(configExpression);
+            MapBoth<BanksCard, BanksCardViewModel>(configExpression);
 
             MapBoth<User, RocketProfileViewModel>(configExpression);
 
@@ -273,9 +310,49 @@ namespace SpaceWeb
 
             MapBoth<ExchangeRateToUsdCurrent, ExchangeRateToUsdHistory>(configExpression);
 
+            configExpression.CreateMap<MazeLevel, MazeViewModel>()
+                .ForMember(nameof(MazeLevel.Cells), x => x.Ignore())
+                .AfterMap(MazeLevelToViewModel);
+
             var mapperConfiguration = new MapperConfiguration(configExpression);
             var mapper = new Mapper(mapperConfiguration);
             services.AddScoped<IMapper>(c => mapper);
+        }
+
+        private void MazeLevelToViewModel(MazeLevel mazeLevel, MazeViewModel viewModel)
+        {
+            viewModel.Cells = new CellType[mazeLevel.Height, mazeLevel.Width];
+
+            foreach (var cell in mazeLevel.Cells
+                .OrderBy(x => x.Y)
+                .ThenBy(x => x.X))
+            {
+                viewModel.Cells[cell.Y, cell.X] = CellTypeMapper(cell);
+                //viewModel.Cells[cell.Y, cell.X].X = cell.X;
+                //viewModel.Cells[cell.Y, cell.X].Y = cell.Y;
+            }
+        }
+
+
+
+        private CellType CellTypeMapper(BaseCell cell)
+        {
+            if (cell is Wall)
+            {
+                return CellType.Wall;
+            }
+            else if (cell is Ground)
+            {
+                return CellType.Road;
+            }
+            else if (cell is Gold)
+            {
+                return CellType.Gold;
+            }
+            else
+            {
+                throw new Exception("Uknown type of cell");
+            }
         }
 
         public void MapBoth<Type1, Type2>(MapperConfigurationExpression configExpression)

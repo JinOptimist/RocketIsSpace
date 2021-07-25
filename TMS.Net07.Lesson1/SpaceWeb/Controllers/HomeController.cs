@@ -3,8 +3,13 @@ using Microsoft.Extensions.Logging;
 using SpaceWeb.Controllers.CustomAttribute;
 using SpaceWeb.Models.Chart;
 using SpaceWeb.Service;
+using System.IO;
 using System.Linq;
 using System.Text.Json;
+using MazeCore;
+using AutoMapper;
+using SpaceWeb.Models.Maze;
+using MazeCore.GraphStuff;
 
 namespace SpaceWeb.Controllers
 {
@@ -12,11 +17,20 @@ namespace SpaceWeb.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private UserService _userService;
-
-        public HomeController(ILogger<HomeController> logger, UserService userService)
+        private MazeBuilder _mazeBuilder;
+        private IMapper _mapper;
+         private IPathHelper _pathHelper;
+         public HomeController(ILogger<HomeController> logger,
+            UserService userService,
+            MazeBuilder mazeBuilder,
+            IMapper mapper,
+            IPathHelper pathHelper)
         {
-            _logger = logger;
+         _logger = logger;
             _userService = userService;
+            _mazeBuilder = mazeBuilder;
+            _mapper = mapper;
+            _pathHelper = pathHelper;
         }
 
         public IActionResult Index()
@@ -37,7 +51,7 @@ namespace SpaceWeb.Controllers
 
             //проект не грузится, если юзер не залогинен
 
-            if (user!=null)
+            if (user != null)
             {
                 var currencies = user.BankAccounts.Select(x => x.Currency).Distinct();
 
@@ -60,6 +74,67 @@ namespace SpaceWeb.Controllers
                 return Json(chartViewModel);
             }
             return Json("null user");
+        }
+
+        public IActionResult ImageForCarousel()
+        {
+            var carouselFolderPath = _pathHelper.GetPathToCarouselFolder();
+            var filesPath = Directory.GetFiles(carouselFolderPath);
+            var img = filesPath
+                .Where(filePath => Path.GetExtension(filePath) == ".jpg")
+                .ToList();
+
+            return Json(img);
+        }
+        
+        public IActionResult Maze()
+        {
+            var mazeLevel = _mazeBuilder.Build(4, 4, seed: 50);
+            var viewModel = _mapper.Map<MazeViewModel>(mazeLevel);
+            return View(viewModel);
+        }
+
+        public IActionResult TheLongestWay(int x, int y)
+        {
+            var mazeLevel = _mazeBuilder.Build(4, 4, seed: 50);
+
+            var graph = _mazeBuilder.BuildGraph(mazeLevel);
+
+            var ver = graph.Vertices
+                .Single(ver => ver.BaseCell.X == x && ver.BaseCell.Y == y);
+            ver.DistanceFromRoot = 0;
+            graph.SetDistanceFromRoot(ver);
+
+            var max = graph.Vertices.Max(x => x.DistanceFromRoot);
+
+            return Json(max);
+        }
+        public IActionResult TheRichestWay(int x, int y)
+        {
+            var mazeLevel = _mazeBuilder.Build(4, 4, seed: 50);
+
+            var graph = _mazeBuilder.BuildGraph(mazeLevel);
+
+            var ver = graph.Vertices
+                .Single(ver => ver.BaseCell.X == x && ver.BaseCell.Y == y);
+            var s = graph.GetRichestWay(ver);
+
+            return Json(s);
+        }
+
+        public IActionResult PossibleWays(int x, int y)
+        {
+            var mazeLevel = _mazeBuilder.Build(4, 4, seed: 50);
+
+            var graph = _mazeBuilder.BuildGraph(mazeLevel);
+
+            var root = graph.Vertices.Single(ver => ver.BaseCell.X == x && ver.BaseCell.Y == y);
+
+            var ways = graph.GetAllWays(root);
+
+            var viewModels = ways.Select(x => _mapper.Map<WayViewModel>(x)).ToList();
+
+            return Json(viewModels);
         }
     }
 }
