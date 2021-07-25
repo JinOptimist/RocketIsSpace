@@ -28,7 +28,7 @@ namespace SpaceWeb.Controllers
         private IUserRepository _userRepository;
         private IBankAccountRepository _bankAccountRepository;
         private IMapper _mapper;
-        private UserService _userService;
+        private IUserService _userService;
         private ICurrencyService _currencyService;
         private IPathHelper _pathHelper;
 
@@ -37,7 +37,7 @@ namespace SpaceWeb.Controllers
         public static int Counter = 0;
 
         public UserController(IUserRepository userRepository, IMapper mapper,
-            UserService userService, ICurrencyService currencyService,
+            IUserService userService, ICurrencyService currencyService,
             IBankAccountRepository bankAccountRepository,
             ILogger<UserController> logger,
             IPathHelper pathHelper)

@@ -18,8 +18,8 @@ namespace SpaceWeb.EfStuff.Model
         public string CardUrl { get; set; }
         public virtual BankAccount BankAccount { get; set; }
         public DateTime CreationDate { get; set; }
-        public virtual List<Transaction> TransactionsFrom { get; set; }
-        public virtual List<Transaction> TransactionsTo { get; set; }
+        public virtual List<TransactionBank> TransactionsFrom { get; set; }
+        public virtual List<TransactionBank> TransactionsTo { get; set; }
 
 
     }

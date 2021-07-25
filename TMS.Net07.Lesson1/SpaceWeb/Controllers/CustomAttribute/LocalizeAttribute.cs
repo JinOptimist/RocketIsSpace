@@ -15,8 +15,8 @@ namespace SpaceWeb.Controllers.CustomAttribute
             base.OnResultExecuting(context);
 
             var userService =
-                (UserService)context.HttpContext.RequestServices
-                .GetService(typeof(UserService));
+                (IUserService)context.HttpContext.RequestServices
+                .GetService(typeof(IUserService));
 
             var user = userService.GetCurrent();
             if (user == null)

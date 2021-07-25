@@ -17,10 +17,10 @@ namespace SpaceWeb.Controllers
     public class RocketController : Controller
     {
         private IUserRepository _userRepository;
-        private UserService _userService;
+        private IUserService _userService;
         private IMapper _mapper;
         public RocketController(IUserRepository userRepository,IMapper mapper,
-        UserService userService)
+        IUserService userService)
         {
             _userRepository = userRepository;
             _mapper = mapper;

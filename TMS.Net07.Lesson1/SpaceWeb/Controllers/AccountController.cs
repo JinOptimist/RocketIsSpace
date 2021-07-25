@@ -29,7 +29,9 @@ namespace SpaceWeb.Controllers
         private UserService _userService;
         private IAccountPresentation _accountPresentation;
 
-        public AccountController(IBankAccountRepository bankAccountRepository, 
+        public AccountController(IBankAccountRepository bankAccountRepository,
+            QuestionaryRepository profileRepository, 
+            IUserRepository userRepository,
             IMapper mapper, 
             IWebHostEnvironment hostEnvironment, 
             UserService userService, 
