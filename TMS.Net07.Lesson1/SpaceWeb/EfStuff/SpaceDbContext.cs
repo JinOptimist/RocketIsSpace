@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using SpaceWeb.Migrations;
 using AdvImage = SpaceWeb.EfStuff.Model.AdvImage;
 
-
 namespace SpaceWeb.EfStuff
 {
     public class SpaceDbContext : DbContext
@@ -69,6 +68,7 @@ namespace SpaceWeb.EfStuff
                 .HasMany(x => x.BanksCards)
                 .WithOne(x => x.BankAccount);
 
+
             modelBuilder.Entity<User>()
                 .HasOne(x => x.Questionaries)
                 .WithOne(x => x.User)
@@ -122,7 +122,7 @@ namespace SpaceWeb.EfStuff
             modelBuilder.Entity<Payment>()
                 .HasOne(x => x.Employe);
 
-            
+
             modelBuilder.Entity<TransactionBank>()
                 .HasOne(x => x.BanksCardFrom)
                 .WithMany(x => x.TransactionsFrom);
@@ -134,13 +134,6 @@ namespace SpaceWeb.EfStuff
             modelBuilder.Entity<Payment>()
                 .HasOne(x => x.BankAccount)
                 .WithMany(x => x.Payments);
-            modelBuilder.Entity<Transaction>()
-                .HasOne(transaction => transaction.ReceiverAccount)
-                .WithMany(a => a.IncomingTransactions);
-
-            modelBuilder.Entity<Transaction>()
-                .HasOne(transaction => transaction.SenderAccount)
-                .WithMany(account => account.OutcomingTransactions);
 
             base.OnModelCreating(modelBuilder);
         }
