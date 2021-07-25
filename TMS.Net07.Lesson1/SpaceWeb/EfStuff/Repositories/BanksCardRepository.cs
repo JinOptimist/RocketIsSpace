@@ -9,11 +9,18 @@ namespace SpaceWeb.EfStuff.Repositories
 {
     public class BanksCardRepository : BaseRepository<BanksCard>, IBanksCardRepository
     {
+        public BanksCard GetCardById(long id)
+        {
+            return _dbSet.SingleOrDefault(x => x.Id == id);
+        }
         public BanksCardRepository(SpaceDbContext spaceDbContext) :
             base(spaceDbContext)
         {
         }
-
+        public BanksCard GetCard(string AccountNumber)
+        {
+            return _dbSet.SingleOrDefault(x => x.BankAccount.AccountNumber == AccountNumber);
+        }
         public List<BanksCard> Get(string bankAccount)
         {
             return _dbSet

@@ -9,6 +9,7 @@ namespace SpaceWeb.EfStuff.Repositories.IRepository
 {
     public interface IBanksCardRepository : IBaseRepository<BanksCard>
     {
+        public BanksCard GetCardById(long id);
         List<BanksCard> Get(string CardNumber);
 
         List<BanksCard> GetCardUser(long userId);

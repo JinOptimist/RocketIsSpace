@@ -1,6 +1,8 @@
 ﻿@model BanksCardViewModel
 @using SpaceWeb.Models
 @using Microsoft.AspNetCore.Mvc.Rendering
+@using SpaceWeb.Service
+@using AutoMapper
 @{
     var cardOptions = new List<SelectListItem>();
 
@@ -14,6 +16,17 @@
         cardOptions.Add(option);
     }
 }
+@inject IUserService userService
+@inject IMapper mapper
+@{
+    var user = userService.GetCurrent();
+    var allBankCards = new List<BanksCardViewModel>();
+    foreach (var allBankCardsDB in user.BanksCards)
+    {
+        allBankCards.Add(mapper.Map<BanksCardViewModel>(allBankCardsDB));
+    }
+}
+
 
 @section Scripts{
     <script src="~/js/chart.min.js"></script>
@@ -44,4 +57,3 @@
     @Html.DropDownList("test", Model.CurrencyExchengerViewModel.CurrencyFromDrop)
     @Html.DropDownList("test", Model.CurrencyExchengerViewModel.CurrencyToDrop)
 </div>
-
