@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Novacode;
 using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Model.Enum;
@@ -242,9 +243,23 @@ namespace SpaceWeb.Presentation
             return paymentViewModel;
         }
 
-        public void SavePayment(PaymentViewModel paymentViewModel)
+        public bool SavePayment(PaymentViewModel paymentViewModel, out string message)
         {
-            _salaryService.Pay(paymentViewModel);
+            var departmentId = _employeRepository.Get(paymentViewModel.EmployeId).Department.Id;
+            var accountFrom = _bankAccountRepository.GetDepartmentAccounts(departmentId).FirstOrDefault();
+
+            message = accountFrom == null ? "Account do not exist" : null;
+
+            return _salaryService.Pay(paymentViewModel);
+        }
+
+        public List<string> GetErrorsStringFromModelState(ModelStateDictionary modelState)
+        {
+            var result = modelState
+                .Where(x => x.Value.ValidationState == ModelValidationState.Invalid)
+                .SelectMany(x => x.Value.Errors.Select(x => x.ErrorMessage).ToList())
+                .ToList();
+            return result.Count == 0 ? null : result;
         }
     }
 }

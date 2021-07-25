@@ -1,3 +1,4 @@
+
 using Microsoft.AspNetCore.Mvc;
 using SpaceWeb.EfStuff.Repositories;
 using SpaceWeb.Models;
@@ -184,14 +185,9 @@ namespace SpaceWeb.Controllers
         [HttpPost]
         public IActionResult AddCard(BanksCardViewModel viewModel)
         {
-
-
+            
             if (!_currencyService.IsCardAvailability(viewModel.Card))
-
             {
-                var user = _userService.GetCurrent();
-                var bankCardNew = new BanksCard();
-                StringBuilder sb = new StringBuilder();
                 switch (viewModel.Card)
                 {
                     case EnumBankCard.PayCard:
@@ -271,25 +267,7 @@ namespace SpaceWeb.Controllers
             _banksCardRepository.Remove(id);
             return RedirectToAction("AddCard");
         }
-       /* public IActionResult AddTransaction(string fromAccountId, string toAccountId, decimal transferAmount)
-        {
-            var userTransaction = _userService.GetCurrent();
-            var fromCard = _transactionBankRepository.GetBankCardFrom(fromAccountId);
-            var toCard = _transactionBankRepository.GetBankCardTo(toAccountId);
-
-            _transactionService.TransferFunds((int)fromCard, (int)toCard, transferAmount);
-            //var viewModel = _mapper.Map<TransactionBankViewModel>(transaction);
-            StringBuilder sb = new StringBuilder();
-            var transaction = new TransactionBank()
-            {
-                TransactionNumber = sb.ToString(),
-                CreationDate = DateTime.Now,
-                BanksCardFrom = _banksCardRepository.GetCard(fromAccountId),
-                BanksCardTo = _banksCardRepository.GetCard(toAccountId)
-            };
-            _transactionBankRepository.Save(transaction);
-            return View();
-        }*/
+       
         public IActionResult AddTransaction(TransactionBankViewModel viewModel)
         {
             var fromCard =_banksCardRepository.GetCardById(viewModel.CardFromId);
@@ -306,8 +284,6 @@ namespace SpaceWeb.Controllers
             };
             _transactionBankRepository.Save(transaction);
 
-           // var transaction = _mapper.Map<TransactionBank>(viewModel);
-           // _transactionBankRepository.Save(transaction);
             return RedirectToAction("AddCard");
 
         }
@@ -381,7 +357,16 @@ namespace SpaceWeb.Controllers
         [HttpGet]
         public IActionResult Cabinet()
         {
-            return View();
+            var user = _userService.GetCurrent();
+            var index = 0;
+            var allAccountsViewModels = user.BankAccounts
+                ?.Select(x =>
+                {
+                    var viewModel = _mapper.Map<BankAccountViewModel>(x);
+                    viewModel.AccountIndex = index++;
+                    return viewModel;
+                }).ToList() ?? new List<BankAccountViewModel>();
+            return View(allAccountsViewModels);
         }
 
         public IActionResult ExchangesHistoryChartInfo()

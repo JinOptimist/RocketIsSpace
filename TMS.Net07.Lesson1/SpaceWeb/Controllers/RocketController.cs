@@ -35,7 +35,7 @@ namespace SpaceWeb.Controllers
             return View("Profile",viewModel);
         }
       
-        public IActionResult MainPage()
+        public IActionResult Index()
         {
             return View();
         }

@@ -539,6 +539,10 @@ a {
         background-color: #717171;
     }
 
+.dot-animate-block-style {
+    text-align: center
+}
+
 .all-money-block {
     display: flex;
     font-weight: bold;
@@ -568,3 +572,11 @@ a {
     .breadcrumb:hover {
         background: rgba(0,0,0,0.3);
     }
+
+.undisplayable {
+    display: none;
+}
+
+.maze-way {
+    padding: 3px;
+}
