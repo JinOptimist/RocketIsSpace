@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using SpaceWeb.Controllers.CustomAttribute;
 using SpaceWeb.Models.Chart;
 using SpaceWeb.Service;
+using System.IO;
 using System.Linq;
 using System.Text.Json;
 using MazeCore;
@@ -18,16 +19,18 @@ namespace SpaceWeb.Controllers
         private UserService _userService;
         private MazeBuilder _mazeBuilder;
         private IMapper _mapper;
-
-        public HomeController(ILogger<HomeController> logger,
+         private IPathHelper _pathHelper;
+         public HomeController(ILogger<HomeController> logger,
             UserService userService,
             MazeBuilder mazeBuilder,
-            IMapper mapper)
+            IMapper mapper,
+            IPathHelper pathHelper)
         {
-            _logger = logger;
+         _logger = logger;
             _userService = userService;
             _mazeBuilder = mazeBuilder;
             _mapper = mapper;
+            _pathHelper = pathHelper;
         }
 
         public IActionResult Index()
@@ -73,6 +76,17 @@ namespace SpaceWeb.Controllers
             return Json("null user");
         }
 
+        public IActionResult ImageForCarousel()
+        {
+            var carouselFolderPath = _pathHelper.GetPathToCarouselFolder();
+            var filesPath = Directory.GetFiles(carouselFolderPath);
+            var img = filesPath
+                .Where(filePath => Path.GetExtension(filePath) == ".jpg")
+                .ToList();
+
+            return Json(img);
+        }
+        
         public IActionResult Maze()
         {
             var mazeLevel = _mazeBuilder.Build(4, 4, seed: 50);
