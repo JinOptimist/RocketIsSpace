@@ -17,6 +17,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using SpaceWeb.Presentation;
+using Newtonsoft.Json;
+
 
 namespace SpaceWeb.Controllers
 {
@@ -65,24 +67,9 @@ namespace SpaceWeb.Controllers
         [HttpGet]
         public IActionResult Remove(long id, string password)
         {
-            var user = _userService.GetCurrent();
+            var response = _accountPresentation.GetJsonForRemove(id, password);
 
-            if (user.Password != password)
-            {
-                return Json(false);
-            }
-            else
-            {
-                _bankAccountRepository.Remove(id);
-                var newUrl = ("/Account/Creation");
-                var newId = user.BankAccounts?.FirstOrDefault()?.Id;
-                if (newId != null)
-                {
-                    newUrl = $"/Account/Index?id={newId}";
-                    return Json(newUrl);
-                }
-                return Json(newUrl);
-            }
+            return Json(JsonConvert.DeserializeObject(response));
         }
 
         [HttpGet]
@@ -95,57 +82,9 @@ namespace SpaceWeb.Controllers
         [HttpPost]
         public IActionResult Creation(BankAccountViewModel viewModel)
         {
-            int accountLifeTime;
+            var id = _accountPresentation.GetCreatedAccountId(viewModel);
 
-            var type = viewModel.Amount.GetType();
-
-            if (viewModel.Currency == Currency.BYN) //заменить двойной if
-            {
-                if (viewModel.Name == null)
-                {
-                    viewModel.Name = "Счет";
-                }
-                accountLifeTime = 5;
-            }
-            else
-            {
-                if (viewModel.Name == null)
-                {
-                    viewModel.Name = "Валютный счет";
-                }
-                accountLifeTime = 3;
-            }
-
-            StringBuilder sb = new StringBuilder();
-
-            Random rnd = new Random();
-
-            for (int i = 0; i < 10; i++)
-            {
-                sb.Append(rnd.Next(0, 9));
-            }
-            viewModel.AccountNumber = sb.ToString();
-
-            viewModel.CreationDate = DateTime.Now;
-
-            viewModel.ExpireDate = viewModel.CreationDate.AddYears(accountLifeTime);
-
-            var modelDB =
-                _mapper.Map<BankAccount>(viewModel);
-
-            var user = _userService.GetCurrent();
-
-            modelDB.Owner = user;
-
-            _bankAccountRepository.Save(modelDB);
-
-            var id = user.BankAccounts?.
-                SingleOrDefault(x => x.AccountNumber == viewModel.AccountNumber)
-                .Id;
-
-            //return RedirectToAction("Index", new { id });
-
-            return RedirectToRoute("default", new { controller = "Account", action = "Index", id });
+            return RedirectToAction("Index", new { id });
         }
 
         public IActionResult DownloadAccountsInfo()
@@ -310,7 +249,7 @@ namespace SpaceWeb.Controllers
 
             var account = _bankAccountRepository?.Get(id);
 
-            if (account != null)
+            if (account != null && !account.IsFrozen)
             {
                 account.Amount += amount;
                 _bankAccountRepository.Save(account);
@@ -320,11 +259,20 @@ namespace SpaceWeb.Controllers
             return Json(false);
         }
 
-        public IActionResult GetByName(string name)
+        public IActionResult FreezeAccount(long id)
         {
-            var userId = _userService.GetCurrent().Id;
-            var answer = _bankAccountRepository.GetByName(userId, name).Select(x => x.Id);
-            return Json(answer);
+            var user = _userService.GetCurrent();
+
+            var account = user.BankAccounts?.SingleOrDefault(x => x.Id == id);
+
+            if (account!= null && !account.IsFrozen)
+            {
+                account.IsFrozen = true;
+                return Json(true);
+            }
+
+            return Json(false);
         }
+
     }
 }

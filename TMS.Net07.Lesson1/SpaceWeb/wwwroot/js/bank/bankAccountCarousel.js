@@ -30,9 +30,7 @@ $(document).ready(function () {
             activeAccount.index++;
         }
 
-        SetPosition(activeAccount, time);
-
-        SetActiveAccount(activeAccount);
+        AnimateAndSetAccount(activeAccount);
     });
 
     $('.prev-btn').click(function () {
@@ -46,9 +44,7 @@ $(document).ready(function () {
             activeAccount.index--;
         }
 
-        SetPosition(activeAccount, time);
-
-        SetActiveAccount(activeAccount);
+        AnimateAndSetAccount(activeAccount);
     });
 
     $('.bank-account-list .account-link').click(function (evt) {
@@ -58,13 +54,19 @@ $(document).ready(function () {
             return;
         }
 
-        SetPosition(activeAccount, time);
-
-        SetActiveAccount(activeAccount);
+        AnimateAndSetAccount(activeAccount);
 
         evt.preventDefault();
     })
 });
+
+function AnimateAndSetAccount(activeAccount) {
+    activeAccount.id = GetIdByIndex(activeAccount.index);
+
+    SetPosition(activeAccount, time);
+
+    SetActiveAccount(activeAccount);
+}
 
 function GetActiveAccount() {
 
@@ -78,6 +80,12 @@ function GetActiveAccount() {
 
 function GetTotalAccounts() {
     return $('.total-accounts').text() - 0;
+}
+
+function GetIdByIndex(index) {
+    var id = $(`.account-info-container.${index}`).find('.info.id').val() - 0;
+
+    return id;
 }
 
 function SetPosition(activeAccount, time) {
