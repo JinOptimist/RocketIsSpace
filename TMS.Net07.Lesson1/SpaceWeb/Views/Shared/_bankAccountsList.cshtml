@@ -9,15 +9,23 @@
     @foreach (var BankAccount in Model)
     {
         <a href="/Account/Index?id=@BankAccount.Id" class="account-link">
-            <div class="bank-account @BankAccount.AccountIndex">
-                <div class="type">@BankAccount.Name</div>
-                <div>
-                    <span class="amount">@BankAccount.Amount </span>
-                    <span class="currency">@BankAccount.Currency</span>
+            <div class="bank-account @BankAccount.AccountIndex @(BankAccount.IsFrozen? "frozen":"")">
+                <div class="snowflake-cover">
+                    <img class ="freeze-image" src="~/image/snowflake.png" />
                 </div>
-                <div class="account-number">@BankAccount.AccountNumber</div>
-                <div class="account-index hide">@BankAccount.AccountIndex</div>
-                <div class="frozen-status hide">@BankAccount.IsFrozen</div>
+                <div class="account-info">
+                    <div class="@nameof(BankAccount.Name).ToLower()">
+                        <span class="freeze-indication hide">❄</span>
+                        @BankAccount.Name
+                    </div>
+                    <div>
+                        <span class="amount">@BankAccount.Amount </span>
+                        <span class="currency">@BankAccount.Currency</span>
+                    </div>
+                    <div class="account-number">@BankAccount.AccountNumber</div>
+                    <div class="account-index hide">@BankAccount.AccountIndex</div>
+                    <div class="frozen-status hide">@BankAccount.IsFrozen.ToString().ToLower()</div>
+                </div>
             </div>
         </a>
 

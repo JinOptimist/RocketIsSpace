@@ -45,6 +45,7 @@ $(document).ready(function () {
         }
 
         AnimateAndSetAccount(activeAccount);
+
     });
 
     $('.bank-account-list .account-link').click(function (evt) {
@@ -61,32 +62,44 @@ $(document).ready(function () {
 });
 
 function AnimateAndSetAccount(activeAccount) {
-    activeAccount.id = GetIdByIndex(activeAccount.index);
 
-    SetPosition(activeAccount, time);
+    var newActiveAccount = GetActiveAccountByIndex(activeAccount.index);
 
-    SetActiveAccount(activeAccount);
+    SetPosition(newActiveAccount, time);
+
+    SetActiveAccount(newActiveAccount);
+
+    FrozenAccountCheck();
 }
 
-function GetActiveAccount() {
+//function GetActiveAccount() {
 
-    var obj = {
-        index : $('.active-account.index').val() - 0,
-        id : $('.active-account.id').val() - 0
-    }
+//    var obj = {
+//        index : $('.active-account.index').val() - 0,
+//        id: $('.active-account.id').val() - 0,
+//        isFrozen: $('.active-account.frozen-status').text()
+//    }
 
-    return obj;
-}
+//    return obj;
+//}
 
 function GetTotalAccounts() {
     return $('.total-accounts').text() - 0;
 }
 
-function GetIdByIndex(index) {
-    var id = $(`.account-info-container.${index}`).find('.info.id').val() - 0;
+//function ActualizeActiveAccount(index) {
+//    var id = $(`.account-info-container.${index}`).find('.info.id').val() - 0;
 
-    return id;
-}
+//    var isFrozen = $(`.account-info-container.${index}`).find('.info.frozen-status').text();
+
+//    var obj = {
+//        index: index,
+//        id: id,
+//        isFrozen: isFrozen
+//    }
+
+//    return obj;
+//}
 
 function SetPosition(activeAccount, time) {
 
@@ -99,13 +112,14 @@ function SetPosition(activeAccount, time) {
     isAnimationActive = false;
 }
 
-function SetActiveAccount(activeAccount) {
+//function SetActiveAccount(activeAccount) {
 
-    $('.active-account.index').val(activeAccount.index);
-    $('.active-account.id').val(activeAccount.id);
+//    $('.active-account.index').val(activeAccount.index);
+//    $('.active-account.id').val(activeAccount.id);
+//    $('.active-account.frozen-status').val(activeAccount.isFrozen);
 
-    $('.account-to-remove').val(activeAccount.id);
-}
+//    $('.account-to-remove').val(activeAccount.id);
+//}
 
 function ScrollLeftMenu(activeAccount, time) {
 
@@ -178,10 +192,10 @@ function ScrollLeftMenu(activeAccount, time) {
                 duration: time/2,
                 step: function (progress) {
                     var s = 1 / 100 * progress;
-                    $('.menu.left .bank-account.bordered')
+                    $('.menu.left .bank-account.bordered .account-info')
                         .css('border', `8px rgba(255, 255, 255, ${1 - s}) double`);
                         
-                    $(`.menu.left .bank-account.${activeAccount.index}`).css('border', `8px rgba(255, 255, 255, ${s}) double`);
+                    $(`.menu.left .bank-account.${activeAccount.index} .account-info`).css('border', `8px rgba(255, 255, 255, ${s}) double`);
                 },
                 queue: false,
                 easing: easingType,

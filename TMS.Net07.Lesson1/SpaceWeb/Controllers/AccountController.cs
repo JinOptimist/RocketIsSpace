@@ -268,6 +268,13 @@ namespace SpaceWeb.Controllers
             if (account!= null && !account.IsFrozen)
             {
                 account.IsFrozen = true;
+                _bankAccountRepository.Save(account);
+                return Json(true);
+            }
+            else if (account != null && account.IsFrozen)
+            {
+                account.IsFrozen = false;
+                _bankAccountRepository.Save(account);
                 return Json(true);
             }
 
