@@ -282,8 +282,8 @@ namespace SpaceWeb.Controllers
             {
                 TransactionNumber = sb.ToString(),
                 CreationDate = DateTime.Now,
-                BanksCardFrom = _banksCardRepository.GetCard(viewModel.CardFromId.ToString()),
-                BanksCardTo = _banksCardRepository.GetCard(viewModel.CardToId.ToString()),
+                BanksCardFrom = _banksCardRepository.GetCardById(viewModel.CardFromId),
+                BanksCardTo = _banksCardRepository.GetCardById(viewModel.CardToId),
                 TransferAmount = viewModel.TransferAmount
             };
             _transactionBankRepository.Save(transaction);
