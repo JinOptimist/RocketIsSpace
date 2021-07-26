@@ -30,9 +30,7 @@ $(document).ready(function () {
             activeAccount.index++;
         }
 
-        SetPosition(activeAccount, time);
-
-        SetActiveAccount(activeAccount);
+        AnimateAndSetAccount(activeAccount);
     });
 
     $('.prev-btn').click(function () {
@@ -46,9 +44,8 @@ $(document).ready(function () {
             activeAccount.index--;
         }
 
-        SetPosition(activeAccount, time);
+        AnimateAndSetAccount(activeAccount);
 
-        SetActiveAccount(activeAccount);
     });
 
     $('.bank-account-list .account-link').click(function (evt) {
@@ -58,22 +55,21 @@ $(document).ready(function () {
             return;
         }
 
-        SetPosition(activeAccount, time);
-
-        SetActiveAccount(activeAccount);
+        AnimateAndSetAccount(activeAccount);
 
         evt.preventDefault();
     })
 });
 
-function GetActiveAccount() {
+function AnimateAndSetAccount(activeAccount) {
 
-    var obj = {
-        index : $('.active-account.index').val() - 0,
-        id : $('.active-account.id').val() - 0
-    }
+    var newActiveAccount = GetActiveAccountByIndex(activeAccount.index);
 
-    return obj;
+    SetPosition(newActiveAccount, time);
+
+    SetActiveAccount(newActiveAccount);
+
+    FrozenAccountCheck();
 }
 
 function GetTotalAccounts() {
@@ -89,14 +85,6 @@ function SetPosition(activeAccount, time) {
     ScrollLeftMenu(activeAccount, time);
 
     isAnimationActive = false;
-}
-
-function SetActiveAccount(activeAccount) {
-
-    $('.active-account.index').val(activeAccount.index);
-    $('.active-account.id').val(activeAccount.id);
-
-    $('.account-to-remove').val(activeAccount.id);
 }
 
 function ScrollLeftMenu(activeAccount, time) {
@@ -170,10 +158,10 @@ function ScrollLeftMenu(activeAccount, time) {
                 duration: time/2,
                 step: function (progress) {
                     var s = 1 / 100 * progress;
-                    $('.menu.left .bank-account.bordered')
+                    $('.menu.left .bank-account.bordered .account-info')
                         .css('border', `8px rgba(255, 255, 255, ${1 - s}) double`);
                         
-                    $(`.menu.left .bank-account.${activeAccount.index}`).css('border', `8px rgba(255, 255, 255, ${s}) double`);
+                    $(`.menu.left .bank-account.${activeAccount.index} .account-info`).css('border', `8px rgba(255, 255, 255, ${s}) double`);
                 },
                 queue: false,
                 easing: easingType,
@@ -184,10 +172,6 @@ function ScrollLeftMenu(activeAccount, time) {
                 }
             }
         );
-
-        //$('.menu.left .bank-account').css('background-color', 'rgba(0, 185, 229, 0.5)');
-
-        //$(`.bank-account.${index}`).css('background-color', 'rgba(0, 185, 229)');
     }
 }
 

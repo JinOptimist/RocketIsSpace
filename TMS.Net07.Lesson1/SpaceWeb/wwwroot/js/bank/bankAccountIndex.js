@@ -6,7 +6,7 @@ $(document).ready(function () {
 
     $('.content-box .button-list .button.show-menu').click(function () {
 
-        var operation = $(this).attr('class').replace('button ', '').replace(' show-menu', '');
+        var operation = $(this).attr('class').replace('button ', '').replace(' show-menu', '').replace(' noselect', '');
 
         console.log(operation);
 
@@ -23,7 +23,6 @@ $(document).ready(function () {
         $('.button-list').toggleClass('hide');
         $('.container .form input[type = text], input[type = password]').val('');
     })
-
 
     $('.container .form .buttons .make').click(function (env) {
 
@@ -43,11 +42,9 @@ $(document).ready(function () {
             $.get(url).done(function (answer) {
                 if (!answer) {
                     AnimateWrongInput(passwordInput);
-                    //return false;
                 }
                 else {
                     window.location = answer;
-                    //return true;
                 }
             })
 
@@ -97,6 +94,43 @@ $(document).ready(function () {
         }
     })
 
+    $('.content-box .button-list .button.freeze').click(function () {
+        var activeAccount = GetActiveAccount();
+
+        var url = `/Account/FreezeAccount?id=${activeAccount.id}`;
+
+        var complexAccounts = $(`.account-info-container.${activeAccount.index}, .bank-account.${activeAccount.index}`);
+
+        $.get(url).done(function (answer) {
+            if (answer) {
+                if (activeAccount.isFrozen == "false") {
+                    $(this).find('.text').toggleClass('hide');
+
+                    $(complexAccounts).toggleClass('frozen');
+
+                    activeAccount.isFrozen = "true";
+
+                    ChangeFrozenStatus(activeAccount);
+
+                    SetActiveAccount(activeAccount);
+                }
+                else {
+                    $(this).find('.text').toggleClass('hide');
+
+                    $(complexAccounts).toggleClass('frozen');
+
+                    activeAccount.isFrozen = "false";
+
+                    ChangeFrozenStatus(activeAccount);
+
+                    SetActiveAccount(activeAccount);
+                }
+            }
+            else {
+                console.log("somwthing went wrong");
+            }
+        })
+    })
 
     $('.container .form input.amount').keydown(function (e) {
 
@@ -246,16 +280,6 @@ $(document).ready(function () {
                 queue: true
             }
         )
-    }
-
-    function GetActiveAccount() {
-
-        var obj = {
-            index: $('.button-list .active-account.index').val() - 0,
-            id: $('.button-list .active-account.id').val() - 0
-        }
-
-        return obj;
     }
 
     function UpdateAmount(activeAccount, amount) {

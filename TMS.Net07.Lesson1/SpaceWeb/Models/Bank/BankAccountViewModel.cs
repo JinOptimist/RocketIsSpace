@@ -22,5 +22,6 @@ namespace SpaceWeb.Models
         public BankAccountType BankAccountType { get; set; }
         public string AmountString { get; set; }
         public List<BankAccountViewModel> UserAccounts { get; set; }
+        public bool IsFrozen { get; set; }
     }
 }
