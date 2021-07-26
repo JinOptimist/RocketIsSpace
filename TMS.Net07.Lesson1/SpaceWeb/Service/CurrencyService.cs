@@ -85,7 +85,6 @@ namespace SpaceWeb.Service
                 .Select(x => x.Card)
                 .ToList();
 
-            
             return !allCardTypes.Any(x=>x == Card);
         }
         public string IntToStringAmount(int amount)

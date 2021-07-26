@@ -186,7 +186,7 @@ namespace SpaceWeb.Controllers
         public IActionResult AddCard(BanksCardViewModel viewModel)
         {
             
-            if (!_currencyService.IsCardAvailability(viewModel.Card))
+            if (_currencyService.IsCardAvailability(viewModel.Card))
             {
                 var user = _userService.GetCurrent();
                 var bankCardNew = new BanksCard();
@@ -283,7 +283,8 @@ namespace SpaceWeb.Controllers
                 TransactionNumber = sb.ToString(),
                 CreationDate = DateTime.Now,
                 BanksCardFrom = _banksCardRepository.GetCard(viewModel.CardFromId.ToString()),
-                BanksCardTo = _banksCardRepository.GetCard(viewModel.CardToId.ToString())
+                BanksCardTo = _banksCardRepository.GetCard(viewModel.CardToId.ToString()),
+                TransferAmount = viewModel.TransferAmount
             };
             _transactionBankRepository.Save(transaction);
 
