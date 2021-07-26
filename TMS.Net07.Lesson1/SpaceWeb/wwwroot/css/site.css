@@ -44,6 +44,10 @@
     margin: 15px;
 }
 
+.addition-class-slider {
+    margin: 30px;
+}
+
 .department {
     margin: 15px;
     border-radius: 20px 120px;
@@ -496,12 +500,12 @@ a {
     .animate-block .buttons {
         position: absolute;
         width: 500px;
-        height: 270px;
+        height: 290px;
         display: flex;
     }
 
     .animate-block .choose {
-        flex: 2;
+        flex: 5;
         cursor: pointer;
     }
 
