@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace SpaceWeb.Presentation
@@ -76,18 +77,16 @@ namespace SpaceWeb.Presentation
             {
                 return (JsonConvert.SerializeObject(false));
             }
-            else
+
+            _bankAccountRepository.Remove(id);
+            var newUrl = ("/Account/Creation");
+            var newId = user.BankAccounts?.FirstOrDefault()?.Id;
+            if (newId != null)
             {
-                _bankAccountRepository.Remove(id);
-                var newUrl = ("/Account/Creation");
-                var newId = user.BankAccounts?.FirstOrDefault()?.Id;
-                if (newId != null)
-                {
-                    newUrl = $"/Account/Index?id={newId}";
-                    return (JsonConvert.SerializeObject(newUrl));
-                }
+                newUrl = $"/Account/Index?id={newId}";
                 return (JsonConvert.SerializeObject(newUrl));
             }
+            return (JsonConvert.SerializeObject(newUrl));
         }
 
         public long GetCreatedAccountId(BankAccountViewModel viewModel)
@@ -141,6 +140,48 @@ namespace SpaceWeb.Presentation
                 .Id;
 
             return (long)id;
+        }
+
+        public bool AccountFreezeResult(long id)
+        {
+            var user = _userService.GetCurrent();
+
+            var account = user.BankAccounts?.SingleOrDefault(x => x.Id == id);
+
+            if (account == null)
+            {
+                return false;
+            }
+
+            account.IsFrozen = !account.IsFrozen;
+
+            _bankAccountRepository.Save(account);
+
+            return true;
+        }
+
+        public bool UpdateAmountResult(long id, decimal amount)
+        {
+            var myReg = new Regex(@"[\d]*[.,][\d]{1,2}|[\d]*"); //излишне?
+
+            var isMatch = myReg.IsMatch(amount.ToString());
+
+            if (!isMatch)
+            {
+                return false;
+            }
+
+            var account = _bankAccountRepository?.Get(id);
+
+            if(account == null || account.IsFrozen)
+            {
+                return false;
+            }
+
+            account.Amount += amount;
+            _bankAccountRepository.Save(account);
+
+            return true;
         }
     }
 }
