@@ -569,6 +569,7 @@ a {
     text-align: center;
     background: rgba(0,0,0,0.1);
 }
+
     .breadcrumb:hover {
         background: rgba(0,0,0,0.3);
     }
@@ -580,3 +581,13 @@ a {
 .maze-way {
     padding: 3px;
 }
+
+.breadcrumb-container-server {
+    display: flex;
+    justify-content: space-around;
+    background: rgba(0,250,0,0.3);
+}
+
+    .breadcrumb-container-server .breadcrumb:hover {
+        background: rgba(0,250,0,0.3);
+    }
