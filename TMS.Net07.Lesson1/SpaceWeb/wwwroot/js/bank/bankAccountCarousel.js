@@ -72,34 +72,9 @@ function AnimateAndSetAccount(activeAccount) {
     FrozenAccountCheck();
 }
 
-//function GetActiveAccount() {
-
-//    var obj = {
-//        index : $('.active-account.index').val() - 0,
-//        id: $('.active-account.id').val() - 0,
-//        isFrozen: $('.active-account.frozen-status').text()
-//    }
-
-//    return obj;
-//}
-
 function GetTotalAccounts() {
     return $('.total-accounts').text() - 0;
 }
-
-//function ActualizeActiveAccount(index) {
-//    var id = $(`.account-info-container.${index}`).find('.info.id').val() - 0;
-
-//    var isFrozen = $(`.account-info-container.${index}`).find('.info.frozen-status').text();
-
-//    var obj = {
-//        index: index,
-//        id: id,
-//        isFrozen: isFrozen
-//    }
-
-//    return obj;
-//}
 
 function SetPosition(activeAccount, time) {
 
@@ -111,15 +86,6 @@ function SetPosition(activeAccount, time) {
 
     isAnimationActive = false;
 }
-
-//function SetActiveAccount(activeAccount) {
-
-//    $('.active-account.index').val(activeAccount.index);
-//    $('.active-account.id').val(activeAccount.id);
-//    $('.active-account.frozen-status').val(activeAccount.isFrozen);
-
-//    $('.account-to-remove').val(activeAccount.id);
-//}
 
 function ScrollLeftMenu(activeAccount, time) {
 
@@ -206,10 +172,6 @@ function ScrollLeftMenu(activeAccount, time) {
                 }
             }
         );
-
-        //$('.menu.left .bank-account').css('background-color', 'rgba(0, 185, 229, 0.5)');
-
-        //$(`.bank-account.${index}`).css('background-color', 'rgba(0, 185, 229)');
     }
 }
 

@@ -282,17 +282,6 @@ $(document).ready(function () {
         )
     }
 
-    //function GetActiveAccount() {
-
-    //    var obj = {
-    //        index: $('.active-account.index').val() - 0,
-    //        id: $('.active-account.id').val() - 0,
-    //        isFrozen: $('.active-account.frozen-status').text()
-    //    }
-
-    //    return obj;
-    //}
-
     function UpdateAmount(activeAccount, amount) {
         var oldAmount = $(`.account-info-container.${activeAccount.index} .info .amount`)
             .text().replace(',', '.') - 0;
