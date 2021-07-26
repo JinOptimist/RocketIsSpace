@@ -1,4 +1,26 @@
 ﻿$(document).ready(function () {
+    $('.registration-but').click(function () {
+        $('.phone-number-reg-popup-cover').removeClass('hide');
+        $('.phone-number-reg').removeClass('hide');
+    });
+
+    $('.phone-number-reg-popup-cover').click(function () {
+        $('.phone-number-reg-popup-cover').addClass('hide');
+        $('.phone-number-reg').addClass('hide');
+    });
+
+    $('.reg-phone-input').keyup(function () {
+        if ($('.reg-phone-input').val().length >= 11) {
+            $('.btn-sending-phone').attr("disabled", false);
+        }
+        else {
+            $('.btn-sending-phone').attr("disabled", true);
+        }
+    })
+
+
+
+
     $('[name=Login]').change(function () {
         var name = $(this).val();
 
