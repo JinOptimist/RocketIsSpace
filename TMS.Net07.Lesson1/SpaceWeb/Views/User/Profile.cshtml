@@ -8,71 +8,83 @@
     Профиль
 }
 
-<div>
-    <h1>Профиль</h1>
+<div class="block-profile">
+    <h1 class="title-profile">Профиль пользователя <span class="title-profile-span">@Model.Name</span></h1>
     <div>
         <img class="avatar" src="@Model.AvatarUrl" />
     </div>
-    <div>
+    <div class="block-input-profile">
         <form action="/User/Profile" method="post" enctype="multipart/form-data">
-            <div>
-                Новый аватар
+            <div class="input-profile">
+                Новый аватар:
                 <input type="file" name="@nameof(ProfileUpdateViewModel.Avatar)" />
             </div>
-            <div>
-                email
+            <div class="input-profile">
+                E-mail:
                 <input name="@nameof(ProfileUpdateViewModel.Email)" value="@Model.Email" />
             </div>
-            <div>
-                <input type="submit" value="Обновить аватар" />
+            <div class="button-update-profile">
+                <input type="submit" value="Обновить аватар и/или e-mail" />
             </div>
         </form>
     </div>
-    <h2>Язык</h2>
-    <div>
-        @Html.DropDownList("CurrentLang", Model.LangOptions)
-    </div>
-    <h2>Основная валюта</h2>
-    <div class="currency-block">
-        @foreach (var currency in Model.MyCurrencies)
-        {
-            <label class="currency-option @(currency == Model.DefaultCurrency ? "active" : "")">
-                <input type="radio" name="currency"
-                       value="@((int)currency)"
-                       checked="@(currency == Model.DefaultCurrency ? "checked" : null)" />
-                <span class="text">
-                    @currency.ToString()
-                </span>
-            </label>
-        }
-    </div>
-
-
-    <h2>Мои счета</h2>
-    @foreach (var bankAccountView in Model.MyAccounts)
-    {
+    <div class="lang-switcher-profile">
+        <h2>Язык:</h2>
         <div>
-            @bankAccountView.Amount (@bankAccountView.AmountString) @bankAccountView.Currency
+            @Html.DropDownList("CurrentLang", Model.LangOptions, new { @class = "lang-switcher-profile-dropdown" })
         </div>
-    }
-
-    <h2>Сумма всех средств в основной валюте:</h2>
-    <div class="all-money-block">
-        <div class="money-count">
-            @Model.AmountAllMoneyInDefaultCurrency (@Model.AmountString)
-        </div>
-        <div class="default-currency">
-            @if (Model.DefaultCurrency != 0)
-            {@Model.DefaultCurrency }
-            else
+    </div>
+    <div class="block-currency-profile">
+        <h2>Основная валюта:</h2>
+        <div class="currency-block">
+            @foreach (var currency in Model.MyCurrencies)
             {
-                if (Model.RandomCurrency != 0)
-                { @Model.RandomCurrency}
+                <label class="currency-option @(currency == Model.DefaultCurrency ? "active" : "")">
+                    <input type="radio" name="currency"
+                           value="@((int)currency)"
+                           checked="@(currency == Model.DefaultCurrency ? "checked" : null)" />
+                    <span class="text">
+                        @currency.ToString()
+                    </span>
+                </label>
             }
         </div>
     </div>
 
-    <a href="/User/ChangePassword?id=1">Обновить password</a>
+    <div class="bank-accounts-profile">
+        <h2 class="title-bank-accounts-profile">Мои счета:</h2>
+        @foreach (var bankAccountView in Model.MyAccounts)
+        {
+            <div>
+                @bankAccountView.Amount (@bankAccountView.AmountString) @bankAccountView.Currency
+            </div>
+        }
+
+        <h2 class="title-allamount-profile">Сумма всех средств в основной валюте:</h2>
+        <div class="all-money-block">
+            <div class="money-count">
+                @Model.AmountAllMoneyInDefaultCurrency (@Model.AmountString)
+            </div>
+            <div class="default-currency">
+                @if (Model.DefaultCurrency != 0)
+                {@Model.DefaultCurrency }
+            else
+            {
+                if (Model.RandomCurrency != 0)
+                { @Model.RandomCurrency}
+        }
+            </div>
+        </div>
+    </div>
+
+    <div class="block-update-pswd-profile">
+        <a href="/User/ChangePassword?id=1">
+            <div class="btn-update-pswd">
+                Обновить password
+            </div>
+        </a>
+    </div>
+    
 
     <div id="avatar-carousel"></div>
 </div>
