@@ -744,3 +744,83 @@ a {
     background-color: beige;
     border-radius: 10px;
 }
+
+.confirmation-reg-popup-cover {
+    height: 100vh;
+    width: 100%;
+    background: black;
+    opacity: 0.8;
+    position: absolute;
+    z-index: 30;
+    position: fixed;
+}
+
+.confirmation-reg {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    z-index: 40;
+    height: 200px;
+    width: 440px;
+    background-color: beige;
+    border-radius: 10px;
+}
+
+.registration-btn {
+    color: gray;
+    background-color: lightgray;
+    width: 400px;
+    margin-top: 25px;
+    font-size: 13pt;
+    border-radius: 10px;
+}
+
+.spinner-reg {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.spinner-reg-text {
+    margin-left: 5px;
+}
+
+.confirmation-reg-text {
+    margin: 20px 0;
+    font-size: 16pt;
+    font-weight: 700;
+}
+
+.inputs-for-code-reg {
+    margin: 10px 0 20px 0;
+}
+
+.code-from-sms-reg {
+    height: 40px;
+    width: 40px;
+    text-align: center;
+    font-size: 25pt;
+    margin: 0 10px;
+    border-radius: 5px;
+    border: groove;
+}
+
+.confirmation-code-btn {
+    margin-top: 5px;
+    font-size: 16pt;
+    border-radius: 5px;
+}
+
+.confirmation-code-btn-open {
+    background-color: limegreen;
+    box-shadow: 0 0 5px;
+    padding: 5px;
+    width: 300px;
+}
+
+    .confirmation-code-btn-open:hover {
+        box-shadow: 0 0 15px green;
+        border: 2px solid;
+        transition: 100ms;
+    }

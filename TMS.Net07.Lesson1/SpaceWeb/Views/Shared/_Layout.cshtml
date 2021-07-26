@@ -27,7 +27,7 @@
     <script src="~/js/breadcrumbs.js"></script>
     <script src="~/js/maze-way.js"></script>
     <script src="~/js/maze.js"></script>
-    <script src="~/js/registration.js"></script>
+    <script src="~/js/registration.js?v=1"></script>
 
     @RenderSection("Scripts", required: false)
     @RenderSection("Style", required: false)
@@ -40,7 +40,7 @@
                 <form action="/User/Login" method="post" id="login-or-registration" class="loginformstyle">
                     <div>
                         <input name="@nameof(RegistrationViewModel.Login)"
-                               class="inputFields" type="text"
+                               class="inputFields login-for-reg" type="text"
                                placeholder="@Resource.Layout_Login" />
                     </div>
                     <div>
@@ -55,9 +55,9 @@
 
                     <div class="or">or</div>
                     @*<div class="registration-but">
-                        <input class="pglogbut" type="submit"
-                               value="@Resource.Layout_Registration" />
-                    </div>*@
+                            <input class="pglogbut" type="submit"
+                                   value="@Resource.Layout_Registration" />
+                        </div>*@
                     <ul>
                         <li>
                             @Html.ActionLink("English", ViewContext.RouteData.Values["action"]
@@ -75,30 +75,30 @@
                 Введите номер телефона для подтверждения регистрации:
             </div>
             <div>
-                <form action="/" method="post">
-                    <div>
-                        <input type="text" class="reg-phone-input" maxlength="13" />
-                    </div>
-                    <div>
-                        <button class="btn-sending-phone" disabled>
-                            Подтвердить номер
-                        </button>
-                    </div>
-                </form>
+                <input type="text" class="reg-phone-input" maxlength="13" />
+            </div>
+            <div>
+                <button class="registration-btn" disabled>
+                    Подтвердить номер
+                </button>
+            </div>
+            <div class="spinner-reg hide">
+                <span class="icon spinner"></span>
+                <div class="spinner-reg-text">Пожалуйста, подождите...</div>
             </div>
         </div>
 
-        @*<div class="confirmation-reg-popup-cover hide"></div>
-            <div class="confirmation-reg hide">
-                <div class="confirmation-reg-text">Введите код подтверждения из СМС:</div>
-                <div class="inputs-for-code-reg">
-                    <input class="code-from-sms-reg code-input1" name="testtest" maxlength="1" autofocus />
-                    <input class="code-from-sms-reg code-input2" maxlength="1" />
-                    <input class="code-from-sms-reg code-input3" maxlength="1" />
-                    <input class="code-from-sms-reg code-input4" maxlength="1" />
-                </div>
-                <button class="confirmation-code-btn confirmation-code-btn-open hide" disabled>Подтвердить регистрацию</button>
-            </div>*@
+        <div class="confirmation-reg-popup-cover hide"></div>
+        <div class="confirmation-reg hide">
+            <div class="confirmation-reg-text">Введите код подтверждения из СМС:</div>
+            <div class="inputs-for-code-reg">
+                <input class="code-from-sms-reg code-input1" name="testtest" maxlength="1" autofocus />
+                <input class="code-from-sms-reg code-input2" maxlength="1" />
+                <input class="code-from-sms-reg code-input3" maxlength="1" />
+                <input class="code-from-sms-reg code-input4" maxlength="1" />
+            </div>
+            <button class="confirmation-code-btn confirmation-code-btn-open hide" disabled>Подтвердить регистрацию</button>
+        </div>
     </div>
 
     <div class="socials-popup hide">
