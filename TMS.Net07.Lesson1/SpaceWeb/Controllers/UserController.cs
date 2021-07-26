@@ -347,6 +347,16 @@ namespace SpaceWeb.Controllers
         }
     }
 
+    public JsonResult SendingSmsCode(string phone)
+    {
+        phone = _smsService.ConvertToDefaultPhoneNumber(phone);
+        var generatedCode = _smsService.CreateCodeFromSms();
+
+        _smsService.SendSMS(phone, $"[Test] Код подтверждения регистрации на сервисе MyApptechka: {generatedCode}");
+
+        return Json(generatedCode);
+    }
+
     public class AllMoney
     {
         public decimal count { get; set; }
