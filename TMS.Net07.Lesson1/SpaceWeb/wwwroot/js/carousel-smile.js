@@ -13,7 +13,7 @@
     var prevImgIndex = 0;
 
     var animationFunctions = [];
-
+    
     function checkAnimation() {
         if (isAnimationActive) {
             return;
@@ -158,6 +158,9 @@
         images = _images;
         selector = _selector;
         dotselector = _dotselector;
+        if (!_options) {
+            _options = {};
+        }
         if (_options.width) {
             width = _options.width;
         }

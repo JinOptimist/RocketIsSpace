@@ -14,11 +14,13 @@
     for (var i = 0; i < cookieCount; i++) {
         var json = readCookie('cookie' + i);
         var cookieObj = JSON.parse(json);
-        var link = $('<a>');
-        link.attr('href', cookieObj.href);
-        link.addClass('breadcrumb');
-        link.text(cookieObj.title);
-        $(".breadcrumb-container").append(link);
+        if (cookieObj) {
+            var link = $('<a>');
+            link.attr('href', cookieObj.href);
+            link.addClass('breadcrumb');
+            link.text(cookieObj.title);
+            $(".breadcrumb-container").append(link);
+        }
     }
 });
 
