@@ -238,48 +238,16 @@ namespace SpaceWeb.Controllers
         public IActionResult UpdateAmount(long id, decimal amount)
         {
 
-            var myReg = new Regex(@"[\d]*[.,][\d]{1,2}|[\d]*"); //излишне?
+            var result = _accountPresentation.UpdateAmountResult(id, amount);
 
-            var isMatch = myReg.IsMatch(amount.ToString());
-
-            if (!isMatch)
-            {
-                return Json(false);
-            }
-
-            var account = _bankAccountRepository?.Get(id);
-
-            if (account != null && !account.IsFrozen)
-            {
-                account.Amount += amount;
-                _bankAccountRepository.Save(account);
-                return Json(true);
-            }
-
-            return Json(false);
+            return Json(result);
         }
 
         public IActionResult FreezeAccount(long id)
         {
-            var user = _userService.GetCurrent();
+            var result = _accountPresentation.AccountFreezeResult(id);
 
-            var account = user.BankAccounts?.SingleOrDefault(x => x.Id == id);
-
-            if (account!= null && !account.IsFrozen)
-            {
-                account.IsFrozen = true;
-                _bankAccountRepository.Save(account);
-                return Json(true);
-            }
-            else if (account != null && account.IsFrozen)
-            {
-                account.IsFrozen = false;
-                _bankAccountRepository.Save(account);
-                return Json(true);
-            }
-
-            return Json(false);
+            return Json(result);
         }
-
     }
 }

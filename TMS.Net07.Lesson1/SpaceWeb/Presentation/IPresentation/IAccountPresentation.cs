@@ -9,5 +9,7 @@ namespace SpaceWeb.Presentation
         string GetJsonForRemove(long id, string password);
         BankAccountViewModel GetViewModelForIndex(long id);
         public long GetCreatedAccountId(BankAccountViewModel viewModel);
+        public bool AccountFreezeResult(long id);
+        public bool UpdateAmountResult(long id, decimal amount);
     }
 }
