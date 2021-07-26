@@ -23,15 +23,15 @@ namespace ReflectionLessone
     
     class Program
     {
-        
-        static void Main(string[] args)
-        {
-            
-        }
-
         delegate void Message();
 
         event Message Notify;
+
+        
+
+        //private delegate void Message();
+
+        //private event Message Notify;
 
         public static void MessageEmail()
         {
@@ -76,7 +76,8 @@ namespace ReflectionLessone
             }
         }
 
-        public static void ExampleLinq()
+
+        public static void Main()
         {
             var myNumbers = GetNumbers();
             var numbers = myNumbers
@@ -152,7 +153,7 @@ namespace ReflectionLessone
 
             dictionary.Add(new Human(203));
 
-            var age = Fun();
+            var age =  Fun();
         }
 
         public static Task<int> Fun()

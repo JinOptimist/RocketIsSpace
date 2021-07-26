@@ -12,6 +12,7 @@ namespace MazeCore.Cells
         public Gold(int x, int y, MazeLevel mazeLevel, int goldCount)
             : base(x, y, mazeLevel)
         {
+            GoldCount = goldCount;
         }
 
         public Gold() : this(10, 10, null, 50)

@@ -146,23 +146,29 @@ namespace SpaceWeb.Migrations
                     b.Property<int>("Card")
                         .HasColumnType("int");
 
+                    b.Property<string>("CardUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("Currency")
                         .HasColumnType("int");
 
+                    b.Property<long?>("OwnerId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("PinCard")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<long?>("UserId")
-                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
                     b.HasIndex("BankAccountId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("OwnerId");
 
                     b.ToTable("BanksCard");
                 });
@@ -774,11 +780,13 @@ namespace SpaceWeb.Migrations
                         .WithMany("BanksCards")
                         .HasForeignKey("BankAccountId");
 
-                    b.HasOne("SpaceWeb.EfStuff.Model.User", null)
+                    b.HasOne("SpaceWeb.EfStuff.Model.User", "Owner")
                         .WithMany("BanksCards")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("OwnerId");
 
                     b.Navigation("BankAccount");
+
+                    b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.Client", b =>
@@ -936,6 +944,13 @@ namespace SpaceWeb.Migrations
                     b.Navigation("BanksCards");
 
                     b.Navigation("Payments");
+                });
+
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.BanksCard", b =>
+                {
+                    b.Navigation("TransactionsFrom");
+
+                    b.Navigation("TransactionsTo");
                 });
 
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.BanksCard", b =>

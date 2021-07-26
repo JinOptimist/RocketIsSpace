@@ -21,5 +21,6 @@ namespace SpaceWeb.Models
         public int AccountIndex { get; set; }
         public BankAccountType BankAccountType { get; set; }
         public string AmountString { get; set; }
+        public List<BankAccountViewModel> UserAccounts { get; set; }
     }
 }

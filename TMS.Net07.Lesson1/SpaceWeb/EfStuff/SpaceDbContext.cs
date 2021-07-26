@@ -68,11 +68,13 @@ namespace SpaceWeb.EfStuff
                 .WithOne(x => x.Owner)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.BanksCards)
+                .WithOne(x => x.Owner);
+
             modelBuilder.Entity<BankAccount>()
                 .HasMany(x => x.BanksCards)
                 .WithOne(x => x.BankAccount);
-
-            
 
             modelBuilder.Entity<User>()
                 .HasOne(x => x.Questionaries)
@@ -139,6 +141,13 @@ namespace SpaceWeb.EfStuff
             modelBuilder.Entity<Payment>()
                 .HasOne(x => x.BankAccount)
                 .WithMany(x => x.Payments);
+            modelBuilder.Entity<Transaction>()
+                .HasOne(transaction => transaction.ReceiverAccount)
+                .WithMany(a => a.IncomingTransactions);
+
+            modelBuilder.Entity<Transaction>()
+                .HasOne(transaction => transaction.SenderAccount)
+                .WithMany(account => account.OutcomingTransactions);
 
             base.OnModelCreating(modelBuilder);
         }
