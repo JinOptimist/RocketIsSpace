@@ -188,6 +188,9 @@ namespace SpaceWeb.Controllers
             
             if (!_currencyService.IsCardAvailability(viewModel.Card))
             {
+                var user = _userService.GetCurrent();
+                var bankCardNew = new BanksCard();
+                StringBuilder sb = new StringBuilder();
                 switch (viewModel.Card)
                 {
                     case EnumBankCard.PayCard:

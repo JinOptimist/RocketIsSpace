@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using SpaceWeb.Migrations;
 using AdvImage = SpaceWeb.EfStuff.Model.AdvImage;
-
+using System.Transactions;
 
 namespace SpaceWeb.EfStuff
 {
@@ -134,13 +134,13 @@ namespace SpaceWeb.EfStuff
             modelBuilder.Entity<Payment>()
                 .HasOne(x => x.BankAccount)
                 .WithMany(x => x.Payments);
-            modelBuilder.Entity<Transaction>()
+          /*  modelBuilder.Entity<Transaction>()
                 .HasOne(transaction => transaction.ReceiverAccount)
                 .WithMany(a => a.IncomingTransactions);
 
             modelBuilder.Entity<Transaction>()
                 .HasOne(transaction => transaction.SenderAccount)
-                .WithMany(account => account.OutcomingTransactions);
+                .WithMany(account => account.OutcomingTransactions);*/
 
             base.OnModelCreating(modelBuilder);
         }
