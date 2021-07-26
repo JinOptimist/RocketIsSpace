@@ -1,5 +1,7 @@
 $(document).ready(function () {
 
+    FreezedAccountCheck();
+
     $('.button-login, .login-button-for-start-page').click(function () {
         $('.bank-popup').removeClass('hide');
     });
@@ -16,4 +18,11 @@ $(document).ready(function () {
     $('.popup .cover').click(function () {
         $(this).parent().addClass('hide');
     });
+
+    function FreezedAccountCheck() {
+        var myReg = /\d/;
+        if ($('.frozen-status').text() == "true") {
+            $(this).siblings(`.freeze-indication`).toggleClass('hide');
+        }
+    }
 });

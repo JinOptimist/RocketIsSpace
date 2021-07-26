@@ -23,5 +23,6 @@ namespace SpaceWeb.EfStuff.Model
         public BankAccountType BankAccountType { get; set; }
         public virtual List<Transaction> IncomingTransactions { get; set; }
         public virtual List<Transaction> OutcomingTransactions { get; set; }
+        public bool IsFrozen { get; set; }
     }
 }

@@ -1,11 +1,14 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
+using Newtonsoft.Json;
+using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Models;
 using SpaceWeb.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace SpaceWeb.Presentation
@@ -63,6 +66,81 @@ namespace SpaceWeb.Presentation
                 }).ToList() ?? new List<BankAccountViewModel>();
 
             return allAccountsViewModels;
+        }
+
+        public string GetJsonForRemove(long id, string password)
+        {
+            var user = _userService.GetCurrent();
+
+            if (user.Password != password)
+            {
+                return (JsonConvert.SerializeObject(false));
+            }
+            else
+            {
+                _bankAccountRepository.Remove(id);
+                var newUrl = ("/Account/Creation");
+                var newId = user.BankAccounts?.FirstOrDefault()?.Id;
+                if (newId != null)
+                {
+                    newUrl = $"/Account/Index?id={newId}";
+                    return (JsonConvert.SerializeObject(newUrl));
+                }
+                return (JsonConvert.SerializeObject(newUrl));
+            }
+        }
+
+        public long GetCreatedAccountId(BankAccountViewModel viewModel)
+        {
+            int accountLifeTime;
+
+            var type = viewModel.Amount.GetType();
+
+            if (viewModel.Currency == Currency.BYN) //заменить двойной if
+            {
+                if (viewModel.Name == null)
+                {
+                    viewModel.Name = "Счет";
+                }
+                accountLifeTime = 5;
+            }
+            else
+            {
+                if (viewModel.Name == null)
+                {
+                    viewModel.Name = "Валютный счет";
+                }
+                accountLifeTime = 3;
+            }
+
+            StringBuilder sb = new StringBuilder();
+
+            Random rnd = new Random();
+
+            for (int i = 0; i < 10; i++)
+            {
+                sb.Append(rnd.Next(0, 9));
+            }
+            viewModel.AccountNumber = sb.ToString();
+
+            viewModel.CreationDate = DateTime.Now;
+
+            viewModel.ExpireDate = viewModel.CreationDate.AddYears(accountLifeTime);
+
+            var modelDB =
+                _mapper.Map<BankAccount>(viewModel);
+
+            var user = _userService.GetCurrent();
+
+            modelDB.Owner = user;
+
+            _bankAccountRepository.Save(modelDB);
+
+            var id = user.BankAccounts?.
+                SingleOrDefault(x => x.AccountNumber == viewModel.AccountNumber)
+                .Id;
+
+            return (long)id;
         }
     }
 }

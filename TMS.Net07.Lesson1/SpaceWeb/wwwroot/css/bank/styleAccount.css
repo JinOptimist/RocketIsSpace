@@ -152,7 +152,7 @@ select:focus {  /*универсально*/
     position: absolute;
 }
 
-.menu.left .bank-account.bordered {
+.menu.left .bank-account.bordered .account-info {
     background-color: rgb(0, 185, 229);
     box-shadow: 3px 3px 6px 0px rgb(150, 150, 150);
 }
@@ -188,7 +188,7 @@ select:focus {  /*универсально*/
     margin: 5px;
 }
 
-.menu.left .bank-account {
+.menu.left .bank-account .account-info {
     height: 80px;
     min-width: 150px;
     margin: 10px;
@@ -203,10 +203,10 @@ select:focus {  /*универсально*/
     transition: 300ms;
 }
 
-    .menu.left .bank-account:hover {
-        background-color: rgb(0, 185, 229);
-        cursor: pointer;
-    }
+.menu.left .bank-account:hover .account-info {
+    background-color: rgb(0, 185, 229);
+    cursor: pointer;
+}
 
 .menu.left .bank-account-list {
     flex-direction: column;
@@ -353,4 +353,60 @@ select:focus {  /*универсально*/
 .account-container .changer-buttons .prev-btn.button {
     height: 220px;
     width: 80px;
+    z-index: 10;
+}
+
+.account-info-container .snowflake-cover {
+    width: 0px;
+    height: 150px;
+    display: none;
+    position: relative;
+    left: 100px;
+    z-index: 0;
+    transition: 300ms;
+}
+
+.account-info-container.frozen .snowflake-cover {
+    width: 0px;
+    height: 150px;
+    display: block;
+    position: relative;
+    left: 100px;
+    z-index: 0;
+    transition: 300ms;
+}
+.snowflake-cover .freeze-image {
+    max-width: 150px;
+    max-height: 150px;
+    opacity: 0;
+    transition: 300ms;
+}
+
+.account-info-container.frozen .snowflake-cover .freeze-image {
+    max-width: 150px;
+    max-height: 150px;
+    opacity:1;
+    transition: 300ms;
+}
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+.changer-buttons .button .icon {
+    max-height: 40px;
+    max-width: 40px;
+    opacity: 0.75;
+    transition: 150ms;
+}
+
+.changer-buttons .button:hover .icon {
+    opacity: 1;
+    transition: 150ms;
 }
