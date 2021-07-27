@@ -20,6 +20,5 @@ namespace SpaceWeb.EfStuff.Model
         public DateTime CreationDate { get; set; }
         public virtual List<TransactionBank> TransactionsFrom { get; set; }
         public virtual List<TransactionBank> TransactionsTo { get; set; }
-
     }
 }

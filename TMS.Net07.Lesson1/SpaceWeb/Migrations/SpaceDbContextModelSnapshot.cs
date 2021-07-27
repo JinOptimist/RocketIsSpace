@@ -984,13 +984,6 @@ namespace SpaceWeb.Migrations
                     b.Navigation("Payments");
                 });
 
-            modelBuilder.Entity("SpaceWeb.EfStuff.Model.BanksCard", b =>
-                {
-                    b.Navigation("TransactionsFrom");
-
-                    b.Navigation("TransactionsTo");
-                });
-
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.Client", b =>
                 {
                     b.Navigation("Orders");

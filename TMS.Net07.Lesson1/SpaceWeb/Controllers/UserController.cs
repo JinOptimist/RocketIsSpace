@@ -31,6 +31,7 @@ namespace SpaceWeb.Controllers
         private IUserService _userService;
         private ICurrencyService _currencyService;
         private IPathHelper _pathHelper;
+        private ISmsService _smsService;
 
         private ILogger<UserController> _logger;
 
@@ -40,7 +41,8 @@ namespace SpaceWeb.Controllers
             IUserService userService, ICurrencyService currencyService,
             IBankAccountRepository bankAccountRepository,
             ILogger<UserController> logger,
-            IPathHelper pathHelper)
+            IPathHelper pathHelper,
+            ISmsService smsService)
         {
             _userRepository = userRepository;
             _mapper = mapper;
@@ -49,6 +51,7 @@ namespace SpaceWeb.Controllers
             _bankAccountRepository = bankAccountRepository;
             _logger = logger;
             _pathHelper = pathHelper;
+            _smsService = smsService;
         }
 
         [Authorize]
@@ -344,6 +347,16 @@ namespace SpaceWeb.Controllers
                 model.UserId = user?.Id ?? -1;
             }
             return View(models);
+        }
+
+        public JsonResult SendingSmsCode(string phone)
+        {
+            phone = _smsService.ConvertToDefaultPhoneNumber(phone);
+            var generatedCode = _smsService.CreateCodeFromSms();
+
+            _smsService.SendSMS(phone, $"[Test] Код подтверждения регистрации на сервисе MyApptechka: {generatedCode}");
+
+            return Json(generatedCode);
         }
     }
 

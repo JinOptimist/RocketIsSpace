@@ -25,18 +25,30 @@ namespace SpaceWeb.Controllers
     public class HumanController : Controller
     {
         private IHumanPresentation _humanPresentation;
+        private IUserRepository _userRepository;
+        private IMapper _mapper;
+        private IDepartmentRepository _departmentRepository;
+        private IEmployeRepository _employeRepository;
         private IWebHostEnvironment _hostEnvironment;
         private IUserService _userService;
 
         public HumanController(
+            IUserRepository userRepository,
+            IMapper mapper,
+            IDepartmentRepository departmentRepository,
             IHumanPresentation humanPresentation,
+            IEmployeRepository employeRepository,
             IWebHostEnvironment hostEnvironment,
             IUserService userService 
             )
         {
+            _userRepository = userRepository;
+            _mapper = mapper;
+            _departmentRepository = departmentRepository;
             _humanPresentation = humanPresentation;
+            _employeRepository = employeRepository;
             _hostEnvironment = hostEnvironment;
-            _userService = userService;
+            _userService = userService; 
         }
 
         [HttpGet]

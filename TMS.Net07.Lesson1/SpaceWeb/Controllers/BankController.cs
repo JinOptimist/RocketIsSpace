@@ -185,8 +185,7 @@ namespace SpaceWeb.Controllers
         [HttpPost]
         public IActionResult AddCard(BanksCardViewModel viewModel)
         {
-            
-            if (_currencyService.IsCardAvailability(viewModel.Card))
+            if (!_currencyService.IsCardAvailability(viewModel.Card))
             {
                 var user = _userService.GetCurrent();
                 var bankCardNew = new BanksCard();
@@ -270,12 +269,12 @@ namespace SpaceWeb.Controllers
             _banksCardRepository.Remove(id);
             return RedirectToAction("AddCard");
         }
-       
+
         public IActionResult AddTransaction(TransactionBankViewModel viewModel)
         {
             var fromCard =_banksCardRepository.GetCardById(viewModel.CardFromId);
             var toCard = _banksCardRepository.GetCardById(viewModel.CardToId);
-            _transactionService.Transfer(fromCard.BankAccount.Id, toCard.BankAccount.Id, viewModel.TransferAmount);
+            _transactionService.TransferFunds(fromCard.Id, toCard.Id, viewModel.TransferAmount);
 
             StringBuilder sb = new StringBuilder();
             var transaction = new TransactionBank()
@@ -288,6 +287,8 @@ namespace SpaceWeb.Controllers
             };
             _transactionBankRepository.Save(transaction);
 
+           // var transaction = _mapper.Map<TransactionBank>(viewModel);
+           // _transactionBankRepository.Save(transaction);
             return RedirectToAction("AddCard");
 
         }
