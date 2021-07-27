@@ -749,7 +749,7 @@ a {
     height: 100vh;
     width: 100%;
     background: black;
-    opacity: 0.8;
+    opacity: 0.1;
     position: absolute;
     z-index: 30;
     position: fixed;

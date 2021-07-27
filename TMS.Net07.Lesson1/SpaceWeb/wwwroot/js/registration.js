@@ -21,11 +21,11 @@
     $('.registration-btn').click(function () {
         $('.spinner-reg').removeClass('hide');
 
-        var login = $('.inputFields.login-for-reg').val();
+        //var login = $('.inputFields.login-for-reg').val();
         var phone = $('.reg-phone-input').val();
         var generatedCode = '';
 
-        var url = '/User/SendingSmsCode?login=' + login + '&phone=' + phone;
+        var url = '/User/SendingSmsCode?phone=' + phone;
         $.get(url).done(function (generatedCodeAnswer) {
             console.log(generatedCodeAnswer);
             generatedCode = generatedCodeAnswer;
@@ -74,7 +74,14 @@
         }
     })
 
+    $('.confirmation-code-btn').click(function () {
+        $('.reg-btn .pglogbut').trigger('click');
+    })
 
+    $('.confirmation-reg-popup-cover').click(function () {
+        $('.confirmation-reg-popup-cover').addClass('hide');
+        $('.confirmation-reg').addClass('hide');
+    })
 
     //$('[name=Login]').change(function () {
     //    var name = $(this).val();

@@ -84,14 +84,17 @@ namespace SpaceWeb
                     diContainer.GetService<IMapper>()));
 
             //services.AddMyScoped<IUserService, UserService>();
-           
+
             services.AddScoped<ITransactionService>(diContainer =>
                new TransactionService(
                    diContainer.GetService<IBanksCardRepository>(),
                    diContainer.GetService<IUserService>(),
                    diContainer.GetService<IBankAccountRepository>()
                ));
-         
+
+            services.AddScoped<ISmsService>(diContainer =>
+                  new SmsService()
+            );
 
             services.AddScoped<IUserService>(diContainer =>
                new UserService(
@@ -109,14 +112,14 @@ namespace SpaceWeb
                ));
 
 
-           services.AddScoped<ISalaryService>(diContainer =>
-                new SalaryService(
-                    diContainer.GetService<IAccrualRepository>(),
-                    diContainer.GetService<IPaymentRepository>(),
-                    diContainer.GetService<IBankAccountRepository>(),
-                    diContainer.GetService<IEmployeRepository>()
-               ));
-          
+            services.AddScoped<ISalaryService>(diContainer =>
+                 new SalaryService(
+                     diContainer.GetService<IAccrualRepository>(),
+                     diContainer.GetService<IPaymentRepository>(),
+                     diContainer.GetService<IBankAccountRepository>(),
+                     diContainer.GetService<IEmployeRepository>()
+                ));
+
             services.AddSingleton<MazeBuilder>(x => new MazeBuilder());
 
             services.AddSingleton<BreadCrumbsService>(x => new BreadCrumbsService());
@@ -167,7 +170,7 @@ namespace SpaceWeb
 
             services.AddScoped<TransactionBankRepository>(diContainer =>
                 new TransactionBankRepository(diContainer.GetService<SpaceDbContext>()));
-           
+
         }
 
         private void RegistrationPresentations(IServiceCollection services)
