@@ -14,12 +14,9 @@ namespace SpaceWeb.EfStuff.Model
         USD = 2,
         [Display(Name = "EUR")]
         EUR = 3,
+        [Display(Name = "PLN")]
         PLN = 4,
-        GBP = 5,
-        [Display(Name = "TUG")]
-        TUG = 6,
-        [Display(Name = "ZIM")]
-        ZIM = 7
-
+        [Display(Name = "GBP")]
+        GBP = 5
     }
 }
