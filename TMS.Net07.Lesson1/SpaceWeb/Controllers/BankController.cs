@@ -276,16 +276,16 @@ namespace SpaceWeb.Controllers
             var toCard = _banksCardRepository.GetCardById(viewModel.CardToId);
             _transactionService.Transfer(fromCard.BankAccount.Id, toCard.BankAccount.Id, viewModel.TransferAmount);
 
-            StringBuilder sb = new StringBuilder();
-            var transaction = new TransactionBank()
-            {
-                TransactionNumber = sb.ToString(),
-                CreationDate = DateTime.Now,
-                BanksCardFrom = _banksCardRepository.GetCardById(viewModel.CardFromId),
-                BanksCardTo = _banksCardRepository.GetCardById(viewModel.CardToId),
-                TransferAmount = viewModel.TransferAmount
-            };
-            _transactionBankRepository.Save(transaction);
+            //StringBuilder sb = new StringBuilder();
+            //var transaction = new TransactionBank()
+            //{
+            //    TransactionNumber = sb.ToString(),
+            //    CreationDate = DateTime.Now,
+            //    BanksCardFrom = _banksCardRepository.GetCardById(viewModel.CardFromId),
+            //    BanksCardTo = _banksCardRepository.GetCardById(viewModel.CardToId),
+            //    TransferAmount = viewModel.TransferAmount
+            //};
+            //_transactionBankRepository.Save(transaction);
 
            // var transaction = _mapper.Map<TransactionBank>(viewModel);
            // _transactionBankRepository.Save(transaction);
