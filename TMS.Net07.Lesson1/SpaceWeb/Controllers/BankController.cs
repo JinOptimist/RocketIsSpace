@@ -189,7 +189,11 @@ namespace SpaceWeb.Controllers
             {
                 var user = _userService.GetCurrent();
                 var bankCardNew = new BanksCard();
-                StringBuilder sb = new StringBuilder();
+
+                String startWith = "32";
+                Random generator = new Random();
+                String random = generator.Next(0, 999999).ToString("D6");
+                
                 switch (viewModel.Card)
                 {
                     case EnumBankCard.PayCard:
@@ -202,7 +206,7 @@ namespace SpaceWeb.Controllers
                                 Currency = Currency.BYN,
                                 Name = "Счет",
                                 Owner = user,
-                                AccountNumber = sb.ToString(),
+                                AccountNumber = startWith + random,
                                 CreationDate = DateTime.Now
                             },
                             Currency = Currency.BYN,
@@ -222,7 +226,7 @@ namespace SpaceWeb.Controllers
                                 Currency = Currency.USD,
                                 Name = "Валютный счет",
                                 Owner = user,
-                                AccountNumber = sb.ToString(),
+                                AccountNumber = startWith + random,
                                 CreationDate = DateTime.Now
                             },
                             Currency = Currency.USD,
@@ -240,7 +244,7 @@ namespace SpaceWeb.Controllers
                                 Currency = Currency.EUR,
                                 Name = "Валютный счет",
                                 Owner = user,
-                                AccountNumber = sb.ToString(),
+                                AccountNumber = startWith + random,
                                 CreationDate = DateTime.Now
                             },
                             Currency = Currency.EUR,
@@ -276,10 +280,13 @@ namespace SpaceWeb.Controllers
             var toCard = _banksCardRepository.GetCardById(viewModel.CardToId);
             _transactionService.Transfer(fromCard.BankAccount.Id, toCard.BankAccount.Id, viewModel.TransferAmount);
 
-            StringBuilder sb = new StringBuilder();
+            String startWith = "07";
+            Random generator = new Random();
+            String random = generator.Next(0, 999999).ToString("D6");
             var transaction = new TransactionBank()
             {
-                TransactionNumber = sb.ToString(),
+                TransactionNumber = startWith + random,
+                Currency = fromCard.Currency,
                 CreationDate = DateTime.Now,
                 BanksCardFrom = _banksCardRepository.GetCardById(viewModel.CardFromId),
                 BanksCardTo = _banksCardRepository.GetCardById(viewModel.CardToId),
