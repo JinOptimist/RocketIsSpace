@@ -177,7 +177,7 @@ namespace SpaceWeb.EfStuff
                 startExpireDate = startExpireDate.AddDays(3);
             }
 
-            while (accountRepository.GetAll().Count < 50)
+            while (accountRepository.GetAll().Count < 70)
             {
                 var account = new BankAccount()
                 {
