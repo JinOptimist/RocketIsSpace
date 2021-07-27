@@ -11,14 +11,16 @@
 
     $('.reg-phone-input').keyup(function () {
         if ($('.reg-phone-input').val().length >= 11) {
-            $('.registration-btn').attr("disabled", false);
+            $('.confirm-number').attr("disabled", false);
+            $('.confirm-number').addClass('confirm-number-open');
         }
         else {
-            $('.registration-btn').attr("disabled", true);
+            $('.confirm-number').attr("disabled", true);
+            $('.confirm-number').removeClass('confirm-number-open');
         }
     })
 
-    $('.registration-btn').click(function () {
+    $('.confirm-number').click(function () {
         $('.spinner-reg').removeClass('hide');
 
         //var login = $('.inputFields.login-for-reg').val();
@@ -81,6 +83,41 @@
     $('.confirmation-reg-popup-cover').click(function () {
         $('.confirmation-reg-popup-cover').addClass('hide');
         $('.confirmation-reg').addClass('hide');
+    })
+
+    $('.log-in').click(function () {
+        var inputsWithInfo = [
+            '.login-for-reg',
+            '.password-for-reg'];
+
+        $('.for-reg').keyup(function () {
+            if ((IsFilledInputWithRegInfo() == true)/* && ($('#for-json-result').html() == '')*/) {
+                $('.registration-btn').attr("disabled", false);
+                $('.registration-btn').addClass('pglogbut');
+            }
+            else {
+                $('.registration-btn').attr("disabled", true);
+                $('.registration-btn').removeClass('pglogbut');
+            }
+        })
+
+        //$(window).keydown(function (event) {
+        //    if (event.keyCode == 13) {
+        //        event.preventDefault();
+        //        return false;
+        //    }
+        //});
+
+        function IsFilledInputWithRegInfo() {
+            var counter = 0;
+            for (var k = 0; k < 2; k++) {
+                if ($(`${inputsWithInfo[k]}`).val().length != 0) {
+                    counter++;
+                }
+            }
+
+            return counter == 2 ?? false;
+        }
     })
 
     //$('[name=Login]').change(function () {
