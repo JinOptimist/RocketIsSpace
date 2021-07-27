@@ -194,7 +194,7 @@ namespace SpaceWeb.EfStuff
             }
         }
 
-            private static T GetRandomFromArray<T>(List<T> list)
+        private static T GetRandomFromArray<T>(List<T> list)
         {
             var index = _random.Next(0, list.Count());
             return list[index];
