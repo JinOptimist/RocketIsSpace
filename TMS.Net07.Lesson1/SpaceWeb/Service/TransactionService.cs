@@ -81,7 +81,7 @@ namespace SpaceWeb.Service
                 throw new ApplicationException("insufficient funds");
             }
 
-            if (fromAccount.Currency == transferCurrency && toAccount.Currency == transferCurrency)
+            if (fromAccount.Currency == toAccount.Currency)
             {
                 fromAccount.Amount -= transferAmount;
 
