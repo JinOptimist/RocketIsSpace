@@ -2,6 +2,7 @@
     $('.registration-but').click(function () {
         $('.phone-number-reg-popup-cover').removeClass('hide');
         $('.phone-number-reg').removeClass('hide');
+        $('.reg-phone-input').focus();
     });
 
     $('.phone-number-reg-popup-cover').click(function () {
@@ -86,6 +87,8 @@
     })
 
     $('.log-in').click(function () {
+        $('.login-for-reg').focus();
+
         var inputsWithInfo = [
             '.login-for-reg',
             '.password-for-reg'];

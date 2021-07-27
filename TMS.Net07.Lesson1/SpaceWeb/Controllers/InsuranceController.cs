@@ -62,7 +62,7 @@ namespace SpaceWeb.Controllers
             };
             _insuranceRepository.Save(newInsurance);
 
-            return View();
+            return RedirectToAction("Insurance");
     }
 }
 }

@@ -556,6 +556,7 @@ a {
 .all-money-block {
     display: flex;
     font-weight: bold;
+    justify-content: center;
 }
 
 .money-count {
@@ -685,6 +686,7 @@ a {
     justify-content: center;
     border-radius: 5px;
     font-size: 13pt;
+    margin-bottom: 50px;
 }
 
     .btn-update-pswd:hover {

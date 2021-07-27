@@ -28,18 +28,18 @@
     }
 }
 
-<body>
+<div class="add-insurance-container">
     <div class="client-before-content"></div>
 
-    <form action="/Insurance/AddInsurance" class="" method="POST">
+    <form action="/Insurance/AddInsurance" class="form-add-insurance" method="POST">
         <div>
-            @Html.DropDownList("insuranceNameType", insuranceTypeOptions)
+            Type: @Html.DropDownList("insuranceNameType", insuranceTypeOptions)
         </div>
         <div>
-            @Html.DropDownList("insurancePeriod", insurancePeriodOptions)
+            Period: @Html.DropDownList("insurancePeriod", insurancePeriodOptions)
         </div>
         <div>
-            <input type="submit" value="Че дальше">
+            <input type="submit" value="Добавить" class="btn-add-insurance">
         </div>
     </form>
-</body>
+</div>
