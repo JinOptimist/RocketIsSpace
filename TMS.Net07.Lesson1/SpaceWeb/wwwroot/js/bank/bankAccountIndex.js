@@ -78,9 +78,13 @@ $(document).ready(function () {
 
                 $.get(url).done(function (answer) {
                     if (!answer) {
-
                         console.log('something went wrong');
-
+                    }
+                    else if (answer == "wrong account") {
+                        AnimateWrongInput(amountTextForm.siblings('.to-account-number'));
+                    }
+                    else if (answer == "wrong amount") {
+                        AnimateWrongInput(amountTextForm);
                     }
                     else {
                         currentContainer.toggleClass('hide');

@@ -191,9 +191,13 @@ namespace SpaceWeb.Presentation
 
             var toAccount = _bankAccountRepository?.Get(toAccountNumber);
 
-            if (fromAccount == null || toAccount == null || transferAmount > fromAccount.Amount)
+            if (fromAccount == null || toAccount == null )
             {
-                return JsonConvert.SerializeObject(false);
+                return JsonConvert.SerializeObject("wrong account");
+            }
+            else if (transferAmount > fromAccount.Amount)
+            {
+                return JsonConvert.SerializeObject("wrong amount");
             }
 
             _transactionService.Transfer(fromAccount, toAccount, transferAmount);
