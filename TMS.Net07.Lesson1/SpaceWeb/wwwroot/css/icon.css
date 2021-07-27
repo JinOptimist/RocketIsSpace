@@ -11,6 +11,14 @@
         background-size: contain;
     }
 
+.spinner-reg .icon::before {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    content: '';
+    background-size: contain;
+}
+
 .footer-icon {
     padding: 15px;
     max-height: 20px;
