@@ -185,12 +185,15 @@ namespace SpaceWeb.Controllers
         [HttpPost]
         public IActionResult AddCard(BanksCardViewModel viewModel)
         {
-            
             if (_currencyService.IsCardAvailability(viewModel.Card))
             {
                 var user = _userService.GetCurrent();
                 var bankCardNew = new BanksCard();
-                StringBuilder sb = new StringBuilder();
+
+                String startWith = "32";
+                Random generator = new Random();
+                String random = generator.Next(0, 999999).ToString("D6");
+                
                 switch (viewModel.Card)
                 {
                     case EnumBankCard.PayCard:
@@ -203,7 +206,7 @@ namespace SpaceWeb.Controllers
                                 Currency = Currency.BYN,
                                 Name = "Счет",
                                 Owner = user,
-                                AccountNumber = sb.ToString(),
+                                AccountNumber = startWith + random,
                                 CreationDate = DateTime.Now
                             },
                             Currency = Currency.BYN,
@@ -221,9 +224,9 @@ namespace SpaceWeb.Controllers
                             {
                                 Amount = 1000,
                                 Currency = Currency.USD,
-                                Name = "Валютный счет",
+                                Name = "Валютный USD счет",
                                 Owner = user,
-                                AccountNumber = sb.ToString(),
+                                AccountNumber = startWith + random,
                                 CreationDate = DateTime.Now
                             },
                             Currency = Currency.USD,
@@ -239,9 +242,9 @@ namespace SpaceWeb.Controllers
                             {
                                 Amount = 0,
                                 Currency = Currency.EUR,
-                                Name = "Валютный счет",
+                                Name = "Валютный EUR счет",
                                 Owner = user,
-                                AccountNumber = sb.ToString(),
+                                AccountNumber = startWith + random,
                                 CreationDate = DateTime.Now
                             },
                             Currency = Currency.EUR,
@@ -270,17 +273,30 @@ namespace SpaceWeb.Controllers
             _banksCardRepository.Remove(id);
             return RedirectToAction("AddCard");
         }
-       
+
         public IActionResult AddTransaction(TransactionBankViewModel viewModel)
         {
             var fromCard =_banksCardRepository.GetCardById(viewModel.CardFromId);
             var toCard = _banksCardRepository.GetCardById(viewModel.CardToId);
             _transactionService.Transfer(fromCard.BankAccount.Id, toCard.BankAccount.Id, viewModel.TransferAmount);
 
-            StringBuilder sb = new StringBuilder();
+            //StringBuilder sb = new StringBuilder();
+            //var transaction = new TransactionBank()
+            //{
+            //    TransactionNumber = sb.ToString(),
+            //    CreationDate = DateTime.Now,
+            //    BanksCardFrom = _banksCardRepository.GetCardById(viewModel.CardFromId),
+            //    BanksCardTo = _banksCardRepository.GetCardById(viewModel.CardToId),
+            //    TransferAmount = viewModel.TransferAmount
+            //};
+            //_transactionBankRepository.Save(transaction);
+            String startWith = "07";
+            Random generator = new Random();
+            String random = generator.Next(0, 999999).ToString("D6");
             var transaction = new TransactionBank()
             {
-                TransactionNumber = sb.ToString(),
+                TransactionNumber = startWith + random,
+                Currency = fromCard.Currency,
                 CreationDate = DateTime.Now,
                 BanksCardFrom = _banksCardRepository.GetCardById(viewModel.CardFromId),
                 BanksCardTo = _banksCardRepository.GetCardById(viewModel.CardToId),
@@ -288,6 +304,8 @@ namespace SpaceWeb.Controllers
             };
             _transactionBankRepository.Save(transaction);
 
+           // var transaction = _mapper.Map<TransactionBank>(viewModel);
+           // _transactionBankRepository.Save(transaction);
             return RedirectToAction("AddCard");
 
         }

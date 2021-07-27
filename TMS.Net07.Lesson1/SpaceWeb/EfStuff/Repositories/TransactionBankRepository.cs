@@ -18,6 +18,7 @@ namespace SpaceWeb.EfStuff.Repositories
         {
            return _dbSet.SingleOrDefault(x => x.BanksCardFrom.BankAccount.Id == id);
         }
+        
         public TransactionBank GetAmountCardTo(long id)
         {
             return _dbSet.SingleOrDefault(x => x.BanksCardTo.BankAccount.Id == id);

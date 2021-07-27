@@ -100,6 +100,10 @@ namespace SpaceWeb
                    diContainer.GetService<ITransactionBankRepository>()
                ));
 
+            services.AddScoped<ISmsService>(diContainer =>
+                  new SmsService()
+            );
+
             services.AddScoped<IUserService>(diContainer =>
                new UserService(
                    diContainer.GetService<IUserRepository>(),
@@ -116,14 +120,14 @@ namespace SpaceWeb
                ));
 
 
-           services.AddScoped<ISalaryService>(diContainer =>
-                new SalaryService(
-                    diContainer.GetService<IAccrualRepository>(),
-                    diContainer.GetService<IPaymentRepository>(),
-                    diContainer.GetService<IBankAccountRepository>(),
-                    diContainer.GetService<IEmployeRepository>()
-               ));
-          
+            services.AddScoped<ISalaryService>(diContainer =>
+                 new SalaryService(
+                     diContainer.GetService<IAccrualRepository>(),
+                     diContainer.GetService<IPaymentRepository>(),
+                     diContainer.GetService<IBankAccountRepository>(),
+                     diContainer.GetService<IEmployeRepository>()
+                ));
+
             services.AddSingleton<MazeBuilder>(x => new MazeBuilder());
 
             services.AddSingleton<BreadCrumbsService>(x => new BreadCrumbsService());
@@ -174,7 +178,6 @@ namespace SpaceWeb
 
             services.AddScoped<TransactionBankRepository>(diContainer =>
                 new TransactionBankRepository(diContainer.GetService<SpaceDbContext>()));
-           
         }
 
         private void RegistrationPresentations(IServiceCollection services)

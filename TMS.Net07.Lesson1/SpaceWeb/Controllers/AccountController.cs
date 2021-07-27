@@ -33,11 +33,11 @@ namespace SpaceWeb.Controllers
         private ITransactionService _transactionService;
 
         public AccountController(IBankAccountRepository bankAccountRepository,
-            IMapper mapper, IUserService userService,
+            IMapper mapper, 
+            IUserService userService,
             IWebHostEnvironment hostEnvironment,
             IAccountPresentation accountPresentation,
             ITransactionService transactionService)
-
         {
             _bankAccountRepository = bankAccountRepository;
             _mapper = mapper;
