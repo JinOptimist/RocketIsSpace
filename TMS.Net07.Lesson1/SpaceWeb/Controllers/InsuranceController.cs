@@ -16,10 +16,10 @@ namespace SpaceWeb.Controllers
         private InsuranceTypeRepository _insuranceTypeRepository;
         private InsuranceRepository _insuranceRepository;
         private IMapper _mapper;
-        private UserService _userService;
+        private IUserService _userService;
 
         public InsuranceController(InsuranceTypeRepository insuranceTypeRepository, InsuranceRepository insuranceRepository,
-            IMapper mapper, UserService userService)
+            IMapper mapper, IUserService userService)
         {
             _insuranceTypeRepository = insuranceTypeRepository;
             _insuranceRepository = insuranceRepository;

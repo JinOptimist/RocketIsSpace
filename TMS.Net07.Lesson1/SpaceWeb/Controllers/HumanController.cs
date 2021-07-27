@@ -26,13 +26,17 @@ namespace SpaceWeb.Controllers
     {
         private IHumanPresentation _humanPresentation;
         private IWebHostEnvironment _hostEnvironment;
+        private IUserService _userService;
 
         public HumanController(
             IHumanPresentation humanPresentation,
-            IWebHostEnvironment hostEnvironment)
+            IWebHostEnvironment hostEnvironment,
+            IUserService userService 
+            )
         {
             _humanPresentation = humanPresentation;
             _hostEnvironment = hostEnvironment;
+            _userService = userService;
         }
 
         [HttpGet]

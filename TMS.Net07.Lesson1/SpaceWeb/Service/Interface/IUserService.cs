@@ -15,5 +15,7 @@ namespace SpaceWeb.Service
         bool IsAdmin();
         ClaimsPrincipal GetPrincipal(User user);
         bool IsLeader();
+        public bool IsClient();
+        public bool IsEmploye();
     }
 }

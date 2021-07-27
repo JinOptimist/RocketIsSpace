@@ -76,22 +76,16 @@ namespace SpaceWeb.Service
 
             return ((amount * toRate) / fromRate);
         }
-        public bool IsCardAvailability( EnumBankCard Card)
+        public bool IsCardAvailability(EnumBankCard Card)
         {
-            var allcardDB = _userService.GetCurrent().BankAccounts.SelectMany(x => x.BanksCards).ToList();
+            var allCardTypes = _userService
+                .GetCurrent()
+                .BankAccounts
+                .SelectMany(x => x.BanksCards)
+                .Select(x => x.Card)
+                .ToList();
 
-            var allpayCard = allcardDB.Where(x => x.Card == EnumBankCard.PayCard).ToList();
-            var allvalueCard = allcardDB.Where(x => x.Card == EnumBankCard.valueCard).ToList();
-            var allxCard = allcardDB.Where(x => x.Card == EnumBankCard.XCard).ToList();
-
-            if(allpayCard == null)
-            {
-                return true;
-            }
-            else if(allpayCard.Count == 1)
-            {
-                return false;
-            } else { return false; }
+            return !allCardTypes.Any(x=>x == Card);
         }
         public string IntToStringAmount(int amount)
         {

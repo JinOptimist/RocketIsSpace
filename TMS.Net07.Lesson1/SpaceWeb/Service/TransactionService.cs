@@ -12,35 +12,60 @@ namespace SpaceWeb.Service
     public class TransactionService : ITransactionService
     {
         private IBanksCardRepository _banksCardRepository;
-        private UserService _userService;
+        private IUserService _userService;
+        private IBankAccountRepository _bankAccountRepository;
+        private ICurrencyService _currencyService;
+        private IGenerationService _generationService;
 
         public TransactionService(IBanksCardRepository banksCardRepository,
-            IHttpContextAccessor contextAccessor, 
-            UserService userService, 
-            IBankAccountRepository bankAccountRepository)
+             IUserService userService,
+             IBankAccountRepository bankAccountRepository,
+             ICurrencyService currencyService,
+             IGenerationService generationService)
         {
             _banksCardRepository = banksCardRepository;
             _userService = userService;
+            _bankAccountRepository = bankAccountRepository;
+            _currencyService = currencyService;
+            _generationService = generationService;
         }
 
-        private BanksCard GetCardUser(long userId)
+        public void Transfer(long fromAccountId,
+            long toAccountId,
+            decimal transferAmount)
         {
-            var user = _userService.GetCurrent();
-            var cards = _banksCardRepository.GetCardUser(userId).FirstOrDefault();
-            if (cards == null)
-            {
-                throw new ApplicationException("no account exists with that id");
-            }
-            return cards;
+            var transferCurrency = _bankAccountRepository
+                .Get(fromAccountId)
+                .Currency;
+
+            Transfer(fromAccountId, toAccountId, transferAmount, transferCurrency);
         }
 
+        public void Transfer(BankAccount fromAccount,
+            BankAccount toAccount,
+            decimal transferAmount)
+        {
+            var transferCurrency = fromAccount.Currency;
 
-        //public void Transfer(decimal transferAmount, long transferToId)
-        //{
-        //    var balance = _banksCardRepository.GetAmount(transferToId.ToString());
-        //    balance += transferAmount;
-        //}
-        public bool TransferFunds(int fromAccountId, int toAccountId, decimal transferAmount)
+            Transfer(fromAccount, toAccount, transferAmount, transferCurrency);
+        }
+
+        public void Transfer(long fromAccountId,
+            long toAccountId,
+            decimal transferAmount,
+            Currency transferCurrency)
+        {
+            var fromAccount = _bankAccountRepository.Get(fromAccountId);
+
+            var toAccount = _bankAccountRepository.Get(toAccountId);
+
+            Transfer(fromAccount, toAccount, transferAmount, transferCurrency);
+        }
+
+        public void Transfer(BankAccount fromAccount,
+            BankAccount toAccount,
+            decimal transferAmount,
+            Currency transferCurrency)
         {
             if (transferAmount <= 0)
             {
@@ -51,21 +76,76 @@ namespace SpaceWeb.Service
                 throw new ApplicationException("invalid transfer amount");
             }
 
-            BanksCard fromAccount = GetCardUser(fromAccountId);
-            BanksCard toAccount = GetCardUser(toAccountId);
-
-            fromAccount.BankAccount.Amount -= transferAmount;
-            toAccount.BankAccount.Amount += transferAmount;
-
-            if (fromAccount.BankAccount.Amount < transferAmount)
+            if (fromAccount.Amount < transferAmount)
             {
                 throw new ApplicationException("insufficient funds");
             }
-            
-            return true;
+
+            if (fromAccount.Currency == transferCurrency && toAccount.Currency == transferCurrency)
+            {
+                fromAccount.Amount -= transferAmount;
+
+                toAccount.Amount += transferAmount;
+            }
+            else
+            {
+                var fromAmount = _currencyService
+                    .ConvertByAlex(transferCurrency, transferAmount, fromAccount.Currency);
+
+                var toAmount = _currencyService
+                    .ConvertByAlex(transferCurrency, transferAmount, toAccount.Currency);
+
+                fromAccount.Amount -= fromAmount;
+
+                toAccount.Amount += toAmount;
+            }
+
+            var transaction = CreateTransaction(fromAccount, toAccount, transferAmount, transferCurrency);
+
+            fromAccount.OutcomingTransactions.Add(transaction);
+
+            toAccount.IncomingTransactions.Add(transaction);
+
+            _bankAccountRepository.Save(fromAccount);
+
+            _bankAccountRepository.Save(toAccount);
         }
 
+        private TransactionBank CreateTransaction(BankAccount fromAccount,
+            BankAccount toAccount,
+            decimal transferAmount,
+            Currency transferCurrency)
+        {
+            //var newTransaction = new TransactionBank
+            //{
+            //    SenderAccount = fromAccount,
+            //    ReceiverAccount = toAccount,
+            //    TransferAmount = transferAmount,
+            //    Currency = transferCurrency,
+            //    CreationDate = DateTime.Now,
+            //    TransactionNumber = _generationService.GenerateTransactionNumber(),
 
+            //    //if there can be only one card - should be refactored
 
+            //    BanksCardFrom = fromAccount.BanksCards.Any()
+            //    ? fromAccount.BanksCards.First()
+            //    : null,
+
+            //    BanksCardTo = toAccount.BanksCards.Any()
+            //    ? toAccount.BanksCards.First()
+            //    : null
+            //};
+
+            var newTransaction = new TransactionBank();
+
+            //newTransaction.SenderAccount = fromAccount;
+            //newTransaction.ReceiverAccount = toAccount;
+            newTransaction.TransferAmount = transferAmount;
+            newTransaction.Currency = transferCurrency;
+            newTransaction.CreationDate = DateTime.Now;
+            newTransaction.TransactionNumber = _generationService.GenerateTransactionNumber();
+
+            return newTransaction;
+        }
     }
 }

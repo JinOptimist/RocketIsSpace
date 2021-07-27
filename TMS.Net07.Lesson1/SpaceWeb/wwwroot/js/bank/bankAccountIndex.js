@@ -64,14 +64,14 @@ $(document).ready(function () {
             else {
                 var amount = input.replace(',', '.') - 0;
 
+                var url = `/Account/UpdateAmount?id=${activeAccount.id}&amount=${amount}`;
+
                 if (currentContainer.attr('class').includes('withdrawal')) {
-                    amount = amount * (-1);
+                    url = WithdrawalUrl(activeAccount, amount);
                 }
                 else if (currentContainer.attr('class').includes('transfer')) {
-                    amount = 0;
+                    url = TransferUrl(activeAccount, amount);
                 }
-
-                var url = `/Account/UpdateAmount?id=${activeAccount.id}&amount=${amount}`;
 
                 $.get(url).done(function (answer) {
                     if (answer) {
@@ -359,7 +359,26 @@ $(document).ready(function () {
                 });
     }
 
-    function Transfer() {
+    function DepositUrl(activeAccount, amount) {
 
+        var url = `/Account/UpdateAmount?id=${activeAccount.id}&amount=${amount}`;
+
+        return url;
+    }
+
+    function WithdrawalUrl(activeAccount, amount) {
+
+        amount = amount * (-1);
+
+        return DepositUrl(activeAccount, amount)
+    }
+
+    function TransferUrl(activeAccount, amount) {
+
+        var toAccountNumber = $('.transfer.form .to-account-number').val()
+
+        var url = `/Account/Transfer?fromAccountId=${activeAccount.id}&toAccountNumber=${toAccountNumber}&transferAmount=${amount}`;
+
+        return url;
     }
 });

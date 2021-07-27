@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using SpaceWeb.Migrations;
 using AdvImage = SpaceWeb.EfStuff.Model.AdvImage;
-
+using System.Transactions;
 
 namespace SpaceWeb.EfStuff
 {
@@ -19,35 +19,27 @@ namespace SpaceWeb.EfStuff
         public DbSet<Questionary> Questionaries { get; set; }
         public DbSet<BankAccount> BankAccount { get; set; }
         public DbSet<BanksCard> BanksCard { get; set; }
-        public DbSet<Transaction> Transaction { get; set; }
 
+        public DbSet<TransactionBank> TransactionBank { get; set; }
         public DbSet<AdvImage> AdvImages { get; set; }
         public DbSet<FactoryHistory> FactoryHistories { get; set; }
         public DbSet<Comfort> ComfortsExample { get; set; }
         public DbSet<RocketStage> RocketStages { get; set; }
-
         public DbSet<Relic> Relics { get; set; }
         public DbSet<Order> Orders { get; set; }
-
         public DbSet<Client> Clients { get; set; }
         public DbSet<Employe> Employes { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<OrdersEmployes> OrdersEmployes { get; set; }
-
         public DbSet<ComfortStructure> Comforts { get; set; }
         public DbSet<AdditionStructure> Additions { get; set; }
-
         public DbSet<InsuranceType> InsuranceTypes { get; set; }
         public DbSet<Insurance> Insurances { get; set; }
-
-
         public DbSet<Accrual> Accrual { get; set; }
         public DbSet<Payment> Payment { get; set; }
-
         public DbSet<ExchangeRateToUsdCurrent> ExchangeRatesToUsdCurrent { get; set; }
         public DbSet<ExchangeRateToUsdHistory> ExchangeRatesToUsdHistory { get; set; }
         public DbSet<ExchangeAccountHistory> ExchangeAccountHistory { get; set; }
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -127,25 +119,26 @@ namespace SpaceWeb.EfStuff
                 .WithMany(x => x.Accruals);
 
             modelBuilder.Entity<Payment>()
-                .HasOne(x => x.Employe)
-                .WithMany(x => x.Payments);
+                .HasOne(x => x.Employe);
 
-            modelBuilder.Entity<Transaction>()
+            
+            modelBuilder.Entity<TransactionBank>()
                 .HasOne(x => x.BanksCardFrom)
                 .WithMany(x => x.TransactionsFrom);
 
-            modelBuilder.Entity<Transaction>()
+            modelBuilder.Entity<TransactionBank>()
                 .HasOne(x => x.BanksCardTo)
                 .WithMany(x => x.TransactionsTo);
 
             modelBuilder.Entity<Payment>()
                 .HasOne(x => x.BankAccount)
                 .WithMany(x => x.Payments);
-            modelBuilder.Entity<Transaction>()
+
+            modelBuilder.Entity<TransactionBank>()
                 .HasOne(transaction => transaction.ReceiverAccount)
                 .WithMany(a => a.IncomingTransactions);
 
-            modelBuilder.Entity<Transaction>()
+            modelBuilder.Entity<TransactionBank>()
                 .HasOne(transaction => transaction.SenderAccount)
                 .WithMany(account => account.OutcomingTransactions);
 

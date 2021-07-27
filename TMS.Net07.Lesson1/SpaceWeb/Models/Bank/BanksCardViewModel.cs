@@ -16,6 +16,7 @@ namespace SpaceWeb.Models
         public string Type { get; set; }
         public DateTime CreationDate { get; set; }
         //public virtual List<BankAccount> BankAccount { get; set; }
+        public virtual List<BanksCard> BanksCard { get; set; }
         public CurrencyExchengerViewModel CurrencyExchengerViewModel { get; set; } = new CurrencyExchengerViewModel();
     }
 }

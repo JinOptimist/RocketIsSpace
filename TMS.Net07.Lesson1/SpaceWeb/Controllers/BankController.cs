@@ -1,3 +1,4 @@
+
 using Microsoft.AspNetCore.Mvc;
 using SpaceWeb.EfStuff.Repositories;
 using SpaceWeb.Models;
@@ -18,45 +19,45 @@ using Microsoft.AspNetCore.Hosting;
 using SpaceWeb.EfStuff.Model;
 using System;
 using SpaceWeb.EfStuff.CustomException;
+using System.Text;
 
 namespace SpaceWeb.Controllers
 {
     public class BankController : Controller
     {
-        private IBankAccountRepository _bankAccountRepository;
+        private TransactionBankRepository _transactionBankRepository;
         private QuestionaryRepository _questionaryRepository;
         private IMapper _mapper;
-        private IUserRepository _userRepository;
         private BanksCardRepository _banksCardRepository;
-        private UserService _userService;
-        private ICurrencyService _currencyService;
-        private IBankPresentation _bankPresentation;
-        private IBankCardPresentation _bankCardPresentation;
         private ExchangeRateToUsdHistoryRepository _exchangeRateToUsdHistoryRepository;
+        private ITransactionService _transactionService;
+        private ICurrencyService _currencyService;
         private IWebHostEnvironment _hostEnvironment;
+        private IBankPresentation _bankPresentation;
+        private IUserService _userService;
+        
 
-        public BankController(IBankAccountRepository bankAccountRepository,
+        public BankController(TransactionBankRepository transactionBankRepository,
             QuestionaryRepository questionaryRepository,
-            IUserRepository userRepository,
             IMapper mapper,
-            UserService userService,
+            IUserService userService,
             BanksCardRepository banksCardRepository,
             ICurrencyService currencyService,
-            IBankPresentation bankPresentation,
-            IBankCardPresentation bankCardPresentation,
             ExchangeRateToUsdHistoryRepository exchangeRateToUsdHistoryRepository,
-            IWebHostEnvironment hostEnvironment)
+            IWebHostEnvironment hostEnvironment,
+            ITransactionService transactionService,
+            IBankPresentation bankPresentation)
         {
-            _bankAccountRepository = bankAccountRepository;
+            _transactionBankRepository = transactionBankRepository;
             _questionaryRepository = questionaryRepository;
-            _userRepository = userRepository;
             _mapper = mapper;
-            _userService = userService;
             _banksCardRepository = banksCardRepository;
+            _userService = userService;
             _currencyService = currencyService;
-            _bankPresentation = bankPresentation;
             _exchangeRateToUsdHistoryRepository = exchangeRateToUsdHistoryRepository;
             _hostEnvironment = hostEnvironment;
+            _transactionService = transactionService;
+            _bankPresentation = bankPresentation;
         }
         public IActionResult Index()
         {
@@ -165,65 +166,35 @@ namespace SpaceWeb.Controllers
         }
 
         [HttpGet]
+        public IActionResult TransactionCard()
+        {
+            var user = _userService.GetCurrent();
+            var addCardViewNodel = new AddBankCardViewModel();
+            addCardViewNodel.CardFromDropFill(_banksCardRepository.GetCardUser(user.Id).ToList());
+            addCardViewNodel.CardToDropFill(_banksCardRepository.GetCardUser(user.Id).ToList());
+
+            return View(addCardViewNodel);
+        }
+        [HttpGet]
         public IActionResult AddCard()
         {
+
             return View();
         }
+
         [HttpPost]
         public IActionResult AddCard(BanksCardViewModel viewModel)
         {
-            var user = _userService.GetCurrent();
-            var bankCardNew = new BanksCard();
-
-            switch (viewModel.Card)
+            
+            if (_currencyService.IsCardAvailability(viewModel.Card))
             {
-                case EnumBankCard.PayCard:
-                    bankCardNew = new BanksCard()
-                    {
-                        BankAccount = new BankAccount()
-                        {
-                            Amount = 2000,
-                            Currency = Currency.BYN
-                        },
-                        Currency = Currency.BYN,
-                        Card = EnumBankCard.PayCard
-
-                    };
-                    break;
-
-                case EnumBankCard.valueCard:
-
-                    bankCardNew = new BanksCard()
-                    {
-                        BankAccount = new BankAccount()
-                        {
-                            Amount = 1000,
-                            Currency = Currency.USD
-                        },
-                        Currency = Currency.USD,
-                        Card = EnumBankCard.valueCard
-
-                    };
-                    break;
-                case EnumBankCard.XCard:
-                    bankCardNew = new BanksCard()
-                    {
-                        BankAccount = new BankAccount()
-                        {
-                            Amount = 0,
-                            Currency = Currency.EUR
-                        },
-                        Currency = Currency.EUR,
-                        Card = EnumBankCard.XCard
-
-                    };
-                    break;
-            }
-            if (!_currencyService.IsCardAvailability(viewModel.Card))
-            {
+                var user = _userService.GetCurrent();
+                var bankCardNew = new BanksCard();
+                StringBuilder sb = new StringBuilder();
                 switch (viewModel.Card)
                 {
                     case EnumBankCard.PayCard:
+                            
                         bankCardNew = new BanksCard()
                         {
                             BankAccount = new BankAccount()
@@ -232,6 +203,7 @@ namespace SpaceWeb.Controllers
                                 Currency = Currency.BYN,
                                 Name = "Счет",
                                 Owner = user,
+                                AccountNumber = sb.ToString(),
                                 CreationDate = DateTime.Now
                             },
                             Currency = Currency.BYN,
@@ -251,6 +223,7 @@ namespace SpaceWeb.Controllers
                                 Currency = Currency.USD,
                                 Name = "Валютный счет",
                                 Owner = user,
+                                AccountNumber = sb.ToString(),
                                 CreationDate = DateTime.Now
                             },
                             Currency = Currency.USD,
@@ -268,6 +241,7 @@ namespace SpaceWeb.Controllers
                                 Currency = Currency.EUR,
                                 Name = "Валютный счет",
                                 Owner = user,
+                                AccountNumber = sb.ToString(),
                                 CreationDate = DateTime.Now
                             },
                             Currency = Currency.EUR,
@@ -296,11 +270,26 @@ namespace SpaceWeb.Controllers
             _banksCardRepository.Remove(id);
             return RedirectToAction("AddCard");
         }
-        public IActionResult AddTransaction(long transferToId)
+       
+        public IActionResult AddTransaction(TransactionBankViewModel viewModel)
         {
+            var fromCard =_banksCardRepository.GetCardById(viewModel.CardFromId);
+            var toCard = _banksCardRepository.GetCardById(viewModel.CardToId);
+            _transactionService.Transfer(fromCard.BankAccount.Id, toCard.BankAccount.Id, viewModel.TransferAmount);
 
+            StringBuilder sb = new StringBuilder();
+            var transaction = new TransactionBank()
+            {
+                TransactionNumber = sb.ToString(),
+                CreationDate = DateTime.Now,
+                BanksCardFrom = _banksCardRepository.GetCardById(viewModel.CardFromId),
+                BanksCardTo = _banksCardRepository.GetCardById(viewModel.CardToId),
+                TransferAmount = viewModel.TransferAmount
+            };
+            _transactionBankRepository.Save(transaction);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("AddCard");
+
         }
 
 

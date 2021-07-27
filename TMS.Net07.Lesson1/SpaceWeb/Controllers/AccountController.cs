@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -28,20 +28,23 @@ namespace SpaceWeb.Controllers
         private IBankAccountRepository _bankAccountRepository;
         private IMapper _mapper;
         private IWebHostEnvironment _hostEnvironment;
-        private UserService _userService;
+        private IUserService _userService;
         private IAccountPresentation _accountPresentation;
+        private ITransactionService _transactionService;
 
-        public AccountController(IBankAccountRepository bankAccountRepository, 
-            IMapper mapper, 
-            IWebHostEnvironment hostEnvironment, 
-            UserService userService, 
-            IAccountPresentation accountPresentation)
+        public AccountController(IBankAccountRepository bankAccountRepository,
+            IMapper mapper, IUserService userService,
+            IWebHostEnvironment hostEnvironment,
+            IAccountPresentation accountPresentation,
+            ITransactionService transactionService)
+
         {
             _bankAccountRepository = bankAccountRepository;
             _mapper = mapper;
             _hostEnvironment = hostEnvironment;
             _userService = userService;
             _accountPresentation = accountPresentation;
+            _transactionService = transactionService;
         }
 
         [HttpGet]
@@ -248,6 +251,22 @@ namespace SpaceWeb.Controllers
             var result = _accountPresentation.AccountFreezeResult(id);
 
             return Json(result);
+        }
+
+        public IActionResult Transfer(long fromAccountId, string toAccountNumber, decimal transferAmount)
+        {
+            var fromAccount = _bankAccountRepository?.Get(fromAccountId);
+
+            var toAccount = _bankAccountRepository?.Get(toAccountNumber);
+
+            if(fromAccount == null || toAccount == null || transferAmount > fromAccount.Amount)
+            {
+                return Json(false);
+            }
+           
+            _transactionService.Transfer(fromAccount, toAccount, transferAmount);
+
+            return Json(true);
         }
     }
 }

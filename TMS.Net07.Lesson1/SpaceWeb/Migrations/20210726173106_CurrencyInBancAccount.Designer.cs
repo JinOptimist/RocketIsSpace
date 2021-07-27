@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SpaceWeb.EfStuff;
 
 namespace SpaceWeb.Migrations
 {
     [DbContext(typeof(SpaceDbContext))]
-    partial class SpaceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210726173106_CurrencyInBancAccount")]
+    partial class CurrencyInBancAccount
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -119,9 +121,6 @@ namespace SpaceWeb.Migrations
 
                     b.Property<DateTime>("ExpireDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsFrozen")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -678,12 +677,6 @@ namespace SpaceWeb.Migrations
                     b.Property<int>("Currency")
                         .HasColumnType("int");
 
-                    b.Property<long?>("ReceiverAccountId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("SenderAccountId")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("TransactionNumber")
                         .HasColumnType("nvarchar(max)");
 
@@ -695,10 +688,6 @@ namespace SpaceWeb.Migrations
                     b.HasIndex("BanksCardFromId");
 
                     b.HasIndex("BanksCardToId");
-
-                    b.HasIndex("ReceiverAccountId");
-
-                    b.HasIndex("SenderAccountId");
 
                     b.ToTable("TransactionBank");
                 });
@@ -947,21 +936,9 @@ namespace SpaceWeb.Migrations
                         .WithMany("TransactionsTo")
                         .HasForeignKey("BanksCardToId");
 
-                    b.HasOne("SpaceWeb.EfStuff.Model.BankAccount", "ReceiverAccount")
-                        .WithMany("IncomingTransactions")
-                        .HasForeignKey("ReceiverAccountId");
-
-                    b.HasOne("SpaceWeb.EfStuff.Model.BankAccount", "SenderAccount")
-                        .WithMany("OutcomingTransactions")
-                        .HasForeignKey("SenderAccountId");
-
                     b.Navigation("BanksCardFrom");
 
                     b.Navigation("BanksCardTo");
-
-                    b.Navigation("ReceiverAccount");
-
-                    b.Navigation("SenderAccount");
                 });
 
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.User", b =>
@@ -976,10 +953,6 @@ namespace SpaceWeb.Migrations
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.BankAccount", b =>
                 {
                     b.Navigation("BanksCards");
-
-                    b.Navigation("IncomingTransactions");
-
-                    b.Navigation("OutcomingTransactions");
 
                     b.Navigation("Payments");
                 });

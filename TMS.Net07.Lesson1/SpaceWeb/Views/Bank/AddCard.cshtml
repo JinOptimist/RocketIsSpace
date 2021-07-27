@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="~/css/bank/styleAccount.css?v=0" />
     <link rel="stylesheet" href="~/css/bank/Bankscard.css?v=1">
 }
-@inject UserService userService
+@inject IUserService userService
 @inject IMapper mapper
 @{
     var user = userService.GetCurrent();
@@ -25,17 +25,18 @@
 }
 <body>
     <div class="center-block">
-        <div class="account-changer">
+        
             <div class="account-changer">
                 <div class="front">КАРТЫ: <span class="card-mocn">@allBankCards.Count()</span></div>
                 @Html.Partial("_bankAllCardsList")
             </div>
-        </div>
+        
     </div>
     <div class="account-creation content-box">
         <div class="account-creation-container">
             <div class="creation-container-text">СОЗДАНИЕ карты</div>
             @{ Html.RenderPartial("_bankCards", new BanksCardViewModel()); }
         </div>
+       
     </div>
 </body>

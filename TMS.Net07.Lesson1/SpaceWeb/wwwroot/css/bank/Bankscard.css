@@ -10,6 +10,9 @@
     flex-direction: column;
     align-items: center;
 }
+.otstup{
+    height:200px;
+}
 
 .title {
     height: 100px;
@@ -110,8 +113,11 @@
     transform: perspective(300px) rotateY(180deg);
     background-color: azure;
 }
+.center-block{
+    margin: 100px;
+}
 .center-block:hover > .front {
-    transform:perspective(300px) rotateY(-180deg);
+    transform: perspective(300px) rotateY(-180deg);
 }
 .center-block:hover > .back {
     transform: perspective(300px) rotateY(0deg);
