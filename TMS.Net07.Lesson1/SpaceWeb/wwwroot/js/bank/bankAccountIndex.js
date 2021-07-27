@@ -4,16 +4,17 @@ $(document).ready(function () {
 
     var maxMoneyDigit = 6;
 
+    var operation = "";
+
     $('.content-box .button-list .button.show-menu').click(function () {
 
-        var operation = $(this).attr('class').replace('button ', '').replace(' show-menu', '').replace(' noselect', '');
+        operation = $(this).attr('class').replace('button ', '').replace(' show-menu', '').replace(' noselect', '');
 
         console.log(operation);
 
         $('.button-list').toggleClass('hide');
 
         $(`.${operation}-form.container`).toggleClass('hide');
-        //$(`.${operation}-form.container input[type = text]`).focus();
 
         $(`.${operation}-form.container`).find('input:first').focus();
     })
@@ -66,27 +67,40 @@ $(document).ready(function () {
 
                 var url = `/Account/UpdateAmount?id=${activeAccount.id}&amount=${amount}`;
 
-                if (currentContainer.attr('class').includes('withdrawal')) {
+                if (operation == 'withdrawal') {
                     url = WithdrawalUrl(activeAccount, amount);
+                    amount = amount * (-1);
                 }
-                else if (currentContainer.attr('class').includes('transfer')) {
+                else if (operation == 'transfer') {
                     url = TransferUrl(activeAccount, amount);
+                    amount = amount * (-1);
                 }
 
                 $.get(url).done(function (answer) {
-                    if (answer) {
-                        console.log('amount updated');
+                    if (!answer) {
 
+                        console.log('something went wrong');
+
+                    }
+                    else {
                         currentContainer.toggleClass('hide');
 
                         UpdateAmount(activeAccount, amount);
 
+                        if (operation == 'transfer') {
+
+                            var toAccountNumber = $('.transfer.form .to-account-number').val();
+
+                            var myAccountToTransfer = GetAccountToTransfer(toAccountNumber);
+
+                            UpdateAmount(myAccountToTransfer, answer);
+                        }
+
                         $('.button-list').toggleClass('hide');
 
+                        console.log('amount updated');
+
                         amountTextForm.val('');
-                    }
-                    else {
-                        console.log('something went wrong');
                     }
                 })
             }
@@ -239,7 +253,7 @@ $(document).ready(function () {
                 complete: function () {
                     obj.css('progress', 0);
                 },
-                queue: true
+                queue: false
             }
         )
     }
@@ -277,7 +291,7 @@ $(document).ready(function () {
                 complete: function () {
                     obj.css('progress', 0);
                 },
-                queue: true
+                queue: false
             }
         )
     }
@@ -338,7 +352,6 @@ $(document).ready(function () {
                     console.log("AnimateAmount complete");
                     HideAmount(activeAccount);
                 },
-                //queue: true
             })
     }
 
@@ -352,7 +365,6 @@ $(document).ready(function () {
                 },
                 {
                     duration: time / 2,
-                    //queue: true,
                     complete: function () {
                         $(this).toggleClass('hide');
                     }
@@ -375,7 +387,7 @@ $(document).ready(function () {
 
     function TransferUrl(activeAccount, amount) {
 
-        var toAccountNumber = $('.transfer.form .to-account-number').val()
+        var toAccountNumber = $('.transfer.form .to-account-number').val();
 
         var url = `/Account/Transfer?fromAccountId=${activeAccount.id}&toAccountNumber=${toAccountNumber}&transferAmount=${amount}`;
 

@@ -134,13 +134,13 @@ namespace SpaceWeb.EfStuff
                 .HasOne(x => x.BankAccount)
                 .WithMany(x => x.Payments);
 
-            //modelBuilder.Entity<TransactionBank>()
-            //    .HasOne(transaction => transaction.ReceiverAccount)
-            //    .WithMany(a => a.IncomingTransactions);
+            modelBuilder.Entity<TransactionBank>()
+                .HasOne(transaction => transaction.ReceiverAccount)
+                .WithMany(a => a.IncomingTransactions);
 
-            //modelBuilder.Entity<TransactionBank>()
-            //    .HasOne(transaction => transaction.SenderAccount)
-            //    .WithMany(account => account.OutcomingTransactions);
+            modelBuilder.Entity<TransactionBank>()
+                .HasOne(transaction => transaction.SenderAccount)
+                .WithMany(account => account.OutcomingTransactions);
 
             base.OnModelCreating(modelBuilder);
         }

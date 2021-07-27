@@ -24,6 +24,25 @@ function GetActiveAccount() {
     return obj;
 }
 
+function GetAccountToTransfer(accountNumber) {
+
+    var accountInfoContainer = $(`.info.number:contains(${accountNumber})`).parent('.account-info');
+
+    var index = accountInfoContainer.find('.info.index').text() - 0;
+
+    var id = accountInfoContainer.find('.info.id').val() - 0;
+
+    var isFrozen = accountInfoContainer.find('.info.frozen-status').text();
+
+    var obj = {
+        index: index,
+        id: id,
+        isFrozen: isFrozen
+    }
+
+    return obj;
+}
+
 function SetActiveAccount(activeAccount) {
 
     $('.active-account.index').val(activeAccount.index);

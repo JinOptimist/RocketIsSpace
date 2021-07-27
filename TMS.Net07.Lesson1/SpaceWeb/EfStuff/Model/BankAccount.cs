@@ -22,8 +22,8 @@ namespace SpaceWeb.EfStuff.Model
         public virtual List<BanksCard> BanksCards { get; set; }
         public virtual List<Payment> Payments { get; set; }
         public BankAccountType BankAccountType { get; set; }
-        //public virtual List<TransactionBank> IncomingTransactions { get; set; }
-        //public virtual List<TransactionBank> OutcomingTransactions { get; set; }
+        public virtual List<TransactionBank> IncomingTransactions { get; set; }
+        public virtual List<TransactionBank> OutcomingTransactions { get; set; }
         public bool IsFrozen { get; set; }
     }
 }

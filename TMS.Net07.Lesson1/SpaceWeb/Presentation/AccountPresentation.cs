@@ -21,18 +21,24 @@ namespace SpaceWeb.Presentation
         private IWebHostEnvironment _hostEnvironment;
         private UserService _userService;
         private IGenerationService _generationService;
+        private ICurrencyService _currencyService;
+        private ITransactionService _transactionService;
 
         public AccountPresentation(IBankAccountRepository bankAccountRepository,
             IMapper mapper,
             IWebHostEnvironment hostEnvironment,
             UserService userService,
-            IGenerationService generationService)
+            IGenerationService generationService,
+            ICurrencyService currencyService,
+            ITransactionService transactionService)
         {
             _bankAccountRepository = bankAccountRepository;
             _mapper = mapper;
             _hostEnvironment = hostEnvironment;
             _userService = userService;
             _generationService = generationService;
+            _currencyService = currencyService;
+            _transactionService = transactionService;
         }
 
         public BankAccountViewModel GetViewModelForIndex(long id)
@@ -177,6 +183,27 @@ namespace SpaceWeb.Presentation
             _bankAccountRepository.Save(account);
 
             return true;
+        }
+
+        public string GetJsonAsTransferResult(long fromAccountId, string toAccountNumber, decimal transferAmount)
+        {
+            var fromAccount = _bankAccountRepository?.Get(fromAccountId);
+
+            var toAccount = _bankAccountRepository?.Get(toAccountNumber);
+
+            if (fromAccount == null || toAccount == null || transferAmount > fromAccount.Amount)
+            {
+                return JsonConvert.SerializeObject(false);
+            }
+
+            _transactionService.Transfer(fromAccount, toAccount, transferAmount);
+
+            var newAmount = fromAccount.Currency == toAccount.Currency
+                ? transferAmount
+                :_currencyService
+                .ConvertByAlex(fromAccount.Currency, transferAmount, toAccount.Currency);
+
+            return JsonConvert.SerializeObject(newAmount);
         }
     }
 }

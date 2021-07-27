@@ -102,9 +102,9 @@ namespace SpaceWeb.Service
 
             var transaction = CreateTransaction(fromAccount, toAccount, transferAmount, transferCurrency);
 
-            //fromAccount.OutcomingTransactions.Add(transaction);
+            fromAccount.OutcomingTransactions.Add(transaction);
 
-            //toAccount.IncomingTransactions.Add(transaction);
+            toAccount.IncomingTransactions.Add(transaction);
 
             _bankAccountRepository.Save(fromAccount);
 

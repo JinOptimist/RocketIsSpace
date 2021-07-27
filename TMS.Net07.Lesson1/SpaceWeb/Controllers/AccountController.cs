@@ -255,18 +255,10 @@ namespace SpaceWeb.Controllers
 
         public IActionResult Transfer(long fromAccountId, string toAccountNumber, decimal transferAmount)
         {
-            var fromAccount = _bankAccountRepository?.Get(fromAccountId);
+            var result = _accountPresentation
+                .GetJsonAsTransferResult(fromAccountId, toAccountNumber, transferAmount);
 
-            var toAccount = _bankAccountRepository?.Get(toAccountNumber);
-
-            if(fromAccount == null || toAccount == null || transferAmount > fromAccount.Amount)
-            {
-                return Json(false);
-            }
-           
-            _transactionService.Transfer(fromAccount, toAccount, transferAmount);
-
-            return Json(true);
+            return Json(JsonConvert.DeserializeObject(result));
         }
     }
 }
