@@ -189,7 +189,11 @@ namespace SpaceWeb.Controllers
             {
                 var user = _userService.GetCurrent();
                 var bankCardNew = new BanksCard();
-                StringBuilder sb = new StringBuilder();
+
+                String startWith = "32";
+                Random generator = new Random();
+                String random = generator.Next(0, 999999).ToString("D6");
+                
                 switch (viewModel.Card)
                 {
                     case EnumBankCard.PayCard:
@@ -202,7 +206,7 @@ namespace SpaceWeb.Controllers
                                 Currency = Currency.BYN,
                                 Name = "Счет",
                                 Owner = user,
-                                AccountNumber = sb.ToString(),
+                                AccountNumber = startWith + random,
                                 CreationDate = DateTime.Now
                             },
                             Currency = Currency.BYN,
@@ -220,9 +224,9 @@ namespace SpaceWeb.Controllers
                             {
                                 Amount = 1000,
                                 Currency = Currency.USD,
-                                Name = "Валютный счет",
+                                Name = "Валютный USD счет",
                                 Owner = user,
-                                AccountNumber = sb.ToString(),
+                                AccountNumber = startWith + random,
                                 CreationDate = DateTime.Now
                             },
                             Currency = Currency.USD,
@@ -238,9 +242,9 @@ namespace SpaceWeb.Controllers
                             {
                                 Amount = 0,
                                 Currency = Currency.EUR,
-                                Name = "Валютный счет",
+                                Name = "Валютный EUR счет",
                                 Owner = user,
-                                AccountNumber = sb.ToString(),
+                                AccountNumber = startWith + random,
                                 CreationDate = DateTime.Now
                             },
                             Currency = Currency.EUR,
@@ -286,6 +290,19 @@ namespace SpaceWeb.Controllers
             //    TransferAmount = viewModel.TransferAmount
             //};
             //_transactionBankRepository.Save(transaction);
+            String startWith = "07";
+            Random generator = new Random();
+            String random = generator.Next(0, 999999).ToString("D6");
+            var transaction = new TransactionBank()
+            {
+                TransactionNumber = startWith + random,
+                Currency = fromCard.Currency,
+                CreationDate = DateTime.Now,
+                BanksCardFrom = _banksCardRepository.GetCardById(viewModel.CardFromId),
+                BanksCardTo = _banksCardRepository.GetCardById(viewModel.CardToId),
+                TransferAmount = viewModel.TransferAmount
+            };
+            _transactionBankRepository.Save(transaction);
 
            // var transaction = _mapper.Map<TransactionBank>(viewModel);
            // _transactionBankRepository.Save(transaction);
