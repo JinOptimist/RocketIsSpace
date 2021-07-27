@@ -224,7 +224,7 @@ namespace SpaceWeb.Controllers
                             {
                                 Amount = 1000,
                                 Currency = Currency.USD,
-                                Name = "Валютный счет",
+                                Name = "Валютный USD счет",
                                 Owner = user,
                                 AccountNumber = startWith + random,
                                 CreationDate = DateTime.Now
@@ -242,7 +242,7 @@ namespace SpaceWeb.Controllers
                             {
                                 Amount = 0,
                                 Currency = Currency.EUR,
-                                Name = "Валютный счет",
+                                Name = "Валютный EUR счет",
                                 Owner = user,
                                 AccountNumber = startWith + random,
                                 CreationDate = DateTime.Now
