@@ -20,16 +20,19 @@ namespace SpaceWeb.Presentation
         private IMapper _mapper;
         private IWebHostEnvironment _hostEnvironment;
         private UserService _userService;
+        private GenerationService _generationService;
 
         public AccountPresentation(IBankAccountRepository bankAccountRepository,
             IMapper mapper,
             IWebHostEnvironment hostEnvironment,
-            UserService userService)
+            UserService userService,
+            GenerationService generationService)
         {
             _bankAccountRepository = bankAccountRepository;
             _mapper = mapper;
             _hostEnvironment = hostEnvironment;
             _userService = userService;
+            _generationService = generationService;
         }
 
         public BankAccountViewModel GetViewModelForIndex(long id)
@@ -93,7 +96,7 @@ namespace SpaceWeb.Presentation
         {
             int accountLifeTime;
 
-            var type = viewModel.Amount.GetType();
+            //var type = viewModel.Amount.GetType();
 
             if (viewModel.Currency == Currency.BYN) //заменить двойной if
             {
@@ -112,15 +115,7 @@ namespace SpaceWeb.Presentation
                 accountLifeTime = 3;
             }
 
-            StringBuilder sb = new StringBuilder();
-
-            Random rnd = new Random();
-
-            for (int i = 0; i < 10; i++)
-            {
-                sb.Append(rnd.Next(0, 9));
-            }
-            viewModel.AccountNumber = sb.ToString();
+            viewModel.AccountNumber = _generationService.GenerateAccountNumber();
 
             viewModel.CreationDate = DateTime.Now;
 
