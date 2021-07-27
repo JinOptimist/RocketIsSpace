@@ -102,9 +102,9 @@ namespace SpaceWeb.Service
 
             var transaction = CreateTransaction(fromAccount, toAccount, transferAmount, transferCurrency);
 
-            fromAccount.OutcomingTransactions.Add(transaction);
+            //fromAccount.OutcomingTransactions.Add(transaction);
 
-            toAccount.IncomingTransactions.Add(transaction);
+            //toAccount.IncomingTransactions.Add(transaction);
 
             _bankAccountRepository.Save(fromAccount);
 
@@ -116,34 +116,25 @@ namespace SpaceWeb.Service
             decimal transferAmount,
             Currency transferCurrency)
         {
-            //var newTransaction = new TransactionBank
-            //{
-            //    SenderAccount = fromAccount,
-            //    ReceiverAccount = toAccount,
-            //    TransferAmount = transferAmount,
-            //    Currency = transferCurrency,
-            //    CreationDate = DateTime.Now,
-            //    TransactionNumber = _generationService.GenerateTransactionNumber(),
+            var newTransaction = new TransactionBank
+            {
+                SenderAccount = fromAccount,
+                ReceiverAccount = toAccount,
+                TransferAmount = transferAmount,
+                Currency = transferCurrency,
+                CreationDate = DateTime.Now,
+                TransactionNumber = _generationService.GenerateTransactionNumber(),
 
-            //    //if there can be only one card - should be refactored
+                //if there can be only one card - should be refactored
 
-            //    BanksCardFrom = fromAccount.BanksCards.Any()
-            //    ? fromAccount.BanksCards.First()
-            //    : null,
+                BanksCardFrom = fromAccount.BanksCards.Any()
+                ? fromAccount.BanksCards.First()
+                : null,
 
-            //    BanksCardTo = toAccount.BanksCards.Any()
-            //    ? toAccount.BanksCards.First()
-            //    : null
-            //};
-
-            var newTransaction = new TransactionBank();
-
-            //newTransaction.SenderAccount = fromAccount;
-            //newTransaction.ReceiverAccount = toAccount;
-            newTransaction.TransferAmount = transferAmount;
-            newTransaction.Currency = transferCurrency;
-            newTransaction.CreationDate = DateTime.Now;
-            newTransaction.TransactionNumber = _generationService.GenerateTransactionNumber();
+                BanksCardTo = toAccount.BanksCards.Any()
+                ? toAccount.BanksCards.First()
+                : null
+            };
 
             return newTransaction;
         }

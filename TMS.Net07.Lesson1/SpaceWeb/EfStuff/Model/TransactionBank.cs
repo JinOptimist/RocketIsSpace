@@ -13,7 +13,7 @@ namespace SpaceWeb.EfStuff.Model
         public virtual BanksCard BanksCardTo { get; set; }
         public decimal TransferAmount { get; set; }
         public Currency Currency { get; set; }
-        //public virtual BankAccount ReceiverAccount { get; set; }
-        //public virtual BankAccount SenderAccount { get; set; }
+        public virtual BankAccount ReceiverAccount { get; set; }
+        public virtual BankAccount SenderAccount { get; set; }
     }
 }

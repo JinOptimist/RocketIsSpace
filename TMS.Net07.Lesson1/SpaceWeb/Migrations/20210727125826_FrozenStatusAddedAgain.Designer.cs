@@ -10,8 +10,8 @@ using SpaceWeb.EfStuff;
 namespace SpaceWeb.Migrations
 {
     [DbContext(typeof(SpaceDbContext))]
-    [Migration("20210725075539_AccountFrozenStatusAdded")]
-    partial class AccountFrozenStatusAdded
+    [Migration("20210727125826_FrozenStatusAddedAgain")]
+    partial class FrozenStatusAddedAgain
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -661,7 +661,7 @@ namespace SpaceWeb.Migrations
                     b.ToTable("RocketStages");
                 });
 
-            modelBuilder.Entity("SpaceWeb.EfStuff.Model.Transaction", b =>
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.TransactionBank", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -674,6 +674,9 @@ namespace SpaceWeb.Migrations
                     b.Property<long?>("BanksCardToId")
                         .HasColumnType("bigint");
 
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("Currency")
                         .HasColumnType("int");
 
@@ -682,6 +685,9 @@ namespace SpaceWeb.Migrations
 
                     b.Property<long?>("SenderAccountId")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("TransactionNumber")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("TransferAmount")
                         .HasColumnType("decimal(18,2)");
@@ -696,7 +702,7 @@ namespace SpaceWeb.Migrations
 
                     b.HasIndex("SenderAccountId");
 
-                    b.ToTable("Transaction");
+                    b.ToTable("TransactionBank");
                 });
 
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.User", b =>
@@ -933,7 +939,7 @@ namespace SpaceWeb.Migrations
                     b.Navigation("Qa");
                 });
 
-            modelBuilder.Entity("SpaceWeb.EfStuff.Model.Transaction", b =>
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.TransactionBank", b =>
                 {
                     b.HasOne("SpaceWeb.EfStuff.Model.BanksCard", "BanksCardFrom")
                         .WithMany("TransactionsFrom")

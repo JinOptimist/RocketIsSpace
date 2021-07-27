@@ -20,13 +20,13 @@ namespace SpaceWeb.Presentation
         private IMapper _mapper;
         private IWebHostEnvironment _hostEnvironment;
         private UserService _userService;
-        private GenerationService _generationService;
+        private IGenerationService _generationService;
 
         public AccountPresentation(IBankAccountRepository bankAccountRepository,
             IMapper mapper,
             IWebHostEnvironment hostEnvironment,
             UserService userService,
-            GenerationService generationService)
+            IGenerationService generationService)
         {
             _bankAccountRepository = bankAccountRepository;
             _mapper = mapper;
