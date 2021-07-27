@@ -91,7 +91,8 @@ namespace SpaceWeb
                    diContainer.GetService<IUserService>(),
                    diContainer.GetService<IBankAccountRepository>(),
                    diContainer.GetService<ICurrencyService>(),
-                   diContainer.GetService<IGenerationService>()
+                   diContainer.GetService<IGenerationService>(),
+                   diContainer.GetService<ITransactionBankRepository>()
                ));
 
             services.AddScoped<IGenerationService>(diContainer =>

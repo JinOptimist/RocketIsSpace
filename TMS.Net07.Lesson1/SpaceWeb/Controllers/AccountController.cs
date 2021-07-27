@@ -243,7 +243,7 @@ namespace SpaceWeb.Controllers
 
             var result = _accountPresentation.UpdateAmountResult(id, amount);
 
-            return Json(result);
+            return Json(JsonConvert.DeserializeObject(result));
         }
 
         public IActionResult FreezeAccount(long id)

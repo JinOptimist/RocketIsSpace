@@ -161,28 +161,37 @@ namespace SpaceWeb.Presentation
             return true;
         }
 
-        public bool UpdateAmountResult(long id, decimal amount)
+        public string UpdateAmountResult(long id, decimal amount)
         {
             var myReg = new Regex(@"[\d]*[.,][\d]{1,2}|[\d]*"); //излишне?
 
             var isMatch = myReg.IsMatch(amount.ToString());
 
+            string result;
+
             if (!isMatch)
             {
-                return false;
+                result = "wrong amount";
+                return JsonConvert.SerializeObject(result);
             }
 
             var account = _bankAccountRepository?.Get(id);
 
             if(account == null || account.IsFrozen)
             {
-                return false;
+                result = "wrong account";
+                return JsonConvert.SerializeObject(result);
+            }
+            if (amount < 0)
+            {
+                result = _transactionService.Withdrawal(account, amount);
+            }
+            else
+            {
+                result = _transactionService.Deposit(account, amount);
             }
 
-            account.Amount += amount;
-            _bankAccountRepository.Save(account);
-
-            return true;
+            return result;
         }
 
         public string GetJsonAsTransferResult(long fromAccountId, string toAccountNumber, decimal transferAmount)

@@ -10,7 +10,7 @@ namespace SpaceWeb.Presentation
         BankAccountViewModel GetViewModelForIndex(long id);
         public long GetCreatedAccountId(BankAccountViewModel viewModel);
         public bool AccountFreezeResult(long id);
-        public bool UpdateAmountResult(long id, decimal amount);
+        public string UpdateAmountResult(long id, decimal amount);
         public string GetJsonAsTransferResult(long fromAccountId, string toAccountNumber, decimal transferAmount);
     }
 }
