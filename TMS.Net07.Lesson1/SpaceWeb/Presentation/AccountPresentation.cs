@@ -102,8 +102,6 @@ namespace SpaceWeb.Presentation
         {
             int accountLifeTime;
 
-            //var type = viewModel.Amount.GetType();
-
             if (viewModel.Currency == Currency.BYN) //заменить двойной if
             {
                 if (viewModel.Name == null)
@@ -199,6 +197,8 @@ namespace SpaceWeb.Presentation
             var fromAccount = _bankAccountRepository?.Get(fromAccountId);
 
             var toAccount = _bankAccountRepository?.Get(toAccountNumber);
+
+            
 
             if (fromAccount == null || toAccount == null )
             {

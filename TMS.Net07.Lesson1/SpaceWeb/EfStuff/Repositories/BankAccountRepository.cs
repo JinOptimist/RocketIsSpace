@@ -16,8 +16,11 @@ namespace SpaceWeb.EfStuff.Repositories
 {
     public class BankAccountRepository : BaseRepositoryWithHistory<BankAccount, BankAccountHistory>, IBankAccountRepository
     {
-        public BankAccountRepository(SpaceDbContext spaceDbContext, IMapper mapper, IHttpContextAccessor contextAccessor) :
-            base(spaceDbContext, mapper, contextAccessor)
+        public BankAccountRepository(SpaceDbContext spaceDbContext, 
+            IMapper mapper, 
+            IHttpContextAccessor contextAccessor,
+            ITransactionBankRepository transactionBankRepository) :
+            base(spaceDbContext, mapper, contextAccessor, transactionBankRepository)
         {
         }
 

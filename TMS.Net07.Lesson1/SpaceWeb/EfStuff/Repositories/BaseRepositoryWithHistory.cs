@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using SpaceWeb.EfStuff.Model;
+using SpaceWeb.EfStuff.Repositories.IRepository;
 using SpaceWeb.Service;
 using System;
 using System.Collections.Generic;
@@ -17,13 +18,18 @@ namespace SpaceWeb.EfStuff.Repositories
         protected DbSet<ModelHistoryType> _historyDbSet;
         private IMapper _mapper;
         private IHttpContextAccessor _contextAccessor;
+        private ITransactionBankRepository _transactionBankRepository;
 
-        public BaseRepositoryWithHistory(SpaceDbContext spaceDbContext, IMapper mapper, IHttpContextAccessor contextAccessor) : base(spaceDbContext)
+        public BaseRepositoryWithHistory(SpaceDbContext spaceDbContext, 
+            IMapper mapper, 
+            IHttpContextAccessor contextAccessor,
+            ITransactionBankRepository transactionBankRepository) : base(spaceDbContext)
         {
             _spaceDbContext = spaceDbContext;
             _historyDbSet = _spaceDbContext.Set<ModelHistoryType>();
             _mapper = mapper;
             _contextAccessor = contextAccessor;
+            _transactionBankRepository = transactionBankRepository;
         }
 
         public override void Save(ModelType model)
@@ -46,9 +52,26 @@ namespace SpaceWeb.EfStuff.Repositories
 
         public override void Remove(ModelType model)
         {
-            base.Remove(model);
 
             SaveHistory(model, "Delete");
+
+            if (model is BankAccount)
+            {
+                var account = _spaceDbContext.BankAccount.Single(x => x.Id == model.Id);
+
+                account.IncomingTransactions.ForEach( x => {
+                    _spaceDbContext.Remove(x);
+                });
+
+                account.OutcomingTransactions.ForEach(x => {
+                    _spaceDbContext.Remove(x);
+                });
+
+                _spaceDbContext.Update(account);
+            }
+
+            base.Remove(model);
+            
             _spaceDbContext.SaveChanges();
         }
 
