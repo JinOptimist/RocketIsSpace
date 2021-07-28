@@ -198,9 +198,7 @@ namespace SpaceWeb.Presentation
 
             var toAccount = _bankAccountRepository?.Get(toAccountNumber);
 
-            
-
-            if (fromAccount == null || toAccount == null )
+            if (fromAccount == null || toAccount == null || fromAccount == toAccount)
             {
                 return JsonConvert.SerializeObject("wrong account");
             }
