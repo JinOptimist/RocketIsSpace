@@ -23,7 +23,6 @@ namespace SpaceWeb.Service
         private IExchangeRateToUsdHistoryRepository _exchangeRateToUsdHistoryRepository;
         private IMapper _mapper;
 
-
         public CurrencyService(IUserService userService,
             IExchangeRateToUsdCurrentRepository exchangeRateToUsdCurrentRepository,
             IExchangeAccountHistoryRepository exchangeAccountHistoryRepository,
@@ -442,6 +441,7 @@ namespace SpaceWeb.Service
 
             return true;
         }
+
     }
 
 }

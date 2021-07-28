@@ -17,6 +17,7 @@ namespace SpaceWeb.EfStuff
         public DbSet<Rocket> Rockets { get; set; }
         public DbSet<Questionary> Questionaries { get; set; }
         public DbSet<BankAccount> BankAccount { get; set; }
+        public DbSet<BankAccountHistory> BankAccountHistory { get; set; }
         public DbSet<BanksCard> BanksCard { get; set; }
 
         public DbSet<TransactionBank> TransactionBank { get; set; }
@@ -124,12 +125,12 @@ namespace SpaceWeb.EfStuff
             modelBuilder.Entity<TransactionBank>()
                 .HasOne(x => x.BanksCardFrom)
                 .WithMany(x => x.TransactionsFrom)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.ClientSetNull);
 
             modelBuilder.Entity<TransactionBank>()
                 .HasOne(x => x.BanksCardTo)
                 .WithMany(x => x.TransactionsTo)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.ClientSetNull);
 
             modelBuilder.Entity<Payment>()
                 .HasOne(x => x.BankAccount)
@@ -138,12 +139,12 @@ namespace SpaceWeb.EfStuff
             modelBuilder.Entity<TransactionBank>()
                 .HasOne(transaction => transaction.ReceiverAccount)
                 .WithMany(a => a.IncomingTransactions)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.ClientSetNull);
 
             modelBuilder.Entity<TransactionBank>()
                 .HasOne(transaction => transaction.SenderAccount)
                 .WithMany(account => account.OutcomingTransactions)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.ClientSetNull);
 
             base.OnModelCreating(modelBuilder);
         }

@@ -302,6 +302,8 @@ namespace SpaceWeb
             MapBoth<BankAccount, BankAccountViewModel>(configExpression);
             MapBoth<BanksCard, BanksCardViewModel>(configExpression);
 
+            MapBoth<BankAccount, BankAccountHistory>(configExpression);
+
             MapBoth<User, RocketProfileViewModel>(configExpression);
 
             MapBoth<Comfort, ComfortFormViewModel>(configExpression);

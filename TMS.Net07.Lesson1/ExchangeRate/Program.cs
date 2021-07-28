@@ -35,20 +35,21 @@ namespace ExchangeRate
                 new ExchangeAccountHistoryRepository(spaceDbContext);
             ExchangeRateToUsdHistoryRepository exchangeRateToUsdHistoryRepository =
                 new ExchangeRateToUsdHistoryRepository(spaceDbContext);
-
-            var bankAccountRepository = new BankAccountRepository(spaceDbContext);
-            var userRepository = new UserRepository(spaceDbContext, bankAccountRepository);
-            var contextAccessor = new HttpContextAccessor();
-
-            IUserService userService = new UserService(userRepository, contextAccessor);
-
+            
             var configExpression = new MapperConfigurationExpression();
             var mapperConfiguration = new MapperConfiguration(configExpression);
             var mapper = new Mapper(mapperConfiguration);
 
+            var contextAccessor = new HttpContextAccessor();
+            var bankAccountRepository = new BankAccountRepository(spaceDbContext, mapper, contextAccessor);
+            var userRepository = new UserRepository(spaceDbContext, bankAccountRepository);
+            IUserService userService = new UserService(userRepository, contextAccessor);
+
+
+
             var currencyService =
-                new CurrencyService(userService, 
-                    exchangeRateToUsdCurrentRepository, 
+                new CurrencyService(userService,
+                    exchangeRateToUsdCurrentRepository,
                     exchangeAccountHistoryRepository,
                     exchangeRateToUsdHistoryRepository,
                     mapper);

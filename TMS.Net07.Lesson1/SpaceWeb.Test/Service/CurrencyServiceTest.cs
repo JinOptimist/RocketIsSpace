@@ -52,12 +52,12 @@ namespace SpaceWeb.Test.Service
                 .Returns(exchangeRateToUsdCurrent);
 
             //Act
-            var actualResult  = _currencyService.ConvertByAlex(amount, currency);
+            var actualResult = _currencyService.ConvertByAlex(amount, currency);
 
             //Assert
             Assert.AreEqual(expectedResult, actualResult);
         }
-    
+
         [Test]
         [TestCase(2.5, 3, 108, Currency.EUR, Currency.USD, 90)]
         [TestCase(3, 2.5, 150, Currency.USD, Currency.EUR, 180)]
