@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace SpaceWeb.EfStuff.Repositories
 {
-    public class BankAccountRepository : BaseRepository<BankAccount>
+    public class BankAccountRepository : BaseRepository<BankAccount>, IBankAccountRepository
     {
         private ITransactionBankRepository _transactionBankRepository;
         private BankAccountHistoryRepository _bankAccountHistoryRepository;

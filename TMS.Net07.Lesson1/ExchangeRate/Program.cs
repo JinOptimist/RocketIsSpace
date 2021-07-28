@@ -50,7 +50,7 @@ namespace ExchangeRate
 
             var bankAccountRepository = new BankAccountRepository(spaceDbContext, transactionBankRepository, bankAccountHistoryRepository);
 
-            var userRepository = new UserRepository(spaceDbContext, (IBankAccountRepository)bankAccountRepository);
+            var userRepository = new UserRepository(spaceDbContext, bankAccountRepository);
 
             IUserService userService = new UserService(userRepository, contextAccessor);
 
