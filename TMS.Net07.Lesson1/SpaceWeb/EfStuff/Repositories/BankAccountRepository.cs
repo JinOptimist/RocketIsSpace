@@ -96,5 +96,27 @@ namespace SpaceWeb.EfStuff.Repositories
                     && x.BankAccountType == BankAccountType.Department)
                 .ToList();
         }
+
+        public override void Remove(long id)
+        {
+
+            var accountToRemove = Get(id);
+
+            base.SaveHistory(accountToRemove, "Delete");
+
+            accountToRemove.IncomingTransactions.ForEach(x => {
+                _spaceDbContext.Remove(x);
+            });
+
+            accountToRemove.OutcomingTransactions.ForEach(x => {
+                _spaceDbContext.Remove(x);
+            });
+
+            _spaceDbContext.Update(accountToRemove);
+
+            _spaceDbContext.SaveChanges();
+
+            base.Remove(accountToRemove);
+        }
     }
 }

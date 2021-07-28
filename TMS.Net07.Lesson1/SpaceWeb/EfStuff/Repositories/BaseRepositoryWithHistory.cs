@@ -50,31 +50,6 @@ namespace SpaceWeb.EfStuff.Repositories
             _spaceDbContext.SaveChanges();
         }
 
-        public override void Remove(ModelType model)
-        {
-
-            SaveHistory(model, "Delete");
-
-            if (model is BankAccount)
-            {
-                var account = _spaceDbContext.BankAccount.Single(x => x.Id == model.Id);
-
-                account.IncomingTransactions.ForEach( x => {
-                    _spaceDbContext.Remove(x);
-                });
-
-                account.OutcomingTransactions.ForEach(x => {
-                    _spaceDbContext.Remove(x);
-                });
-
-                _spaceDbContext.Update(account);
-            }
-
-            base.Remove(model);
-            
-            _spaceDbContext.SaveChanges();
-        }
-
         public override void Remove(long id)
         {
             var model = Get(id);
@@ -89,7 +64,7 @@ namespace SpaceWeb.EfStuff.Repositories
             }
         }
 
-        private void SaveHistory(ModelType model, string action)
+        public void SaveHistory(ModelType model, string action)
         {
             var historyModel = _mapper.Map<ModelHistoryType>(model);
             historyModel.Id = default;
