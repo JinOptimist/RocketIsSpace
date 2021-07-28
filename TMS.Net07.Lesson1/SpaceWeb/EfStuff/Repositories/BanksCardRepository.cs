@@ -9,13 +9,19 @@ namespace SpaceWeb.EfStuff.Repositories
 {
     public class BanksCardRepository : BaseRepository<BanksCard>, IBanksCardRepository
     {
+        private IBankAccountRepository _bankAccountRepository;
+
+        
+
         public BanksCard GetCardById(long id)
         {
             return _dbSet.SingleOrDefault(x => x.Id == id);
         }
-        public BanksCardRepository(SpaceDbContext spaceDbContext) :
+        public BanksCardRepository(SpaceDbContext spaceDbContext,
+            IBankAccountRepository bankAccountRepository) :
             base(spaceDbContext)
         {
+            _bankAccountRepository = bankAccountRepository;
         }
         public BanksCard GetCard(string AccountNumber)
         {
@@ -48,6 +54,15 @@ namespace SpaceWeb.EfStuff.Repositories
         public List<BanksCard> GetByUserId(long userId)
         {
             return _dbSet.Where(x => x.BankAccount.Owner.Id == userId).ToList();
+        }
+
+        public override void Remove (long id)
+        {
+            var cardToRemove = Get(id);
+            var accountToRemove = cardToRemove.BankAccount;
+            _bankAccountRepository.Remove(accountToRemove);
+
+            base.Remove(cardToRemove);
         }
     }
 }

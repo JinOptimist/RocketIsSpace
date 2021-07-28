@@ -143,7 +143,9 @@ namespace SpaceWeb
                 new AdvImageRepository(diContainer.GetService<SpaceDbContext>()));
 
             services.AddScoped<BanksCardRepository>(diContainer =>
-                new BanksCardRepository(diContainer.GetService<SpaceDbContext>()));
+                new BanksCardRepository(
+                    diContainer.GetService<SpaceDbContext>(),
+                    diContainer.GetService<IBankAccountRepository>()));
 
             services.AddScoped<ComfortRepository>(diContainer =>
                 new ComfortRepository(diContainer.GetService<SpaceDbContext>()));
