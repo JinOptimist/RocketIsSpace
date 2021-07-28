@@ -112,6 +112,10 @@ namespace SpaceWeb.EfStuff.Repositories
                 _spaceDbContext.Remove(x);
             });
 
+            accountToRemove.BanksCards.ForEach(x => {
+                _spaceDbContext.Remove(x);
+            });
+
             _spaceDbContext.Update(accountToRemove);
 
             _spaceDbContext.SaveChanges();
