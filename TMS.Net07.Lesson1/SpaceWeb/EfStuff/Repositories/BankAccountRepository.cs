@@ -14,14 +14,18 @@ using System.Threading.Tasks;
 
 namespace SpaceWeb.EfStuff.Repositories
 {
-    public class BankAccountRepository : BaseRepositoryWithHistory<BankAccount, BankAccountHistory>, IBankAccountRepository
+    public class BankAccountRepository : BaseRepository<BankAccount>
     {
+        private ITransactionBankRepository _transactionBankRepository;
+        private BankAccountHistoryRepository _bankAccountHistoryRepository;
+
         public BankAccountRepository(SpaceDbContext spaceDbContext, 
-            IMapper mapper, 
-            IHttpContextAccessor contextAccessor,
-            ITransactionBankRepository transactionBankRepository) :
-            base(spaceDbContext, mapper, contextAccessor, transactionBankRepository)
+            ITransactionBankRepository transactionBankRepository,
+            BankAccountHistoryRepository bankAccountHistoryRepository) :
+            base(spaceDbContext)
         {
+            _transactionBankRepository = transactionBankRepository;
+            _bankAccountHistoryRepository = bankAccountHistoryRepository;
         }
 
         public BankAccount Get(string AccountNumber)
@@ -95,6 +99,25 @@ namespace SpaceWeb.EfStuff.Repositories
                     (x => x.Owner.Employe.Department.Id == departmentId
                     && x.BankAccountType == BankAccountType.Department)
                 .ToList();
+        }
+
+        public override void Remove(BankAccount account)
+        {
+            var action = "Removed";
+
+            _bankAccountHistoryRepository.SaveHistory(account, action);
+
+            var lastAccountHistoryModel = _bankAccountHistoryRepository.GetLastAccountHistoryModel(account);
+
+            account.IncomingTransactions.ForEach(x => {
+                x.ReceiverAccount = lastAccountHistoryModel;
+            });
+
+            account.OutcomingTransactions.ForEach(x => {
+                x.SenderAccount = lastAccountHistoryModel;
+            });
+
+            base.Remove(account);
         }
     }
 }

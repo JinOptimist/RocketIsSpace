@@ -29,23 +29,30 @@ namespace ExchangeRate
                 .UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=SpaceWeb;Trusted_Connection=True");
 
             SpaceDbContext spaceDbContext = new SpaceDbContext(connection.Options);
+
+            var contextAccessor = new HttpContextAccessor();
+
+            var configExpression = new MapperConfigurationExpression();
+            var mapperConfiguration = new MapperConfiguration(configExpression);
+            var mapper = new Mapper(mapperConfiguration);
+
             ExchangeRateToUsdCurrentRepository exchangeRateToUsdCurrentRepository =
                 new ExchangeRateToUsdCurrentRepository(spaceDbContext);
             ExchangeAccountHistoryRepository exchangeAccountHistoryRepository =
                 new ExchangeAccountHistoryRepository(spaceDbContext);
             ExchangeRateToUsdHistoryRepository exchangeRateToUsdHistoryRepository =
                 new ExchangeRateToUsdHistoryRepository(spaceDbContext);
-            
-            var configExpression = new MapperConfigurationExpression();
-            var mapperConfiguration = new MapperConfiguration(configExpression);
-            var mapper = new Mapper(mapperConfiguration);
 
-            var contextAccessor = new HttpContextAccessor();
-            var bankAccountRepository = new BankAccountRepository(spaceDbContext, mapper, contextAccessor);
-            var userRepository = new UserRepository(spaceDbContext, bankAccountRepository);
+            TransactionBankRepository transactionBankRepository = new TransactionBankRepository(spaceDbContext);
+
+            BankAccountHistoryRepository bankAccountHistoryRepository = 
+                new BankAccountHistoryRepository(spaceDbContext, mapper, contextAccessor);
+
+            var bankAccountRepository = new BankAccountRepository(spaceDbContext, transactionBankRepository, bankAccountHistoryRepository);
+
+            var userRepository = new UserRepository(spaceDbContext, (IBankAccountRepository)bankAccountRepository);
+
             IUserService userService = new UserService(userRepository, contextAccessor);
-
-
 
             var currencyService =
                 new CurrencyService(userService,
