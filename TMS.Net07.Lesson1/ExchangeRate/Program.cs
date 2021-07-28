@@ -41,7 +41,9 @@ namespace ExchangeRate
             var mapper = new Mapper(mapperConfiguration);
 
             var contextAccessor = new HttpContextAccessor();
-            var bankAccountRepository = new BankAccountRepository(spaceDbContext, mapper, contextAccessor);
+
+            TransactionBankRepository transactionBankRepository = new TransactionBankRepository(spaceDbContext);
+            var bankAccountRepository = new BankAccountRepository(spaceDbContext, mapper, contextAccessor, transactionBankRepository);
             var userRepository = new UserRepository(spaceDbContext, bankAccountRepository);
             IUserService userService = new UserService(userRepository, contextAccessor);
 
