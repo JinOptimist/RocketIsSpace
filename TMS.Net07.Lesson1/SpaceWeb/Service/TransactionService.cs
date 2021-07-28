@@ -97,10 +97,14 @@ namespace SpaceWeb.Service
             }
             else
             {
-                var fromAmount = _currencyService
+                var fromAmount = fromAccount.Currency == transferCurrency
+                    ? transferAmount
+                    : _currencyService
                     .ConvertByAlex(transferCurrency, transferAmount, fromAccount.Currency);
 
-                var toAmount = _currencyService
+                var toAmount = toAccount.Currency == transferCurrency
+                    ? transferAmount
+                    : _currencyService
                     .ConvertByAlex(transferCurrency, transferAmount, toAccount.Currency);
 
                 fromAccount.Amount -= fromAmount;

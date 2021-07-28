@@ -218,5 +218,6 @@ namespace SpaceWeb.Presentation
 
             return JsonConvert.SerializeObject(newAmount);
         }
+
     }
 }

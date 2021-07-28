@@ -93,7 +93,7 @@ $(document).ready(function () {
 
                         if (operation == 'transfer') {
 
-                            var toAccountNumber = $('.transfer.form .to-account-number').val();
+                            var toAccountNumber = $('.transfer.form .to-account-number').val().replace(" ", "");
 
                             var myAccountToTransfer = GetAccountToTransfer(toAccountNumber);
 
@@ -391,7 +391,7 @@ $(document).ready(function () {
 
     function TransferUrl(activeAccount, amount) {
 
-        var toAccountNumber = $('.transfer.form .to-account-number').val();
+        var toAccountNumber = $('.transfer.form .to-account-number').val().replace(" ", "");
 
         var url = `/Account/Transfer?fromAccountId=${activeAccount.id}&toAccountNumber=${toAccountNumber}&transferAmount=${amount}`;
 

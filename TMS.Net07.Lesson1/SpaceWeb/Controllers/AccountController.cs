@@ -184,12 +184,18 @@ namespace SpaceWeb.Controllers
         public IActionResult DownloadLog(long id)
         {
             var webPath = _hostEnvironment.WebRootPath;
+            var folderPath = Path.Combine(webPath, "TempFile");
             var user = _userService.GetCurrent();
             var path = Path.Combine(webPath, "TempFile", $"{user.Id}.docx");
             var account = _bankAccountRepository.Get(id);
             var countRows = 6;
             Border slimLine = new Border(BorderStyle.Tcbs_single, BorderSize.one, 0, Color.Black);
             Border boldLine = new Border(BorderStyle.Tcbs_single, BorderSize.seven, 0, Color.Black);
+
+            if (!System.IO.Directory.Exists(folderPath))
+            {
+                System.IO.Directory.CreateDirectory(folderPath);
+            }
 
             using (var doc = DocX.Create(path))
             {

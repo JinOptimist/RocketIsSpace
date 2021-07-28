@@ -139,12 +139,22 @@ namespace SpaceWeb.EfStuff
             modelBuilder.Entity<TransactionBank>()
                 .HasOne(transaction => transaction.ReceiverAccount)
                 .WithMany(a => a.IncomingTransactions)
-                .OnDelete(DeleteBehavior.ClientSetNull);
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<TransactionBank>()
                 .HasOne(transaction => transaction.SenderAccount)
                 .WithMany(account => account.OutcomingTransactions)
-                .OnDelete(DeleteBehavior.ClientSetNull);
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<BankAccount>()
+                .HasMany(account => account.OutcomingTransactions)
+                .WithOne(transaction => transaction.SenderAccount)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<BankAccount>()
+                .HasMany(account => account.IncomingTransactions)
+                .WithOne(transaction => transaction.ReceiverAccount)
+                .OnDelete(DeleteBehavior.Cascade);
 
             base.OnModelCreating(modelBuilder);
         }
