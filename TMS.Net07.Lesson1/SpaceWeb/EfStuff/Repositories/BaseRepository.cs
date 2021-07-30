@@ -26,7 +26,7 @@ namespace SpaceWeb.EfStuff.Repositories
         {
             return _dbSet.SingleOrDefault(x => x.Id == id);
         }
-
+        
         public virtual void Save(ModelType model)
         {
             if (model.Id > 0)
