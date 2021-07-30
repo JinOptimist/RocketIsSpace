@@ -1,19 +1,24 @@
-﻿<!DOCTYPE html>
+﻿@using SpaceWeb.Service
+@inject UserService userService
+@using SpaceWeb.Localization
+
+<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="windows-1251" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="stylesheet" href="~/css/reset.css" />
     <link rel="stylesheet" href="~/css/bank/iconBank.css" />
-    <link rel="stylesheet" href="~/css/bank/styleBank.css?v=13" />
-    <link rel="stylesheet" href="~/css/bank/centralButtonStartPage.css?v=5" />
-    <link rel="stylesheet" href="~/css/bank/styleAccountCreation.css?v=1" />
+    <link rel="stylesheet" href="~/css/bank/styleBank.css?v=22" />
     <link rel="stylesheet" href="~/css/bank/insurance.css?v=1" />
 
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/js/bank/bank.js?v=0"></script>
-    @*<script src="~/js/bank/centralButtonStartPage.js"></script>*@
+    <script src="~/js/bank/bank.js?v=1"></script>
+    <script src="~/js/bank/bankAccountCommonFunctions.js"></script>
+
+    <link rel="icon" href="~/image/bank/logo.png" type="image/png">
+
     <title>Rocket</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
@@ -28,7 +33,7 @@
         <div class="header">
             <div class="logo">
                 <a href="/">
-                    <img class="logo-image" src="../image/bank/logo.png" alt="logo">
+                    <img class="logo-image" src="/image/bank/logo.png" alt="logo">
                 </a>
                 <a href="/Bank">
                     <div class="logoName">
@@ -41,24 +46,27 @@
             <div class="buttonList">
                 <div class="about button">O нас</div>
                 <a href="/Bank/Contacts" class="contacts button">
-                    <div >Контакты</div>
+                    <div>Контакты</div>
                 </a>
-                <a href="/Bank/Cabinet" class="cabinet button">
-                    <div>Личный кабинет</div>
-                    <img class="login-icon" src="../image/icon/account_bank.svg" />
-                </a>
+                @if (User.Identity.IsAuthenticated && userService.IsBankClientOrHigher())
+                {
+                    <a href="/Bank/Cabinet" class="cabinet button">
+                        <div>Личный кабинет</div>
+                        <img class="login-icon" src="/image/icon/account_bank.svg" />
+                    </a>
+                }
                 @if (User.Identity.IsAuthenticated)
-                 {
+                {
                     <a href="/User/Logout" class="login button">
                         <div>Выход</div>
-                        <img class="login-icon" src="../image/icon/login-24px.svg" />
+                        <img class="login-icon" src="/image/icon/login-24px.svg" />
                     </a>
-                 }
+                }
                 else
                 {
                     <a href="/User/Login" class="login button">
                         <div>Выход</div>
-                        <img class="login-icon" src="../image/icon/login-24px.svg" />
+                        <img class="login-icon" src="/image/icon/login-24px.svg" />
                     </a>
                 }
             </div>
@@ -73,11 +81,11 @@
             <div></div>
             <div class="contacts">
                 <div class="social-media">
-                    <img class="footer-icon facebook" src="../image/icon/facebook.png">
-                    <img class="footer-icon google-plus" src="../image/icon/google-plus.png">
-                    <img class="footer-icon instagram" src="../image/icon/instagram.png">
-                    <img class="footer-icon twitter" src="../image/icon/twitter.png">
-                    <img class="footer-icon youtube" src="../image/icon/youtube.png">
+                    <img class="footer-icon facebook" src="/image/icon/facebook.png">
+                    <img class="footer-icon google-plus" src="/image/icon/google-plus.png">
+                    <img class="footer-icon instagram" src="/image/icon/instagram.png">
+                    <img class="footer-icon twitter" src="/image/icon/twitter.png">
+                    <img class="footer-icon youtube" src="/image/icon/youtube.png">
                 </div>
             </div>
         </div>

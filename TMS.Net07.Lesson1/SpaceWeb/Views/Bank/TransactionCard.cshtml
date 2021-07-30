@@ -1,0 +1,41 @@
+﻿@{
+    Layout = "_LayoutBank";
+}
+@model AddBankCardViewModel
+@using SpaceWeb.Service
+@using AutoMapper
+
+@section Scripts{
+    <script src="~/js/bank/bankAccountCr.js"></script>
+    <script src="~/js/animation-example.js"></script>
+}
+
+  <link rel="stylesheet" href="~/css/bank/Bankscard.css?v=1">
+
+@inject IUserService userService
+@inject IMapper mapper
+
+
+<div class="otstup"></div>
+<form class="creation form" action="/Bank/AddTransaction" method="POST">
+    <div>From КАРТА </div>
+    <p>
+        @Html.DropDownList("cardFromId", Model.CardFromDrop) 
+    </p>
+    <div>TO КАРТА </div>
+    <p>
+
+        @Html.DropDownList("cardToId", Model.CardToDrop)  
+    </p>
+
+    <p class="buttons">
+
+        <input class="create-account button" type="submit" value="Создать">
+
+
+        <input class="cancel-creation button" type="reset" value="Сброс">
+        <input type="text" name="TransferAmount">Сумма перевода</input>
+    </p>
+</form>
+
+

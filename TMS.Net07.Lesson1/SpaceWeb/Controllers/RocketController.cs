@@ -10,10 +10,10 @@ namespace SpaceWeb.Controllers
     public class RocketController : Controller
     {
         private IUserRepository _userRepository;
-        private UserService _userService;
+        private IUserService _userService;
         private IMapper _mapper;
         public RocketController(IUserRepository userRepository,IMapper mapper,
-        UserService userService)
+        IUserService userService)
         {
             _userRepository = userRepository;
             _mapper = mapper;
@@ -28,7 +28,7 @@ namespace SpaceWeb.Controllers
             return View("Profile",viewModel);
         }
       
-        public IActionResult MainPage()
+        public IActionResult Index()
         {
             return View();
         }

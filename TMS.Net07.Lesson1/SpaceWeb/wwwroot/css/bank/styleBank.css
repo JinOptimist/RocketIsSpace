@@ -33,7 +33,7 @@ a {
     display: flex;
     justify-content: space-between;
     align-content: center;
-    border-bottom: 3px solid rgb(190,190,190);
+    border-bottom: 3px solid rgb(190, 190, 190);
     backdrop-filter: blur(3px);
 }
 
@@ -113,7 +113,7 @@ a {
     opacity: 1;
 }
 
-.header-for-start-page .buttonList .button{
+.header-for-start-page .buttonList .button {
     color: rgb(255, 255, 255);
     margin: 0.2em;
     padding: 0.5em;
@@ -123,9 +123,9 @@ a {
     opacity: 0.8;
 }
 
-.header-for-start-page .buttonList .button:hover{
+.header-for-start-page .buttonList .button:hover {
     font-size: calc(25px+2px);
-    background-image: -webkit-linear-gradient(top,rgb(53, 189, 252),rgb(27, 89, 117));
+    background-image: -webkit-linear-gradient(top, rgb(53, 189, 252), rgb(27, 89, 117));
     color: rgb(255, 255, 255);
     border-radius: 1em;
     opacity: 1;
@@ -155,49 +155,6 @@ a {
 .social-media {
     display: flex;
     justify-content: space-around;
-}
-
-.container {
-    /*height: 100vh;*/
-    width: 100%;
-    margin: 10px auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
-
-.rocket {
-    border: 1px green solid;
-    width: 150px;
-    height: 150px;
-    margin-bottom: 0px;
-    margin: 5px;
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-}
-
-.rocket .name {
-    display: flex;
-    justify-content: center;
-    color: aliceblue;
-    padding: 20px, 0;
-}
-
-.rocket .image-container {
-    height: 150px;
-    width: 150px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-
-.rocket img {
-    max-width: 150px;
-    max-height: calc(150px - 16px);
 }
 
 
@@ -245,23 +202,6 @@ a {
     text-align: center;
     margin-bottom: 25px;
 }
-/*
-.button-login {
-    vertical-align: top;
-    padding: 8px 30px;
-    border: 3px solid #fff;
-    color: #fff;
-    text-transform: uppercase;
-    font-size: 14px;
-    font-weight: 700;
-    text-decoration: none;
-    transition: background .1s linear, color .1s linear;
-}
-
-.button-login:hover {
-    background-color: #fff;
-    color: #333;
-}*/
 
 .header-inner {
     display: flex;
@@ -365,7 +305,6 @@ a {
     padding: 40px;
 }
 
-
 .client-content {
     position: relative;
     z-index: 15;
@@ -375,6 +314,9 @@ a {
 }
 
 .layout-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }
 
 .client-text-centre {
@@ -403,11 +345,9 @@ a {
     .client-text-centre {
         padding-top: 120px;
     }
-
     .intro-titel {
         font-size: 35px;
     }
-
     .intro-suptitel {
         font-size: 25px;
     }
@@ -417,11 +357,9 @@ a {
     .client-text-centre {
         padding-top: 90px;
     }
-
     .intro-titel {
         font-size: 35px;
     }
-
     .intro-suptitel {
         font-size: 25px;
     }
@@ -493,7 +431,8 @@ a {
     margin: 10px;
 }
 
-.link.enter:hover, .link.register:hover {
+.link.enter:hover,
+.link.register:hover {
     font-weight: bolder;
 }
 
@@ -525,31 +464,52 @@ a {
     white-space: nowrap;
 }
 
+
 /* width */
+
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
 }
 
+
 /* Track */
+
 ::-webkit-scrollbar-track {
     background: #f1f1f1;
     border-radius: 10px;
 }
 
+
 /* Handle */
+
 ::-webkit-scrollbar-thumb {
     background-color: rgb(210, 210, 210);
     border-radius: 10px;
     transition: 300ms;
 }
 
+
 /* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    background-color: rgb(190,190,190);
+
+ ::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(190, 190, 190);
 }
 
-.menu.top .bank-account {
+/*-------------Cabinet---------------*/
+
+.cabinet-central-block {
+    /*height: 100vh;*/
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    flex: 1;
+}
+
+.menu.top .bank-account .account-info {
     height: 96px;
     min-width: 166px;
     margin: 10px;
@@ -563,7 +523,7 @@ a {
     transition: 300ms;
 }
 
-.menu.top .bank-account:hover {
+.menu.top .bank-account .account-info:hover {
     background-color: rgb(0, 185, 229);
     cursor: pointer;
 }
@@ -630,7 +590,7 @@ a {
 }
 
 .menu.bottom .button:hover {
-    background-color: rgb(210,210,210);
+    background-color: rgb(210, 210, 210);
     font-weight: 600;
     cursor: pointer;
 }
@@ -642,7 +602,10 @@ a {
     align-items: center;
 }
 
+/*---------Cabinet Ends----------*/
+
 .bank-account-submit {
+    /*delete?*/
     background-color: rgb(0, 185, 229);
 }
 
@@ -660,124 +623,105 @@ a:visited {
     color: black;
 }
 
-.account-info-container {
-    height: 500px;
-    width: 600px;
-    margin: 20px;
-    border-radius: 1em;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-direction: column;
-    background-color: rgb(230, 230, 230);
-    border-radius: 1em;
-    flex-direction: column;
-    padding: 10px;
+.exchanges-history {
+    width: 900px;
+    height: 450px;
 }
 
-.account-info-container .account-info {
-    height: 175px;
-    width: 300px;
-    background-color: rgba(0, 185, 229, 0.7);
-    border-radius: 1em;
-    margin: 10px;
-    box-shadow: 3px 3px 6px 0px rgb(150, 150, 150);
+.content-exchange-chart {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    padding: 10px;
-}
-
-.account-info-container .info {
-    font-size: 13pt;
-    font-weight: 500;
-    color: rgba(250, 250, 250, 0.9);
-    margin: 5px;
-}
-
-.account-info-container .button-list {
-    height: 260px;
-    width: 500px;
-    margin: 10px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
     align-items: center;
 }
 
-.account-info-container .button {
-    height: 100px;
-    width: 140px;
-    margin: 10px;
-    border-radius: 1em;
-    background-color: rgb(230, 230, 230);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    font-size: 11pt;
-    font-weight: 400;
-    transition: 300ms;
-    text-align: center;
-    border: 1px outset;
-}
-
-.account-info-container .button:hover {
-    background-color: rgb(210,210,210);
+.title-exchange-chart {
+    margin: 40px 0px;
+    font-size: 30pt;
+    font-family: system-ui;
     font-weight: 600;
-    cursor: pointer;
-    box-shadow: inset 3px 3px 6px 0px rgb(150, 150, 150);
-    border: 1px inset;
 }
 
-.container-accounts {
-    height: 100%;
-    width: 100%;
-    background-color: rgba(208, 219, 225, 0.1);
+.block {
+    width: 500px;
+    height: 270px;
+    margin: 15px;
+}
+
+.title-exchange {
     display: flex;
-    justify-content: center;
+    flex-direction: row
+}
+
+.download-exchange-btn {
+    background-color: #8c9aff;
+    border-radius: 5px;
+    font-size: 23pt;
+    padding: 6px 10px;
+    margin-left: 20px;
+    display: flex;
+}
+
+.download-accounts-info {
+    display: flex;
     align-items: center;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
-
-.menu.left {
-    height: 500px;
-    width: 187px;
-    margin: 20px;
-    background-color: rgb(230, 230, 230);
-    border-radius: 1em;
-    display: flex;
-    flex-direction: column;
+    font-size: 22pt;
+    font-family: monospace;
+    background-color: #8c9aff;
+    border-radius: 15px;
     padding: 10px;
 }
 
-.left-menu-text {
-    font-size: 20pt;
-    align-self: center;
-    justify-items: flex-start;
-    margin: 5px;
+.download-acc-info-text {
+    margin-left: 10px;
 }
-
-.menu.left .bank-account {
-    height: 96px;
-    min-width: 166px;
-    margin: 10px;
-    border-radius: 1em;
-    background-color: rgba(0, 185, 229,0.7);
-    color: white;
+.account-changer {
+    width: 560px;
+    height: 220px;
     display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
+}
+
+/*-------------snowflake cover---------------*/
+.bank-account .snowflake-cover {
+    width: 0px;
+    height: 0px;
+    display: none;
+    position: relative;
+    z-index: 0;
+}
+
+.bank-account.frozen .snowflake-cover {
+    /*width: 0px;
+    height: 30px;*/
+    display: block;
+    position: relative;
+    left: 0px;
+    z-index: 0;
+    left: 55px;
+    top: 20px;
+}
+
+.bank-account .snowflake-cover .freeze-image {
+    max-width: 80px;
+    max-height: 80px;
+    opacity: 0;
     transition: 300ms;
-    flex-direction: column;
 }
 
-.menu.left .bank-account:hover {
-    background-color: rgb(0, 185, 229);
-    cursor: pointer;
+.bank-account.frozen .snowflake-cover .freeze-image {
+    max-width: 80px;
+    max-height: 80px;
+    opacity: 1;
+    transition: 300ms;
 }
 
-.menu.left .bank-account-list {
-    flex-direction: column;
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
 }

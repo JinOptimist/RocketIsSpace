@@ -35,7 +35,7 @@ namespace SpaceWeb.EfStuff.Model
 
         public virtual List<BankAccount> BankAccounts { get; set; }
        
-        public virtual Profile Profile { get; set; }
+        public virtual Questionary Questionaries { get; set; }
         public virtual List<BanksCard> BanksCards { get; set; }
 
         public virtual Client Client { get; set; }

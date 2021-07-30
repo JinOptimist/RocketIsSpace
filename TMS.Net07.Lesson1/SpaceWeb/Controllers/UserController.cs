@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SpaceWeb.Controllers.CustomAttribute;
 using SpaceWeb.EfStuff;
 using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories.IRepository;
@@ -26,24 +27,30 @@ namespace SpaceWeb.Controllers
         private IUserRepository _userRepository;
         private IBankAccountRepository _bankAccountRepository;
         private IMapper _mapper;
-        private UserService _userService;
+        private IUserService _userService;
         private ICurrencyService _currencyService;
-        private IWebHostEnvironment _hostEnvironment;
+        private IPathHelper _pathHelper;
+        private ISmsService _smsService;
+
         private ILogger<UserController> _logger;
 
         public static int Counter = 0;
 
         public UserController(IUserRepository userRepository, IMapper mapper,
-            UserService userService, ICurrencyService currencyService, IWebHostEnvironment hostEnvironment,
-            IBankAccountRepository bankAccountRepository, ILogger<UserController> logger)
+            IUserService userService, ICurrencyService currencyService,
+            IBankAccountRepository bankAccountRepository,
+            ILogger<UserController> logger,
+            IPathHelper pathHelper,
+            ISmsService smsService)
         {
             _userRepository = userRepository;
             _mapper = mapper;
             _userService = userService;
             _currencyService = currencyService;
-            _hostEnvironment = hostEnvironment;
             _bankAccountRepository = bankAccountRepository;
             _logger = logger;
+            _pathHelper = pathHelper;
+            _smsService = smsService;
         }
 
         [Authorize]
@@ -56,28 +63,52 @@ namespace SpaceWeb.Controllers
             var bankViewModels = user
                 .BankAccounts
                 .Select(x => _mapper.Map<BankAccountViewModel>(x)).ToList();
+            foreach (var bankAccount in bankViewModels)
+            {
+                bankAccount.AmountString = _currencyService.IntToStringAmount((int)bankAccount.Amount);
+
+            }
+
+
             viewModel.MyAccounts = bankViewModels;
             viewModel.DefaultCurrency = user.DefaultCurrency;
             viewModel.MyCurrencies = _bankAccountRepository.GetCurrencies(user.Id);
-
-            decimal allAmountInUsd = 0;
+            
+            decimal amountAllMoneyInDefaultCurrency = 0;
             var accounts = _bankAccountRepository.GetBankAccounts(user.Id);
 
-            foreach (var account in accounts)
+            if (accounts.Count() != 0)
             {
-                var amount = _currencyService.ConvertByAlex(account.Currency, account.Amount, Currency.USD);
-                allAmountInUsd += amount;
+                viewModel.RandomCurrency = accounts.First().Currency;
             }
-
-            decimal amountAllMoneyInDefaultCurrency = 0;
 
             if (user.DefaultCurrency != 0)
             {
-                amountAllMoneyInDefaultCurrency = _currencyService.ConvertByAlex(Currency.USD, allAmountInUsd, user.DefaultCurrency);
+                viewModel.AmountAllMoneyInDefaultCurrency = _currencyService.CountAllMoneyInWishingCurrency(accounts, viewModel.DefaultCurrency);
             }
-            viewModel.AmountAllMoneyInDefaultCurrency = Math.Round(amountAllMoneyInDefaultCurrency, 2);
+            else
+            {
+                viewModel.AmountAllMoneyInDefaultCurrency = _currencyService.CountAllMoneyInWishingCurrency(accounts, viewModel.RandomCurrency);
+            }
+            foreach (var bancAccount in accounts)
+            {
+                viewModel.AmountString = _currencyService.IntToStringAmount((int)viewModel.AmountAllMoneyInDefaultCurrency);
+
+            }
 
             return View(viewModel);
+        }
+
+        public IActionResult UpdateAllMoney(Currency currency)
+        {
+            AllMoney allMoney = new AllMoney();
+
+            var user = _userService.GetCurrent();
+            var accounts = _bankAccountRepository.GetBankAccounts(user.Id);
+            allMoney.count = _currencyService.CountAllMoneyInWishingCurrency(accounts, currency);
+            allMoney.currency = currency.ToString();
+
+            return Json(allMoney);
         }
 
         public IActionResult UpdateFavCurrency(Currency currency)
@@ -105,18 +136,18 @@ namespace SpaceWeb.Controllers
 
             if (viewModel.Avatar != null)
             {
-                var webPath = _hostEnvironment.WebRootPath;
-                var path = Path.Combine(webPath, "image", "avatars", $"{user.Id}.jpg");
+                var path = _pathHelper.GetPathToAvatarByUser(user.Id);
                 using (var fileStream = new FileStream(path, FileMode.OpenOrCreate))
                 {
                     await viewModel.Avatar.CopyToAsync(fileStream);
                 }
-                user.AvatarUrl = $"/image/avatars/{user.Id}.jpg";
+                user.AvatarUrl = _pathHelper.GetAvatarUrlByUser(user.Id);
 
                 _logger.LogInformation($"User {user.Id} change avatar");
             }
 
             user.Email = viewModel.Email;
+
             _userRepository.Save(user);
 
             return RedirectToAction("Profile");
@@ -293,5 +324,44 @@ namespace SpaceWeb.Controllers
             var viewModel = _mapper.Map<EmployeeProfileViewModel>(user);
             return View(viewModel);
         }
+
+        [IsAdmin]
+        public IActionResult AllAvatars()
+        {
+            var avatarsFolrdPath = _pathHelper.GetPathToAvatarFolder();
+            var filesPath = Directory.GetFiles(avatarsFolrdPath);
+            var models = filesPath
+                .Where(filePath => Path.GetExtension(filePath) == ".jpg")
+                .Select(filePath => Path.GetFileName(filePath))
+                .Select(fileName => new AvatarsAdminViewModel()
+                {
+                    Url = _pathHelper.GetAvatarUrlByFileName(fileName)
+                }).ToList();
+
+            var users = _userRepository.GetAll();
+
+            foreach (var model in models)
+            {
+                var user = users.SingleOrDefault(x => x.AvatarUrl == model.Url);
+                model.UserId = user?.Id ?? -1;
+            }
+            return View(models);
+        }
+
+        public JsonResult SendingSmsCode(string phone)
+        {
+            phone = _smsService.ConvertToDefaultPhoneNumber(phone);
+            var generatedCode = _smsService.CreateCodeFromSms();
+
+            _smsService.SendSMS(phone, $"[Test] Код подтверждения регистрации на сервисе MyApptechka: {generatedCode}");
+
+            return Json(generatedCode);
+        }
+    }
+
+    public class AllMoney
+    {
+        public decimal count { get; set; }
+        public string currency { get; set; }
     }
 }

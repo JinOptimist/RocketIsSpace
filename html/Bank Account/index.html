@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Account</title>
+        <link rel="stylesheet" href="style/style.css" />
+        <link rel="stylesheet" href="style/reset.css" />     
+        <link rel="stylesheet" href="style/icon.css" />
+        <script src="js/jquery-3.6.0.min.js"></script>
+        <script src="js/index.js"></script>     
+    </head>
+    <body>        
+        <div class ="container-accounts">
+            <div class ="menu left">
+                <div class = "left-menu-text">СЧЕТА</div>
+                <div class = "bank-account-list">
+                    <div class = "bank-account">
+                        <div class = "type">Валютный счет</div>
+                        <div>
+                            <span class = "amount">1500 </span><span class = "currency">$</span>
+                        </div>
+                        <div class = "account-number">*000123</div>
+                    </div>
+                    <div class = "add-new background">
+                        <div class = "add-new content"><a>Добавить счет</a></div>
+                </div>
+                </div>
+            </div>                
+            <div class ="account-container">
+                <div class ="account-changer">
+                    <div class ="prev-btn"> Назад </div>
+
+                    <div class="account-info-container next">
+                        <div class ="account-info">
+                            <div class ="info">NEXT</div>
+                            <div class ="info">100 USD</div>
+                            <div class ="info">XXXX XXXX XXXX 5398</div>
+                            <div class ="info">Действителен до: 09/24</div>
+                        </div>
+                    </div>
+
+                    <div class="account-info-container current">
+                        <div class ="account-info">
+                            <div class ="info">DK5398</div>
+                            <div class ="info">2 130,44 BYN</div>
+                            <div class ="info">XXXX XXXX XXXX 5398</div>
+                            <div class ="info">Действителен до: 09/24</div>
+                        </div>
+                    </div>
+                    
+                    <div class="account-info-container prev">
+                        <div class ="account-info">
+                            <div class ="info">PREV</div>
+                            <div class ="info">5605 EUR</div>
+                            <div class ="info">XXXX XXXX XXXX 5398</div>
+                            <div class ="info">Действителен до: 09/24</div>
+                        </div>
+                    </div>
+                    
+                    <div class="next-btn"> Вперде </div>
+                </div>
+                <div class ="button-list">
+                    <div class = "button">Пополнить счет</div>
+                    <div class = "button">Снять со счета</div>
+                    <div class = "button">Заморозить счета</div>
+                    <div class = "button">История операций</div>
+                    <div class = "button">Перевод со счета</div>
+                    <div class = "button">Удалить счет</div>
+                </div>
+            </div>
+        </div>
+        <div class="hide">
+            <div class = "bank-account template">
+                <div class = "type">Валютный счет</div>
+                <span class = "amount"></span><span class = "currency">$</span>
+                <div class = "account-number"></div>
+            </div>
+          </div>      
+    </body>
+</html>
+
+<div class="account-info-container template hide">
+    <div class ="account-info">
+        <div class ="info"></div>
+        <div class ="info"></div>
+        <div class ="info"></div>
+        <div class ="info"></div>
+    </div>
+</div>

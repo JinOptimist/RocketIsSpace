@@ -1,0 +1,148 @@
+﻿@model BankAccountViewModel
+
+@{
+    Layout = "_LayoutBank";
+}
+
+@section Scripts{
+    <script src="~/js/bank/bankAccountCarousel.js?v=4"></script>
+    <script src="~/js/bank/bankAccountIndex.js?v=6"></script>
+}
+
+@section Style{
+    <link rel="stylesheet" href="~/css/bank/styleAccount.css?v=8" />
+}
+
+<body>
+    <div class="client-before-content"></div>
+
+    <div class="account-index-central-block">
+        <div class="menu left">
+            <div class="left-menu-text">СЧЕТА: <span class="total-accounts">@Model.UserAccounts.Count()</span></div>
+            @Html.Partial("_bankAccountsList", Model.UserAccounts)
+        </div>
+        <div class="account-container">
+
+            <div class="account-changer">
+
+                <div class="changer-buttons">
+                    <div class="prev-btn button noselect">
+                        <img class ="left-arrow icon" src="~/image/icon/arrows/left-arrow.png" />
+                    </div>
+                    <div class="next-btn button noselect">
+                        <img class ="right-arrow icon" src="~/image/icon/arrows/right-arrow.png" />
+                    </div>
+                </div>
+
+                <div class="account-view-window">
+                    <div class="account-carousel">
+                        @foreach (var bankAccount in Model.UserAccounts)
+                        {
+                        <div class="account-info-container @bankAccount.AccountIndex @(bankAccount.IsFrozen ? "frozen" : "")">
+
+                            <div class="snowflake-cover">
+                                <img src="~/image/snowflake.png" class="freeze-image" />
+                            </div>
+                            <div class="account-info">
+                                <input class="info id hide" type="hidden" value="@bankAccount.Id" />
+                                <div class="info index hide">@bankAccount.AccountIndex</div>
+                                <div class="info frozen-status hide">@bankAccount.IsFrozen.ToString().ToLower()</div>
+                                <div class="info @nameof(bankAccount.Name).ToLower()">
+                                    <span class="freeze-indication hide">❄</span>
+                                    @bankAccount.Name
+                                </div>
+                                <div class="info">
+                                    <span class="amount">@bankAccount.Amount</span>
+                                    <span class="currency">@bankAccount.Currency.ToString()</span>
+                                    <span class="changing hide"></span>
+                                </div>
+                                <div class="info number">@bankAccount.AccountNumber</div>
+                                <div class="info creation">Создан: @bankAccount.CreationDate.Month/@bankAccount.CreationDate.Year</div>
+                                <div class="info expire">Действителен до: @bankAccount.ExpireDate.Month/@bankAccount.ExpireDate.Year</div>
+                            </div>
+                        </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="content-box">
+                <div class="button-list">
+                    <input class="active-account index hide" type="hidden" value="@Model.AccountIndex">
+
+                    <input class="active-account id hide" type="hidden" value="@Model.Id">
+
+                    <input class="active-account frozen-status hide" type="hidden" value="@Model.IsFrozen.ToString().ToLower()" />
+
+                    <div class="button deposit show-menu noselect">Пополнить счет</div>
+
+                    <div class="button withdrawal show-menu noselect">Снять со счета</div>
+
+                    <div class="button freeze noselect">
+                    <span class="freeze-account text @(Model.IsFrozen? "hide" : "")">Заморозить счет</span>
+                    <span class="unfreeze-account text @(Model.IsFrozen? "" : "hide")"> Разморозить счет</span>
+                    </div>
+
+                    <a href="/Account/DownloadLog?id=@Model.Id">
+                        <div class="button noselect">История операций</div>
+                    </a>
+
+                    <div class="button transfer show-menu noselect">Перевод со счета</div>
+                    
+                    <div class="button remove show-menu noselect">Удалить счет</div>
+                </div>
+
+                <div class="deposit-form container hide">
+                    <div class="head-text">ПОПОЛНЕНИЕ СЧЕТА</div>
+                    <form class="deposit form" method="POST">
+                        <div>Сумма для пополнения</div>
+                        <input class="deposit amount" type="text" autocomplete="off" onpaste="return false;" ondrop="return false;">
+                        <p class="buttons">
+                            <input class="make deposit button noselect" type="submit" value="Пополнить">
+                            <input class="cancel deposit button noselect" type="reset" value="Отмена">
+                        </p>
+                    </form>
+                </div>
+
+                <div class="withdrawal-form container hide">
+                    <div class="head-text">СНЯТИЕ СО СЧЕТА</div>
+                    <form class="withdrawal form" method="POST">
+                        <div>Сумма для снятия</div>
+                        <input class="withdrawal amount" type="text" autocomplete="off" onpaste="return false;" ondrop="return false;">
+                        <p class="buttons">
+                            <input class="make withdrawal button noselect" type="submit" value="Снять">
+                            <input class="cancel withdrawal button noselect" type="reset" value="Отмена">
+                        </p>
+                    </form>
+                </div>
+
+                <div class="transfer-form container hide">
+                    <div class="head-text">ПЕРЕВОД СО СЧЕТА</div>
+                    <form class="transfer form" method="POST">
+                        <div>Номер счета получателя</div>
+                        <input class ="to-account-number" type="text" autocomplete="off">
+                        <div>Сумма перевода</div>
+                        <input class="transfer amount" type="text" autocomplete="off" onpaste="return false;" ondrop="return false;">
+                        <p class="buttons">
+                            <input class="make transfer button noselect" type="submit" value="Перевести">
+                            <input class="cancel transfer button noselect" type="reset" value="Отмена">
+                        </p>
+                    </form>
+                </div>
+
+                <div class="remove-form container hide">
+                    <div class="head-text">УДАЛЕНИЕ СЧЕТА</div>
+                    <form class="remove form" action="/Account/Remove" method="POST">
+                        <div>Подтвердите пароль</div>
+                        <input class="remove password-confirm" type="password" autocomplete="off" name="password">
+                        <input class="account-to-remove hide" type="hidden" value="@Model.Id" name="id">
+                        <p class="buttons">
+                            <input class="make remove button noselect" type="submit" value="Удалить">
+                            <input class="cancel remove button noselect" type="reset" value="Отмена">
+                        </p>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>

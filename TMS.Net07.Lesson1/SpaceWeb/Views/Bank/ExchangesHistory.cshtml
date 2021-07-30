@@ -1,0 +1,31 @@
+﻿@model int
+
+@{
+    Layout = "_LayoutBank";
+}
+
+@section Scripts{
+    <script src="~/js/chart.min.js"></script>
+    <script src="~/js/bank/exchangesHistory.js"></script>
+}
+<div class="content-exchange-chart">
+    <div class="client-before-content"></div>
+
+    <div class="title-exchange">
+        <div class="title-exchange-chart">
+            История обменных курсов валют к Доллару США |
+        </div>
+        <a href="/Bank/DownloadExchangesHistory">
+            <div class="download-exchange-btn title-exchange-chart">
+                <div>
+                    Сохранить
+                </div>
+                <img @*class="login-icon"*@ src="../image/icon/download_36dp.svg" />
+            </div>
+        </a>
+    </div>
+
+    <div class="exchanges-history">
+        <canvas id="exchangesHistoryChart"></canvas>
+    </div>
+</div>

@@ -34,6 +34,29 @@ namespace SpaceWeb.Migrations
                     b.ToTable("OrderRocket");
                 });
 
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.Accrual", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("date");
+
+                    b.Property<long?>("EmployeId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeId");
+
+                    b.ToTable("Accrual");
+                });
+
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.AdditionStructure", b =>
                 {
                     b.Property<long>("Id")
@@ -85,6 +108,9 @@ namespace SpaceWeb.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("BankAccountType")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
@@ -94,17 +120,69 @@ namespace SpaceWeb.Migrations
                     b.Property<DateTime>("ExpireDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("IsFrozen")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<long?>("OwnerId")
                         .HasColumnType("bigint");
-
-                    b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("OwnerId");
 
                     b.ToTable("BankAccount");
+                });
+
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.BankAccountHistory", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AccountNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Action")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("BankAccountType")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Currency")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateOfChange")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ExpireDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("OwnerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("UserWhoChangedId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
+
+                    b.HasIndex("UserWhoChangedId");
+
+                    b.ToTable("BankAccountHistory");
                 });
 
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.BanksCard", b =>
@@ -114,23 +192,40 @@ namespace SpaceWeb.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<long?>("BankAccountHistoryId")
+                        .HasColumnType("bigint");
+
                     b.Property<long?>("BankAccountId")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("CardNumber")
+                    b.Property<int>("Card")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CardUrl")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<long?>("UserId")
+                    b.Property<int>("Currency")
+                        .HasColumnType("int");
+
+                    b.Property<long?>("OwnerId")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("PinCard")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BankAccountHistoryId");
+
                     b.HasIndex("BankAccountId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("OwnerId");
 
                     b.ToTable("BanksCard");
                 });
@@ -237,14 +332,20 @@ namespace SpaceWeb.Migrations
                     b.Property<int>("EmployeStatus")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("FiredDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<long>("ForeignKeyUser")
                         .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("InviteDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("Position")
                         .HasColumnType("int");
 
                     b.Property<decimal>("SalaryPerHour")
-                        .HasColumnType("money");
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -454,7 +555,40 @@ namespace SpaceWeb.Migrations
                     b.ToTable("OrdersEmployes");
                 });
 
-            modelBuilder.Entity("SpaceWeb.EfStuff.Model.Profile", b =>
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.Payment", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<long?>("BankAccountHistoryId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("BankAccountId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("EmployeId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BankAccountHistoryId");
+
+                    b.HasIndex("BankAccountId");
+
+                    b.HasIndex("EmployeId");
+
+                    b.ToTable("Payment");
+                });
+
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.Questionary", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -490,7 +624,7 @@ namespace SpaceWeb.Migrations
                     b.HasIndex("UserRef")
                         .IsUnique();
 
-                    b.ToTable("UserProfile");
+                    b.ToTable("Questionaries");
                 });
 
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.Relic", b =>
@@ -584,6 +718,60 @@ namespace SpaceWeb.Migrations
                     b.ToTable("RocketStages");
                 });
 
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.TransactionBank", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long?>("BankAccountHistoryId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("BankAccountHistoryId1")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("BanksCardFromId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("BanksCardToId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Currency")
+                        .HasColumnType("int");
+
+                    b.Property<long?>("ReceiverAccountId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("SenderAccountId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("TransactionNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("TransferAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BankAccountHistoryId");
+
+                    b.HasIndex("BankAccountHistoryId1");
+
+                    b.HasIndex("BanksCardFromId");
+
+                    b.HasIndex("BanksCardToId");
+
+                    b.HasIndex("ReceiverAccountId");
+
+                    b.HasIndex("SenderAccountId");
+
+                    b.ToTable("TransactionBank");
+                });
+
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.User", b =>
                 {
                     b.Property<long>("Id")
@@ -649,6 +837,15 @@ namespace SpaceWeb.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.Accrual", b =>
+                {
+                    b.HasOne("SpaceWeb.EfStuff.Model.Employe", "Employe")
+                        .WithMany("Accruals")
+                        .HasForeignKey("EmployeId");
+
+                    b.Navigation("Employe");
+                });
+
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.AdditionStructure", b =>
                 {
                     b.HasOne("SpaceWeb.EfStuff.Model.Order", "Order")
@@ -668,17 +865,38 @@ namespace SpaceWeb.Migrations
                     b.Navigation("Owner");
                 });
 
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.BankAccountHistory", b =>
+                {
+                    b.HasOne("SpaceWeb.EfStuff.Model.User", "Owner")
+                        .WithMany()
+                        .HasForeignKey("OwnerId");
+
+                    b.HasOne("SpaceWeb.EfStuff.Model.User", "UserWhoChanged")
+                        .WithMany()
+                        .HasForeignKey("UserWhoChangedId");
+
+                    b.Navigation("Owner");
+
+                    b.Navigation("UserWhoChanged");
+                });
+
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.BanksCard", b =>
                 {
+                    b.HasOne("SpaceWeb.EfStuff.Model.BankAccountHistory", null)
+                        .WithMany("BanksCards")
+                        .HasForeignKey("BankAccountHistoryId");
+
                     b.HasOne("SpaceWeb.EfStuff.Model.BankAccount", "BankAccount")
                         .WithMany("BanksCards")
                         .HasForeignKey("BankAccountId");
 
-                    b.HasOne("SpaceWeb.EfStuff.Model.User", null)
+                    b.HasOne("SpaceWeb.EfStuff.Model.User", "Owner")
                         .WithMany("BanksCards")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("OwnerId");
 
                     b.Navigation("BankAccount");
+
+                    b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.Client", b =>
@@ -766,11 +984,30 @@ namespace SpaceWeb.Migrations
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("SpaceWeb.EfStuff.Model.Profile", b =>
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.Payment", b =>
+                {
+                    b.HasOne("SpaceWeb.EfStuff.Model.BankAccountHistory", null)
+                        .WithMany("Payments")
+                        .HasForeignKey("BankAccountHistoryId");
+
+                    b.HasOne("SpaceWeb.EfStuff.Model.BankAccount", "BankAccount")
+                        .WithMany("Payments")
+                        .HasForeignKey("BankAccountId");
+
+                    b.HasOne("SpaceWeb.EfStuff.Model.Employe", "Employe")
+                        .WithMany("Payments")
+                        .HasForeignKey("EmployeId");
+
+                    b.Navigation("BankAccount");
+
+                    b.Navigation("Employe");
+                });
+
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.Questionary", b =>
                 {
                     b.HasOne("SpaceWeb.EfStuff.Model.User", "User")
-                        .WithOne("Profile")
-                        .HasForeignKey("SpaceWeb.EfStuff.Model.Profile", "UserRef")
+                        .WithOne("Questionaries")
+                        .HasForeignKey("SpaceWeb.EfStuff.Model.Questionary", "UserRef")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -792,6 +1029,41 @@ namespace SpaceWeb.Migrations
                     b.Navigation("Qa");
                 });
 
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.TransactionBank", b =>
+                {
+                    b.HasOne("SpaceWeb.EfStuff.Model.BankAccountHistory", null)
+                        .WithMany("IncomingTransactions")
+                        .HasForeignKey("BankAccountHistoryId");
+
+                    b.HasOne("SpaceWeb.EfStuff.Model.BankAccountHistory", null)
+                        .WithMany("OutcomingTransactions")
+                        .HasForeignKey("BankAccountHistoryId1");
+
+                    b.HasOne("SpaceWeb.EfStuff.Model.BanksCard", "BanksCardFrom")
+                        .WithMany("TransactionsFrom")
+                        .HasForeignKey("BanksCardFromId");
+
+                    b.HasOne("SpaceWeb.EfStuff.Model.BanksCard", "BanksCardTo")
+                        .WithMany("TransactionsTo")
+                        .HasForeignKey("BanksCardToId");
+
+                    b.HasOne("SpaceWeb.EfStuff.Model.BankAccount", "ReceiverAccount")
+                        .WithMany("IncomingTransactions")
+                        .HasForeignKey("ReceiverAccountId");
+
+                    b.HasOne("SpaceWeb.EfStuff.Model.BankAccount", "SenderAccount")
+                        .WithMany("OutcomingTransactions")
+                        .HasForeignKey("SenderAccountId");
+
+                    b.Navigation("BanksCardFrom");
+
+                    b.Navigation("BanksCardTo");
+
+                    b.Navigation("ReceiverAccount");
+
+                    b.Navigation("SenderAccount");
+                });
+
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.User", b =>
                 {
                     b.HasOne("SpaceWeb.EfStuff.Model.Rocket", "MyFavouriteRocket")
@@ -804,6 +1076,30 @@ namespace SpaceWeb.Migrations
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.BankAccount", b =>
                 {
                     b.Navigation("BanksCards");
+
+                    b.Navigation("IncomingTransactions");
+
+                    b.Navigation("OutcomingTransactions");
+
+                    b.Navigation("Payments");
+                });
+
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.BankAccountHistory", b =>
+                {
+                    b.Navigation("BanksCards");
+
+                    b.Navigation("IncomingTransactions");
+
+                    b.Navigation("OutcomingTransactions");
+
+                    b.Navigation("Payments");
+                });
+
+            modelBuilder.Entity("SpaceWeb.EfStuff.Model.BanksCard", b =>
+                {
+                    b.Navigation("TransactionsFrom");
+
+                    b.Navigation("TransactionsTo");
                 });
 
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.Client", b =>
@@ -818,7 +1114,11 @@ namespace SpaceWeb.Migrations
 
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.Employe", b =>
                 {
+                    b.Navigation("Accruals");
+
                     b.Navigation("OrdersEmployes");
+
+                    b.Navigation("Payments");
                 });
 
             modelBuilder.Entity("SpaceWeb.EfStuff.Model.InsuranceType", b =>
@@ -854,7 +1154,7 @@ namespace SpaceWeb.Migrations
 
                     b.Navigation("MyRockets");
 
-                    b.Navigation("Profile");
+                    b.Navigation("Questionaries");
 
                     b.Navigation("TestedRockets");
                 });

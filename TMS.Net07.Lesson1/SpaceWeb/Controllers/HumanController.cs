@@ -15,6 +15,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using SpaceWeb.Models.Chart;
+using SpaceWeb.Extensions;
+using System;
+using SpaceWeb.EfStuff.CustomException;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace SpaceWeb.Controllers
 {
@@ -26,8 +30,7 @@ namespace SpaceWeb.Controllers
         private IDepartmentRepository _departmentRepository;
         private IEmployeRepository _employeRepository;
         private IWebHostEnvironment _hostEnvironment;
-        private UserService _userService;
-
+        private IUserService _userService;
 
         public HumanController(
             IUserRepository userRepository,
@@ -36,7 +39,7 @@ namespace SpaceWeb.Controllers
             IHumanPresentation humanPresentation,
             IEmployeRepository employeRepository,
             IWebHostEnvironment hostEnvironment,
-            UserService userService 
+            IUserService userService 
             )
         {
             _userRepository = userRepository;
@@ -81,16 +84,16 @@ namespace SpaceWeb.Controllers
         }
 
         [HttpGet]
-        public IActionResult DeleteDepartment(long id)
+        public IActionResult DeleteDepartment(long departmentId)
         {
-            _humanPresentation.DeleteDepartment(id);
+            _humanPresentation.DeleteDepartment(departmentId);
             return RedirectToAction("AllDepartments");
         }
 
         [HttpGet]
-        public IActionResult EditDepartment(long id)
+        public IActionResult EditDepartment(long departmentId)
         {
-            return PartialView("Department", _humanPresentation.GetViewModelForDepartment(id));
+            return PartialView("Department", _humanPresentation.GetViewModelForDepartment(departmentId));
         }
 
         [HttpGet]
@@ -100,10 +103,6 @@ namespace SpaceWeb.Controllers
             return View(_humanPresentation.ClientPage());
         }
 
-        public IActionResult UpdateEmployes(long idDepartment)
-        {
-            return Json(_humanPresentation.UpdateEmployes(idDepartment));
-        }
 
         [HttpGet]
         [IsLeaderOfDepartment]
@@ -113,9 +112,9 @@ namespace SpaceWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult PersonnelSubmit(List<RequestViewModel> requestViewModels)
+        public IActionResult PersonnelSubmit(PersonnelViewModel personnelViewModel)
         {
-            _humanPresentation.SavePersonnelChanges(requestViewModels);
+            _humanPresentation.SavePersonnelChanges(personnelViewModel.RequestsToEmploy);
             return RedirectToAction("Personnel");
         }
 
@@ -138,19 +137,39 @@ namespace SpaceWeb.Controllers
             var webPath = _hostEnvironment.WebRootPath;
             var path = Path.Combine(webPath, "TempFile", "temp-departments.docx");
             var contentTypeDocx = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-            var fileName = "departments.docx";            
-             _humanPresentation.SaveDepartmentsToDocX(path);
+            var fileName = "departments.docx";
+            _humanPresentation.SaveDepartmentsToDocX(path);
             return PhysicalFile(path, contentTypeDocx, fileName);
-        }
-
-        public IActionResult GetGraph()
-        {
-            return Json(_humanPresentation.GetChartForWorkersInDepartment());
         }
 
         public IActionResult Graph()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult SaveAccrual(AccrualViewModel accrualViewModel)
+        {
+            var validationResult = _humanPresentation.GetErrorsStringFromModelState(ModelState);
+            if (validationResult != null)
+            {
+                return Json(validationResult);
+            }
+            _humanPresentation.SaveAccrual(accrualViewModel);
+            return RedirectToAction("Personnel");
+        }
+
+        [HttpPost]
+        public IActionResult SavePayment(PaymentViewModel paymentViewModel)
+        {
+            var validationResult = _humanPresentation.GetErrorsStringFromModelState(ModelState);
+            if (validationResult != null)
+            {
+                return Json(validationResult);
+            }
+            if (!_humanPresentation.SavePayment(paymentViewModel, out string message))
+                return Json(message);
+            return RedirectToAction("Personnel");
         }
     }
 }

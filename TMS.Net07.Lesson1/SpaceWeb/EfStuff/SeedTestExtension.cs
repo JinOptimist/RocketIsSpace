@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SpaceWeb.EfStuff.Model;
 using SpaceWeb.EfStuff.Repositories.IRepository;
@@ -12,7 +12,7 @@ namespace SpaceWeb.EfStuff
     public static class SeedTestExtension
     {
         private static Random _random = new Random();
-
+        private static DateTime defaultInviteDate = new DateTime(2020, 1, 1);
         public static IHost SeedTestData(this IHost server)
         {
             using (var serviceScope = server.Services.CreateScope())
@@ -20,6 +20,7 @@ namespace SpaceWeb.EfStuff
                 AddTestDepartments(serviceScope.ServiceProvider);
                 AddTestCLients(serviceScope.ServiceProvider);
                 AddTestRocket(serviceScope.ServiceProvider);
+                AddTestAccounts(serviceScope.ServiceProvider);
             }
             return server;
         }
@@ -65,7 +66,8 @@ namespace SpaceWeb.EfStuff
                     Position = Position.Leader,
                     SalaryPerHour = _random.Next(100, 500),
                     EmployeStatus = EmployeStatus.Accepted,
-                    Department = department
+                    Department = department,
+                    InviteDate = defaultInviteDate
                 };
                 userReposirory.Save(user);
             }
@@ -79,7 +81,8 @@ namespace SpaceWeb.EfStuff
                     Position = (Position)_random.Next(2, 5),
                     SalaryPerHour = _random.Next(50, 250),
                     EmployeStatus = EmployeStatus.Accepted,
-                    Department = department
+                    Department = department,
+                    InviteDate = defaultInviteDate
                 };
                 userReposirory.Save(user);
             }
@@ -141,6 +144,55 @@ namespace SpaceWeb.EfStuff
                 };
             }
             return null;
+        }
+
+        private static void AddTestAccounts(IServiceProvider service)
+        {
+            var userReposirory = service.GetService<IUserRepository>();
+            var accountRepository = service.GetService<IBankAccountRepository>();
+
+            var users = userReposirory.GetAll();
+
+            List<Currency> currencies = new List<Currency>
+                { Currency.BYN, Currency.EUR, Currency.GBP, Currency.PLN, Currency.USD};
+
+            List<string> accountNames = new List<string> { };
+            for (int i = 0; i < 30; i++)
+            {
+                accountNames.Add($"{GetRandomFromArray(currencies)}{_random.Next(1, 100)}");
+            }
+
+            List<DateTime> creationDates = new List<DateTime> { };
+            DateTime startCreationDate = Convert.ToDateTime("01-01-2015");
+            for (int i = 0; i < 30; i++)
+            {
+                creationDates.Add(startCreationDate);
+                startCreationDate = startCreationDate.AddDays(3);
+            }
+
+            List<DateTime> expireDates = new List<DateTime> { };
+            DateTime startExpireDate = Convert.ToDateTime("01 - 06 - 2016");
+            for (int i = 0; i < 30; i++)
+            {
+                expireDates.Add(startExpireDate);
+                startExpireDate = startExpireDate.AddDays(3);
+            }
+
+            while (accountRepository.GetAll().Count < 70)
+            {
+                var account = new BankAccount()
+                {
+                    AccountNumber = _random.Next(1000000000, 2147483647).ToString(),
+                    Amount = _random.Next(0, 5000),
+                    Currency = GetRandomFromArray(currencies),
+                    Name = GetRandomFromArray(accountNames),
+                    Owner = GetRandomFromArray(users),
+                    CreationDate = GetRandomFromArray(creationDates),
+                    ExpireDate = GetRandomFromArray(expireDates)
+
+                };
+                accountRepository.Save(account);
+            }
         }
 
         private static T GetRandomFromArray<T>(List<T> list)

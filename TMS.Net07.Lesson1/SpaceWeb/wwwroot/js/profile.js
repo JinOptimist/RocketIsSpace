@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
     var images = ['/image/avatars/1.jpg', '/image/avatars/10002.jpg', '/image/avatars/2.jpg'];
-    carouselModule.initialize('#avatar-carousel', images, {
+    carouselModule.initialize('#avatar-carousel', '', images, {
         width: 1000,
         height: 500,
     });
@@ -21,6 +21,16 @@
             .fail(function () {
 
             });
+
+        var urlChangingAllMoney = '/User/UpdateAllMoney?currency=' + currency;
+
+        $.get(urlChangingAllMoney)
+            .done(function (answerFromUpdatingAllMoney) {
+                if (answerFromUpdatingAllMoney) {
+                    $('.money-count').text(answerFromUpdatingAllMoney.count);
+                    $('.default-currency').text(answerFromUpdatingAllMoney.currency);
+                }
+            })
     });
 
     $('[name=CurrentLang]').change(function () {

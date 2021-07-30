@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.Configuration;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -34,31 +35,42 @@ namespace ExchangeRate
                 new ExchangeAccountHistoryRepository(spaceDbContext);
             ExchangeRateToUsdHistoryRepository exchangeRateToUsdHistoryRepository =
                 new ExchangeRateToUsdHistoryRepository(spaceDbContext);
+            
+            var configExpression = new MapperConfigurationExpression();
+            var mapperConfiguration = new MapperConfiguration(configExpression);
+            var mapper = new Mapper(mapperConfiguration);
 
-            IBankAccountRepository bankAccountRepository = new BankAccountRepository(spaceDbContext);
-            IUserRepository userRepository = new UserRepository(spaceDbContext, bankAccountRepository);
-            IHttpContextAccessor contextAccessor = new HttpContextAccessor();
-            IMapper mapper = null;
+            var contextAccessor = new HttpContextAccessor();
 
-            UserService userService = new UserService(userRepository, contextAccessor);
+            TransactionBankRepository transactionBankRepository = new TransactionBankRepository(spaceDbContext);
+            var bankAccountRepository = new BankAccountRepository(spaceDbContext, mapper, contextAccessor, transactionBankRepository);
+            var userRepository = new UserRepository(spaceDbContext, bankAccountRepository);
+            IUserService userService = new UserService(userRepository, contextAccessor);
 
-            ICurrencyService currencyService =
-                new CurrencyService(userService, exchangeRateToUsdCurrentRepository, exchangeAccountHistoryRepository,
-                    exchangeRateToUsdHistoryRepository, mapper);
 
-            var exchangeRates = new GottenCurrency();
+
+            var currencyService =
+                new CurrencyService(userService,
+                    exchangeRateToUsdCurrentRepository,
+                    exchangeAccountHistoryRepository,
+                    exchangeRateToUsdHistoryRepository,
+                    mapper);
+
             var currentDate = DateTime.Now;
             while (true)
             {
                 if ((currentDate.Minute % 3) == 0)
                 {
-                    currencyService.MoveCurrentExchangesDbToHistoryDb(exchangeRateToUsdCurrentRepository, exchangeRateToUsdHistoryRepository);
+                    currencyService.MoveCurrentExchangesDbToHistoryDb(exchangeRateToUsdCurrentRepository, exchangeRateToUsdHistoryRepository, mapper);
                     currencyService.DeleteCurrentExchRatesFromDb(exchangeRateToUsdCurrentRepository);
-                    exchangeRates = currencyService.GetExchangeRates();
-                    currencyService.PutCurrentExchangeRatesToDb(exchangeRateToUsdCurrentRepository, exchangeRates);
-                    Thread.Sleep(60000);
+                    currencyService.PutCurrentExchangeRatesToDb(
+                        exchangeRateToUsdCurrentRepository,
+                        currencyService.GetExchangeRates());
+                    Console.Write($"Current exchanges update for History DB at {currentDate}");
+                    Thread.Sleep(3 * 59 * 1000); //  59 - because updating exchanges takes ~ 1 second and timer gets a displacement.
                 }
                 currentDate = DateTime.Now;
+                currentDate = currentDate.AddSeconds(-currentDate.Second);
             }
         }
     }

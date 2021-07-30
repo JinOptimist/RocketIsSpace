@@ -1,0 +1,412 @@
+.hide{
+    display: none !important;
+}
+
+.account-creation.content-box { /*нужно - в аккаунт криэйшн*/
+    height: 500px;
+    width: 600px;
+    margin: 20px;
+    border-radius: 1em;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgb(230, 230, 230);
+    border-radius: 1em;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.creation-container-text { /*нужно - в аккаунт криэйшн*/
+    font-size: 20pt;
+    align-self: center;
+    justify-items: flex-start;
+    margin: 5px;
+}
+
+input[type = text],
+input[type = password] { /*универсально*/
+    height: 30px;
+    width: 300px;
+    padding: 12px 15px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 2px solid rgb(190,190,190);
+    transition: 300ms;
+    text-align:center;
+}
+
+input[type = text]:focus, 
+input[type = password]:focus{ /*универсально*/
+    outline: none;
+    border-bottom: 2px solid rgb(0, 185, 229);
+}
+
+input.amount:invalid {
+    outline: none;
+    border-bottom: 2px solid rgb(229,0, 0);
+}
+
+select {    /*универсально*/
+    height: 30px;
+    width: 300px;
+    margin: 8px 0;
+    border: none;
+    border-bottom: 2px solid rgb(190,190,190);
+    transition: 300ms;
+}
+
+select:focus {  /*универсально*/
+    outline: none;
+    border-bottom: 2px solid rgb(0, 185, 229);
+}
+
+.content-box { /*универсально*/
+    height: 260px;
+    width: 500px;
+    margin: 10px;
+    display: flex;
+    flex-flow: column;
+}
+
+.content-box .form input[type=button], /*универсально*/
+.content-box .form input[type=submit],
+.content-box .form input[type=reset] { /*как упростить селектор?*/
+    border-radius: 0.6em;
+    color: white;
+    padding: 12px 24px;
+    text-decoration: none;
+    font-size: 13px;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition: 300ms;
+    border: 2px outset;
+}
+
+.content-box .form input[type=submit] { /*универсально*/
+    background-color: rgba(0, 185, 229, 0.7);
+}
+
+.content-box .form input[type=reset] { /*универсально*/
+    background-color: rgba(190, 190, 190, 0.7);
+}
+
+.content-box .form input[type=submit]:hover { /*универсально*/
+    background-color: rgba(0, 185, 229, 1.0);
+    box-shadow: inset 2px 2px 3px 0px rgba(0, 0, 0, 0.5);
+    ;
+    border: 2px inset;
+}
+
+.content-box .form input[type=reset]:hover { /*универсально*/
+    background-color: rgba(190, 190, 190, 1.0);
+    box-shadow: inset 2px 2px 3px 0px rgba(0, 0, 0, 0.5);
+    border: 2px inset;
+}
+
+.content-box .form { /*универсально*/ 
+    text-align: center;
+    font-size: 16px;
+}
+
+.content-box .form .buttons {
+    display: flex;
+    justify-content: space-around;
+}
+
+.content-box .container { /*универсально*/
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container .head-text {
+    font-size: 20pt;
+    align-self: center;
+    justify-items: flex-start;
+    margin: 5px;
+}
+
+.content-box .container.hide {
+    display: none;
+}
+
+.content-box .button-list.hide { /*универсально*/
+    display: none;
+}
+
+.account-set-border{
+    height: 80px;
+    width: 150px;
+    border: 3px rgb(255, 255, 255) dashed;
+    border-radius: 0.8em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+}
+
+.menu.left .bank-account.bordered .account-info {
+    background-color: rgb(0, 185, 229);
+    box-shadow: 3px 3px 6px 0px rgb(150, 150, 150);
+}
+
+/*-------------account-index----------------*/
+
+.account-index-central-block { /*aka .container-accounts*/
+    height: 100%;
+    width: 100%;
+    background-color: rgba(208, 219, 225, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    flex: 1;
+}
+
+.menu.left {
+    height: 500px;
+    width: 210px;
+    margin: 20px;
+    background-color: rgb(230, 230, 230);
+    border-radius: 1em;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.left-menu-text {
+    font-size: 20pt;
+    align-self: center;
+    justify-items: flex-start;
+    margin: 5px;
+}
+
+.menu.left .bank-account .account-info {
+    height: 80px;
+    min-width: 150px;
+    margin: 10px;
+    border-radius: 1em;
+    border: 8px rgba(255, 255, 255, 0) double;
+    background-color: rgba(0, 185, 229,0.7);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    transition: 300ms;
+}
+
+.menu.left .bank-account:hover .account-info {
+    background-color: rgb(0, 185, 229);
+    cursor: pointer;
+}
+
+.menu.left .bank-account-list {
+    flex-direction: column;
+}
+
+/*----------account-index-ends-----------*/
+
+/*--------Carousel styles--------*/
+
+.account-changer {
+    width: 560px;
+    height: 220px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.changer-buttons .button {
+    width: 90px;
+    height: 210px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.changer-buttons .button:hover {
+    background-color: rgb(210, 210, 210);
+    cursor: pointer;
+    box-shadow: inset 3px 3px 6px 0px rgb(150, 150, 150);
+    border: 1px inset;
+}
+
+.account-info-container.temp {
+    width: 0px;
+}
+
+.account-info-container {
+    width: 430px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: rgba(255,255,255,0);
+}
+
+.account-view-window {
+    width: 560px;
+    height: 220px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: hidden;
+}
+
+.account-carousel {
+    display: flex;
+}
+
+.changer-buttons {
+    position: absolute;
+    display: flex;
+    width: 600px;
+    justify-content: space-between;
+}
+
+/*--------carousel-styles-ends------------*/
+
+/*-----------account/index.cshtml-----------*/
+
+.account-container { /*для index.cshtml*/
+    height: 500px;
+    width: 600px;
+    margin: 20px;
+    border-radius: 1em;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgb(230, 230, 230);
+    border-radius: 1em;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.account-container .account-info {
+    height: 175px;
+    width: 300px;
+    background-color: rgba(0, 185, 229, 0.7);
+    border-radius: 1em;
+    margin: 10px;
+    box-shadow: 3px 3px 6px 0px rgb(150, 150, 150);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 10px;
+}
+
+.account-container .info {
+    font-size: 13pt;
+    font-weight: 500;
+    color: rgba(250, 250, 250, 0.9);
+    margin: 5px;
+}
+
+.account-container .button-list {
+    height: 260px;
+    width: 500px;
+    margin: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.account-container .changer-buttons .button,
+.account-container .button-list .button {
+    height: 100px;
+    width: 140px;
+    margin: 10px;
+    border-radius: 1em;
+    background-color: rgb(230, 230, 230);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 11pt;
+    font-weight: 400;
+    transition: 300ms;
+    text-align: center;
+    border: 1px outset;
+}
+
+.account-container .changer-buttons .button:hover,
+.account-container .button-list .button:hover { /*селекторы бы упростить*/
+    background-color: rgb(210,210,210);
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: inset 3px 3px 6px 0px rgb(150, 150, 150);
+    border: 1px inset;
+}
+
+.account-container .changer-buttons .next-btn.button,
+.account-container .changer-buttons .prev-btn.button {
+    height: 220px;
+    width: 80px;
+    z-index: 10;
+}
+
+.account-info-container .snowflake-cover {
+    width: 0px;
+    height: 150px;
+    display: none;
+    position: relative;
+    left: 100px;
+    z-index: 0;
+    transition: 300ms;
+}
+
+.account-info-container.frozen .snowflake-cover {
+    width: 0px;
+    height: 150px;
+    display: block;
+    position: relative;
+    left: 100px;
+    z-index: 0;
+    transition: 300ms;
+}
+.snowflake-cover .freeze-image {
+    max-width: 150px;
+    max-height: 150px;
+    opacity: 0;
+    transition: 300ms;
+}
+
+.account-info-container.frozen .snowflake-cover .freeze-image {
+    max-width: 150px;
+    max-height: 150px;
+    opacity:1;
+    transition: 300ms;
+}
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+.changer-buttons .button .icon {
+    max-height: 40px;
+    max-width: 40px;
+    opacity: 0.75;
+    transition: 150ms;
+}
+
+.changer-buttons .button:hover .icon {
+    opacity: 1;
+    transition: 150ms;
+}
