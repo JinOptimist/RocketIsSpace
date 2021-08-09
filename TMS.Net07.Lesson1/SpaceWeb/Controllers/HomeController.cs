@@ -118,9 +118,9 @@ namespace SpaceWeb.Controllers
 
             var ver = graph.Vertices
                 .Single(ver => ver.BaseCell.X == x && ver.BaseCell.Y == y);
-            var s = graph.GetRichestWay(ver);
+            var gold = graph.GetRichestWay(ver);
 
-            return Json(s);
+            return Json(gold);
         }
 
         public IActionResult PossibleWays(int x, int y)
